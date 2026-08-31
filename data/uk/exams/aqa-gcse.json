@@ -1,0 +1,713 @@
+{
+ "board": "AQA",
+ "level": "GCSE",
+ "verifiedDate": "2026-08-31",
+ "verificationMethod": "Paper structures and topic lists checked against the live AQA 'specification at a glance' page in specUrl on verifiedDate.",
+ "specs": [
+  {
+   "specCode": "8463",
+   "subject": "Physics",
+   "specUrl": "https://www.aqa.org.uk/subjects/physics/gcse/physics-8463/specification/specification-at-a-glance",
+   "pastPapersUrl": "https://www.aqa.org.uk/subjects/physics/gcse/physics-8463/assessment-resources",
+   "tiers": [
+    "Foundation",
+    "Higher"
+   ],
+   "papers": [
+    {
+     "paper": 1,
+     "durationMinutes": 105,
+     "marks": 100,
+     "weighting": "50%",
+     "topics": [
+      {
+       "name": "Energy",
+       "keywords": [
+        "energy",
+        "energy stores",
+        "specific heat capacity",
+        "efficiency",
+        "power"
+       ]
+      },
+      {
+       "name": "Electricity",
+       "keywords": [
+        "electricity",
+        "circuits",
+        "current",
+        "resistance",
+        "mains",
+        "national grid",
+        "static"
+       ]
+      },
+      {
+       "name": "Particle model of matter",
+       "keywords": [
+        "particle model",
+        "density",
+        "states of matter",
+        "internal energy",
+        "gas pressure",
+        "latent heat"
+       ]
+      },
+      {
+       "name": "Atomic structure",
+       "keywords": [
+        "atomic structure",
+        "atoms",
+        "radioactivity",
+        "radiation",
+        "isotopes",
+        "half-life",
+        "nuclear"
+       ]
+      }
+     ]
+    },
+    {
+     "paper": 2,
+     "durationMinutes": 105,
+     "marks": 100,
+     "weighting": "50%",
+     "topics": [
+      {
+       "name": "Forces",
+       "keywords": [
+        "forces",
+        "motion",
+        "speed",
+        "acceleration",
+        "newton",
+        "momentum",
+        "stopping distance",
+        "moments",
+        "pressure in fluids"
+       ]
+      },
+      {
+       "name": "Waves",
+       "keywords": [
+        "waves",
+        "sound",
+        "electromagnetic spectrum",
+        "light",
+        "reflection",
+        "refraction",
+        "lenses"
+       ]
+      },
+      {
+       "name": "Magnetism and electromagnetism",
+       "keywords": [
+        "magnetism",
+        "electromagnetism",
+        "magnets",
+        "motor effect",
+        "generators",
+        "transformers",
+        "solenoid"
+       ]
+      },
+      {
+       "name": "Space physics",
+       "keywords": [
+        "space",
+        "solar system",
+        "life cycle of stars",
+        "red-shift",
+        "big bang",
+        "orbits",
+        "satellites"
+       ]
+      }
+     ]
+    }
+   ],
+   "subjectAliases": [
+    "physics"
+   ]
+  },
+  {
+   "specCode": "8461",
+   "subject": "Biology",
+   "specUrl": "https://www.aqa.org.uk/subjects/biology/gcse/biology-8461/specification/specification-at-a-glance",
+   "pastPapersUrl": "https://www.aqa.org.uk/subjects/biology/gcse/biology-8461/assessment-resources",
+   "tiers": [
+    "Foundation",
+    "Higher"
+   ],
+   "papers": [
+    {
+     "paper": 1,
+     "durationMinutes": 105,
+     "marks": 100,
+     "weighting": "50%",
+     "topics": [
+      {
+       "name": "Cell biology",
+       "keywords": [
+        "cells",
+        "cell biology",
+        "microscopy",
+        "mitosis",
+        "stem cells",
+        "diffusion",
+        "osmosis",
+        "active transport"
+       ]
+      },
+      {
+       "name": "Organisation",
+       "keywords": [
+        "organisation",
+        "digestive system",
+        "enzymes",
+        "heart",
+        "blood",
+        "lungs",
+        "plant tissues",
+        "cancer"
+       ]
+      },
+      {
+       "name": "Infection and response",
+       "keywords": [
+        "infection",
+        "pathogens",
+        "disease",
+        "immune system",
+        "vaccination",
+        "antibiotics",
+        "monoclonal antibodies"
+       ]
+      },
+      {
+       "name": "Bioenergetics",
+       "keywords": [
+        "bioenergetics",
+        "photosynthesis",
+        "respiration",
+        "metabolism",
+        "exercise"
+       ]
+      }
+     ]
+    },
+    {
+     "paper": 2,
+     "durationMinutes": 105,
+     "marks": 100,
+     "weighting": "50%",
+     "topics": [
+      {
+       "name": "Homeostasis and response",
+       "keywords": [
+        "homeostasis",
+        "nervous system",
+        "hormones",
+        "blood glucose",
+        "kidneys",
+        "reflex",
+        "contraception",
+        "menstrual cycle"
+       ]
+      },
+      {
+       "name": "Inheritance, variation and evolution",
+       "keywords": [
+        "inheritance",
+        "genetics",
+        "dna",
+        "evolution",
+        "variation",
+        "natural selection",
+        "genetic engineering",
+        "punnett"
+       ]
+      },
+      {
+       "name": "Ecology",
+       "keywords": [
+        "ecology",
+        "ecosystems",
+        "food chains",
+        "biodiversity",
+        "carbon cycle",
+        "water cycle",
+        "adaptations",
+        "pollution"
+       ]
+      }
+     ]
+    }
+   ],
+   "subjectAliases": [
+    "biology"
+   ]
+  },
+  {
+   "specCode": "8462",
+   "subject": "Chemistry",
+   "specUrl": "https://www.aqa.org.uk/subjects/chemistry/gcse/chemistry-8462/specification/specification-at-a-glance",
+   "pastPapersUrl": "https://www.aqa.org.uk/subjects/chemistry/gcse/chemistry-8462/assessment-resources",
+   "tiers": [
+    "Foundation",
+    "Higher"
+   ],
+   "notes": [
+    "AQA note: Paper 2 may draw on fundamental concepts from Paper 1 topics 1–3."
+   ],
+   "papers": [
+    {
+     "paper": 1,
+     "durationMinutes": 105,
+     "marks": 100,
+     "weighting": "50%",
+     "topics": [
+      {
+       "name": "Atomic structure and the periodic table",
+       "keywords": [
+        "atomic structure",
+        "periodic table",
+        "elements",
+        "electron structure",
+        "groups",
+        "isotopes"
+       ]
+      },
+      {
+       "name": "Bonding, structure, and the properties of matter",
+       "keywords": [
+        "bonding",
+        "ionic",
+        "covalent",
+        "metallic",
+        "structure",
+        "nanoparticles",
+        "states of matter"
+       ]
+      },
+      {
+       "name": "Quantitative chemistry",
+       "keywords": [
+        "quantitative",
+        "moles",
+        "mass",
+        "concentration",
+        "yield",
+        "atom economy",
+        "titration calculations"
+       ]
+      },
+      {
+       "name": "Chemical changes",
+       "keywords": [
+        "chemical changes",
+        "acids",
+        "alkalis",
+        "electrolysis",
+        "reactivity series",
+        "neutralisation",
+        "ph"
+       ]
+      },
+      {
+       "name": "Energy changes",
+       "keywords": [
+        "energy changes",
+        "exothermic",
+        "endothermic",
+        "bond energy",
+        "cells and batteries",
+        "fuel cells"
+       ]
+      }
+     ]
+    },
+    {
+     "paper": 2,
+     "durationMinutes": 105,
+     "marks": 100,
+     "weighting": "50%",
+     "topics": [
+      {
+       "name": "The rate and extent of chemical change",
+       "keywords": [
+        "rates",
+        "rate of reaction",
+        "equilibrium",
+        "reversible reactions",
+        "collision theory",
+        "catalysts",
+        "le chatelier"
+       ]
+      },
+      {
+       "name": "Organic chemistry",
+       "keywords": [
+        "organic",
+        "crude oil",
+        "alkanes",
+        "alkenes",
+        "polymers",
+        "alcohols",
+        "carboxylic acids",
+        "cracking"
+       ]
+      },
+      {
+       "name": "Chemical analysis",
+       "keywords": [
+        "chemical analysis",
+        "chromatography",
+        "gas tests",
+        "flame tests",
+        "purity",
+        "formulations"
+       ]
+      },
+      {
+       "name": "Chemistry of the atmosphere",
+       "keywords": [
+        "atmosphere",
+        "greenhouse gases",
+        "climate change",
+        "carbon footprint",
+        "pollutants"
+       ]
+      },
+      {
+       "name": "Using resources",
+       "keywords": [
+        "using resources",
+        "potable water",
+        "life cycle assessment",
+        "recycling",
+        "corrosion",
+        "haber process",
+        "fertilisers",
+        "alloys"
+       ]
+      }
+     ]
+    }
+   ],
+   "subjectAliases": [
+    "chemistry"
+   ]
+  },
+  {
+   "specCode": "8464",
+   "subject": "Combined Science: Trilogy",
+   "specUrl": "https://www.aqa.org.uk/subjects/science/gcse/combined-science-trilogy-8464/specification/specification-at-a-glance",
+   "pastPapersUrl": "https://www.aqa.org.uk/subjects/science/gcse/combined-science-trilogy-8464/assessment-resources",
+   "tiers": [
+    "Foundation",
+    "Higher"
+   ],
+   "notes": [
+    "Six papers, each 16.7% of the GCSE and 70 marks / 1h15.",
+    "IMPORTANT difference from separate Physics: Trilogy Physics Paper 2 does NOT include Space physics."
+   ],
+   "papers": [
+    {
+     "paper": "Biology 1",
+     "durationMinutes": 75,
+     "marks": 70,
+     "weighting": "16.7%",
+     "topics": [
+      {
+       "name": "Cell Biology",
+       "keywords": [
+        "cells",
+        "cell biology",
+        "mitosis",
+        "osmosis",
+        "diffusion"
+       ]
+      },
+      {
+       "name": "Organisation",
+       "keywords": [
+        "organisation",
+        "enzymes",
+        "heart",
+        "blood",
+        "digestive system"
+       ]
+      },
+      {
+       "name": "Infection and response",
+       "keywords": [
+        "infection",
+        "pathogens",
+        "vaccination",
+        "disease"
+       ]
+      },
+      {
+       "name": "Bioenergetics",
+       "keywords": [
+        "bioenergetics",
+        "photosynthesis",
+        "respiration"
+       ]
+      }
+     ]
+    },
+    {
+     "paper": "Biology 2",
+     "durationMinutes": 75,
+     "marks": 70,
+     "weighting": "16.7%",
+     "topics": [
+      {
+       "name": "Homeostasis and response",
+       "keywords": [
+        "homeostasis",
+        "hormones",
+        "nervous system"
+       ]
+      },
+      {
+       "name": "Inheritance, variation and evolution",
+       "keywords": [
+        "inheritance",
+        "genetics",
+        "evolution",
+        "dna"
+       ]
+      },
+      {
+       "name": "Ecology",
+       "keywords": [
+        "ecology",
+        "ecosystems",
+        "biodiversity",
+        "carbon cycle"
+       ]
+      }
+     ]
+    },
+    {
+     "paper": "Chemistry 1",
+     "durationMinutes": 75,
+     "marks": 70,
+     "weighting": "16.7%",
+     "topics": [
+      {
+       "name": "Atomic structure and the periodic table",
+       "keywords": [
+        "atomic structure",
+        "periodic table"
+       ]
+      },
+      {
+       "name": "Bonding, structure, and the properties of matter",
+       "keywords": [
+        "bonding",
+        "ionic",
+        "covalent"
+       ]
+      },
+      {
+       "name": "Quantitative chemistry",
+       "keywords": [
+        "quantitative",
+        "moles"
+       ]
+      },
+      {
+       "name": "Chemical changes",
+       "keywords": [
+        "chemical changes",
+        "acids",
+        "electrolysis"
+       ]
+      },
+      {
+       "name": "Energy changes",
+       "keywords": [
+        "energy changes",
+        "exothermic",
+        "endothermic"
+       ]
+      }
+     ]
+    },
+    {
+     "paper": "Chemistry 2",
+     "durationMinutes": 75,
+     "marks": 70,
+     "weighting": "16.7%",
+     "topics": [
+      {
+       "name": "The rate and extent of chemical change",
+       "keywords": [
+        "rates",
+        "equilibrium"
+       ]
+      },
+      {
+       "name": "Organic chemistry",
+       "keywords": [
+        "organic",
+        "crude oil",
+        "polymers"
+       ]
+      },
+      {
+       "name": "Chemical analysis",
+       "keywords": [
+        "chromatography",
+        "gas tests"
+       ]
+      },
+      {
+       "name": "Chemistry of the atmosphere",
+       "keywords": [
+        "atmosphere",
+        "climate change"
+       ]
+      },
+      {
+       "name": "Using resources",
+       "keywords": [
+        "using resources",
+        "potable water"
+       ]
+      }
+     ]
+    },
+    {
+     "paper": "Physics 1",
+     "durationMinutes": 75,
+     "marks": 70,
+     "weighting": "16.7%",
+     "topics": [
+      {
+       "name": "Energy",
+       "keywords": [
+        "energy",
+        "efficiency",
+        "power"
+       ]
+      },
+      {
+       "name": "Electricity",
+       "keywords": [
+        "electricity",
+        "circuits",
+        "current",
+        "resistance",
+        "mains"
+       ]
+      },
+      {
+       "name": "Particle model of matter",
+       "keywords": [
+        "particle model",
+        "density",
+        "latent heat"
+       ]
+      },
+      {
+       "name": "Atomic structure",
+       "keywords": [
+        "atomic structure",
+        "radioactivity",
+        "half-life"
+       ]
+      }
+     ]
+    },
+    {
+     "paper": "Physics 2",
+     "durationMinutes": 75,
+     "marks": 70,
+     "weighting": "16.7%",
+     "topics": [
+      {
+       "name": "Forces",
+       "keywords": [
+        "forces",
+        "motion",
+        "acceleration",
+        "momentum"
+       ]
+      },
+      {
+       "name": "Waves",
+       "keywords": [
+        "waves",
+        "electromagnetic spectrum",
+        "sound"
+       ]
+      },
+      {
+       "name": "Magnetism and electromagnetism",
+       "keywords": [
+        "magnetism",
+        "electromagnetism",
+        "motor effect"
+       ]
+      }
+     ]
+    }
+   ],
+   "subjectAliases": [
+    "combined science",
+    "trilogy",
+    "double science",
+    "science"
+   ]
+  },
+  {
+   "specCode": "8300",
+   "subject": "Mathematics",
+   "specUrl": "https://www.aqa.org.uk/subjects/mathematics/gcse/mathematics-8300/specification/specification-at-a-glance",
+   "pastPapersUrl": "https://www.aqa.org.uk/subjects/mathematics/gcse/mathematics-8300/assessment-resources",
+   "tiers": [
+    "Foundation (1–5)",
+    "Higher (4–9)"
+   ],
+   "notes": [
+    "No topic-to-paper mapping exists: 'Content from any part of the specification may be assessed' on all three papers.",
+    "Paper 1 is non-calculator; Papers 2 and 3 allow a calculator."
+   ],
+   "papers": [
+    {
+     "paper": 1,
+     "durationMinutes": 90,
+     "marks": 80,
+     "weighting": "33.3%",
+     "calculator": false,
+     "topics": []
+    },
+    {
+     "paper": 2,
+     "durationMinutes": 90,
+     "marks": 80,
+     "weighting": "33.3%",
+     "calculator": true,
+     "topics": []
+    },
+    {
+     "paper": 3,
+     "durationMinutes": 90,
+     "marks": 80,
+     "weighting": "33.3%",
+     "calculator": true,
+     "topics": []
+    }
+   ],
+   "subjectAliases": [
+    "maths",
+    "math"
+   ]
+  }
+ ]
+}

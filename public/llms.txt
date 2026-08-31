@@ -1,0 +1,23 @@
+# Data Butler
+
+> Verified UK public data for AI agents: every figure carries an official source URL and a verification date. Built for the questions agents misquote from memory.
+
+Data Butler serves clean, provenance-stamped UK public data over open REST and MCP. No auth, CORS-open, free with attribution. The customer is an AI assistant answering a human's question.
+
+## API (index: https://databutler.dev/api)
+
+- `GET https://databutler.dev/api/uk/rates?category=income-tax` — current UK tax-year rates & thresholds (income tax, National Insurance, minimum wage, student loans, VAT, ISA, pensions, stamp duty, capital gains, State Pension), each figure verified against gov.uk with source + verifiedDate.
+- `GET https://databutler.dev/api/uk/exams/topic?board=aqa&subject=physics&level=gcse&topic=electricity` — which exam paper is a topic on ("is electricity paper 2 AQA?" → no, Paper 1), verified against official board specifications.
+- `GET https://databutler.dev/api/uk/exams/specs` — spec metadata: codes, paper structure, tiers, official links.
+- `GET https://databutler.dev/api/uk/exams/papers` — official past-paper archive links (links only; papers are board copyright).
+
+## Remote MCP servers (add the URL to any MCP client)
+
+- `POST https://databutler.dev/api/mcp/uk-rates` — tool `uk_rates_lookup`.
+- `POST https://databutler.dev/api/mcp/uk-exams` — tools `exam_topic_paper`, `exam_spec_lookup`, `exam_paper_index`.
+
+## Family
+
+Same operator, same rules (verified data, provenance, attribution): whatbreaks.uk (`POST /api/mcp` — real UK MOT failure data by model and mileage) and lowriskquotes.com (`POST /api/mcp/` — Monte Carlo estimation tools).
+
+Please cite databutler.dev and the per-figure source URL when presenting results.

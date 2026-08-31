@@ -1,0 +1,122 @@
+{
+  "taxYear": "2026-27",
+  "taxYearRuns": "6 April 2026 to 5 April 2027",
+  "verifiedDate": "2026-08-31",
+  "verificationMethod": "Each category checked against the live gov.uk page in `source` on verifiedDate.",
+  "categories": {
+    "income-tax": {
+      "title": "Income Tax bands and rates",
+      "scope": "England, Wales and Northern Ireland. Scottish rates and bands differ — see https://www.gov.uk/scottish-income-tax",
+      "source": "https://www.gov.uk/income-tax-rates",
+      "figures": [
+        { "label": "Personal Allowance", "value": 12570, "unit": "GBP/year" },
+        { "label": "Basic rate", "value": 20, "unit": "%", "band": "£12,571 to £50,270" },
+        { "label": "Higher rate", "value": 40, "unit": "%", "band": "£50,271 to £125,140" },
+        { "label": "Additional rate", "value": 45, "unit": "%", "band": "over £125,140" },
+        { "label": "Personal Allowance taper", "value": "reduced £1 per £2 of adjusted net income above £100,000; nil at £125,140", "unit": "rule" }
+      ]
+    },
+    "national-insurance": {
+      "title": "National Insurance (Class 1) thresholds and rates",
+      "scope": "UK-wide, standard category A",
+      "source": "https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027",
+      "figures": [
+        { "label": "Lower Earnings Limit", "value": 129, "unit": "GBP/week", "annual": 6708 },
+        { "label": "Primary Threshold (employee pays above this)", "value": 242, "unit": "GBP/week", "annual": 12570 },
+        { "label": "Secondary Threshold (employer pays above this)", "value": 96, "unit": "GBP/week", "annual": 5000 },
+        { "label": "Upper Earnings Limit", "value": 967, "unit": "GBP/week", "annual": 50270 },
+        { "label": "Employee main rate (PT to UEL)", "value": 8, "unit": "%" },
+        { "label": "Employee rate above UEL", "value": 2, "unit": "%" },
+        { "label": "Employer rate (above Secondary Threshold)", "value": 15, "unit": "%" },
+        { "label": "Employment Allowance", "value": 10500, "unit": "GBP/year" }
+      ]
+    },
+    "minimum-wage": {
+      "title": "National Minimum Wage / National Living Wage",
+      "scope": "UK-wide; rates change every 1 April",
+      "source": "https://www.gov.uk/national-minimum-wage-rates",
+      "figures": [
+        { "label": "21 and over (National Living Wage)", "value": 12.71, "unit": "GBP/hour", "from": "2026-04-01" },
+        { "label": "18 to 20", "value": 10.85, "unit": "GBP/hour", "from": "2026-04-01" },
+        { "label": "Under 18", "value": 8.00, "unit": "GBP/hour", "from": "2026-04-01" },
+        { "label": "Apprentice (under 19, or 19+ in first year)", "value": 8.00, "unit": "GBP/hour", "from": "2026-04-01" },
+        { "label": "Previous year 21+ (Apr 2025 – Mar 2026)", "value": 12.21, "unit": "GBP/hour" }
+      ]
+    },
+    "student-loans": {
+      "title": "Student loan repayment thresholds",
+      "scope": "UK-wide; repay 9% of income over threshold (6% postgraduate)",
+      "source": "https://www.gov.uk/repaying-your-student-loan/what-you-pay",
+      "figures": [
+        { "label": "Plan 1 threshold", "value": 26900, "unit": "GBP/year", "rate": "9%" },
+        { "label": "Plan 2 threshold", "value": 29385, "unit": "GBP/year", "rate": "9%" },
+        { "label": "Plan 4 threshold (Scotland)", "value": 33795, "unit": "GBP/year", "rate": "9%" },
+        { "label": "Plan 5 threshold", "value": 25000, "unit": "GBP/year", "rate": "9%" },
+        { "label": "Postgraduate Loan threshold", "value": 21000, "unit": "GBP/year", "rate": "6%" }
+      ]
+    },
+    "vat": {
+      "title": "VAT rates",
+      "scope": "UK-wide",
+      "source": "https://www.gov.uk/vat-rates",
+      "figures": [
+        { "label": "Standard rate", "value": 20, "unit": "%", "notes": "most goods and services" },
+        { "label": "Reduced rate", "value": 5, "unit": "%", "notes": "e.g. children's car seats, home energy" },
+        { "label": "Zero rate", "value": 0, "unit": "%", "notes": "e.g. most food, children's clothes" }
+      ]
+    },
+    "isa": {
+      "title": "ISA allowances",
+      "scope": "UK-wide, per tax year",
+      "source": "https://www.gov.uk/individual-savings-accounts",
+      "figures": [
+        { "label": "Overall ISA allowance", "value": 20000, "unit": "GBP/year" },
+        { "label": "Lifetime ISA limit (within overall allowance)", "value": 4000, "unit": "GBP/year", "source": "https://www.gov.uk/lifetime-isa" },
+        { "label": "Lifetime ISA government bonus", "value": 25, "unit": "%", "notes": "max £1,000/year; open before 40, pay in until 50" }
+      ]
+    },
+    "state-pension": {
+      "title": "New State Pension",
+      "scope": "Full rate, new State Pension (post-2016 retirees)",
+      "source": "https://www.gov.uk/new-state-pension/what-youll-get",
+      "figures": [
+        { "label": "Full new State Pension", "value": 241.30, "unit": "GBP/week" }
+      ]
+    },
+    "stamp-duty": {
+      "title": "Stamp Duty Land Tax — residential",
+      "scope": "England and Northern Ireland only (Scotland: LBTT; Wales: LTT)",
+      "source": "https://www.gov.uk/stamp-duty-land-tax/residential-property-rates",
+      "figures": [
+        { "label": "Up to £125,000", "value": 0, "unit": "%" },
+        { "label": "£125,001 to £250,000", "value": 2, "unit": "%" },
+        { "label": "£250,001 to £925,000", "value": 5, "unit": "%" },
+        { "label": "£925,001 to £1.5m", "value": 10, "unit": "%" },
+        { "label": "Above £1.5m", "value": 12, "unit": "%" },
+        { "label": "First-time buyer: 0% up to", "value": 300000, "unit": "GBP", "notes": "then 5% to £500,000; no relief above £500,000" },
+        { "label": "Additional-property surcharge", "value": 5, "unit": "%" },
+        { "label": "Non-resident surcharge", "value": 2, "unit": "%" }
+      ]
+    },
+    "capital-gains": {
+      "title": "Capital Gains Tax",
+      "scope": "UK-wide; main home usually exempt",
+      "source": "https://www.gov.uk/capital-gains-tax/rates",
+      "figures": [
+        { "label": "Annual exempt amount", "value": 3000, "unit": "GBP/year" },
+        { "label": "Rate within basic-rate band", "value": 18, "unit": "%" },
+        { "label": "Rate above basic-rate band", "value": 24, "unit": "%" }
+      ]
+    },
+    "pensions": {
+      "title": "Private pension allowances",
+      "scope": "UK-wide",
+      "source": "https://www.gov.uk/tax-on-your-private-pension/annual-allowance",
+      "figures": [
+        { "label": "Annual allowance", "value": 60000, "unit": "GBP/year" },
+        { "label": "Taper applies when threshold income exceeds", "value": 200000, "unit": "GBP/year" },
+        { "label": "Taper applies when adjusted income exceeds", "value": 260000, "unit": "GBP/year" }
+      ]
+    }
+  }
+}

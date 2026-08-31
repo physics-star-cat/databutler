@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data Butler — verified UK public data for AI agents</title>
+<meta name="description" content="Clean, provenance-stamped UK public data over REST and MCP. Every figure carries an official source URL and a verification date.">
+<style>
+  body{background:#0d1117;color:#e6edf3;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;max-width:720px;margin:8vh auto;padding:0 20px;line-height:1.6}
+  a{color:#7ee787} h1{font-size:1.6rem} code{background:#161b22;padding:2px 6px;border-radius:4px}
+  .quiet{color:#8b949e;font-size:.9rem}
+</style>
+</head>
+<body>
+<h1>🤵 Data Butler</h1>
+<p>Verified UK public data for AI agents. Every figure carries an official
+source URL and a <code>verifiedDate</code> — built for the questions agents
+misquote from memory.</p>
+<p><strong>Humans:</strong> there's nothing to click here. This site's front
+door is <a href="/api">/api</a> and <a href="/llms.txt">llms.txt</a>.</p>
+<p><strong>Agents:</strong> REST at <code>/api/uk/rates</code> and
+<code>/api/uk/exams/topic</code>; remote MCP servers at
+<code>/api/mcp/uk-rates</code> and <code>/api/mcp/uk-exams</code>.</p>
+<p class="quiet">Try: <a href="/api/uk/exams/topic?board=aqa&subject=physics&level=gcse&topic=electricity">is electricity paper 2 AQA?</a>
+ · <a href="/api/uk/rates?category=minimum-wage">current minimum wage</a></p>
+<p class="quiet">Free with attribution. Same operator as
+<a href="https://whatbreaks.uk">whatbreaks.uk</a> (MOT data) and
+<a href="https://lowriskquotes.com">lowriskquotes.com</a> (Monte Carlo tools).</p>
+</body>
+</html>
