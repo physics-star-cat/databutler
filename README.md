@@ -8,7 +8,12 @@ is *right*, with provenance on every number.
 - Planned domain: **databutler.dev** (until purchased/connected, the
   Vercel default `databutler.vercel.app` works, but registry listings must
   NOT be published until the final domain is live — listings bake in URLs).
-- Status: **spec stage** — see `docs/SPEC.md`. Nothing deployed yet.
+- Status: **LIVE** (launched 2026-08-31): https://databutler.dev — REST +
+  MCP serving, domain attached, listed on Smithery
+  (drchriseames/databutler-uk-exams, -uk-rates) and the official MCP
+  Registry (io.github.physics-star-cat/databutler-uk-exams, -uk-rates).
+  Outstanding: GA4 property + Vercel env vars for tracking (SPEC §6 item 4);
+  PulseMCP will auto-ingest from the official registry.
 - Born 2026-08-31 out of the agent-API work on whatbreaks.uk (MOT data) and
   lowriskquotes.com (Monte Carlo) — full history in
   `../docs/AUDIT_2026-08-30_five-sites.md` §3b–3e and
@@ -27,8 +32,8 @@ product is designed with Claude as the end user, by Claude:
 
 | # | Vertical (wishlist item it serves) | Endpoint | Status |
 |---|---|---|---|
-| 1 | **UK rates & thresholds** — the "is this still true?" fact-refresh server for the numbers agents misquote most (wishlist #1) | `/api/mcp/uk-rates` | **v1 — building now** |
-| 2 | **UK exams** — boards, specs, topic→paper ("is electricity paper 2 AQA"), past-paper index (unique curation edge: maintainer taught) | `/api/mcp/uk-exams` | **v1 — building now** |
+| 1 | **UK rates & thresholds** — the "is this still true?" fact-refresh server for the numbers agents misquote most (wishlist #1) | `/api/mcp/uk-rates` | **v1 — LIVE** |
+| 2 | **UK exams** — boards, specs, topic→paper ("is electricity paper 2 AQA"), past-paper index (unique curation edge: maintainer taught) | `/api/mcp/uk-exams` | **v1 — LIVE** |
 | 3 | **Local-services resolver** — postcode → council → services/MP (wishlist #3) | `/api/mcp/uk-councils` | phase 2 |
 | 4 | Bin collection pilot (5–10 large councils, feasibility-gated) | — | phase 2b |
 | 5 | **Provenance checker** — "who really runs this domain/package?" (wishlist #2; buildable from WHOIS/DNS/registry metadata + curated official-domains list) | — | phase 3 |

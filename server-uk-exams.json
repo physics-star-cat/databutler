@@ -1,0 +1,9 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.physics-star-cat/databutler-uk-exams",
+  "description": "UK exam-board spec data: which paper is a topic on, spec structures, past-paper links. Verified.",
+  "repository": { "url": "https://github.com/physics-star-cat/databutler", "source": "github" },
+  "version": "1.0.0",
+  "websiteUrl": "https://databutler.dev/api",
+  "remotes": [{ "type": "streamable-http", "url": "https://databutler.dev/api/mcp/uk-exams" }]
+}
