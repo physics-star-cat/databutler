@@ -106,7 +106,7 @@ memory. `docs/CURATION.md` will hold the per-board checklist.
 2. Push repo to GitHub (`physics-star-cat/databutler`, private fine).
 3. User imports repo as a new Vercel project (dashboard, 2 min — API token
    is dead) and attaches the domain.
-4. GA4 property + MP secret (browser session, like 2026-08-31).
+4. GA4 property + MP secret — DONE 2026-08-31 (property 552213153, GA4_MEASUREMENT_ID=G-H34VHWQJHD + GA4_MP_API_SECRET set in Vercel via clipboard paste; verified in realtime).
 5. Build + verify endpoints live (curl suite like whatbreaks).
 6. Only then: publish both MCP servers to Smithery + official registry
    (URLs are forever), llms.txt cross-links from the family sites.

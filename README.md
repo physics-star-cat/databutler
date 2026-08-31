@@ -12,7 +12,7 @@ is *right*, with provenance on every number.
   MCP serving, domain attached, listed on Smithery
   (drchriseames/databutler-uk-exams, -uk-rates) and the official MCP
   Registry (io.github.physics-star-cat/databutler-uk-exams, -uk-rates).
-  Outstanding: GA4 property + Vercel env vars for tracking (SPEC §6 item 4);
+  Tracking LIVE (GA4 property 552213153, verified in realtime; monitored by webmon 🤖 column).
   PulseMCP will auto-ingest from the official registry.
 - Born 2026-08-31 out of the agent-API work on whatbreaks.uk (MOT data) and
   lowriskquotes.com (Monte Carlo) — full history in
