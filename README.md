@@ -37,6 +37,7 @@ product is designed with Claude as the end user, by Claude:
 | 4 | **Local-services resolver** — postcode → council → services/MP (wishlist #3) | `/api/mcp/uk-councils` | phase 2 |
 | 5 | Bin collection pilot (5–10 large councils, feasibility-gated) | — | phase 2b |
 | 3 | **Provenance checker** — "who really runs this domain/package?" (wishlist #2) — live RDAP/npm/PyPI, homoglyph-aware typosquat | `/api/mcp/provenance` | **v1 — LIVE** |
+| 3b | **Stats toolkit** — exact statistics & probability (Claude's maths pick) — distributions, hypothesis tests, CIs, Bayes, regression; reference-validated | `/api/mcp/stats` | **v1 — LIVE** |
 | 6 | Recalls; country #2 (`/api/<cc>/…` slots in beside `uk/`) | — | later |
 | 7 | **Current-docs for libraries** (wishlist #4) | — | parked — Context7 et al. exist; only enter if a clearly underserved niche appears |
 | 8 | **Infra-config/auth broker** (wishlist #5) | — | out of scope — VC-scale product, documented so we stop re-litigating it |
