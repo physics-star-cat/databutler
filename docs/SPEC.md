@@ -1,0 +1,122 @@
+# UK Data Butler — design spec
+
+Written 2026-08-31. Approved verticals: **exams** + **rates** (user choice).
+Name: ukdatabutler.com. Lives in its own folder/repo, separate from the
+other site repos.
+
+## 1. Mission & positioning
+
+Serve AI agents the UK public data they can't derive or shouldn't trust
+themselves on. Success metric: `agent_*` event counts (GA4/webmon), registry
+usage stats — **not** search traffic. Free with attribution during
+adoption; the x402/Cloudflare monetisation option follows the decision
+framework in `../../docs/MONETISATION-DECISION.md`.
+
+## 2. Architecture
+
+Copied from the proven whatbreaks pattern (framework-null Vercel, repo-root
+functions, stateless streamable-HTTP MCP):
+
+```
+ukdatabutler/
+├── api/
+│   ├── _lib.js              # CORS, provenance/attribution, sendJson
+│   ├── _track.js            # GA4 MP events (needs new GA4 property)
+│   ├── index.js             # GET /api — self-documenting index
+│   ├── exams/               # REST: /api/exams/*
+│   │   ├── topic.js         #   ?board=aqa&subject=physics&level=gcse&topic=electricity
+│   │   ├── specs.js         #   spec metadata search
+│   │   └── papers.js        #   past-paper index (metadata + official links)
+│   ├── rates/
+│   │   └── index.js         #   /api/rates?category=income-tax[&year=2026-27]
+│   └── mcp/
+│       ├── exams.js         # POST /api/mcp/exams  (MCP server 1)
+│       └── rates.js         # POST /api/mcp/rates  (MCP server 2)
+├── data/
+│   ├── exams/               # curated JSON per board+subject+level
+│   └── rates/               # one JSON per tax year
+├── public/  (llms.txt, robots.txt allowing AI crawlers, index page)
+├── docs/SPEC.md (this file) + CURATION.md (refresh workflow)
+└── vercel.json
+```
+
+MCP servers: stateless JSON-RPC 2.0 (`initialize`, `ping`, `tools/list`,
+`tools/call`; notifications→202), CORS-open, no auth, attribution +
+provenance in every response. Registry names:
+`io.github.physics-star-cat/ukdatabutler-exams` and `-rates`.
+
+## 3. Exams vertical (the teacher insight is the product)
+
+The core query is a student asking their AI *"is electricity paper 2 AQA"*.
+So the primary tool answers topic→paper directly:
+
+- **`exam_topic_paper`** (MCP) / `GET /api/exams/topic`:
+  `{board, subject, level, topic}` → which paper(s) the topic appears on,
+  the spec code, topic number, sibling topics on each paper, and the
+  official spec URL. Fuzzy topic matching ("electricity", "electromagnetism",
+  "forces").
+- **`exam_spec_lookup`**: board/subject/level → spec code, paper structure
+  (count, duration, calculator?, tiers), assessment weightings, first-taught
+  year, official spec link.
+- **`exam_paper_index`**: board+subject+level(+year) → list of past series
+  with links to the board's official question paper / mark scheme /
+  examiner report pages. **Metadata and links only — never hosted PDFs**
+  (board copyright; PMT-style archives operate on permissions we don't have).
+
+**v1 data scope** (quality over breadth): GCSE sciences + maths + English
+for AQA, Edexcel, OCR (the three big English boards) — the highest-volume
+"which paper" subjects. A-level sciences/maths next. Every record:
+`{specCode, specVersion, source (official spec URL), verifiedDate}`.
+Curation is manual against the official spec PDFs — **no figure ships
+unverified**, and web-verification happens at curation time, not from
+memory. `docs/CURATION.md` will hold the per-board checklist.
+
+## 4. Rates vertical
+
+- **`uk_rates_lookup`** (MCP) / `GET /api/rates?category=…`:
+  categories v1: `income-tax`, `national-insurance`, `student-loans`,
+  `minimum-wage`, `stamp-duty`, `isa`, `pensions`, `vat`, `capital-gains`,
+  `state-pension`. Returns the current tax year's figures (and prior year on
+  request), each figure `{value, taxYear, source (gov.uk URL), verifiedDate}`.
+- One JSON file per tax year in `data/rates/`; a quarterly refresh task
+  (gov.uk pages are the source of truth; several return 403 to bots — the
+  CLAUDE.md rate-limits note applies, so curation may need the browser).
+- This vertical exists because models confidently quote stale thresholds —
+  correctness-critical beats compute-heavy.
+
+## 5. Cross-cutting
+
+- **Tracking**: new GA4 property "ukdatabutler" + MP secret; `agent_api_*` /
+  `agent_mcp_*` events; add property to `webmon/sites.py` so the 🤖 column
+  covers it. (Note: webmon's sites.py currently asserts every property has
+  GSC — ukdatabutler may skip GSC; handle gracefully.)
+- **llms.txt + robots.txt** with AI-crawler allows, self-documenting
+  `/api` index — same as the other sites.
+- **Phase 2** (only after v1 shows usage): councils postcode resolver →
+  bins pilot (5–10 big councils, feasibility-gated — scraper brittleness is
+  the risk), recalls, second country.
+- **Explicitly out of scope**: Gemini's enterprise plays (security gateway,
+  auth broker, sandboxes) — VC-scale products, wrong fit for this operation.
+
+## 6. Launch checklist (in order)
+
+1. User buys **ukdatabutler.com** (~£10/yr) — required for the Cloudflare/
+   x402 path; *.vercel.app can never be monetised that way. Cloudflare DNS
+   like the other domains.
+2. Push repo to GitHub (`physics-star-cat/ukdatabutler`, private fine).
+3. User imports repo as a new Vercel project (dashboard, 2 min — API token
+   is dead) and attaches the domain.
+4. GA4 property + MP secret (browser session, like 2026-08-31).
+5. Build + verify endpoints live (curl suite like whatbreaks).
+6. Only then: publish both MCP servers to Smithery + official registry
+   (URLs are forever), llms.txt cross-links from the family sites.
+
+## 7. Risks, named
+
+- **Data rot** is the #1 product risk — a wrong paper mapping or stale
+  threshold destroys the only asset (trust). Mitigation: verifiedDate on
+  everything, quarterly refresh calendar, small verified scope > big
+  unverified scope.
+- **Copyright** (exams): links-only policy, revisit if a board objects.
+- **Adoption may be slow** — same posture as MOT API: free, attributed,
+  measured, reviewed monthly alongside MONETISATION-DECISION.md.
