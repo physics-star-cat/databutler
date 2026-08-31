@@ -1,0 +1,36 @@
+{
+  "note": "Curated reference lists for TYPOSQUAT DISTANCE ONLY. Presence here is NOT a claim that a lookalike is malicious, nor that these are the sole official names. High-value brands/packages that typosquatters commonly mimic. Expand over time.",
+  "verifiedDate": "2026-08-31",
+  "brandDomains": [
+    "google.com", "youtube.com", "facebook.com", "amazon.com", "apple.com",
+    "microsoft.com", "netflix.com", "instagram.com", "linkedin.com", "x.com",
+    "twitter.com", "paypal.com", "stripe.com", "wise.com", "revolut.com",
+    "coinbase.com", "binance.com", "kraken.com", "metamask.io", "ledger.com",
+    "chase.com", "hsbc.com", "barclays.co.uk", "lloydsbank.com", "natwest.com",
+    "santander.co.uk", "monzo.com", "starling.com", "halifax.co.uk", "nationwide.co.uk",
+    "gov.uk", "hmrc.gov.uk", "dvla.gov.uk", "nhs.uk", "postoffice.co.uk",
+    "dropbox.com", "github.com", "gitlab.com", "cloudflare.com", "vercel.com",
+    "openai.com", "anthropic.com", "claude.ai", "chatgpt.com", "gemini.google.com",
+    "ebay.com", "shopify.com", "wordpress.com", "adobe.com", "salesforce.com",
+    "docusign.com", "zoom.us", "slack.com", "notion.so", "figma.com",
+    "royalmail.com", "dpd.co.uk", "evri.com", "ups.com", "fedex.com"
+  ],
+  "npmPackages": [
+    "react", "react-dom", "next", "vue", "angular", "svelte", "express",
+    "lodash", "axios", "chalk", "commander", "dotenv", "typescript", "webpack",
+    "vite", "eslint", "prettier", "jest", "vitest", "mocha", "babel", "rollup",
+    "moment", "dayjs", "uuid", "cors", "body-parser", "mongoose", "prisma",
+    "sequelize", "socket.io", "redux", "zustand", "tailwindcss", "postcss",
+    "node-fetch", "cross-env", "nodemon", "ts-node", "esbuild", "puppeteer",
+    "playwright", "cheerio", "yargs", "inquirer", "winston", "pino", "zod",
+    "bcrypt", "jsonwebtoken", "passport", "nanoid", "classnames"
+  ],
+  "pypiPackages": [
+    "requests", "urllib3", "numpy", "pandas", "scipy", "matplotlib", "flask",
+    "django", "fastapi", "pydantic", "sqlalchemy", "pytest", "pillow", "boto3",
+    "beautifulsoup4", "scrapy", "selenium", "tensorflow", "torch", "scikit-learn",
+    "transformers", "openai", "anthropic", "langchain", "click", "rich", "typer",
+    "poetry", "setuptools", "wheel", "pip", "virtualenv", "black", "flake8",
+    "mypy", "aiohttp", "httpx", "celery", "redis", "psycopg2", "pymongo"
+  ]
+}

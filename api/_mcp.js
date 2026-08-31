@@ -13,7 +13,7 @@ function makeMcpHandler({ serverName, instructions, tools }) {
   const toolDefs = tools.map(({ run, ...def }) => def);
   const runners = Object.fromEntries(tools.map((t) => [t.name, t.run]));
 
-  function handle(msg) {
+  async function handle(msg) {
     const id = msg.id ?? null;
     switch (msg.method) {
       case 'initialize':
@@ -36,7 +36,7 @@ function makeMcpHandler({ serverName, instructions, tools }) {
         const { name, arguments: args = {} } = msg.params || {};
         try {
           if (!runners[name]) throw new Error(`unknown tool: ${name}`);
-          const result = runners[name](args);
+          const result = await runners[name](args);
           return {
             jsonrpc: '2.0', id,
             result: {
@@ -74,7 +74,7 @@ function makeMcpHandler({ serverName, instructions, tools }) {
         await trackEvent(`agent_mcp_${String((msg.params || {}).name).slice(0, 28)}`);
       }
       res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8', ...CORS });
-      res.end(JSON.stringify(handle(msg)));
+      res.end(JSON.stringify(await handle(msg)));
     };
     const parseError = () => {
       res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8', ...CORS });

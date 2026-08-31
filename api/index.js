@@ -29,8 +29,20 @@ module.exports = (req, res) => {
           'Past-paper index: official assessment-resources links per spec (links only — papers are board copyright).',
         params: { board: 'optional', subject: 'optional', level: 'optional' },
       },
+      'GET /api/provenance/domain': {
+        description:
+          'Who runs this domain? Live RDAP: age, registrar, nameservers, typosquat resemblance. Descriptive signals, not a verdict.',
+        params: { domain: 'e.g. example.com' },
+        example: 'https://databutler.dev/api/provenance/domain?domain=databutler.dev',
+      },
+      'GET /api/provenance/package': {
+        description: 'Who publishes this package, and is it a typosquat? Live npm/PyPI metadata.',
+        params: { ecosystem: 'npm | pypi', name: 'e.g. express' },
+        example: 'https://databutler.dev/api/provenance/package?ecosystem=npm&name=express',
+      },
       'POST /api/mcp/uk-rates': 'Remote MCP server — tool uk_rates_lookup.',
       'POST /api/mcp/uk-exams': 'Remote MCP server — tools exam_topic_paper, exam_spec_lookup, exam_paper_index.',
+      'POST /api/mcp/provenance': 'Remote MCP server — tools domain_provenance, package_provenance.',
     },
     coverage: { exams: coverageSummary(), rates: `tax year ${RATES.taxYear}` },
     ...ATTRIBUTION,
