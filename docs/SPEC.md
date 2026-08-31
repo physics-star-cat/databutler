@@ -120,3 +120,33 @@ memory. `docs/CURATION.md` will hold the per-board checklist.
 - **Copyright** (exams): links-only policy, revisit if a board objects.
 - **Adoption may be slow** — same posture as MOT API: free, attributed,
   measured, reviewed monthly alongside MONETISATION-DECISION.md.
+
+## 8. Provenance vertical (added 2026-08-31, wishlist #2)
+
+The "who really runs this?" checker — Claude's own most-wanted (see the
+maintainer wishlist in the README roadmap). Unlike rates/exams it holds **no
+dataset to rot**: everything is computed **live per request** from public
+sources, which sidesteps the #1 product risk entirely.
+
+Sources (all verified fetchable 2026-08-31): **RDAP** (`rdap.org` redirector →
+domain registration date, registrar, nameservers, status), **npm**
+(`registry.npmjs.org/<pkg>`), **PyPI** (`pypi.org/pypi/<pkg>/json`).
+
+Tools (`/api/mcp/provenance`, REST mirror `/api/provenance/*`):
+
+- **`domain_provenance`** `{domain}` → registration/expiry dates + age, registrar,
+  nameservers, status; **typosquat check**: edit-distance and substring match of
+  the registrable label against a curated list of high-value brands.
+- **`package_provenance`** `{ecosystem: npm|pypi, name}` → first-publish date,
+  release count, latest version, maintainers, linked repo; typosquat check
+  against popular package names.
+
+**Framing rule (critical):** descriptive, never accusatory. Return the signals
+("registered 4 days ago; edit-distance 1 from stripe.com; registrant redacted")
+and let the calling agent judge. We NEVER assert "this is the official X" or
+"this is a phishing site" — that needs an endless allowlist and invites being
+wrong. `data/provenance/popular.json` is a curated *reference* list for
+typosquat distance only, not a claim of officialness.
+
+Caveats handled: RDAP/registry rate-limits and redaction → short timeouts,
+partial results returned gracefully rather than failing.
