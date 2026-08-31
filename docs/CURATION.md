@@ -35,3 +35,12 @@ A-level sciences + maths → English Language/Literature set-text/paper maps
 (high value: "which paper is Macbeth on"). Each addition follows the same
 fetch-verify-record loop; the maintainer's teaching background is the QA
 layer — teacher review before publish.
+
+## Numerical validation (stats vertical)
+
+- 2026-08-31 — `_statsmath.js` checked against textbook reference values:
+  normalCdf(1.96)=0.975, normalInv(0.975)=1.95996, t/chi²/F critical values
+  (3.841 @ χ²df1=0.95, F(0.05,3,10)=3.708), binomial/Poisson pmf+cdf, logGamma.
+  All 14 pass. `_stats.js` sanity-checked end-to-end incl. the base-rate Bayes
+  example (1% prior, 99% sens, 95% spec → 0.1667 posterior). Re-run the harness
+  in the commit history before changing any special-function code.

@@ -19,6 +19,7 @@ Data Butler serves clean, provenance-stamped UK public data over open REST and M
 - `POST https://databutler.dev/api/mcp/uk-rates` — tool `uk_rates_lookup`.
 - `POST https://databutler.dev/api/mcp/uk-exams` — tools `exam_topic_paper`, `exam_spec_lookup`, `exam_paper_index`.
 - `POST https://databutler.dev/api/mcp/provenance` — tools `domain_provenance`, `package_provenance`.
+- `POST https://databutler.dev/api/mcp/stats` — exact statistics & probability (the maths agents get wrong in their head): `descriptive_stats`, `distribution` (normal/t/chi2/binomial/poisson pdf-cdf-quantile), `hypothesis_test` (t/z/proportion/chi-square with p-value + assumptions), `confidence_interval`, `bayes_update`, `linear_regression`. Numerical core validated against reference tables. REST mirror: `GET https://databutler.dev/api/stats?op=…`.
 
 ## Family
 

@@ -40,9 +40,18 @@ module.exports = (req, res) => {
         params: { ecosystem: 'npm | pypi', name: 'e.g. express' },
         example: 'https://databutler.dev/api/provenance/package?ecosystem=npm&name=express',
       },
+      'GET|POST /api/stats': {
+        description:
+          'Exact statistics & probability — for the maths agents get wrong in their head. ?op= one of: ' +
+          'descriptive, distribution, hypothesis-test, confidence-interval, bayes-update, regression. ' +
+          'Array/table inputs via POST JSON body. Numerical core validated against reference tables.',
+        example: 'https://databutler.dev/api/stats?op=distribution&dist=normal&at=1.96',
+      },
       'POST /api/mcp/uk-rates': 'Remote MCP server — tool uk_rates_lookup.',
       'POST /api/mcp/uk-exams': 'Remote MCP server — tools exam_topic_paper, exam_spec_lookup, exam_paper_index.',
       'POST /api/mcp/provenance': 'Remote MCP server — tools domain_provenance, package_provenance.',
+      'POST /api/mcp/stats':
+        'Remote MCP server — descriptive_stats, distribution, hypothesis_test, confidence_interval, bayes_update, linear_regression.',
     },
     coverage: { exams: coverageSummary(), rates: `tax year ${RATES.taxYear}` },
     ...ATTRIBUTION,

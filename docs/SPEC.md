@@ -150,3 +150,19 @@ typosquat distance only, not a claim of officialness.
 
 Caveats handled: RDAP/registry rate-limits and redaction → short timeouts,
 partial results returned gracefully rather than failing.
+
+## 9. Stats vertical (added 2026-08-31, Claude's maths pick)
+
+Exact statistics & probability — the maths LLMs are unreliable at in-head
+(p-values, distribution tails, Bayesian updates). Pure-JS, no external calls,
+no dataset. The numerical core (`_statsmath.js`: Lanczos gamma, erf, incomplete
+gamma/beta, inverse-normal) is **validated against reference tables** before
+anything ships — a wrong p-value is worse than none.
+
+Tools (`/api/mcp/stats`, REST `/api/stats?op=`): `descriptive_stats`,
+`distribution` (normal/t/chi2/binomial/poisson pdf-cdf-quantile), `hypothesis_test`
+(one/two-sample t, one/two-proportion z, chi-square GOF & independence — each
+returns statistic, p-value, plain interpretation, and assumptions),
+`confidence_interval` (t-mean, Wilson-proportion), `bayes_update` (discrete),
+`linear_regression`. Sandbox-derivable in principle, but the value is reliability
++ correct methodology + not hand-writing stats code.
