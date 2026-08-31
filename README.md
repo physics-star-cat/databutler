@@ -34,9 +34,9 @@ product is designed with Claude as the end user, by Claude:
 |---|---|---|---|
 | 1 | **UK rates & thresholds** — the "is this still true?" fact-refresh server for the numbers agents misquote most (wishlist #1) | `/api/mcp/uk-rates` | **v1 — LIVE** |
 | 2 | **UK exams** — boards, specs, topic→paper ("is electricity paper 2 AQA"), past-paper index (unique curation edge: maintainer taught) | `/api/mcp/uk-exams` | **v1 — LIVE** |
-| 3 | **Local-services resolver** — postcode → council → services/MP (wishlist #3) | `/api/mcp/uk-councils` | phase 2 |
-| 4 | Bin collection pilot (5–10 large councils, feasibility-gated) | — | phase 2b |
-| 5 | **Provenance checker** — "who really runs this domain/package?" (wishlist #2; buildable from WHOIS/DNS/registry metadata + curated official-domains list) | — | phase 3 |
+| 4 | **Local-services resolver** — postcode → council → services/MP (wishlist #3) | `/api/mcp/uk-councils` | phase 2 |
+| 5 | Bin collection pilot (5–10 large councils, feasibility-gated) | — | phase 2b |
+| 3 | **Provenance checker** — "who really runs this domain/package?" (wishlist #2) — live RDAP/npm/PyPI, homoglyph-aware typosquat | `/api/mcp/provenance` | **v1 — LIVE** |
 | 6 | Recalls; country #2 (`/api/<cc>/…` slots in beside `uk/`) | — | later |
 | 7 | **Current-docs for libraries** (wishlist #4) | — | parked — Context7 et al. exist; only enter if a clearly underserved niche appears |
 | 8 | **Infra-config/auth broker** (wishlist #5) | — | out of scope — VC-scale product, documented so we stop re-litigating it |
