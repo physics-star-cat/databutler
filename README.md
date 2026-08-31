@@ -21,13 +21,27 @@ So this is NOT one mega-server (tool-list bloat kills those); it is one
 domain/repo/brand hosting **separate, focused MCP endpoints**, each listed
 individually under one namespace, cross-referencing each other:
 
-| Vertical | Endpoint | Status |
-|---|---|---|
-| Exams (boards, specs, topic→paper, past-paper index) | `/api/mcp/uk-exams` | v1 — building |
-| UK rates & thresholds (tax year numbers) | `/api/mcp/uk-rates` | v1 — building |
-| Councils (postcode→council→services) | `/api/mcp/uk-councils` | phase 2 |
-| Bin collection pilot (5–10 large councils) | — | phase 2, feasibility-gated |
-| Recalls, more countries | — | later |
+The roadmap is ordered by (value to an AI agent) × (likelihood we can build
+it well). It deliberately includes the maintainer-Claude wishlist — this
+product is designed with Claude as the end user, by Claude:
+
+| # | Vertical (wishlist item it serves) | Endpoint | Status |
+|---|---|---|---|
+| 1 | **UK rates & thresholds** — the "is this still true?" fact-refresh server for the numbers agents misquote most (wishlist #1) | `/api/mcp/uk-rates` | **v1 — building now** |
+| 2 | **UK exams** — boards, specs, topic→paper ("is electricity paper 2 AQA"), past-paper index (unique curation edge: maintainer taught) | `/api/mcp/uk-exams` | **v1 — building now** |
+| 3 | **Local-services resolver** — postcode → council → services/MP (wishlist #3) | `/api/mcp/uk-councils` | phase 2 |
+| 4 | Bin collection pilot (5–10 large councils, feasibility-gated) | — | phase 2b |
+| 5 | **Provenance checker** — "who really runs this domain/package?" (wishlist #2; buildable from WHOIS/DNS/registry metadata + curated official-domains list) | — | phase 3 |
+| 6 | Recalls; country #2 (`/api/<cc>/…` slots in beside `uk/`) | — | later |
+| 7 | **Current-docs for libraries** (wishlist #4) | — | parked — Context7 et al. exist; only enter if a clearly underserved niche appears |
+| 8 | **Infra-config/auth broker** (wishlist #5) | — | out of scope — VC-scale product, documented so we stop re-litigating it |
+
+Rationale for the order: #1 is the highest-frequency, lowest-build-cost,
+most correctness-critical item — every agent answering UK money questions
+needs it weekly and gets it wrong from memory. #2 has the strongest
+curation moat (domain expertise) and a huge natural query stream. #3–#5
+each need real engineering programmes; they wait for evidence of demand
+(agent_* event counts) from #1/#2.
 
 Existing family members on their own domains: whatbreaks.uk `/api/mcp`
 (MOT reliability), lowriskquotes.com `/api/mcp/` (Monte Carlo).
