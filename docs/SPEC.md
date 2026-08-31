@@ -1,7 +1,7 @@
-# UK Data Butler — design spec
+# Data Butler (databutler.dev) — design spec
 
 Written 2026-08-31. Approved verticals: **exams** + **rates** (user choice).
-Name: ukdatabutler.com. Lives in its own folder/repo, separate from the
+Name: databutler.dev. Lives in its own folder/repo, separate from the
 other site repos.
 
 ## 1. Mission & positioning
@@ -18,23 +18,23 @@ Copied from the proven whatbreaks pattern (framework-null Vercel, repo-root
 functions, stateless streamable-HTTP MCP):
 
 ```
-ukdatabutler/
+databutler/
 ├── api/
 │   ├── _lib.js              # CORS, provenance/attribution, sendJson
 │   ├── _track.js            # GA4 MP events (needs new GA4 property)
 │   ├── index.js             # GET /api — self-documenting index
-│   ├── exams/               # REST: /api/exams/*
-│   │   ├── topic.js         #   ?board=aqa&subject=physics&level=gcse&topic=electricity
-│   │   ├── specs.js         #   spec metadata search
-│   │   └── papers.js        #   past-paper index (metadata + official links)
-│   ├── rates/
-│   │   └── index.js         #   /api/rates?category=income-tax[&year=2026-27]
+│   ├── uk/                  # country prefix — country #2 slots in beside it
+│   │   ├── exams/           # REST: /api/uk/exams/*
+│   │   │   ├── topic.js     #   ?board=aqa&subject=physics&level=gcse&topic=electricity
+│   │   │   ├── specs.js     #   spec metadata search
+│   │   │   └── papers.js    #   past-paper index (metadata + official links)
+│   │   └── rates.js         #   /api/uk/rates?category=income-tax[&year=2026-27]
 │   └── mcp/
-│       ├── exams.js         # POST /api/mcp/exams  (MCP server 1)
-│       └── rates.js         # POST /api/mcp/rates  (MCP server 2)
+│       ├── uk-exams.js      # POST /api/mcp/uk-exams  (MCP server 1)
+│       └── uk-rates.js      # POST /api/mcp/uk-rates  (MCP server 2)
 ├── data/
-│   ├── exams/               # curated JSON per board+subject+level
-│   └── rates/               # one JSON per tax year
+│   ├── uk/exams/            # curated JSON per board+subject+level
+│   └── uk/rates/            # one JSON per tax year
 ├── public/  (llms.txt, robots.txt allowing AI crawlers, index page)
 ├── docs/SPEC.md (this file) + CURATION.md (refresh workflow)
 └── vercel.json
@@ -43,14 +43,14 @@ ukdatabutler/
 MCP servers: stateless JSON-RPC 2.0 (`initialize`, `ping`, `tools/list`,
 `tools/call`; notifications→202), CORS-open, no auth, attribution +
 provenance in every response. Registry names:
-`io.github.physics-star-cat/ukdatabutler-exams` and `-rates`.
+`io.github.physics-star-cat/databutler-uk-exams` and `databutler-uk-rates`.
 
 ## 3. Exams vertical (the teacher insight is the product)
 
 The core query is a student asking their AI *"is electricity paper 2 AQA"*.
 So the primary tool answers topic→paper directly:
 
-- **`exam_topic_paper`** (MCP) / `GET /api/exams/topic`:
+- **`exam_topic_paper`** (MCP) / `GET /api/uk/exams/topic`:
   `{board, subject, level, topic}` → which paper(s) the topic appears on,
   the spec code, topic number, sibling topics on each paper, and the
   official spec URL. Fuzzy topic matching ("electricity", "electromagnetism",
@@ -73,12 +73,12 @@ memory. `docs/CURATION.md` will hold the per-board checklist.
 
 ## 4. Rates vertical
 
-- **`uk_rates_lookup`** (MCP) / `GET /api/rates?category=…`:
+- **`uk_rates_lookup`** (MCP) / `GET /api/uk/rates?category=…`:
   categories v1: `income-tax`, `national-insurance`, `student-loans`,
   `minimum-wage`, `stamp-duty`, `isa`, `pensions`, `vat`, `capital-gains`,
   `state-pension`. Returns the current tax year's figures (and prior year on
   request), each figure `{value, taxYear, source (gov.uk URL), verifiedDate}`.
-- One JSON file per tax year in `data/rates/`; a quarterly refresh task
+- One JSON file per tax year in `data/uk/rates/`; a quarterly refresh task
   (gov.uk pages are the source of truth; several return 403 to bots — the
   CLAUDE.md rate-limits note applies, so curation may need the browser).
 - This vertical exists because models confidently quote stale thresholds —
@@ -86,7 +86,7 @@ memory. `docs/CURATION.md` will hold the per-board checklist.
 
 ## 5. Cross-cutting
 
-- **Tracking**: new GA4 property "ukdatabutler" + MP secret; `agent_api_*` /
+- **Tracking**: new GA4 property "databutler" + MP secret; `agent_api_*` /
   `agent_mcp_*` events; add property to `webmon/sites.py` so the 🤖 column
   covers it. (Note: webmon's sites.py currently asserts every property has
   GSC — ukdatabutler may skip GSC; handle gracefully.)
@@ -100,10 +100,10 @@ memory. `docs/CURATION.md` will hold the per-board checklist.
 
 ## 6. Launch checklist (in order)
 
-1. User buys **ukdatabutler.com** (~£10/yr) — required for the Cloudflare/
+1. User buys **databutler.dev** (~£10/yr) — required for the Cloudflare/
    x402 path; *.vercel.app can never be monetised that way. Cloudflare DNS
    like the other domains.
-2. Push repo to GitHub (`physics-star-cat/ukdatabutler`, private fine).
+2. Push repo to GitHub (`physics-star-cat/databutler`, private fine).
 3. User imports repo as a new Vercel project (dashboard, 2 min — API token
    is dead) and attaches the domain.
 4. GA4 property + MP secret (browser session, like 2026-08-31).

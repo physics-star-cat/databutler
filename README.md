@@ -1,12 +1,12 @@
-# UK Data Butler
+# Data Butler (databutler.dev)
 
 **An agent honeypot: clean, verified UK public data served to AI agents via
 MCP and REST.** Not an SEO play — no GSC ambitions. The customer is an AI
 assistant answering a human's question; the product is being the source that
 is *right*, with provenance on every number.
 
-- Planned domain: **ukdatabutler.com** (until purchased/connected, the
-  Vercel default `ukdatabutler.vercel.app` works, but registry listings must
+- Planned domain: **databutler.dev** (until purchased/connected, the
+  Vercel default `databutler.vercel.app` works, but registry listings must
   NOT be published until the final domain is live — listings bake in URLs).
 - Status: **spec stage** — see `docs/SPEC.md`. Nothing deployed yet.
 - Born 2026-08-31 out of the agent-API work on whatbreaks.uk (MOT data) and
@@ -23,9 +23,9 @@ individually under one namespace, cross-referencing each other:
 
 | Vertical | Endpoint | Status |
 |---|---|---|
-| Exams (boards, specs, topic→paper, past-paper index) | `/api/mcp/exams` | v1 — building |
-| UK rates & thresholds (tax year numbers) | `/api/mcp/rates` | v1 — building |
-| Councils (postcode→council→services) | `/api/mcp/councils` | phase 2 |
+| Exams (boards, specs, topic→paper, past-paper index) | `/api/mcp/uk-exams` | v1 — building |
+| UK rates & thresholds (tax year numbers) | `/api/mcp/uk-rates` | v1 — building |
+| Councils (postcode→council→services) | `/api/mcp/uk-councils` | phase 2 |
 | Bin collection pilot (5–10 large councils) | — | phase 2, feasibility-gated |
 | Recalls, more countries | — | later |
 
