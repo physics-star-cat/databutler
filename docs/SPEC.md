@@ -89,7 +89,7 @@ memory. `docs/CURATION.md` will hold the per-board checklist.
 - **Tracking**: new GA4 property "databutler" + MP secret; `agent_api_*` /
   `agent_mcp_*` events; add property to `webmon/sites.py` so the 🤖 column
   covers it. (Note: webmon's sites.py currently asserts every property has
-  GSC — ukdatabutler may skip GSC; handle gracefully.)
+  GSC — databutler may skip GSC; handle gracefully.)
 - **llms.txt + robots.txt** with AI-crawler allows, self-documenting
   `/api` index — same as the other sites.
 - **Phase 2** (only after v1 shows usage): councils postcode resolver →
