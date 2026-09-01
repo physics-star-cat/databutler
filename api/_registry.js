@@ -113,7 +113,7 @@ const SERVERS = {
         run: (args) => {
           const specs = findSpecs(args).map((sp) => ({
             board: sp.board, level: sp.level, subject: sp.subject, specCode: sp.specCode,
-            officialPastPapers: sp.pastPapersUrl, verifiedDate: sp.verifiedDate,
+            officialPastPapers: sp.pastPapersUrl, source: sp.specUrl, verifiedDate: sp.verifiedDate,
           }));
           return { count: specs.length, specs };
         },

@@ -4,6 +4,8 @@ const { callTool } = require('./helpers');
 const { withEnvelope, findSource } = require('../api/_envelope');
 const { makeMcpHandler } = require('../api/_mcp');
 const { ALL_TOOLS } = require('../api/_registry');
+const { ATTRIBUTION } = require('../api/_lib');
+const statsServer = require('../api/mcp/stats');
 
 test('withEnvelope adds freshness, cite and attribution for a dataset tool', () => {
   const tool = ALL_TOOLS.uk_rates_lookup;
@@ -30,6 +32,19 @@ test('withEnvelope never throws: a broken cite falls back to bare result + attri
   assert.equal(out.a, 1);
   assert.equal(out.attribution, 'databutler.dev');
   assert.equal(out.cite, undefined);
+});
+
+test('withEnvelope: result keys win over attribution keys (spread order)', () => {
+  const tool = { name: 'x', freshness: 'live', cite: null };
+  const out = withEnvelope(tool, {}, { note: 'custom' });
+  assert.equal(out.note, 'custom');
+  assert.equal(out.attribution, 'databutler.dev');
+});
+
+test('a provenance-free stats tool keeps its own note, not the generic attribution note', async () => {
+  const { data } = await callTool(statsServer, 'distribution', { dist: 'normal', at: 1.96 });
+  assert.notEqual(data.note, ATTRIBUTION.note);
+  assert.equal(data.attribution, 'databutler.dev');
 });
 
 test('findSource walks nested results', () => {

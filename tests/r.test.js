@@ -25,6 +25,14 @@ test('/r/stats decodes JSON-encoded query values', async () => {
   assert.match(String(res.raw), /"mean": 2/);
 });
 
+test('/r/stats decodes scientific notation as a number, not a quoted string', async () => {
+  const res = await get('/api/r?path=stats&op=distribution&dist=normal&at=1e-7');
+  assert.equal(res.status, 200);
+  const html = String(res.raw);
+  assert.doesNotMatch(html, /"at":"1e-7"/);
+  assert.match(html, /"at":1e-7/);
+});
+
 test('/r/changes and /r/coverage route to hub tools', async () => {
   assert.equal((await get('/api/r?path=changes&since=2026-06-01')).status, 200);
   assert.match(String((await get('/api/r?path=coverage')).raw), /uk-exams/);

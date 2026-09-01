@@ -67,11 +67,18 @@ test('call reaches every non-network registry tool with the inner envelope', asy
   assert.ok(ALL_TOOLS.domain_provenance && ALL_TOOLS.package_provenance);
 });
 
-test('call with an unknown tool is a near-miss naming the closest tools', async () => {
+test('call with an unknown tool is a near-miss naming the closest tools, with a cite to the catalogue', async () => {
   const { isError, data } = await callTool(frontDoor, 'call', { tool: 'linear_regresion', arguments: {} });
   assert.equal(isError, false);
   assert.equal(data.covered, false);
   assert.equal(data.nearest[0], 'linear_regression');
+  assert.equal(data.cite.url, 'https://databutler.dev/r/catalogue');
+});
+
+test('exam_paper_index specs carry a source link back to the official spec page', async () => {
+  const { data } = await callTool(frontDoor, 'call', { tool: 'exam_paper_index', arguments: { board: 'aqa' } });
+  assert.ok(data.specs.length > 0);
+  assert.ok(data.specs[0].source.startsWith('https://www.aqa.org.uk/'), data.specs[0].source);
 });
 
 test('GET /api/changes mirrors what_changed_since', async () => {

@@ -17,7 +17,7 @@ const STATS_OPS = {
 function parseJsonValues(q) {
   const out = {};
   for (const [k, v] of Object.entries(q)) {
-    if (typeof v === 'string' && /^[\[{]|^-?\d+(\.\d+)?$|^(true|false|null)$/.test(v)) {
+    if (typeof v === 'string' && /^[\[{]|^-?\d+(\.\d+)?([eE][-+]?\d+)?$|^(true|false|null)$/.test(v)) {
       try { out[k] = JSON.parse(v); continue; } catch { /* keep string */ }
     }
     out[k] = v;

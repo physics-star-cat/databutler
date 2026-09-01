@@ -74,3 +74,10 @@ Rules: the watcher never edits data; the script never invents an entry; a
 The citation pages (`/r/<route>`) track their own traffic with a
 `cite_page_view` GA4 event, not `agent_*` — so webmon's agent-usage counts
 exclude citation-page views by design.
+
+A front-door `call` emits both `agent_mcp_call` and `agent_mcp_call_<inner>` —
+one event for the front-door hit, one for the tool it delegated to — so the
+second event exists to show which long-tail tools get called often enough to
+deserve promotion to the front door. webmon sums `total_calls` over events
+whose name does not start with `agent_mcp_call_`, so a delegated call is
+counted once, not twice.

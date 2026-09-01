@@ -92,7 +92,9 @@ const call = {
     hint: 'call catalogue for every tool and its schema',
   }),
   freshness: 'live',
-  cite: null,
+  // Only reached on a near-miss (unknown tool name); still worth a permalink
+  // so the caller has somewhere to send a human, even without a real result.
+  cite: () => ({ path: 'catalogue', query: {} }),
 };
 call.delegate = (a) => {
   const t = ALL_TOOLS[String(a.tool || '').trim()];

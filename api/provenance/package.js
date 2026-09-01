@@ -1,5 +1,4 @@
 const { sendJson, handleOptions, queryParams, ATTRIBUTION } = require('../_lib');
-const { packageProvenance } = require('../_provenance');
 const { ALL_TOOLS } = require('../_registry');
 const { withEnvelope } = require('../_envelope');
 const { trackEvent } = require('../_track');

@@ -175,6 +175,7 @@ module.exports = {
   CORS,
   ATTRIBUTION,
   RATES,
+  AQA_GCSE,
   sendJson,
   handleOptions,
   queryParams,

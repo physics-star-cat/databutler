@@ -46,9 +46,9 @@ function withEnvelope(tool, args, result) {
   try {
     const freshness = freshnessFor(tool.freshness);
     const cite = citeFor(tool, args, freshness, base);
-    return { ...base, ...(freshness ? { freshness } : {}), ...(cite ? { cite } : {}), ...ATTRIBUTION };
+    return { ...ATTRIBUTION, ...base, ...(freshness ? { freshness } : {}), ...(cite ? { cite } : {}) };
   } catch {
-    return { ...base, ...ATTRIBUTION };
+    return { ...ATTRIBUTION, ...base };
   }
 }
 

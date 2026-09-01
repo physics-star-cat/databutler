@@ -2,8 +2,7 @@
  * Freshness block for the response envelope. Datasets declare verifiedDate
  * and nextScheduledRefresh in their JSON (see docs/CURATION.md calendar).
  */
-const RATES = require('../data/uk/rates/2026-27.json');
-const AQA_GCSE = require('../data/uk/exams/aqa-gcse.json');
+const { RATES, AQA_GCSE } = require('./_lib');
 
 const DUE_WINDOW_DAYS = 14;
 const DATASETS = {

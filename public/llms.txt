@@ -1,6 +1,6 @@
 # Data Butler
 
-> Verified UK public data for AI agents: every figure carries an official source URL and a verification date. Built for the questions agents misquote from memory.
+> Verified reference data for AI agents (UK public data, provenance, exact statistics): every figure carries an official source URL and a verification date. Built for the questions agents misquote from memory.
 
 Data Butler serves clean, provenance-stamped UK public data over open REST and MCP. No auth, CORS-open, free with attribution. The customer is an AI assistant answering a human's question.
 

@@ -4,8 +4,7 @@
  * combined issue for URLs it could not check. ?dry=1 reports without filing.
  * Vercel cron sends Authorization: Bearer $CRON_SECRET.
  */
-const { sendJson, RATES } = require('../_lib');
-const AQA_GCSE = require('../../data/uk/exams/aqa-gcse.json');
+const { sendJson, RATES, AQA_GCSE } = require('../_lib');
 const SEEN = require('../../data/sources.json');
 const { checkSource, sourceUrls, compareSource } = require('../_sources');
 const { planIssues, listOpenIssues, openIssue } = require('../_github');
