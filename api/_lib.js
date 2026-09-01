@@ -1,6 +1,7 @@
 /** Shared helpers: CORS, JSON responses, datasets, lookup logic. */
 const RATES = require('../data/uk/rates/2026-27.json');
 const AQA_GCSE = require('../data/uk/exams/aqa-gcse.json');
+const { nearest } = require('./_text');
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',
@@ -48,7 +49,13 @@ function ratesLookup(category) {
   const hit = cats[key] || Object.entries(cats).find(([k, v]) =>
     k.includes(key) || v.title.toLowerCase().includes(key))?.[1];
   if (!hit) {
-    return { error: `unknown category "${category}"`, available: Object.keys(cats) };
+    return {
+      covered: false,
+      requested: category,
+      message: `unknown category "${category}"`,
+      nearest: nearest(key, Object.keys(cats)),
+      coverage: Object.keys(cats),
+    };
   }
   return {
     taxYear: RATES.taxYear,
@@ -82,10 +89,25 @@ function findSpecs({ board, subject, level }) {
   return specs;
 }
 
+function allSubjects() {
+  return [...new Set(findSpecs({}).map((sp) => normalise(sp.subject)))];
+}
+
 /** The headline query: which paper is <topic> on, for <board> <subject> <level>? */
 function topicLookup({ board, subject, level, topic }) {
   const specs = findSpecs({ board, subject, level });
-  if (!specs.length) return { error: 'no matching spec', coverage: coverageSummary() };
+  if (!specs.length) {
+    return {
+      covered: false,
+      requested: { board, subject, level, topic },
+      message: 'no matching spec',
+      nearest: {
+        boards: nearest(normalise(board), Object.keys(BOARDS)),
+        subjects: nearest(normalise(subject), allSubjects()),
+      },
+      coverage: coverageSummary(),
+    };
+  }
   const needle = normalise(topic);
   const results = [];
   for (const sp of specs) {
@@ -130,9 +152,14 @@ function topicLookup({ board, subject, level, topic }) {
     }
   }
   if (!results.length) {
+    const topicNames = [...new Set(specs.flatMap((sp) => sp.papers.flatMap((p) => p.topics.map((t) => t.name))))];
     return {
-      error: `topic "${topic}" not found in matched specs`,
+      covered: false,
+      requested: { board, subject, level, topic },
+      message: `topic "${topic}" not found in matched specs`,
+      nearest: { topics: nearest(needle, topicNames, 5) },
       matchedSpecs: specs.map((sp) => `${sp.board} ${sp.level} ${sp.subject} (${sp.specCode})`),
+      coverage: coverageSummary(),
       hint: 'try a broader keyword, e.g. "electricity", "forces", "ecology"',
     };
   }
@@ -155,4 +182,7 @@ module.exports = {
   findSpecs,
   topicLookup,
   coverageSummary,
+  BOARDS,
+  normalise,
+  allSubjects,
 };
