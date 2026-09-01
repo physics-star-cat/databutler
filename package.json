@@ -1,0 +1,10 @@
+{
+  "name": "databutler",
+  "private": true,
+  "description": "databutler.dev — verified reference data for AI agents (REST + MCP)",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "changelog": "node scripts/changelog.js",
+    "sources": "node scripts/sources.js"
+  }
+}
