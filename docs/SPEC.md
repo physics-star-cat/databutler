@@ -166,3 +166,10 @@ returns statistic, p-value, plain interpretation, and assumptions),
 `confidence_interval` (t-mean, Wilson-proportion), `bayes_update` (discrete),
 `linear_regression`. Sandbox-derivable in principle, but the value is reliability
 + correct methodology + not hand-writing stats code.
+
+## 10. Front door (spec 2026-09-01)
+
+Single entry server `POST /api/mcp` with `what_changed_since`, `coverage`,
+`catalogue`/`call`, plus a freshness + citation envelope on every response
+and a script-generated, human-noted changelog with a weekly gov.uk source
+watcher. Full design: `docs/superpowers/specs/2026-09-01-front-door-design.md`.
