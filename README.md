@@ -38,9 +38,21 @@ product is designed with Claude as the end user, by Claude:
 | 5 | Bin collection pilot (5–10 large councils, feasibility-gated) | — | phase 2b |
 | 3 | **Provenance checker** — "who really runs this domain/package?" (wishlist #2) — live RDAP/npm/PyPI, homoglyph-aware typosquat | `/api/mcp/provenance` | **v1 — LIVE** |
 | 3b | **Stats toolkit** — exact statistics & probability (Claude's maths pick) — distributions, hypothesis tests, CIs, Bayes, regression; reference-validated | `/api/mcp/stats` | **v1 — LIVE** |
-| 6 | Recalls; country #2 (`/api/<cc>/…` slots in beside `uk/`) | — | later |
+| 3c | **Front door** — single `POST /api/mcp` hub: direct high-frequency tools + `what_changed_since` (changelog vs. your training cutoff), `coverage`, `catalogue`/`call`; freshness + citation permalink on every response; weekly gov.uk source watcher (spec: `docs/superpowers/specs/2026-09-01-front-door-design.md`) | `/api/mcp` | **next — spec approved 2026-09-01** |
+| 9 | **Drift facts (global)** — facts that move on a calendar and agents misquote: tax-year boundaries by country, public holidays, DST transitions, currency/country codes, headline VAT/sales-tax rates. Cheap to curate, low rot, feeds `what_changed_since` | `/api/mcp/drift` | after front door |
+| 10 | **Volatility tool** — `volatility(topic)`: how often a class of fact changes and when it last did, so an agent knows whether to trust memory at all. Curated table, no per-country data; Claude's own top pick for the global layer | front door tool | after front door |
+| 11 | **Provenance, widened** — crates.io, RubyGems, Go modules, Docker Hub, GitHub Actions, browser extensions; then **MCP-server provenance** (cross-check a registry listing's claimed domain, repo and publisher — the hub that vets other hubs) | `/api/mcp/provenance` | after front door |
+| 12 | **Rates, country #2 = US** (IRS pages are bot-fetchable; AU/CA/IN sites 403 automated fetches — browser-only curation, wait for the source watcher to prove the loop) | `/api/us/rates` | after drift facts |
+| 13 | **Exams, global boards** — IB and AP: same topic→paper query stream, same teaching moat; curation-heavy, gated on UK exams 🤖 counts | `/api/mcp/exams` | gated |
+| 6 | Recalls; UK councils phase 2 (above) | — | later |
 | 7 | **Current-docs for libraries** (wishlist #4) | — | parked — Context7 et al. exist; only enter if a clearly underserved niche appears |
 | 8 | **Infra-config/auth broker** (wishlist #5) | — | out of scope — VC-scale product, documented so we stop re-litigating it |
+
+**Global direction (added 2026-09-01):** the niche is *verified reference
+facts with provenance and change history* — not docs, not search. Provenance
+and stats are already country-free; the country-prefixed paths take more
+countries without renames. Rule: no vertical that depends on scraping sites
+that block bots until the source watcher (#3c) has proven the maintenance loop.
 
 Rationale for the order: #1 is the highest-frequency, lowest-build-cost,
 most correctness-critical item — every agent answering UK money questions
