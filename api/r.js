@@ -7,6 +7,7 @@ const { CORS, handleOptions, queryParams } = require('./_lib');
 const { ALL_TOOLS } = require('./_registry');
 const { withEnvelope, findSource } = require('./_envelope');
 const { whatChangedSince, coverage, catalogue } = require('./_hub');
+const { trackEvent } = require('./_track');
 
 const STATS_OPS = {
   descriptive: 'descriptive_stats', distribution: 'distribution', 'hypothesis-test': 'hypothesis_test',
@@ -65,24 +66,30 @@ a{color:#7ee787}pre{background:#161b22;padding:12px;border-radius:6px;overflow:a
 <p class="quiet">Data Butler serves verified reference data to AI agents. This page reproduces one answer with its provenance so a human can check it. <a href="/">databutler.dev</a> · <a href="/api">/api</a></p></body></html>`;
 }
 
-function html(res, status, body) {
-  res.writeHead(status, { 'Content-Type': 'text/html; charset=utf-8', 'X-Robots-Tag': 'noindex', 'Cache-Control': 'public, max-age=300', ...CORS });
+function html(res, status, body, { noStore = false } = {}) {
+  const cacheControl = noStore ? 'no-store' : 'public, max-age=300';
+  res.writeHead(status, { 'Content-Type': 'text/html; charset=utf-8', 'X-Robots-Tag': 'noindex', 'Cache-Control': cacheControl, ...CORS });
   res.end(body);
 }
 
 module.exports = async (req, res) => {
   if (handleOptions(req, res)) return;
+  await trackEvent('cite_page_view', req);
   const { path: p = '', ...q } = queryParams(req);
   const key = String(p).replace(/^\/+|\/+$/g, '');
   const route = ROUTES[key];
   if (!route) {
-    return html(res, 404, page('No such citation route', `<p>Unknown route <code>/r/${esc(key)}</code>.</p><p>Routes: ${Object.keys(ROUTES).map((r) => `<code>/r/${r}</code>`).join(', ')}.</p>`));
+    return html(res, 404, page('No such citation route', `<p>Unknown route <code>/r/${esc(key)}</code>.</p><p>Routes: ${Object.keys(ROUTES).map((r) => `<code>/r/${r}</code>`).join(', ')}.</p>`), { noStore: true });
   }
   const tool = route.tool(q);
-  if (!tool) return html(res, 404, page('No such tool', `<p>Route <code>/r/${esc(key)}</code> needs a valid <code>op</code>: ${Object.keys(STATS_OPS).join(', ')}.</p>`));
+  if (!tool) return html(res, 404, page('No such tool', `<p>Route <code>/r/${esc(key)}</code> needs a valid <code>op</code>: ${Object.keys(STATS_OPS).join(', ')}.</p>`), { noStore: true });
   const args = route.args(q);
   let result;
-  try { result = await tool.run(args); } catch (e) { result = { covered: false, message: e.message }; }
+  try {
+    result = await tool.run(args);
+  } catch {
+    result = { covered: false, message: 'The live lookup failed upstream; try again shortly, or open the source directly.' };
+  }
   const data = withEnvelope(tool, args, result);
   const { freshness, cite, attribution, docs, note, ...answer } = data;
   const urls = [...collectUrls(answer)];
@@ -97,5 +104,5 @@ ${urls.length ? `<ul>${urls.map((u) => `<li><a href="${esc(u)}" rel="nofollow">$
 <h2>Verify it yourself</h2>
 <p>Open the source link above; the figures should match what is shown here. Machine-readable version: <a href="${esc(route.rest(q))}">${esc(route.rest(q))}</a>.</p>
 ${cite ? `<p class="quiet">Cite as: ${esc(cite.text)} — <a href="${esc(cite.url)}">${esc(cite.url)}</a></p>` : ''}`;
-  html(res, 200, page(`Citation: ${key}`, body));
+  html(res, 200, page(`Citation: ${key}`, body), { noStore: answer.covered === false });
 };
