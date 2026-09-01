@@ -10,7 +10,7 @@ const { trackEvent } = require('./_track');
 const PROTOCOL_VERSION = '2025-06-18';
 
 function makeMcpHandler({ serverName, instructions, tools }) {
-  const toolDefs = tools.map(({ run, ...def }) => def);
+  const toolDefs = tools.map(({ run, freshness, cite, delegate, ...def }) => def);
   const runners = Object.fromEntries(tools.map((t) => [t.name, t.run]));
 
   async function handle(msg) {
