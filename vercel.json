@@ -8,5 +8,11 @@
   ],
   "rewrites": [
     { "source": "/r/(.*)", "destination": "/api/r?path=$1" }
-  ]
+  ],
+  "crons": [
+    { "path": "/api/cron/watch-sources", "schedule": "0 6 * * 1" }
+  ],
+  "functions": {
+    "api/cron/watch-sources.js": { "maxDuration": 60 }
+  }
 }
