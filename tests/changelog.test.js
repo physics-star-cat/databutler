@@ -4,6 +4,7 @@ const assert = require('node:assert/strict');
 const { changesSince, diffRates, diffExams, mergeEntries, COVERAGE_START } = require('../api/_changelog');
 const rp = require('./fixtures/rates-prev.json'), rn = require('./fixtures/rates-next.json');
 const ep = require('./fixtures/exams-prev.json'), en = require('./fixtures/exams-next.json');
+const rr = require('./fixtures/rates-removed.json'), er = require('./fixtures/exams-removed.json');
 
 test('diffRates: changed value, shifted band, new category; unchanged skipped', () => {
   const d = diffRates(rp, rn);
@@ -33,6 +34,31 @@ test('diffExams: topic moves, duration change, added spec', () => {
   assert.equal(p1.specCode, '8463'); assert.equal(p1.board, 'AQA'); assert.equal(p1.verifiedDate, '2027-09-02');
   assert.equal(p1.effectiveFrom, null);
   assert.equal(d.find((e) => e.key === '8461/spec').to, 'covered');
+});
+
+test('diffRates: removed figure and removed category are both recorded', () => {
+  const d = diffRates(rp, rr);
+  const keys = d.map((e) => e.key).sort();
+  assert.deepEqual(keys, ['income-tax/basic-rate', 'income-tax/personal-allowance', 'vat/standard-rate']);
+  const pa = d.find((e) => e.key === 'income-tax/personal-allowance');
+  assert.equal(pa.from, 12570); assert.equal(pa.to, null); assert.equal(pa.unit, 'GBP/year');
+  assert.equal(pa.area, 'uk-rates'); assert.equal(pa.verifiedDate, '2027-04-07');
+  const br = d.find((e) => e.key === 'income-tax/basic-rate');
+  assert.equal(br.from, 20); assert.equal(br.to, null);
+  const vat = d.find((e) => e.key === 'vat/standard-rate');
+  assert.equal(vat.from, 20); assert.equal(vat.to, null); assert.equal(vat.source, 'https://www.gov.uk/vat-rates');
+});
+
+test('diffExams: removed spec and removed paper are both recorded', () => {
+  const d = diffExams(en, er);
+  const keys = d.map((e) => e.key).sort();
+  assert.deepEqual(keys, ['8461/spec', '8463/paper-2/topics']);
+  const removedSpec = d.find((e) => e.key === '8461/spec');
+  assert.equal(removedSpec.from, 'covered'); assert.equal(removedSpec.to, 'removed');
+  assert.equal(removedSpec.board, 'AQA'); assert.equal(removedSpec.subject, 'Biology');
+  const removedPaper = d.find((e) => e.key === '8463/paper-2/topics');
+  assert.deepEqual(removedPaper.from, ['Forces', 'Electricity']); assert.equal(removedPaper.to, null);
+  assert.equal(removedPaper.specCode, '8463');
 });
 
 test('mergeEntries dedupes on area/key/verifiedDate and reports added', () => {
