@@ -21,3 +21,10 @@ test('planIssues dedupes against open issues by url and by error title', () => {
   const open = [{ title: 'source changed: /vat-rates (2026-11-20)', body: '**URL:** https://www.gov.uk/vat-rates' }, { title: ERR_TITLE, body: '' }];
   assert.deepEqual(planIssues([changed, err], open, '2026-11-27'), []);
 });
+
+test('planIssues does not let a prefix-URL open issue suppress a change on a different URL', () => {
+  const open = [{ title: 'source changed: /vat-rates/keeping-records (2026-11-20)', body: '**URL:** https://www.gov.uk/vat-rates/keeping-records' }];
+  const plan = planIssues([changed], open, '2026-11-27');
+  assert.equal(plan.length, 1);
+  assert.equal(plan[0].title, 'source changed: /vat-rates (2026-11-27)');
+});

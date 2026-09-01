@@ -3,11 +3,16 @@ const REPO = 'physics-star-cat/databutler';
 const LABEL = 'source-changed';
 const ERR_TITLE = 'watcher could not check some sources';
 
+function escapeRegex(s) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 function planIssues(results, openIssues, today = new Date().toISOString().slice(0, 10)) {
   const issues = [];
   const openText = openIssues.map((i) => `${i.title}\n${i.body || ''}`);
   for (const r of results.filter((x) => x.status === 'changed')) {
-    if (openText.some((t) => t.includes(r.url))) continue;
+    const urlPattern = new RegExp(`\\*\\*URL:\\*\\* ${escapeRegex(r.url)}(\\n|$)`);
+    if (openText.some((t) => urlPattern.test(t))) continue;
     issues.push({
       title: `source changed: ${new URL(r.url).pathname} (${today})`,
       labels: [LABEL],

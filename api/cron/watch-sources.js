@@ -29,13 +29,17 @@ module.exports = async (req, res) => {
   }));
 
   let issues = [];
+  const filed = [];
   let filing = null;
   try {
     const open = dry ? [] : await listOpenIssues();
     issues = planIssues(results, open);
-    if (!dry) for (const issue of issues) await openIssue(issue);
+    if (!dry) for (const issue of issues) {
+      await openIssue(issue);
+      filed.push(issue.title);
+    }
   } catch (e) {
-    filing = e.message; // GitHub down / token missing: still report what we saw
+    filing = e.message; // GitHub down / token missing / filing failed part-way: still report what we saw
   }
 
   sendJson(res, 200, {
@@ -44,7 +48,8 @@ module.exports = async (req, res) => {
     changed: results.filter((r) => r.status === 'changed'),
     unseen: results.filter((r) => r.status === 'new').map((r) => r.url),
     errors: results.filter((r) => r.status === 'error'),
-    issues: issues.map((i) => i.title),
+    issuesPlanned: issues.map((i) => i.title),
+    issuesFiled: filed,
     ...(filing ? { filingError: filing } : {}),
   });
 };
