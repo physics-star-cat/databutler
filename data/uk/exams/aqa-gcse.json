@@ -2,6 +2,7 @@
  "board": "AQA",
  "level": "GCSE",
  "verifiedDate": "2026-08-31",
+ "nextScheduledRefresh": "2027-09-01",
  "verificationMethod": "Paper structures and topic lists checked against the live AQA 'specification at a glance' page in specUrl on verifiedDate.",
  "specs": [
   {

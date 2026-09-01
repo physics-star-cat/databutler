@@ -2,6 +2,7 @@
   "taxYear": "2026-27",
   "taxYearRuns": "6 April 2026 to 5 April 2027",
   "verifiedDate": "2026-08-31",
+  "nextScheduledRefresh": "2027-04-06",
   "verificationMethod": "Each category checked against the live gov.uk page in `source` on verifiedDate.",
   "categories": {
     "income-tax": {
