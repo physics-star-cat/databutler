@@ -1,0 +1,12 @@
+{
+  "taxYear": "2026-27", "taxYearRuns": "6 April 2026 to 5 April 2027", "verifiedDate": "2026-08-31",
+  "categories": {
+    "income-tax": { "title": "Income Tax bands and rates", "source": "https://www.gov.uk/income-tax-rates",
+      "figures": [
+        { "label": "Personal Allowance", "value": 12570, "unit": "GBP/year" },
+        { "label": "Basic rate", "value": 20, "unit": "%", "band": "£12,571 to £50,270" }
+      ] },
+    "vat": { "title": "VAT rates", "source": "https://www.gov.uk/vat-rates",
+      "figures": [ { "label": "Standard rate", "value": 20, "unit": "%" } ] }
+  }
+}

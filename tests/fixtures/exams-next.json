@@ -1,0 +1,12 @@
+{
+  "board": "AQA", "level": "GCSE", "verifiedDate": "2027-09-02",
+  "specs": [
+    { "specCode": "8463", "subject": "Physics", "specUrl": "https://www.aqa.org.uk/p", "papers": [
+      { "paper": 1, "durationMinutes": 105, "marks": 100, "weighting": "50%", "topics": [ { "name": "Energy" } ] },
+      { "paper": 2, "durationMinutes": 120, "marks": 100, "weighting": "50%", "topics": [ { "name": "Forces" }, { "name": "Electricity" } ] }
+    ] },
+    { "specCode": "8461", "subject": "Biology", "specUrl": "https://www.aqa.org.uk/b", "papers": [
+      { "paper": 1, "durationMinutes": 105, "marks": 100, "weighting": "50%", "topics": [ { "name": "Cell biology" } ] }
+    ] }
+  ]
+}

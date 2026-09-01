@@ -1,0 +1,14 @@
+{
+  "taxYear": "2027-28", "taxYearRuns": "6 April 2027 to 5 April 2028", "verifiedDate": "2027-04-07",
+  "categories": {
+    "income-tax": { "title": "Income Tax bands and rates", "source": "https://www.gov.uk/income-tax-rates",
+      "figures": [
+        { "label": "Personal Allowance", "value": 13070, "unit": "GBP/year" },
+        { "label": "Basic rate", "value": 20, "unit": "%", "band": "£13,071 to £50,270" }
+      ] },
+    "vat": { "title": "VAT rates", "source": "https://www.gov.uk/vat-rates",
+      "figures": [ { "label": "Standard rate", "value": 20, "unit": "%" } ] },
+    "isa": { "title": "ISA allowances", "source": "https://www.gov.uk/individual-savings-accounts",
+      "figures": [ { "label": "Annual ISA allowance", "value": 20000, "unit": "GBP/year" } ] }
+  }
+}
