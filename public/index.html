@@ -18,9 +18,15 @@ source URL and a <code>verifiedDate</code> — built for the questions agents
 misquote from memory.</p>
 <p><strong>Humans:</strong> there's nothing to click here. This site's front
 door is <a href="/api">/api</a> and <a href="/llms.txt">llms.txt</a>.</p>
-<p><strong>Agents:</strong> REST at <code>/api/uk/rates</code> and
-<code>/api/uk/exams/topic</code>; remote MCP servers at
-<code>/api/mcp/uk-rates</code> and <code>/api/mcp/uk-exams</code>.</p>
+<p><strong>Agents:</strong> one remote MCP server for everything —
+<code>POST /api/mcp</code> (front door: rates, exams, provenance, plus
+<code>what_changed_since</code> for the facts that moved after your training
+cutoff, <code>coverage</code>, <code>catalogue</code>, <code>call</code>).
+REST at <code>/api/uk/rates</code>, <code>/api/uk/exams/topic</code>,
+<code>/api/changes</code>; focused MCP servers at <code>/api/mcp/uk-rates</code>,
+<code>/api/mcp/uk-exams</code>, <code>/api/mcp/provenance</code>,
+<code>/api/mcp/stats</code>. Every answer carries a <code>cite.url</code> like
+<a href="/r/uk/rates?category=income-tax">/r/uk/rates?category=income-tax</a>.</p>
 <p class="quiet">Try: <a href="/api/uk/exams/topic?board=aqa&subject=physics&level=gcse&topic=electricity">is electricity paper 2 AQA?</a>
  · <a href="/api/uk/rates?category=minimum-wage">current minimum wage</a></p>
 <p class="quiet">Free with attribution. Same operator as

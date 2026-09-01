@@ -13,7 +13,10 @@ is *right*, with provenance on every number.
   (drchriseames/databutler-uk-exams, -uk-rates) and the official MCP
   Registry (io.github.physics-star-cat/databutler-uk-exams, -uk-rates).
   Tracking LIVE (GA4 property 552213153, verified in realtime; monitored by webmon 🤖 column).
-  PulseMCP will auto-ingest from the official registry.
+  PulseMCP will auto-ingest from the official registry. Front door `POST /api/mcp` —
+  built 2026-09-01 on branch feat/front-door; listing as
+  `io.github.physics-star-cat/databutler` / Smithery `drchriseames/databutler`
+  pending deploy.
 - Born 2026-08-31 out of the agent-API work on whatbreaks.uk (MOT data) and
   lowriskquotes.com (Monte Carlo) — full history in
   `../docs/AUDIT_2026-08-30_five-sites.md` §3b–3e and
@@ -25,6 +28,11 @@ There is no domain authority in MCP registries — discovery is per-listing.
 So this is NOT one mega-server (tool-list bloat kills those); it is one
 domain/repo/brand hosting **separate, focused MCP endpoints**, each listed
 individually under one namespace, cross-referencing each other:
+
+**Front door (2026-09):** `POST /api/mcp` lists the four high-frequency tools
+directly plus `what_changed_since`, `coverage`, `catalogue`, `call`. It is
+still not a mega-server — everything else stays behind `call`, capped at 8
+listed tools by test. The focused servers remain live and listed.
 
 The roadmap is ordered by (value to an AI agent) × (likelihood we can build
 it well). It deliberately includes the maintainer-Claude wishlist — this
@@ -38,7 +46,7 @@ product is designed with Claude as the end user, by Claude:
 | 5 | Bin collection pilot (5–10 large councils, feasibility-gated) | — | phase 2b |
 | 3 | **Provenance checker** — "who really runs this domain/package?" (wishlist #2) — live RDAP/npm/PyPI, homoglyph-aware typosquat | `/api/mcp/provenance` | **v1 — LIVE** |
 | 3b | **Stats toolkit** — exact statistics & probability (Claude's maths pick) — distributions, hypothesis tests, CIs, Bayes, regression; reference-validated | `/api/mcp/stats` | **v1 — LIVE** |
-| 3c | **Front door** — single `POST /api/mcp` hub: direct high-frequency tools + `what_changed_since` (changelog vs. your training cutoff), `coverage`, `catalogue`/`call`; freshness + citation permalink on every response; weekly gov.uk source watcher (spec: `docs/superpowers/specs/2026-09-01-front-door-design.md`) | `/api/mcp` | **next — spec approved 2026-09-01** |
+| 3c | **Front door** — single `POST /api/mcp` hub: direct high-frequency tools + `what_changed_since` (changelog vs. your training cutoff), `coverage`, `catalogue`/`call`; freshness + citation permalink on every response; weekly gov.uk source watcher (spec: `docs/superpowers/specs/2026-09-01-front-door-design.md`) | `/api/mcp` | **built — deploy pending** |
 | 9 | **Drift facts (global)** — facts that move on a calendar and agents misquote: tax-year boundaries by country, public holidays, DST transitions, currency/country codes, headline VAT/sales-tax rates. Cheap to curate, low rot, feeds `what_changed_since` | `/api/mcp/drift` | after front door |
 | 10 | **Volatility tool** — `volatility(topic)`: how often a class of fact changes and when it last did, so an agent knows whether to trust memory at all. Curated table, no per-country data; Claude's own top pick for the global layer | front door tool | after front door |
 | 11 | **Provenance, widened** — crates.io, RubyGems, Go modules, Docker Hub, GitHub Actions, browser extensions; then **MCP-server provenance** (cross-check a registry listing's claimed domain, repo and publisher — the hub that vets other hubs) | `/api/mcp/provenance` | after front door |
