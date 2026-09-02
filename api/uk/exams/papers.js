@@ -1,20 +1,16 @@
-const { sendJson, handleOptions, queryParams, findSpecs, ATTRIBUTION } = require('../../_lib');
+const { sendJson, handleOptions, queryParams } = require('../../_lib');
+const { ALL_TOOLS } = require('../../_registry');
+const { withEnvelope } = require('../../_envelope');
 const { trackEvent } = require('../../_track');
+
+const NOTE =
+  'Past papers and mark schemes are exam-board copyright — this index links to the official ' +
+  'archive rather than hosting PDFs. Recent series may be locked to teachers for a period.';
 
 module.exports = async (req, res) => {
   if (handleOptions(req, res)) return;
   await trackEvent('agent_api_uk_exams_papers', req);
-  const specs = findSpecs(queryParams(req)).map((sp) => ({
-    board: sp.board,
-    level: sp.level,
-    subject: sp.subject,
-    specCode: sp.specCode,
-    officialPastPapers: sp.pastPapersUrl,
-    note:
-      'Past papers and mark schemes are exam-board copyright — this index links to the official ' +
-      'archive rather than hosting PDFs. Recent series may be locked to teachers for a period.',
-    source: sp.specUrl,
-    verifiedDate: sp.verifiedDate,
-  }));
-  sendJson(res, 200, { count: specs.length, specs, ...ATTRIBUTION });
+  const tool = ALL_TOOLS.exam_paper_index;
+  const p = queryParams(req);
+  sendJson(res, 200, withEnvelope(tool, p, { ...tool.run(p), copyright: NOTE }));
 };

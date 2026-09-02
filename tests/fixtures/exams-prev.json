@@ -1,0 +1,9 @@
+{
+  "board": "AQA", "level": "GCSE", "verifiedDate": "2026-08-31",
+  "specs": [
+    { "specCode": "8463", "subject": "Physics", "specUrl": "https://www.aqa.org.uk/p", "papers": [
+      { "paper": 1, "durationMinutes": 105, "marks": 100, "weighting": "50%", "topics": [ { "name": "Energy" }, { "name": "Electricity" } ] },
+      { "paper": 2, "durationMinutes": 105, "marks": 100, "weighting": "50%", "topics": [ { "name": "Forces" } ] }
+    ] }
+  ]
+}

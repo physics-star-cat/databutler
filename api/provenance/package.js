@@ -1,5 +1,6 @@
 const { sendJson, handleOptions, queryParams, ATTRIBUTION } = require('../_lib');
-const { packageProvenance } = require('../_provenance');
+const { ALL_TOOLS } = require('../_registry');
+const { withEnvelope } = require('../_envelope');
 const { trackEvent } = require('../_track');
 
 module.exports = async (req, res) => {
@@ -12,5 +13,7 @@ module.exports = async (req, res) => {
       ...ATTRIBUTION,
     });
   }
-  sendJson(res, 200, { ...(await packageProvenance(ecosystem, name)), ...ATTRIBUTION });
+  const tool = ALL_TOOLS.package_provenance;
+  const args = { ecosystem, name };
+  sendJson(res, 200, withEnvelope(tool, args, await tool.run(args)));
 };

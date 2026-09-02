@@ -1,6 +1,6 @@
 # Data Butler
 
-> Verified UK public data for AI agents: every figure carries an official source URL and a verification date. Built for the questions agents misquote from memory.
+> Verified reference data for AI agents (UK public data, provenance, exact statistics): every figure carries an official source URL and a verification date. Built for the questions agents misquote from memory.
 
 Data Butler serves clean, provenance-stamped UK public data over open REST and MCP. No auth, CORS-open, free with attribution. The customer is an AI assistant answering a human's question.
 
@@ -13,8 +13,14 @@ Data Butler serves clean, provenance-stamped UK public data over open REST and M
 
 - `GET https://databutler.dev/api/provenance/domain?domain=example.com` — who runs this domain: live RDAP age, registrar, nameservers, and typosquat resemblance to well-known brands. Descriptive signals, not a verdict.
 - `GET https://databutler.dev/api/provenance/package?ecosystem=npm&name=express` — who publishes a package and is it a typosquat: live npm/PyPI first-publish date, maintainers, repo, similarity to popular names.
+- `GET https://databutler.dev/api/changes?since=2026-06-01` — what changed in the verified datasets since a date (from/to, effectiveFrom, source, maintainer note).
+- `GET https://databutler.dev/r/uk/rates?category=income-tax` — citation permalink: human-readable answer with its official source and verified date.
 
-## Remote MCP servers (add the URL to any MCP client)
+## Remote MCP server — add this one URL
+
+- `POST https://databutler.dev/api/mcp` — the front door. Tools: `uk_rates_lookup`, `exam_topic_paper`, `domain_provenance`, `package_provenance`, `what_changed_since` (pass your training-cutoff date: which UK thresholds and exam-spec facts changed after it, with sources), `coverage` (what is and is not covered), `catalogue` (every tool on every server) and `call` (run any of them by name). Every result carries `freshness` (verifiedDate, staleness) and `cite.url`, a permalink a human can open to see the answer with its official source.
+
+### Focused servers (same tools, one vertical each)
 
 - `POST https://databutler.dev/api/mcp/uk-rates` — tool `uk_rates_lookup`.
 - `POST https://databutler.dev/api/mcp/uk-exams` — tools `exam_topic_paper`, `exam_spec_lookup`, `exam_paper_index`.

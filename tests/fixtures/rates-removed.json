@@ -1,0 +1,7 @@
+{
+  "taxYear": "2027-28", "taxYearRuns": "6 April 2027 to 5 April 2028", "verifiedDate": "2027-04-07",
+  "categories": {
+    "vat": { "title": "VAT rates", "source": "https://www.gov.uk/vat-rates",
+      "figures": [] }
+  }
+}
