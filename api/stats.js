@@ -17,7 +17,7 @@ const OPS = {
 
 module.exports = async (req, res) => {
   if (handleOptions(req, res)) return;
-  await trackEvent('agent_api_stats');
+  await trackEvent('agent_api_stats', req);
   let args = queryParams(req);
   // params like params/items may be JSON-encoded in the query
   for (const k of ['params', 'data', 'expected', 'observed', 'table', 'x', 'y', 'hypotheses', 'data1', 'data2']) {

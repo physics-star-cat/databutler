@@ -3,7 +3,7 @@ const { trackEvent } = require('../_track');
 
 module.exports = async (req, res) => {
   if (handleOptions(req, res)) return;
-  await trackEvent('agent_api_uk_rates');
+  await trackEvent('agent_api_uk_rates', req);
   const { category } = queryParams(req);
   sendJson(res, 200, { ...ratesLookup(category), ...ATTRIBUTION });
 };

@@ -71,7 +71,7 @@ function makeMcpHandler({ serverName, instructions, tools }) {
         return res.end();
       }
       if (msg.method === 'tools/call') {
-        await trackEvent(`agent_mcp_${String((msg.params || {}).name).slice(0, 28)}`);
+        await trackEvent(`agent_mcp_${String((msg.params || {}).name).slice(0, 28)}`, req);
       }
       res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8', ...CORS });
       res.end(JSON.stringify(await handle(msg)));

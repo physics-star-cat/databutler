@@ -3,7 +3,7 @@ const { trackEvent } = require('../../_track');
 
 module.exports = async (req, res) => {
   if (handleOptions(req, res)) return;
-  await trackEvent('agent_api_uk_exams_specs');
+  await trackEvent('agent_api_uk_exams_specs', req);
   const specs = findSpecs(queryParams(req)).map((sp) => ({
     board: sp.board,
     level: sp.level,

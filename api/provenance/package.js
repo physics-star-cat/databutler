@@ -4,7 +4,7 @@ const { trackEvent } = require('../_track');
 
 module.exports = async (req, res) => {
   if (handleOptions(req, res)) return;
-  await trackEvent('agent_api_provenance_package');
+  await trackEvent('agent_api_provenance_package', req);
   const { ecosystem, name } = queryParams(req);
   if (!ecosystem || !name) {
     return sendJson(res, 400, {
