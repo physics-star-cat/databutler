@@ -25,7 +25,7 @@ test('registry: per-vertical servers list the same tool names as before, no extr
     const r = await rpc(handler, 'tools/list');
     assert.deepEqual(r.body.result.tools.map((t) => t.name), names, key);
     for (const t of r.body.result.tools) {
-      assert.deepEqual(Object.keys(t).sort(), ['description', 'inputSchema', 'name'], `${t.name} leaks keys`);
+      assert.deepEqual(Object.keys(t).sort(), ['annotations', 'description', 'inputSchema', 'name', 'title'], `${t.name} leaks keys`);
     }
   }
 });

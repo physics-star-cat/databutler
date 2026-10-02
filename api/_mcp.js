@@ -16,7 +16,9 @@ const { withEnvelope } = require('./_envelope');
 const PROTOCOL_VERSION = '2025-06-18';
 
 function makeMcpHandler({ serverName, instructions, tools }) {
-  const toolDefs = tools.map(({ run, freshness, cite, delegate, ...def }) => def);
+  // Strip everything that is not part of the MCP tool shape (run/freshness/cite/
+  // delegate/openWorld, plus the registry's server/serverUrl bookkeeping).
+  const toolDefs = tools.map(({ run, freshness, cite, delegate, openWorld, server, serverUrl, ...def }) => def);
   const byName = Object.fromEntries(tools.map((t) => [t.name, t]));
 
   async function handle(msg, req) {

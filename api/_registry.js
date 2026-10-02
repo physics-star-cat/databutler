@@ -2,8 +2,15 @@
  * The single list of every tool Data Butler serves. Per-vertical MCP servers
  * and the front door (api/mcp.js) both build from here. Beyond the MCP tool
  * shape, each tool carries:
+ *   title: short human label (MCP `title`)
  *   freshness: dataset key for the freshness block ('uk-rates' | 'uk-exams' | 'live')
  *   cite(args): { path, query } for the /r permalink, or null
+ *   openWorld: true when the tool fetches live external data on the caller's
+ *     behalf (RDAP, npm, PyPI, whatbreaks.uk); drives annotations.openWorldHint
+ *
+ * annotate() stamps the MCP tool annotations every Data Butler tool shares:
+ * all tools are read-only and non-destructive, so a directory reviewer (and
+ * an agent) can see that at tools/list without reading the descriptions.
  */
 const { ratesLookup, RATES, topicLookup, findSpecs, coverageSummary } = require('./_lib');
 const { domainProvenance, packageProvenance } = require('./_provenance');
@@ -23,6 +30,7 @@ const SERVERS = {
     tools: [
       {
         name: 'uk_rates_lookup',
+        title: 'UK rates lookup',
         description:
           `Current UK (${RATES.taxYear}) rates and thresholds, verified against gov.uk with source ` +
           'URLs and verification dates. Categories: ' +
@@ -57,6 +65,7 @@ const SERVERS = {
     tools: [
       {
         name: 'exam_topic_paper',
+        title: 'Exam topic → paper',
         description:
           'Which exam paper is a topic on? The canonical student revision question ("is ' +
           'electricity paper 2 AQA?" — answer: no, Paper 1). Input a topic plus optional ' +
@@ -79,6 +88,7 @@ const SERVERS = {
       },
       {
         name: 'exam_spec_lookup',
+        title: 'Exam spec lookup',
         description:
           'UK exam specification metadata: spec codes, paper structure (count, duration, marks, ' +
           'calculator rules, tiers), topic lists per paper, official spec links.',
@@ -103,6 +113,7 @@ const SERVERS = {
       },
       {
         name: 'exam_paper_index',
+        title: 'Exam past-paper index',
         description:
           'Official past-paper archive links per spec (links to the board\'s own ' +
           'assessment-resources page — papers are board copyright, so no hosted PDFs).',
@@ -136,6 +147,7 @@ const SERVERS = {
     tools: [
       {
         name: 'domain_provenance',
+        title: 'Domain provenance',
         description:
           'Who runs this domain? Live RDAP lookup: registration date and age, registrar, ' +
           'nameservers, status, whether the registrant is redacted, plus a typosquat check ' +
@@ -149,10 +161,12 @@ const SERVERS = {
         },
         run: (args) => domainProvenance(args.domain),
         freshness: 'live',
+        openWorld: true,
         cite: (a) => ({ path: 'provenance/domain', query: { domain: a.domain } }),
       },
       {
         name: 'package_provenance',
+        title: 'Package provenance',
         description:
           'Who publishes this package, and is it a typosquat? Live npm or PyPI lookup: first-publish ' +
           'date and age, release count, latest version, maintainers/author, linked repo, plus a ' +
@@ -168,6 +182,7 @@ const SERVERS = {
         },
         run: (args) => packageProvenance(args.ecosystem, args.name),
         freshness: 'live',
+        openWorld: true,
         cite: (a) => ({ path: 'provenance/package', query: { ecosystem: a.ecosystem, name: a.name } }),
       },
     ],
@@ -184,6 +199,7 @@ const SERVERS = {
     tools: [
       {
         name: 'descriptive_stats',
+        title: 'Descriptive statistics',
         description: 'Summary statistics for a numeric array: mean, median, sd, variance, quartiles, IQR, skewness, min/max.',
         inputSchema: { type: 'object', properties: { data: numArray }, required: ['data'] },
         run: (a) => S.descriptive(a.data),
@@ -192,6 +208,7 @@ const SERVERS = {
       },
       {
         name: 'distribution',
+        title: 'Probability distribution',
         description:
           'Evaluate a probability distribution (normal, t, chi2, binomial, poisson): pdf/pmf and cdf at a ' +
           'value, and/or the quantile at a probability, plus mean & variance. Params per dist: normal ' +
@@ -212,6 +229,7 @@ const SERVERS = {
       },
       {
         name: 'hypothesis_test',
+        title: 'Hypothesis test',
         description:
           'Run a significance test and get the statistic, p-value, and a plain-language interpretation with ' +
           'assumptions. test = one-sample-t {data, mu0}, two-sample-t {data1, data2}, one-proportion-z ' +
@@ -234,6 +252,7 @@ const SERVERS = {
       },
       {
         name: 'confidence_interval',
+        title: 'Confidence interval',
         description:
           'Confidence interval for a mean (t-based; from data, or n/mean/sd) or a proportion (Wilson; ' +
           'successes/n). kind = mean | proportion; confidence default 0.95.',
@@ -250,6 +269,7 @@ const SERVERS = {
       },
       {
         name: 'bayes_update',
+        title: 'Bayesian update',
         description:
           'Discrete Bayesian update: given competing hypotheses each with a prior and the likelihood of the ' +
           'observed evidence, return normalised posteriors. Priors are renormalised to sum to 1.',
@@ -269,6 +289,7 @@ const SERVERS = {
       },
       {
         name: 'linear_regression',
+        title: 'Linear regression',
         description: 'Simple linear regression of y on x: slope, intercept, r, r², slope std error and p-value, equation.',
         inputSchema: { type: 'object', properties: { x: numArray, y: numArray }, required: ['x', 'y'] },
         run: (a) => S.linearRegression(a),
@@ -279,9 +300,22 @@ const SERVERS = {
   },
 };
 
-const ALL_TOOLS = {};
-for (const [server, s] of Object.entries(SERVERS)) {
-  for (const t of s.tools) ALL_TOOLS[t.name] = { ...t, server, serverUrl: s.url };
+/** MCP tool annotations (2025-06-18): every Data Butler tool is read-only. */
+function annotate(tool) {
+  tool.title = tool.title || tool.name.replace(/_/g, ' ');
+  tool.annotations = {
+    title: tool.title,
+    readOnlyHint: true,
+    destructiveHint: false,
+    idempotentHint: true,
+    openWorldHint: tool.openWorld === true,
+  };
+  return tool;
 }
 
-module.exports = { SERVERS, ALL_TOOLS, BASE };
+const ALL_TOOLS = {};
+for (const [server, s] of Object.entries(SERVERS)) {
+  for (const t of s.tools) ALL_TOOLS[t.name] = { ...annotate(t), server, serverUrl: s.url };
+}
+
+module.exports = { SERVERS, ALL_TOOLS, BASE, annotate };

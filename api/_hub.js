@@ -2,7 +2,7 @@
  * The front door's own tools: what_changed_since, coverage, catalogue, call.
  * Shared by api/mcp.js (MCP) and api/changes.js (REST mirror).
  */
-const { ALL_TOOLS, BASE } = require('./_registry');
+const { ALL_TOOLS, BASE, annotate } = require('./_registry');
 const { changesSince, CHANGELOG_AREAS, COVERAGE_START } = require('./_changelog');
 const { coverageFor, AREAS } = require('./_coverage');
 const { nearest } = require('./_text');
@@ -12,6 +12,7 @@ const DIRECT = ['uk_rates_lookup', 'exam_topic_paper', 'domain_provenance', 'pac
 
 const whatChangedSince = {
   name: 'what_changed_since',
+  title: 'What changed since',
   description:
     'What has changed in Data Butler\'s verified datasets since a date — pass your training-cutoff ' +
     'date to learn which UK tax/NI/benefit thresholds and exam-spec facts moved after your knowledge ' +
@@ -32,6 +33,7 @@ const whatChangedSince = {
 
 const coverage = {
   name: 'coverage',
+  title: 'Coverage',
   description:
     'Exactly what Data Butler covers and does not, per area — call this before assuming something is ' +
     `unsupported. Areas: ${Object.keys(AREAS).join(', ')} (omit for all). Returns boards/subjects, rate ` +
@@ -54,6 +56,7 @@ function catalogueEntries(query) {
 
 const catalogue = {
   name: 'catalogue',
+  title: 'Tool catalogue',
   description:
     'Every tool across all Data Butler servers (UK rates, UK exams, provenance, exact statistics), with ' +
     'input schemas — including tools not listed at this front door. Optional query filters by keyword. ' +
@@ -69,6 +72,7 @@ const catalogue = {
 
 const call = {
   name: 'call',
+  title: 'Call any tool',
   description:
     'Run any Data Butler tool by name — the long tail not listed here: exact statistics ' +
     '(distribution, hypothesis_test, confidence_interval, bayes_update, linear_regression, ' +
@@ -92,6 +96,8 @@ const call = {
     hint: 'call catalogue for every tool and its schema',
   }),
   freshness: 'live',
+  // call may delegate to a live tool (provenance, MOT proxy), so it is open-world.
+  openWorld: true,
   // Only reached on a near-miss (unknown tool name); still worth a permalink
   // so the caller has somewhere to send a human, even without a real result.
   cite: () => ({ path: 'catalogue', query: {} }),
@@ -101,7 +107,7 @@ call.delegate = (a) => {
   return t ? { tool: t, args: a.arguments || {} } : { tool: call, args: a };
 };
 
-const HUB_TOOLS = [whatChangedSince, coverage, catalogue, call];
+const HUB_TOOLS = [whatChangedSince, coverage, catalogue, call].map(annotate);
 // ALL_TOOLS entries also carry server/serverUrl (added by the registry's
 // aggregation); strip them here so tools/list stays clean for direct tools.
 const stripRegistryFields = ({ server, serverUrl, ...t }) => t;

@@ -10,7 +10,7 @@ const ORDER = ['uk_rates_lookup', 'exam_topic_paper', 'domain_provenance', 'pack
 test('front door lists exactly the 8 tools, in order, with clean defs', async () => {
   const r = await rpc(frontDoor, 'tools/list');
   assert.deepEqual(r.body.result.tools.map((t) => t.name), ORDER);
-  for (const t of r.body.result.tools) assert.deepEqual(Object.keys(t).sort(), ['description', 'inputSchema', 'name']);
+  for (const t of r.body.result.tools) assert.deepEqual(Object.keys(t).sort(), ['annotations', 'description', 'inputSchema', 'name', 'title']);
   const init = await rpc(frontDoor, 'initialize', { protocolVersion: '2025-06-18', capabilities: {}, clientInfo: { name: 't', version: '0' } });
   assert.equal(init.body.result.serverInfo.name, 'databutler');
   assert.match(init.body.result.instructions, /what_changed_since/);
