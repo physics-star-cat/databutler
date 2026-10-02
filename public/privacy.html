@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy — Data Butler</title>
+<meta name="description" content="What databutler.dev records when an agent or a person uses it: no accounts, no cookies, anonymous event counts only.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/icon.png" type="image/png" sizes="512x512">
+<style>
+  body{background:#0d1117;color:#e6edf3;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;max-width:720px;margin:8vh auto;padding:0 20px;line-height:1.6}
+  a{color:#7ee787} h1{font-size:1.6rem} h2{font-size:1.1rem;margin-top:2em} code{background:#161b22;padding:2px 6px;border-radius:4px}
+  .quiet{color:#8b949e;font-size:.9rem} table{border-collapse:collapse;width:100%;font-size:.9rem} td,th{text-align:left;vertical-align:top;padding:6px 8px;border-bottom:1px solid #30363d}
+</style>
+</head>
+<body>
+<h1>🤵 Privacy</h1>
+<p>Data Butler (databutler.dev) serves verified reference data to AI agents over
+REST and MCP. This page says plainly what we record when you — or an agent
+acting for you — use it. The short version: <strong>no accounts, no cookies,
+no stored IP addresses, no logged request bodies.</strong></p>
+
+<h2>What we record</h2>
+<ul>
+  <li><strong>No accounts.</strong> There is nothing to sign up for or log in to; no API keys.</li>
+  <li><strong>No cookies</strong> and no browser storage. Pages are static; nothing identifies a returning visitor.</li>
+  <li><strong>Anonymous event counts.</strong> Each API or MCP call sends one event to
+    Google Analytics 4 via its server-side Measurement Protocol. An event carries the
+    <em>event name</em> (e.g. <code>agent_mcp_uk_rates_lookup</code>, <code>cite_page_view</code>),
+    a <em>client class</em> derived from the User-Agent header (e.g. <code>claude</code>,
+    <code>cursor</code>, <code>python</code>, <code>browser</code>), the first 100 characters of
+    that User-Agent string, and a random per-request identifier that is never reused.
+    No query parameters, tool arguments, IP address or page URL are included.</li>
+  <li><strong>No IP addresses stored by us.</strong> We do not keep server logs. Our hosting
+    provider (Vercel) handles requests and may keep short-lived operational logs under its
+    own privacy policy; we do not export or retain them.</li>
+  <li><strong>No request bodies logged.</strong> The question an agent asks (a tax category, a
+    domain, a dataset of numbers for a statistics tool, a vehicle) is processed to answer
+    it and then discarded.</li>
+</ul>
+
+<h2>Third-party fetches made on your behalf</h2>
+<p>Some tools compute their answer live by fetching public sources. In those cases
+the <em>value you asked about</em> travels to that source, together with our
+User-Agent (<code>databutler.dev-provenance/1.0</code> or <code>databutler-hub/1.0</code>);
+your IP address does not, because the request originates from our server.</p>
+<table>
+  <tr><th>Tool</th><th>Source contacted</th><th>What it receives</th></tr>
+  <tr><td><code>domain_provenance</code></td><td>RDAP via <code>rdap.org</code> and the TLD's registry</td><td>the domain name you asked about</td></tr>
+  <tr><td><code>package_provenance</code></td><td><code>registry.npmjs.org</code> / <code>pypi.org</code></td><td>the package name you asked about</td></tr>
+  <tr><td><code>uk_mot_reliability</code>, <code>uk_mot_vehicle_search</code></td><td><code>whatbreaks.uk</code> (same operator; see its own <a href="https://whatbreaks.uk/api" rel="nofollow">/api</a>)</td><td>make, model, year, mileage or search text</td></tr>
+  <tr><td>weekly source watcher (not user-triggered)</td><td><code>www.gov.uk</code> content API and exam-board pages</td><td>nothing about any user — it re-checks our own source URLs</td></tr>
+</table>
+<p>Everything else (UK rates, exams, statistics, French and Japanese recall datasets)
+is answered from data on our server with no external call.</p>
+
+<h2>Citation pages</h2>
+<p>Every answer carries a <code>cite.url</code> permalink such as
+<a href="/r/uk/rates?category=income-tax">/r/uk/rates?category=income-tax</a>. These pages
+are stateless: the URL encodes the query and re-runs it. Opening one records a single
+anonymous <code>cite_page_view</code> event as above. They are marked <code>noindex</code>.</p>
+
+<h2>Contact</h2>
+<p>Questions or requests: open an issue on the project repository,
+<a href="https://github.com/physics-star-cat/databutler/issues" rel="nofollow">github.com/physics-star-cat/databutler</a>.
+This is the same route used for the data-source change notices the project files for itself.</p>
+
+<p class="quiet">Last updated 2026-10-03. Data Butler is operated by the same individual as
+<a href="https://whatbreaks.uk">whatbreaks.uk</a> and <a href="https://lowriskquotes.com">lowriskquotes.com</a>.
+<a href="/">databutler.dev</a> · <a href="/api">/api</a> · <a href="/llms.txt">llms.txt</a></p>
+</body>
+</html>
