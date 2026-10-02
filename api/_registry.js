@@ -3,7 +3,7 @@
  * and the front door (api/mcp.js) both build from here. Beyond the MCP tool
  * shape, each tool carries:
  *   title: short human label (MCP `title`)
- *   freshness: dataset key for the freshness block ('uk-rates' | 'uk-exams' | 'live')
+ *   freshness: dataset key for the freshness block ('uk-rates' | 'uk-exams' | 'fr-recalls' | 'jp-recalls' | 'live')
  *   cite(args): { path, query } for the /r permalink, or null
  *   openWorld: true when the tool fetches live external data on the caller's
  *     behalf (RDAP, npm, PyPI, whatbreaks.uk); drives annotations.openWorldHint
@@ -15,6 +15,8 @@
 const { ratesLookup, RATES, topicLookup, findSpecs, coverageSummary } = require('./_lib');
 const { domainProvenance, packageProvenance } = require('./_provenance');
 const S = require('./_stats.js');
+const V = require('./_vehicles');
+const { motReliability, motVehicleSearch } = require('./_mot');
 
 const BASE = 'https://databutler.dev';
 const numArray = { type: 'array', items: { type: 'number' } };
@@ -295,6 +297,144 @@ const SERVERS = {
         run: (a) => S.linearRegression(a),
         freshness: 'live',
         cite: (a) => ({ path: 'stats', query: { op: 'regression', ...a } }),
+      },
+    ],
+  },
+
+  vehicles: {
+    serverName: 'databutler-vehicles',
+    url: `${BASE}/api/mcp/vehicles`,
+    instructions:
+      'Official vehicle datasets from databutler.dev, one hub: UK MOT failure data (live from whatbreaks.uk — real ' +
+      'DfT test outcomes), French recalls (RappelConso / DGCCRF open data) and Japanese recalls + owner complaints ' +
+      '(MLIT). Use these instead of recalling recall campaigns or failure patterns from memory. Every result names ' +
+      'its official source and verifiedDate; recall texts are the official French/Japanese originals — translate for ' +
+      'the user but keep the fiche/notification number and link. Counts are not reliability rankings (sales volume, ' +
+      'multi-model campaigns). EU Safety Gate is a stub for now. Cite https://databutler.dev/ and the source.',
+    tools: [
+      {
+        name: 'uk_mot_reliability',
+        title: 'UK MOT reliability',
+        description:
+          'Real UK MOT failure data for a used car: per-category failure rates (overall and interpolated at a given ' +
+          'mileage) and the riskiest components with typical failure mileages, for one model generation. Live proxy ' +
+          'to whatbreaks.uk (same operator; aggregated from DfT anonymised MOT results). Use when a user is buying, ' +
+          'comparing or maintaining a car sold in the UK. If several generations match, the result lists candidates — ' +
+          'retry with year or the exact model name.',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            make: { type: 'string', description: 'e.g. Volkswagen' },
+            model: { type: 'string', description: 'e.g. Golf — generation resolved via year' },
+            year: { type: 'number', description: 'optional registration year' },
+            mileage: { type: 'number', description: 'optional current mileage in miles' },
+          },
+          required: ['make', 'model'],
+        },
+        run: (a) => motReliability(a),
+        freshness: 'live',
+        openWorld: true,
+        cite: (a) => ({ path: 'vehicles/uk/mot', query: { make: a.make, model: a.model, year: a.year, mileage: a.mileage } }),
+      },
+      {
+        name: 'uk_mot_vehicle_search',
+        title: 'UK MOT vehicle search',
+        description:
+          'Search the 530 UK model generations covered by the MOT dataset by free text (e.g. "focus", "golf"). Use to ' +
+          'check coverage or disambiguate a generation before uk_mot_reliability. Live proxy to whatbreaks.uk.',
+        inputSchema: { type: 'object', properties: { q: { type: 'string', description: 'free-text query' } }, required: ['q'] },
+        run: (a) => motVehicleSearch(a),
+        freshness: 'live',
+        openWorld: true,
+        cite: (a) => ({ path: 'vehicles/uk/search', query: { q: a.q } }),
+      },
+      {
+        name: 'fr_recalls_for_model',
+        title: 'French recalls for a model',
+        description:
+          `Official French vehicle recall notices (RappelConso, DGCCRF open data; ${V.FR.count} automobile fiches ` +
+          `${V.FR.dateRange.from} → ${V.FR.dateRange.to}) for a brand and model: fiche number, date, risks, defect ` +
+          'description (motif, in French), commercialisation periods and the official fiche link. Omit model to list a ' +
+          'brand. Matches by a reviewed alias table plus whole-word text match; each fiche says which.',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            brand: { type: 'string', description: 'e.g. peugeot, Mercedes-Benz, VW' },
+            model: { type: 'string', description: 'e.g. 208, Classe A, Golf (optional: omit to list the brand)' },
+          },
+          required: ['brand'],
+        },
+        run: (a) => V.frRecallsForModel(a),
+        freshness: 'fr-recalls',
+        cite: (a) => ({ path: 'vehicles/fr/recalls', query: { brand: a.brand, model: a.model } }),
+      },
+      {
+        name: 'fr_recalls_search',
+        title: 'French recalls search',
+        description:
+          'Keyword search across all RappelConso automobile fiches (brand, model text, label, defect description, ' +
+          'risks), newest first, optionally since a date. Text is French and lowercase ("airbag", "incendie", ' +
+          '"takata", "batterie haute tension"). Use for cross-brand questions ("recent EV battery fire recalls in France").',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            text: { type: 'string', description: 'words that must all appear, e.g. "airbag takata"' },
+            since: { type: 'string', description: 'optional ISO date YYYY-MM-DD — only fiches published on/after it' },
+          },
+          required: ['text'],
+        },
+        run: (a) => V.frRecallsSearch(a),
+        freshness: 'fr-recalls',
+        cite: (a) => ({ path: 'vehicles/fr/search', query: { text: a.text, since: a.since } }),
+      },
+      {
+        name: 'jp_recalls_for_model',
+        title: 'Japanese recalls for a model',
+        description:
+          `Official Japanese recall filings (国土交通省 MLIT; ${V.JP.counts.recallFilings} filings matched to ` +
+          `${V.JP.counts.models} popular JDM models) for a make and model: notification number, date, defective device, ` +
+          'affected vehicles, situation and remedy (Japanese originals) and the official filing PDF. Accepts English ' +
+          '(Toyota Prius, Honda N-BOX) or Japanese (トヨタ プリウス) names.',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            make: { type: 'string', description: 'e.g. toyota, Honda, スズキ' },
+            model: { type: 'string', description: 'e.g. prius, N-BOX, ジムニー' },
+          },
+          required: ['make', 'model'],
+        },
+        run: (a) => V.jpRecallsForModel(a),
+        freshness: 'jp-recalls',
+        cite: (a) => ({ path: 'vehicles/jp/recalls', query: { make: a.make, model: a.model } }),
+      },
+      {
+        name: 'jp_complaints_summary',
+        title: 'Japanese owner complaints summary',
+        description:
+          `Owner defect reports filed with MLIT's 不具合情報ホットライン (${V.JP.counts.complaints} across ` +
+          `${V.JP.counts.models} models): total reports for a model and the breakdown by defective device (brakes, ` +
+          'lights, engine, body…) from the newest sample. Reports are unverified owner submissions — compare shapes, ' +
+          'not raw counts. Accepts English or Japanese names.',
+        inputSchema: {
+          type: 'object',
+          properties: { make: { type: 'string', description: 'e.g. honda' }, model: { type: 'string', description: 'e.g. n-box' } },
+          required: ['make', 'model'],
+        },
+        run: (a) => V.jpComplaintsSummary(a),
+        freshness: 'jp-recalls',
+        cite: (a) => ({ path: 'vehicles/jp/complaints', query: { make: a.make, model: a.model } }),
+      },
+      {
+        name: 'eu_safety_gate_recalls',
+        title: 'EU Safety Gate recalls (stub)',
+        description:
+          'STUB — not yet live. EU Safety Gate (RAPEX) vehicle alerts are being added; until then this returns ' +
+          'covered:false with the official Safety Gate URL and points to fr_recalls_* (RappelConso republishes the ' +
+          'Safety Gate automobile alerts that concern France).',
+        inputSchema: { type: 'object', properties: { brand: { type: 'string' }, model: { type: 'string' } } },
+        run: (a) => V.euSafetyGateStub(a),
+        freshness: 'live',
+        cite: (a) => ({ path: 'vehicles/eu/safety-gate', query: { brand: a.brand, model: a.model } }),
       },
     ],
   },

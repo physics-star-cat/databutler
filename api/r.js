@@ -33,6 +33,13 @@ const ROUTES = {
   'provenance/domain': { tool: () => ALL_TOOLS.domain_provenance, args: (q) => ({ domain: q.domain }), rest: (q) => `/api/provenance/domain${qs(q)}` },
   'provenance/package': { tool: () => ALL_TOOLS.package_provenance, args: (q) => ({ ecosystem: q.ecosystem, name: q.name }), rest: (q) => `/api/provenance/package${qs(q)}` },
   stats: { tool: (q) => ALL_TOOLS[STATS_OPS[q.op]], args: (q) => { const { op, ...rest } = parseJsonValues(q); return rest; }, rest: (q) => `/api/stats${qs(q)}` },
+  'vehicles/uk/mot': { tool: () => ALL_TOOLS.uk_mot_reliability, args: (q) => ({ make: q.make, model: q.model, ...(q.year ? { year: Number(q.year) } : {}), ...(q.mileage ? { mileage: Number(q.mileage) } : {}) }), rest: (q) => `/api/vehicles/uk/mot${qs(q)}` },
+  'vehicles/uk/search': { tool: () => ALL_TOOLS.uk_mot_vehicle_search, args: (q) => ({ q: q.q }), rest: (q) => `/api/vehicles/uk/search${qs(q)}` },
+  'vehicles/fr/recalls': { tool: () => ALL_TOOLS.fr_recalls_for_model, args: (q) => ({ brand: q.brand, model: q.model }), rest: (q) => `/api/vehicles/fr/recalls${qs(q)}` },
+  'vehicles/fr/search': { tool: () => ALL_TOOLS.fr_recalls_search, args: (q) => ({ text: q.text, since: q.since }), rest: (q) => `/api/vehicles/fr/search${qs(q)}` },
+  'vehicles/jp/recalls': { tool: () => ALL_TOOLS.jp_recalls_for_model, args: (q) => ({ make: q.make, model: q.model }), rest: (q) => `/api/vehicles/jp/recalls${qs(q)}` },
+  'vehicles/jp/complaints': { tool: () => ALL_TOOLS.jp_complaints_summary, args: (q) => ({ make: q.make, model: q.model }), rest: (q) => `/api/vehicles/jp/complaints${qs(q)}` },
+  'vehicles/eu/safety-gate': { tool: () => ALL_TOOLS.eu_safety_gate_recalls, args: (q) => ({ brand: q.brand, model: q.model }), rest: (q) => `/api/vehicles/eu/safety-gate${qs(q)}` },
   changes: { tool: () => whatChangedSince, args: (q) => q, rest: (q) => `/api/changes${qs(q)}` },
   coverage: { tool: () => coverage, args: (q) => q, rest: () => '/api' },
   catalogue: { tool: () => catalogue, args: (q) => q, rest: () => '/api' },
@@ -51,7 +58,7 @@ const escText = (s) => String(s).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': 
 function collectUrls(obj, out = new Set()) {
   if (!obj || typeof obj !== 'object') return out;
   for (const [k, v] of Object.entries(obj)) {
-    if (typeof v === 'string' && /^https?:\/\//.test(v) && /source|url|papers|docs/i.test(k)) out.add(v);
+    if (typeof v === 'string' && /^https?:\/\//.test(v) && /source|url|papers|docs|link|pdf/i.test(k)) out.add(v);
     else if (v && typeof v === 'object') collectUrls(v, out);
   }
   return out;

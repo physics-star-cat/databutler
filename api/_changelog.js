@@ -12,7 +12,7 @@ const CHANGELOG = require('../data/changelog.json');
 const { nearest } = require('./_text');
 
 const COVERAGE_START = '2026-08-31'; // first full verification of every dataset
-const CHANGELOG_AREAS = ['uk-rates', 'uk-exams']; // provenance/stats hold no dataset
+const CHANGELOG_AREAS = ['uk-rates', 'uk-exams', 'vehicles']; // provenance/stats hold no dataset; vehicles entries come from scripts/vehicles.js
 const MAX_ENTRIES = 100;
 
 const slug = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');

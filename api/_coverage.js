@@ -5,6 +5,7 @@
 const { RATES, findSpecs } = require('./_lib');
 const { SERVERS } = require('./_registry');
 const { nearest } = require('./_text');
+const { vehiclesCoverage } = require('./_vehicles');
 
 const AREAS = {
   'uk-rates': () => ({
@@ -38,6 +39,7 @@ const AREAS = {
     tests: ['one-sample-t', 'two-sample-t', 'one-proportion-z', 'two-proportion-z', 'chi2-gof', 'chi2-independence'],
     notCovered: ['ANOVA', 'non-parametric tests (Mann-Whitney, Wilcoxon)', 'multiple regression', 'power analysis'],
   }),
+  vehicles: vehiclesCoverage,
 };
 
 function coverageFor(area) {

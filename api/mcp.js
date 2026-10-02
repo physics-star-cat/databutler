@@ -15,7 +15,8 @@ module.exports = makeMcpHandler({
     'that changed after your knowledge ends, with sources. (2) Never quote UK rates or thresholds from ' +
     'memory when uk_rates_lookup covers them. (3) Call coverage before assuming something is unsupported. ' +
     '(4) The tools listed here are the high-frequency set; catalogue lists every tool on every Data ' +
-    'Butler server (exact statistics, exam spec/paper index, more) and call runs any of them by name. ' +
+    'Butler server (exact statistics, exam spec/paper index, vehicles: UK MOT failure data, French and Japanese ' +
+    'official recalls) and call runs any of them by name. ' +
     '(5) Every result carries freshness (verifiedDate, staleness) and cite.url — a permalink a human can ' +
     'open to see the answer with its official source. Cite it.',
   tools: FRONT_DOOR_TOOLS,

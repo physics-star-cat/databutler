@@ -27,16 +27,23 @@ check package "$(inner "$(tool package_provenance '{"ecosystem":"npm","name":"ex
 check changed "$(inner "$(tool what_changed_since '{"since":"2026-06-01"}')")" \
   "d['since']=='2026-06-01' and isinstance(d['entries'],list) and d['coverageStart']=='2026-08-31'"
 check coverage "$(inner "$(tool coverage '{"area":"uk-exams"}')")" "'aqa' in d['boards']"
-check catalogue "$(inner "$(tool catalogue '{}')")" "d['count']==12"
+check catalogue "$(inner "$(tool catalogue '{}')")" "d['count']==19"
 check call-stats "$(inner "$(tool call '{"tool":"distribution","arguments":{"dist":"normal","at":1.96}}')")" \
   "abs(d['cdf']-0.975)<0.001 and d['cite']['url'].startswith('https://databutler.dev/r/stats?op=distribution')"
 check call-unknown "$(inner "$(tool call '{"tool":"linear_regresion","arguments":{}}')")" "d['covered']==False and d['nearest'][0]=='linear_regression'"
 check call-nearmiss-rates "$(inner "$(tool uk_rates_lookup '{"category":"incme"}')")" "d['covered']==False and 'income-tax' in d['nearest']"
 
-for name in uk-rates uk-exams provenance stats; do
+for name in uk-rates uk-exams provenance stats vehicles; do
   check "legacy $name tools/list" "$(curl -sS -X POST "$BASE/api/mcp/$name" -H 'Content-Type: application/json' -d '{"jsonrpc":"2.0","id":2,"method":"tools/list"}')" "len(d['result']['tools'])>0"
 done
 
+check call-fr-recalls "$(inner "$(tool call '{"tool":"fr_recalls_for_model","arguments":{"brand":"peugeot","model":"208"}}')")" \
+  "d['count']>0 and d['recalls'][0]['link'].startswith('https://rappel.conso.gouv.fr/') and d['freshness']['verifiedDate']"
+check call-jp-recalls "$(inner "$(tool call '{"tool":"jp_recalls_for_model","arguments":{"make":"toyota","model":"prius"}}')")" \
+  "d['count']>0 and d['recalls'][0]['officialPdf'].startswith('https://renrakuda.mlit.go.jp/mt/recallpdf/')"
+check call-mot-search "$(inner "$(tool call '{"tool":"uk_mot_vehicle_search","arguments":{"q":"golf"}}')")" \
+  "('vehicles' in d and d['upstreamProvenance']['attribution']=='whatbreaks.uk') or d.get('error')=='upstream unavailable'"
+check rest-fr-recalls "$(curl -sS "$BASE/api/vehicles/fr/recalls?brand=peugeot&model=208")" "'freshness' in d and d['cite']['url'].startswith('https://databutler.dev/r/vehicles/fr/recalls?')"
 check rest-changes "$(curl -sS "$BASE/api/changes?since=2026-06-01&area=uk-rates")" "d['area']=='uk-rates' and 'cite' in d"
 check rest-rates-envelope "$(curl -sS "$BASE/api/uk/rates?category=vat")" "'freshness' in d and 'cite' in d"
 

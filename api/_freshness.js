@@ -3,11 +3,15 @@
  * and nextScheduledRefresh in their JSON (see docs/CURATION.md calendar).
  */
 const { RATES, AQA_GCSE } = require('./_lib');
+const FR_RECALLS = require('../data/vehicles/fr-recalls.json');
+const JP_RECALLS = require('../data/vehicles/jp-recalls.json');
 
 const DUE_WINDOW_DAYS = 14;
 const DATASETS = {
   'uk-rates': RATES,
   'uk-exams': AQA_GCSE,
+  'fr-recalls': FR_RECALLS,
+  'jp-recalls': JP_RECALLS,
 };
 
 function freshnessFor(dataset, now = new Date()) {
