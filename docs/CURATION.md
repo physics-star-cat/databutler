@@ -16,6 +16,9 @@ The product is trust. A wrong number is worse than no number. Rules:
 |---|---|---|
 | `data/uk/rates/<year>.json` | Every 6 April (new tax year) + after Budgets/Autumn Statements; NMW on 1 April | Re-fetch each `source` gov.uk page; write a NEW file per tax year (keep old years — agents ask historical questions); update the year the API defaults to in `_lib.js`. |
 | `data/uk/exams/*.json` | Each September (spec changes announce ~a year ahead) | Re-fetch each `specUrl` at-a-glance page; bump `verifiedDate`; diff topic lists. |
+| `data/vehicles/fr-recalls.json` | Monthly (RappelConso publishes continuously) | In `../car_websites/controle-technique`: `node data/fetch-rappelconso.js`, commit; then here `node scripts/vehicles.js fr` (derives the compact file, bumps `verifiedDate`/`nextScheduledRefresh` from the fetch date, appends a `vehicles` changelog entry when counts move). |
+| `data/vehicles/jp-recalls.json` | Monthly (MLIT filings are newsworthy when fresh) | In `../car_websites/shaken-data`: `node data/fetch-mlit.js` (15–20 min, 700 ms politeness delay — do not hammer), commit; then here `node scripts/vehicles.js jp`. |
+| UK MOT (vehicles) | — | No dataset here: live proxy to whatbreaks.uk, which owns the DfT bulk-data refresh. |
 | `data/sources.json` | After every data refresh (automatic via `scripts/changelog.js`) | `node scripts/sources.js` re-checks every source URL (gov.uk content API / page hash). |
 | `data/changelog.json` | With every data refresh | `node scripts/changelog.js`; fill in `note` lines. See "Changelog & source watcher". |
 
@@ -29,6 +32,19 @@ The product is trust. A wrong number is worse than no number. Rules:
   specification-at-a-glance pages. Notable verified quirks: Trilogy Physics
   Paper 2 has NO Space physics; Maths has no topic→paper mapping (any topic,
   any paper; Paper 1 non-calculator).
+
+## Verification log (vehicles, added 2026-10-03)
+
+- 2026-10-02 — RappelConso: full `rappelconso-v2-gtin-espaces` export for
+  sub-category "automobiles, motos, scooters" (1,663 fiches, 2018-01-19 →
+  2026-08-07) as committed in controle-technique; curated model index = that
+  site's reviewed alias matching (568 fiches → 94 models). Reshaped, not edited.
+- 2026-08-30 — MLIT: 919 unique recall filings (1,377 model links) and 19,659
+  owner complaints across 75 models, as committed in shaken-data. Per-filing
+  PDF URL pattern `https://renrakuda.mlit.go.jp/mt/recallpdf/<no>.pdf` verified
+  200 on 2026-10-03. Data is a month old at build time — the freshness block
+  says `due` honestly until the monthly refresh runs.
+- EU Safety Gate: stub only; no data claimed.
 
 ## Expansion queue (exams)
 

@@ -1,4 +1,5 @@
 const { sendJson, handleOptions, ATTRIBUTION, coverageSummary, RATES } = require('./_lib');
+const { FR, JP } = require('./_vehicles');
 
 module.exports = (req, res) => {
   if (handleOptions(req, res)) return;
@@ -64,13 +65,63 @@ module.exports = (req, res) => {
           'Array/table inputs via POST JSON body. Numerical core validated against reference tables.',
         example: 'https://databutler.dev/api/stats?op=distribution&dist=normal&at=1.96',
       },
+      'GET /api/vehicles/uk/mot': {
+        description:
+          'Real UK MOT failure data for one model generation: per-category failure rates (overall and at your mileage), ' +
+          'riskiest components. Live proxy to whatbreaks.uk (same operator; DfT anonymised MOT results).',
+        params: { make: 'e.g. Volkswagen', model: 'e.g. Golf', year: 'optional registration year', mileage: 'optional miles' },
+        example: 'https://databutler.dev/api/vehicles/uk/mot?make=Volkswagen&model=Golf&year=2018&mileage=80000',
+      },
+      'GET /api/vehicles/uk/search': {
+        description: 'Search the 530 UK model generations covered by the MOT dataset (live proxy to whatbreaks.uk).',
+        params: { q: 'free text, e.g. golf' },
+        example: 'https://databutler.dev/api/vehicles/uk/search?q=golf',
+      },
+      'GET /api/vehicles/fr/recalls': {
+        description:
+          `Official French vehicle recalls (RappelConso / DGCCRF open data, ${FR.count} automobile fiches ${FR.dateRange.from} → ${FR.dateRange.to}) ` +
+          'for a brand (+ model): fiche number, date, risks, defect text, official fiche link.',
+        params: { brand: 'e.g. peugeot, Mercedes-Benz, VW', model: 'optional, e.g. 208' },
+        example: 'https://databutler.dev/api/vehicles/fr/recalls?brand=peugeot&model=208',
+      },
+      'GET /api/vehicles/fr/search': {
+        description: 'Keyword search across all RappelConso automobile fiches (French text), newest first, optional since date.',
+        params: { text: 'e.g. airbag takata', since: 'optional YYYY-MM-DD' },
+        example: 'https://databutler.dev/api/vehicles/fr/search?text=airbag%20takata&since=2026-01-01',
+      },
+      'GET /api/vehicles/jp/recalls': {
+        description:
+          `Official Japanese recall filings (国土交通省 MLIT; ${JP.counts.recallFilings} filings across ${JP.counts.models} popular JDM models): ` +
+          'notification number, date, device, affected vehicles, situation/remedy, official PDF. English or Japanese names.',
+        params: { make: 'e.g. toyota', model: 'e.g. prius, N-BOX' },
+        example: 'https://databutler.dev/api/vehicles/jp/recalls?make=toyota&model=prius',
+      },
+      'GET /api/vehicles/jp/complaints': {
+        description: `MLIT owner defect reports (${JP.counts.complaints} across ${JP.counts.models} models): total per model + breakdown by defective device.`,
+        params: { make: 'e.g. honda', model: 'e.g. n-box' },
+        example: 'https://databutler.dev/api/vehicles/jp/complaints?make=honda&model=n-box',
+      },
+      'GET /api/vehicles/eu/safety-gate': 'STUB — EU Safety Gate vehicle alerts are being added; returns covered:false with the official URL for now.',
       'POST /api/mcp/uk-rates': 'Remote MCP server — tool uk_rates_lookup.',
       'POST /api/mcp/uk-exams': 'Remote MCP server — tools exam_topic_paper, exam_spec_lookup, exam_paper_index.',
       'POST /api/mcp/provenance': 'Remote MCP server — tools domain_provenance, package_provenance.',
       'POST /api/mcp/stats':
         'Remote MCP server — descriptive_stats, distribution, hypothesis_test, confidence_interval, bayes_update, linear_regression.',
+      'POST /api/mcp/vehicles':
+        'Remote MCP server — uk_mot_reliability, uk_mot_vehicle_search (live via whatbreaks.uk), fr_recalls_for_model, ' +
+        'fr_recalls_search, jp_recalls_for_model, jp_complaints_summary, eu_safety_gate_recalls (stub).',
     },
-    coverage: { exams: coverageSummary(), rates: `tax year ${RATES.taxYear}` },
+    coverage: {
+      exams: coverageSummary(),
+      rates: `tax year ${RATES.taxYear}`,
+      vehicles: {
+        ukMot: '530 UK model generations (live proxy to whatbreaks.uk)',
+        frRecalls: `${FR.count} RappelConso automobile fiches, verified ${FR.verifiedDate}`,
+        jpRecalls: `${JP.counts.recallFilings} MLIT filings + ${JP.counts.complaints} owner complaints across ${JP.counts.models} models, verified ${JP.verifiedDate}`,
+        euSafetyGate: 'stub',
+      },
+    },
+    privacy: 'https://databutler.dev/privacy',
     ...ATTRIBUTION,
   });
 };

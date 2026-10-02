@@ -1,0 +1,9 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.physics-star-cat/databutler-vehicles",
+  "description": "Official vehicle data for AI agents: real UK MOT failure rates by model and mileage (live from whatbreaks.uk), French recalls (RappelConso/DGCCRF) and Japanese recalls + owner complaints (MLIT). Source and verifiedDate on every answer.",
+  "repository": { "url": "https://github.com/physics-star-cat/databutler", "source": "github" },
+  "version": "1.0.0",
+  "websiteUrl": "https://databutler.dev/api",
+  "remotes": [{ "type": "streamable-http", "url": "https://databutler.dev/api/mcp/vehicles" }]
+}

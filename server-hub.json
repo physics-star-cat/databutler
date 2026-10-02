@@ -1,9 +1,17 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.physics-star-cat/databutler",
-  "description": "Verified reference data for AI agents: UK rates & exams, domain/package provenance, exact stats — plus what_changed_since your training cutoff. Provenance + citation permalink on every answer.",
-  "repository": { "url": "https://github.com/physics-star-cat/databutler", "source": "github" },
+  "description": "Verified reference data for AI agents: UK rates & exams, domain/package provenance, exact stats, vehicles (UK MOT failure data, French and Japanese official recalls) \u2014 plus what_changed_since your training cutoff. Provenance + citation permalink on every answer.",
+  "repository": {
+    "url": "https://github.com/physics-star-cat/databutler",
+    "source": "github"
+  },
   "version": "1.0.0",
   "websiteUrl": "https://databutler.dev/api",
-  "remotes": [{ "type": "streamable-http", "url": "https://databutler.dev/api/mcp" }]
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://databutler.dev/api/mcp"
+    }
+  ]
 }
