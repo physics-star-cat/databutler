@@ -48,7 +48,7 @@ check rest-changes "$(curl -sS "$BASE/api/changes?since=2026-06-01&area=uk-rates
 check rest-rates-envelope "$(curl -sS "$BASE/api/uk/rates?category=vat")" "'freshness' in d and 'cite' in d"
 
 R="$(curl -sS -D - "$BASE/r/uk/rates?category=income-tax")"
-if grep -q 'X-Robots-Tag: noindex' <<<"$R" && grep -q 'income-tax-rates' <<<"$R" && grep -q 'Personal Allowance' <<<"$R"; then echo "PASS /r page"; else echo "FAIL /r page"; FAILED=1; fi
+if grep -qi 'x-robots-tag: noindex' <<<"$R" && grep -q 'income-tax-rates' <<<"$R" && grep -q 'Personal Allowance' <<<"$R"; then echo "PASS /r page"; else echo "FAIL /r page"; FAILED=1; fi
 CODE="$(curl -s -o /dev/null -w '%{http_code}' "$BASE/api/cron/watch-sources")"
 if [ "$CODE" = "401" ]; then echo "PASS cron unauth"; else echo "FAIL cron unauth ($CODE)"; FAILED=1; fi
 
