@@ -15,13 +15,14 @@
  * Contract: api/_areas/README.md. Playbook: docs/ADDING_AN_AREA.md.
  */
 const DATA = require('../../data/de-rates.json');
-const { nearest } = require('../_text');
-const { BASE, diffCategories, slug } = require('../_area_kit');
+const { BASE, diffCategories, slug, categoriesLookup } = require('../_area_kit');
 
 const AREA = 'de-rates';
 const TOOL = 'de_rates_lookup';
 const CATEGORIES = Object.keys(DATA.categories);
 const TAX_YEAR = DATA.taxYear;
+/** Header (area, taxYear, taxYearRuns, jurisdiction, currency, verifiedDate) + listing / category / near-miss, house style (api/_area_kit.js). */
+const lookup = categoriesLookup(DATA, AREA);
 
 /**
  * Pages the Monday watcher re-fetches (docs/CURATION.md): the consolidated statute
@@ -47,28 +48,6 @@ const WATCH = [
   { url: 'https://www.gesetze-im-internet.de/estg/__9.html', label: '§ 9 EStG — Entfernungspauschale' },
 ];
 
-const header = () => ({
-  area: AREA, taxYear: TAX_YEAR, taxYearRuns: DATA.taxYearRuns, jurisdiction: DATA.jurisdiction, currency: DATA.currency, verifiedDate: DATA.verifiedDate,
-});
-
-/**
- * { category } → that category's figures (term, label, value, unit, effectiveFrom, source, quote,
- * verifiedDate, previous, employee/employer shares where they apply) with the category's title,
- * scope and source; nothing → the listing; an input that is not a key resolves like
- * uk_rates_lookup (a key or title containing it), else covered:false.
- */
-function lookup({ category } = {}) {
-  if (category === undefined || category === null || String(category).trim() === '') {
-    return { ...header(), categories: Object.fromEntries(CATEGORIES.map((k) => [k, DATA.categories[k].title])), usage: 'pass category=<key> for figures' };
-  }
-  const key = String(category).toLowerCase().trim();
-  const hit = CATEGORIES.find((k) => k === key) || CATEGORIES.find((k) => k.includes(key) || DATA.categories[k].title.toLowerCase().includes(key));
-  if (!hit) {
-    return { covered: false, requested: category, message: `unknown category "${category}"`, nearest: nearest(key, CATEGORIES), coverage: CATEGORIES };
-  }
-  return { ...header(), category: hit, ...DATA.categories[hit] };
-}
-
 /** A figure already fixed for a later year (Mindestlohn 2027, Geringfügigkeitsgrenze 2027) is logged under that year. */
 const taxYearOf = (n, f) => ((f.effectiveFrom || '').slice(0, 4) > String(n.taxYear) ? f.effectiveFrom.slice(0, 4) : n.taxYear);
 
@@ -80,6 +59,7 @@ module.exports = {
 
   server: {
     serverName: 'databutler-de-rates',
+    description: "Current German tax and social-insurance figures — Grundfreibetrag and § 32a tariff, Solidaritätszuschlag, Beitragsbemessungsgrenzen and Beitragssätze, Zusatzbeitrag, Mindestlohn, Minijob limit, Kindergeld, Kinderfreibetrag, Pauschbeträge, Entfernungspauschale — read from the consolidated statutes and the Bundesgesetzblatt, with German term, English label, source URL, quoted sentence, verification date and prior value on every figure.",
     url: `${BASE}/api/mcp/de-rates`,
     instructions:
       `Verified German tax and social-insurance figures from databutler.dev — Veranlagungszeitraum ${TAX_YEAR}, each figure read from ` +
@@ -175,7 +155,7 @@ module.exports = {
 
   docs: {
     readme: {
-      roadmapRow: `| 12b | **German rates & thresholds** — \`de_rates_lookup\`: Veranlagungszeitraum ${TAX_YEAR} Einkommensteuertarif (§ 32a) and Solidaritätszuschlag, Sozialversicherung Beitragsbemessungsgrenzen, Rechengrößen and Beitragssätze, Mindestlohn (2026 and the fixed 2027 step), Geringfügigkeitsgrenze, Kindergeld, Kinderfreibetrag, Pauschbeträge and Entfernungspauschale, read from the consolidated statutes and the Bundesgesetzblatt with German term + English label, quoted sentence and prior value; country #3 on the "is this still true?" layer | \`/api/mcp/de-rates\` | **v1 — built 2026-10-03** |`,
+      roadmapRow: `| **German rates & thresholds** — \`de_rates_lookup\`: Veranlagungszeitraum ${TAX_YEAR} Einkommensteuertarif (§ 32a) and Solidaritätszuschlag, Sozialversicherung Beitragsbemessungsgrenzen, Rechengrößen and Beitragssätze, Mindestlohn (2026 and the fixed 2027 step), Geringfügigkeitsgrenze, Kindergeld, Kinderfreibetrag, Pauschbeträge and Entfernungspauschale, read from the consolidated statutes and the Bundesgesetzblatt with German term + English label, quoted sentence and prior value; country #3 on the "is this still true?" layer | \`/api/mcp/de-rates\` | **v1 — built 2026-10-03** |`,
       catalogueRow: `| \`/api/mcp/de-rates\` | \`de_rates_lookup\` — category ∈ {${CATEGORIES.join(', ')}} (omit to list) | \`data/de-rates.json\` (Veranlagungszeitraum ${TAX_YEAR}, ${Object.values(DATA.categories).reduce((n, c) => n + c.figures.length, 0)} figures): read from § 32a/§ 9/§ 9a/§ 20/§ 32/§ 66 EStG, §§ 3–4 SolzG, SV-Rechengrößen-VO 2026 (BGBl. 2025 I Nr. 278), § 241 SGB V, § 341 SGB III, § 55 SGB XI + PBAV 2025, § 8 SGB IV, MiLoV5 and the BMG/DRV/BMAS/BMFSFJ/Minijob-Zentrale pages; every figure carries \`term\` (German), \`label\` (English), \`quote\` and \`previous\`; social-insurance rates carry \`employeeShare\`/\`employerShare\`. **Committed data, not a live proxy**; freshness turns \`due\` at the hand-set \`nextScheduledRefresh\` (mid-December, when the next year's Verordnung and Zusatzbeitrag are final). Refresh: edit against the BGBl/statutes, \`node scripts/changelog.js\` (docs/CURATION.md) |`,
     },
     llms: {

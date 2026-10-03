@@ -73,6 +73,7 @@ module.exports = {
 
   server: {
     serverName: 'databutler-uk-rates',
+    description: "Current UK tax-year rates and thresholds, verified against gov.uk with source URLs and dates.",
     url: `${BASE}/api/mcp/uk-rates`,
     instructions:
       'Verified UK tax-year rates and thresholds from databutler.dev. Use this INSTEAD of quoting ' +
@@ -141,7 +142,7 @@ module.exports = {
 
   docs: {
     readme: {
-      roadmapRow: '| 1 | **UK rates & thresholds** — the "is this still true?" fact-refresh server for the numbers agents misquote most (wishlist #1) | `/api/mcp/uk-rates` | **v1 — LIVE** |',
+      roadmapRow: '| **UK rates & thresholds** — the "is this still true?" fact-refresh server for the numbers agents misquote most (wishlist #1) | `/api/mcp/uk-rates` | **v1 — LIVE** |',
       catalogueRow: '| `/api/mcp/uk-rates` | `uk_rates_lookup` | `data/uk/rates/<taxYear>.json`, verified against gov.uk |',
     },
     llms: {

@@ -69,6 +69,7 @@ module.exports = {
 
   server: {
     serverName: 'databutler-uk-exams',
+    description: "UK exam-board spec data: which paper is a topic on, spec structures, past-paper links. Verified.",
     url: `${BASE}/api/mcp/uk-exams`,
     instructions:
       'UK exam-board specification data from databutler.dev, verified against official board ' +
@@ -187,7 +188,7 @@ module.exports = {
 
   docs: {
     readme: {
-      roadmapRow: '| 2 | **UK exams** — boards, specs, topic→paper ("is electricity paper 2 AQA"), past-paper index (unique curation edge: maintainer taught) | `/api/mcp/uk-exams` | **v1 — LIVE** |',
+      roadmapRow: '| **UK exams** — boards, specs, topic→paper ("is electricity paper 2 AQA"), past-paper index (unique curation edge: maintainer taught) | `/api/mcp/uk-exams` | **v1 — LIVE** |',
       catalogueRow: '| `/api/mcp/uk-exams` | `exam_topic_paper`, `exam_spec_lookup`, `exam_paper_index` | `data/uk/exams/*.json`, verified against board spec pages |',
     },
     llms: {

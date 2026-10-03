@@ -19,6 +19,7 @@ module.exports = {
 
   server: {
     serverName: 'databutler-vehicles',
+    description: "Official vehicle data for AI agents: real UK MOT failure rates by model and mileage (live from whatbreaks.uk), UK safety recalls (DVSA), French recalls (RappelConso/DGCCRF) and Japanese recalls + owner complaints (MLIT). Source and verifiedDate on every answer.",
     url: `${BASE}/api/mcp/vehicles`,
     instructions:
       'Official vehicle datasets from databutler.dev, one hub: UK MOT failure data (live from whatbreaks.uk — real ' +
@@ -237,7 +238,7 @@ module.exports = {
 
   docs: {
     readme: {
-      roadmapRow: '| 6 | **Vehicles hub** — UK MOT failure data (live proxy to whatbreaks.uk), UK safety recalls (DVSA, 4,876 recalls since 2016), French recalls (RappelConso, 1,663 fiches), Japanese recalls + owner complaints (MLIT, 75 models); EU Safety Gate stub | `/api/mcp/vehicles` | **v1 — built 2026-10-03** |',
+      roadmapRow: '| **Vehicles hub** — UK MOT failure data (live proxy to whatbreaks.uk), UK safety recalls (DVSA, 4,876 recalls since 2016), French recalls (RappelConso, 1,663 fiches), Japanese recalls + owner complaints (MLIT, 75 models); EU Safety Gate stub | `/api/mcp/vehicles` | **v1 — built 2026-10-03** |',
       catalogueRow: '| `/api/mcp/vehicles` | `uk_mot_reliability`, `uk_mot_vehicle_search` (live proxy → whatbreaks.uk, 8 s timeout, UA `databutler-hub/1.0`); `uk_recalls_for_model`, `uk_recalls_search` (`data/vehicles/uk-recalls.json`, DVSA bulk CSV, Open Government Licence v3.0, recalls launched in the last ten calendar years); `fr_recalls_for_model`, `fr_recalls_search` (`data/vehicles/fr-recalls.json`, RappelConso V2 open data, Licence Ouverte 2.0); `jp_recalls_for_model`, `jp_complaints_summary` (`data/vehicles/jp-recalls.json`, MLIT); `eu_safety_gate_recalls` (**stub**) | regenerate with `node scripts/vehicles.js` — FR/JP from the sibling `car_websites/` repos after their fetchers run, UK straight from DVSA (`node scripts/vehicles.js uk`) |',
     },
     llms: {

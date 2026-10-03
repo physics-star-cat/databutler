@@ -13,13 +13,14 @@
  * Playbook: docs/ADDING_AN_AREA.md.
  */
 const DATA = require('../../data/us-rates.json');
-const { nearest } = require('../_text');
-const { BASE, diffCategories, slug } = require('../_area_kit');
+const { BASE, diffCategories, slug, categoriesLookup } = require('../_area_kit');
 
 const AREA = 'us-rates';
 const TOOL = 'us_rates_lookup';
 const CATEGORIES = Object.keys(DATA.categories);
 const TAX_YEAR = DATA.taxYear;
+/** Header (area, taxYear, taxYearRuns, jurisdiction, currency, verifiedDate) + listing / category / near-miss, house style (api/_area_kit.js). */
+const lookup = categoriesLookup(DATA, AREA);
 
 /**
  * Pages the Monday watcher re-fetches: one per category, chosen as the page
@@ -34,27 +35,6 @@ const WATCH = [
   { url: 'https://www.irs.gov/retirement-plans/cola-increases-for-dollar-limitations-on-benefits-and-contributions', label: 'IRS COLA increases for dollar limitations on benefits and contributions — the year-by-year retirement-plan limits table' },
   { url: 'https://www.irs.gov/publications/p969', label: 'IRS Publication 969 — Health Savings Accounts: current-year HSA and HDHP limits' },
 ];
-
-const header = () => ({
-  area: AREA, taxYear: TAX_YEAR, taxYearRuns: DATA.taxYearRuns, jurisdiction: DATA.jurisdiction, currency: DATA.currency, verifiedDate: DATA.verifiedDate,
-});
-
-/**
- * { category } → that category's figures (value, unit, effectiveFrom, source, quote, verifiedDate,
- * previous) with the category's title, scope and source; nothing → the listing; an input that is
- * not a key resolves like uk_rates_lookup (a key or title containing it), else covered:false.
- */
-function lookup({ category } = {}) {
-  if (category === undefined || category === null || String(category).trim() === '') {
-    return { ...header(), categories: Object.fromEntries(CATEGORIES.map((k) => [k, DATA.categories[k].title])), usage: 'pass category=<key> for figures' };
-  }
-  const key = String(category).toLowerCase().trim();
-  const hit = CATEGORIES.find((k) => k === key) || CATEGORIES.find((k) => k.includes(key) || DATA.categories[k].title.toLowerCase().includes(key));
-  if (!hit) {
-    return { covered: false, requested: category, message: `unknown category "${category}"`, nearest: nearest(key, CATEGORIES), coverage: CATEGORIES };
-  }
-  return { ...header(), category: hit, ...DATA.categories[hit] };
-}
 
 /** A figure that applies from a later year than the file's tax year (none in the US file yet) is logged under that year. */
 const taxYearOf = (n, f) => ((f.effectiveFrom || '').slice(0, 4) > String(n.taxYear) ? f.effectiveFrom.slice(0, 4) : n.taxYear);
@@ -93,6 +73,7 @@ module.exports = {
 
   server: {
     serverName: 'databutler-us-rates',
+    description: "Current US federal tax-year rates and thresholds — IRS income-tax rate schedules and standard deduction, Social Security wage base, Medicare, 401(k)/IRA/HSA limits, estate and gift exclusions — read from the IRS revenue procedures, notices and SSA's Federal Register notice, with source URL, quoted sentence, verification date and prior-year value on every figure.",
     url: `${BASE}/api/mcp/us-rates`,
     instructions:
       `Verified US federal rates and thresholds from databutler.dev — tax year ${TAX_YEAR}, each figure read from the IRS revenue ` +
@@ -188,7 +169,7 @@ module.exports = {
 
   docs: {
     readme: {
-      roadmapRow: `| 12 | **US federal rates & thresholds** — \`us_rates_lookup\`: tax year ${TAX_YEAR} income-tax schedules and standard deduction, Social Security wage base, Medicare, retirement-plan/IRA, HSA and estate-gift figures read from the IRS revenue procedures, notices and SSA's Federal Register notice, each with the quoted sentence and prior-year value (wishlist #12, "Rates, country #2 = US"); first country after the UK on the "is this still true?" layer | \`/api/mcp/us-rates\` | **v1 — built 2026-10-03** |`,
+      roadmapRow: `| **US federal rates & thresholds** — \`us_rates_lookup\`: tax year ${TAX_YEAR} income-tax schedules and standard deduction, Social Security wage base, Medicare, retirement-plan/IRA, HSA and estate-gift figures read from the IRS revenue procedures, notices and SSA's Federal Register notice, each with the quoted sentence and prior-year value (wishlist #12, "Rates, country #2 = US"); first country after the UK on the "is this still true?" layer | \`/api/mcp/us-rates\` | **v1 — built 2026-10-03** |`,
       catalogueRow: `| \`/api/mcp/us-rates\` | \`us_rates_lookup\` — category ∈ {${CATEGORIES.join(', ')}} (omit to list) | \`data/us-rates.json\` (tax year ${TAX_YEAR}, ${Object.values(DATA.categories).reduce((n, c) => n + c.figures.length, 0)} figures): read from Rev. Proc. 2025-32, Notice 2025-67, Rev. Proc. 2025-19, SSA's Federal Register notice 2025-19763, Publication 15 and Tax Topic 751; every figure carries \`quote\` (the sentence or table row) and \`previous\` (the prior-year value). Rate schedules are bracket rows. **Committed data, not a live proxy**; freshness turns \`due\` at the IRS release window set by hand in \`nextScheduledRefresh\`. Refresh annually: edit against the new Rev. Proc./Notice, \`node scripts/changelog.js\` (docs/CURATION.md) |`,
     },
     llms: {

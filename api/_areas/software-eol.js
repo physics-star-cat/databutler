@@ -18,6 +18,7 @@ module.exports = {
 
   server: {
     serverName: 'databutler-software-eol',
+    description: "Is this version still supported, and until when: support status and end-of-life timelines for Node.js, Python, Ubuntu, Debian, Android, iOS, macOS, Windows, Oracle JDK, Go, Ruby, PHP, PostgreSQL and React — a monthly snapshot of endoflife.date open data (MIT) with the snapshot date and source on every answer.",
     url: `${BASE}/api/mcp/software-eol`,
     instructions:
       'Software support lifecycles from databutler.dev: is this version still supported, and until when — for ' +
@@ -100,7 +101,7 @@ module.exports = {
 
   docs: {
     readme: {
-      roadmapRow: '| 15 | **Software end-of-life** — "is this version still supported, and until when" for the 14 runtimes/OSes agents are asked about most (Node.js, Python, Ubuntu, Debian, Android, iOS, macOS, Windows, Oracle JDK, Go, Ruby, PHP, PostgreSQL, React): committed monthly snapshot of endoflife.date open data (MIT, 340 cycles), version → cycle resolution, days remaining/since, changelog entries when a cycle reaches EOL or a date moves | `/api/mcp/software-eol` | **v1 — built 2026-10-03** |',
+      roadmapRow: '| **Software end-of-life** — "is this version still supported, and until when" for the 14 runtimes/OSes agents are asked about most (Node.js, Python, Ubuntu, Debian, Android, iOS, macOS, Windows, Oracle JDK, Go, Ruby, PHP, PostgreSQL, React): committed monthly snapshot of endoflife.date open data (MIT, 340 cycles), version → cycle resolution, days remaining/since, changelog entries when a cycle reaches EOL or a date moves | `/api/mcp/software-eol` | **v1 — built 2026-10-03** |',
       catalogueRow: '| `/api/mcp/software-eol` | `support_status` {product, version} — resolves "18", "18.19.0", "3.11", "22.04", "bookworm", "1.8.0_392", "11-24h2-w" to its release cycle; supported true\\|false as of today, eol date, days remaining/since, active/extended-support ends, LTS, latest release, newest supported (LTS) cycle, plain-statement recommendation; `support_timeline` {product} — every cycle. Products: nodejs, python, ubuntu, debian, android, ios, macos, windows, oracle-jdk (java/jdk alias; the site has no "java" product — /java redirects to its java-distribution tag), go, ruby, php, postgresql, react | `data/software-eol.json` (65 KB, 340 cycles): monthly snapshot of endoflife.date `/api/<product>.json`, MIT License, `upstreamProvenance` on every result; regenerate with `node scripts/software-eol.js` (appends `software-eol` changelog entries: first derivation → `<product>/dataset`; afterwards `<product>/<cycle>` when an eol date moves, a cycle reaches end of life between snapshots, or a new cycle appears) |',
     },
     llms: {

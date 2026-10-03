@@ -16,6 +16,7 @@ module.exports = {
 
   server: {
     serverName: 'databutler-tax',
+    description: "Take-home pay for AI agents: net salary after income tax and social contributions for the US, UK, Canada, Australia, India, Brazil, Germany, France and Poland, computed live by the LifeByNumbers salary calculators (same operator). Tax year, assumptions, line-by-line breakdown and source on every answer.",
     url: `${BASE}/api/mcp/tax`,
     instructions:
       'Take-home pay from databutler.dev, computed live by the LifeByNumbers salary calculators (same operator) ' +
@@ -96,7 +97,7 @@ module.exports = {
 
   docs: {
     readme: {
-      roadmapRow: '| 14 | **Take-home pay** — `take_home_pay` for us, uk, ca, au, in, br, de, fr, pl (+ es listed, covered:false): live proxy to the LifeByNumbers salary calculators (same operator), uniform shape (gross/net/deductions annual + monthly, typed breakdown, taxYear, assumptions). Listed at the front door — the highest-frequency money question after rates | `/api/mcp/tax` | **v1 — built 2026-10-03** |',
+      roadmapRow: '| **Take-home pay** — `take_home_pay` for us, uk, ca, au, in, br, de, fr, pl (+ es listed, covered:false): live proxy to the LifeByNumbers salary calculators (same operator), uniform shape (gross/net/deductions annual + monthly, typed breakdown, taxYear, assumptions). Listed at the front door — the highest-frequency money question after rates | `/api/mcp/tax` | **v1 — built 2026-10-03** |',
       catalogueRow: '| `/api/mcp/tax` | `take_home_pay` — country ∈ {us, uk, ca, au, in, br, de, es, fr, pl}, gross (annual, or monthly with `period`), optional `state`/`filingStatus` (US), `province` (CA), `region` (UK) | live proxy → LifeByNumbers Lambda `POST /calculate {calculatorId:\'<cc>-salary\', input}` (8 s timeout, UA `databutler-hub/1.0`); contract + per-country fields + tax years documented in `api/_tax.js`. **Spain returns `covered:false`** — lifebynumbers.net computes it client-side, no backend calculator. Tax years are hard-coded upstream and mirrored in `_tax.js` `COUNTRIES[].taxYear`: re-check when LBN updates rates |',
     },
     llms: {

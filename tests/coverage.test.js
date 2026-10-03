@@ -21,6 +21,11 @@ test('coverage: one area, and near-miss for unknown', () => {
   assert.equal(coverageFor('UK-Rates').area, 'uk-rates');
   const miss = coverageFor('rates');
   assert.equal(miss.covered, false);
-  assert.deepEqual(miss.nearest, ['de-rates', 'uk-rates', 'us-rates'], 'every rates area is one edit away; alphabetical on a tie');
+  // nearest(): substring matches first, then edit distance, then alphabetical — derive the expectation from the area
+  // list so a new "<cc>-rates" area never touches this test.
+  const ratesAreas = AREA_KEYS.filter((k) => k.includes('rates'));
+  const expected = ratesAreas.sort((a, b) => (a.length - b.length) || a.localeCompare(b)).slice(0, 3);
+  assert.deepEqual(miss.nearest, expected, 'every rates area is a substring hit; shorter (fewer edits) first, alphabetical on a tie');
+  assert.ok(miss.nearest.includes('uk-rates'));
   assert.deepEqual(Object.keys(AREAS), AREA_KEYS);
 });

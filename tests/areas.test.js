@@ -8,7 +8,8 @@ const path = require('node:path');
 const { spawnSync } = require('node:child_process');
 const { AREAS, datasets, restRoutes, citeRoutes, discovery, frontDoorTools } = require('../api/_areas');
 const { ALL_TOOLS, SERVERS } = require('../api/_registry');
-const { DIRECT } = require('../api/_hub');
+const { DIRECT, HUB_TOOLS } = require('../api/_hub');
+const { manifest } = require('../scripts/sync-areas');
 const { CHANGELOG_AREAS } = require('../api/_changelog');
 const router = require('../api/router');
 
@@ -70,9 +71,24 @@ test('house rule: tool descriptions are plain statements (no imperatives) for ev
   }
 });
 
-test('front door DIRECT = the tools flagged frontDoor, in area order', () => {
+test('front door DIRECT = the tools flagged frontDoor, in area order; house rule: at most 5 direct + 4 hub tools = 9 listed', () => {
   assert.deepEqual(DIRECT, frontDoorTools());
-  assert.ok(DIRECT.length <= 5, 'the front door stays small — promote deliberately');
+  assert.ok(DIRECT.length <= 5, 'the front door stays small — promote deliberately (docs/ADDING_AN_AREA.md)');
+  assert.equal(HUB_TOOLS.length, 4);
+  assert.ok(DIRECT.length + HUB_TOOLS.length <= 9);
+});
+
+test('every focused server has a registry manifest server-<key>.json generated from server.description (sync-areas writes it)', () => {
+  for (const [key, s] of Object.entries(SERVERS)) {
+    const rel = `server-${key}.json`;
+    assert.ok(fs.existsSync(path.join(ROOT, rel)), `${rel} exists — run node scripts/sync-areas.js`);
+    const text = fs.readFileSync(path.join(ROOT, rel), 'utf8');
+    assert.equal(text, manifest(key, s), `${rel} matches the module`);
+    const m = JSON.parse(text);
+    assert.equal(m.name, `io.github.physics-star-cat/${s.serverName}`);
+    assert.equal(m.description, s.description);
+    assert.deepEqual(m.remotes, [{ type: 'streamable-http', url: s.url }]);
+  }
 });
 
 test('node scripts/sync-areas.js --check: every derived static file is up to date', () => {
@@ -94,8 +110,26 @@ test('scaffold: node scripts/new-area.js creates a loadable area whose skeleton 
     const made = spawnSync(process.execPath, ['scripts/new-area.js', slug, '--title', 'Throwaway kit', '--cadence', 'monthly', '--refresh-days', '40'], { cwd: tmp, encoding: 'utf8' });
     assert.equal(made.status, 0, made.stderr || made.stdout);
     for (const rel of [`api/_areas/${slug}.js`, `data/${slug}.json`, `tests/${slug}.test.js`]) assert.ok(fs.existsSync(path.join(tmp, rel)), rel);
-    assert.match(fs.readFileSync(path.join(tmp, 'docs/CURATION.md'), 'utf8'), /^## Verification log \(throwaway kit, added \d{4}-\d{2}-\d{2}\)$/m);
+    assert.match(fs.readFileSync(path.join(tmp, 'docs/CURATION.md'), 'utf8'), /^## Verification log \(throwaway-kit, added \d{4}-\d{2}-\d{2}\)$/m);
     assert.match(made.stdout, /Still yours to do/);
+    assert.match(made.stdout, /null → value for every figure/);
+    assert.ok(fs.existsSync(path.join(tmp, `server-${slug}.json`)), 'registry manifest generated');
+    // the other scaffold style in the same copy: calendar cadence, per-year layout, previous semantics, REST 400, retires a planned row
+    const cal = 'throwaway-cal';
+    const readmeBefore = fs.readFileSync(path.join(tmp, 'README.md'), 'utf8');
+    assert.match(readmeBefore, /^\| 7 \| /m, 'planned row 7 exists before');
+    const made2 = spawnSync(process.execPath, ['scripts/new-area.js', cal, '--title', 'Throwaway calendar', '--cadence', 'annual', '--calendar', '2027-01-01', '--per-year', '2026', '--previous', '--required-param', '--retires', '7', '--note-template', '{label}: {from} → {to} ({document})'], { cwd: tmp, encoding: 'utf8' });
+    assert.equal(made2.status, 0, made2.stderr || made2.stdout);
+    assert.ok(fs.existsSync(path.join(tmp, `data/${cal}/2026.json`)), 'per-year data file');
+    const calData = JSON.parse(fs.readFileSync(path.join(tmp, `data/${cal}/2026.json`), 'utf8'));
+    assert.equal(calData.nextScheduledRefresh, '2027-01-01'); assert.equal(calData.taxYear, '2026');
+    assert.match(made2.stdout, /previous\.value → value/);
+    const readmeAfter = fs.readFileSync(path.join(tmp, 'README.md'), 'utf8');
+    assert.doesNotMatch(readmeAfter, /^\| 7 \| \*\*Current-docs/m, 'retired planned row removed');
+    assert.match(readmeAfter, /^\| 12 \| \*\*Throwaway calendar\*\*/m, 'roadmap rows numbered from order');
+    const calModule = fs.readFileSync(path.join(tmp, `api/_areas/${cal}.js`), 'utf8');
+    assert.match(calModule, /cadenceDays: CADENCE_DAYS/); assert.match(calModule, /const CADENCE_DAYS = null/); assert.match(calModule, /previousSibling: true/); assert.match(calModule, /required: \['category'\]/);
+    assert.match(fs.readFileSync(path.join(tmp, 'scripts/verify-hub.sh'), 'utf8'), /check throwaway-cal-rest-400 /);
     // derived artefacts picked the area up
     const wk = JSON.parse(fs.readFileSync(path.join(tmp, 'public/.well-known/changes.json'), 'utf8'));
     assert.ok(wk.areas.some((a) => a.name === slug));
@@ -109,6 +143,7 @@ test('scaffold: node scripts/new-area.js creates a loadable area whose skeleton 
     assert.equal(run.status, 0, run.stdout.split('\n').filter((l) => /^not ok|^✖|Error|expected|actual/.test(l)).slice(0, 40).join('\n'));
     const dataLoaded = JSON.parse(fs.readFileSync(path.join(tmp, `data/${slug}.json`), 'utf8'));
     assert.deepEqual(Object.keys(dataLoaded), ['area', 'verifiedDate', 'nextScheduledRefresh', 'licence', 'sources', 'categories']);
+    assert.equal(spawnSync(process.execPath, ['scripts/sync-areas.js', '--check'], { cwd: tmp, encoding: 'utf8' }).status, 0, 'both scaffolds leave the derived files in sync');
     // refusing to clobber
     const again = spawnSync(process.execPath, ['scripts/new-area.js', slug, '--title', 'x', '--cadence', 'y'], { cwd: tmp, encoding: 'utf8' });
     assert.notEqual(again.status, 0);

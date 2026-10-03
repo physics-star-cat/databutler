@@ -27,6 +27,7 @@ const router = require('../api/router');
 const apiIndex = require('../api/index');
 const { ROUTES: CITE_ROUTES } = require('../api/_routes/r');
 const { SERVERS, ALL_TOOLS } = require('../api/_registry');
+const { restRoutes } = require('../api/_areas');
 
 const ROOT = path.join(__dirname, '..');
 const DIR = path.join(__dirname, 'snapshots');
@@ -60,14 +61,11 @@ function snapshot(name, actual, { compare = (a, b) => assert.deepEqual(a, b), se
 
 const INIT = { protocolVersion: '2025-06-18', capabilities: {}, clientInfo: { name: 'snapshot', version: '0' } };
 
-// Every REST mirror, called with an empty query: the 400 messages and the
-// no-argument listings are public behaviour. Network-backed routes 400 before
-// they reach the network. Then a few offline happy paths.
-const REST_EMPTY = [
-  'uk/rates', 'uk/exams/topic', 'uk/exams/specs', 'uk/exams/papers', 'provenance/domain', 'provenance/package', 'stats',
-  'vehicles/uk/mot', 'vehicles/uk/search', 'vehicles/uk/recalls', 'vehicles/uk/recalls-search', 'vehicles/fr/recalls', 'vehicles/fr/search',
-  'vehicles/jp/recalls', 'vehicles/jp/complaints', 'vehicles/eu/safety-gate', 'tax/take-home', 'software-eol/status', 'software-eol/timeline', 'policy-rates',
-];
+// Every REST mirror (derived from the area modules, so a new area's mirror is
+// snapshotted the moment it exists), called with an empty query: the 400
+// messages and the no-argument listings are public behaviour. Network-backed
+// routes 400 before they reach the network. Then a few offline happy paths.
+const REST_EMPTY = restRoutes().map((r) => r.path);
 const REST_HAPPY = [
   'uk/rates?category=vat', 'uk/exams/topic?topic=electricity&board=aqa&subject=physics', 'uk/exams/papers?board=aqa',
   'stats?op=distribution&dist=normal&at=1.96', 'vehicles/uk/recalls?make=vauxhall&model=corsa', 'vehicles/fr/recalls?brand=peugeot&model=208',

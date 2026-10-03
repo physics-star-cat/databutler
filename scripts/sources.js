@@ -4,6 +4,8 @@
  * Run after every data refresh (scripts/changelog.js calls it) so the weekly
  * watcher goes quiet again. Network required.
  *   node scripts/sources.js            # all sources
+ * refreshSources(urls) with a subset (scripts/changelog.js --only <area>) re-hashes
+ * only those pages and keeps every other area's baseline as it was.
  */
 const fs = require('node:fs');
 const path = require('node:path');
@@ -32,7 +34,7 @@ async function refreshSources(urls = allSourceUrls()) {
   const existing = fs.existsSync(OUT) ? JSON.parse(fs.readFileSync(OUT, 'utf8')) : [];
   const byUrl = new Map(existing.map((e) => [e.url, e]));
   for (const e of fresh) byUrl.set(e.url, e);
-  const merged = urls.map((u) => byUrl.get(u)).filter(Boolean);
+  const merged = allSourceUrls().map((u) => byUrl.get(u)).filter(Boolean);
   fs.writeFileSync(OUT, JSON.stringify(merged, null, 2) + '\n');
   console.log(`sources.json: ${fresh.length}/${urls.length} checked OK, ${merged.length} entries written`);
   return merged;

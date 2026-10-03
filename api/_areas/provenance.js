@@ -16,6 +16,7 @@ module.exports = {
 
   server: {
     serverName: 'databutler-provenance',
+    description: "Live trust signals for domains & packages: age, registrar, typosquat resemblance.",
     url: `${BASE}/api/mcp/provenance`,
     instructions:
       'Live provenance signals for domains and software packages from databutler.dev — computed ' +
@@ -93,7 +94,7 @@ module.exports = {
 
   docs: {
     readme: {
-      roadmapRow: '| 3 | **Provenance checker** — "who really runs this domain/package?" (wishlist #2) — live RDAP/npm/PyPI, homoglyph-aware typosquat | `/api/mcp/provenance` | **v1 — LIVE** |',
+      roadmapRow: '| **Provenance checker** — "who really runs this domain/package?" (wishlist #2) — live RDAP/npm/PyPI, homoglyph-aware typosquat | `/api/mcp/provenance` | **v1 — LIVE** |',
       catalogueRow: '| `/api/mcp/provenance` | `domain_provenance`, `package_provenance` | live RDAP / npm / PyPI |',
     },
     llms: {

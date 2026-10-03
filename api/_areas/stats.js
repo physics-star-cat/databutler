@@ -29,6 +29,7 @@ module.exports = {
 
   server: {
     serverName: 'databutler-stats',
+    description: "Exact statistics & probability: distributions, hypothesis tests, CIs, Bayesian updates, regression.",
     url: `${BASE}/api/mcp/stats`,
     instructions:
       'Exact statistics and probability from databutler.dev — use these tools instead of computing ' +
@@ -169,7 +170,7 @@ module.exports = {
 
   docs: {
     readme: {
-      roadmapRow: '| 3b | **Stats toolkit** — exact statistics & probability (Claude\'s maths pick) — distributions, hypothesis tests, CIs, Bayes, regression; reference-validated | `/api/mcp/stats` | **v1 — LIVE** |',
+      roadmapRow: '| **Stats toolkit** — exact statistics & probability (Claude\'s maths pick) — distributions, hypothesis tests, CIs, Bayes, regression; reference-validated | `/api/mcp/stats` | **v1 — LIVE** |',
       catalogueRow: '| `/api/mcp/stats` | `descriptive_stats`, `distribution`, `hypothesis_test`, `confidence_interval`, `bayes_update`, `linear_regression` | pure computation, reference-validated |',
     },
     llms: {

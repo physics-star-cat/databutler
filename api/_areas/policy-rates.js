@@ -66,6 +66,7 @@ module.exports = {
 
   server: {
     serverName: 'databutler-policy-rates',
+    description: "Central-bank policy rates — Bank of England Bank Rate, Fed federal funds target range, ECB key rates — as committed, changelogged data read from each bank's decision page, with source URL, decision date and verification date on every figure.",
     url: `${BASE}/api/mcp/policy-rates`,
     instructions:
       'Current central-bank policy rates from databutler.dev — Bank of England Bank Rate, US Federal Reserve ' +
@@ -133,7 +134,7 @@ module.exports = {
 
   docs: {
     readme: {
-      roadmapRow: '| 16 | **Policy rates** — `policy_rate`: the three most-asked central-bank rates (BoE Bank Rate, Fed federal funds target range, ECB key rates) as committed, changelogged, source-watched data; the first global step of the "is this still true?" layer (#9, #12). Freshness `due` after 45 days; eight decisions a year each | `/api/mcp/policy-rates` | **v1 — built 2026-10-03** |',
+      roadmapRow: '| **Policy rates** — `policy_rate`: the three most-asked central-bank rates (BoE Bank Rate, Fed federal funds target range, ECB key rates) as committed, changelogged, source-watched data; the first global step of the "is this still true?" layer (#9, #12). Freshness `due` after 45 days; eight decisions a year each | `/api/mcp/policy-rates` | **v1 — built 2026-10-03** |',
       catalogueRow: '| `/api/mcp/policy-rates` | `policy_rate` — bank ∈ {boe, fed, ecb}, optional `all: true` | `data/policy-rates.json`: Bank of England Bank Rate, Fed federal funds target range (lower/upper bound), ECB deposit facility / main refinancing / marginal lending — current level, effectiveFrom, decisionDate + meeting, previous level, latest decision (may be a hold), next scheduled decision, the bank\'s own page as `source` and the decision press release. **Committed data, not a live proxy**, verified against the banks\' pages; freshness turns `due` 45 days after verifiedDate; the three source pages sit in `data/sources.json` for the weekly watcher. Refresh: edit the file against the pages, `node scripts/changelog.js` (docs/CURATION.md) |',
     },
     llms: {

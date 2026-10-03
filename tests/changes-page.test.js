@@ -13,6 +13,7 @@ const changes = require('../api/_routes/changes');
 const router = require('../api/router');
 const { whatChangedSince } = require('../api/_hub');
 const { datasetEntries } = require('../scripts/vehicles');
+const { AREAS } = require('../api/_areas');
 
 const ROOT = path.join(__dirname, '..');
 const read = (rel) => fs.readFileSync(path.join(ROOT, rel), 'utf8');
@@ -73,15 +74,23 @@ const FIX = [
 
 /* ---------------- live data ---------------- */
 
-const EOL_PRODUCTS = ['nodejs', 'python', 'ubuntu', 'debian', 'android', 'ios', 'macos', 'windows', 'oracle-jdk', 'go', 'ruby', 'php', 'postgresql', 'react'];
+const EOL_PRODUCTS = Object.values(require('../data/software-eol.json').products).map((p) => p.id);
 
-// Live changelog: 3 vehicles + 14 software-eol dataset entries, plus figure entries checked in their own suites —
-// 6 policy-rates (tests/policy-rates.test.js), 27 us-rates (tests/us-rates.test.js), 19 de-rates (tests/de-rates.test.js).
-const FIGURE_AREAS = ['policy-rates', 'us-rates', 'de-rates'];
-const LIVE_TOTAL = 3 + 14 + 6 + 27 + 19;
+// Live changelog, derived so adding an area never touches this file: the dataset-script areas (changelog.script —
+// vehicles, software-eol) write <name>/dataset entries; every area with a changelog.diff writes figure entries that
+// its own suite checks (tests/<area>.test.js).
+const FIGURE_AREAS = AREAS.filter((a) => a.changelog && a.changelog.diff).map((a) => a.area);
+const SCRIPT_AREAS = AREAS.filter((a) => a.changelog && !a.changelog.diff).map((a) => a.area);
+const LIVE_TOTAL = CHANGELOG.length;
+const perArea = (area) => CHANGELOG.filter((e) => e.area === area).length;
+const VEHICLES = perArea('vehicles');
+/** Entries listEntries keeps for ?since= — mirrors the protocol rule (verified or taking effect after the day). */
+const sinceCount = (since) => CHANGELOG.filter((e) => e.verifiedDate > since || (e.effectiveFrom && e.effectiveFrom > since)).length;
 
-test('live changelog: three vehicles + fourteen software-eol dataset entries in the dataset-script shape (+ figure entries for policy-rates, us-rates, de-rates)', () => {
-  assert.equal(CHANGELOG.length, LIVE_TOTAL);
+test('live changelog: the dataset-script areas\' entries are in the dataset-script shape; every other entry belongs to a diff area', () => {
+  assert.ok(LIVE_TOTAL > 0);
+  assert.deepEqual(SCRIPT_AREAS, ['vehicles', 'software-eol']);
+  for (const e of CHANGELOG) assert.ok([...FIGURE_AREAS, ...SCRIPT_AREAS].includes(e.area), `${e.area} is a changelog area`);
   const DATASETS = CHANGELOG.filter((e) => !FIGURE_AREAS.includes(e.area));
   const keys = DATASETS.map((e) => e.key).sort();
   assert.deepEqual(keys, ['eu-safety-gate/dataset', 'fr-recalls/dataset', 'jp-recalls/dataset', ...EOL_PRODUCTS.map((p) => `${p}/dataset`)].sort());
@@ -162,15 +171,17 @@ test('listEntries: newest first, area + since filters, since optional', () => {
   // effectiveFrom after since counts even when verified earlier
   const e = { ...FIX[0], verifiedDate: '2026-01-01', effectiveFrom: '2027-04-06' };
   assert.equal(listEntries({ since: '2026-06-01' }, [e]).length, 1);
-  // live data: newest first (same day: area, then key) — de-rates sorts first among the 2026-10-03 entries
+  // live data: newest first (same day: area, then key) — derived from the file, so a new area's entries never pin this
   const live = listEntries();
   assert.equal(live.length, LIVE_TOTAL);
-  assert.equal(live[0].verifiedDate, '2026-10-03'); assert.equal(live[0].area, 'de-rates'); assert.equal(live[live.length - 1].key, 'fr-recalls/dataset');
-  assert.equal(listEntries({ area: 'software-eol' }).length, 14);
-  assert.equal(listEntries({ area: 'policy-rates' }).length, 6);
-  assert.equal(listEntries({ area: 'us-rates' }).length, 27);
-  assert.equal(listEntries({ area: 'de-rates' }).length, 19);
-  assert.equal(listEntries({ area: 'uk-rates' }).length, 0);
+  const newest = CHANGELOG.map((e) => e.verifiedDate).sort().pop();
+  const firstArea = CHANGELOG.filter((e) => e.verifiedDate === newest).map((e) => e.area).sort()[0];
+  assert.equal(live[0].verifiedDate, newest); assert.equal(live[0].area, firstArea);
+  const oldest = CHANGELOG.map((e) => e.verifiedDate).sort()[0];
+  assert.equal(live[live.length - 1].verifiedDate, oldest);
+  assert.ok(live[0].verifiedDate >= live[live.length - 1].verifiedDate);
+  for (const area of [...FIGURE_AREAS, ...SCRIPT_AREAS]) assert.equal(listEntries({ area }).length, perArea(area), area);
+  assert.equal(listEntries({ area: 'uk-rates' }).length, perArea('uk-rates'));
 });
 
 test('listEntries: unknown area and malformed since throw ChangelogFilterError', () => {
@@ -356,7 +367,7 @@ test('GET /changes handler: 200 HTML, indexable, public cache headers, live entr
   const html = String(r.raw);
   assert.doesNotMatch(html, /noindex/);
   assert.equal(count(html, /<article /g), LIVE_TOTAL);
-  assert.match(html, /<h2>October 2026<\/h2>/);
+  assert.match(html, new RegExp(`<h2>${R.monthLabel(CHANGELOG.map((e) => e.verifiedDate).sort().pop().slice(0, 7))}</h2>`));
   assert.match(html, /Node\.js support lifecycle dataset/);
   assert.match(html, /<dt>Context<\/dt><dd>Bank of England, decision 2025-12-18<\/dd>/);
   assert.match(html, /RappelConso automobile recalls dataset/);
@@ -369,15 +380,17 @@ test('GET /changes handler: 200 HTML, indexable, public cache headers, live entr
 test('GET /changes handler: area and since filters; empty since-view; 400 no-store on bad filters', async () => {
   const v = await get(changesPage, '/api/changes-page?area=vehicles');
   assert.equal(v.status, 200);
-  assert.equal(count(String(v.raw), /<article /g), 3);
+  assert.equal(count(String(v.raw), /<article /g), VEHICLES);
   assert.match(String(v.raw), /rel="canonical" href="https:\/\/databutler\.dev\/changes\?area=vehicles"/);
   const s = await get(changesPage, '/api/changes-page?since=2026-10-02');
-  assert.equal(count(String(s.raw), /<article /g), LIVE_TOTAL - 1); // only fr-recalls/dataset (2026-10-02) falls outside since=2026-10-02
-  assert.equal(count(String((await get(changesPage, '/api/changes-page?area=software-eol')).raw), /<article /g), 14);
-  assert.equal(count(String((await get(changesPage, '/api/changes-page?area=policy-rates')).raw), /<article /g), 6);
-  const none = await get(changesPage, '/api/changes-page?area=uk-rates');
+  assert.equal(count(String(s.raw), /<article /g), sinceCount('2026-10-02'));
+  assert.ok(sinceCount('2026-10-02') < LIVE_TOTAL, 'fr-recalls/dataset (2026-10-02) falls outside since=2026-10-02');
+  assert.equal(count(String((await get(changesPage, '/api/changes-page?area=software-eol')).raw), /<article /g), perArea('software-eol'));
+  assert.equal(count(String((await get(changesPage, '/api/changes-page?area=policy-rates')).raw), /<article /g), perArea('policy-rates'));
+  const emptyArea = [...FIGURE_AREAS, ...SCRIPT_AREAS].find((a) => perArea(a) === 0) || 'uk-rates';
+  const none = await get(changesPage, `/api/changes-page?area=${emptyArea}`);
   assert.equal(none.status, 200);
-  assert.match(String(none.raw), /No entries recorded yet for uk-rates/);
+  if (perArea(emptyArea) === 0) assert.match(String(none.raw), new RegExp(`No entries recorded yet for ${emptyArea}`));
   const future = await get(changesPage, '/api/changes-page?since=2030-01-01');
   assert.match(String(future.raw), /No recorded changes since 2030-01-01/);
   for (const url of ['/api/changes-page?area=stats', '/api/changes-page?since=last-week', '/api/changes-page?area=<script>']) {
@@ -406,10 +419,10 @@ test('GET /changes.rss|.atom handler: content types, cache, well-formed, area fi
   const atom = await get(changesFeed, '/api/changes-feed?format=atom&area=vehicles');
   assert.equal(atom.headers['Content-Type'], 'application/atom+xml; charset=utf-8');
   assert.equal(checkXml(String(atom.raw)), 'feed');
-  assert.equal(count(String(atom.raw), /<entry>/g), 3);
+  assert.equal(count(String(atom.raw), /<entry>/g), VEHICLES);
   const empty = await get(changesFeed, '/api/changes-feed?format=rss&area=uk-exams');
   assert.equal(empty.status, 200);
-  assert.equal(count(String(empty.raw), /<item>/g), 0);
+  assert.equal(count(String(empty.raw), /<item>/g), perArea('uk-exams'));
   for (const url of ['/api/changes-feed', '/api/changes-feed?format=json', '/api/changes-feed?format=rss&area=nope']) {
     const bad = await get(changesFeed, url);
     assert.equal(bad.status, 400, url);
@@ -422,7 +435,7 @@ test('GET /api/changes?format= switches output; JSON envelope and cite.url unaff
   const json = await get(changes, '/api/changes?since=2026-06-01&area=vehicles');
   assert.equal(json.status, 200);
   assert.match(json.headers['Content-Type'], /application\/json/);
-  assert.equal(json.body.count, 3);
+  assert.equal(json.body.count, VEHICLES);
   assert.equal(json.body.attribution, 'databutler.dev');
   assert.equal(json.body.cite.url, 'https://databutler.dev/r/changes?since=2026-06-01&area=vehicles');
   const explicit = await get(changes, '/api/changes?since=2026-06-01&area=vehicles&format=json');

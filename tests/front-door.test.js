@@ -4,12 +4,18 @@ const { rpc, callTool, invoke } = require('./helpers');
 const frontDoor = require('../api/_routes/mcp');
 const changes = require('../api/_routes/changes');
 const { ALL_TOOLS } = require('../api/_registry');
+const { frontDoorTools } = require('../api/_areas');
+const { HUB_TOOLS } = require('../api/_hub');
 
-const ORDER = ['uk_rates_lookup', 'exam_topic_paper', 'domain_provenance', 'package_provenance', 'take_home_pay', 'what_changed_since', 'coverage', 'catalogue', 'call'];
+// The listed set derives from the modules (frontDoor: true, in area order) + the four hub tools; the house rule
+// caps it at 5 + 4 = 9 (tests/areas.test.js). The four hub tools are fixed by name.
+const ORDER = [...frontDoorTools(), ...HUB_TOOLS.map((t) => t.name)];
 
-test('front door lists exactly the 9 tools, in order, with clean defs', async () => {
+test('front door lists exactly the direct tools + the 4 hub tools (≤ 9), in order, with clean defs', async () => {
   const r = await rpc(frontDoor, 'tools/list');
   assert.deepEqual(r.body.result.tools.map((t) => t.name), ORDER);
+  assert.deepEqual(ORDER.slice(-4), ['what_changed_since', 'coverage', 'catalogue', 'call']);
+  assert.ok(ORDER.length <= 9);
   for (const t of r.body.result.tools) assert.deepEqual(Object.keys(t).sort(), ['annotations', 'description', 'inputSchema', 'name', 'title']);
   const init = await rpc(frontDoor, 'initialize', { protocolVersion: '2025-06-18', capabilities: {}, clientInfo: { name: 't', version: '0' } });
   assert.equal(init.body.result.serverInfo.name, 'databutler');

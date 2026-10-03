@@ -12,6 +12,10 @@
  *   docs/CURATION.md                <!-- sync-areas:calendar -->
  *   public/index.html               <!-- sync-areas:humans -->, <!-- sync-areas:agents -->
  *   scripts/verify-hub.sh           # sync-areas:checks start / end
+ *   server-<key>.json               whole file (MCP registry manifest, one per focused server, from server.description)
+ *
+ * The README roadmap rows are numbered 1..N in `order`; a module's docs.readme.retires
+ * names a row of the hand-maintained "planned" table below it, which is then removed.
  *
  *   node scripts/sync-areas.js            # rewrite whatever is stale
  *   node scripts/sync-areas.js --check    # exit 1 and name the stale files (tests/areas.test.js runs this)
@@ -83,11 +87,23 @@ function protocolDoc(text, wellKnownJson) {
   return out;
 }
 
+/**
+ * Drop the planned-table rows (between the roadmap block and the catalogue block) whose
+ * `#` cell an area module retires, so building an area removes its own "planned" row.
+ */
+function retirePlanned(text, ids) {
+  if (!ids.length) return text;
+  const a = text.indexOf('<!-- sync-areas:roadmap end -->'), b = text.indexOf('<!-- sync-areas:catalogue start -->');
+  if (a === -1 || b === -1 || b < a) return text;
+  const middle = text.slice(a, b).split('\n').filter((line) => !ids.some((id) => new RegExp(`^\\|\\s*${id.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*\\|`).test(line))).join('\n');
+  return text.slice(0, a) + middle + text.slice(b);
+}
+
 function readme(text) {
   const roadmap = [
     '| # | Vertical (wishlist item it serves) | Endpoint | Status |',
     '|---|---|---|---|',
-    ...AREAS.map((a) => a.docs.readme.roadmapRow),
+    ...AREAS.map((a, i) => `| ${i + 1} ${a.docs.readme.roadmapRow}`),
   ].join('\n');
   const hub = HUB_TOOLS.map((t) => `\`${t.name}\``).join(', ');
   const catalogue = [
@@ -102,7 +118,24 @@ function readme(text) {
   ].join('\n');
   let t = replaceBlock(text, 'README.md', 'roadmap', roadmap);
   t = replaceBlock(t, 'README.md', 'catalogue', catalogue);
-  return t;
+  return retirePlanned(t, AREAS.map((a) => a.docs.readme.retires).filter(Boolean));
+}
+
+/** The MCP registry manifest for one focused server (the shape every server-*.json already has). */
+function manifest(key, s) {
+  const j = (v) => JSON.stringify(v);
+  return [
+    '{',
+    `  "$schema": ${j('https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json')},`,
+    `  "name": ${j(`io.github.physics-star-cat/${s.serverName}`)},`,
+    `  "description": ${j(s.description)},`,
+    `  "repository": { "url": ${j('https://github.com/physics-star-cat/databutler')}, "source": "github" },`,
+    `  "version": ${j(s.version || '1.0.0')},`,
+    `  "websiteUrl": ${j('https://databutler.dev/api')},`,
+    `  "remotes": [{ "type": "streamable-http", "url": ${j(s.url)} }]`,
+    '}',
+    '',
+  ].join('\n');
 }
 
 const CALENDAR_TAIL = [
@@ -160,9 +193,12 @@ function verifyHub(text) {
 
 /* ---------------- driver ---------------- */
 
+const readOr = (rel) => (fs.existsSync(path.join(ROOT, rel)) ? read(rel) : '');
+
 function plan() {
   const wk = wellKnown(read('public/.well-known/changes.json'));
   return [
+    ...Object.entries(SERVERS).map(([key, s]) => [`server-${key}.json`, manifest(key, s)]),
     ['public/llms.txt', llms(read('public/llms.txt'))],
     ['public/sitemap.xml', sitemap()],
     ['public/.well-known/changes.json', wk],
@@ -176,7 +212,7 @@ function plan() {
 
 function main(argv = process.argv.slice(2)) {
   const check = argv.includes('--check');
-  const stale = plan().filter(([rel, next]) => read(rel) !== next);
+  const stale = plan().filter(([rel, next]) => readOr(rel) !== next);
   if (check) {
     if (stale.length) {
       console.error(`sync-areas: stale — run \`node scripts/sync-areas.js\`:\n  ${stale.map(([r]) => r).join('\n  ')}`);
@@ -195,4 +231,7 @@ function main(argv = process.argv.slice(2)) {
 
 if (require.main === module) process.exit(main());
 
-module.exports = { main, plan, replaceBlock };
+/** Every file this script owns — scripts/changelog.js lets these be dirty while a new area is being added. */
+const GENERATED = () => plan().map(([rel]) => rel);
+
+module.exports = { main, plan, replaceBlock, retirePlanned, manifest, GENERATED };

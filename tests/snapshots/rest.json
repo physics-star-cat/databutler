@@ -530,6 +530,71 @@
       "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate."
     }
   },
+  "/api/us/rates": {
+    "status": 200,
+    "body": {
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate.",
+      "area": "us-rates",
+      "taxYear": "2026",
+      "taxYearRuns": "1 January 2026 to 31 December 2026 (calendar-year taxpayers; returns filed in 2027)",
+      "jurisdiction": "United States — federal only. State income tax, state unemployment insurance and local taxes are out of scope.",
+      "currency": "USD",
+      "verifiedDate": "2026-10-03",
+      "categories": {
+        "income-tax": "Federal income tax — rate schedules and standard deduction, tax year 2026",
+        "social-security": "Social Security (OASDI) payroll tax — wage base and rates, 2026",
+        "medicare": "Medicare (HI) payroll tax — rate and Additional Medicare Tax thresholds, 2026",
+        "retirement": "Retirement plan and IRA contribution limits, 2026",
+        "hsa": "Health Savings Accounts — contribution limits and HDHP definition, calendar year 2026",
+        "estate-gift": "Estate, gift and generation-skipping transfer tax — exclusion amounts, calendar year 2026"
+      },
+      "usage": "pass category=<key> for figures",
+      "freshness": {
+        "verifiedDate": "2026-10-03",
+        "nextScheduledRefresh": "2026-11-01"
+      },
+      "cite": {
+        "url": "https://databutler.dev/r/us/rates",
+        "text": "databutler.dev, verified 2026-10-03"
+      }
+    }
+  },
+  "/api/de/rates": {
+    "status": 200,
+    "body": {
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate.",
+      "area": "de-rates",
+      "taxYear": "2026",
+      "taxYearRuns": "Veranlagungszeitraum 2026 = Kalenderjahr 2026 (1 January – 31 December 2026)",
+      "jurisdiction": "Germany — federal law. Kirchensteuer (8 % Bayern/Baden-Württemberg, 9 % elsewhere) and Land-specific rules are out of scope except where noted (Sachsen Pflegeversicherung split).",
+      "currency": "EUR",
+      "verifiedDate": "2026-10-03",
+      "categories": {
+        "income-tax": "Einkommensteuer — Tarif § 32a EStG, Solidaritätszuschlag (VZ 2026)",
+        "social-insurance": "Sozialversicherung — Beitragsbemessungsgrenzen, Rechengrößen und Beitragssätze 2026",
+        "minimum-wage": "Gesetzlicher Mindestlohn (MiLoG / MiLoV5)",
+        "minijob": "Geringfügige Beschäftigung (Minijob) — Geringfügigkeitsgrenze § 8 SGB IV",
+        "kindergeld": "Kindergeld § 66 EStG",
+        "kinderfreibetrag": "Freibeträge für Kinder § 32 Abs. 6 EStG",
+        "sparer-pauschbetrag": "Sparer-Pauschbetrag § 20 Abs. 9 EStG",
+        "arbeitnehmer-pauschbetrag": "Arbeitnehmer-Pauschbetrag § 9a Satz 1 Nr. 1a EStG",
+        "entfernungspauschale": "Entfernungspauschale (Pendlerpauschale) § 9 Abs. 1 Satz 3 Nr. 4 EStG"
+      },
+      "usage": "pass category=<key> for figures",
+      "freshness": {
+        "verifiedDate": "2026-10-03",
+        "nextScheduledRefresh": "2026-12-15"
+      },
+      "cite": {
+        "url": "https://databutler.dev/r/de/rates",
+        "text": "databutler.dev, verified 2026-10-03"
+      }
+    }
+  },
   "/api/uk/rates?category=vat": {
     "status": 200,
     "body": {

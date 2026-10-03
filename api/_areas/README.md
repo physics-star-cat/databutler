@@ -10,12 +10,15 @@ the front door's listed tools and hub descriptions, the source watcher's URL
 list, and — through `node scripts/sync-areas.js` — `public/llms.txt`,
 `public/sitemap.xml`, `public/.well-known/changes.json`, the spec's discovery
 example, the README roadmap/catalogue, the CURATION refresh calendar,
-`public/index.html` and `scripts/verify-hub.sh`.
+`public/index.html`, `scripts/verify-hub.sh` and the `server-<key>.json`
+registry manifests.
 
 Start a new one with `node scripts/new-area.js <slug> --title "…" --cadence "…"`
-(docs/ADDING_AN_AREA.md). Shared helpers live in `api/_area_kit.js`; a module
-must never require `_registry`, `_hub`, `_changelog`, `_coverage`, `_freshness`,
-`_envelope`, `_rest` or `_areas` (they require this directory — a cycle).
+(docs/ADDING_AN_AREA.md). Shared helpers live in `api/_area_kit.js` —
+`categoriesLookup`, `areaHeader`, `diffCategories`, `noteTemplate`, `plusDays`,
+`slug`, `same` — and a module must never require `_registry`, `_hub`,
+`_changelog`, `_coverage`, `_freshness`, `_envelope`, `_rest` or `_areas` (they
+require this directory — a cycle).
 
 ```js
 module.exports = {
@@ -28,6 +31,7 @@ module.exports = {
     key: 'policy-rates',         // optional; defaults to `area` → POST /api/mcp/<key>
     serverName: 'databutler-policy-rates',
     url: `${BASE}/api/mcp/policy-rates`,
+    description: '…',            // one sentence → server-<key>.json (MCP registry manifest, written by sync-areas)
     instructions: '…',           // MCP initialize.instructions
     tools: [{                    // MCP tool shape plus:
       name, title, description, inputSchema,
@@ -35,7 +39,7 @@ module.exports = {
       freshness: 'policy-rates', // a dataset key below, or 'live'
       cite: (args) => ({ path: 'policy-rates', query: { bank: args.bank } }),  // → https://databutler.dev/r/<path>?…
       openWorld: true,           // optional: fetches live external data → annotations.openWorldHint
-      frontDoor: true,           // optional: listed directly at POST /api/mcp (the front door's DIRECT set)
+      frontDoor: true,           // optional: listed directly at POST /api/mcp — at most 5 direct + 4 hub tools = 9 listed
     }],
   },
 
@@ -51,7 +55,9 @@ module.exports = {
     | {
         diff: (prev, next) => entries,   // protocol entries: area, key, label, from, to, effectiveFrom, source, verifiedDate, note ''
         files: ['data/policy-rates.json'],  // paths/prefixes scripts/changelog.js attributes to this area (default: dataFile)
-        previousSibling: false,  // a brand-new file diffs against the previous sibling in its directory (tax years)
+        previousSibling: false,  // a brand-new file diffs against the previous sibling in its directory (per-year layout)
+        previous: true,          // optional, informational: diff() uses previous.value semantics (tests + the script's message read it)
+        note: noteTemplate('{label}: {from} → {to} ({document})'),  // optional: scripts/changelog.js pre-fills blank notes with it
         context: (entry) => 'Bank of England, decision 2025-12-18',  // optional line under the entry on /changes
       }
     | { diff: null, script: 'scripts/vehicles.js' },   // entries come from the dataset's own build script
@@ -80,7 +86,11 @@ module.exports = {
   },
 
   docs: {
-    readme: { roadmapRow: '| 16 | … |', catalogueRow: '| `/api/mcp/policy-rates` | … | … |' },
+    readme: {
+      roadmapRow: '| **Policy rates** — … | `/api/mcp/policy-rates` | **v1 — built …** |',  // no # cell: sync-areas numbers rows 1..N from `order`
+      catalogueRow: '| `/api/mcp/policy-rates` | … | … |',
+      retires: '12c',            // optional: the # of the README "planned" row this area replaces — sync-areas removes it
+    },
     llms: { rest: ['- `GET https://databutler.dev/api/policy-rates?bank=boe` — …'], server: '- `POST …/api/mcp/policy-rates` — …' },
     curation: ['| `data/policy-rates.json` | refresh trigger | how |'],   // refresh-calendar rows ([] when none)
     index: { blurb: 'Bank of England, Fed and ECB policy rates, …' },     // parenthetical on index.html (null for none)
@@ -103,4 +113,51 @@ is present and typed as shown; tool names, REST paths and `order` are unique
 across areas; a changelog area has `discovery`; a committed data file is under
 1 MB unless the dataset says `large: '…'`; tool descriptions are plain
 statements (no "use this", "always", "never", "call this", "do not") for every
-area added after the kit; `node scripts/sync-areas.js --check` passes.
+area added after the kit; the front door lists **at most 5 direct tools + the 4
+hub tools = 9**; every server's `server-<key>.json` matches its module;
+`node scripts/sync-areas.js --check` passes.
+
+## The categories → figures data shape and the kit's helpers
+
+```json
+{ "area": "us-rates", "taxYear": "2026", "verifiedDate": "2026-10-03", "nextScheduledRefresh": "2026-11-01",
+  "licence": "…", "categories": { "income-tax": { "title": "Income tax", "source": "https://…",
+    "figures": [{ "key": "standard-deduction", "label": "Standard deduction", "value": 16100, "unit": "USD/year",
+                  "source": "https://…/rp-25-32.pdf", "quote": "the sentence it was read from", "effectiveFrom": "2026-01-01",
+                  "previous": { "value": 15750, "taxYear": "2025", "source": "https://…" } }] } } }
+```
+
+- `taxYear`, `taxYearRuns`, `jurisdiction`, `currency` are optional file-level
+  fields; `areaHeader(data, area)` puts whichever exist (plus `verifiedDate`) on
+  every answer.
+- **`previous.value` is the comparable prior value.** A `previous` block without
+  `.value` (e.g. a rate schedule's `bracketUpperBounds`) is kept for readers but
+  is *not* comparable — `diffCategories` skips it (us-rates logs schedules with
+  its own `scheduleArrivals`).
+- `categoriesLookup(DATA, AREA, { exact, substring, nearest, header })` → the
+  tool's `run`: nothing → listing (`categories` → titles, `usage`); a key →
+  that category under the header; otherwise, each switchable, `exact` key, then
+  `substring` of a key or title (uk_rates_lookup's behaviour), else
+  `covered:false` with `nearest` and `coverage`. REST: leave `required` off so
+  an empty query returns the listing (house style); `required: ['category']`
+  for a 400 instead (`--required-param`).
+- `diffCategories(area, prev, next, opts)` — one entry per figure whose `value`
+  or `band` moved, was added or was removed. Options:
+  `key(f)` the figure's stable id within its category (default `slug(label)`;
+  use `f.key` when figures carry one); `previous: true` a figure's **first
+  appearance** records `previous.value → value` and a figure with no
+  `previous.value`, or one equal to its value, records nothing (default false:
+  every first appearance is `null → value`); `effectiveFrom(next, f)` the day
+  the new value applies (default `next.verifiedDate`; per-figure
+  `f.effectiveFrom` for annual areas); per-figure `source` on a figure wins over
+  the category's; `extra(next, cat, f)` fields merged into every entry (e.g.
+  `taxYear`). Notes are always `''` from `diff()` — `scripts/changelog.js` fills
+  them from `changelog.note`.
+- `noteTemplate(template)` → a `changelog.note(entry, prev, next)`. Placeholders
+  `{label} {key} {from} {to} {unit} {effectiveFrom} {source} {quote} {document}`;
+  `{document}` is the figure's `quote` when it has one, else its source URL.
+  Default `"{label}: {from} → {to} ({document})"`.
+- **Layout.** One file `data/<slug>.json` for data that is corrected in place
+  (policy rates, EOL); one file per year `data/<slug>/<year>.json` with
+  `changelog.files: ['data/<slug>/']` and `previousSibling: true` for annual
+  areas whose old years stay queryable (uk-rates) — `--per-year <year>`.

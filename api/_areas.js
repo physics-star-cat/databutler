@@ -30,7 +30,7 @@ function validate(m, file) {
   if (m.server !== null) {
     const s = m.server;
     if (!s || typeof s !== 'object') fail(file, 'server must be an object or null');
-    for (const k of ['serverName', 'url', 'instructions']) if (typeof s[k] !== 'string' || !s[k]) fail(file, `server.${k} is required`);
+    for (const k of ['serverName', 'url', 'instructions', 'description']) if (typeof s[k] !== 'string' || !s[k]) fail(file, `server.${k} is required${k === 'description' ? ' (one sentence for the server-<key>.json registry manifest, written by scripts/sync-areas.js)' : ''}`);
     if (!Array.isArray(s.tools) || !s.tools.length) fail(file, 'server.tools must be a non-empty array');
     for (const t of s.tools) {
       if (!t.name || !t.title || !t.description || !t.inputSchema) fail(file, `tool ${t.name || '?'} needs name, title, description, inputSchema`);
@@ -55,6 +55,8 @@ function validate(m, file) {
     if (!c || typeof c !== 'object') fail(file, 'changelog must be an object or null');
     if (c.diff !== null && typeof c.diff !== 'function') fail(file, 'changelog.diff must be a function or null');
     if (c.diff === null && typeof c.script !== 'string') fail(file, 'a changelog without diff() must name the script that writes its entries');
+    if (c.note !== undefined && typeof c.note !== 'function') fail(file, 'changelog.note must be a function (entry, prev, next) → string — see noteTemplate in api/_area_kit.js');
+    if (c.previous !== undefined && typeof c.previous !== 'boolean') fail(file, 'changelog.previous must be true or false (does diff() use previous.value for first appearances?)');
     if (!m.discovery || typeof m.discovery.description !== 'string' || typeof m.discovery.cadence !== 'string') fail(file, 'a changelog area needs discovery { description, cadence }');
     if (m.discovery.description.length <= 40) fail(file, 'discovery.description must say more than 40 characters');
     if (m.discovery.cadence.length <= 5) fail(file, 'discovery.cadence must be stated');
@@ -73,6 +75,8 @@ function validate(m, file) {
   if (m.changelog && typeof m.hub.changed !== 'string') fail(file, 'a changelog area needs hub.changed (phrase for what_changed_since)');
   const d = m.docs;
   if (!d || !d.readme || typeof d.readme.roadmapRow !== 'string' || typeof d.readme.catalogueRow !== 'string') fail(file, 'docs.readme { roadmapRow, catalogueRow } required');
+  if (/^\|\s*[0-9]+[a-z]?\s*\|/.test(d.readme.roadmapRow)) fail(file, 'docs.readme.roadmapRow starts at the Vertical cell — scripts/sync-areas.js numbers the rows from `order`');
+  if (d.readme.retires !== undefined && (typeof d.readme.retires !== 'string' || !d.readme.retires)) fail(file, 'docs.readme.retires names the # of the README planned-table row this area replaces');
   if (!d.llms || !Array.isArray(d.llms.rest) || (m.server && typeof d.llms.server !== 'string')) fail(file, 'docs.llms { rest: [], server } required');
   if (!Array.isArray(d.curation)) fail(file, 'docs.curation (refresh-calendar rows, may be []) required');
   if (typeof d.api !== 'function') fail(file, 'docs.api() → { endpoints, coverage?, mcp? } required');

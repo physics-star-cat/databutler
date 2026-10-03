@@ -3,8 +3,17 @@
  * Generate changelog entries from the data files you just edited.
  *   1. edit an area's data file against the live source page (docs/CURATION.md, docs/ADDING_AN_AREA.md)
  *   2. node scripts/changelog.js        (add --no-fetch to skip sources.json refresh)
- *   3. fill in the "note" lines it printed, then commit data/ together
- * Refuses to run with uncommitted changes outside data/ so diffs stay attributable.
+ *   3. review the "note" lines it printed, then commit data/ together
+ * Flags:
+ *   --only <area>   diff only that area's files and re-hash only its watched sources — every
+ *                   other area's watcher baseline (data/sources.json) stays as it was. Without it the
+ *                   script re-hashes ALL watched pages, which resets the Monday watcher for every area.
+ *   --allow-dirty   skip the clean-tree check below
+ *   --no-fetch      do not touch data/sources.json
+ * Refuses to run with uncommitted changes outside data/ so diffs stay attributable — except the
+ * files a NEW area brings with it (an area whose data is not yet in git): its module, test,
+ * manifest, CURATION section and everything scripts/sync-areas.js generates are expected to be
+ * uncommitted at that point, so no WIP commit is needed before the first changelog run.
  *
  * Which diff runs is decided by the area modules (api/_areas/<area>.js): a
  * changed data file belongs to the area whose changelog.files prefix matches
@@ -20,6 +29,11 @@ const { mergeEntries } = require('../api/_changelog');
 const { AREAS, datasets } = require('../api/_areas');
 const { plusDays } = require('../api/_area_kit');
 const { refreshSources } = require('./sources');
+const { GENERATED } = require('./sync-areas');
+
+const argv = process.argv.slice(2);
+const flag = (name) => argv.includes(name);
+const ONLY = argv.includes('--only') ? argv[argv.indexOf('--only') + 1] : null;
 
 const ROOT = path.resolve(__dirname, '..');
 // Not trimmed: porcelain status codes can start with a leading space (e.g. " M"),
@@ -55,22 +69,45 @@ function areaFor(file) {
   return AREAS.find((a) => claims(a).some((prefix) => file === prefix || file.startsWith(prefix))) || null;
 }
 
+/** Areas none of whose claimed data paths is in git yet — the area being added right now. */
+function newAreas() {
+  return AREAS.filter((a) => a.changelog && claims(a).length && claims(a).every((prefix) => shRaw(`git ls-files -- "${prefix}"`).trim() === ''));
+}
+
+/** Paths a new area legitimately leaves uncommitted before its first changelog run. */
+function expectedDirty() {
+  const fresh = newAreas();
+  if (!fresh.length) return new Set();
+  const out = new Set([...GENERATED(), 'docs/CURATION.md']);
+  for (const a of fresh) {
+    out.add(`api/_areas/${a.area}.js`);
+    out.add(`tests/${a.area}.test.js`);
+    if (a.server) out.add(`server-${a.server.key || a.area}.json`);
+  }
+  return out;
+}
+
 function changedDataFiles() {
   const entries = parsePorcelain(shRaw('git status --porcelain'));
-  const outside = entries.filter((e) => !e.path.startsWith('data/'));
-  if (outside.length) {
-    console.error('Refusing: uncommitted changes outside data/ — commit or stash them first:\n  ' + outside.map((e) => e.path).join('\n  '));
+  const allowed = expectedDirty();
+  const outside = entries.filter((e) => !e.path.startsWith('data/') && !allowed.has(e.path));
+  if (outside.length && !flag('--allow-dirty')) {
+    console.error('Refusing: uncommitted changes outside data/ — commit or stash them first (or pass --allow-dirty):\n  ' + outside.map((e) => e.path).join('\n  '));
+    process.exit(1);
+  }
+  if (ONLY && !AREAS.some((a) => a.area === ONLY)) {
+    console.error(`--only ${ONLY}: no such area (${AREAS.map((a) => a.area).join(', ')})`);
     process.exit(1);
   }
   const files = [];
-  for (const e of entries.filter((e) => e.path.endsWith('.json') && e.path !== 'data/changelog.json' && e.path !== 'data/sources.json')) {
+  for (const e of entries.filter((e) => e.path.startsWith('data/') && e.path.endsWith('.json') && e.path !== 'data/changelog.json' && e.path !== 'data/sources.json')) {
     if (/D/.test(e.status)) {
       console.log(`${e.path} was deleted — removals are recorded when the surviving file is refreshed; nothing to diff`);
       continue;
     }
     files.push(e.path);
   }
-  return files;
+  return ONLY ? files.filter((f) => areaFor(f) && areaFor(f).area === ONLY) : files;
 }
 
 /** Previous committed version; for a brand-new file in an area with previousSibling, the prior sibling (e.g. last tax year). */
@@ -97,13 +134,23 @@ function stampRefresh(file, data, area) {
   console.log(`${file}: nextScheduledRefresh set to ${due} (verifiedDate + ${ds.cadenceDays} days)`);
 }
 
+/** Blank notes get the module's changelog.note(entry, prev, next) when it has one (api/_area_kit.js noteTemplate). */
+function prefillNotes(area, entries, prev, next) {
+  if (typeof area.changelog.note !== 'function') return 0;
+  let n = 0;
+  for (const e of entries) if (!e.note) { e.note = String(area.changelog.note(e, prev, next) || ''); if (e.note) n++; }
+  return n;
+}
+
 async function main() {
   const files = changedDataFiles();
   if (!files.length) {
-    console.log('No changed data files under data/. Nothing to do.');
+    console.log(ONLY ? `No changed data files for ${ONLY}. Nothing to do.` : 'No changed data files under data/. Nothing to do.');
     return;
   }
   let entries = [];
+  let prefilled = 0;
+  const touched = new Set();
   for (const file of files) {
     const area = areaFor(file);
     if (!area) { console.log(`${file}: no area module claims this file (api/_areas/*.js changelog.files) — skipped`); continue; }
@@ -111,18 +158,30 @@ async function main() {
     const next = read(file), prev = previousVersion(file, area);
     stampRefresh(file, next, area);
     const diff = area.changelog.diff(prev, next);
-    console.log(`${file} (${area.area}): ${diff.length} change(s)`);
+    prefilled += prefillNotes(area, diff, prev, next);
+    touched.add(area);
+    const first = prev === null;
+    console.log(`${file} (${area.area}): ${diff.length} change(s)${first ? (area.changelog.previous ? ' — first commit: previous.value → value for figures carrying a previous; the rest record nothing' : ' — first commit: null → value') : ''}`);
     entries = entries.concat(diff);
   }
   const clPath = path.join(ROOT, 'data/changelog.json');
   const { merged, added } = mergeEntries(read('data/changelog.json'), entries);
   fs.writeFileSync(clPath, JSON.stringify(merged, null, 2) + '\n');
-  for (const e of added) console.log(`  + ${e.area} ${e.key}: ${JSON.stringify(e.from)} → ${JSON.stringify(e.to)}`);
+  for (const e of added) console.log(`  + ${e.area} ${e.key}: ${JSON.stringify(e.from)} → ${JSON.stringify(e.to)}${e.note ? `  note: ${e.note}` : ''}`);
   console.log(`\n${added.length} new entr${added.length === 1 ? 'y' : 'ies'} appended to data/changelog.json.`);
-  if (added.length) console.log('Fill in each "note" (e.g. "Autumn Budget 2026"), then commit data/ together.');
-  if (!process.argv.includes('--no-fetch')) await refreshSources();
+  if (added.length) console.log(prefilled ? `${prefilled} note(s) pre-filled from the module's changelog.note — review each, then commit data/ together.` : 'Fill in each "note" (e.g. "Autumn Budget 2026"), then commit data/ together.');
+  if (flag('--no-fetch')) return;
+  if (ONLY) {
+    const only = [...touched].find((a) => a.area === ONLY) || AREAS.find((a) => a.area === ONLY);
+    const urls = only.sources().map((x) => x.url);
+    console.log(`Re-hashing ${urls.length} ${ONLY} source(s) only; other areas' watcher baselines untouched.`);
+    await refreshSources(urls);
+  } else {
+    console.log('Re-hashing EVERY watched source (resets the Monday watcher baseline for all areas; use --only <area> to limit).');
+    await refreshSources();
+  }
 }
 
 if (require.main === module) main().catch((e) => { console.error(e); process.exit(1); });
 
-module.exports = { parsePorcelain, areaFor, claims };
+module.exports = { parsePorcelain, areaFor, claims, newAreas, expectedDirty, prefillNotes };
