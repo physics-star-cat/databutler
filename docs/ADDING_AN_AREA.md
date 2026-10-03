@@ -29,7 +29,7 @@ README rows, index.html, verify-hub.sh) derives from the module. Contract and he
 4. **Pin real figures** in `tests/<area>.test.js`'s data test. Nothing else there to edit.
 5. **Changelog + watcher.** `node scripts/changelog.js --only <slug>`. It runs with the four
    files uncommitted (an area whose data is not yet in git may leave its module, test, manifest,
-   CURATION and every generated file dirty; `--allow-dirty` for anything else), diffs the data
+   CURATION, snapshots and every generated file dirty; `--allow-dirty` for anything else), diffs the data
    (first commit: `null → value`, or `previous.value → value` with `--previous`; un-previoused
    figures then record nothing), stamps `nextScheduledRefresh` when `cadenceDays` is set,
    pre-fills every `note` from `changelog.note` — **review them** — and re-hashes only this

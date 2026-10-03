@@ -145,7 +145,14 @@ test('the README roadmap is numbered 1..N in area order and every live area has 
 
 /* ---------------- changelog script helpers ---------------- */
 
-test('changelog.js: with every area committed there is no new area and nothing extra may be dirty', () => {
-  assert.deepEqual(newAreas().map((a) => a.area), []);
-  assert.deepEqual([...expectedDirty()], []);
+test('changelog.js: a new area (data not in git) may leave its module, test, manifest, CURATION, snapshots and generated files dirty; otherwise nothing', () => {
+  const fresh = newAreas();
+  const dirty = [...expectedDirty()];
+  if (!fresh.length) { assert.deepEqual(dirty, []); return; }
+  for (const a of fresh) {
+    assert.ok(dirty.includes(`api/_areas/${a.area}.js`) && dirty.includes(`tests/${a.area}.test.js`), a.area);
+    if (a.server) assert.ok(dirty.includes(`server-${a.server.key || a.area}.json`));
+  }
+  for (const rel of ['README.md', 'docs/CURATION.md', 'public/llms.txt', 'tests/snapshots/rest.json']) assert.ok(dirty.includes(rel), rel);
+  assert.ok(!dirty.includes('api/_area_kit.js') && !dirty.includes('scripts/changelog.js'), 'kit files are never expected dirty');
 });

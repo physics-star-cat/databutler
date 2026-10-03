@@ -12,8 +12,9 @@
  *   --no-fetch      do not touch data/sources.json
  * Refuses to run with uncommitted changes outside data/ so diffs stay attributable — except the
  * files a NEW area brings with it (an area whose data is not yet in git): its module, test,
- * manifest, CURATION section and everything scripts/sync-areas.js generates are expected to be
- * uncommitted at that point, so no WIP commit is needed before the first changelog run.
+ * manifest, CURATION section, the refreshed snapshots and everything scripts/sync-areas.js
+ * generates are expected to be uncommitted at that point, so no WIP commit is needed before the
+ * first changelog run.
  *
  * Which diff runs is decided by the area modules (api/_areas/<area>.js): a
  * changed data file belongs to the area whose changelog.files prefix matches
@@ -78,7 +79,7 @@ function newAreas() {
 function expectedDirty() {
   const fresh = newAreas();
   if (!fresh.length) return new Set();
-  const out = new Set([...GENERATED(), 'docs/CURATION.md']);
+  const out = new Set([...GENERATED(), 'docs/CURATION.md', ...fs.readdirSync(path.join(ROOT, 'tests/snapshots')).map((f) => `tests/snapshots/${f}`)]);
   for (const a of fresh) {
     out.add(`api/_areas/${a.area}.js`);
     out.add(`tests/${a.area}.test.js`);

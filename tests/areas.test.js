@@ -126,7 +126,7 @@ test('scaffold: node scripts/new-area.js creates a loadable area whose skeleton 
     assert.match(made2.stdout, /previous\.value → value/);
     const readmeAfter = fs.readFileSync(path.join(tmp, 'README.md'), 'utf8');
     assert.doesNotMatch(readmeAfter, /^\| 7 \| \*\*Current-docs/m, 'retired planned row removed');
-    assert.match(readmeAfter, /^\| 12 \| \*\*Throwaway calendar\*\*/m, 'roadmap rows numbered from order');
+    assert.match(readmeAfter, new RegExp(`^\\| ${AREAS.length + 2} \\| \\*\\*Throwaway calendar\\*\\*`, 'm'), 'roadmap rows numbered from order (two scaffolds after the live areas)');
     const calModule = fs.readFileSync(path.join(tmp, `api/_areas/${cal}.js`), 'utf8');
     assert.match(calModule, /cadenceDays: CADENCE_DAYS/); assert.match(calModule, /const CADENCE_DAYS = null/); assert.match(calModule, /previousSibling: true/); assert.match(calModule, /required: \['category'\]/);
     assert.match(fs.readFileSync(path.join(tmp, 'scripts/verify-hub.sh'), 'utf8'), /check throwaway-cal-rest-400 /);
