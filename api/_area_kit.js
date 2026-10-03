@@ -38,23 +38,36 @@ const same = (a, b) => JSON.stringify(a ?? null) === JSON.stringify(b ?? null);
 /**
  * Generic changelog diff for the simplest data shape the kit scaffolds:
  *   { categories: { <cat>: { title, source, figures: [{ label, value, unit?, band? }] } }, verifiedDate, ... }
- * One entry per figure whose value (or band) moved, added or was removed; the
- * category's source is the entry's source. `effectiveFrom(next)` names the day
- * the new figures apply from (default: verifiedDate). Areas with richer data
- * write their own diff — see api/_areas/uk-rates.js for the pattern.
+ * One entry per figure whose value (or band) moved, added or was removed. A
+ * figure's own `source` (when it carries one) is the entry's source, else the
+ * category's. Options:
+ *   effectiveFrom(next, figure) — the day the new value applies from (default: next.verifiedDate)
+ *   key(figure)                 — the figure's stable id within its category (default: slug(label));
+ *                                 the entry key is `<cat>/<key>`
+ *   previous: true              — a figure new to the file (first commit included) takes `from` from its
+ *                                 own `previous.value` block, so its arrival records its last real change
+ *                                 rather than null → value; a new figure without `previous.value`, or whose
+ *                                 previous equals its value, records nothing (api/_areas/us-rates.js)
+ *   extra(next, cat, figure)    — fields merged into every entry
+ * Areas with richer data write their own diff — see api/_areas/uk-rates.js for the pattern.
  */
-function diffCategories(area, prev, next, { effectiveFrom = (n) => n.verifiedDate, extra = () => ({}) } = {}) {
+function diffCategories(area, prev, next, { effectiveFrom = (n) => n.verifiedDate, key = (f) => slug(f.label), previous = false, extra = () => ({}) } = {}) {
   const out = [];
   const entry = (cat, c, f, from, to, more = {}) => ({
-    area, key: `${cat}/${slug(f.label)}`, label: f.label, from, to, unit: f.unit || null, ...more,
-    effectiveFrom: effectiveFrom(next), source: c.source, verifiedDate: next.verifiedDate, note: '', ...extra(next, cat, f),
+    area, key: `${cat}/${key(f)}`, label: f.label, from, to, unit: f.unit || null, ...more,
+    effectiveFrom: effectiveFrom(next, f), source: f.source || c.source, verifiedDate: next.verifiedDate, note: '', ...extra(next, cat, f),
   });
   for (const [cat, c] of Object.entries(next.categories || {})) {
     const p = prev && prev.categories ? prev.categories[cat] : null;
-    const before = new Map(((p && p.figures) || []).map((f) => [slug(f.label), f]));
+    const before = new Map(((p && p.figures) || []).map((f) => [key(f), f]));
     for (const f of c.figures || []) {
-      const was = before.get(slug(f.label));
+      const was = before.get(key(f));
       if (was && same(was.value, f.value) && same(was.band, f.band)) continue;
+      if (!was && previous) {
+        if (!f.previous || f.previous.value === undefined || same(f.previous.value, f.value)) continue;
+        out.push(entry(cat, c, f, f.previous.value, f.value, { ...(f.band ? { band: f.band } : {}) }));
+        continue;
+      }
       out.push(entry(cat, c, f, was ? was.value : null, f.value, {
         ...(f.band ? { band: f.band } : {}), ...(was && !same(was.band, f.band) ? { fromBand: was.band || null } : {}),
       }));
@@ -63,9 +76,9 @@ function diffCategories(area, prev, next, { effectiveFrom = (n) => n.verifiedDat
   if (prev && prev.categories) {
     for (const [cat, p] of Object.entries(prev.categories)) {
       const c = (next.categories || {})[cat];
-      const after = new Map(((c && c.figures) || []).map((f) => [slug(f.label), f]));
+      const after = new Map(((c && c.figures) || []).map((f) => [key(f), f]));
       for (const f of p.figures || []) {
-        if (after.has(slug(f.label))) continue;
+        if (after.has(key(f))) continue;
         out.push(entry(cat, { source: (c && c.source) || p.source }, f, f.value, null));
       }
     }

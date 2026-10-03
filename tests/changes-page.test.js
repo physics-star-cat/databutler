@@ -75,10 +75,14 @@ const FIX = [
 
 const EOL_PRODUCTS = ['nodejs', 'python', 'ubuntu', 'debian', 'android', 'ios', 'macos', 'windows', 'oracle-jdk', 'go', 'ruby', 'php', 'postgresql', 'react'];
 
-test('live changelog: three vehicles + fourteen software-eol dataset entries in the dataset-script shape (+ six policy-rates figure entries)', () => {
-  // 3 vehicles + 14 software-eol dataset entries + 6 policy-rates figure entries (the latter are checked in tests/policy-rates.test.js)
-  assert.equal(CHANGELOG.length, 23);
-  const DATASETS = CHANGELOG.filter((e) => e.area !== 'policy-rates');
+// Live changelog: 3 vehicles + 14 software-eol dataset entries, plus figure entries checked in their own suites —
+// 6 policy-rates (tests/policy-rates.test.js), 27 us-rates (tests/us-rates.test.js), 19 de-rates (tests/de-rates.test.js).
+const FIGURE_AREAS = ['policy-rates', 'us-rates', 'de-rates'];
+const LIVE_TOTAL = 3 + 14 + 6 + 27 + 19;
+
+test('live changelog: three vehicles + fourteen software-eol dataset entries in the dataset-script shape (+ figure entries for policy-rates, us-rates, de-rates)', () => {
+  assert.equal(CHANGELOG.length, LIVE_TOTAL);
+  const DATASETS = CHANGELOG.filter((e) => !FIGURE_AREAS.includes(e.area));
   const keys = DATASETS.map((e) => e.key).sort();
   assert.deepEqual(keys, ['eu-safety-gate/dataset', 'fr-recalls/dataset', 'jp-recalls/dataset', ...EOL_PRODUCTS.map((p) => `${p}/dataset`)].sort());
   for (const e of DATASETS) {
@@ -106,7 +110,7 @@ test('live changelog: three vehicles + fourteen software-eol dataset entries in 
     assert.equal(e.source, `https://endoflife.date/${p}`); assert.match(e.note, /endoflife\.date/); assert.match(e.note, /MIT/); assert.match(e.note, /\d+ release cycles/);
   }
   // ids are unique: the dedupe key for mergeEntries and the basis of feed guids
-  assert.equal(new Set(CHANGELOG.map(entryId)).size, 23);
+  assert.equal(new Set(CHANGELOG.map(entryId)).size, LIVE_TOTAL);
   assert.equal(entryId(fr), 'vehicles|fr-recalls/dataset|2026-10-02');
 });
 
@@ -158,12 +162,14 @@ test('listEntries: newest first, area + since filters, since optional', () => {
   // effectiveFrom after since counts even when verified earlier
   const e = { ...FIX[0], verifiedDate: '2026-01-01', effectiveFrom: '2027-04-06' };
   assert.equal(listEntries({ since: '2026-06-01' }, [e]).length, 1);
-  // live data: three vehicles + fourteen software-eol + six policy-rates entries, newest first (same day: area, then key)
+  // live data: newest first (same day: area, then key) — de-rates sorts first among the 2026-10-03 entries
   const live = listEntries();
-  assert.equal(live.length, 23);
-  assert.equal(live[0].verifiedDate, '2026-10-03'); assert.equal(live[0].area, 'policy-rates'); assert.equal(live[live.length - 1].key, 'fr-recalls/dataset');
+  assert.equal(live.length, LIVE_TOTAL);
+  assert.equal(live[0].verifiedDate, '2026-10-03'); assert.equal(live[0].area, 'de-rates'); assert.equal(live[live.length - 1].key, 'fr-recalls/dataset');
   assert.equal(listEntries({ area: 'software-eol' }).length, 14);
   assert.equal(listEntries({ area: 'policy-rates' }).length, 6);
+  assert.equal(listEntries({ area: 'us-rates' }).length, 27);
+  assert.equal(listEntries({ area: 'de-rates' }).length, 19);
   assert.equal(listEntries({ area: 'uk-rates' }).length, 0);
 });
 
@@ -349,7 +355,7 @@ test('GET /changes handler: 200 HTML, indexable, public cache headers, live entr
   assert.equal(r.headers['Access-Control-Allow-Origin'], '*');
   const html = String(r.raw);
   assert.doesNotMatch(html, /noindex/);
-  assert.equal(count(html, /<article /g), 23);
+  assert.equal(count(html, /<article /g), LIVE_TOTAL);
   assert.match(html, /<h2>October 2026<\/h2>/);
   assert.match(html, /Node\.js support lifecycle dataset/);
   assert.match(html, /<dt>Context<\/dt><dd>Bank of England, decision 2025-12-18<\/dd>/);
@@ -366,7 +372,7 @@ test('GET /changes handler: area and since filters; empty since-view; 400 no-sto
   assert.equal(count(String(v.raw), /<article /g), 3);
   assert.match(String(v.raw), /rel="canonical" href="https:\/\/databutler\.dev\/changes\?area=vehicles"/);
   const s = await get(changesPage, '/api/changes-page?since=2026-10-02');
-  assert.equal(count(String(s.raw), /<article /g), 22);
+  assert.equal(count(String(s.raw), /<article /g), LIVE_TOTAL - 1); // only fr-recalls/dataset (2026-10-02) falls outside since=2026-10-02
   assert.equal(count(String((await get(changesPage, '/api/changes-page?area=software-eol')).raw), /<article /g), 14);
   assert.equal(count(String((await get(changesPage, '/api/changes-page?area=policy-rates')).raw), /<article /g), 6);
   const none = await get(changesPage, '/api/changes-page?area=uk-rates');
@@ -392,7 +398,7 @@ test('GET /changes.rss|.atom handler: content types, cache, well-formed, area fi
   assert.equal(rss.headers['Content-Type'], 'application/rss+xml; charset=utf-8');
   assert.equal(rss.headers['Cache-Control'], 'public, max-age=300, s-maxage=3600');
   assert.equal(checkXml(String(rss.raw)), 'rss');
-  assert.equal(count(String(rss.raw), /<item>/g), 23);
+  assert.equal(count(String(rss.raw), /<item>/g), LIVE_TOTAL);
   assert.match(String(rss.raw), /<guid isPermaLink="true">https:\/\/databutler\.dev\/changes#vehicles-fr-recalls-dataset-2026-10-02<\/guid>/);
   assert.match(String(rss.raw), /<guid isPermaLink="true">https:\/\/databutler\.dev\/changes#software-eol-nodejs-dataset-2026-10-03<\/guid>/);
   assert.match(String(rss.raw), /<pubDate>Fri, 02 Oct 2026 00:00:00 GMT<\/pubDate>/);

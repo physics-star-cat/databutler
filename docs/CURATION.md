@@ -23,6 +23,8 @@ The product is trust. A wrong number is worse than no number. Rules:
 | UK MOT (vehicles) | — | No dataset here: live proxy to whatbreaks.uk, which owns the DfT bulk-data refresh. |
 | `data/software-eol.json` | Monthly (endoflife.date changes continuously; freshness says `due` from 35 days after the fetch) | `node scripts/software-eol.js` — 14 requests to `https://endoflife.date/api/<product>.json` (500 ms apart, UA names databutler.dev), normalises each cycle, bumps `verifiedDate`/`nextScheduledRefresh` (+35 days), appends `software-eol` changelog entries: `<product>/<cycle>` when an eol date moved (from → to, effectiveFrom = new date), when a cycle reached end of life between the two snapshots (supported → end of life, effectiveFrom = eol date) or when a cycle is new (null → released). Fill the blank notes, commit `data/` together. `EOL_DIR=path` builds from saved copies. |
 | `data/policy-rates.json` | Within 45 days of `verifiedDate` (freshness flips to `due`) and after every scheduled decision — BoE MPC ("Next due" on the Bank Rate page), FOMC (fomccalendars.htm), ECB Governing Council (mgcgc calendar); each decides eight times a year. The weekly watcher hashes the three bank source pages. | Open the bank's `source` page and the decision press release; edit `figures`, move the replaced level into `previous`, update `effectiveFrom`, `decisionDate`, `decisionMeeting`, `latestDecision`, `nextDecision`, `decisionSource` and both `verifiedDate`s; then `node scripts/changelog.js` (sets `nextScheduledRefresh` = verifiedDate + 45 days, appends one `policy-rates` entry per figure that moved, refreshes `data/sources.json`). A hold moves no figure: update `latestDecision`/`nextDecision`/`verifiedDate` only, no entry. |
+| `data/us-rates.json` | Annual, calendar-driven (`cadenceDays: null`; `nextScheduledRefresh` set by hand to the IRS release window, 2026-11-01 for tax year 2027): the IRS tax-year inflation adjustments (Rev. Proc., mid/late October, announced on the newsroom page), the retirement-plan limits (Notice, early/mid November), SSA's COLA/wage-base Federal Register notice (late October/November), the HSA Rev. Proc. (May). The weekly watcher hashes the five pages in `sources()` (newsroom, Federal Register API, Tax Topic 751, COLA limits table, Pub 969). | Fetch the new Rev. Proc./Notice PDF from `/pub/irs-drop/`; for each figure move `value` into `previous` (with its source), write the new `value`, `effectiveFrom`, `source`, `quote`, `verifiedDate`; bump the file's `taxYear`, `taxYearRuns`, `verifiedDate` and set `nextScheduledRefresh` to the next release window; then `node scripts/changelog.js` (one `us-rates` entry per figure that moved, from → to; refreshes `data/sources.json`); fill each `note` with the Rev. Proc./Notice number. ssa.gov blocks curl — read the Federal Register notice instead. |
+| `data/de-rates.json` | Annual, calendar-driven (`cadenceDays: null`; `nextScheduledRefresh` set by hand, 2026-12-15 for 2027): the Sozialversicherungsrechengrößen-Verordnung in the BGBl (late November; the BMAS Verordnung page's "Umsetzungsstand" flips first), the durchschnittlicher Zusatzbeitragssatz in the Bundesanzeiger (by 1 November; BMG `/beitraege` table), any Steuergesetz rewriting § 32a/§ 32/§ 66 EStG (consolidated text on gesetze-im-internet.de within days), the Mindestlohnkommission decision (by 30 June of the year before). The weekly watcher hashes the twelve pages in `sources()`. | Open the BGBl PDF on recht.bund.de and the consolidated § pages; for each figure move `value` into `previous` (with its source and quote), write the new `value`, `effectiveFrom`, `source`, `quote`, `verifiedDate`; promote the already-fixed next-year figures (Mindestlohn, Geringfügigkeitsgrenze) and add the following year's if enacted; bump `taxYear`, `taxYearRuns`, `verifiedDate`, set `nextScheduledRefresh`; then `node scripts/changelog.js` (one `de-rates` entry per figure that moved; refreshes `data/sources.json`); fill each `note` with the Verordnung/Gesetz and BGBl citation. bundesfinanzministerium.de serves a CAPTCHA to curl — the statutes and BGBl are the primary sources anyway. |
 | `data/sources.json` | After every data refresh (automatic via `scripts/changelog.js`) | `node scripts/sources.js` re-checks every source URL (gov.uk content API / page hash). |
 | `data/changelog.json` | With every data refresh | `node scripts/changelog.js` (areas with a `changelog.diff`) or the dataset's own script (`changelog.script`); fill in `note` lines. See "Changelog & source watcher" and docs/ADDING_AN_AREA.md. |
 <!-- sync-areas:calendar end -->
@@ -302,3 +304,280 @@ second event exists to show which long-tail tools get called often enough to
 deserve promotion to the front door. webmon sums `total_calls` over events
 whose name does not start with `agent_mcp_call_`, so a delegated call is
 counted once, not twice.
+
+## Verification log (us-rates, added 2026-10-03)
+
+Fetch notes: every irs.gov page and PDF, federalregister.gov and govinfo.gov
+returned 200 to curl with the UA above. **ssa.gov returned 403 "Access Denied"
+(Akamai edgesuite)** on `/oact/cola/cbb.html`, `/cola/` and
+`/news/press/factsheets/colafacts2026.pdf`; the wage base is therefore taken
+from SSA's own Federal Register notice (90 FR, 2025-11-03, doc 2025-19763),
+which is the legally required publication of the same determinations, and
+corroborated by IRS Publication 15 (2026) and Tax Topic 751.
+
+### income-tax — Rev. Proc. 2025-32 (`https://www.irs.gov/pub/irs-drop/rp-25-32.pdf`, 200), summarised by IR-2025-103 (`https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill`, 200)
+
+- Rate schedules, § 3.01 "Tax Rate Tables. For taxable years beginning in 2026":
+  - TABLE 1 (MFJ / surviving spouses): "Not over $24,800 — 10%"; "$24,800 … $100,800 — $2,480 plus 12%"; "$100,800 … $211,400 — $11,600 plus 22%"; "$211,400 … $403,550 — $35,932 plus 24%"; "$403,550 … $512,450 — $82,048 plus 32%"; "$512,450 … $768,700 — $116,896 plus 35%"; "Over $768,700 — $206,583.50 plus 37%".
+  - TABLE 2 (Heads of households): "Not over $17,700 — 10%"; "$17,700 … $67,450 — $1,770 plus 12%"; "$67,450 … $105,700 — $7,740 plus 22%"; "$105,700 … $201,750 — $16,155 plus 24%"; "$201,750 … $256,200 — $39,207 plus 32%"; "$256,200 … $640,600 — $56,631 plus 35%"; "Over $640,600 — $191,171 plus 37%".
+  - TABLE 3 (Single): "Not over $12,400 — 10%"; "$12,400 … $50,400 — $1,240 plus 12%"; "$50,400 … $105,700 — $5,800 plus 22%"; "$105,700 … $201,775 — $17,966 plus 24%"; "$201,775 … $256,225 — $41,024 plus 32%"; "$256,225 … $640,600 — $58,448 plus 35%"; "Over $640,600 — $192,979.25 plus 37%".
+  - TABLE 4 (MFS): as TABLE 3 up to $256,225, then "$256,225 … $384,350 — $58,448 plus 35%"; "Over $384,350 — $103,291.75 plus 37%".
+  - Cross-check: IR-2025-103 "37% for individual single taxpayers with incomes greater than $640,600 ($768,700 for married couples filing jointly) … 35% for incomes over $256,225 ($512,450 …); 32% … $201,775 ($403,550); 24% … $105,700 ($211,400); 22% … $50,400 ($100,800); 12% … $12,400 ($24,800)". Matches the tables.
+- Standard deduction, § 3.14(1): "Married Individuals Filing Joint Returns and Surviving Spouses $32,200; Heads of Households $24,150; Unmarried Individuals $16,100; Married Individuals Filing Separate Returns $16,100". IR-2025-103 table "TY 2026 Under OBBB $16,100 / $32,200 / $24,150".
+- Additional standard deduction aged/blind, § 3.14(3): "is $1,650. The additional standard deduction amount is increased to $2,050 if the individual is also unmarried and not a surviving spouse."
+- Dependent standard deduction, § 3.14(2): "cannot exceed the greater of (1) $1,350, or (2) the sum of $450 and the individual's earned income."
+- Previous (2025): Rev. Proc. 2024-40 (`https://www.irs.gov/pub/irs-drop/rp-24-40.pdf`, 200) Tables 1–4 upper bounds (MFJ 23,850 / 96,950 / 206,700 / 394,600 / 501,050 / 751,600; HoH 17,000 / 64,850 / 103,350 / 197,300 / 250,500 / 626,350; Single 11,925 / 48,475 / 103,350 / 197,300 / 250,525 / 626,350; MFS … 375,800); aged/blind "$1,600 … increased to $2,000". 2025 standard deduction as rewritten by OBBBA is in Rev. Proc. 2025-32 § 3.01: "$31,500 / $23,625 / $15,750 / $15,750" (section 2.15(1) of Rev. Proc. 2024-40 removed).
+
+### social-security — Federal Register notice 2025-19763 (`https://www.federalregister.gov/documents/2025/11/03/2025-19763/cost-of-living-increase-and-other-determinations-for-2026`, 200; PDF `https://www.govinfo.gov/content/pkg/FR-2025-11-03/pdf/2025-19763.pdf`, 200)
+
+- Wage base: "The OASDI contribution and benefit base is $184,500 for remuneration paid in 2026 and self-employment income earned in tax years beginning in 2026." Previous: "Because $184,500 exceeds the current base amount of $176,100 …".
+- COLA: "there will be a 2.8 percent cost-of-living increase in Social Security benefits effective December 2025."
+- Quarter of coverage: "The earnings required for a quarter of coverage in 2026 is $1,890."
+- Rates — Publication 15 (2026) (`https://www.irs.gov/pub/irs-pdf/p15.pdf`, 200, rev. Dec 15 2025) "What's New": "The rate of social security tax on taxable wages is 6.2% each for the employer and employee. The social security wage base limit is $184,500." Tax Topic 751 (`https://www.irs.gov/taxtopics/tc751`, 200, "Page Last Reviewed or Updated: 24-Sep-2026"): "The current tax rate for Social Security is 6.2% for the employer and 6.2% for the employee, or 12.4% total. … For earnings in 2026, this base limit is $184,500."
+
+### medicare — Pub 15, Tax Topic 751, Additional Medicare Tax Q&A (`https://www.irs.gov/businesses/small-businesses-self-employed/questions-and-answers-for-the-additional-medicare-tax`, 200)
+
+- Pub 15: "The Medicare tax rate is 1.45% each for the employee and employer, unchanged from 2025. There is no wage base limit for Medicare tax."
+- Q&A: "The rate is 0.9 percent." Threshold table: "Married filing jointly $250,000; Married filing separate $125,000; Single $200,000; Head of household (with qualifying person) $200,000; Qualifying widow(er) with dependent child $200,000".
+- TC751: "Employers are responsible for withholding the 0.9% Additional Medicare tax on an individual's wages paid in excess of $200,000 in a calendar year, without regard to filing status."
+
+### retirement — Notice 2025-67 (`https://www.irs.gov/pub/irs-drop/n-25-67.pdf`, 200), summarised by IR-2025-111 (`https://www.irs.gov/newsroom/401k-limit-increases-to-24500-for-2026-ira-limit-increases-to-7500`, 200)
+
+- § 402(g)(1): "is increased from $23,500 to $24,500."
+- § 414(v)(2)(B)(i) catch-up 50+: "is increased from $7,500 to $8,000."
+- § 414(v)(2)(E)(i) ages 60–63: "remains $11,250."
+- Roth catch-up wage threshold § 414(v)(7)(A): "is increased from $145,000 to $150,000."
+- § 415(c)(1)(A): "is increased in 2026 from $70,000 to $72,000."
+- § 401(a)(17): "is increased from $350,000 to $360,000."
+- IRA § 219(b)(5)(A): "is increased from $7,000 to $7,500."; IRA catch-up § 219(b)(5)(B)(ii): "is increased from $1,000 to $1,100."
+- SIMPLE § 408(p)(2)(E)(i)(III): "is increased from $16,500 to $17,000."
+- HCE § 414(q)(1)(B): "remains $160,000."
+- Previous-year values are stated in the same sentences ("from … to …"); Notice 2024-80 (`https://www.irs.gov/pub/irs-drop/n-24-80.pdf`, 200) was also fetched and agrees ($23,500 / $7,500 / $11,250).
+
+### hsa — Rev. Proc. 2025-19 (`https://www.irs.gov/pub/irs-drop/rp-25-19.pdf`, 200)
+
+- "the annual limitation on deductions under § 223(b)(2)(A) for an individual with self-only coverage … is $4,400. … family coverage … is $8,750."
+- HDHP: "annual deductible that is not less than $1,700 for self-only coverage or $3,400 for family coverage, and for which the annual out-of-pocket expenses … do not exceed $8,500 for self-only coverage or $17,000 for family coverage."
+- Excepted benefit HRA: "is $2,200."
+- Previous: Rev. Proc. 2024-25 (`https://www.irs.gov/pub/irs-drop/rp-24-25.pdf`, 200): "$4,300 … $8,550 … not less than $1,650 … or $3,300 … do not exceed $8,300 … or $16,600 … $2,150".
+
+### estate-gift — Rev. Proc. 2025-32 and IR-2025-103
+
+- § 2.14: "Section 70106 of the OBBBA amends § 2010(c)(3) by increasing the basic exclusion amount to $15,000,000 for calendar year 2026. … the generation-skipping transfer exemption amount under § 2631(c) is equal to $15,000,000. … The basic exclusion amount will be adjusted for inflation for calendar year 2027 and future years."
+- § 3.42(1): "For calendar year 2026, the first $19,000 of gifts to any person (other than gifts of future interests in property) are not included in the total amount of taxable gifts under § 2503".
+- IR-2025-103: "basic exclusion amount of $15,000,000, up from a total of $13,990,000 for estates of decedents who died in 2025"; "the annual exclusion for gifts remains at $19,000. (… gifts to a spouse who is not a citizen of the United States increases to $194,000 for calendar year 2026, up $4,000 from calendar year 2025.)"
+- Previous: Rev. Proc. 2024-40 § 2.43: "For calendar year 2025, the first $19,000 of gifts to any person …"; § 2.41 "$13,990,000".
+
+### Catches by the curated layer — disagreements with LifeByNumbers `flask-backend/app.py` (2026-10-03)
+
+The first thing the US file caught. `calculate_us_salary` (app.py ~L1198–1300,
+comment "per OBBBA / IRS Rev. Proc. 2025") disagrees with Rev. Proc. 2025-32
+§ 3.01 (and IR-2025-103, which agrees with the Rev. Proc.) at five bracket
+breakpoints:
+
+| Schedule | Breakpoint | app.py | Rev. Proc. 2025-32 | Δ |
+|---|---|---|---|---|
+| Married filing jointly | 32 % → 35 % | 512,400 | **512,450** | −50 |
+| Married filing jointly | 35 % → 37 % | 768,400 | **768,700** | −300 |
+| Head of household | 12 % → 22 % | 67,400 | **67,450** | −50 |
+| Head of household | 24 % → 32 % | 201,775 | **201,750** | +25 |
+| Head of household | 32 % → 35 % | 256,225 | **256,200** | +25 |
+
+Pattern: app.py's MFJ 35 %/37 % thresholds look like 2× the Single/MFS values
+rounded wrongly, and its HoH 24 %/32 %/35 % values are the Single values. The
+official HoH schedule genuinely differs from Single by $25 at two points (as in
+2025: 250,500 vs 250,525), so any "derive HoH from Single" shortcut is wrong by
+construction. Everything else in app.py matches the official pages (all seven
+Single breakpoints; MFJ 24,800 / 100,800 / 211,400 / 403,550; HoH 17,700 /
+105,700 / 640,600; standard deductions 16,100 / 32,200 / 24,150; SS wage base
+184,500 and 6.2 %; Medicare 1.45 %; Additional Medicare 0.9 %).
+
+Logic flag (not a figure): app.py applies the $250,000 Additional Medicare
+threshold to every non-single status (`200000 if single else 250000`). The IRS
+table gives **$200,000 for head of household** (and $125,000 for married filing
+separately, which app.py does not model) — a small under-statement of tax for
+HoH filers above $200k. The take_home_pay proxy inherits both until LBN is fixed.
+
+### Not yet published as of 2026-10-03 (stated, not guessed)
+
+- Tax year **2027** inflation adjustments (Rev. Proc. 2026-xx, normally mid/late
+  October): not published. The IRS "news releases for current month" page
+  ("Page Last Reviewed or Updated: 02-Oct-2026") lists IR-2026-103 … IR-2026-119
+  and none is the inflation-adjustment release.
+- **2027 Social Security COLA / wage base**: not published (SSA announces
+  mid-October; the Federal Register notice follows ~2–3 weeks later). The
+  Federal Register API query the watcher uses returned only the 2026 notice.
+- **2027 retirement-plan limits** (Notice 2026-xx): not published (early/mid
+  November).
+- **2027 HSA limits** (Rev. Proc. 2026-xx, normally May): not searched for — the
+  brief was tax year 2026; a May-2026 release probably exists and is the first
+  thing a 2027 file needs.
+- Every 2026 figure served is final; nothing in the set is provisional. The
+  estate basic exclusion is fixed by statute at $15,000,000 for 2026 and indexed
+  only from 2027, so the 2027 Rev. Proc. will carry a new figure. The OBBBA
+  "senior deduction" ($6,000, TY 2025–2028) is a separate, income-limited
+  deduction, not the § 63(f) amount; it is not in the inflation release and is
+  not served.
+
+### Fetch behaviour of the sources
+
+| Host | 2026-10-03 | Used instead |
+|---|---|---|
+| `www.ssa.gov` (`/oact/cola/cbb.html`, `/cola/`, `/news/press/factsheets/colafacts2026.pdf`) | **403 "Access Denied"** (Akamai edgesuite) | SSA's Federal Register notice (federalregister.gov HTML + govinfo.gov PDF, both 200) — same determinations, legally authoritative; IRS Pub 15 / TC751 corroborate the wage base. The watcher polls the Federal Register API, not ssa.gov. |
+| `www.irs.gov` | no block — all 12 pages/PDFs 200 with UA `databutler-curation/1.0` | the newsroom feeds at `/newsroom/rss` remain the fallback if that changes |
+
+Watcher: one page per category (`sources()` in `api/_areas/us-rates.js`) —
+the newsroom "current month" page (the TY2027 release appears there first and
+names the Rev. Proc. to fetch from `/pub/irs-drop/rp-26-NN.pdf`), the Federal
+Register API query for SSA's COLA notices, Tax Topic 751, the IRS COLA
+limitations table and Publication 969. Most of these pages change for
+unrelated reasons (newsroom lists, "Page Last Reviewed" dates), so a
+`source-changed` issue needs a human read before any figure is edited.
+
+## Verification log (de-rates, added 2026-10-03)
+
+Fetch notes: gesetze-im-internet.de (all § pages), recht.bund.de (BGBl PDFs),
+bmas.de, bundesgesundheitsministerium.de, deutsche-rentenversicherung.de,
+minijob-zentrale.de, bmfsfj.de and bundesanzeiger.de all returned 200.
+**bundesfinanzministerium.de served a Radware CAPTCHA page** ("your activity
+and behavior on this site made us think that you are a bot") for every URL
+tried, so no BMF page is cited; the statutes and the Bundesgesetzblatt are the
+primary sources anyway. bundesregierung.de topic URLs guessed from memory were
+404 (only the search page loads); bzst.de Kindergeld URLs were 404;
+arbeitsagentur.de is JavaScript-rendered and returned no text. The EStG
+consolidated text carries "Stand: Neugefasst durch Bek. v. 8.10.2009 I 3366,
+3862; zuletzt geändert durch Art. 7 G v. 29.6.2026 I Nr. 197", i.e. the text in
+force on the fetch date.
+
+### income-tax — § 32a EStG (`https://www.gesetze-im-internet.de/estg/__32a.html`, 200)
+
+- "Sie beträgt ab dem Veranlagungszeitraum 2026 … 1. bis 12 348 Euro (Grundfreibetrag): 0; 2. von 12 349 Euro bis 17 799 Euro: (914,51 • y + 1 400) • y; 3. von 17 800 Euro bis 69 878 Euro: (173,10 • z + 2 397) • z + 1 034,87; 4. von 69 879 Euro bis 277 825 Euro: 0,42 • x – 11 135,63; 5. von 277 826 Euro an: 0,45 • x – 19 470,38." Definitions of y, z, x and the rounding rule quoted in the JSON.
+- Previous Grundfreibetrag: SteFeG, BGBl. 2024 I Nr. 449 (`https://www.recht.bund.de/bgbl/1/2024/449/regelungstext.pdf?__blob=publicationFile&v=2`, 200): Art. 1 "1. bis 12 096 Euro (Grundfreibetrag)" (2025), Art. 2 "1. bis 12 348 Euro (Grundfreibetrag)" (2026); Art. 10 "(2) Die Artikel 2, 4 und 6 treten am 1. Januar 2026 in Kraft."
+- Solidaritätszuschlag — § 4 SolzG (`…/solzg_1995/__4.html`, 200): "Der Solidaritätszuschlag beträgt 5,5 Prozent der Bemessungsgrundlage. Er beträgt nicht mehr als 11,9 Prozent des Unterschiedsbetrages …". § 3 Abs. 3 (`…/solzg_1995/__3.html`, 200): "1. in den Fällen des § 32a Absatz 5 und 6 des Einkommensteuergesetzes 40 700 Euro, 2. in anderen Fällen 20 350 Euro übersteigt." Previous from SteFeG Art. 3/4: "„18 130 Euro“ durch „19 950 Euro“ … „36 260 Euro“ durch „39 900 Euro“" (2025) and "„39 900 Euro“ durch „40 700 Euro“ … „19 950 Euro“ durch „20 350 Euro“ … erstmals im Veranlagungszeitraum 2026".
+
+### social-insurance — Sozialversicherungsrechengrößen-Verordnung 2026, BGBl. 2025 I Nr. 278 (`https://www.recht.bund.de/bgbl/1/2025/278/regelungstext.pdf?__blob=publicationFile&v=2`, 200; index `https://www.gesetze-im-internet.de/svbezgrv_2026/index.html`, 200), BMAS summary (`https://www.bmas.de/DE/Service/Gesetze-und-Gesetzesvorhaben/sozialversicherungs-rechengroessenverordnung-2026.html`, 200)
+
+- § 1: "Die Bezugsgröße … für das Jahr 2026 beträgt 47 460 Euro. Umgerechnet auf den Monat ergeben sich 3 955 Euro."
+- § 2 (1): "Jahresarbeitsentgeltgrenze nach § 6 Absatz 6 … auf 77 400 Euro festgesetzt. … 6 450 Euro." § 2 (2): "nach § 6 Absatz 7 … auf 69 750 Euro festgesetzt. … 5 812,50 Euro."
+- § 3 (2): "Das vorläufige Durchschnittsentgelt … für das Jahr 2026 beträgt 51 944 Euro."
+- § 4 (1): "1. in der allgemeinen Rentenversicherung auf 101 400 Euro jährlich; … 8 450 Euro, und 2. in der knappschaftlichen Rentenversicherung auf 124 800 Euro jährlich; … 10 400 Euro." § 5: "Diese Verordnung tritt am 1. Januar 2026 in Kraft." Signed "Berlin, den 24. November 2025 … Merz … Bärbel Bas".
+- BMAS table agrees: "Bezugsgröße 3.955 / 47.460; JAEG § 6 Abs. 6 6.450 / 77.400; JAEG § 6 Abs. 7 5.812,50 / 69.750; BBG allgemeine RV und AV 8.450 / 101.400; vorläufiges Durchschnittsentgelt 2026 51.944".
+- Previous (2025): BMAS SV-Rechengrößen 2025 page (`…/sozialversicherungs-rechengroessenverordnung-2025.html`, 200): "Beitragsbemessungsgrenze in der allgemeinen Rentenversicherung erhöht sich im Jahr 2025 auf 8.050 Euro im Monat … gesetzlichen Krankenversicherung steigt auf 5.512,50 Euro im Monat … Jahresarbeitsentgeltgrenze auf 6.150 Euro im Monat"; DRV Werte page history "ab 1.1.2025 … 8.050; ab 1.1.2026 … 8.450" and Bezugsgröße "3.745 / 3.955".
+- Rates: § 241 SGB V (`…/sgb_5/__241.html`, 200) "Der allgemeine Beitragssatz beträgt 14,6 Prozent". BMG Beiträge (`https://www.bundesgesundheitsministerium.de/beitraege`, 200, "Stand: 3. September 2026"): "Für das Jahr 2026 beträgt der durchschnittliche Zusatzbeitragssatz 2,9 Prozent." and table "Allgemeiner Beitragssatz 14,6 Prozent; Ermäßigter Beitragssatz 14,0 Prozent; Durchschnittlicher Zusatzbeitragssatz 2,9 Prozent; Beitragsbemessungsgrenze (Monat) 5.812,50 Euro; (Jahr) 69.750 Euro". Previous Zusatzbeitrag: BAnz AT 07.11.2024 B4 (`https://www.bundesanzeiger.de/pub/publication/lErtX3qtBqz33CLzogK/content/lErtX3qtBqz33CLzogK/BAnz%20AT%2007.11.2024%20B4.pdf?inline=`, 200): "Der durchschnittliche Zusatzbeitragssatz nach § 242a Absatz 1 SGB V für das Jahr 2025 beträgt 2,5 Prozent."
+- RV 18,6 %: DRV Werte (`https://www.deutsche-rentenversicherung.de/DRV/DE/Experten/Zahlen-und-Fakten/Werte-der-Rentenversicherung/werte-der-rentenversicherung_node.html`, 200, "Stand 01.07.2026"): "Rentenversicherung: 18,6 Prozent … Beitragssatz zur Rentenversicherung in Prozent ab 1.1.2018 monatlich 18,6". § 158 SGB VI fetched for the mechanism (rate is set by Bekanntmachung, not printed in the statute).
+- AV 2,6 %: § 341 SGB III (`…/sgb_3/__341.html`, 200) "(2) Der Beitragssatz beträgt 2,6 Prozent. … (4) Beitragsbemessungsgrenze ist die Beitragsbemessungsgrenze der allgemeinen Rentenversicherung."
+- PV 3,6 %: PBAV 2025 § 1 (`…/pbav_2025/__1.html`, 200) "wird zum 1. Januar 2025 auf 3,6 Prozent … festgesetzt. (2) Die Anhebung … um 0,2 Prozentpunkte gegenüber dem am 31. Dezember 2024 geltenden Beitragssatz"; § 55 SGB XI (`…/sgb_11/__55.html`, 200) base "3,4 Prozent", Abs. 3 "Beitragszuschlag in Höhe von 0,6 Beitragssatzpunkten (Beitragszuschlag für Kinderlose)" and "ab dem zweiten Kind bis zum fünften Kind um jeweils einen Abschlag in Höhe von 0,25 Beitragssatzpunkten". BMG Finanzierung (`…/die-pflegeversicherung/finanzierung`, 200, "Stand: 14. September 2026"): "Seit dem 1. Januar 2025 beträgt der Beitragssatz 3,6 Prozent …, bei Kinderlosen sind es 4,2 Prozent … jeweils 1,8 Prozent. … Sachsen … 2,3 Prozent auf die Beschäftigten und 1,3 Prozent auf die Arbeitgeber." and "Beitragssätze: allgemeine Rentenversicherung: 18,6 Prozent; Arbeitslosenversicherung: 2,6 Prozent; Pflegeversicherung: 3,6 Prozent".
+
+### minimum-wage — MiLoV5 (`https://www.gesetze-im-internet.de/milov5/__1.html`, 200; BGBl. 2025 I Nr. 268 `https://www.recht.bund.de/bgbl/1/2025/268/regelungstext.pdf?__blob=publicationFile&v=2`, 200)
+
+- "§ 1 Höhe des Mindestlohns — Der Mindestlohn beträgt 1. ab 1. Januar 2026 13,90 Euro brutto je Zeitstunde, 2. ab 1. Januar 2027 14,60 Euro brutto je Zeitstunde." BGBl: "Vom 5. November 2025 … § 2 Diese Verordnung tritt am 1. Januar 2026 in Kraft."
+- BMAS history (`…/einfuehrung-und-anpassung-mindestlohn.html`, 200): "01.01.2025 12,82 Euro | 01.01.2026 13,90 Euro Fünfte Mindestlohnanpassungsverordnung vom 05. November 2025 (BGBl. 2025 I Nr. 268) | 01.01.2027 14,60 Euro". BMAS Mindestlohn page: "Seit 1. Januar 2026 gilt ein Mindestlohn von 13,90 Euro."
+- § 1 MiLoG footnote confirms the chain of Verordnungen: "§ 1 V v. 5.11.2025 I Nr. 268".
+
+### minijob — § 8 SGB IV (`…/sgb_4/__8.html`, 200), DRV Werte, Minijob-Zentrale (`https://www.minijob-zentrale.de/DE/die-minijobs/minijob-mit-verdienstgrenze`, 200)
+
+- § 8 (1a): "Sie wird berechnet, indem der Mindestlohn mit 130 vervielfacht, durch drei geteilt und auf volle Euro aufgerundet wird."
+- DRV: "In der Zeit vom 1.1.2025 bis 31.12.2025 … 556,00 EUR. In der Zeit vom 1.1.2026 bis 31.12.2026 … 603,00 EUR. Ab dem 1.1.2027 … 633,00 EUR."
+- Minijob-Zentrale: "Sie dürfen durchschnittlich im Monat nicht mehr als 603 Euro verdienen. Auf ein Jahr gerechnet sind das bis zu 7.236 Euro." and "von 603,01 Euro bis 2.000 Euro im Monat, handelt es sich um einen sogenannten Midijob."; its table "13,90 Euro (Mindestlohn ab 01.01.2026) 43,38 [Stunden]".
+
+### kindergeld — § 66 EStG (`…/estg/__66.html`, 200), BMFSFJ (`https://www.bmfsfj.de/bmfsfj/themen/familie/familienleistungen/kindergeld/kindergeld-73892`, 200)
+
+- "(1) Das Kindergeld beträgt monatlich für jedes Kind 259 Euro." BMFSFJ: "Es beträgt zum 1. Januar 2026 monatlich 259 Euro pro Kind."
+- Previous: SteFeG Art. 1 Nr. 4 "„250 Euro“ durch „255 Euro“" (2025) and Art. 2 "„255 Euro“ durch „259 Euro“" (2026).
+
+### kinderfreibetrag — § 32 Abs. 6 EStG (`…/estg/__32.html`, 200)
+
+- "ein Freibetrag von 3 414 Euro für das sächliche Existenzminimum des Kindes (Kinderfreibetrag) sowie ein Freibetrag von 1 464 Euro für den Betreuungs- und Erziehungs- oder Ausbildungsbedarf des Kindes … Bei Ehegatten, die … zusammen zur Einkommensteuer veranlagt werden, verdoppeln sich die Beträge".
+- Previous: SteFeG Art. 1 Nr. 1 "„3 306 Euro“ durch „3 336 Euro“" (2025), Art. 2 Nr. 1 "„3 336 Euro“ durch „3 414 Euro“" (2026). BEA 1 464 € unchanged.
+
+### sparer-pauschbetrag — § 20 Abs. 9 EStG (`…/estg/__20.html`, 200)
+
+- "ein Betrag von 1 000 Euro abzuziehen (Sparer-Pauschbetrag) … Ehegatten, die zusammen veranlagt werden, wird ein gemeinsamer Sparer-Pauschbetrag von 2 000 Euro gewährt." Unchanged since 2023.
+
+### arbeitnehmer-pauschbetrag — § 9a EStG (`…/estg/__9a.html`, 200)
+
+- "ein Arbeitnehmer-Pauschbetrag von 1 230 Euro; b) … ein Pauschbetrag von 102 Euro". Unchanged since 2023.
+
+### entfernungspauschale — § 9 Abs. 1 Satz 3 Nr. 4 EStG (`…/estg/__9.html`, 200), StÄndG 2025 BGBl. 2025 I Nr. 363 (`https://www.recht.bund.de/bgbl/1/2025/363/regelungstext.pdf?__blob=publicationFile&v=2`, 200)
+
+- § 9: "eine Entfernungspauschale für jeden vollen Kilometer der Entfernung zwischen Wohnung und erster Tätigkeitsstätte von 0,38 Euro anzusetzen, höchstens jedoch 4 500 Euro im Kalenderjahr; ein höherer Betrag als 4 500 Euro ist anzusetzen, soweit der Arbeitnehmer einen eigenen oder ihm zur Nutzung überlassenen Kraftwagen benutzt." Familienheimfahrt: "0,38 Euro für jeden vollen Kilometer".
+- StÄndG 2025 ("Vom 22. Dezember 2025", ausgegeben 23.12.2025): "aa) In Satz 2 wird die Angabe „0,30 Euro“ durch die Angabe „0,38 Euro“ ersetzt. … bb) In Satz 6 wird die Angabe „0,30 Euro“ durch die Angabe „0,38 Euro“ ersetzt." — i.e. until 2025 the first 20 km were 0,30 € and 0,38 € applied from the 21st km (the pre-2026 "ab dem 21. vollen Entfernungskilometer" wording is still referenced in the Mobilitätsprämie amendment in the same Act).
+
+### 2027 look-ahead (not served as figures)
+
+- DRV press note 24.09.2026 (`https://www.deutsche-rentenversicherung.de/DRV/DE/Ueber-uns-und-Presse/Presse/Meldungen/2026/260922-sv-rechengroessen-vo-2027.html`, 200): "Die den Sozialversicherungsrechengrößen 2027 zugrundeliegende Lohnentwicklung im Jahr 2025 beträgt 4,38 Prozent. … Die Sozialversicherungsrechengrößen-Verordnung 2027 muss zunächst von der Bundesregierung beschlossen werden. Anschließend bedarf sie noch der Zustimmung des Bundesrats." No 2027 euro amounts are given in the note; see NOTES.md for the BMAS draft page.
+
+### Catches by the curated layer — comparison with LifeByNumbers `flask-backend/app.py` (2026-10-03)
+
+`calculate_de_salary` (app.py ~L2092–2290): **no figure disagreements**. Every
+statutory number matches the official text read today — Grundfreibetrag
+12,348; tariff zone bounds 17,799 / 69,878 / 277,825 and all coefficients
+(914.51, 1,400, 173.10, 2,397, 1,034.87, 0.42, 11,135.63, 0.45, 19,470.38);
+BBG KV/PV 5,812.50; BBG RV/AV 8,450; KV 7.3 % employee; Zusatzbeitrag 1.45 %
+employee (2.9 % average); PV 1.8 % / 2.4 % childless; RV 9.3 %; AV 1.3 %; Soli
+Freigrenze 20,350 / 40,700, 5.5 %, 11.9 %.
+
+Things in app.py that are *not* official figures and are not in
+`de-rates.json` (worth knowing, not a disagreement): the `annual_taxable -
+36000` adjustment for Steuerklasse III, the "~2.4 % Umlagen (U1, U2,
+insolvency)" employer add-on, and treating Steuerklasse V/VI as "no
+allowance". The Lohnsteuer procedure (§ 39b) is not modelled by either file.
+
+### Not yet published as of 2026-10-03 (stated, not guessed)
+
+- **Sozialversicherungsrechengrößen-Verordnung 2027**: only a
+  *Referentenentwurf* (21 Sep 2026). The BMAS page
+  `https://www.bmas.de/DE/Service/Gesetze-und-Gesetzesvorhaben/sozialversicherungs-rechengroessenverordnung-2027.html`
+  (200 today; the watcher's page) shows "Kabinettbeschluss … Noch nicht
+  veröffentlicht", "Länder- und Verbändebeteiligung … Noch nicht veröffentlicht".
+  Draft table (monthly / annual €, **draft, not in force, not served**):
+  Bezugsgröße 4.130 / 49.560; JAEG § 6 Abs. 6 SGB V — / 84.150; JAEG § 6 Abs. 7
+  6.075 / 72.900; JAEG § 6 Abs. 8 6.712,50 / 80.550; **Beitragsbemessungsgrenze
+  KV 6.375 / 76.500** — the draft decouples the KV ceiling from the § 6 Abs. 7
+  JAEG (the extra +300 €/month from the GKV-Beitragssatzstabilisierungsgesetz),
+  so a 2027 file must not assume BBG KV = JAEG Abs. 7 as in 2026; BBG RV/AV
+  8.850 / 106.200; knappschaftlich 10.900 / 130.800; vorläufiges
+  Durchschnittsentgelt 2027 53.452; endgültiges Durchschnittsentgelt 2025
+  49.147. Lohnentwicklung 2025 = 4,38 %. Expect BGBl promulgation late Nov 2026.
+- **Durchschnittlicher Zusatzbeitragssatz 2027**: not announced (BMG announces by
+  1 November in the Bundesanzeiger after the Schätzerkreis in mid-October).
+- **Grundfreibetrag / Kinderfreibetrag / Kindergeld 2027**: § 32a EStG as
+  consolidated today reads "ab dem Veranlagungszeitraum 2026", § 66 says 259 €;
+  no 2027 values are enacted (the 2026 Existenzminimumbericht is due in autumn
+  2026 and usually triggers a tariff bill).
+- **Pflegeversicherung 2027**: 3,6 % has no scheduled change in the texts read;
+  the DRV home page lists a "GKV-Beitragssatzstabilisierungsgesetz … ab 2027"
+  item (pension-recipient changes) — not examined.
+- Already fixed for 2027 and **served** (with their own `effectiveFrom`):
+  Mindestlohn 14,60 € (MiLoV5 § 1 Nr. 2) and the Geringfügigkeitsgrenze 633 €
+  (DRV Werte page; § 8 Abs. 1a SGB IV formula 14,60 × 130 ÷ 3, rounded up).
+
+### Fetch behaviour of the sources
+
+| Host | 2026-10-03 | Used instead |
+|---|---|---|
+| `www.bundesfinanzministerium.de` (every URL tried) | **Radware CAPTCHA** ("your activity and behavior on this site made us think that you are a bot") | not needed: statutes on gesetze-im-internet.de and BGBl PDFs on recht.bund.de are the primary sources; no BMF page is cited or watched |
+| `www.bundesregierung.de` topic pages | 404 for the slugs tried; only `/breg-de/suche` loads | not needed (BMAS, BGBl, DRV) |
+| `www.bzst.de` Kindergeld pages | 404 (site restructured) | BMFSFJ Kindergeld page (200) + § 66 EStG |
+| `www.arbeitsagentur.de` | 200 but JavaScript-rendered shell, no text | same |
+| `www.gkv-spitzenverband.de` Beitragssatz page | 404 | BMG `/beitraege` + BAnz Bekanntmachung |
+| `www.gesetze-im-internet.de` | 200, served as ISO-8859-1; the "Stand: … zuletzt geändert …" header is only on the full-text page (`estg/BJNR010050934.html`), not on the `__32a.html` Einzelnorm pages | read the full-text header once for the version stamp |
+| `www.recht.bund.de` (BGBl) | 200 for `/bgbl/1/<year>/<nr>/regelungstext.pdf?__blob=publicationFile&v=2`; a guessed `gesetze-im-internet.de/svbezgrv_2026/BJNR….html` slug 404s — use `index.html` | — |
+| `www.bundesanzeiger.de` | 200 for the deep PDF link found via search; the site search itself is JS | keep the deep link |
+
+Quirks kept as published: § 55 SGB XI still prints the Pflegeversicherung base
+rate "3,4 Prozent" — the operative 3,6 % comes from the PBAV 2025 under the
+Abs. 1a Verordnungsermächtigung (cap +0,5 points), so the BMG contributions
+page, not § 55, is the watch target. § 9 EStG now reads 0,38 € from the first
+kilometre (StÄndG 2025, BGBl. 2025 I Nr. 363); the 2025 two-tier rule survives
+only in cross-references, so that figure's `previous` is a string. The
+Zusatzbeitrag 2,9 % is the statutory average — a user's Krankenkasse rate
+differs; the figure carries a `note`. The social-insurance category serves
+annual and monthly values as separate figures because the Verordnung prints
+both and the monthly value is the legally stated one for payroll.
+
+Watcher: twelve pages (`sources()` in `api/_areas/de-rates.js`) — the
+consolidated § pages for every statutory figure (they cannot lag the BGBl by
+more than days), the BMAS SV-Rechengrößen-VO 2027 page (its "Umsetzungsstand"
+flips when promulgated), the BMG contributions table, the DRV values page, the
+BMAS Mindestlohn history and the Minijob-Zentrale limit page.

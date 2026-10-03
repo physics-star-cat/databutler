@@ -1,0 +1,941 @@
+{
+  "area": "us-rates",
+  "taxYear": "2026",
+  "taxYearRuns": "1 January 2026 to 31 December 2026 (calendar-year taxpayers; returns filed in 2027)",
+  "jurisdiction": "United States — federal only. State income tax, state unemployment insurance and local taxes are out of scope.",
+  "currency": "USD",
+  "verifiedDate": "2026-10-03",
+  "nextScheduledRefresh": "2026-11-01",
+  "refreshRule": "Re-verify when the IRS publishes the tax-year-2027 inflation adjustments (normally mid/late October), the 2027 retirement-plan limits (normally early/mid November) and when SSA publishes the 2027 COLA/wage base (normally mid-October; Federal Register notice follows in late October/early November). Until then these 2026 figures are final.",
+  "verificationMethod": "Every figure was read on verifiedDate from the primary document named in its `source` (IRS Revenue Procedure / Notice PDFs and irs.gov pages fetched with curl, User-Agent databutler-curation/1.0; all returned HTTP 200 on 2026-10-03). The `quote` field reproduces the sentence or table row the value was taken from. `previous` values come from the 2025 counterpart document named in `previousSource` or from the same page where it states the prior-year figure. Figures were never written from memory and were not copied from any third-party calculator or from the LifeByNumbers app.py — disagreements with app.py are listed in NOTES.md.",
+  "licence": "Works of the United States federal government (IRS, SSA, Federal Register) are in the public domain under 17 U.S.C. § 105. Figures are reproduced with their source URL; no third-party content is included.",
+  "sources": [
+    {
+      "id": "irs-nr-2026",
+      "title": "IR-2025-103 (Oct. 9, 2025): IRS releases tax inflation adjustments for tax year 2026, including amendments from the One, Big, Beautiful Bill",
+      "url": "https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill",
+      "fetched": "2026-10-03"
+    },
+    {
+      "id": "rp-2025-32",
+      "title": "Rev. Proc. 2025-32 — tax year 2026 inflation adjustments (cited by IR-2025-103)",
+      "url": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
+      "fetched": "2026-10-03"
+    },
+    {
+      "id": "rp-2024-40",
+      "title": "Rev. Proc. 2024-40 — tax year 2025 inflation adjustments (previous-year values)",
+      "url": "https://www.irs.gov/pub/irs-drop/rp-24-40.pdf",
+      "fetched": "2026-10-03"
+    },
+    {
+      "id": "irs-nr-401k-2026",
+      "title": "IR-2025-111 (Nov. 13, 2025): 401(k) limit increases to $24,500 for 2026, IRA limit increases to $7,500",
+      "url": "https://www.irs.gov/newsroom/401k-limit-increases-to-24500-for-2026-ira-limit-increases-to-7500",
+      "fetched": "2026-10-03"
+    },
+    {
+      "id": "notice-2025-67",
+      "title": "Notice 2025-67 — 2026 amounts relating to retirement plans and IRAs, as adjusted for changes in cost-of-living",
+      "url": "https://www.irs.gov/pub/irs-drop/n-25-67.pdf",
+      "fetched": "2026-10-03"
+    },
+    {
+      "id": "notice-2024-80",
+      "title": "Notice 2024-80 — 2025 retirement-plan limits (previous-year values)",
+      "url": "https://www.irs.gov/pub/irs-drop/n-24-80.pdf",
+      "fetched": "2026-10-03"
+    },
+    {
+      "id": "rp-2025-19",
+      "title": "Rev. Proc. 2025-19 — 2026 inflation-adjusted amounts for Health Savings Accounts",
+      "url": "https://www.irs.gov/pub/irs-drop/rp-25-19.pdf",
+      "fetched": "2026-10-03"
+    },
+    {
+      "id": "rp-2024-25",
+      "title": "Rev. Proc. 2024-25 — 2025 HSA amounts (previous-year values)",
+      "url": "https://www.irs.gov/pub/irs-drop/rp-24-25.pdf",
+      "fetched": "2026-10-03"
+    },
+    {
+      "id": "ssa-fr-2026",
+      "title": "Social Security Administration, 'Cost-of-Living Increase and Other Determinations for 2026', 90 FR (Nov. 3, 2025), document 2025-19763",
+      "url": "https://www.federalregister.gov/documents/2025/11/03/2025-19763/cost-of-living-increase-and-other-determinations-for-2026",
+      "pdf": "https://www.govinfo.gov/content/pkg/FR-2025-11-03/pdf/2025-19763.pdf",
+      "fetched": "2026-10-03",
+      "note": "ssa.gov itself (www.ssa.gov/oact/cola/cbb.html, /cola/, /news/press/factsheets/colafacts2026.pdf) returned HTTP 403 'Access Denied' (Akamai) to the automated fetch on 2026-10-03; the Federal Register notice is SSA's own legally required publication of the same determinations and is used instead."
+    },
+    {
+      "id": "irs-p15-2026",
+      "title": "Publication 15 (Circular E), Employer's Tax Guide, for use in 2026 (rev. Dec 15, 2025)",
+      "url": "https://www.irs.gov/pub/irs-pdf/p15.pdf",
+      "fetched": "2026-10-03"
+    },
+    {
+      "id": "irs-tc751",
+      "title": "Tax Topic 751 — Social Security and Medicare withholding rates (page last reviewed 24-Sep-2026)",
+      "url": "https://www.irs.gov/taxtopics/tc751",
+      "fetched": "2026-10-03"
+    },
+    {
+      "id": "irs-addl-medicare",
+      "title": "Questions and answers for the Additional Medicare Tax",
+      "url": "https://www.irs.gov/businesses/small-businesses-self-employed/questions-and-answers-for-the-additional-medicare-tax",
+      "fetched": "2026-10-03"
+    }
+  ],
+  "categories": {
+    "income-tax": {
+      "title": "Federal income tax — rate schedules and standard deduction, tax year 2026",
+      "scope": "Individuals; taxable income after deductions. Schedules per § 1(j)(2)(A)–(D) as adjusted by Rev. Proc. 2025-32 § 3.01 (which also reflects OBBBA changes).",
+      "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
+      "sourceSummary": "https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill",
+      "figures": [
+        {
+          "key": "brackets-single",
+          "label": "Rate schedule — Single (unmarried individuals other than surviving spouses and heads of household), § 1(j)(2)(C)",
+          "value": [
+            {
+              "over": 0,
+              "notOver": 12400,
+              "rate": 10,
+              "taxAtLowerBound": 0
+            },
+            {
+              "over": 12400,
+              "notOver": 50400,
+              "rate": 12,
+              "taxAtLowerBound": 1240
+            },
+            {
+              "over": 50400,
+              "notOver": 105700,
+              "rate": 22,
+              "taxAtLowerBound": 5800
+            },
+            {
+              "over": 105700,
+              "notOver": 201775,
+              "rate": 24,
+              "taxAtLowerBound": 17966
+            },
+            {
+              "over": 201775,
+              "notOver": 256225,
+              "rate": 32,
+              "taxAtLowerBound": 41024
+            },
+            {
+              "over": 256225,
+              "notOver": 640600,
+              "rate": 35,
+              "taxAtLowerBound": 58448
+            },
+            {
+              "over": 640600,
+              "notOver": null,
+              "rate": 37,
+              "taxAtLowerBound": 192979.25
+            }
+          ],
+          "unit": "USD taxable income → marginal rate %",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
+          "quote": "TABLE 3 … Not over $12,400 — 10% of the taxable income; Over $12,400 but not over $50,400 — $1,240 plus 12% of the excess over $12,400; Over $50,400 but not over $105,700 — $5,800 plus 22% …; Over $105,700 but not over $201,775 — $17,966 plus 24% …; Over $201,775 but not over $256,225 — $41,024 plus 32% …; Over $256,225 but not over $640,600 — $58,448 plus 35% …; Over $640,600 — $192,979.25 plus 37% of the excess over $640,600",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "bracketUpperBounds": [
+              11925,
+              48475,
+              103350,
+              197300,
+              250525,
+              626350
+            ],
+            "source": "https://www.irs.gov/pub/irs-drop/rp-24-40.pdf",
+            "quote": "TABLE 3 … Not over $11,925 … not over $48,475 … not over $103,350 … not over $197,300 … not over $250,525 … not over $626,350"
+          }
+        },
+        {
+          "key": "brackets-married-joint",
+          "label": "Rate schedule — Married filing jointly and surviving spouses, § 1(j)(2)(A)",
+          "value": [
+            {
+              "over": 0,
+              "notOver": 24800,
+              "rate": 10,
+              "taxAtLowerBound": 0
+            },
+            {
+              "over": 24800,
+              "notOver": 100800,
+              "rate": 12,
+              "taxAtLowerBound": 2480
+            },
+            {
+              "over": 100800,
+              "notOver": 211400,
+              "rate": 22,
+              "taxAtLowerBound": 11600
+            },
+            {
+              "over": 211400,
+              "notOver": 403550,
+              "rate": 24,
+              "taxAtLowerBound": 35932
+            },
+            {
+              "over": 403550,
+              "notOver": 512450,
+              "rate": 32,
+              "taxAtLowerBound": 82048
+            },
+            {
+              "over": 512450,
+              "notOver": 768700,
+              "rate": 35,
+              "taxAtLowerBound": 116896
+            },
+            {
+              "over": 768700,
+              "notOver": null,
+              "rate": 37,
+              "taxAtLowerBound": 206583.5
+            }
+          ],
+          "unit": "USD taxable income → marginal rate %",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
+          "quote": "TABLE 1 … Not over $24,800 — 10%; Over $24,800 but not over $100,800 — $2,480 plus 12%; Over $100,800 but not over $211,400 — $11,600 plus 22%; Over $211,400 but not over $403,550 — $35,932 plus 24%; Over $403,550 but not over $512,450 — $82,048 plus 32%; Over $512,450 but not over $768,700 — $116,896 plus 35%; Over $768,700 — $206,583.50 plus 37% of the excess over $768,700",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "bracketUpperBounds": [
+              23850,
+              96950,
+              206700,
+              394600,
+              501050,
+              751600
+            ],
+            "source": "https://www.irs.gov/pub/irs-drop/rp-24-40.pdf",
+            "quote": "TABLE 1 … Not over $23,850 … not over $96,950 … not over $206,700 … not over $394,600 … not over $501,050 … not over $751,600"
+          }
+        },
+        {
+          "key": "brackets-head-of-household",
+          "label": "Rate schedule — Heads of households, § 1(j)(2)(B)",
+          "value": [
+            {
+              "over": 0,
+              "notOver": 17700,
+              "rate": 10,
+              "taxAtLowerBound": 0
+            },
+            {
+              "over": 17700,
+              "notOver": 67450,
+              "rate": 12,
+              "taxAtLowerBound": 1770
+            },
+            {
+              "over": 67450,
+              "notOver": 105700,
+              "rate": 22,
+              "taxAtLowerBound": 7740
+            },
+            {
+              "over": 105700,
+              "notOver": 201750,
+              "rate": 24,
+              "taxAtLowerBound": 16155
+            },
+            {
+              "over": 201750,
+              "notOver": 256200,
+              "rate": 32,
+              "taxAtLowerBound": 39207
+            },
+            {
+              "over": 256200,
+              "notOver": 640600,
+              "rate": 35,
+              "taxAtLowerBound": 56631
+            },
+            {
+              "over": 640600,
+              "notOver": null,
+              "rate": 37,
+              "taxAtLowerBound": 191171
+            }
+          ],
+          "unit": "USD taxable income → marginal rate %",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
+          "quote": "TABLE 2 … Not over $17,700 — 10%; Over $17,700 but not over $67,450 — $1,770 plus 12%; Over $67,450 but not over $105,700 — $7,740 plus 22%; Over $105,700 but not over $201,750 — $16,155 plus 24%; Over $201,750 but not over $256,200 — $39,207 plus 32%; Over $256,200 but not over $640,600 — $56,631 plus 35%; Over $640,600 — $191,171 plus 37% of the excess over $640,600",
+          "verifiedDate": "2026-10-03",
+          "note": "The 24%→32% and 32%→35% breakpoints for heads of household ($201,750 / $256,200) differ by $25 from the single-filer breakpoints ($201,775 / $256,225); this is as published in Rev. Proc. 2025-32 and follows the same $25 pattern as 2025 ($250,500 vs $250,525).",
+          "previous": {
+            "taxYear": "2025",
+            "bracketUpperBounds": [
+              17000,
+              64850,
+              103350,
+              197300,
+              250500,
+              626350
+            ],
+            "source": "https://www.irs.gov/pub/irs-drop/rp-24-40.pdf",
+            "quote": "TABLE 2 … Not over $17,000 … not over $64,850 … not over $103,350 … not over $197,300 … not over $250,500 … not over $626,350"
+          }
+        },
+        {
+          "key": "brackets-married-separate",
+          "label": "Rate schedule — Married filing separately, § 1(j)(2)(D)",
+          "value": [
+            {
+              "over": 0,
+              "notOver": 12400,
+              "rate": 10,
+              "taxAtLowerBound": 0
+            },
+            {
+              "over": 12400,
+              "notOver": 50400,
+              "rate": 12,
+              "taxAtLowerBound": 1240
+            },
+            {
+              "over": 50400,
+              "notOver": 105700,
+              "rate": 22,
+              "taxAtLowerBound": 5800
+            },
+            {
+              "over": 105700,
+              "notOver": 201775,
+              "rate": 24,
+              "taxAtLowerBound": 17966
+            },
+            {
+              "over": 201775,
+              "notOver": 256225,
+              "rate": 32,
+              "taxAtLowerBound": 41024
+            },
+            {
+              "over": 256225,
+              "notOver": 384350,
+              "rate": 35,
+              "taxAtLowerBound": 58448
+            },
+            {
+              "over": 384350,
+              "notOver": null,
+              "rate": 37,
+              "taxAtLowerBound": 103291.75
+            }
+          ],
+          "unit": "USD taxable income → marginal rate %",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
+          "quote": "TABLE 4 … Not over $12,400 — 10%; … Over $256,225 but not over $384,350 — $58,448 plus 35%; Over $384,350 — $103,291.75 plus 37% of the excess over $384,350",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "bracketUpperBounds": [
+              11925,
+              48475,
+              103350,
+              197300,
+              250525,
+              375800
+            ],
+            "source": "https://www.irs.gov/pub/irs-drop/rp-24-40.pdf"
+          }
+        },
+        {
+          "key": "standard-deduction-single",
+          "label": "Standard deduction — Single and Married filing separately",
+          "value": 16100,
+          "unit": "USD/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
+          "quote": "§ 3.14(1) … Unmarried Individuals (other than Surviving Spouses and Heads of Households) (§ 1(j)(2)(C)) $16,100; Married Individuals Filing Separate Returns (§ 1(j)(2)(D)) $16,100",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 15750,
+            "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
+            "quote": "Section 63(c)(7) as amended by the OBBBA provides the standard deduction amounts … for any taxable year beginning in 2025 as follows: … Unmarried Individuals … $15,750"
+          }
+        },
+        {
+          "key": "standard-deduction-married-joint",
+          "label": "Standard deduction — Married filing jointly and surviving spouses",
+          "value": 32200,
+          "unit": "USD/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
+          "quote": "§ 3.14(1) … Married Individuals Filing Joint Returns and Surviving Spouses (§ 1(j)(2)(A)) $32,200",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 31500,
+            "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
+            "quote": "… Married Individuals Filing Joint Returns and Surviving Spouses $31,500"
+          }
+        },
+        {
+          "key": "standard-deduction-head-of-household",
+          "label": "Standard deduction — Heads of households",
+          "value": 24150,
+          "unit": "USD/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
+          "quote": "§ 3.14(1) … Heads of Households (§ 1(j)(2)(B)) $24,150",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 23625,
+            "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
+            "quote": "… Heads of Households $23,625"
+          }
+        },
+        {
+          "key": "additional-standard-deduction-aged-blind",
+          "label": "Additional standard deduction for aged (65+) or blind, § 63(f) — per qualifying condition, married or surviving spouse",
+          "value": 1650,
+          "unit": "USD/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
+          "quote": "§ 3.14(3) Aged or blind. For taxable years beginning in 2026, the additional standard deduction amount under § 63(f) for the aged or the blind is $1,650.",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 1600,
+            "source": "https://www.irs.gov/pub/irs-drop/rp-24-40.pdf",
+            "quote": "the additional standard deduction amount under § 63(f) for the aged or the blind is $1,600"
+          }
+        },
+        {
+          "key": "additional-standard-deduction-aged-blind-unmarried",
+          "label": "Additional standard deduction for aged (65+) or blind, § 63(f) — per qualifying condition, unmarried and not a surviving spouse",
+          "value": 2050,
+          "unit": "USD/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
+          "quote": "§ 3.14(3) … The additional standard deduction amount is increased to $2,050 if the individual is also unmarried and not a surviving spouse.",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 2000,
+            "source": "https://www.irs.gov/pub/irs-drop/rp-24-40.pdf",
+            "quote": "The additional standard deduction amount is increased to $2,000 if the individual is also unmarried and not a surviving spouse."
+          }
+        },
+        {
+          "key": "standard-deduction-dependent",
+          "label": "Standard deduction for an individual claimable as a dependent, § 63(c)(5) — cannot exceed the greater of this amount or $450 plus earned income",
+          "value": 1350,
+          "unit": "USD/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
+          "quote": "§ 3.14(2) Dependent. … cannot exceed the greater of (1) $1,350, or (2) the sum of $450 and the individual's earned income.",
+          "verifiedDate": "2026-10-03"
+        },
+        {
+          "key": "top-rate",
+          "label": "Top marginal rate",
+          "value": 37,
+          "unit": "%",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill",
+          "quote": "For tax year 2026, the top tax rate remains 37% for individual single taxpayers with incomes greater than $640,600 ($768,700 for married couples filing jointly).",
+          "verifiedDate": "2026-10-03"
+        }
+      ]
+    },
+    "social-security": {
+      "title": "Social Security (OASDI) payroll tax — wage base and rates, 2026",
+      "scope": "Employees and employers (FICA). Self-employed pay both halves (12.4%) under SECA.",
+      "source": "https://www.federalregister.gov/documents/2025/11/03/2025-19763/cost-of-living-increase-and-other-determinations-for-2026",
+      "figures": [
+        {
+          "key": "wage-base",
+          "label": "OASDI contribution and benefit base (Social Security wage base)",
+          "value": 184500,
+          "unit": "USD/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.federalregister.gov/documents/2025/11/03/2025-19763/cost-of-living-increase-and-other-determinations-for-2026",
+          "quote": "The OASDI contribution and benefit base is $184,500 for remuneration paid in 2026 and self-employment income earned in tax years beginning in 2026.",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 176100,
+            "source": "https://www.federalregister.gov/documents/2025/11/03/2025-19763/cost-of-living-increase-and-other-determinations-for-2026",
+            "quote": "Because $184,500 exceeds the current base amount of $176,100, the OASDI contribution and benefit base is $184,500 for 2026."
+          },
+          "corroboration": {
+            "source": "https://www.irs.gov/pub/irs-pdf/p15.pdf",
+            "quote": "The social security wage base limit is $184,500."
+          }
+        },
+        {
+          "key": "employee-rate",
+          "label": "Social Security tax rate — employee share",
+          "value": 6.2,
+          "unit": "%",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-pdf/p15.pdf",
+          "quote": "The rate of social security tax on taxable wages is 6.2% each for the employer and employee.",
+          "verifiedDate": "2026-10-03",
+          "corroboration": {
+            "source": "https://www.irs.gov/taxtopics/tc751",
+            "quote": "The current tax rate for Social Security is 6.2% for the employer and 6.2% for the employee, or 12.4% total."
+          }
+        },
+        {
+          "key": "employer-rate",
+          "label": "Social Security tax rate — employer share",
+          "value": 6.2,
+          "unit": "%",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-pdf/p15.pdf",
+          "quote": "The rate of social security tax on taxable wages is 6.2% each for the employer and employee.",
+          "verifiedDate": "2026-10-03"
+        },
+        {
+          "key": "cola",
+          "label": "Cost-of-living adjustment to benefits effective December 2025 (paid January 2026)",
+          "value": 2.8,
+          "unit": "%",
+          "effectiveFrom": "2025-12-01",
+          "source": "https://www.federalregister.gov/documents/2025/11/03/2025-19763/cost-of-living-increase-and-other-determinations-for-2026",
+          "quote": "Under title II of the Social Security Act (Act), there will be a 2.8 percent cost-of-living increase in Social Security benefits effective December 2025.",
+          "verifiedDate": "2026-10-03"
+        },
+        {
+          "key": "quarter-of-coverage",
+          "label": "Earnings required for one quarter of coverage",
+          "value": 1890,
+          "unit": "USD",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.federalregister.gov/documents/2025/11/03/2025-19763/cost-of-living-increase-and-other-determinations-for-2026",
+          "quote": "The earnings required for a quarter of coverage in 2026 is $1,890.",
+          "verifiedDate": "2026-10-03"
+        }
+      ]
+    },
+    "medicare": {
+      "title": "Medicare (HI) payroll tax — rate and Additional Medicare Tax thresholds, 2026",
+      "scope": "No wage base limit. Additional Medicare Tax thresholds are statutory (not indexed) and apply to the sum of wages, RRTA compensation and self-employment income.",
+      "source": "https://www.irs.gov/taxtopics/tc751",
+      "figures": [
+        {
+          "key": "rate",
+          "label": "Medicare tax rate — employee share (employer pays the same)",
+          "value": 1.45,
+          "unit": "%",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-pdf/p15.pdf",
+          "quote": "The Medicare tax rate is 1.45% each for the employee and employer, unchanged from 2025. There is no wage base limit for Medicare tax.",
+          "verifiedDate": "2026-10-03",
+          "corroboration": {
+            "source": "https://www.irs.gov/taxtopics/tc751",
+            "quote": "The current rate for Medicare is 1.45% for the employer and 1.45% for the employee, or 2.9% total."
+          }
+        },
+        {
+          "key": "additional-rate",
+          "label": "Additional Medicare Tax rate (employee only; no employer match)",
+          "value": 0.9,
+          "unit": "%",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/businesses/small-businesses-self-employed/questions-and-answers-for-the-additional-medicare-tax",
+          "quote": "The rate is 0.9 percent.",
+          "verifiedDate": "2026-10-03"
+        },
+        {
+          "key": "additional-threshold-married-joint",
+          "label": "Additional Medicare Tax threshold — Married filing jointly",
+          "value": 250000,
+          "unit": "USD/year",
+          "effectiveFrom": "2013-01-01",
+          "source": "https://www.irs.gov/businesses/small-businesses-self-employed/questions-and-answers-for-the-additional-medicare-tax",
+          "quote": "Married filing jointly $250,000",
+          "verifiedDate": "2026-10-03",
+          "note": "Statutory, not indexed for inflation."
+        },
+        {
+          "key": "additional-threshold-married-separate",
+          "label": "Additional Medicare Tax threshold — Married filing separately",
+          "value": 125000,
+          "unit": "USD/year",
+          "effectiveFrom": "2013-01-01",
+          "source": "https://www.irs.gov/businesses/small-businesses-self-employed/questions-and-answers-for-the-additional-medicare-tax",
+          "quote": "Married filing separate $125,000",
+          "verifiedDate": "2026-10-03"
+        },
+        {
+          "key": "additional-threshold-single",
+          "label": "Additional Medicare Tax threshold — Single, Head of household, Qualifying widow(er)",
+          "value": 200000,
+          "unit": "USD/year",
+          "effectiveFrom": "2013-01-01",
+          "source": "https://www.irs.gov/businesses/small-businesses-self-employed/questions-and-answers-for-the-additional-medicare-tax",
+          "quote": "Single $200,000; Head of household (with qualifying person) $200,000; Qualifying widow(er) with dependent child $200,000",
+          "verifiedDate": "2026-10-03"
+        },
+        {
+          "key": "additional-withholding-threshold",
+          "label": "Employer withholding threshold for Additional Medicare Tax (per employer, regardless of filing status)",
+          "value": 200000,
+          "unit": "USD/year",
+          "effectiveFrom": "2013-01-01",
+          "source": "https://www.irs.gov/taxtopics/tc751",
+          "quote": "Employers are responsible for withholding the 0.9% Additional Medicare tax on an individual's wages paid in excess of $200,000 in a calendar year, without regard to filing status.",
+          "verifiedDate": "2026-10-03"
+        }
+      ]
+    },
+    "retirement": {
+      "title": "Retirement plan and IRA contribution limits, 2026",
+      "scope": "Cost-of-living adjusted limits under § 415(d) and related sections; effective 1 January 2026.",
+      "source": "https://www.irs.gov/pub/irs-drop/n-25-67.pdf",
+      "sourceSummary": "https://www.irs.gov/newsroom/401k-limit-increases-to-24500-for-2026-ira-limit-increases-to-7500",
+      "figures": [
+        {
+          "key": "401k-elective-deferral",
+          "label": "401(k) / 403(b) / governmental 457(b) / TSP elective deferral limit, § 402(g)(1)",
+          "value": 24500,
+          "unit": "USD/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/n-25-67.pdf",
+          "quote": "The limitation under section 402(g)(1) on the exclusion for elective deferrals described in section 402(g)(3), which includes elective deferrals made to the Thrift Savings Plan, is increased from $23,500 to $24,500.",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 23500,
+            "source": "https://www.irs.gov/pub/irs-drop/n-25-67.pdf"
+          }
+        },
+        {
+          "key": "401k-catch-up-50",
+          "label": "Catch-up contribution, age 50 and over, § 414(v)(2)(B)(i)",
+          "value": 8000,
+          "unit": "USD/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/n-25-67.pdf",
+          "quote": "The limitation under section 414(v)(2)(B)(i) for catch-up contributions to an applicable employer plan … that generally applies for individuals aged 50 or over is increased from $7,500 to $8,000.",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 7500,
+            "source": "https://www.irs.gov/pub/irs-drop/n-25-67.pdf"
+          }
+        },
+        {
+          "key": "401k-catch-up-60-63",
+          "label": "Higher catch-up contribution for individuals who attain age 60, 61, 62 or 63 in 2026, § 414(v)(2)(E)(i) (SECURE 2.0)",
+          "value": 11250,
+          "unit": "USD/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/n-25-67.pdf",
+          "quote": "The limitation under section 414(v)(2)(E)(i) for catch-up contributions … that applies for individuals who attain age 60, 61, 62, or 63 in 2026 remains $11,250.",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 11250,
+            "source": "https://www.irs.gov/pub/irs-drop/n-25-67.pdf"
+          }
+        },
+        {
+          "key": "roth-catch-up-wage-threshold",
+          "label": "Wage threshold above which catch-up contributions must be Roth, § 414(v)(7)(A) (based on prior-year FICA wages)",
+          "value": 150000,
+          "unit": "USD/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/n-25-67.pdf",
+          "quote": "The Roth catch-up wage threshold for 2025, which under section 414(v)(7)(A) is used to determine whether an individual's catch-up contributions … for 2026 must be designated as Roth contributions, is increased from $145,000 to $150,000.",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 145000,
+            "source": "https://www.irs.gov/pub/irs-drop/n-25-67.pdf"
+          }
+        },
+        {
+          "key": "defined-contribution-annual-additions",
+          "label": "Defined contribution plan annual additions limit, § 415(c)(1)(A)",
+          "value": 72000,
+          "unit": "USD/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/n-25-67.pdf",
+          "quote": "The limitation for defined contribution plans under section 415(c)(1)(A) is increased in 2026 from $70,000 to $72,000.",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 70000,
+            "source": "https://www.irs.gov/pub/irs-drop/n-25-67.pdf"
+          }
+        },
+        {
+          "key": "compensation-limit",
+          "label": "Annual compensation limit, § 401(a)(17)",
+          "value": 360000,
+          "unit": "USD/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/n-25-67.pdf",
+          "quote": "The annual compensation limitation under sections 401(a)(17), 404(l), 408(k)(3)(C), and 408(k)(6)(D)(ii) is increased from $350,000 to $360,000.",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 350000,
+            "source": "https://www.irs.gov/pub/irs-drop/n-25-67.pdf"
+          }
+        },
+        {
+          "key": "ira-limit",
+          "label": "IRA contribution limit (traditional + Roth combined), § 219(b)(5)(A)",
+          "value": 7500,
+          "unit": "USD/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/n-25-67.pdf",
+          "quote": "The deductible amount under section 219(b)(5)(A), which limits the amount of an individual's deductible qualified retirement contributions for a taxable year is increased from $7,000 to $7,500.",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 7000,
+            "source": "https://www.irs.gov/pub/irs-drop/n-25-67.pdf"
+          }
+        },
+        {
+          "key": "ira-catch-up",
+          "label": "IRA catch-up contribution, age 50 and over, § 219(b)(5)(B)(ii) (indexed from 2024 under SECURE 2.0)",
+          "value": 1100,
+          "unit": "USD/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/n-25-67.pdf",
+          "quote": "The deductible amount pursuant to section 219(b)(5)(B)(ii) for individuals who have attained age 50 before the close of the taxable year is increased from $1,000 to $1,100.",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 1000,
+            "source": "https://www.irs.gov/pub/irs-drop/n-25-67.pdf"
+          }
+        },
+        {
+          "key": "simple-deferral",
+          "label": "SIMPLE IRA / SIMPLE 401(k) salary reduction limit, § 408(p)(2)(E)(i)(III)",
+          "value": 17000,
+          "unit": "USD/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/n-25-67.pdf",
+          "quote": "… salary reduction contributions under a SIMPLE retirement account or elective contributions under a SIMPLE 401(k) plan is increased from $16,500 to $17,000.",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 16500,
+            "source": "https://www.irs.gov/pub/irs-drop/n-25-67.pdf"
+          }
+        },
+        {
+          "key": "highly-compensated-employee",
+          "label": "Highly compensated employee threshold, § 414(q)(1)(B)",
+          "value": 160000,
+          "unit": "USD/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/n-25-67.pdf",
+          "quote": "The threshold used in the definition of \"highly compensated employee\" under section 414(q)(1)(B) remains $160,000.",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 160000,
+            "source": "https://www.irs.gov/pub/irs-drop/n-25-67.pdf"
+          }
+        }
+      ]
+    },
+    "hsa": {
+      "title": "Health Savings Accounts — contribution limits and HDHP definition, calendar year 2026",
+      "scope": "§ 223. Catch-up for age 55+ ($1,000) is statutory and not in the Rev. Proc.",
+      "source": "https://www.irs.gov/pub/irs-drop/rp-25-19.pdf",
+      "figures": [
+        {
+          "key": "contribution-self-only",
+          "label": "HSA annual contribution limit — self-only HDHP coverage, § 223(b)(2)(A)",
+          "value": 4400,
+          "unit": "USD/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/rp-25-19.pdf",
+          "quote": "For calendar year 2026, the annual limitation on deductions under § 223(b)(2)(A) for an individual with self-only coverage under a high deductible health plan is $4,400.",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 4300,
+            "source": "https://www.irs.gov/pub/irs-drop/rp-24-25.pdf",
+            "quote": "For calendar year 2025, the annual limitation … self-only coverage … is $4,300."
+          }
+        },
+        {
+          "key": "contribution-family",
+          "label": "HSA annual contribution limit — family HDHP coverage, § 223(b)(2)(B)",
+          "value": 8750,
+          "unit": "USD/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/rp-25-19.pdf",
+          "quote": "For calendar year 2026, the annual limitation on deductions under § 223(b)(2)(B) for an individual with family coverage under a high deductible health plan is $8,750.",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 8550,
+            "source": "https://www.irs.gov/pub/irs-drop/rp-24-25.pdf",
+            "quote": "… family coverage under a high deductible health plan is $8,550."
+          }
+        },
+        {
+          "key": "hdhp-min-deductible-self-only",
+          "label": "HDHP minimum annual deductible — self-only",
+          "value": 1700,
+          "unit": "USD",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/rp-25-19.pdf",
+          "quote": "a \"high deductible health plan\" is defined under § 223(c)(2)(A) as a health plan with an annual deductible that is not less than $1,700 for self-only coverage or $3,400 for family coverage",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 1650,
+            "source": "https://www.irs.gov/pub/irs-drop/rp-24-25.pdf"
+          }
+        },
+        {
+          "key": "hdhp-min-deductible-family",
+          "label": "HDHP minimum annual deductible — family",
+          "value": 3400,
+          "unit": "USD",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/rp-25-19.pdf",
+          "quote": "… not less than $1,700 for self-only coverage or $3,400 for family coverage",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 3300,
+            "source": "https://www.irs.gov/pub/irs-drop/rp-24-25.pdf"
+          }
+        },
+        {
+          "key": "hdhp-max-out-of-pocket-self-only",
+          "label": "HDHP maximum annual out-of-pocket (deductibles, co-payments, other amounts, not premiums) — self-only",
+          "value": 8500,
+          "unit": "USD",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/rp-25-19.pdf",
+          "quote": "… the annual out-of-pocket expenses … do not exceed $8,500 for self-only coverage or $17,000 for family coverage.",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 8300,
+            "source": "https://www.irs.gov/pub/irs-drop/rp-24-25.pdf"
+          }
+        },
+        {
+          "key": "hdhp-max-out-of-pocket-family",
+          "label": "HDHP maximum annual out-of-pocket — family",
+          "value": 17000,
+          "unit": "USD",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/rp-25-19.pdf",
+          "quote": "… do not exceed $8,500 for self-only coverage or $17,000 for family coverage.",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 16600,
+            "source": "https://www.irs.gov/pub/irs-drop/rp-24-25.pdf"
+          }
+        },
+        {
+          "key": "excepted-benefit-hra",
+          "label": "Excepted benefit HRA maximum newly available amount, plan years beginning in 2026",
+          "value": 2200,
+          "unit": "USD/plan year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/rp-25-19.pdf",
+          "quote": "For plan years beginning in 2026, the maximum amount that may be made newly available for the plan year for an excepted benefit HRA under § 54.9831-1(c)(3)(viii) is $2,200.",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 2150,
+            "source": "https://www.irs.gov/pub/irs-drop/rp-24-25.pdf"
+          }
+        }
+      ]
+    },
+    "estate-gift": {
+      "title": "Estate, gift and generation-skipping transfer tax — exclusion amounts, calendar year 2026",
+      "scope": "Federal transfer taxes. The basic exclusion amount is unified across estate and gift tax (§ 2010(c), § 2505).",
+      "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
+      "figures": [
+        {
+          "key": "basic-exclusion",
+          "label": "Estate and gift tax basic exclusion amount, § 2010(c)(3) (set by OBBBA § 70106 for 2026; indexed from 2027)",
+          "value": 15000000,
+          "unit": "USD",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
+          "quote": "Section 70106 of the OBBBA amends § 2010(c)(3) by increasing the basic exclusion amount to $15,000,000 for calendar year 2026. … The basic exclusion amount will be adjusted for inflation for calendar year 2027 and future years.",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 13990000,
+            "source": "https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill",
+            "quote": "Estates of decedents who die during 2026 have a basic exclusion amount of $15,000,000, up from a total of $13,990,000 for estates of decedents who died in 2025."
+          }
+        },
+        {
+          "key": "gst-exemption",
+          "label": "Generation-skipping transfer tax exemption, § 2631(c)",
+          "value": 15000000,
+          "unit": "USD",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
+          "quote": "For calendar year 2026, the generation-skipping transfer exemption amount under § 2631(c) is equal to $15,000,000.",
+          "verifiedDate": "2026-10-03"
+        },
+        {
+          "key": "annual-gift-exclusion",
+          "label": "Annual exclusion for gifts, § 2503(b)",
+          "value": 19000,
+          "unit": "USD per donee per year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
+          "quote": "§ 3.42(1) For calendar year 2026, the first $19,000 of gifts to any person (other than gifts of future interests in property) are not included in the total amount of taxable gifts under § 2503 made during that year.",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 19000,
+            "source": "https://www.irs.gov/pub/irs-drop/rp-24-40.pdf",
+            "quote": "For calendar year 2025, the first $19,000 of gifts to any person … are not included"
+          }
+        },
+        {
+          "key": "annual-gift-exclusion-noncitizen-spouse",
+          "label": "Annual exclusion for gifts to a spouse who is not a U.S. citizen, § 2523(i)(2)",
+          "value": 194000,
+          "unit": "USD/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill",
+          "quote": "the annual exclusion for gifts to a spouse who is not a citizen of the United States increases to $194,000 for calendar year 2026, up $4,000 from calendar year 2025.",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 190000,
+            "source": "https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill"
+          }
+        }
+      ]
+    }
+  }
+}

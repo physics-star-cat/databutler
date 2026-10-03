@@ -4,7 +4,9 @@
     "changes-feed",
     "changes-page",
     "cron/watch-sources",
+    "de/rates",
     "mcp",
+    "mcp/de-rates",
     "mcp/policy-rates",
     "mcp/provenance",
     "mcp/software-eol",
@@ -12,6 +14,7 @@
     "mcp/tax",
     "mcp/uk-exams",
     "mcp/uk-rates",
+    "mcp/us-rates",
     "mcp/vehicles",
     "policy-rates",
     "protocol",
@@ -26,6 +29,7 @@
     "uk/exams/specs",
     "uk/exams/topic",
     "uk/rates",
+    "us/rates",
     "vehicles/eu/safety-gate",
     "vehicles/fr/recalls",
     "vehicles/fr/search",
@@ -40,6 +44,7 @@
     "catalogue",
     "changes",
     "coverage",
+    "de/rates",
     "policy-rates",
     "provenance/domain",
     "provenance/package",
@@ -51,6 +56,7 @@
     "uk/exams/specs",
     "uk/exams/topic",
     "uk/rates",
+    "us/rates",
     "vehicles/eu/safety-gate",
     "vehicles/fr/recalls",
     "vehicles/fr/search",
@@ -237,6 +243,18 @@
       "queryKeys": [
         "all",
         "bank"
+      ]
+    },
+    "us_rates_lookup": {
+      "path": "us/rates",
+      "queryKeys": [
+        "category"
+      ]
+    },
+    "de_rates_lookup": {
+      "path": "de/rates",
+      "queryKeys": [
+        "category"
       ]
     }
   }

@@ -21,6 +21,6 @@ test('coverage: one area, and near-miss for unknown', () => {
   assert.equal(coverageFor('UK-Rates').area, 'uk-rates');
   const miss = coverageFor('rates');
   assert.equal(miss.covered, false);
-  assert.deepEqual(miss.nearest[0], 'uk-rates');
+  assert.deepEqual(miss.nearest, ['de-rates', 'uk-rates', 'us-rates'], 'every rates area is one edit away; alphabetical on a tie');
   assert.deepEqual(Object.keys(AREAS), AREA_KEYS);
 });

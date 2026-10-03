@@ -2639,7 +2639,9 @@
         "uk-exams",
         "vehicles",
         "software-eol",
-        "policy-rates"
+        "policy-rates",
+        "us-rates",
+        "de-rates"
       ],
       "count": 0,
       "entries": [],

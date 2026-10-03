@@ -1,6 +1,7 @@
 {
   "attribution": "databutler.dev",
   "coverage": {
+    "deRates": "Veranlagungszeitraum 2026, 9 categories, verified 2026-10-03; federal law only (no Kirchensteuer, Lohnsteuerklassen, Gewerbesteuer)",
     "exams": [
       "AQA GCSE Physics (8463)",
       "AQA GCSE Biology (8461)",
@@ -27,6 +28,7 @@
       "uk": "GBP, tax year 2025/26 (live via lifebynumbers.net)",
       "us": "USD, tax year 2026 (live via lifebynumbers.net)"
     },
+    "usRates": "tax year 2026, 6 categories, verified 2026-10-03; federal only",
     "vehicles": {
       "euSafetyGate": "stub",
       "frRecalls": "1663 RappelConso automobile fiches, verified 2026-10-02",
@@ -46,9 +48,16 @@
       "description": "What changed in the verified datasets since a date (REST mirror of what_changed_since). format=html|rss|atom serves the /changes page or feeds instead of JSON.",
       "example": "https://databutler.dev/api/changes?since=2026-06-01",
       "params": {
-        "area": "uk-rates | uk-exams | vehicles | software-eol | policy-rates | all",
+        "area": "uk-rates | uk-exams | vehicles | software-eol | policy-rates | us-rates | de-rates | all",
         "format": "json (default) | html | rss | atom",
         "since": "YYYY-MM-DD"
+      }
+    },
+    "GET /api/de/rates": {
+      "description": "German tax and social-insurance figures for Veranlagungszeitraum 2026, verified 2026-10-03 against the consolidated statutes, the Bundesgesetzblatt and the BMG/DRV/BMAS pages: Grundfreibetrag and § 32a tariff zones, Solidaritätszuschlag, Beitragsbemessungsgrenzen, Bezugsgröße, Beitragssätze with employee/employer shares, Zusatzbeitrag, Mindestlohn (2026 and fixed 2027), Geringfügigkeitsgrenze, Kindergeld, Kinderfreibetrag, Pauschbeträge, Entfernungspauschale — each figure with German term, English label, source, quote, verifiedDate and prior value. Committed data (not a live proxy), refreshed annually when the next year's Verordnung is final.",
+      "example": "https://databutler.dev/api/de/rates?category=social-insurance",
+      "params": {
+        "category": "one of income-tax, social-insurance, minimum-wage, minijob, kindergeld, kinderfreibetrag, sparer-pauschbetrag, arbeitnehmer-pauschbetrag, entfernungspauschale (omit to list)"
       }
     },
     "GET /api/policy-rates": {
@@ -134,6 +143,13 @@
         "category": "one of income-tax, national-insurance, minimum-wage, student-loans, vat, isa, state-pension, stamp-duty, capital-gains, pensions (omit to list)"
       }
     },
+    "GET /api/us/rates": {
+      "description": "US federal rates and thresholds for tax year 2026, verified 2026-10-03 against the IRS revenue procedures and notices and SSA's Federal Register notice: income-tax rate schedules (bracket rows) and standard deduction, Social Security wage base and rates, Medicare and Additional Medicare Tax, retirement-plan and IRA limits, HSA/HDHP limits, estate and gift exclusions — each figure with source, quote, verifiedDate and the prior-year value. Committed data (not a live proxy), refreshed annually at the IRS release window.",
+      "example": "https://databutler.dev/api/us/rates?category=income-tax",
+      "params": {
+        "category": "one of income-tax, social-security, medicare, retirement, hsa, estate-gift (omit to list)"
+      }
+    },
     "GET /api/vehicles/eu/safety-gate": "STUB — EU Safety Gate vehicle alerts are being added; returns covered:false with the official URL for now.",
     "GET /api/vehicles/fr/recalls": {
       "description": "Official French vehicle recalls (RappelConso / DGCCRF open data, 1663 automobile fiches 2018-01-19 → 2026-08-07) for a brand (+ model): fiche number, date, risks, defect text, official fiche link.",
@@ -202,10 +218,10 @@
       }
     },
     "GET /changes": {
-      "description": "The changelog as a page: every verified change to UK tax/NI thresholds, exam specs, official vehicle datasets, software end-of-life dates and central-bank policy rates, newest first by month — area, from → to, effectiveFrom, official source, maintainer note, verifiedDate. Indexable, cached 1 h at the edge.",
+      "description": "The changelog as a page: every verified change to UK tax/NI thresholds, exam specs, official vehicle datasets, software end-of-life dates, central-bank policy rates, US federal tax thresholds and German tax and social-insurance thresholds, newest first by month — area, from → to, effectiveFrom, official source, maintainer note, verifiedDate. Indexable, cached 1 h at the edge.",
       "example": "https://databutler.dev/changes?area=vehicles",
       "params": {
-        "area": "optional: uk-rates | uk-exams | vehicles | software-eol | policy-rates",
+        "area": "optional: uk-rates | uk-exams | vehicles | software-eol | policy-rates | us-rates | de-rates",
         "since": "optional YYYY-MM-DD"
       }
     },
@@ -237,6 +253,7 @@
       "description": "THE FRONT DOOR — one remote MCP server for the whole estate. Lists uk_rates_lookup, exam_topic_paper, domain_provenance, package_provenance, take_home_pay directly, plus what_changed_since (changes since your training cutoff), coverage, catalogue and call (run any tool by name). Every result carries freshness + a cite.url permalink.",
       "example": "add https://databutler.dev/api/mcp to any MCP client"
     },
+    "POST /api/mcp/de-rates": "Remote MCP server — tool de_rates_lookup (German tax and social-insurance figures, Veranlagungszeitraum 2026; committed data read from the statutes and the Bundesgesetzblatt).",
     "POST /api/mcp/policy-rates": "Remote MCP server — tool policy_rate (Bank of England, Fed, ECB; committed data verified against the banks' own pages).",
     "POST /api/mcp/provenance": "Remote MCP server — tools domain_provenance, package_provenance.",
     "POST /api/mcp/software-eol": "Remote MCP server — tools support_status, support_timeline (monthly snapshot of endoflife.date open data for 14 runtimes, operating systems, PostgreSQL and React).",
@@ -244,6 +261,7 @@
     "POST /api/mcp/tax": "Remote MCP server — tool take_home_pay (live via the LifeByNumbers salary calculators).",
     "POST /api/mcp/uk-exams": "Remote MCP server — tools exam_topic_paper, exam_spec_lookup, exam_paper_index.",
     "POST /api/mcp/uk-rates": "Remote MCP server — tool uk_rates_lookup.",
+    "POST /api/mcp/us-rates": "Remote MCP server — tool us_rates_lookup (US federal rates and thresholds, tax year 2026; committed data read from the IRS and SSA documents).",
     "POST /api/mcp/vehicles": "Remote MCP server — uk_mot_reliability, uk_mot_vehicle_search (live via whatbreaks.uk), uk_recalls_for_model, uk_recalls_search (DVSA), fr_recalls_for_model, fr_recalls_search, jp_recalls_for_model, jp_complaints_summary, eu_safety_gate_recalls (stub)."
   },
   "name": "Data Butler",

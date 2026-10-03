@@ -1,0 +1,972 @@
+{
+  "area": "de-rates",
+  "taxYear": "2026",
+  "taxYearRuns": "Veranlagungszeitraum 2026 = Kalenderjahr 2026 (1 January – 31 December 2026)",
+  "jurisdiction": "Germany — federal law. Kirchensteuer (8 % Bayern/Baden-Württemberg, 9 % elsewhere) and Land-specific rules are out of scope except where noted (Sachsen Pflegeversicherung split).",
+  "currency": "EUR",
+  "verifiedDate": "2026-10-03",
+  "nextScheduledRefresh": "2026-12-15",
+  "refreshRule": "Re-verify when (a) the Sozialversicherungsrechengrößen-Verordnung 2027 is promulgated in the Bundesgesetzblatt (draft announced 24 Sep 2026, Bundesrat approval pending — expected Nov 2026), (b) the BMG announces the durchschnittlicher Zusatzbeitragssatz 2027 (by 1 November, Bundesanzeiger), (c) any 2026 Steuergesetz changes § 32a EStG for VZ 2027 (watch gesetze-im-internet.de). Mindestlohn and Geringfügigkeitsgrenze for 2027 are already fixed (MiLoV5).",
+  "verificationMethod": "Every figure was read on verifiedDate from the primary legal text (consolidated statute on gesetze-im-internet.de — EStG Stand: zuletzt geändert durch Art. 7 G v. 29.6.2026 I Nr. 197 — or the Bundesgesetzblatt PDF on recht.bund.de) and, where a ministry page restates it, from that page as corroboration (BMAS, BMG, Deutsche Rentenversicherung, Minijob-Zentrale, BMFSFJ). All fetched with curl, User-Agent databutler-curation/1.0; every `source` URL returned HTTP 200 on 2026-10-03. German terms are kept in `term`; `label` is an English gloss. `quote` reproduces the sentence the value was taken from. `previous` values come from the document named in previous.source (usually the amending law, which prints old and new value side by side). Not copied from the LifeByNumbers app.py — see NOTES.md for the comparison.",
+  "licence": "Gesetze, Verordnungen und amtliche Bekanntmachungen (EStG, SGB, SolzG, MiLoV5, SV-Rechengrößenverordnung, BGBl., BAnz) are amtliche Werke and free of copyright under § 5 UrhG. Ministry and DRV web pages are quoted briefly with attribution as sources; no page content is reproduced beyond the cited sentence.",
+  "sources": [
+    {
+      "id": "estg-32a",
+      "title": "§ 32a EStG Einkommensteuertarif (consolidated text, gesetze-im-internet.de)",
+      "url": "https://www.gesetze-im-internet.de/estg/__32a.html",
+      "fetched": "2026-10-03"
+    },
+    {
+      "id": "estg-32",
+      "title": "§ 32 EStG Kinder, Freibeträge für Kinder",
+      "url": "https://www.gesetze-im-internet.de/estg/__32.html",
+      "fetched": "2026-10-03"
+    },
+    {
+      "id": "estg-66",
+      "title": "§ 66 EStG Höhe des Kindergeldes",
+      "url": "https://www.gesetze-im-internet.de/estg/__66.html",
+      "fetched": "2026-10-03"
+    },
+    {
+      "id": "estg-9",
+      "title": "§ 9 EStG Werbungskosten (Entfernungspauschale, Abs. 1 Satz 3 Nr. 4)",
+      "url": "https://www.gesetze-im-internet.de/estg/__9.html",
+      "fetched": "2026-10-03"
+    },
+    {
+      "id": "estg-9a",
+      "title": "§ 9a EStG Pauschbeträge für Werbungskosten",
+      "url": "https://www.gesetze-im-internet.de/estg/__9a.html",
+      "fetched": "2026-10-03"
+    },
+    {
+      "id": "estg-20",
+      "title": "§ 20 EStG Einkünfte aus Kapitalvermögen (Abs. 9 Sparer-Pauschbetrag)",
+      "url": "https://www.gesetze-im-internet.de/estg/__20.html",
+      "fetched": "2026-10-03"
+    },
+    {
+      "id": "solzg-3",
+      "title": "§ 3 SolzG 1995 Bemessungsgrundlage (Abs. 3 Freigrenze)",
+      "url": "https://www.gesetze-im-internet.de/solzg_1995/__3.html",
+      "fetched": "2026-10-03"
+    },
+    {
+      "id": "solzg-4",
+      "title": "§ 4 SolzG 1995 Zuschlagsatz",
+      "url": "https://www.gesetze-im-internet.de/solzg_1995/__4.html",
+      "fetched": "2026-10-03"
+    },
+    {
+      "id": "bgbl-2024-449",
+      "title": "Steuerfortentwicklungsgesetz (SteFeG) vom 23.12.2024, BGBl. 2024 I Nr. 449 — sets 2025 and 2026 Grundfreibetrag, Kinderfreibetrag, Kindergeld, Soli-Freigrenze",
+      "url": "https://www.recht.bund.de/bgbl/1/2024/449/regelungstext.pdf?__blob=publicationFile&v=2",
+      "fetched": "2026-10-03"
+    },
+    {
+      "id": "bgbl-2025-363",
+      "title": "Steueränderungsgesetz 2025 vom 22.12.2025, BGBl. 2025 I Nr. 363 — Entfernungspauschale 0,38 € ab dem ersten Kilometer",
+      "url": "https://www.recht.bund.de/bgbl/1/2025/363/regelungstext.pdf?__blob=publicationFile&v=2",
+      "fetched": "2026-10-03"
+    },
+    {
+      "id": "svrgv-2026",
+      "title": "Sozialversicherungsrechengrößen-Verordnung 2026 vom 24.11.2025, BGBl. 2025 I Nr. 278",
+      "url": "https://www.recht.bund.de/bgbl/1/2025/278/regelungstext.pdf?__blob=publicationFile&v=2",
+      "index": "https://www.gesetze-im-internet.de/svbezgrv_2026/index.html",
+      "fetched": "2026-10-03"
+    },
+    {
+      "id": "bmas-svrgv-2026",
+      "title": "BMAS: Sozialversicherungsrechengrößen-Verordnung 2026 (summary table)",
+      "url": "https://www.bmas.de/DE/Service/Gesetze-und-Gesetzesvorhaben/sozialversicherungs-rechengroessenverordnung-2026.html",
+      "fetched": "2026-10-03"
+    },
+    {
+      "id": "sgb5-241",
+      "title": "§ 241 SGB V Allgemeiner Beitragssatz",
+      "url": "https://www.gesetze-im-internet.de/sgb_5/__241.html",
+      "fetched": "2026-10-03"
+    },
+    {
+      "id": "bmg-beitraege",
+      "title": "BMG: Beiträge — Beitragssätze und Beitragsbemessungsgrenzen 2026 (Stand 3. September 2026)",
+      "url": "https://www.bundesgesundheitsministerium.de/beitraege",
+      "fetched": "2026-10-03"
+    },
+    {
+      "id": "banz-zb-2025",
+      "title": "BMG Bekanntmachung des durchschnittlichen Zusatzbeitragssatzes für das Jahr 2025, BAnz AT 07.11.2024 B4",
+      "url": "https://www.bundesanzeiger.de/pub/publication/lErtX3qtBqz33CLzogK/content/lErtX3qtBqz33CLzogK/BAnz%20AT%2007.11.2024%20B4.pdf?inline=",
+      "fetched": "2026-10-03"
+    },
+    {
+      "id": "sgb11-55",
+      "title": "§ 55 SGB XI Beitragssatz, Beitragsbemessungsgrenze (Pflegeversicherung)",
+      "url": "https://www.gesetze-im-internet.de/sgb_11/__55.html",
+      "fetched": "2026-10-03"
+    },
+    {
+      "id": "pbav-2025",
+      "title": "Pflege-Beitragssatz-Anpassungsverordnung 2025 (PBAV 2025) § 1",
+      "url": "https://www.gesetze-im-internet.de/pbav_2025/__1.html",
+      "fetched": "2026-10-03"
+    },
+    {
+      "id": "bmg-pflege-finanzierung",
+      "title": "BMG: Finanzierung der Pflegeversicherung (Stand 14. September 2026)",
+      "url": "https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung",
+      "fetched": "2026-10-03"
+    },
+    {
+      "id": "sgb6-158",
+      "title": "§ 158 SGB VI Beitragssätze (Rentenversicherung — mechanism; rate itself published by Bekanntmachung)",
+      "url": "https://www.gesetze-im-internet.de/sgb_6/__158.html",
+      "fetched": "2026-10-03"
+    },
+    {
+      "id": "drv-werte",
+      "title": "Deutsche Rentenversicherung: Werte der Rentenversicherung (Stand 01.07.2026)",
+      "url": "https://www.deutsche-rentenversicherung.de/DRV/DE/Experten/Zahlen-und-Fakten/Werte-der-Rentenversicherung/werte-der-rentenversicherung_node.html",
+      "fetched": "2026-10-03"
+    },
+    {
+      "id": "sgb3-341",
+      "title": "§ 341 SGB III Beitragssatz (Arbeitslosenversicherung)",
+      "url": "https://www.gesetze-im-internet.de/sgb_3/__341.html",
+      "fetched": "2026-10-03"
+    },
+    {
+      "id": "milov5",
+      "title": "Fünfte Mindestlohnanpassungsverordnung (MiLoV5) vom 5.11.2025, BGBl. 2025 I Nr. 268",
+      "url": "https://www.gesetze-im-internet.de/milov5/__1.html",
+      "pdf": "https://www.recht.bund.de/bgbl/1/2025/268/regelungstext.pdf?__blob=publicationFile&v=2",
+      "fetched": "2026-10-03"
+    },
+    {
+      "id": "bmas-mindestlohn",
+      "title": "BMAS: Einführung und Anpassungen des Mindestlohns (history table)",
+      "url": "https://www.bmas.de/DE/Arbeit/Arbeitsrecht/Mindestlohn/Einfuehrung-und-Anpassungen-Mindestlohn/einfuehrung-und-anpassung-mindestlohn.html",
+      "fetched": "2026-10-03"
+    },
+    {
+      "id": "sgb4-8",
+      "title": "§ 8 SGB IV Geringfügige Beschäftigung; Geringfügigkeitsgrenze (formula)",
+      "url": "https://www.gesetze-im-internet.de/sgb_4/__8.html",
+      "fetched": "2026-10-03"
+    },
+    {
+      "id": "minijob-zentrale",
+      "title": "Minijob-Zentrale: Minijob mit Verdienstgrenze",
+      "url": "https://www.minijob-zentrale.de/DE/die-minijobs/minijob-mit-verdienstgrenze",
+      "fetched": "2026-10-03"
+    },
+    {
+      "id": "bmfsfj-kindergeld",
+      "title": "BMFSFJ: Kindergeld",
+      "url": "https://www.bmfsfj.de/bmfsfj/themen/familie/familienleistungen/kindergeld/kindergeld-73892",
+      "fetched": "2026-10-03"
+    },
+    {
+      "id": "drv-pm-2027",
+      "title": "Deutsche Rentenversicherung press note 24.09.2026: Rechengrößen der Sozialversicherung 2027 (draft, not yet in force)",
+      "url": "https://www.deutsche-rentenversicherung.de/DRV/DE/Ueber-uns-und-Presse/Presse/Meldungen/2026/260922-sv-rechengroessen-vo-2027.html",
+      "fetched": "2026-10-03"
+    }
+  ],
+  "categories": {
+    "income-tax": {
+      "title": "Einkommensteuer — Tarif § 32a EStG, Solidaritätszuschlag (VZ 2026)",
+      "scope": "Tarifliche Einkommensteuer on zu versteuerndes Einkommen (zvE), rounded down to full euro. Ehegatten with Zusammenveranlagung: Splitting-Verfahren (§ 32a Abs. 5) — tax is twice the tax on half the joint zvE, which doubles every threshold.",
+      "source": "https://www.gesetze-im-internet.de/estg/__32a.html",
+      "figures": [
+        {
+          "key": "grundfreibetrag",
+          "term": "Grundfreibetrag",
+          "label": "Basic personal allowance (zero-rate zone of the tariff)",
+          "value": 12348,
+          "unit": "EUR/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.gesetze-im-internet.de/estg/__32a.html",
+          "quote": "Sie beträgt ab dem Veranlagungszeitraum 2026 … für zu versteuernde Einkommen 1. bis 12 348 Euro (Grundfreibetrag): 0;",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 12096,
+            "source": "https://www.recht.bund.de/bgbl/1/2024/449/regelungstext.pdf?__blob=publicationFile&v=2",
+            "quote": "Artikel 1 … 1. bis 12 096 Euro (Grundfreibetrag) … Artikel 2 … 1. bis 12 348 Euro (Grundfreibetrag) … Artikel 10 (2) Die Artikel 2, 4 und 6 treten am 1. Januar 2026 in Kraft."
+          }
+        },
+        {
+          "key": "tarif-zonen",
+          "term": "Tarifzonen § 32a Abs. 1 EStG",
+          "label": "Tariff zones, boundaries and polynomial coefficients",
+          "value": [
+            {
+              "zone": 1,
+              "name": "Grundfreibetrag (nullzone)",
+              "from": 0,
+              "to": 12348,
+              "formula": "0",
+              "marginalRate": "0 %"
+            },
+            {
+              "zone": 2,
+              "name": "erste Progressionszone",
+              "from": 12349,
+              "to": 17799,
+              "formula": "(914,51 · y + 1 400) · y",
+              "y": "ein Zehntausendstel des den Grundfreibetrag (12 348 €) übersteigenden Teils des zvE",
+              "marginalRate": "14 % rising to ≈ 24 %"
+            },
+            {
+              "zone": 3,
+              "name": "zweite Progressionszone",
+              "from": 17800,
+              "to": 69878,
+              "formula": "(173,10 · z + 2 397) · z + 1 034,87",
+              "z": "ein Zehntausendstel des 17 799 € übersteigenden Teils des zvE",
+              "marginalRate": "≈ 24 % rising to 42 %"
+            },
+            {
+              "zone": 4,
+              "name": "Proportionalzone (Spitzensteuersatz)",
+              "from": 69879,
+              "to": 277825,
+              "formula": "0,42 · x − 11 135,63",
+              "marginalRate": "42 %"
+            },
+            {
+              "zone": 5,
+              "name": "Proportionalzone (Reichensteuer)",
+              "from": 277826,
+              "to": null,
+              "formula": "0,45 · x − 19 470,38",
+              "marginalRate": "45 %"
+            }
+          ],
+          "unit": "EUR zvE → formula",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.gesetze-im-internet.de/estg/__32a.html",
+          "quote": "2. von 12 349 Euro bis 17 799 Euro: (914,51 • y + 1 400) • y; 3. von 17 800 Euro bis 69 878 Euro: (173,10 • z + 2 397) • z + 1 034,87; 4. von 69 879 Euro bis 277 825 Euro: 0,42 • x – 11 135,63; 5. von 277 826 Euro an: 0,45 • x – 19 470,38. … Die Größe „y“ ist ein Zehntausendstel des den Grundfreibetrag übersteigenden Teils … „z“ ist ein Zehntausendstel des 17 799 Euro übersteigenden Teils … „x“ ist das auf einen vollen Euro-Betrag abgerundete zu versteuernde Einkommen. Der sich ergebende Steuerbetrag ist auf den nächsten vollen Euro-Betrag abzurunden.",
+          "verifiedDate": "2026-10-03"
+        },
+        {
+          "key": "eingangssteuersatz",
+          "term": "Eingangssteuersatz",
+          "label": "Entry marginal rate (first euro above the Grundfreibetrag)",
+          "value": 14,
+          "unit": "%",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.gesetze-im-internet.de/estg/__32a.html",
+          "quote": "(914,51 • y + 1 400) • y — derivative at y = 0 is 1 400 per 10 000 = 14 %",
+          "verifiedDate": "2026-10-03",
+          "note": "Derived from the zone-2 polynomial; not printed as a percentage in the statute."
+        },
+        {
+          "key": "spitzensteuersatz-schwelle",
+          "term": "Spitzensteuersatz (42 %) — Beginn",
+          "label": "Top rate 42 % applies from this zvE (single assessment; double for Splitting)",
+          "value": 69879,
+          "unit": "EUR/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.gesetze-im-internet.de/estg/__32a.html",
+          "quote": "4. von 69 879 Euro bis 277 825 Euro: 0,42 • x – 11 135,63;",
+          "verifiedDate": "2026-10-03"
+        },
+        {
+          "key": "spitzensteuersatz",
+          "term": "Spitzensteuersatz",
+          "label": "Top marginal rate",
+          "value": 42,
+          "unit": "%",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.gesetze-im-internet.de/estg/__32a.html",
+          "quote": "4. … 0,42 • x – 11 135,63",
+          "verifiedDate": "2026-10-03"
+        },
+        {
+          "key": "reichensteuer-schwelle",
+          "term": "Reichensteuer (45 %) — Beginn",
+          "label": "Wealth-tax surcharge rate 45 % applies from this zvE (single assessment; double for Splitting)",
+          "value": 277826,
+          "unit": "EUR/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.gesetze-im-internet.de/estg/__32a.html",
+          "quote": "5. von 277 826 Euro an: 0,45 • x – 19 470,38.",
+          "verifiedDate": "2026-10-03"
+        },
+        {
+          "key": "reichensteuer",
+          "term": "Reichensteuersatz",
+          "label": "Highest marginal rate",
+          "value": 45,
+          "unit": "%",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.gesetze-im-internet.de/estg/__32a.html",
+          "quote": "5. … 0,45 • x – 19 470,38",
+          "verifiedDate": "2026-10-03"
+        },
+        {
+          "key": "soli-satz",
+          "term": "Solidaritätszuschlag — Zuschlagsatz",
+          "label": "Solidarity surcharge rate on income tax",
+          "value": 5.5,
+          "unit": "% of Einkommensteuer",
+          "effectiveFrom": "1998-01-01",
+          "source": "https://www.gesetze-im-internet.de/solzg_1995/__4.html",
+          "quote": "Der Solidaritätszuschlag beträgt 5,5 Prozent der Bemessungsgrundlage.",
+          "verifiedDate": "2026-10-03"
+        },
+        {
+          "key": "soli-freigrenze-einzel",
+          "term": "Solidaritätszuschlag — Freigrenze (Einzelveranlagung)",
+          "label": "Solidarity surcharge exemption threshold, measured on the income tax due, single assessment",
+          "value": 20350,
+          "unit": "EUR Einkommensteuer/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.gesetze-im-internet.de/solzg_1995/__3.html",
+          "quote": "(3) Der Solidaritätszuschlag ist … nur zu erheben, wenn die Bemessungsgrundlage … 1. in den Fällen des § 32a Absatz 5 und 6 des Einkommensteuergesetzes 40 700 Euro, 2. in anderen Fällen 20 350 Euro übersteigt.",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 19950,
+            "source": "https://www.recht.bund.de/bgbl/1/2024/449/regelungstext.pdf?__blob=publicationFile&v=2",
+            "quote": "Artikel 3 … bb) In Nummer 2 wird die Angabe „18 130 Euro“ durch die Angabe „19 950 Euro“ ersetzt. … Artikel 4 … b) In Nummer 2 wird die Angabe „19 950 Euro“ durch die Angabe „20 350 Euro“ ersetzt. … (27) § 3 Absatz 3 in der Fassung des Artikels 4 … ist erstmals im Veranlagungszeitraum 2026 anzuwenden."
+          }
+        },
+        {
+          "key": "soli-freigrenze-splitting",
+          "term": "Solidaritätszuschlag — Freigrenze (Zusammenveranlagung / Splitting)",
+          "label": "Solidarity surcharge exemption threshold, joint assessment",
+          "value": 40700,
+          "unit": "EUR Einkommensteuer/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.gesetze-im-internet.de/solzg_1995/__3.html",
+          "quote": "1. in den Fällen des § 32a Absatz 5 und 6 des Einkommensteuergesetzes 40 700 Euro",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 39900,
+            "source": "https://www.recht.bund.de/bgbl/1/2024/449/regelungstext.pdf?__blob=publicationFile&v=2",
+            "quote": "aa) In Nummer 1 wird die Angabe „36 260 Euro“ durch die Angabe „39 900 Euro“ ersetzt … a) In Nummer 1 wird die Angabe „39 900 Euro“ durch die Angabe „40 700 Euro“ ersetzt."
+          }
+        },
+        {
+          "key": "soli-milderungszone",
+          "term": "Solidaritätszuschlag — Milderungszone",
+          "label": "Phase-in cap: surcharge may not exceed 11.9 % of the excess of the income tax over the Freigrenze",
+          "value": 11.9,
+          "unit": "% of (Einkommensteuer − Freigrenze)",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.gesetze-im-internet.de/solzg_1995/__4.html",
+          "quote": "Er beträgt nicht mehr als 11,9 Prozent des Unterschiedsbetrages zwischen der Bemessungsgrundlage … und der nach § 3 Absatz 3, 4 und 5 jeweils maßgebenden Freigrenze.",
+          "verifiedDate": "2026-10-03"
+        }
+      ]
+    },
+    "social-insurance": {
+      "title": "Sozialversicherung — Beitragsbemessungsgrenzen, Rechengrößen und Beitragssätze 2026",
+      "scope": "Gesetzliche Renten- (RV), Arbeitslosen- (AV), Kranken- (KV) und Pflegeversicherung (PV). Since 2025 there is no West/Ost distinction. Employee and employer each pay half of RV, AV, KV (incl. Zusatzbeitrag) and PV, except the Kinderlosenzuschlag (employee only) and Sachsen's PV split.",
+      "source": "https://www.recht.bund.de/bgbl/1/2025/278/regelungstext.pdf?__blob=publicationFile&v=2",
+      "sourceSummary": "https://www.bmas.de/DE/Service/Gesetze-und-Gesetzesvorhaben/sozialversicherungs-rechengroessenverordnung-2026.html",
+      "figures": [
+        {
+          "key": "bbg-rv-av-jahr",
+          "term": "Beitragsbemessungsgrenze allgemeine Rentenversicherung / Arbeitslosenversicherung (Jahr)",
+          "label": "Contribution ceiling, pension and unemployment insurance — annual",
+          "value": 101400,
+          "unit": "EUR/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.recht.bund.de/bgbl/1/2025/278/regelungstext.pdf?__blob=publicationFile&v=2",
+          "quote": "§ 4 (1) Die Beitragsbemessungsgrenze nach § 159 des Sechsten Buches Sozialgesetzbuch wird für das Jahr 2026 wie folgt festgesetzt: 1. in der allgemeinen Rentenversicherung auf 101 400 Euro jährlich; umgerechnet auf den Monat ergeben sich 8 450 Euro",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 96600,
+            "monthly": 8050,
+            "source": "https://www.deutsche-rentenversicherung.de/DRV/DE/Experten/Zahlen-und-Fakten/Werte-der-Rentenversicherung/werte-der-rentenversicherung_node.html",
+            "quote": "ab 1.1.2025 monatlich (keine Unterscheidung mehr zwischen West und Ost) 8.050; ab 1.1.2026 monatlich 8.450"
+          },
+          "corroboration": {
+            "source": "https://www.gesetze-im-internet.de/sgb_3/__341.html",
+            "quote": "§ 341 (4) Beitragsbemessungsgrenze ist die Beitragsbemessungsgrenze der allgemeinen Rentenversicherung."
+          }
+        },
+        {
+          "key": "bbg-rv-av-monat",
+          "term": "Beitragsbemessungsgrenze RV/AV (Monat)",
+          "label": "Contribution ceiling, pension and unemployment insurance — monthly",
+          "value": 8450,
+          "unit": "EUR/month",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.recht.bund.de/bgbl/1/2025/278/regelungstext.pdf?__blob=publicationFile&v=2",
+          "quote": "… umgerechnet auf den Monat ergeben sich 8 450 Euro",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 8050,
+            "source": "https://www.deutsche-rentenversicherung.de/DRV/DE/Experten/Zahlen-und-Fakten/Werte-der-Rentenversicherung/werte-der-rentenversicherung_node.html"
+          }
+        },
+        {
+          "key": "bbg-knappschaft-jahr",
+          "term": "Beitragsbemessungsgrenze knappschaftliche Rentenversicherung (Jahr)",
+          "label": "Contribution ceiling, miners' pension insurance — annual",
+          "value": 124800,
+          "unit": "EUR/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.recht.bund.de/bgbl/1/2025/278/regelungstext.pdf?__blob=publicationFile&v=2",
+          "quote": "2. in der knappschaftlichen Rentenversicherung auf 124 800 Euro jährlich; umgerechnet auf den Monat ergeben sich 10 400 Euro.",
+          "verifiedDate": "2026-10-03"
+        },
+        {
+          "key": "bbg-kv-pv-jahr",
+          "term": "Beitragsbemessungsgrenze Kranken- und Pflegeversicherung (Jahr) = Jahresarbeitsentgeltgrenze § 6 Abs. 7 SGB V",
+          "label": "Contribution ceiling, health and long-term-care insurance — annual",
+          "value": 69750,
+          "unit": "EUR/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.recht.bund.de/bgbl/1/2025/278/regelungstext.pdf?__blob=publicationFile&v=2",
+          "quote": "§ 2 (2) Die Jahresarbeitsentgeltgrenze nach § 6 Absatz 7 des Fünften Buches Sozialgesetzbuch wird für das Jahr 2026 auf 69 750 Euro festgesetzt. Umgerechnet auf den Monat ergeben sich 5 812,50 Euro.",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 66150,
+            "monthly": 5512.5,
+            "source": "https://www.bmas.de/DE/Service/Gesetze-und-Gesetzesvorhaben/sozialversicherungs-rechengroessenverordnung-2025.html",
+            "quote": "Die Beitragsbemessungsgrenze in der gesetzlichen Krankenversicherung steigt auf 5.512,50 Euro im Monat (2024: 5.175 Euro)"
+          },
+          "corroboration": {
+            "source": "https://www.bundesgesundheitsministerium.de/beitraege",
+            "quote": "Beitragsbemessungsgrenze (Monat) 5.812,50 Euro; Beitragsbemessungsgrenze (Jahr) 69.750 Euro"
+          }
+        },
+        {
+          "key": "bbg-kv-pv-monat",
+          "term": "Beitragsbemessungsgrenze KV/PV (Monat)",
+          "label": "Contribution ceiling, health and care insurance — monthly",
+          "value": 5812.5,
+          "unit": "EUR/month",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.recht.bund.de/bgbl/1/2025/278/regelungstext.pdf?__blob=publicationFile&v=2",
+          "quote": "Umgerechnet auf den Monat ergeben sich 5 812,50 Euro.",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 5512.5,
+            "source": "https://www.bmas.de/DE/Service/Gesetze-und-Gesetzesvorhaben/sozialversicherungs-rechengroessenverordnung-2025.html"
+          }
+        },
+        {
+          "key": "jaeg-jahr",
+          "term": "Jahresarbeitsentgeltgrenze / Versicherungspflichtgrenze § 6 Abs. 6 SGB V (Jahr)",
+          "label": "Compulsory-insurance income threshold for statutory health insurance — annual",
+          "value": 77400,
+          "unit": "EUR/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.recht.bund.de/bgbl/1/2025/278/regelungstext.pdf?__blob=publicationFile&v=2",
+          "quote": "§ 2 (1) Die Jahresarbeitsentgeltgrenze nach § 6 Absatz 6 des Fünften Buches Sozialgesetzbuch wird für das Jahr 2026 auf 77 400 Euro festgesetzt. Umgerechnet auf den Monat ergeben sich 6 450 Euro.",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 73800,
+            "monthly": 6150,
+            "source": "https://www.bmas.de/DE/Service/Gesetze-und-Gesetzesvorhaben/sozialversicherungs-rechengroessenverordnung-2025.html",
+            "quote": "die Versicherungspflichtgrenze in der gesetzlichen Krankenversicherung (Jahresarbeitsentgeltgrenze) auf 6.150 Euro im Monat (2024: 5.775 Euro)"
+          }
+        },
+        {
+          "key": "bezugsgroesse-jahr",
+          "term": "Bezugsgröße § 18 SGB IV (Jahr)",
+          "label": "Reference value of the social insurance system — annual",
+          "value": 47460,
+          "unit": "EUR/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.recht.bund.de/bgbl/1/2025/278/regelungstext.pdf?__blob=publicationFile&v=2",
+          "quote": "§ 1 Die Bezugsgröße nach § 18 des Vierten Buches Sozialgesetzbuch für das Jahr 2026 beträgt 47 460 Euro. Umgerechnet auf den Monat ergeben sich 3 955 Euro.",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 44940,
+            "monthly": 3745,
+            "source": "https://www.deutsche-rentenversicherung.de/DRV/DE/Experten/Zahlen-und-Fakten/Werte-der-Rentenversicherung/werte-der-rentenversicherung_node.html",
+            "quote": "Bezugsgrößen … ab 1.1.2025 monatlich (keine Unterscheidung mehr …) 3.745; ab 1.1.2026 monatlich 3.955"
+          }
+        },
+        {
+          "key": "durchschnittsentgelt-vorlaeufig",
+          "term": "vorläufiges Durchschnittsentgelt in der Rentenversicherung 2026",
+          "label": "Provisional average earnings used for pension points (Entgeltpunkte)",
+          "value": 51944,
+          "unit": "EUR/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.recht.bund.de/bgbl/1/2025/278/regelungstext.pdf?__blob=publicationFile&v=2",
+          "quote": "§ 3 (2) Das vorläufige Durchschnittsentgelt nach § 69 Absatz 2 Satz 1 Nummer 2 des Sechsten Buches Sozialgesetzbuch für das Jahr 2026 beträgt 51 944 Euro.",
+          "verifiedDate": "2026-10-03"
+        },
+        {
+          "key": "kv-allgemeiner-beitragssatz",
+          "term": "Krankenversicherung — allgemeiner Beitragssatz",
+          "label": "Statutory health insurance general contribution rate (total; employee and employer each 7.3 %)",
+          "value": 14.6,
+          "unit": "%",
+          "effectiveFrom": "2015-01-01",
+          "source": "https://www.gesetze-im-internet.de/sgb_5/__241.html",
+          "quote": "Der allgemeine Beitragssatz beträgt 14,6 Prozent der beitragspflichtigen Einnahmen der Mitglieder.",
+          "verifiedDate": "2026-10-03",
+          "employeeShare": 7.3,
+          "employerShare": 7.3,
+          "corroboration": {
+            "source": "https://www.bundesgesundheitsministerium.de/beitraege",
+            "quote": "Allgemeiner Beitragssatz (Anspruch auf Krankengeld ab dem 43. Tag) 14,6 Prozent"
+          }
+        },
+        {
+          "key": "kv-ermaessigter-beitragssatz",
+          "term": "Krankenversicherung — ermäßigter Beitragssatz",
+          "label": "Reduced health insurance rate (no sick-pay entitlement)",
+          "value": 14,
+          "unit": "%",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.bundesgesundheitsministerium.de/beitraege",
+          "quote": "Ermäßigter Beitragssatz (kein Krankengeldanspruch) 14,0 Prozent",
+          "verifiedDate": "2026-10-03"
+        },
+        {
+          "key": "kv-durchschnittlicher-zusatzbeitrag",
+          "term": "Krankenversicherung — durchschnittlicher Zusatzbeitragssatz 2026",
+          "label": "Average supplementary health insurance contribution rate announced by the BMG for 2026 (total; split equally employee/employer; each Krankenkasse sets its own actual rate)",
+          "value": 2.9,
+          "unit": "%",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.bundesgesundheitsministerium.de/beitraege",
+          "quote": "Für das Jahr 2026 beträgt der durchschnittliche Zusatzbeitragssatz 2,9 Prozent.",
+          "verifiedDate": "2026-10-03",
+          "employeeShare": 1.45,
+          "employerShare": 1.45,
+          "previous": {
+            "taxYear": "2025",
+            "value": 2.5,
+            "source": "https://www.bundesanzeiger.de/pub/publication/lErtX3qtBqz33CLzogK/content/lErtX3qtBqz33CLzogK/BAnz%20AT%2007.11.2024%20B4.pdf?inline=",
+            "quote": "Der durchschnittliche Zusatzbeitragssatz nach § 242a Absatz 1 SGB V für das Jahr 2025 beträgt 2,5 Prozent."
+          },
+          "note": "This is the statutory average used for Bürgergeld recipients, Auszubildende ≤ 325 € etc. and as a planning figure; the kassenindividueller Zusatzbeitrag of a given Krankenkasse may be higher or lower."
+        },
+        {
+          "key": "rv-beitragssatz",
+          "term": "Rentenversicherung — Beitragssatz",
+          "label": "Statutory pension insurance contribution rate (total; employee and employer each 9.3 %)",
+          "value": 18.6,
+          "unit": "%",
+          "effectiveFrom": "2018-01-01",
+          "source": "https://www.deutsche-rentenversicherung.de/DRV/DE/Experten/Zahlen-und-Fakten/Werte-der-Rentenversicherung/werte-der-rentenversicherung_node.html",
+          "quote": "Beiträge zur Sozialversicherung — Rentenversicherung: 18,6 Prozent … Beitragssatz zur Rentenversicherung in Prozent: ab 1.1.2018 monatlich 18,6",
+          "verifiedDate": "2026-10-03",
+          "employeeShare": 9.3,
+          "employerShare": 9.3,
+          "corroboration": {
+            "source": "https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung",
+            "quote": "Beitragssätze: allgemeine Rentenversicherung: 18,6 Prozent; Arbeitslosenversicherung: 2,6 Prozent; Pflegeversicherung: 3,6 Prozent"
+          }
+        },
+        {
+          "key": "av-beitragssatz",
+          "term": "Arbeitslosenversicherung — Beitragssatz",
+          "label": "Unemployment insurance contribution rate (total; employee and employer each 1.3 %)",
+          "value": 2.6,
+          "unit": "%",
+          "effectiveFrom": "2023-01-01",
+          "source": "https://www.gesetze-im-internet.de/sgb_3/__341.html",
+          "quote": "§ 341 (2) Der Beitragssatz beträgt 2,6 Prozent.",
+          "verifiedDate": "2026-10-03",
+          "employeeShare": 1.3,
+          "employerShare": 1.3
+        },
+        {
+          "key": "pv-beitragssatz",
+          "term": "Pflegeversicherung — Beitragssatz",
+          "label": "Long-term-care insurance contribution rate (total; employee and employer each 1.8 % outside Sachsen)",
+          "value": 3.6,
+          "unit": "%",
+          "effectiveFrom": "2025-01-01",
+          "source": "https://www.gesetze-im-internet.de/pbav_2025/__1.html",
+          "quote": "§ 1 (1) Der Beitragssatz nach § 55 Absatz 1 Satz 1 des Elften Buches Sozialgesetzbuch wird zum 1. Januar 2025 auf 3,6 Prozent der beitragspflichtigen Einnahmen der Mitglieder festgesetzt.",
+          "verifiedDate": "2026-10-03",
+          "employeeShare": 1.8,
+          "employerShare": 1.8,
+          "previous": {
+            "taxYear": "2024",
+            "value": 3.4,
+            "source": "https://www.gesetze-im-internet.de/sgb_11/__55.html",
+            "quote": "§ 55 (1) Der Beitragssatz beträgt, vorbehaltlich des Satzes 2, bundeseinheitlich 3,4 Prozent … (statutory base rate, raised by 0.2 points by the PBAV 2025 under the Abs. 1a Verordnungsermächtigung)"
+          },
+          "corroboration": {
+            "source": "https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung",
+            "quote": "Seit dem 1. Januar 2025 beträgt der Beitragssatz 3,6 Prozent der beitragspflichtigen Einnahmen, bei Kinderlosen sind es 4,2 Prozent … Arbeitnehmerinnen beziehungsweise Arbeitnehmer und Arbeitgeber tragen den Beitrag … grundsätzlich zur Hälfte, also jeweils 1,8 Prozent."
+          }
+        },
+        {
+          "key": "pv-kinderlosenzuschlag",
+          "term": "Pflegeversicherung — Beitragszuschlag für Kinderlose",
+          "label": "Childless surcharge (employee only, from the month after the 23rd birthday) — employee total becomes 2.4 %",
+          "value": 0.6,
+          "unit": "percentage points",
+          "effectiveFrom": "2023-07-01",
+          "source": "https://www.gesetze-im-internet.de/sgb_11/__55.html",
+          "quote": "(3) Der Beitragssatz nach Absatz 1 Satz 1 und 3 erhöht sich für Mitglieder nach Ablauf des Monats, in dem sie das 23. Lebensjahr vollendet haben, um einen Beitragszuschlag in Höhe von 0,6 Beitragssatzpunkten (Beitragszuschlag für Kinderlose).",
+          "verifiedDate": "2026-10-03",
+          "employeeShareIncludingSurcharge": 2.4,
+          "corroboration": {
+            "source": "https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung",
+            "quote": "Dieser sogenannte Beitragszuschlag für Kinderlose beläuft sich seit dem 1. Juli 2023 auf 0,6 Prozent der beitragspflichtigen Einnahmen"
+          }
+        },
+        {
+          "key": "pv-kinderabschlag",
+          "term": "Pflegeversicherung — Abschlag für Eltern (2. bis 5. Kind unter 25)",
+          "label": "Per-child reduction of the employee rate for the 2nd to 5th child under 25",
+          "value": 0.25,
+          "unit": "percentage points per child",
+          "effectiveFrom": "2023-07-01",
+          "source": "https://www.gesetze-im-internet.de/sgb_11/__55.html",
+          "quote": "Für diese reduziert sich der Beitragssatz … für jedes Kind ab dem zweiten Kind bis zum fünften Kind um jeweils einen Abschlag in Höhe von 0,25 Beitragssatzpunkten bis zum Ablauf des Monats, in dem das jeweilige Kind das 25. Lebensjahr vollendet hat",
+          "verifiedDate": "2026-10-03",
+          "employeeShareByChildren": {
+            "1": 1.8,
+            "2": 1.55,
+            "3": 1.3,
+            "4": 1.05,
+            "0 (over 23)": 2.4,
+            "5+": 0.8
+          }
+        },
+        {
+          "key": "pv-sachsen",
+          "term": "Pflegeversicherung — Sachsen (abweichende Verteilung)",
+          "label": "Saxony split of the 3.6 % rate: employee 2.3 %, employer 1.3 %",
+          "value": {
+            "employee": 2.3,
+            "employer": 1.3
+          },
+          "unit": "%",
+          "effectiveFrom": "2025-01-01",
+          "source": "https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung",
+          "quote": "Dort entfallen von den 3,6 Prozent Pflegeversicherungsbeitrag 2,3 Prozent auf die Beschäftigten und 1,3 Prozent auf die Arbeitgeber.",
+          "verifiedDate": "2026-10-03"
+        }
+      ]
+    },
+    "minimum-wage": {
+      "title": "Gesetzlicher Mindestlohn (MiLoG / MiLoV5)",
+      "scope": "General statutory minimum wage, gross per hour; Branchenmindestlöhne may be higher.",
+      "source": "https://www.gesetze-im-internet.de/milov5/__1.html",
+      "sourceSummary": "https://www.bmas.de/DE/Arbeit/Arbeitsrecht/Mindestlohn/Einfuehrung-und-Anpassungen-Mindestlohn/einfuehrung-und-anpassung-mindestlohn.html",
+      "figures": [
+        {
+          "key": "mindestlohn-2026",
+          "term": "Mindestlohn ab 1. Januar 2026",
+          "label": "Statutory minimum wage from 1 January 2026",
+          "value": 13.9,
+          "unit": "EUR/hour gross",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.gesetze-im-internet.de/milov5/__1.html",
+          "quote": "§ 1 Höhe des Mindestlohns — Der Mindestlohn beträgt 1. ab 1. Januar 2026 13,90 Euro brutto je Zeitstunde, 2. ab 1. Januar 2027 14,60 Euro brutto je Zeitstunde.",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 12.82,
+            "effectiveFrom": "2025-01-01",
+            "source": "https://www.bmas.de/DE/Arbeit/Arbeitsrecht/Mindestlohn/Einfuehrung-und-Anpassungen-Mindestlohn/einfuehrung-und-anpassung-mindestlohn.html",
+            "quote": "01.01.2025 12,82 Euro; 01.01.2026 13,90 Euro Fünfte Mindestlohnanpassungsverordnung vom 05. November 2025 (BGBl. 2025 I Nr. 268); 01.01.2027 14,60 Euro"
+          },
+          "legalBasis": "https://www.recht.bund.de/bgbl/1/2025/268/regelungstext.pdf?__blob=publicationFile&v=2"
+        },
+        {
+          "key": "mindestlohn-2027",
+          "term": "Mindestlohn ab 1. Januar 2027",
+          "label": "Statutory minimum wage from 1 January 2027 (already fixed)",
+          "value": 14.6,
+          "unit": "EUR/hour gross",
+          "effectiveFrom": "2027-01-01",
+          "source": "https://www.gesetze-im-internet.de/milov5/__1.html",
+          "quote": "2. ab 1. Januar 2027 14,60 Euro brutto je Zeitstunde.",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2026",
+            "value": 13.9,
+            "effectiveFrom": "2026-01-01",
+            "source": "https://www.gesetze-im-internet.de/milov5/__1.html",
+            "quote": "Der Mindestlohn beträgt 1. ab 1. Januar 2026 13,90 Euro brutto je Zeitstunde, 2. ab 1. Januar 2027 14,60 Euro brutto je Zeitstunde."
+          }
+        }
+      ]
+    },
+    "minijob": {
+      "title": "Geringfügige Beschäftigung (Minijob) — Geringfügigkeitsgrenze § 8 SGB IV",
+      "scope": "Monthly earnings limit for a geringfügig entlohnte Beschäftigung; dynamic since Oct 2022 — 10 hours/week at the Mindestlohn (Mindestlohn × 130 ÷ 3, rounded up to full euro). Above it, the Übergangsbereich (Midijob) runs to 2,000 €/month.",
+      "source": "https://www.gesetze-im-internet.de/sgb_4/__8.html",
+      "sourceSummary": "https://www.minijob-zentrale.de/DE/die-minijobs/minijob-mit-verdienstgrenze",
+      "figures": [
+        {
+          "key": "geringfuegigkeitsgrenze-2026",
+          "term": "Geringfügigkeitsgrenze 2026",
+          "label": "Minijob monthly earnings limit 2026",
+          "value": 603,
+          "unit": "EUR/month",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.deutsche-rentenversicherung.de/DRV/DE/Experten/Zahlen-und-Fakten/Werte-der-Rentenversicherung/werte-der-rentenversicherung_node.html",
+          "quote": "In der Zeit vom 1.1.2026 bis 31.12.2026 beträgt die … maßgebliche monatliche Geringfügigkeitsgrenze 603,00 EUR.",
+          "verifiedDate": "2026-10-03",
+          "annual": 7236,
+          "formula": "13,90 € × 130 ÷ 3 = 602,33 → aufgerundet 603 €",
+          "previous": {
+            "taxYear": "2025",
+            "value": 556,
+            "source": "https://www.deutsche-rentenversicherung.de/DRV/DE/Experten/Zahlen-und-Fakten/Werte-der-Rentenversicherung/werte-der-rentenversicherung_node.html",
+            "quote": "In der Zeit vom 1.1.2025 bis 31.12.2025 beträgt die … Geringfügigkeitsgrenze 556,00 EUR"
+          },
+          "corroboration": {
+            "source": "https://www.minijob-zentrale.de/DE/die-minijobs/minijob-mit-verdienstgrenze",
+            "quote": "Sie dürfen durchschnittlich im Monat nicht mehr als 603 Euro verdienen. Auf ein Jahr gerechnet sind das bis zu 7.236 Euro."
+          },
+          "legalBasis": {
+            "source": "https://www.gesetze-im-internet.de/sgb_4/__8.html",
+            "quote": "(1a) … Sie wird berechnet, indem der Mindestlohn mit 130 vervielfacht, durch drei geteilt und auf volle Euro aufgerundet wird."
+          }
+        },
+        {
+          "key": "geringfuegigkeitsgrenze-2027",
+          "term": "Geringfügigkeitsgrenze 2027",
+          "label": "Minijob monthly earnings limit 2027 (follows the 14,60 € Mindestlohn)",
+          "value": 633,
+          "unit": "EUR/month",
+          "effectiveFrom": "2027-01-01",
+          "source": "https://www.deutsche-rentenversicherung.de/DRV/DE/Experten/Zahlen-und-Fakten/Werte-der-Rentenversicherung/werte-der-rentenversicherung_node.html",
+          "quote": "Ab dem 1.1.2027 beträgt die … maßgebliche monatliche Geringfügigkeitsgrenze 633,00 EUR.",
+          "verifiedDate": "2026-10-03",
+          "formula": "14,60 € × 130 ÷ 3 = 632,67 → 633 €",
+          "previous": {
+            "taxYear": "2026",
+            "value": 603,
+            "effectiveFrom": "2026-01-01",
+            "source": "https://www.deutsche-rentenversicherung.de/DRV/DE/Experten/Zahlen-und-Fakten/Werte-der-Rentenversicherung/werte-der-rentenversicherung_node.html",
+            "quote": "In der Zeit vom 1.1.2026 bis 31.12.2026 … 603,00 EUR. Ab dem 1.1.2027 … 633,00 EUR."
+          }
+        },
+        {
+          "key": "midijob-obergrenze",
+          "term": "Übergangsbereich (Midijob) — Obergrenze",
+          "label": "Upper limit of the reduced-contribution transition zone",
+          "value": 2000,
+          "unit": "EUR/month",
+          "effectiveFrom": "2023-01-01",
+          "source": "https://www.minijob-zentrale.de/DE/die-minijobs/minijob-mit-verdienstgrenze",
+          "quote": "Verdient ein Arbeitnehmer oder eine Arbeitnehmerin von 603,01 Euro bis 2.000 Euro im Monat, handelt es sich um einen sogenannten Midijob.",
+          "verifiedDate": "2026-10-03"
+        }
+      ]
+    },
+    "kindergeld": {
+      "title": "Kindergeld § 66 EStG",
+      "scope": "Monthly child benefit per child, income-independent, same amount for every child since 2023.",
+      "source": "https://www.gesetze-im-internet.de/estg/__66.html",
+      "figures": [
+        {
+          "key": "kindergeld",
+          "term": "Kindergeld (monatlich je Kind)",
+          "label": "Child benefit per child per month",
+          "value": 259,
+          "unit": "EUR/month",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.gesetze-im-internet.de/estg/__66.html",
+          "quote": "§ 66 (1) Das Kindergeld beträgt monatlich für jedes Kind 259 Euro.",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 255,
+            "source": "https://www.recht.bund.de/bgbl/1/2024/449/regelungstext.pdf?__blob=publicationFile&v=2",
+            "quote": "Artikel 1 … 4. In § 66 Absatz 1 wird die Angabe „250 Euro“ durch die Angabe „255 Euro“ ersetzt. … Artikel 2 … a) In Absatz 1 wird die Angabe „255 Euro“ durch die Angabe „259 Euro“ ersetzt."
+          },
+          "corroboration": {
+            "source": "https://www.bmfsfj.de/bmfsfj/themen/familie/familienleistungen/kindergeld/kindergeld-73892",
+            "quote": "Es beträgt zum 1. Januar 2026 monatlich 259 Euro pro Kind."
+          }
+        }
+      ]
+    },
+    "kinderfreibetrag": {
+      "title": "Freibeträge für Kinder § 32 Abs. 6 EStG",
+      "scope": "Per child, per parent; doubled for jointly assessed parents. Günstigerprüfung decides between Kindergeld and the Freibeträge.",
+      "source": "https://www.gesetze-im-internet.de/estg/__32.html",
+      "figures": [
+        {
+          "key": "kinderfreibetrag",
+          "term": "Kinderfreibetrag (sächliches Existenzminimum) — je Elternteil",
+          "label": "Child allowance for the child's basic subsistence — per parent",
+          "value": 3414,
+          "unit": "EUR/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.gesetze-im-internet.de/estg/__32.html",
+          "quote": "(6) Bei der Veranlagung zur Einkommensteuer wird für jedes zu berücksichtigende Kind des Steuerpflichtigen ein Freibetrag von 3 414 Euro für das sächliche Existenzminimum des Kindes (Kinderfreibetrag) sowie ein Freibetrag von 1 464 Euro für den Betreuungs- und Erziehungs- oder Ausbildungsbedarf des Kindes vom Einkommen abgezogen.",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 3336,
+            "source": "https://www.recht.bund.de/bgbl/1/2024/449/regelungstext.pdf?__blob=publicationFile&v=2",
+            "quote": "Artikel 1 … 1. In § 32 Absatz 6 Satz 1 wird die Angabe „3 306 Euro“ durch die Angabe „3 336 Euro“ ersetzt. … Artikel 2 … 1. In § 32 Absatz 6 Satz 1 wird die Angabe „3 336 Euro“ durch die Angabe „3 414 Euro“ ersetzt."
+          }
+        },
+        {
+          "key": "bea-freibetrag",
+          "term": "Freibetrag für Betreuungs- und Erziehungs- oder Ausbildungsbedarf (BEA) — je Elternteil",
+          "label": "Allowance for care, upbringing and education needs — per parent",
+          "value": 1464,
+          "unit": "EUR/year",
+          "effectiveFrom": "2021-01-01",
+          "source": "https://www.gesetze-im-internet.de/estg/__32.html",
+          "quote": "… sowie ein Freibetrag von 1 464 Euro für den Betreuungs- und Erziehungs- oder Ausbildungsbedarf des Kindes",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 1464
+          }
+        },
+        {
+          "key": "freibetraege-kinder-gesamt",
+          "term": "Freibeträge für Kinder gesamt (beide Elternteile)",
+          "label": "Total child allowances per child for jointly assessed parents: 2 × (3 414 + 1 464)",
+          "value": 9756,
+          "unit": "EUR/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.gesetze-im-internet.de/estg/__32.html",
+          "quote": "(6) … 2 Bei Ehegatten, die nach den §§ 26, 26b zusammen zur Einkommensteuer veranlagt werden, verdoppeln sich die Beträge nach Satz 1",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 9600
+          },
+          "derived": true
+        }
+      ]
+    },
+    "sparer-pauschbetrag": {
+      "title": "Sparer-Pauschbetrag § 20 Abs. 9 EStG",
+      "scope": "Flat deduction against Einkünfte aus Kapitalvermögen; actual costs not deductible.",
+      "source": "https://www.gesetze-im-internet.de/estg/__20.html",
+      "figures": [
+        {
+          "key": "sparer-pauschbetrag",
+          "term": "Sparer-Pauschbetrag",
+          "label": "Savers' allowance — single",
+          "value": 1000,
+          "unit": "EUR/year",
+          "effectiveFrom": "2023-01-01",
+          "source": "https://www.gesetze-im-internet.de/estg/__20.html",
+          "quote": "(9) Bei der Ermittlung der Einkünfte aus Kapitalvermögen ist als Werbungskosten ein Betrag von 1 000 Euro abzuziehen (Sparer-Pauschbetrag); der Abzug der tatsächlichen Werbungskosten ist ausgeschlossen.",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 1000
+          }
+        },
+        {
+          "key": "sparer-pauschbetrag-zusammenveranlagung",
+          "term": "gemeinsamer Sparer-Pauschbetrag (Ehegatten)",
+          "label": "Savers' allowance — jointly assessed spouses",
+          "value": 2000,
+          "unit": "EUR/year",
+          "effectiveFrom": "2023-01-01",
+          "source": "https://www.gesetze-im-internet.de/estg/__20.html",
+          "quote": "Ehegatten, die zusammen veranlagt werden, wird ein gemeinsamer Sparer-Pauschbetrag von 2 000 Euro gewährt.",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 2000
+          }
+        }
+      ]
+    },
+    "arbeitnehmer-pauschbetrag": {
+      "title": "Arbeitnehmer-Pauschbetrag § 9a Satz 1 Nr. 1a EStG",
+      "scope": "Flat employment-expense deduction applied automatically unless higher Werbungskosten are proven.",
+      "source": "https://www.gesetze-im-internet.de/estg/__9a.html",
+      "figures": [
+        {
+          "key": "arbeitnehmer-pauschbetrag",
+          "term": "Arbeitnehmer-Pauschbetrag",
+          "label": "Employee flat-rate allowance for work-related expenses",
+          "value": 1230,
+          "unit": "EUR/year",
+          "effectiveFrom": "2023-01-01",
+          "source": "https://www.gesetze-im-internet.de/estg/__9a.html",
+          "quote": "1. a) von den Einnahmen aus nichtselbständiger Arbeit vorbehaltlich Buchstabe b: ein Arbeitnehmer-Pauschbetrag von 1 230 Euro;",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": 1230
+          }
+        },
+        {
+          "key": "versorgungsbezuege-pauschbetrag",
+          "term": "Pauschbetrag für Versorgungsbezüge",
+          "label": "Flat allowance against pension-type employment income",
+          "value": 102,
+          "unit": "EUR/year",
+          "effectiveFrom": "2005-01-01",
+          "source": "https://www.gesetze-im-internet.de/estg/__9a.html",
+          "quote": "b) … ein Pauschbetrag von 102 Euro;",
+          "verifiedDate": "2026-10-03"
+        }
+      ]
+    },
+    "entfernungspauschale": {
+      "title": "Entfernungspauschale (Pendlerpauschale) § 9 Abs. 1 Satz 3 Nr. 4 EStG",
+      "scope": "Per full kilometre of one-way distance between home and erste Tätigkeitsstätte, per working day, regardless of transport mode. From 2026 a single rate from the first kilometre (Steueränderungsgesetz 2025).",
+      "source": "https://www.gesetze-im-internet.de/estg/__9.html",
+      "figures": [
+        {
+          "key": "entfernungspauschale",
+          "term": "Entfernungspauschale je Entfernungskilometer (ab dem 1. Kilometer)",
+          "label": "Commuting allowance per kilometre of distance, from the first kilometre",
+          "value": 0.38,
+          "unit": "EUR/km/working day",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.gesetze-im-internet.de/estg/__9.html",
+          "quote": "Zur Abgeltung dieser Aufwendungen ist für jeden Arbeitstag, an dem der Arbeitnehmer die erste Tätigkeitsstätte aufsucht eine Entfernungspauschale für jeden vollen Kilometer der Entfernung zwischen Wohnung und erster Tätigkeitsstätte von 0,38 Euro anzusetzen, höchstens jedoch 4 500 Euro im Kalenderjahr",
+          "verifiedDate": "2026-10-03",
+          "previous": {
+            "taxYear": "2025",
+            "value": "0,30 € for km 1–20 and 0,38 € from the 21st km",
+            "source": "https://www.recht.bund.de/bgbl/1/2025/363/regelungstext.pdf?__blob=publicationFile&v=2",
+            "quote": "aa) In Satz 2 wird die Angabe „0,30 Euro“ durch die Angabe „0,38 Euro“ ersetzt. … Steuerpflichtige können neben der Berücksichtigung der Entfernungspauschalen ab dem 21. vollen Entfernungskilometer …"
+          },
+          "legalBasis": "https://www.recht.bund.de/bgbl/1/2025/363/regelungstext.pdf?__blob=publicationFile&v=2"
+        },
+        {
+          "key": "entfernungspauschale-hoechstbetrag",
+          "term": "Höchstbetrag ohne eigenen Kraftwagen",
+          "label": "Annual cap unless the commuter uses their own (or a provided) car",
+          "value": 4500,
+          "unit": "EUR/year",
+          "effectiveFrom": "2001-01-01",
+          "source": "https://www.gesetze-im-internet.de/estg/__9.html",
+          "quote": "… höchstens jedoch 4 500 Euro im Kalenderjahr; ein höherer Betrag als 4 500 Euro ist anzusetzen, soweit der Arbeitnehmer einen eigenen oder ihm zur Nutzung überlassenen Kraftwagen benutzt.",
+          "verifiedDate": "2026-10-03"
+        },
+        {
+          "key": "familienheimfahrt",
+          "term": "Entfernungspauschale für Familienheimfahrten (doppelte Haushaltsführung)",
+          "label": "Rate for one weekly family home trip under double-household rules",
+          "value": 0.38,
+          "unit": "EUR/km",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.gesetze-im-internet.de/estg/__9.html",
+          "quote": "Zur Abgeltung der Aufwendungen für eine Familienheimfahrt ist eine Entfernungspauschale von 0,38 Euro für jeden vollen Kilometer der Entfernung … anzusetzen.",
+          "verifiedDate": "2026-10-03"
+        }
+      ]
+    }
+  }
+}
