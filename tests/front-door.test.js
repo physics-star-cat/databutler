@@ -53,6 +53,8 @@ const SAMPLE = {
   confidence_interval: { kind: 'proportion', successes: 40, n: 100 },
   bayes_update: { hypotheses: [{ name: 'a', prior: 0.5, likelihood: 0.9 }, { name: 'b', prior: 0.5, likelihood: 0.1 }] },
   linear_regression: { x: [1, 2, 3, 4], y: [2, 4, 6, 8] },
+  support_status: { product: 'nodejs', version: '18.19.0' },
+  support_timeline: { product: 'python' },
 };
 
 test('call reaches every non-network registry tool with the inner envelope', async () => {

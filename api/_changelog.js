@@ -8,7 +8,8 @@
  * rename is not detected as a rename — it surfaces as a removal of the old
  * label plus an addition of the new one, same as any other structural change.
  *
- * Vehicles entries come from scripts/vehicles.js. The same entries are
+ * Vehicles entries come from scripts/vehicles.js and software-eol entries
+ * from scripts/software-eol.js. The same entries are
  * published for humans and feed readers at /changes, /changes.rss and
  * /changes.atom (api/_changes_render.js) via listEntries.
  */
@@ -16,7 +17,7 @@ const CHANGELOG = require('../data/changelog.json');
 const { nearest } = require('./_text');
 
 const COVERAGE_START = '2026-08-31'; // first full verification of every dataset
-const CHANGELOG_AREAS = ['uk-rates', 'uk-exams', 'vehicles']; // provenance/stats hold no dataset; vehicles entries come from scripts/vehicles.js
+const CHANGELOG_AREAS = ['uk-rates', 'uk-exams', 'vehicles', 'software-eol']; // provenance/stats/tax hold no dataset; vehicles entries come from scripts/vehicles.js, software-eol from scripts/software-eol.js
 const MAX_ENTRIES = 100;
 
 /**

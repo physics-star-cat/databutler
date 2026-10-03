@@ -31,5 +31,159 @@
     "source": "https://ec.europa.eu/safety-gate-alerts/screen/webReport",
     "verifiedDate": "2026-10-03",
     "note": "Stub only — eu_safety_gate_recalls returns covered:false with the official Safety Gate URL; no data is claimed or served. RappelConso republishes the Safety Gate automobile alerts that concern France, so fr_recalls_* covers most EU-wide vehicle recalls meanwhile."
+  },
+  {
+    "area": "software-eol",
+    "key": "nodejs/dataset",
+    "label": "Node.js support lifecycle dataset",
+    "from": null,
+    "to": "covered",
+    "effectiveFrom": "2026-10-03",
+    "source": "https://endoflife.date/nodejs",
+    "verifiedDate": "2026-10-03",
+    "note": "First derivation of data/software-eol.json for Node.js from endoflife.date (https://endoflife.date/api/nodejs.json, MIT License) fetched 2026-10-03: 26 release cycles (2015-01-20 → 2026-05-05), 3 not yet at end of life. Fields kept as published, never edited."
+  },
+  {
+    "area": "software-eol",
+    "key": "python/dataset",
+    "label": "Python support lifecycle dataset",
+    "from": null,
+    "to": "covered",
+    "effectiveFrom": "2026-10-03",
+    "source": "https://endoflife.date/python",
+    "verifiedDate": "2026-10-03",
+    "note": "First derivation of data/software-eol.json for Python from endoflife.date (https://endoflife.date/api/python.json, MIT License) fetched 2026-10-03: 17 release cycles (2008-10-01 → 2025-10-07), 4 not yet at end of life. Fields kept as published, never edited."
+  },
+  {
+    "area": "software-eol",
+    "key": "ubuntu/dataset",
+    "label": "Ubuntu support lifecycle dataset",
+    "from": null,
+    "to": "covered",
+    "effectiveFrom": "2026-10-03",
+    "source": "https://endoflife.date/ubuntu",
+    "verifiedDate": "2026-10-03",
+    "note": "First derivation of data/software-eol.json for Ubuntu from endoflife.date (https://endoflife.date/api/ubuntu.json, MIT License) fetched 2026-10-03: 44 release cycles (2004-10-26 → 2026-04-23), 3 not yet at end of life. Fields kept as published, never edited."
+  },
+  {
+    "area": "software-eol",
+    "key": "debian/dataset",
+    "label": "Debian support lifecycle dataset",
+    "from": null,
+    "to": "covered",
+    "effectiveFrom": "2026-10-03",
+    "source": "https://endoflife.date/debian",
+    "verifiedDate": "2026-10-03",
+    "note": "First derivation of data/software-eol.json for Debian from endoflife.date (https://endoflife.date/api/debian.json, MIT License) fetched 2026-10-03: 18 release cycles (1996-06-17 → 2025-08-09), 2 not yet at end of life. Fields kept as published, never edited."
+  },
+  {
+    "area": "software-eol",
+    "key": "android/dataset",
+    "label": "Android support lifecycle dataset",
+    "from": null,
+    "to": "covered",
+    "effectiveFrom": "2026-10-03",
+    "source": "https://endoflife.date/android",
+    "verifiedDate": "2026-10-03",
+    "note": "First derivation of data/software-eol.json for Android from endoflife.date (https://endoflife.date/api/android.json, MIT License) fetched 2026-10-03: 34 release cycles (2008-09-23 → 2026-06-16), 4 not yet at end of life. Fields kept as published, never edited."
+  },
+  {
+    "area": "software-eol",
+    "key": "ios/dataset",
+    "label": "iOS support lifecycle dataset",
+    "from": null,
+    "to": "covered",
+    "effectiveFrom": "2026-10-03",
+    "source": "https://endoflife.date/ios",
+    "verifiedDate": "2026-10-03",
+    "note": "First derivation of data/software-eol.json for iOS from endoflife.date (https://endoflife.date/api/ios.json, MIT License) fetched 2026-10-03: 16 release cycles (2011-10-12 → 2026-09-14), 5 not yet at end of life. Fields kept as published, never edited."
+  },
+  {
+    "area": "software-eol",
+    "key": "macos/dataset",
+    "label": "macOS support lifecycle dataset",
+    "from": null,
+    "to": "covered",
+    "effectiveFrom": "2026-10-03",
+    "source": "https://endoflife.date/macos",
+    "verifiedDate": "2026-10-03",
+    "note": "First derivation of data/software-eol.json for macOS from endoflife.date (https://endoflife.date/api/macos.json, MIT License) fetched 2026-10-03: 23 release cycles (2001-03-24 → 2026-09-14), 3 not yet at end of life. Fields kept as published, never edited."
+  },
+  {
+    "area": "software-eol",
+    "key": "windows/dataset",
+    "label": "Windows support lifecycle dataset",
+    "from": null,
+    "to": "covered",
+    "effectiveFrom": "2026-10-03",
+    "source": "https://endoflife.date/windows",
+    "verifiedDate": "2026-10-03",
+    "note": "First derivation of data/software-eol.json for Windows from endoflife.date (https://endoflife.date/api/windows.json, MIT License) fetched 2026-10-03: 49 release cycles (2008-04-21 → 2026-09-29), 15 not yet at end of life. Fields kept as published, never edited."
+  },
+  {
+    "area": "software-eol",
+    "key": "oracle-jdk/dataset",
+    "label": "Oracle JDK (Java SE) support lifecycle dataset",
+    "from": null,
+    "to": "covered",
+    "effectiveFrom": "2026-10-03",
+    "source": "https://endoflife.date/oracle-jdk",
+    "verifiedDate": "2026-10-03",
+    "note": "First derivation of data/software-eol.json for Oracle JDK (Java SE) from endoflife.date (https://endoflife.date/api/oracle-jdk.json, MIT License) fetched 2026-10-03: 28 release cycles (1996-01-23 → 2026-09-15), 3 not yet at end of life. Fields kept as published, never edited."
+  },
+  {
+    "area": "software-eol",
+    "key": "go/dataset",
+    "label": "Go support lifecycle dataset",
+    "from": null,
+    "to": "covered",
+    "effectiveFrom": "2026-10-03",
+    "source": "https://endoflife.date/go",
+    "verifiedDate": "2026-10-03",
+    "note": "First derivation of data/software-eol.json for Go from endoflife.date (https://endoflife.date/api/go.json, MIT License) fetched 2026-10-03: 18 release cycles (2018-02-16 → 2026-08-19), 2 not yet at end of life. Fields kept as published, never edited."
+  },
+  {
+    "area": "software-eol",
+    "key": "ruby/dataset",
+    "label": "Ruby support lifecycle dataset",
+    "from": null,
+    "to": "covered",
+    "effectiveFrom": "2026-10-03",
+    "source": "https://endoflife.date/ruby",
+    "verifiedDate": "2026-10-03",
+    "note": "First derivation of data/software-eol.json for Ruby from endoflife.date (https://endoflife.date/api/ruby.json, MIT License) fetched 2026-10-03: 15 release cycles (2011-10-30 → 2025-12-25), 3 not yet at end of life. Fields kept as published, never edited."
+  },
+  {
+    "area": "software-eol",
+    "key": "php/dataset",
+    "label": "PHP support lifecycle dataset",
+    "from": null,
+    "to": "covered",
+    "effectiveFrom": "2026-10-03",
+    "source": "https://endoflife.date/php",
+    "verifiedDate": "2026-10-03",
+    "note": "First derivation of data/software-eol.json for PHP from endoflife.date (https://endoflife.date/api/php.json, MIT License) fetched 2026-10-03: 18 release cycles (2004-07-13 → 2025-11-20), 4 not yet at end of life. Fields kept as published, never edited."
+  },
+  {
+    "area": "software-eol",
+    "key": "postgresql/dataset",
+    "label": "PostgreSQL support lifecycle dataset",
+    "from": null,
+    "to": "covered",
+    "effectiveFrom": "2026-10-03",
+    "source": "https://endoflife.date/postgresql",
+    "verifiedDate": "2026-10-03",
+    "note": "First derivation of data/software-eol.json for PostgreSQL from endoflife.date (https://endoflife.date/api/postgresql.json, MIT License) fetched 2026-10-03: 29 release cycles (1998-03-01 → 2025-09-25), 5 not yet at end of life. Fields kept as published, never edited."
+  },
+  {
+    "area": "software-eol",
+    "key": "react/dataset",
+    "label": "React support lifecycle dataset",
+    "from": null,
+    "to": "covered",
+    "effectiveFrom": "2026-10-03",
+    "source": "https://endoflife.date/react",
+    "verifiedDate": "2026-10-03",
+    "note": "First derivation of data/software-eol.json for React from endoflife.date (https://endoflife.date/api/react.json, MIT License) fetched 2026-10-03: 5 release cycles (2016-04-07 → 2024-12-05), 5 not yet at end of life. Fields kept as published, never edited."
   }
 ]

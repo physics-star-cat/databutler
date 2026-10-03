@@ -1,6 +1,7 @@
 const { sendJson, handleOptions, ATTRIBUTION, coverageSummary, RATES } = require('./_lib');
 const { FR, JP, UK } = require('./_vehicles');
 const TAX = require('./_tax');
+const EOL = require('./_software_eol');
 
 module.exports = (req, res) => {
   if (handleOptions(req, res)) return;
@@ -21,7 +22,7 @@ module.exports = (req, res) => {
       },
       'GET /api/changes': {
         description: 'What changed in the verified datasets since a date (REST mirror of what_changed_since). format=html|rss|atom serves the /changes page or feeds instead of JSON.',
-        params: { since: 'YYYY-MM-DD', area: 'uk-rates | uk-exams | vehicles | all', format: 'json (default) | html | rss | atom' },
+        params: { since: 'YYYY-MM-DD', area: 'uk-rates | uk-exams | vehicles | software-eol | all', format: 'json (default) | html | rss | atom' },
         example: 'https://databutler.dev/api/changes?since=2026-06-01',
       },
       'GET /protocol': {
@@ -41,9 +42,9 @@ module.exports = (req, res) => {
       },
       'GET /changes': {
         description:
-          'The changelog as a page: every verified change to UK tax/NI thresholds, exam specs and official vehicle datasets, ' +
-          'newest first by month — area, from → to, effectiveFrom, official source, maintainer note, verifiedDate. Indexable, cached 1 h at the edge.',
-        params: { area: 'optional: uk-rates | uk-exams | vehicles', since: 'optional YYYY-MM-DD' },
+          'The changelog as a page: every verified change to UK tax/NI thresholds, exam specs, official vehicle datasets and software ' +
+          'end-of-life dates, newest first by month — area, from → to, effectiveFrom, official source, maintainer note, verifiedDate. Indexable, cached 1 h at the edge.',
+        params: { area: 'optional: uk-rates | uk-exams | vehicles | software-eol', since: 'optional YYYY-MM-DD' },
         example: 'https://databutler.dev/changes?area=vehicles',
       },
       'GET /changes.rss': {
@@ -157,6 +158,20 @@ module.exports = (req, res) => {
         },
         example: 'https://databutler.dev/api/tax/take-home?country=uk&gross=50000',
       },
+      'GET /api/software-eol/status': {
+        description:
+          `Is this version still supported, and until when? ${EOL.PRODUCT_IDS.join(', ')} — a monthly snapshot of endoflife.date ` +
+          `open data (MIT; ${EOL.DATA.cycleCount} release cycles, verified ${EOL.DATA.verifiedDate}). A version resolves to its release cycle ` +
+          '("18.19.0" → 18, "3.11.4" → 3.11, "22.04.3" → 22.04, "bookworm" → 12); returns supported true|false as of today, eol date, days ' +
+          'remaining or since, active/extended-support ends, LTS, latest release, the newest supported cycle, a plain-statement recommendation and the endoflife.date page as source.',
+        params: { product: `one of ${EOL.PRODUCT_IDS.join(', ')} (aliases: node, java, jdk, postgres, golang, osx, win)`, version: 'e.g. 18, 18.19.0, 3.11, 22.04, bookworm, 11-24h2-w' },
+        example: 'https://databutler.dev/api/software-eol/status?product=nodejs&version=18.19.0',
+      },
+      'GET /api/software-eol/timeline': {
+        description: 'Every release cycle of a product, newest first, with release date, supported true|false, eol, LTS, latest release and support-end dates; same snapshot as /status.',
+        params: { product: `one of ${EOL.PRODUCT_IDS.join(', ')}` },
+        example: 'https://databutler.dev/api/software-eol/timeline?product=python',
+      },
       'POST /api/mcp/uk-rates': 'Remote MCP server — tool uk_rates_lookup.',
       'POST /api/mcp/uk-exams': 'Remote MCP server — tools exam_topic_paper, exam_spec_lookup, exam_paper_index.',
       'POST /api/mcp/provenance': 'Remote MCP server — tools domain_provenance, package_provenance.',
@@ -167,6 +182,7 @@ module.exports = (req, res) => {
         'uk_recalls_search (DVSA), fr_recalls_for_model, fr_recalls_search, jp_recalls_for_model, jp_complaints_summary, ' +
         'eu_safety_gate_recalls (stub).',
       'POST /api/mcp/tax': 'Remote MCP server — tool take_home_pay (live via the LifeByNumbers salary calculators).',
+      'POST /api/mcp/software-eol': 'Remote MCP server — tools support_status, support_timeline (monthly snapshot of endoflife.date open data for 14 runtimes, operating systems, PostgreSQL and React).',
     },
     coverage: {
       exams: coverageSummary(),
@@ -179,6 +195,7 @@ module.exports = (req, res) => {
         euSafetyGate: 'stub',
       },
       tax: Object.fromEntries(Object.entries(TAX.COUNTRIES).map(([k, c]) => [k, c.calculatorId ? `${c.currency}, tax year ${c.taxYear} (live via lifebynumbers.net)` : 'not computed upstream — covered:false'])),
+      softwareEol: `${EOL.PRODUCT_IDS.join(', ')}: ${EOL.DATA.cycleCount} release cycles from endoflife.date (MIT), verified ${EOL.DATA.verifiedDate}`,
     },
     protocol: {
       name: 'verified-changes/0.1',

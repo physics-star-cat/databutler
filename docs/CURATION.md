@@ -20,6 +20,7 @@ The product is trust. A wrong number is worse than no number. Rules:
 | `data/vehicles/jp-recalls.json` | Monthly (MLIT filings are newsworthy when fresh) | In `../car_websites/shaken-data`: `node data/fetch-mlit.js` (15–20 min, 700 ms politeness delay — do not hammer), commit; then here `node scripts/vehicles.js jp`. |
 | `data/vehicles/uk-recalls.json` | Monthly (DVSA regenerates the source CSV daily; new recalls land every week) | `node scripts/vehicles.js uk` — downloads DVSA's bulk `RecallsFile.csv` (one ~8 MB request, UA names databutler.dev), keeps recalls launched in the ten calendar years before the fetch year plus the fetch year, groups rows by recall number, bumps `verifiedDate`/`nextScheduledRefresh`, appends a `vehicles` changelog entry when counts move. `DVSA_RECALLS_CSV=path` builds from a saved copy. Each January the window rolls forward a year — say so in the changelog note. |
 | UK MOT (vehicles) | — | No dataset here: live proxy to whatbreaks.uk, which owns the DfT bulk-data refresh. |
+| `data/software-eol.json` | Monthly (endoflife.date changes continuously; freshness says `due` from 35 days after the fetch) | `node scripts/software-eol.js` — 14 requests to `https://endoflife.date/api/<product>.json` (500 ms apart, UA names databutler.dev), normalises each cycle, bumps `verifiedDate`/`nextScheduledRefresh` (+35 days), appends `software-eol` changelog entries: `<product>/<cycle>` when an eol date moved (from → to, effectiveFrom = new date), when a cycle reached end of life between the two snapshots (supported → end of life, effectiveFrom = eol date) or when a cycle is new (null → released). Fill the blank notes, commit `data/` together. `EOL_DIR=path` builds from saved copies. |
 | `data/sources.json` | After every data refresh (automatic via `scripts/changelog.js`) | `node scripts/sources.js` re-checks every source URL (gov.uk content API / page hash). |
 | `data/changelog.json` | With every data refresh | `node scripts/changelog.js` (UK data) or `node scripts/vehicles.js` (vehicles); fill in `note` lines. See "Changelog & source watcher" and "How to add a changelog entry when a dataset is refreshed". |
 
@@ -79,6 +80,37 @@ The product is trust. A wrong number is worse than no number. Rules:
   so "Vauxhall Corsa" and "vauxhall corsa" resolve identically — `make` is
   always served as published alongside the slug.
 
+## Verification log (software-eol, added 2026-10-03)
+
+- 2026-10-03 — endoflife.date: 14 products fetched from the JSON API
+  `https://endoflife.date/api/<product>.json` (one request each, User-Agent
+  `databutler.dev data curation (+https://databutler.dev)`, 200 on all 14):
+  nodejs 26 cycles, python 17, ubuntu 44, debian 18, android 34, ios 16,
+  macos 23, windows 49, oracle-jdk 28, go 18, ruby 15, php 18, postgresql 29,
+  react 5 — 340 cycles, 65 KB committed. `/api/all.json` listed 478 products
+  on the fetch date. **Licence:** the repository
+  `https://github.com/endoflife-date/endoflife.date` is under the MIT License
+  (LICENSE file: "Copyright 2020 endoflife.date contributors", fetched from
+  raw.githubusercontent.com master; README "Licensed under the MIT License");
+  the site itself carries no separate data licence statement, so the
+  repository licence is what is recorded in the dataset header
+  (`licence`) and in every result (`upstreamProvenance.licence`). The site's
+  product descriptions are CC BY-SA 3.0 (Wikipedia-derived) — not reused here;
+  only lifecycle fields are kept. **Java naming:** the site has no `java`
+  product — `/api/java.json` is 404 and `/java` and `/jdk` both 301 to
+  `/tags/java-distribution`; the Oracle entry is `oracle-jdk` ("Oracle JDK",
+  200), which is what is served, with `java`/`jdk` as aliases. The other
+  distributions (openjdk-builds-from-oracle, redhat-build-of-openjdk,
+  microsoft-build-of-openjdk) are listed under notCovered. **Field quirks
+  kept as published:** `eol` is a date, `false` (no date set) or `true`
+  (end of life, date unknown); `lts` is a boolean or, for Node.js, the date
+  LTS begins; `support` is a date or `true` (active, no end date); Ruby's
+  `link` is a template over the latest release (`v__LATEST__`), filled in at
+  build; Windows cycle ids are slugs (`11-24h2-w`) with a `releaseLabel`.
+  Cadence: endoflife.date updates continuously via community pull requests
+  and automated vendor checks; served as a monthly snapshot with the fetch
+  date as `verifiedDate`.
+
 ## Expansion queue (exams)
 
 Edexcel GCSE sciences/maths → OCR Gateway + 21st Century → AQA/Edexcel/OCR
@@ -128,7 +160,7 @@ entries (`api/_changelog.js` → `listEntries` for the public ones,
 
 | Surface | URL | Handler |
 |---|---|---|
-| Page (indexable) | `/changes`, `/changes?area=uk-rates\|uk-exams\|vehicles`, `?since=YYYY-MM-DD` | `api/_routes/changes-page.js` |
+| Page (indexable) | `/changes`, `/changes?area=uk-rates\|uk-exams\|vehicles\|software-eol`, `?since=YYYY-MM-DD` | `api/_routes/changes-page.js` |
 | RSS 2.0 | `/changes.rss` (`?area=`) | `api/_routes/changes-feed.js` (`format=rss`) |
 | Atom | `/changes.atom` (`?area=`) | `api/_routes/changes-feed.js` (`format=atom`) |
 | JSON | `/api/changes?since=…&area=…` (`format=html\|rss\|atom` delegates) | `api/_routes/changes.js` |
@@ -180,6 +212,16 @@ the entry and the maintainer writes the note. Each entry carries
   in exactly that shape (`fr-recalls/dataset`, `jp-recalls/dataset`,
   `eu-safety-gate/dataset`; the EU one is a stub recorded by hand because
   there is no dataset file to derive).
+- **Software end-of-life** (`data/software-eol.json`): `node scripts/software-eol.js`
+  fetches the 14 products and compares the new snapshot with the committed
+  file: one `<product>/<cycle>` entry when a cycle's eol date moved (from the
+  old date to the new, `effectiveFrom` = the new date — which can be in the
+  future, and `what_changed_since` includes it on that basis), when a cycle
+  reached end of life between the two snapshots (`supported` → `end of life`,
+  `effectiveFrom` = the eol date), or when a cycle is new (null → `released`,
+  `effectiveFrom` = its release date). The first derivation wrote one
+  `<product>/dataset` entry per product (14 entries, 2026-10-03) with the
+  cycle counts in the note.
 - **A new dataset that has no script yet**: write the script first (the
   entry shape above, `mergeEntries` for dedupe), then run it — that is how
   the vehicles entries came to exist.

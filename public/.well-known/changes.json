@@ -1,6 +1,9 @@
 {
   "protocol": "verified-changes/0.1",
-  "publisher": { "name": "Data Butler", "url": "https://databutler.dev/" },
+  "publisher": {
+    "name": "Data Butler",
+    "url": "https://databutler.dev/"
+  },
   "updated": "2026-10-03",
   "coverageStart": "2026-08-31",
   "areas": [
@@ -18,6 +21,11 @@
       "name": "vehicles",
       "description": "Official vehicle recall datasets: DVSA (UK), RappelConso (France) and MLIT (Japan) recalls and complaints; EU Safety Gate is a stub.",
       "cadence": "Monthly."
+    },
+    {
+      "name": "software-eol",
+      "description": "Support and end-of-life dates for 14 runtimes and operating systems (endoflife.date snapshot): dataset additions, new cycles, moved or reached end-of-life dates",
+      "cadence": "monthly"
     }
   ],
   "endpoints": {
@@ -25,7 +33,10 @@
     "html": "https://databutler.dev/changes",
     "rss": "https://databutler.dev/changes.rss",
     "atom": "https://databutler.dev/changes.atom",
-    "mcp": { "url": "https://databutler.dev/api/mcp", "tool": "what_changed_since" }
+    "mcp": {
+      "url": "https://databutler.dev/api/mcp",
+      "tool": "what_changed_since"
+    }
   },
   "schema": "https://databutler.dev/schema/changes.v0.json",
   "specification": "https://databutler.dev/protocol",

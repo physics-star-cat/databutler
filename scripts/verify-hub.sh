@@ -27,7 +27,7 @@ check package "$(inner "$(tool package_provenance '{"ecosystem":"npm","name":"ex
 check changed "$(inner "$(tool what_changed_since '{"since":"2026-06-01"}')")" \
   "d['since']=='2026-06-01' and isinstance(d['entries'],list) and d['coverageStart']=='2026-08-31'"
 check coverage "$(inner "$(tool coverage '{"area":"uk-exams"}')")" "'aqa' in d['boards']"
-check catalogue "$(inner "$(tool catalogue '{}')")" "d['count']==22"
+check catalogue "$(inner "$(tool catalogue '{}')")" "d['count']==24"
 check take-home-uk "$(inner "$(tool take_home_pay '{"country":"uk","gross":50000}')")" \
   "(d['currency']=='GBP' and d['taxYear'] and d['net']['annual']<50000 and d['upstreamProvenance']['attribution']=='lifebynumbers.net' and d['cite']['url'].startswith('https://databutler.dev/r/tax/take-home?country=uk')) or d.get('error')=='upstream unavailable'"
 check take-home-es "$(inner "$(tool take_home_pay '{"country":"es","gross":40000}')")" "d['covered']==False and 'lifebynumbers.net/es/' in d['source']"
@@ -37,7 +37,7 @@ check call-stats "$(inner "$(tool call '{"tool":"distribution","arguments":{"dis
 check call-unknown "$(inner "$(tool call '{"tool":"linear_regresion","arguments":{}}')")" "d['covered']==False and d['nearest'][0]=='linear_regression'"
 check call-nearmiss-rates "$(inner "$(tool uk_rates_lookup '{"category":"incme"}')")" "d['covered']==False and 'income-tax' in d['nearest']"
 
-for name in uk-rates uk-exams provenance stats vehicles tax; do
+for name in uk-rates uk-exams provenance stats vehicles tax software-eol; do
   check "legacy $name tools/list" "$(curl -sS -X POST "$BASE/api/mcp/$name" -H 'Content-Type: application/json' -d '{"jsonrpc":"2.0","id":2,"method":"tools/list"}')" "len(d['result']['tools'])>0"
 done
 
@@ -51,6 +51,10 @@ check call-jp-recalls "$(inner "$(tool call '{"tool":"jp_recalls_for_model","arg
 check call-mot-search "$(inner "$(tool call '{"tool":"uk_mot_vehicle_search","arguments":{"q":"golf"}}')")" \
   "('vehicles' in d and d['upstreamProvenance']['attribution']=='whatbreaks.uk') or d.get('error')=='upstream unavailable'"
 check rest-fr-recalls "$(curl -sS "$BASE/api/vehicles/fr/recalls?brand=peugeot&model=208")" "'freshness' in d and d['cite']['url'].startswith('https://databutler.dev/r/vehicles/fr/recalls?')"
+check call-support-status "$(inner "$(tool call '{"tool":"support_status","arguments":{"product":"nodejs","version":"18.19.0"}}')")" \
+  "d['cycle']=='18' and d['supported']==False and d['eol']=='2025-04-30' and d['upstreamProvenance']['attribution']=='endoflife.date' and d['freshness']['staleness'] in ('fresh','due','overdue') and d['cite']['url']=='https://databutler.dev/r/software-eol/status?product=nodejs&version=18.19.0'"
+check rest-software-eol-timeline "$(curl -sS "$BASE/api/software-eol/timeline?product=python")" "d['product']=='python' and d['cycleCount']>10 and 'freshness' in d"
+check rest-software-eol-400 "$(curl -sS "$BASE/api/software-eol/status?product=nodejs")" "'missing' in d['error']"
 check rest-take-home "$(curl -sS "$BASE/api/tax/take-home?country=de&gross=48000")" "'freshness' in d and (d.get('currency')=='EUR' or d.get('error')=='upstream unavailable')"
 check rest-take-home-400 "$(curl -sS "$BASE/api/tax/take-home?country=uk")" "'missing' in d['error']"
 check rest-changes "$(curl -sS "$BASE/api/changes?since=2026-06-01&area=uk-rates")" "d['area']=='uk-rates' and 'cite' in d"
