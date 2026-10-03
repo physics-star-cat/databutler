@@ -119,6 +119,7 @@ test('snapshot: static public files — sitemap, discovery document, llms.txt li
   const text = { compare: assert.equal, serialise: (s) => s, parse: (s) => s };
   snapshot('sitemap.xml', read('public/sitemap.xml'), text);
   snapshot('well-known.json', read('public/.well-known/changes.json'), text);
-  const lines = (s) => s.split('\n').map((l) => l.trimEnd()).filter(Boolean).sort();
+  // sync-areas marker comments are not content
+  const lines = (s) => s.split('\n').map((l) => l.trimEnd()).filter((l) => l && !l.startsWith('<!--')).sort();
   snapshot('llms.txt', read('public/llms.txt'), { ...text, compare: (a, b) => assert.deepEqual(lines(a), lines(b)) });
 });

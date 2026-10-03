@@ -23,8 +23,9 @@ source URL and a <code>verifiedDate</code> — built for the questions agents
 misquote from memory.</p>
 <p><strong>Humans:</strong> the one page worth reading is
 <a href="/changes">/changes</a> — the changelog of verified official facts
-(UK tax/NI thresholds, exam specs, official vehicle datasets, software
-end-of-life dates, central-bank policy rates), with the
+<!-- sync-areas:humans start -->
+(UK tax/NI thresholds, exam specs, official vehicle datasets, software end-of-life dates, central-bank policy rates)
+<!-- sync-areas:humans end -->, with the
 official source and verified date on every entry; also as
 <a href="/changes.rss">RSS</a> and <a href="/changes.atom">Atom</a>. Otherwise this
 site's front door is <a href="/api">/api</a> and <a href="/llms.txt">llms.txt</a>.</p>
@@ -32,16 +33,17 @@ site's front door is <a href="/api">/api</a> and <a href="/llms.txt">llms.txt</a
 <code>POST /api/mcp</code> (front door: rates, exams, provenance, take-home pay, plus
 <code>what_changed_since</code> for the facts that moved after your training
 cutoff, <code>coverage</code>, <code>catalogue</code>, <code>call</code>).
-REST at <code>/api/uk/rates</code>, <code>/api/uk/exams/topic</code>,
-<code>/api/vehicles/…</code>, <code>/api/tax/take-home</code>, <code>/api/software-eol/status</code>, <code>/api/policy-rates</code>, <code>/api/changes</code>; focused MCP servers at
-<code>/api/mcp/uk-rates</code>, <code>/api/mcp/uk-exams</code>,
-<code>/api/mcp/provenance</code>, <code>/api/mcp/stats</code>,
-<code>/api/mcp/vehicles</code> (UK MOT failure data, French and Japanese
-official recalls), <code>/api/mcp/tax</code> (net salary for ten countries,
-live from lifebynumbers.net), <code>/api/mcp/software-eol</code> (is this
-version still supported, and until when — Node.js, Python, Ubuntu, Windows and
-ten more, from endoflife.date) and <code>/api/mcp/policy-rates</code> (Bank of England, Fed and
-ECB policy rates, verified against the banks' own pages). Every answer carries a <code>cite.url</code> like
+<!-- sync-areas:agents start -->
+REST at <code>/api/uk/rates</code>, <code>/api/uk/exams/topic</code>, <code>/api/provenance/domain</code>, <code>/api/stats</code>, <code>/api/vehicles/uk/mot</code>, <code>/api/tax/take-home</code>, <code>/api/software-eol/status</code>, <code>/api/policy-rates</code>, <code>/api/changes</code>; focused MCP servers at
+<code>/api/mcp/uk-rates</code>,
+<code>/api/mcp/uk-exams</code>,
+<code>/api/mcp/provenance</code>,
+<code>/api/mcp/stats</code>,
+<code>/api/mcp/vehicles</code> (UK MOT failure data, French and Japanese official recalls),
+<code>/api/mcp/tax</code> (net salary for ten countries, live from lifebynumbers.net),
+<code>/api/mcp/software-eol</code> (is this version still supported, and until when — Node.js, Python, Ubuntu, Windows and ten more, from endoflife.date) and
+<code>/api/mcp/policy-rates</code> (Bank of England, Fed and ECB policy rates, verified against the banks' own pages).
+<!-- sync-areas:agents end --> Every answer carries a <code>cite.url</code> like
 <a href="/r/uk/rates?category=income-tax">/r/uk/rates?category=income-tax</a>.</p>
 <p class="quiet">Try: <a href="/api/uk/exams/topic?board=aqa&subject=physics&level=gcse&topic=electricity">is electricity paper 2 AQA?</a>
  · <a href="/api/uk/rates?category=minimum-wage">current minimum wage</a></p>

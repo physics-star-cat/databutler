@@ -1,10 +1,13 @@
 {
   "name": "databutler",
   "private": true,
-  "description": "databutler.dev — verified reference data for AI agents (REST + MCP)",
+  "description": "databutler.dev \u2014 verified reference data for AI agents (REST + MCP)",
   "scripts": {
     "test": "node --test tests/*.test.js",
     "changelog": "node scripts/changelog.js",
-    "sources": "node scripts/sources.js"
+    "sources": "node scripts/sources.js",
+    "sync-areas": "node scripts/sync-areas.js",
+    "sync-areas:check": "node scripts/sync-areas.js --check",
+    "new-area": "node scripts/new-area.js"
   }
 }

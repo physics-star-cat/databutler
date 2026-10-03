@@ -12,6 +12,7 @@ The product is trust. A wrong number is worse than no number. Rules:
 
 ## Refresh calendar
 
+<!-- sync-areas:calendar start -->
 | Dataset | Refresh trigger | How |
 |---|---|---|
 | `data/uk/rates/<year>.json` | Every 6 April (new tax year) + after Budgets/Autumn Statements; NMW on 1 April | Re-fetch each `source` gov.uk page; write a NEW file per tax year (keep old years — agents ask historical questions); update the year the API defaults to in `_lib.js`. |
@@ -19,11 +20,12 @@ The product is trust. A wrong number is worse than no number. Rules:
 | `data/vehicles/fr-recalls.json` | Monthly (RappelConso publishes continuously) | In `../car_websites/controle-technique`: `node data/fetch-rappelconso.js`, commit; then here `node scripts/vehicles.js fr` (derives the compact file, bumps `verifiedDate`/`nextScheduledRefresh` from the fetch date, appends a `vehicles` changelog entry when counts move). |
 | `data/vehicles/jp-recalls.json` | Monthly (MLIT filings are newsworthy when fresh) | In `../car_websites/shaken-data`: `node data/fetch-mlit.js` (15–20 min, 700 ms politeness delay — do not hammer), commit; then here `node scripts/vehicles.js jp`. |
 | `data/vehicles/uk-recalls.json` | Monthly (DVSA regenerates the source CSV daily; new recalls land every week) | `node scripts/vehicles.js uk` — downloads DVSA's bulk `RecallsFile.csv` (one ~8 MB request, UA names databutler.dev), keeps recalls launched in the ten calendar years before the fetch year plus the fetch year, groups rows by recall number, bumps `verifiedDate`/`nextScheduledRefresh`, appends a `vehicles` changelog entry when counts move. `DVSA_RECALLS_CSV=path` builds from a saved copy. Each January the window rolls forward a year — say so in the changelog note. |
-| `data/policy-rates.json` | Within 45 days of `verifiedDate` (freshness flips to `due`) and after every scheduled decision — BoE MPC ("Next due" on the Bank Rate page), FOMC (fomccalendars.htm), ECB Governing Council (mgcgc calendar); each decides eight times a year. The weekly watcher hashes the three bank source pages. | Open the bank's `source` page and the decision press release; edit `figures`, move the replaced level into `previous`, update `effectiveFrom`, `decisionDate`, `decisionMeeting`, `latestDecision`, `nextDecision`, `decisionSource` and both `verifiedDate`s; then `node scripts/changelog.js` (sets `nextScheduledRefresh` = verifiedDate + 45 days, appends one `policy-rates` entry per figure that moved, refreshes `data/sources.json`). A hold moves no figure: update `latestDecision`/`nextDecision`/`verifiedDate` only, no entry. |
 | UK MOT (vehicles) | — | No dataset here: live proxy to whatbreaks.uk, which owns the DfT bulk-data refresh. |
 | `data/software-eol.json` | Monthly (endoflife.date changes continuously; freshness says `due` from 35 days after the fetch) | `node scripts/software-eol.js` — 14 requests to `https://endoflife.date/api/<product>.json` (500 ms apart, UA names databutler.dev), normalises each cycle, bumps `verifiedDate`/`nextScheduledRefresh` (+35 days), appends `software-eol` changelog entries: `<product>/<cycle>` when an eol date moved (from → to, effectiveFrom = new date), when a cycle reached end of life between the two snapshots (supported → end of life, effectiveFrom = eol date) or when a cycle is new (null → released). Fill the blank notes, commit `data/` together. `EOL_DIR=path` builds from saved copies. |
+| `data/policy-rates.json` | Within 45 days of `verifiedDate` (freshness flips to `due`) and after every scheduled decision — BoE MPC ("Next due" on the Bank Rate page), FOMC (fomccalendars.htm), ECB Governing Council (mgcgc calendar); each decides eight times a year. The weekly watcher hashes the three bank source pages. | Open the bank's `source` page and the decision press release; edit `figures`, move the replaced level into `previous`, update `effectiveFrom`, `decisionDate`, `decisionMeeting`, `latestDecision`, `nextDecision`, `decisionSource` and both `verifiedDate`s; then `node scripts/changelog.js` (sets `nextScheduledRefresh` = verifiedDate + 45 days, appends one `policy-rates` entry per figure that moved, refreshes `data/sources.json`). A hold moves no figure: update `latestDecision`/`nextDecision`/`verifiedDate` only, no entry. |
 | `data/sources.json` | After every data refresh (automatic via `scripts/changelog.js`) | `node scripts/sources.js` re-checks every source URL (gov.uk content API / page hash). |
-| `data/changelog.json` | With every data refresh | `node scripts/changelog.js` (UK data and policy rates) or `node scripts/vehicles.js` (vehicles); fill in `note` lines. See "Changelog & source watcher" and "How to add a changelog entry when a dataset is refreshed". |
+| `data/changelog.json` | With every data refresh | `node scripts/changelog.js` (areas with a `changelog.diff`) or the dataset's own script (`changelog.script`); fill in `note` lines. See "Changelog & source watcher" and docs/ADDING_AN_AREA.md. |
+<!-- sync-areas:calendar end -->
 
 ## Verification log
 
@@ -199,7 +201,7 @@ entries (`api/_changelog.js` → `listEntries` for the public ones,
 
 | Surface | URL | Handler |
 |---|---|---|
-| Page (indexable) | `/changes`, `/changes?area=uk-rates\|uk-exams\|vehicles\|software-eol\|policy-rates`, `?since=YYYY-MM-DD` | `api/_routes/changes-page.js` |
+| Page (indexable) | `/changes`, `/changes?area=<area>` (one of the areas in `/.well-known/changes.json`), `?since=YYYY-MM-DD` | `api/_routes/changes-page.js` |
 | RSS 2.0 | `/changes.rss` (`?area=`) | `api/_routes/changes-feed.js` (`format=rss`) |
 | Atom | `/changes.atom` (`?area=`) | `api/_routes/changes-feed.js` (`format=atom`) |
 | JSON | `/api/changes?since=…&area=…` (`format=html\|rss\|atom` delegates) | `api/_routes/changes.js` |
@@ -217,8 +219,8 @@ All five surfaces follow the Verified Changes protocol v0.1
 (`docs/CHANGES_PROTOCOL.md`, served at `/protocol`): the entry shape is the
 protocol's entry schema, `/api/changes` and `what_changed_since` return a
 protocol document, and `public/.well-known/changes.json` is the discovery
-document — **when an area is added to `CHANGELOG_AREAS`, add it there too**
-(`tests/protocol.test.js` checks the two lists agree).
+document — generated from the area modules by `node scripts/sync-areas.js`
+(`tests/protocol.test.js` and `tests/areas.test.js` check the lists agree).
 
 The page is the one part of the site that *is* meant to be indexed — unlike
 the `/r/` citation pages — so a change here (a new area, a renamed key) should
@@ -226,6 +228,11 @@ keep old anchors working: `entryId` (`area|key|verifiedDate`) is the dedupe key
 and the anchor is derived from the same three fields.
 
 ## How to add a changelog entry when a dataset is refreshed
+
+**Adding a whole new area?** Follow `docs/ADDING_AN_AREA.md` — the scaffold,
+the module contract (`api/_areas/README.md`) and `node scripts/changelog.js`
+(which runs the area's own `changelog.diff`) replace the per-area recipes
+below for anything built after 2026-10-03.
 
 Entries are never typed into `data/changelog.json` by hand; a script writes
 the entry and the maintainer writes the note. Each entry carries
