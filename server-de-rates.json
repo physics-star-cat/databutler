@@ -1,0 +1,9 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.physics-star-cat/databutler-de-rates",
+  "description": "Current German tax and social-insurance figures — Grundfreibetrag and § 32a tariff, Solidaritätszuschlag, Beitragsbemessungsgrenzen and Beitragssätze, Zusatzbeitrag, Mindestlohn, Minijob limit, Kindergeld, Kinderfreibetrag, Pauschbeträge, Entfernungspauschale — read from the consolidated statutes and the Bundesgesetzblatt, with German term, English label, source URL, quoted sentence, verification date and prior value on every figure.",
+  "repository": { "url": "https://github.com/physics-star-cat/databutler", "source": "github" },
+  "version": "1.0.0",
+  "websiteUrl": "https://databutler.dev/api",
+  "remotes": [{ "type": "streamable-http", "url": "https://databutler.dev/api/mcp/de-rates" }]
+}

@@ -104,6 +104,16 @@ Data Butler's discovery document:
       "name": "policy-rates",
       "description": "Central-bank policy rates verified against the banks' own pages: Bank of England Bank Rate, US Federal Reserve federal funds target range, ECB key interest rates (deposit facility, main refinancing, marginal lending).",
       "cadence": "After each scheduled decision (eight a year per bank); re-verified within 45 days of verifiedDate; every source page re-fetched weekly."
+    },
+    {
+      "name": "us-rates",
+      "description": "US federal rates and thresholds read from the IRS revenue procedures and notices and SSA's Federal Register notice: income-tax rate schedules and standard deduction, Social Security wage base and rates, Medicare, retirement-plan and IRA limits, HSA limits, estate and gift exclusions.",
+      "cadence": "Annual: after the IRS tax-year inflation adjustments (October), the retirement-plan limits (November) and the SSA Federal Register notice (October/November); every source page re-fetched weekly."
+    },
+    {
+      "name": "de-rates",
+      "description": "German tax and social-insurance figures read from the consolidated statutes, the Bundesgesetzblatt and the BMG/DRV/BMAS pages: Grundfreibetrag and § 32a tariff, Solidaritätszuschlag, Beitragsbemessungsgrenzen and Beitragssätze, Zusatzbeitrag, Mindestlohn, Geringfügigkeitsgrenze, Kindergeld, Kinderfreibetrag, Pauschbeträge, Entfernungspauschale.",
+      "cadence": "Annual: after the Sozialversicherungsrechengrößen-Verordnung and the Zusatzbeitrag announcement (November), and any Steuergesetz changing § 32a EStG for the next Veranlagungszeitraum; every source page re-fetched weekly."
     }
   ],
   "endpoints": {

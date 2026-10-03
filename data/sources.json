@@ -2,112 +2,112 @@
   {
     "url": "https://www.gov.uk/income-tax-rates",
     "updatedAt": "2024-11-07T14:57:18+00:00",
-    "bodyHash": "2b9216cc250c5cb6",
+    "bodyHash": "010e312454d19b97",
     "via": "govuk-content-api",
-    "checkedAt": "2026-09-01"
+    "checkedAt": "2026-10-03"
   },
   {
     "url": "https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027",
     "updatedAt": "2026-09-01T00:15:03+01:00",
     "bodyHash": "b3a707ce74a85690",
     "via": "govuk-content-api",
-    "checkedAt": "2026-09-01"
+    "checkedAt": "2026-10-03"
   },
   {
     "url": "https://www.gov.uk/national-minimum-wage-rates",
     "updatedAt": "2024-10-30T11:07:08+00:00",
     "bodyHash": "6392f4a8c45f6cd5",
     "via": "govuk-content-api",
-    "checkedAt": "2026-09-01"
+    "checkedAt": "2026-10-03"
   },
   {
     "url": "https://www.gov.uk/repaying-your-student-loan/what-you-pay",
     "updatedAt": "2024-10-18T13:50:42+01:00",
     "bodyHash": "63a1ed25edb4db9f",
     "via": "govuk-content-api",
-    "checkedAt": "2026-09-01"
+    "checkedAt": "2026-10-03"
   },
   {
     "url": "https://www.gov.uk/vat-rates",
     "updatedAt": "2014-12-12T14:55:23+00:00",
     "bodyHash": "f2c1a31029487b0a",
     "via": "govuk-content-api",
-    "checkedAt": "2026-09-01"
+    "checkedAt": "2026-10-03"
   },
   {
     "url": "https://www.gov.uk/individual-savings-accounts",
     "updatedAt": "2025-01-08T15:23:26+00:00",
     "bodyHash": "97c466b575264611",
     "via": "govuk-content-api",
-    "checkedAt": "2026-09-01"
+    "checkedAt": "2026-10-03"
   },
   {
     "url": "https://www.gov.uk/new-state-pension/what-youll-get",
-    "updatedAt": "2026-04-06T00:01:01+01:00",
+    "updatedAt": "2025-01-31T11:26:31+00:00",
     "bodyHash": "9fa2be5326e71305",
     "via": "govuk-content-api",
-    "checkedAt": "2026-09-01"
+    "checkedAt": "2026-10-03"
   },
   {
     "url": "https://www.gov.uk/stamp-duty-land-tax/residential-property-rates",
     "updatedAt": "2024-10-30T14:07:41+00:00",
     "bodyHash": "e75718af562b56f8",
     "via": "govuk-content-api",
-    "checkedAt": "2026-09-01"
+    "checkedAt": "2026-10-03"
   },
   {
     "url": "https://www.gov.uk/capital-gains-tax/rates",
     "updatedAt": "2024-10-30T14:06:47+00:00",
-    "bodyHash": "d7e815e23bd4f1d1",
+    "bodyHash": "abe53df0e5b46ae2",
     "via": "govuk-content-api",
-    "checkedAt": "2026-09-01"
+    "checkedAt": "2026-10-03"
   },
   {
     "url": "https://www.gov.uk/tax-on-your-private-pension/annual-allowance",
     "updatedAt": "2024-11-08T15:41:39+00:00",
     "bodyHash": "5098d17dd57c9023",
     "via": "govuk-content-api",
-    "checkedAt": "2026-09-01"
+    "checkedAt": "2026-10-03"
   },
   {
     "url": "https://www.aqa.org.uk/subjects/physics/gcse/physics-8463/specification/specification-at-a-glance",
     "updatedAt": null,
     "bodyHash": "f6ae7bf2319ecebd",
     "via": "html",
-    "checkedAt": "2026-09-01"
+    "checkedAt": "2026-10-03"
   },
   {
     "url": "https://www.aqa.org.uk/subjects/biology/gcse/biology-8461/specification/specification-at-a-glance",
     "updatedAt": null,
     "bodyHash": "7d71ebdd9224dc2e",
     "via": "html",
-    "checkedAt": "2026-09-01"
+    "checkedAt": "2026-10-03"
   },
   {
     "url": "https://www.aqa.org.uk/subjects/chemistry/gcse/chemistry-8462/specification/specification-at-a-glance",
     "updatedAt": null,
     "bodyHash": "403446dbb626107e",
     "via": "html",
-    "checkedAt": "2026-09-01"
+    "checkedAt": "2026-10-03"
   },
   {
     "url": "https://www.aqa.org.uk/subjects/science/gcse/combined-science-trilogy-8464/specification/specification-at-a-glance",
     "updatedAt": null,
     "bodyHash": "9fe2e25cd7323f42",
     "via": "html",
-    "checkedAt": "2026-09-01"
+    "checkedAt": "2026-10-03"
   },
   {
     "url": "https://www.aqa.org.uk/subjects/mathematics/gcse/mathematics-8300/specification/specification-at-a-glance",
     "updatedAt": null,
-    "bodyHash": "b4387c0a238982b4",
+    "bodyHash": "33d231d3e7dedee6",
     "via": "html",
-    "checkedAt": "2026-09-01"
+    "checkedAt": "2026-10-03"
   },
   {
     "url": "https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate",
     "updatedAt": null,
-    "bodyHash": "186d07d4c22d83e9",
+    "bodyHash": "b86dc2514273244f",
     "via": "html",
     "checkedAt": "2026-10-03"
   },
@@ -122,6 +122,125 @@
     "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
     "updatedAt": null,
     "bodyHash": "4b2d0042bf3a900d",
+    "via": "html",
+    "checkedAt": "2026-10-03"
+  },
+  {
+    "url": "https://www.irs.gov/newsroom/news-releases-for-current-month",
+    "updatedAt": null,
+    "bodyHash": "720d4f6392fbaa7f",
+    "via": "html",
+    "checkedAt": "2026-10-03"
+  },
+  {
+    "url": "https://www.federalregister.gov/api/v1/documents.json?conditions%5Bagencies%5D%5B%5D=social-security-administration&conditions%5Bterm%5D=%22Cost-of-Living+Increase+and+Other+Determinations%22&order=newest",
+    "updatedAt": null,
+    "bodyHash": "c70c45b5b7eee869",
+    "via": "html",
+    "checkedAt": "2026-10-03"
+  },
+  {
+    "url": "https://www.irs.gov/taxtopics/tc751",
+    "updatedAt": null,
+    "bodyHash": "d1e1b4894e2c5e65",
+    "via": "html",
+    "checkedAt": "2026-10-03"
+  },
+  {
+    "url": "https://www.irs.gov/retirement-plans/cola-increases-for-dollar-limitations-on-benefits-and-contributions",
+    "updatedAt": null,
+    "bodyHash": "2b405439b0bede9e",
+    "via": "html",
+    "checkedAt": "2026-10-03"
+  },
+  {
+    "url": "https://www.irs.gov/publications/p969",
+    "updatedAt": null,
+    "bodyHash": "1e103126a9e94a13",
+    "via": "html",
+    "checkedAt": "2026-10-03"
+  },
+  {
+    "url": "https://www.gesetze-im-internet.de/estg/__32a.html",
+    "updatedAt": null,
+    "bodyHash": "3f8f422ba3beb5a1",
+    "via": "html",
+    "checkedAt": "2026-10-03"
+  },
+  {
+    "url": "https://www.gesetze-im-internet.de/solzg_1995/__3.html",
+    "updatedAt": null,
+    "bodyHash": "8303cf921e7bc47e",
+    "via": "html",
+    "checkedAt": "2026-10-03"
+  },
+  {
+    "url": "https://www.bmas.de/DE/Service/Gesetze-und-Gesetzesvorhaben/sozialversicherungs-rechengroessenverordnung-2027.html",
+    "updatedAt": null,
+    "bodyHash": "7cac2a2f19bbf8ee",
+    "via": "html",
+    "checkedAt": "2026-10-03"
+  },
+  {
+    "url": "https://www.bundesgesundheitsministerium.de/beitraege",
+    "updatedAt": null,
+    "bodyHash": "1cf05976c85792d1",
+    "via": "html",
+    "checkedAt": "2026-10-03"
+  },
+  {
+    "url": "https://www.deutsche-rentenversicherung.de/DRV/DE/Experten/Zahlen-und-Fakten/Werte-der-Rentenversicherung/werte-der-rentenversicherung_node.html",
+    "updatedAt": null,
+    "bodyHash": "2a5f6330b4112108",
+    "via": "html",
+    "checkedAt": "2026-10-03"
+  },
+  {
+    "url": "https://www.bmas.de/DE/Arbeit/Arbeitsrecht/Mindestlohn/Einfuehrung-und-Anpassungen-Mindestlohn/einfuehrung-und-anpassung-mindestlohn.html",
+    "updatedAt": null,
+    "bodyHash": "0047604d521f116c",
+    "via": "html",
+    "checkedAt": "2026-10-03"
+  },
+  {
+    "url": "https://www.minijob-zentrale.de/DE/die-minijobs/minijob-mit-verdienstgrenze",
+    "updatedAt": null,
+    "bodyHash": "7cbf7faa660c8a29",
+    "via": "html",
+    "checkedAt": "2026-10-03"
+  },
+  {
+    "url": "https://www.gesetze-im-internet.de/estg/__66.html",
+    "updatedAt": null,
+    "bodyHash": "cd3689283a8db86a",
+    "via": "html",
+    "checkedAt": "2026-10-03"
+  },
+  {
+    "url": "https://www.gesetze-im-internet.de/estg/__32.html",
+    "updatedAt": null,
+    "bodyHash": "66ace82569dcac03",
+    "via": "html",
+    "checkedAt": "2026-10-03"
+  },
+  {
+    "url": "https://www.gesetze-im-internet.de/estg/__20.html",
+    "updatedAt": null,
+    "bodyHash": "1dc73d666f98ed22",
+    "via": "html",
+    "checkedAt": "2026-10-03"
+  },
+  {
+    "url": "https://www.gesetze-im-internet.de/estg/__9a.html",
+    "updatedAt": null,
+    "bodyHash": "ceb7c9b006adbe73",
+    "via": "html",
+    "checkedAt": "2026-10-03"
+  },
+  {
+    "url": "https://www.gesetze-im-internet.de/estg/__9.html",
+    "updatedAt": null,
+    "bodyHash": "4840fb0fe62d3a88",
     "via": "html",
     "checkedAt": "2026-10-03"
   }

@@ -24,7 +24,7 @@ check rest-changes "$(curl -sS "$BASE/api/changes?since=2026-06-01&area=uk-rates
 # sync-areas:checks start
 check tools/list "$(rpc '{"jsonrpc":"2.0","id":2,"method":"tools/list"}')" \
   "[t['name'] for t in d['result']['tools']]==['uk_rates_lookup','exam_topic_paper','domain_provenance','package_provenance','take_home_pay','what_changed_since','coverage','catalogue','call']"
-check catalogue "$(inner "$(tool catalogue '{}')")" "d['count']==25"
+check catalogue "$(inner "$(tool catalogue '{}')")" "d['count']==27"
 # uk-rates
 check rates "$(inner "$(tool uk_rates_lookup '{"category":"income-tax"}')")" \
   "d['freshness']['staleness'] in ('fresh','due','overdue') and d['cite']['url']=='https://databutler.dev/r/uk/rates?category=income-tax'"
@@ -78,7 +78,23 @@ check call-policy-bad "$(inner "$(tool call '{"tool":"policy_rate","arguments":{
   "d['covered']==False and 'boe' in d['coverage']"
 check rest-policy-rates "$(curl -sS "$BASE/api/policy-rates?bank=ecb")" "d['bank']=='ecb' and len(d['figures'])==3 and 'freshness' in d and d['cite']['url']=='https://databutler.dev/r/policy-rates?bank=ecb'"
 check rest-policy-rates-400 "$(curl -sS "$BASE/api/policy-rates")" "'missing' in d['error']"
-for name in uk-rates uk-exams provenance stats vehicles tax software-eol policy-rates; do
+# us-rates
+check us-rates-listing "$(inner "$(tool call '{"tool":"us_rates_lookup","arguments":{}}')")" \
+  "'categories' in d and 'freshness' in d and d['taxYear']=='2026' and 'income-tax' in d['categories']"
+check call-us-rates-income-tax "$(inner "$(tool call '{"tool":"us_rates_lookup","arguments":{"category":"income-tax"}}')")" \
+  "d['category']=='income-tax' and d['source'].startswith('https://www.irs.gov/') and len(d['figures'])>=10 and d['freshness']['staleness'] in ('fresh','due','overdue') and d['cite']['url']=='https://databutler.dev/r/us/rates?category=income-tax'"
+check call-us-rates-nearmiss "$(inner "$(tool call '{"tool":"us_rates_lookup","arguments":{"category":"incme"}}')")" \
+  "d['covered']==False and 'income-tax' in d['nearest'] and 'social-security' in d['coverage']"
+check rest-us-rates "$(curl -sS "$BASE/api/us/rates?category=social-security")" "d['category']=='social-security' and 'freshness' in d and d['cite']['url']=='https://databutler.dev/r/us/rates?category=social-security'"
+# de-rates
+check de-rates-listing "$(inner "$(tool call '{"tool":"de_rates_lookup","arguments":{}}')")" \
+  "'categories' in d and 'freshness' in d and d['taxYear']=='2026' and 'social-insurance' in d['categories']"
+check call-de-rates-income-tax "$(inner "$(tool call '{"tool":"de_rates_lookup","arguments":{"category":"income-tax"}}')")" \
+  "d['category']=='income-tax' and d['source'].startswith('https://www.gesetze-im-internet.de/') and all(f['term'] for f in d['figures']) and d['freshness']['staleness'] in ('fresh','due','overdue') and d['cite']['url']=='https://databutler.dev/r/de/rates?category=income-tax'"
+check call-de-rates-nearmiss "$(inner "$(tool call '{"tool":"de_rates_lookup","arguments":{"category":"kirchensteuer"}}')")" \
+  "d['covered']==False and 'income-tax' in d['coverage'] and len(d['nearest'])>0"
+check rest-de-rates "$(curl -sS "$BASE/api/de/rates?category=minimum-wage")" "d['category']=='minimum-wage' and 'freshness' in d and d['cite']['url']=='https://databutler.dev/r/de/rates?category=minimum-wage'"
+for name in uk-rates uk-exams provenance stats vehicles tax software-eol policy-rates us-rates de-rates; do
   check "legacy $name tools/list" "$(curl -sS -X POST "$BASE/api/mcp/$name" -H 'Content-Type: application/json' -d '{"jsonrpc":"2.0","id":2,"method":"tools/list"}')" "len(d['result']['tools'])>0"
 done
 # sync-areas:checks end
