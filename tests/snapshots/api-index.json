@@ -1,0 +1,258 @@
+{
+  "attribution": "databutler.dev",
+  "coverage": {
+    "exams": [
+      "AQA GCSE Physics (8463)",
+      "AQA GCSE Biology (8461)",
+      "AQA GCSE Chemistry (8462)",
+      "AQA GCSE Combined Science: Trilogy (8464)",
+      "AQA GCSE Mathematics (8300)"
+    ],
+    "policyRates": {
+      "boe": "Bank of England Bank Rate: 3.75% from 2025-12-18, verified 2026-10-03, next decision 2026-11-05",
+      "ecb": "European Central Bank Key ECB interest rates: 2.5 / 2.65 / 2.9% from 2026-09-16, verified 2026-10-03, next decision 2026-10-29",
+      "fed": "US Federal Reserve Federal funds target range: 3.75 / 4% from 2026-09-17, verified 2026-10-03, next decision 2026-10-28"
+    },
+    "rates": "tax year 2026-27",
+    "softwareEol": "nodejs, python, ubuntu, debian, android, ios, macos, windows, oracle-jdk, go, ruby, php, postgresql, react: 340 release cycles from endoflife.date (MIT), verified 2026-10-03",
+    "tax": {
+      "au": "AUD, tax year 2026-27 (live via lifebynumbers.net)",
+      "br": "BRL, tax year 2026 (live via lifebynumbers.net)",
+      "ca": "CAD, tax year 2026 (live via lifebynumbers.net)",
+      "de": "EUR, tax year 2026 (live via lifebynumbers.net)",
+      "es": "not computed upstream — covered:false",
+      "fr": "EUR, tax year 2024 (live via lifebynumbers.net)",
+      "in": "INR, tax year FY 2026-27 (live via lifebynumbers.net)",
+      "pl": "PLN, tax year 2024/2025 (live via lifebynumbers.net)",
+      "uk": "GBP, tax year 2025/26 (live via lifebynumbers.net)",
+      "us": "USD, tax year 2026 (live via lifebynumbers.net)"
+    },
+    "vehicles": {
+      "euSafetyGate": "stub",
+      "frRecalls": "1663 RappelConso automobile fiches, verified 2026-10-02",
+      "jpRecalls": "919 MLIT filings + 19659 owner complaints across 75 models, verified 2026-08-30",
+      "ukMot": "530 UK model generations (live proxy to whatbreaks.uk)",
+      "ukRecalls": "4876 DVSA safety recalls launched since 2016-01-01, verified 2026-10-03"
+    }
+  },
+  "description": "Verified reference data for AI agents. Every figure carries an official source URL and a verifiedDate — built for the questions agents misquote from memory. No auth, CORS-open. Country-prefixed: /api/uk/*; more countries later.",
+  "docs": "https://databutler.dev/api",
+  "endpoints": {
+    "GET /.well-known/changes.json": {
+      "description": "Protocol discovery document: areas tracked, cadence, endpoints (json/html/rss/atom/mcp), schema URL, licence, contact.",
+      "example": "https://databutler.dev/.well-known/changes.json"
+    },
+    "GET /api/changes": {
+      "description": "What changed in the verified datasets since a date (REST mirror of what_changed_since). format=html|rss|atom serves the /changes page or feeds instead of JSON.",
+      "example": "https://databutler.dev/api/changes?since=2026-06-01",
+      "params": {
+        "area": "uk-rates | uk-exams | vehicles | software-eol | policy-rates | all",
+        "format": "json (default) | html | rss | atom",
+        "since": "YYYY-MM-DD"
+      }
+    },
+    "GET /api/policy-rates": {
+      "description": "Central-bank policy rates, verified 2026-10-03 against the banks' own pages: Bank of England Bank Rate, US Federal Reserve federal funds target range (lower/upper bound), ECB deposit facility, main refinancing and marginal lending rates — each with effectiveFrom, decisionDate and meeting, previous level, latest decision, next scheduled decision and the decision press release. Committed data (not a live proxy), re-verified within 45 days and after each decision.",
+      "example": "https://databutler.dev/api/policy-rates?bank=boe",
+      "params": {
+        "bank": "boe | fed | ecb | all"
+      }
+    },
+    "GET /api/provenance/domain": {
+      "description": "Who runs this domain? Live RDAP: age, registrar, nameservers, typosquat resemblance. Descriptive signals, not a verdict.",
+      "example": "https://databutler.dev/api/provenance/domain?domain=databutler.dev",
+      "params": {
+        "domain": "e.g. example.com"
+      }
+    },
+    "GET /api/provenance/package": {
+      "description": "Who publishes this package, and is it a typosquat? Live npm/PyPI metadata.",
+      "example": "https://databutler.dev/api/provenance/package?ecosystem=npm&name=express",
+      "params": {
+        "ecosystem": "npm | pypi",
+        "name": "e.g. express"
+      }
+    },
+    "GET /api/software-eol/status": {
+      "description": "Is this version still supported, and until when? nodejs, python, ubuntu, debian, android, ios, macos, windows, oracle-jdk, go, ruby, php, postgresql, react — a monthly snapshot of endoflife.date open data (MIT; 340 release cycles, verified 2026-10-03). A version resolves to its release cycle (\"18.19.0\" → 18, \"3.11.4\" → 3.11, \"22.04.3\" → 22.04, \"bookworm\" → 12); returns supported true|false as of today, eol date, days remaining or since, active/extended-support ends, LTS, latest release, the newest supported cycle, a plain-statement recommendation and the endoflife.date page as source.",
+      "example": "https://databutler.dev/api/software-eol/status?product=nodejs&version=18.19.0",
+      "params": {
+        "product": "one of nodejs, python, ubuntu, debian, android, ios, macos, windows, oracle-jdk, go, ruby, php, postgresql, react (aliases: node, java, jdk, postgres, golang, osx, win)",
+        "version": "e.g. 18, 18.19.0, 3.11, 22.04, bookworm, 11-24h2-w"
+      }
+    },
+    "GET /api/software-eol/timeline": {
+      "description": "Every release cycle of a product, newest first, with release date, supported true|false, eol, LTS, latest release and support-end dates; same snapshot as /status.",
+      "example": "https://databutler.dev/api/software-eol/timeline?product=python",
+      "params": {
+        "product": "one of nodejs, python, ubuntu, debian, android, ios, macos, windows, oracle-jdk, go, ruby, php, postgresql, react"
+      }
+    },
+    "GET /api/tax/take-home": {
+      "description": "Take-home pay after income tax and social contributions for uk, us, ca, au, in, br, pl, fr, de, es: gross, net and total deductions (annual + monthly), typed breakdown, effectiveRate, taxYear, currency, assumptions. Live proxy to the LifeByNumbers salary calculators (same operator). Spain (es) returns covered:false — no backend calculator.",
+      "example": "https://databutler.dev/api/tax/take-home?country=uk&gross=50000",
+      "params": {
+        "country": "uk | us | ca | au | in | br | pl | fr | de | es",
+        "filingStatus": "US only: single | married_joint | head_of_household",
+        "gross": "salary in local currency (annual unless period=monthly)",
+        "period": "annual | monthly (optional)",
+        "province": "Canada only, e.g. BC (default ON)",
+        "region": "UK only: england | scotland",
+        "state": "US only, e.g. TX (default CA)"
+      }
+    },
+    "GET /api/uk/exams/papers": {
+      "description": "Past-paper index: official assessment-resources links per spec (links only — papers are board copyright).",
+      "params": {
+        "board": "optional",
+        "level": "optional",
+        "subject": "optional"
+      }
+    },
+    "GET /api/uk/exams/specs": {
+      "description": "Spec metadata: codes, paper structure, durations, tiers, official links.",
+      "params": {
+        "board": "optional",
+        "level": "optional",
+        "subject": "optional"
+      }
+    },
+    "GET /api/uk/exams/topic": {
+      "description": "Which paper is a topic on? Built for queries like \"is electricity paper 2 AQA\".",
+      "example": "https://databutler.dev/api/uk/exams/topic?board=aqa&subject=physics&level=gcse&topic=electricity",
+      "params": {
+        "board": "e.g. aqa",
+        "level": "e.g. gcse",
+        "subject": "e.g. physics",
+        "topic": "e.g. electricity"
+      }
+    },
+    "GET /api/uk/rates": {
+      "description": "UK tax-year rates & thresholds (2026-27), verified against gov.uk.",
+      "example": "https://databutler.dev/api/uk/rates?category=income-tax",
+      "params": {
+        "category": "one of income-tax, national-insurance, minimum-wage, student-loans, vat, isa, state-pension, stamp-duty, capital-gains, pensions (omit to list)"
+      }
+    },
+    "GET /api/vehicles/eu/safety-gate": "STUB — EU Safety Gate vehicle alerts are being added; returns covered:false with the official URL for now.",
+    "GET /api/vehicles/fr/recalls": {
+      "description": "Official French vehicle recalls (RappelConso / DGCCRF open data, 1663 automobile fiches 2018-01-19 → 2026-08-07) for a brand (+ model): fiche number, date, risks, defect text, official fiche link.",
+      "example": "https://databutler.dev/api/vehicles/fr/recalls?brand=peugeot&model=208",
+      "params": {
+        "brand": "e.g. peugeot, Mercedes-Benz, VW",
+        "model": "optional, e.g. 208"
+      }
+    },
+    "GET /api/vehicles/fr/search": {
+      "description": "Keyword search across all RappelConso automobile fiches (French text), newest first, optional since date.",
+      "example": "https://databutler.dev/api/vehicles/fr/search?text=airbag%20takata&since=2026-01-01",
+      "params": {
+        "since": "optional YYYY-MM-DD",
+        "text": "e.g. airbag takata"
+      }
+    },
+    "GET /api/vehicles/jp/complaints": {
+      "description": "MLIT owner defect reports (19659 across 75 models): total per model + breakdown by defective device.",
+      "example": "https://databutler.dev/api/vehicles/jp/complaints?make=honda&model=n-box",
+      "params": {
+        "make": "e.g. honda",
+        "model": "e.g. n-box"
+      }
+    },
+    "GET /api/vehicles/jp/recalls": {
+      "description": "Official Japanese recall filings (国土交通省 MLIT; 919 filings across 75 popular JDM models): notification number, date, device, affected vehicles, situation/remedy, official PDF. English or Japanese names.",
+      "example": "https://databutler.dev/api/vehicles/jp/recalls?make=toyota&model=prius",
+      "params": {
+        "make": "e.g. toyota",
+        "model": "e.g. prius, N-BOX"
+      }
+    },
+    "GET /api/vehicles/uk/mot": {
+      "description": "Real UK MOT failure data for one model generation: per-category failure rates (overall and at your mileage), riskiest components. Live proxy to whatbreaks.uk (same operator; DfT anonymised MOT results).",
+      "example": "https://databutler.dev/api/vehicles/uk/mot?make=Volkswagen&model=Golf&year=2018&mileage=80000",
+      "params": {
+        "make": "e.g. Volkswagen",
+        "mileage": "optional miles",
+        "model": "e.g. Golf",
+        "year": "optional registration year"
+      }
+    },
+    "GET /api/vehicles/uk/recalls": {
+      "description": "Official UK vehicle safety recalls (DVSA open data, OGL v3.0; 4876 recalls launched 2016-01-01 → 2027-02-03) for a make (+ model): recall number, launch date, concern, defect and remedy text, build-date range, vehicles affected, GOV.UK recall-checker link.",
+      "example": "https://databutler.dev/api/vehicles/uk/recalls?make=vauxhall&model=corsa",
+      "params": {
+        "make": "e.g. Vauxhall, Mercedes-Benz, VW",
+        "model": "optional, e.g. Corsa (omit to list the make and its model names)",
+        "since": "optional YYYY-MM-DD"
+      }
+    },
+    "GET /api/vehicles/uk/recalls-search": {
+      "description": "Keyword search across all served DVSA recalls (English text: make, model, concern, defect, remedy), newest first, optional since date.",
+      "example": "https://databutler.dev/api/vehicles/uk/recalls-search?text=airbag%20takata&since=2025-01-01",
+      "params": {
+        "since": "optional YYYY-MM-DD",
+        "text": "e.g. airbag takata"
+      }
+    },
+    "GET /api/vehicles/uk/search": {
+      "description": "Search the 530 UK model generations covered by the MOT dataset (live proxy to whatbreaks.uk).",
+      "example": "https://databutler.dev/api/vehicles/uk/search?q=golf",
+      "params": {
+        "q": "free text, e.g. golf"
+      }
+    },
+    "GET /changes": {
+      "description": "The changelog as a page: every verified change to UK tax/NI thresholds, exam specs, official vehicle datasets, software end-of-life dates and central-bank policy rates, newest first by month — area, from → to, effectiveFrom, official source, maintainer note, verifiedDate. Indexable, cached 1 h at the edge.",
+      "example": "https://databutler.dev/changes?area=vehicles",
+      "params": {
+        "area": "optional: uk-rates | uk-exams | vehicles | software-eol | policy-rates",
+        "since": "optional YYYY-MM-DD"
+      }
+    },
+    "GET /changes.atom": {
+      "description": "Atom feed of the changelog (?area= optional); same entries as /changes.rss.",
+      "example": "https://databutler.dev/changes.atom?area=uk-rates"
+    },
+    "GET /changes.rss": {
+      "description": "RSS 2.0 feed of the changelog (?area= optional). guid = permalink on /changes, link = official source, pubDate = verifiedDate.",
+      "example": "https://databutler.dev/changes.rss"
+    },
+    "GET /protocol": {
+      "description": "The Verified Changes protocol v0.1 specification — the open convention /api/changes, /changes, the feeds and what_changed_since follow, so any site can publish dated, sourced from/to entries and any assistant can consume them. Indexable HTML; ?format=md returns the markdown.",
+      "example": "https://databutler.dev/protocol"
+    },
+    "GET /r/<route>?…": {
+      "description": "Citation permalinks (human-readable answer + official source + verified date). Every API/MCP result includes one as cite.url.",
+      "example": "https://databutler.dev/r/uk/rates?category=income-tax"
+    },
+    "GET /schema/changes.v0.json": {
+      "description": "JSON Schema (draft 2020-12) for a changes document and a single entry; /schema/well-known-changes.v0.json covers the discovery document.",
+      "example": "https://databutler.dev/schema/changes.v0.json"
+    },
+    "GET|POST /api/stats": {
+      "description": "Exact statistics & probability — for the maths agents get wrong in their head. ?op= one of: descriptive, distribution, hypothesis-test, confidence-interval, bayes-update, regression. Array/table inputs via POST JSON body. Numerical core validated against reference tables.",
+      "example": "https://databutler.dev/api/stats?op=distribution&dist=normal&at=1.96"
+    },
+    "POST /api/mcp": {
+      "description": "THE FRONT DOOR — one remote MCP server for the whole estate. Lists uk_rates_lookup, exam_topic_paper, domain_provenance, package_provenance, take_home_pay directly, plus what_changed_since (changes since your training cutoff), coverage, catalogue and call (run any tool by name). Every result carries freshness + a cite.url permalink.",
+      "example": "add https://databutler.dev/api/mcp to any MCP client"
+    },
+    "POST /api/mcp/policy-rates": "Remote MCP server — tool policy_rate (Bank of England, Fed, ECB; committed data verified against the banks' own pages).",
+    "POST /api/mcp/provenance": "Remote MCP server — tools domain_provenance, package_provenance.",
+    "POST /api/mcp/software-eol": "Remote MCP server — tools support_status, support_timeline (monthly snapshot of endoflife.date open data for 14 runtimes, operating systems, PostgreSQL and React).",
+    "POST /api/mcp/stats": "Remote MCP server — descriptive_stats, distribution, hypothesis_test, confidence_interval, bayes_update, linear_regression.",
+    "POST /api/mcp/tax": "Remote MCP server — tool take_home_pay (live via the LifeByNumbers salary calculators).",
+    "POST /api/mcp/uk-exams": "Remote MCP server — tools exam_topic_paper, exam_spec_lookup, exam_paper_index.",
+    "POST /api/mcp/uk-rates": "Remote MCP server — tool uk_rates_lookup.",
+    "POST /api/mcp/vehicles": "Remote MCP server — uk_mot_reliability, uk_mot_vehicle_search (live via whatbreaks.uk), uk_recalls_for_model, uk_recalls_search (DVSA), fr_recalls_for_model, fr_recalls_search, jp_recalls_for_model, jp_complaints_summary, eu_safety_gate_recalls (stub)."
+  },
+  "name": "Data Butler",
+  "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate.",
+  "privacy": "https://databutler.dev/privacy",
+  "protocol": {
+    "discovery": "https://databutler.dev/.well-known/changes.json",
+    "name": "verified-changes/0.1",
+    "schema": "https://databutler.dev/schema/changes.v0.json",
+    "specification": "https://databutler.dev/protocol"
+  }
+}

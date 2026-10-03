@@ -1,0 +1,243 @@
+{
+  "router": [
+    "changes",
+    "changes-feed",
+    "changes-page",
+    "cron/watch-sources",
+    "mcp",
+    "mcp/policy-rates",
+    "mcp/provenance",
+    "mcp/software-eol",
+    "mcp/stats",
+    "mcp/tax",
+    "mcp/uk-exams",
+    "mcp/uk-rates",
+    "mcp/vehicles",
+    "policy-rates",
+    "protocol",
+    "provenance/domain",
+    "provenance/package",
+    "r",
+    "software-eol/status",
+    "software-eol/timeline",
+    "stats",
+    "tax/take-home",
+    "uk/exams/papers",
+    "uk/exams/specs",
+    "uk/exams/topic",
+    "uk/rates",
+    "vehicles/eu/safety-gate",
+    "vehicles/fr/recalls",
+    "vehicles/fr/search",
+    "vehicles/jp/complaints",
+    "vehicles/jp/recalls",
+    "vehicles/uk/mot",
+    "vehicles/uk/recalls",
+    "vehicles/uk/recalls-search",
+    "vehicles/uk/search"
+  ],
+  "cite": [
+    "catalogue",
+    "changes",
+    "coverage",
+    "policy-rates",
+    "provenance/domain",
+    "provenance/package",
+    "software-eol/status",
+    "software-eol/timeline",
+    "stats",
+    "tax/take-home",
+    "uk/exams/papers",
+    "uk/exams/specs",
+    "uk/exams/topic",
+    "uk/rates",
+    "vehicles/eu/safety-gate",
+    "vehicles/fr/recalls",
+    "vehicles/fr/search",
+    "vehicles/jp/complaints",
+    "vehicles/jp/recalls",
+    "vehicles/uk/mot",
+    "vehicles/uk/recalls",
+    "vehicles/uk/recalls-search",
+    "vehicles/uk/search"
+  ],
+  "citeTargets": {
+    "uk_rates_lookup": {
+      "path": "uk/rates",
+      "queryKeys": [
+        "category"
+      ]
+    },
+    "exam_topic_paper": {
+      "path": "uk/exams/topic",
+      "queryKeys": [
+        "board",
+        "level",
+        "subject",
+        "topic"
+      ]
+    },
+    "exam_spec_lookup": {
+      "path": "uk/exams/specs",
+      "queryKeys": [
+        "board",
+        "level",
+        "subject"
+      ]
+    },
+    "exam_paper_index": {
+      "path": "uk/exams/papers",
+      "queryKeys": [
+        "board",
+        "level",
+        "subject"
+      ]
+    },
+    "domain_provenance": {
+      "path": "provenance/domain",
+      "queryKeys": [
+        "domain"
+      ]
+    },
+    "package_provenance": {
+      "path": "provenance/package",
+      "queryKeys": [
+        "ecosystem",
+        "name"
+      ]
+    },
+    "descriptive_stats": {
+      "path": "stats",
+      "queryKeys": [
+        "op"
+      ]
+    },
+    "distribution": {
+      "path": "stats",
+      "queryKeys": [
+        "op"
+      ]
+    },
+    "hypothesis_test": {
+      "path": "stats",
+      "queryKeys": [
+        "op"
+      ]
+    },
+    "confidence_interval": {
+      "path": "stats",
+      "queryKeys": [
+        "op"
+      ]
+    },
+    "bayes_update": {
+      "path": "stats",
+      "queryKeys": [
+        "op"
+      ]
+    },
+    "linear_regression": {
+      "path": "stats",
+      "queryKeys": [
+        "op"
+      ]
+    },
+    "uk_mot_reliability": {
+      "path": "vehicles/uk/mot",
+      "queryKeys": [
+        "make",
+        "mileage",
+        "model",
+        "year"
+      ]
+    },
+    "uk_mot_vehicle_search": {
+      "path": "vehicles/uk/search",
+      "queryKeys": [
+        "q"
+      ]
+    },
+    "uk_recalls_for_model": {
+      "path": "vehicles/uk/recalls",
+      "queryKeys": [
+        "make",
+        "model",
+        "since"
+      ]
+    },
+    "uk_recalls_search": {
+      "path": "vehicles/uk/recalls-search",
+      "queryKeys": [
+        "since",
+        "text"
+      ]
+    },
+    "fr_recalls_for_model": {
+      "path": "vehicles/fr/recalls",
+      "queryKeys": [
+        "brand",
+        "model"
+      ]
+    },
+    "fr_recalls_search": {
+      "path": "vehicles/fr/search",
+      "queryKeys": [
+        "since",
+        "text"
+      ]
+    },
+    "jp_recalls_for_model": {
+      "path": "vehicles/jp/recalls",
+      "queryKeys": [
+        "make",
+        "model"
+      ]
+    },
+    "jp_complaints_summary": {
+      "path": "vehicles/jp/complaints",
+      "queryKeys": [
+        "make",
+        "model"
+      ]
+    },
+    "eu_safety_gate_recalls": {
+      "path": "vehicles/eu/safety-gate",
+      "queryKeys": [
+        "brand",
+        "model"
+      ]
+    },
+    "take_home_pay": {
+      "path": "tax/take-home",
+      "queryKeys": [
+        "country",
+        "filingStatus",
+        "gross",
+        "period",
+        "province",
+        "region",
+        "state"
+      ]
+    },
+    "support_status": {
+      "path": "software-eol/status",
+      "queryKeys": [
+        "product",
+        "version"
+      ]
+    },
+    "support_timeline": {
+      "path": "software-eol/timeline",
+      "queryKeys": [
+        "product"
+      ]
+    },
+    "policy_rate": {
+      "path": "policy-rates",
+      "queryKeys": [
+        "all",
+        "bank"
+      ]
+    }
+  }
+}

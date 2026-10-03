@@ -119,3 +119,5 @@ ${urls.length ? `<ul>${urls.map((u) => `<li><a href="${esc(u)}" rel="nofollow">$
 ${cite ? `<p class="quiet">Cite as: ${esc(cite.text)} — <a href="${esc(cite.url)}">${esc(cite.url)}</a></p>` : ''}`;
   html(res, 200, page(`Citation: ${key}`, body), { noStore: answer.covered === false });
 };
+
+module.exports.ROUTES = ROUTES;

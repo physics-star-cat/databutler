@@ -1,0 +1,2656 @@
+{
+  "/api/uk/rates": {
+    "status": 200,
+    "body": {
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate.",
+      "taxYear": "2026-27",
+      "taxYearRuns": "6 April 2026 to 5 April 2027",
+      "categories": {
+        "income-tax": "Income Tax bands and rates",
+        "national-insurance": "National Insurance (Class 1) thresholds and rates",
+        "minimum-wage": "National Minimum Wage / National Living Wage",
+        "student-loans": "Student loan repayment thresholds",
+        "vat": "VAT rates",
+        "isa": "ISA allowances",
+        "state-pension": "New State Pension",
+        "stamp-duty": "Stamp Duty Land Tax — residential",
+        "capital-gains": "Capital Gains Tax",
+        "pensions": "Private pension allowances"
+      },
+      "usage": "pass category=<key> for figures",
+      "freshness": {
+        "verifiedDate": "2026-08-31",
+        "nextScheduledRefresh": "2027-04-06"
+      },
+      "cite": {
+        "url": "https://databutler.dev/r/uk/rates",
+        "text": "databutler.dev, verified 2026-08-31"
+      }
+    }
+  },
+  "/api/uk/exams/topic": {
+    "status": 400,
+    "body": {
+      "error": "missing ?topic= (plus optional board, subject, level). See /api for usage.",
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate."
+    }
+  },
+  "/api/uk/exams/specs": {
+    "status": 200,
+    "body": {
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate.",
+      "count": 5,
+      "specs": [
+        {
+          "board": "AQA",
+          "level": "GCSE",
+          "subject": "Physics",
+          "specCode": "8463",
+          "tiers": [
+            "Foundation",
+            "Higher"
+          ],
+          "source": "https://www.aqa.org.uk/subjects/physics/gcse/physics-8463/specification/specification-at-a-glance",
+          "verifiedDate": "2026-08-31",
+          "papers": [
+            {
+              "paper": 1,
+              "durationMinutes": 105,
+              "marks": 100,
+              "weighting": "50%",
+              "topics": [
+                "Energy",
+                "Electricity",
+                "Particle model of matter",
+                "Atomic structure"
+              ]
+            },
+            {
+              "paper": 2,
+              "durationMinutes": 105,
+              "marks": 100,
+              "weighting": "50%",
+              "topics": [
+                "Forces",
+                "Waves",
+                "Magnetism and electromagnetism",
+                "Space physics"
+              ]
+            }
+          ]
+        },
+        {
+          "board": "AQA",
+          "level": "GCSE",
+          "subject": "Biology",
+          "specCode": "8461",
+          "tiers": [
+            "Foundation",
+            "Higher"
+          ],
+          "source": "https://www.aqa.org.uk/subjects/biology/gcse/biology-8461/specification/specification-at-a-glance",
+          "verifiedDate": "2026-08-31",
+          "papers": [
+            {
+              "paper": 1,
+              "durationMinutes": 105,
+              "marks": 100,
+              "weighting": "50%",
+              "topics": [
+                "Cell biology",
+                "Organisation",
+                "Infection and response",
+                "Bioenergetics"
+              ]
+            },
+            {
+              "paper": 2,
+              "durationMinutes": 105,
+              "marks": 100,
+              "weighting": "50%",
+              "topics": [
+                "Homeostasis and response",
+                "Inheritance, variation and evolution",
+                "Ecology"
+              ]
+            }
+          ]
+        },
+        {
+          "board": "AQA",
+          "level": "GCSE",
+          "subject": "Chemistry",
+          "specCode": "8462",
+          "tiers": [
+            "Foundation",
+            "Higher"
+          ],
+          "notes": [
+            "AQA note: Paper 2 may draw on fundamental concepts from Paper 1 topics 1–3."
+          ],
+          "source": "https://www.aqa.org.uk/subjects/chemistry/gcse/chemistry-8462/specification/specification-at-a-glance",
+          "verifiedDate": "2026-08-31",
+          "papers": [
+            {
+              "paper": 1,
+              "durationMinutes": 105,
+              "marks": 100,
+              "weighting": "50%",
+              "topics": [
+                "Atomic structure and the periodic table",
+                "Bonding, structure, and the properties of matter",
+                "Quantitative chemistry",
+                "Chemical changes",
+                "Energy changes"
+              ]
+            },
+            {
+              "paper": 2,
+              "durationMinutes": 105,
+              "marks": 100,
+              "weighting": "50%",
+              "topics": [
+                "The rate and extent of chemical change",
+                "Organic chemistry",
+                "Chemical analysis",
+                "Chemistry of the atmosphere",
+                "Using resources"
+              ]
+            }
+          ]
+        },
+        {
+          "board": "AQA",
+          "level": "GCSE",
+          "subject": "Combined Science: Trilogy",
+          "specCode": "8464",
+          "tiers": [
+            "Foundation",
+            "Higher"
+          ],
+          "notes": [
+            "Six papers, each 16.7% of the GCSE and 70 marks / 1h15.",
+            "IMPORTANT difference from separate Physics: Trilogy Physics Paper 2 does NOT include Space physics."
+          ],
+          "source": "https://www.aqa.org.uk/subjects/science/gcse/combined-science-trilogy-8464/specification/specification-at-a-glance",
+          "verifiedDate": "2026-08-31",
+          "papers": [
+            {
+              "paper": "Biology 1",
+              "durationMinutes": 75,
+              "marks": 70,
+              "weighting": "16.7%",
+              "topics": [
+                "Cell Biology",
+                "Organisation",
+                "Infection and response",
+                "Bioenergetics"
+              ]
+            },
+            {
+              "paper": "Biology 2",
+              "durationMinutes": 75,
+              "marks": 70,
+              "weighting": "16.7%",
+              "topics": [
+                "Homeostasis and response",
+                "Inheritance, variation and evolution",
+                "Ecology"
+              ]
+            },
+            {
+              "paper": "Chemistry 1",
+              "durationMinutes": 75,
+              "marks": 70,
+              "weighting": "16.7%",
+              "topics": [
+                "Atomic structure and the periodic table",
+                "Bonding, structure, and the properties of matter",
+                "Quantitative chemistry",
+                "Chemical changes",
+                "Energy changes"
+              ]
+            },
+            {
+              "paper": "Chemistry 2",
+              "durationMinutes": 75,
+              "marks": 70,
+              "weighting": "16.7%",
+              "topics": [
+                "The rate and extent of chemical change",
+                "Organic chemistry",
+                "Chemical analysis",
+                "Chemistry of the atmosphere",
+                "Using resources"
+              ]
+            },
+            {
+              "paper": "Physics 1",
+              "durationMinutes": 75,
+              "marks": 70,
+              "weighting": "16.7%",
+              "topics": [
+                "Energy",
+                "Electricity",
+                "Particle model of matter",
+                "Atomic structure"
+              ]
+            },
+            {
+              "paper": "Physics 2",
+              "durationMinutes": 75,
+              "marks": 70,
+              "weighting": "16.7%",
+              "topics": [
+                "Forces",
+                "Waves",
+                "Magnetism and electromagnetism"
+              ]
+            }
+          ]
+        },
+        {
+          "board": "AQA",
+          "level": "GCSE",
+          "subject": "Mathematics",
+          "specCode": "8300",
+          "tiers": [
+            "Foundation (1–5)",
+            "Higher (4–9)"
+          ],
+          "notes": [
+            "No topic-to-paper mapping exists: 'Content from any part of the specification may be assessed' on all three papers.",
+            "Paper 1 is non-calculator; Papers 2 and 3 allow a calculator."
+          ],
+          "source": "https://www.aqa.org.uk/subjects/mathematics/gcse/mathematics-8300/specification/specification-at-a-glance",
+          "verifiedDate": "2026-08-31",
+          "papers": [
+            {
+              "paper": 1,
+              "durationMinutes": 90,
+              "marks": 80,
+              "weighting": "33.3%",
+              "calculator": false,
+              "topics": []
+            },
+            {
+              "paper": 2,
+              "durationMinutes": 90,
+              "marks": 80,
+              "weighting": "33.3%",
+              "calculator": true,
+              "topics": []
+            },
+            {
+              "paper": 3,
+              "durationMinutes": 90,
+              "marks": 80,
+              "weighting": "33.3%",
+              "calculator": true,
+              "topics": []
+            }
+          ]
+        }
+      ],
+      "freshness": {
+        "verifiedDate": "2026-08-31",
+        "nextScheduledRefresh": "2027-09-01"
+      },
+      "cite": {
+        "url": "https://databutler.dev/r/uk/exams/specs",
+        "text": "databutler.dev, verified 2026-08-31 against https://www.aqa.org.uk/subjects/physics/gcse/physics-8463/specification/specification-at-a-glance"
+      }
+    }
+  },
+  "/api/uk/exams/papers": {
+    "status": 200,
+    "body": {
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate.",
+      "count": 5,
+      "specs": [
+        {
+          "board": "AQA",
+          "level": "GCSE",
+          "subject": "Physics",
+          "specCode": "8463",
+          "officialPastPapers": "https://www.aqa.org.uk/subjects/physics/gcse/physics-8463/assessment-resources",
+          "source": "https://www.aqa.org.uk/subjects/physics/gcse/physics-8463/specification/specification-at-a-glance",
+          "verifiedDate": "2026-08-31"
+        },
+        {
+          "board": "AQA",
+          "level": "GCSE",
+          "subject": "Biology",
+          "specCode": "8461",
+          "officialPastPapers": "https://www.aqa.org.uk/subjects/biology/gcse/biology-8461/assessment-resources",
+          "source": "https://www.aqa.org.uk/subjects/biology/gcse/biology-8461/specification/specification-at-a-glance",
+          "verifiedDate": "2026-08-31"
+        },
+        {
+          "board": "AQA",
+          "level": "GCSE",
+          "subject": "Chemistry",
+          "specCode": "8462",
+          "officialPastPapers": "https://www.aqa.org.uk/subjects/chemistry/gcse/chemistry-8462/assessment-resources",
+          "source": "https://www.aqa.org.uk/subjects/chemistry/gcse/chemistry-8462/specification/specification-at-a-glance",
+          "verifiedDate": "2026-08-31"
+        },
+        {
+          "board": "AQA",
+          "level": "GCSE",
+          "subject": "Combined Science: Trilogy",
+          "specCode": "8464",
+          "officialPastPapers": "https://www.aqa.org.uk/subjects/science/gcse/combined-science-trilogy-8464/assessment-resources",
+          "source": "https://www.aqa.org.uk/subjects/science/gcse/combined-science-trilogy-8464/specification/specification-at-a-glance",
+          "verifiedDate": "2026-08-31"
+        },
+        {
+          "board": "AQA",
+          "level": "GCSE",
+          "subject": "Mathematics",
+          "specCode": "8300",
+          "officialPastPapers": "https://www.aqa.org.uk/subjects/mathematics/gcse/mathematics-8300/assessment-resources",
+          "source": "https://www.aqa.org.uk/subjects/mathematics/gcse/mathematics-8300/specification/specification-at-a-glance",
+          "verifiedDate": "2026-08-31"
+        }
+      ],
+      "copyright": "Past papers and mark schemes are exam-board copyright — this index links to the official archive rather than hosting PDFs. Recent series may be locked to teachers for a period.",
+      "freshness": {
+        "verifiedDate": "2026-08-31",
+        "nextScheduledRefresh": "2027-09-01"
+      },
+      "cite": {
+        "url": "https://databutler.dev/r/uk/exams/papers",
+        "text": "databutler.dev, verified 2026-08-31 against https://www.aqa.org.uk/subjects/physics/gcse/physics-8463/specification/specification-at-a-glance"
+      }
+    }
+  },
+  "/api/provenance/domain": {
+    "status": 400,
+    "body": {
+      "error": "missing ?domain= (e.g. example.com). See /api for usage.",
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate."
+    }
+  },
+  "/api/provenance/package": {
+    "status": 400,
+    "body": {
+      "error": "missing ?ecosystem=(npm|pypi)&name=. See /api for usage.",
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate."
+    }
+  },
+  "/api/stats": {
+    "status": 400,
+    "body": {
+      "error": "pass ?op= one of: descriptive, distribution, hypothesis-test, confidence-interval, bayes-update, regression. See /api for usage.",
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate."
+    }
+  },
+  "/api/vehicles/uk/mot": {
+    "status": 400,
+    "body": {
+      "error": "missing ?make= and ?model=. See /api for usage.",
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate."
+    }
+  },
+  "/api/vehicles/uk/search": {
+    "status": 400,
+    "body": {
+      "error": "missing ?q=. See /api for usage.",
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate."
+    }
+  },
+  "/api/vehicles/uk/recalls": {
+    "status": 400,
+    "body": {
+      "error": "missing ?make=. See /api for usage.",
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate."
+    }
+  },
+  "/api/vehicles/uk/recalls-search": {
+    "status": 400,
+    "body": {
+      "error": "missing ?text=. See /api for usage.",
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate."
+    }
+  },
+  "/api/vehicles/fr/recalls": {
+    "status": 400,
+    "body": {
+      "error": "missing ?brand=. See /api for usage.",
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate."
+    }
+  },
+  "/api/vehicles/fr/search": {
+    "status": 400,
+    "body": {
+      "error": "missing ?text=. See /api for usage.",
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate."
+    }
+  },
+  "/api/vehicles/jp/recalls": {
+    "status": 400,
+    "body": {
+      "error": "missing ?make= and ?model=. See /api for usage.",
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate."
+    }
+  },
+  "/api/vehicles/jp/complaints": {
+    "status": 400,
+    "body": {
+      "error": "missing ?make= and ?model=. See /api for usage.",
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate."
+    }
+  },
+  "/api/vehicles/eu/safety-gate": {
+    "status": 200,
+    "body": {
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate.",
+      "covered": false,
+      "status": "planned",
+      "requested": {},
+      "message": "EU Safety Gate (RAPEX) vehicle alerts are not served yet — this tool is a stub while the dataset is built.",
+      "officialSource": "https://ec.europa.eu/safety-gate-alerts/screen/webReport",
+      "hint": "For now: fr_recalls_for_model / fr_recalls_search — RappelConso republishes the Safety Gate automobile alerts that concern France (fiche links ending /rapex), so most EU-wide vehicle recalls appear there in French.",
+      "freshness": {
+        "verifiedDate": "2026-10-03",
+        "nextScheduledRefresh": null
+      },
+      "cite": {
+        "url": "https://databutler.dev/r/vehicles/eu/safety-gate",
+        "text": "databutler.dev, computed live 2026-10-03"
+      }
+    }
+  },
+  "/api/tax/take-home": {
+    "status": 400,
+    "body": {
+      "error": "missing ?country= and ?gross=. See /api for usage.",
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate."
+    }
+  },
+  "/api/software-eol/status": {
+    "status": 400,
+    "body": {
+      "error": "missing ?product= and ?version=. See /api for usage.",
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate."
+    }
+  },
+  "/api/software-eol/timeline": {
+    "status": 400,
+    "body": {
+      "error": "missing ?product=. See /api for usage.",
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate."
+    }
+  },
+  "/api/policy-rates": {
+    "status": 400,
+    "body": {
+      "error": "missing ?bank=. See /api for usage.",
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate."
+    }
+  },
+  "/api/uk/rates?category=vat": {
+    "status": 200,
+    "body": {
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate.",
+      "taxYear": "2026-27",
+      "taxYearRuns": "6 April 2026 to 5 April 2027",
+      "verifiedDate": "2026-08-31",
+      "title": "VAT rates",
+      "scope": "UK-wide",
+      "source": "https://www.gov.uk/vat-rates",
+      "figures": [
+        {
+          "label": "Standard rate",
+          "value": 20,
+          "unit": "%",
+          "notes": "most goods and services"
+        },
+        {
+          "label": "Reduced rate",
+          "value": 5,
+          "unit": "%",
+          "notes": "e.g. children's car seats, home energy"
+        },
+        {
+          "label": "Zero rate",
+          "value": 0,
+          "unit": "%",
+          "notes": "e.g. most food, children's clothes"
+        }
+      ],
+      "freshness": {
+        "verifiedDate": "2026-08-31",
+        "nextScheduledRefresh": "2027-04-06"
+      },
+      "cite": {
+        "url": "https://databutler.dev/r/uk/rates?category=vat",
+        "text": "databutler.dev, verified 2026-08-31 against https://www.gov.uk/vat-rates"
+      }
+    }
+  },
+  "/api/uk/exams/topic?topic=electricity&board=aqa&subject=physics": {
+    "status": 200,
+    "body": {
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate.",
+      "query": {
+        "board": "aqa",
+        "subject": "physics",
+        "topic": "electricity"
+      },
+      "results": [
+        {
+          "board": "AQA",
+          "specCode": "8463",
+          "subject": "Physics",
+          "level": "GCSE",
+          "topic": "Electricity",
+          "paper": 1,
+          "paperDetails": {
+            "durationMinutes": 105,
+            "marks": 100,
+            "weighting": "50%"
+          },
+          "siblingTopicsOnPaper": [
+            "Energy",
+            "Particle model of matter",
+            "Atomic structure"
+          ],
+          "source": "https://www.aqa.org.uk/subjects/physics/gcse/physics-8463/specification/specification-at-a-glance",
+          "verifiedDate": "2026-08-31"
+        }
+      ],
+      "freshness": {
+        "verifiedDate": "2026-08-31",
+        "nextScheduledRefresh": "2027-09-01"
+      },
+      "cite": {
+        "url": "https://databutler.dev/r/uk/exams/topic?topic=electricity&board=aqa&subject=physics",
+        "text": "databutler.dev, verified 2026-08-31 against https://www.aqa.org.uk/subjects/physics/gcse/physics-8463/specification/specification-at-a-glance"
+      }
+    }
+  },
+  "/api/uk/exams/papers?board=aqa": {
+    "status": 200,
+    "body": {
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate.",
+      "count": 5,
+      "specs": [
+        {
+          "board": "AQA",
+          "level": "GCSE",
+          "subject": "Physics",
+          "specCode": "8463",
+          "officialPastPapers": "https://www.aqa.org.uk/subjects/physics/gcse/physics-8463/assessment-resources",
+          "source": "https://www.aqa.org.uk/subjects/physics/gcse/physics-8463/specification/specification-at-a-glance",
+          "verifiedDate": "2026-08-31"
+        },
+        {
+          "board": "AQA",
+          "level": "GCSE",
+          "subject": "Biology",
+          "specCode": "8461",
+          "officialPastPapers": "https://www.aqa.org.uk/subjects/biology/gcse/biology-8461/assessment-resources",
+          "source": "https://www.aqa.org.uk/subjects/biology/gcse/biology-8461/specification/specification-at-a-glance",
+          "verifiedDate": "2026-08-31"
+        },
+        {
+          "board": "AQA",
+          "level": "GCSE",
+          "subject": "Chemistry",
+          "specCode": "8462",
+          "officialPastPapers": "https://www.aqa.org.uk/subjects/chemistry/gcse/chemistry-8462/assessment-resources",
+          "source": "https://www.aqa.org.uk/subjects/chemistry/gcse/chemistry-8462/specification/specification-at-a-glance",
+          "verifiedDate": "2026-08-31"
+        },
+        {
+          "board": "AQA",
+          "level": "GCSE",
+          "subject": "Combined Science: Trilogy",
+          "specCode": "8464",
+          "officialPastPapers": "https://www.aqa.org.uk/subjects/science/gcse/combined-science-trilogy-8464/assessment-resources",
+          "source": "https://www.aqa.org.uk/subjects/science/gcse/combined-science-trilogy-8464/specification/specification-at-a-glance",
+          "verifiedDate": "2026-08-31"
+        },
+        {
+          "board": "AQA",
+          "level": "GCSE",
+          "subject": "Mathematics",
+          "specCode": "8300",
+          "officialPastPapers": "https://www.aqa.org.uk/subjects/mathematics/gcse/mathematics-8300/assessment-resources",
+          "source": "https://www.aqa.org.uk/subjects/mathematics/gcse/mathematics-8300/specification/specification-at-a-glance",
+          "verifiedDate": "2026-08-31"
+        }
+      ],
+      "copyright": "Past papers and mark schemes are exam-board copyright — this index links to the official archive rather than hosting PDFs. Recent series may be locked to teachers for a period.",
+      "freshness": {
+        "verifiedDate": "2026-08-31",
+        "nextScheduledRefresh": "2027-09-01"
+      },
+      "cite": {
+        "url": "https://databutler.dev/r/uk/exams/papers?board=aqa",
+        "text": "databutler.dev, verified 2026-08-31 against https://www.aqa.org.uk/subjects/physics/gcse/physics-8463/specification/specification-at-a-glance"
+      }
+    }
+  },
+  "/api/stats?op=distribution&dist=normal&at=1.96": {
+    "status": 200,
+    "body": {
+      "op": "distribution",
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Computed from exact formulae (numerical core validated against reference tables). The interpretation is a guide, not a substitute for statistical judgement on high-stakes decisions — check the assumptions field.",
+      "dist": "normal",
+      "params": {},
+      "pdf": 0.058441,
+      "cdf": 0.975002,
+      "mean": 0,
+      "variance": 1,
+      "freshness": {
+        "verifiedDate": "2026-10-03",
+        "nextScheduledRefresh": null
+      },
+      "cite": {
+        "url": "https://databutler.dev/r/stats?op=distribution&dist=normal&at=1.96",
+        "text": "databutler.dev, computed live 2026-10-03"
+      }
+    }
+  },
+  "/api/vehicles/uk/recalls?make=vauxhall&model=corsa": {
+    "status": 200,
+    "body": {
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate.",
+      "make": "vauxhall",
+      "makeNamesInSource": [
+        "VAUXHALL"
+      ],
+      "since": null,
+      "dateRange": {
+        "from": "2016-01-04",
+        "to": "2027-02-03"
+      },
+      "launchDateFrom": "2016-01-01",
+      "verifiedDate": "2026-10-03",
+      "source": "https://www.check-vehicle-recalls.service.gov.uk/",
+      "dataset": "DVSA vehicle safety recalls — bulk download (RecallsFile.csv, \"all recalls since 1992\")",
+      "datasetUrl": "https://www.check-vehicle-recalls.service.gov.uk/documents/RecallsFile.csv",
+      "publisher": "Driver and Vehicle Standards Agency (DVSA), Vehicle Safety Branch — GOV.UK",
+      "licence": "Open Government Licence v3.0 (Crown copyright)",
+      "attributionNote": "Contains public sector information licensed under the Open Government Licence v3.0 — DVSA safety recall notices as published (texts unedited); a citation, not an endorsement by DVSA or any manufacturer. Recall counts are not a reliability measure (sales volume, multi-model campaigns).",
+      "model": "corsa",
+      "count": 34,
+      "truncated": false,
+      "recalls": [
+        {
+          "recallNumber": "R/2026/182",
+          "launchDate": "2026-04-27",
+          "category": "cars, HGVs and PSVs",
+          "make": "VAUXHALL",
+          "model": "CORSA F",
+          "buildStart": "2024-04-11",
+          "buildEnd": "2025-04-09",
+          "vehiclesAffected": 16348,
+          "concern": "BCM software missing telltale if LKA unavailable",
+          "defect": "On affected vehicles the Lane Keep Assist tell-tale fails to illuminate if the front camera is blocked meaning no warning light appears in the instrument cluster.",
+          "remedy": "Update the Body Control Module software.",
+          "models": [
+            {
+              "model": "CORSA F",
+              "buildStart": "2024-04-11",
+              "buildEnd": "2025-04-09",
+              "vehiclesAffected": 16348
+            }
+          ],
+          "otherModelsOnRecall": [
+            "COMBO"
+          ],
+          "link": "https://www.check-vehicle-recalls.service.gov.uk/recall-type/vehicle/make/VAUXHALL/model/CORSA%20F/year/2024/recalls",
+          "matchedBy": "text"
+        },
+        {
+          "recallNumber": "R/2026/072",
+          "launchDate": "2026-03-09",
+          "category": "cars, HGVs and PSVs",
+          "make": "VAUXHALL",
+          "model": "CORSA",
+          "buildStart": "2023-06-01",
+          "buildEnd": "2026-01-13",
+          "vehiclesAffected": 1888,
+          "concern": "Alternator protection",
+          "defect": "Affected vehicles may have been assembled with contact or with a reduced clearance between the Gasoline Particulate Filter pipe and the pole protection cap of the 48V Belt Starter Generator. There is a possibility of contact between these components leading to water infiltration and an electrical arch which could trigger a thermal event.",
+          "remedy": "Replace the pole protection cap of the 48V Belt Starter Generator. Check the distance between the Gasoline Particulate Filter pipe and the pole protection cap of the 48V Belt Starter Generator and re‑position or replace the pipe if required.",
+          "models": [
+            {
+              "model": "CORSA",
+              "buildStart": "2023-06-01",
+              "buildEnd": "2026-01-13",
+              "vehiclesAffected": 1888
+            }
+          ],
+          "otherModelsOnRecall": [
+            "MOKKA",
+            "FRONTERA"
+          ],
+          "link": "https://www.check-vehicle-recalls.service.gov.uk/recall-type/vehicle/make/VAUXHALL/model/CORSA/year/2023/recalls",
+          "matchedBy": "exact"
+        },
+        {
+          "recallNumber": "R/2025/451",
+          "launchDate": "2025-10-22",
+          "category": "cars, HGVs and PSVs",
+          "make": "VAUXHALL",
+          "model": "CORSA F",
+          "buildStart": "2025-03-04",
+          "buildEnd": "2025-06-27",
+          "vehiclesAffected": 5400,
+          "concern": "Vauxhall Corsa Mokka Combo ESC software",
+          "defect": "Affected vehicles may have incorrect or missing tyre pressure messages displayed in the instrument cluster due to a software deviation.",
+          "remedy": "Update the Electric Stability Control calibration to ensure the correct tyre pressure warning messages are displayed",
+          "models": [
+            {
+              "model": "CORSA F",
+              "buildStart": "2025-03-04",
+              "buildEnd": "2025-06-27",
+              "vehiclesAffected": 5400
+            }
+          ],
+          "otherModelsOnRecall": [
+            "MOKKA",
+            "COMBO"
+          ],
+          "link": "https://www.check-vehicle-recalls.service.gov.uk/recall-type/vehicle/make/VAUXHALL/model/CORSA%20F/year/2025/recalls",
+          "matchedBy": "text"
+        },
+        {
+          "recallNumber": "R/2025/345",
+          "launchDate": "2025-08-21",
+          "category": "cars, HGVs and PSVs",
+          "make": "VAUXHALL",
+          "model": "CORSA F",
+          "buildStart": "2024-12-10",
+          "buildEnd": "2025-02-20",
+          "vehiclesAffected": 2,
+          "concern": "Autonomous Telematics Box",
+          "defect": "Affected vehicles have been fitted with the wrong Autonomous Telematic Box. This means it cannot connect to the remoter server making it impossible to make E-Calls or use Intelligent Speed Assistance.",
+          "remedy": "Replace the Autonomous Telematic Box.",
+          "models": [
+            {
+              "model": "CORSA F",
+              "buildStart": "2024-12-10",
+              "buildEnd": "2025-02-20",
+              "vehiclesAffected": 2
+            }
+          ],
+          "link": "https://www.check-vehicle-recalls.service.gov.uk/recall-type/vehicle/make/VAUXHALL/model/CORSA%20F/year/2024/recalls",
+          "matchedBy": "text"
+        },
+        {
+          "recallNumber": "R/2025/342",
+          "launchDate": "2025-08-18",
+          "category": "cars, HGVs and PSVs",
+          "make": "VAUXHALL",
+          "model": "CORSA",
+          "buildStart": "2019-07-16",
+          "buildEnd": "2020-10-19",
+          "vehiclesAffected": 11,
+          "concern": "Emission recall – On Board Diagnostics",
+          "defect": "Vehicles may be affected by incorrect performance of the On-Board-Diagnostics related to Selective Catalytic Reduction system and/or Diesel Particle Filter. The Malfunction Indicator Light (MIL) may not illuminate in the event of a malfunction and therefore does not comply with emission regulations.",
+          "remedy": "Update the Engine Control Unit software to ensure compliance to regulations.",
+          "models": [
+            {
+              "model": "CORSA",
+              "buildStart": "2019-07-16",
+              "buildEnd": "2020-10-19",
+              "vehiclesAffected": 11
+            }
+          ],
+          "otherModelsOnRecall": [
+            "COMBO",
+            "CROSSLAND",
+            "GRANDLAND",
+            "MOVANO C",
+            "VIVARO"
+          ],
+          "link": "https://www.check-vehicle-recalls.service.gov.uk/recall-type/vehicle/make/VAUXHALL/model/CORSA/year/2019/recalls",
+          "matchedBy": "exact"
+        },
+        {
+          "recallNumber": "R/2025/282",
+          "launchDate": "2025-07-18",
+          "category": "cars, HGVs and PSVs",
+          "make": "VAUXHALL",
+          "model": "CORSA",
+          "buildStart": "2023-02-21",
+          "buildEnd": "2025-04-22",
+          "vehiclesAffected": 1106,
+          "concern": "Vauxhall Fuel Pipe",
+          "defect": "On affected vehicles there there may be loose connections between a high-pressure fuel pipe and the engine fuel rail which potentially could lead to a leak and risk of fire.",
+          "remedy": "Retighten the affected connections.",
+          "models": [
+            {
+              "model": "CORSA",
+              "buildStart": "2023-02-21",
+              "buildEnd": "2025-04-22",
+              "vehiclesAffected": 1106
+            }
+          ],
+          "otherModelsOnRecall": [
+            "ASTRA L",
+            "MOKKA",
+            "GRANDLAND"
+          ],
+          "link": "https://www.check-vehicle-recalls.service.gov.uk/recall-type/vehicle/make/VAUXHALL/model/CORSA/year/2023/recalls",
+          "matchedBy": "exact"
+        },
+        {
+          "recallNumber": "R/2025/245",
+          "launchDate": "2025-07-03",
+          "category": "cars, HGVs and PSVs",
+          "make": "VAUXHALL",
+          "model": "CORSA",
+          "buildStart": "2019-07-16",
+          "buildEnd": "2023-01-31",
+          "vehiclesAffected": 1525,
+          "concern": "Vauxhall DV5R Engines Camshaft Chain.",
+          "defect": "Vehicles may be affected by premature wearing of the camshaft drive chain leading to abnormal noise or to a breakage of the chain in the worst case.",
+          "remedy": "Update the software to improve oil pressure and reduce wear. Check the engine noise and replace the chain if required. If no problem found change the oil to one with higher viscosity and special anti-wear additives.",
+          "models": [
+            {
+              "model": "CORSA",
+              "buildStart": "2019-07-16",
+              "buildEnd": "2023-01-31",
+              "vehiclesAffected": 1525
+            }
+          ],
+          "otherModelsOnRecall": [
+            "GRANDLAND",
+            "COMBO",
+            "CROSSLAND",
+            "VIVARO",
+            "ASTRA",
+            "MOKKA"
+          ],
+          "link": "https://www.check-vehicle-recalls.service.gov.uk/recall-type/vehicle/make/VAUXHALL/model/CORSA/year/2019/recalls",
+          "matchedBy": "exact"
+        },
+        {
+          "recallNumber": "R/2025/209",
+          "launchDate": "2025-06-11",
+          "category": "cars, HGVs and PSVs",
+          "make": "VAUXHALL",
+          "model": "CORSA",
+          "buildStart": "2024-05-24",
+          "buildEnd": "2024-08-27",
+          "vehiclesAffected": 3,
+          "concern": "Autonomous Telematics Box",
+          "defect": "On affected vehicles the Autonomous Telematics Box (ATB) has no connectivity to the Connected Services features and therefore does not comply with regulatory requirements.",
+          "remedy": "Replace the ATB to ensure compliance with regulatory requirements.",
+          "models": [
+            {
+              "model": "CORSA",
+              "buildStart": "2024-05-24",
+              "buildEnd": "2024-08-27",
+              "vehiclesAffected": 3
+            }
+          ],
+          "otherModelsOnRecall": [
+            "COMBO"
+          ],
+          "link": "https://www.check-vehicle-recalls.service.gov.uk/recall-type/vehicle/make/VAUXHALL/model/CORSA/year/2024/recalls",
+          "matchedBy": "exact"
+        },
+        {
+          "recallNumber": "R/2025/145",
+          "launchDate": "2025-04-14",
+          "category": "cars, HGVs and PSVs",
+          "make": "VAUXHALL",
+          "model": "CORSA",
+          "buildStart": "2024-05-24",
+          "buildEnd": "2024-08-27",
+          "vehiclesAffected": 5,
+          "concern": "Brake Pressure Modulator Valve",
+          "defect": "On affected vehicles the Electronic Brake System Module is not according to specification which could potentially lead to light internal leakage of brake fluid.",
+          "remedy": "Replace the Electronic Brake System Module.",
+          "models": [
+            {
+              "model": "CORSA",
+              "buildStart": "2024-05-24",
+              "buildEnd": "2024-08-27",
+              "vehiclesAffected": 5
+            }
+          ],
+          "otherModelsOnRecall": [
+            "MOKKA"
+          ],
+          "link": "https://www.check-vehicle-recalls.service.gov.uk/recall-type/vehicle/make/VAUXHALL/model/CORSA/year/2024/recalls",
+          "matchedBy": "exact"
+        },
+        {
+          "recallNumber": "R/2025/119",
+          "launchDate": "2025-03-24",
+          "category": "cars, HGVs and PSVs",
+          "make": "VAUXHALL",
+          "model": "CORSA",
+          "buildStart": "2022-08-30",
+          "buildEnd": "2022-12-07",
+          "vehiclesAffected": 864,
+          "concern": "Traction Battery software",
+          "defect": "Affected vehicles may face an error in the Battery Monitoring Unit software.",
+          "remedy": "Update the Battery Monitoring Unit software.",
+          "models": [
+            {
+              "model": "CORSA",
+              "buildStart": "2022-08-30",
+              "buildEnd": "2022-12-07",
+              "vehiclesAffected": 864
+            }
+          ],
+          "otherModelsOnRecall": [
+            "COMBO",
+            "MOKKA",
+            "VIVARO"
+          ],
+          "link": "https://www.check-vehicle-recalls.service.gov.uk/recall-type/vehicle/make/VAUXHALL/model/CORSA/year/2022/recalls",
+          "matchedBy": "exact"
+        },
+        {
+          "recallNumber": "R/2025/087",
+          "launchDate": "2025-02-27",
+          "category": "cars, HGVs and PSVs",
+          "make": "VAUXHALL",
+          "model": "CORSA",
+          "buildStart": "2024-05-15",
+          "buildEnd": "2024-09-14",
+          "vehiclesAffected": 62,
+          "concern": "Autonomous Telematics Box failure after OTA update.",
+          "defect": "Affected vehicles may have been equipped with an Autonomous Telematic Box (ATB) which does not work.",
+          "remedy": "Change the ATB.",
+          "models": [
+            {
+              "model": "CORSA",
+              "buildStart": "2024-05-15",
+              "buildEnd": "2024-09-14",
+              "vehiclesAffected": 62
+            }
+          ],
+          "otherModelsOnRecall": [
+            "Combo Cargo"
+          ],
+          "link": "https://www.check-vehicle-recalls.service.gov.uk/recall-type/vehicle/make/VAUXHALL/model/CORSA/year/2024/recalls",
+          "matchedBy": "exact"
+        },
+        {
+          "recallNumber": "R/2025/072",
+          "launchDate": "2025-02-19",
+          "category": "cars, HGVs and PSVs",
+          "make": "VAUXHALL",
+          "model": "CORSA",
+          "buildStart": "2022-10-06",
+          "buildEnd": "2024-04-04",
+          "vehiclesAffected": 26315,
+          "concern": "Vauxhall Corsa Jet cooling nozzle failure.",
+          "defect": "On affected vehicles the engine is at risk of becoming damaged because of an inadequate oil supply from an oil jet cooling nozzle.",
+          "remedy": "Replace the engine oil and filter.",
+          "models": [
+            {
+              "model": "CORSA",
+              "buildStart": "2022-10-06",
+              "buildEnd": "2024-04-04",
+              "vehiclesAffected": 26315
+            }
+          ],
+          "link": "https://www.check-vehicle-recalls.service.gov.uk/recall-type/vehicle/make/VAUXHALL/model/CORSA/year/2022/recalls",
+          "matchedBy": "exact"
+        },
+        {
+          "recallNumber": "R/2025/068",
+          "launchDate": "2025-02-14",
+          "category": "cars, HGVs and PSVs",
+          "make": "VAUXHALL",
+          "model": "CORSA",
+          "buildStart": "2024-03-05",
+          "buildEnd": "2024-06-01",
+          "vehiclesAffected": 18,
+          "concern": "Vauxhall Automomous Telematics Box.",
+          "defect": "Affected vehicles may experience an autonomous telematic box that cannot connect to the remote server making it not possible to make calls or use other connected services.",
+          "remedy": "Disconnect the 12V battery and reconnect it after 15 seconds then check for a trouble code.",
+          "models": [
+            {
+              "model": "CORSA",
+              "buildStart": "2024-03-05",
+              "buildEnd": "2024-06-01",
+              "vehiclesAffected": 18
+            }
+          ],
+          "otherModelsOnRecall": [
+            "GRANDLAND",
+            "MOKKA"
+          ],
+          "link": "https://www.check-vehicle-recalls.service.gov.uk/recall-type/vehicle/make/VAUXHALL/model/CORSA/year/2024/recalls",
+          "matchedBy": "exact"
+        },
+        {
+          "recallNumber": "R/2025/044",
+          "launchDate": "2025-02-07",
+          "category": "cars, HGVs and PSVs",
+          "make": "VAUXHALL",
+          "model": "CORSA",
+          "buildStart": "2023-07-04",
+          "buildEnd": "2024-03-08",
+          "vehiclesAffected": 232,
+          "concern": "Vauxhall Astra Corsa Mokka eVCU update",
+          "defect": "Affected vehicles may not comply with test requirements in the matter of emissions test execution by competent authorities and energy consumption may be too high.",
+          "remedy": "Update the electrical Vehicle Control Unit (eVCU) software.",
+          "models": [
+            {
+              "model": "CORSA",
+              "buildStart": "2023-07-04",
+              "buildEnd": "2024-03-08",
+              "vehiclesAffected": 232
+            }
+          ],
+          "otherModelsOnRecall": [
+            "ASTRA L",
+            "MOKKA"
+          ],
+          "link": "https://www.check-vehicle-recalls.service.gov.uk/recall-type/vehicle/make/VAUXHALL/model/CORSA/year/2023/recalls",
+          "matchedBy": "exact"
+        },
+        {
+          "recallNumber": "R/2024/484",
+          "launchDate": "2024-12-06",
+          "category": "cars, HGVs and PSVs",
+          "make": "VAUXHALL",
+          "model": "CORSA F",
+          "buildStart": "2023-06-01",
+          "buildEnd": "2024-05-03",
+          "vehiclesAffected": 2582,
+          "concern": "Vauxhall Corsa Radio software via OTA update.",
+          "defect": "On affected vehicles the Advanced Driver Assistance System (ADAS) functionality may not meet regulatory requirements and the Active Emergency Brake (AEB) and Lane Keep Assist (LKA) can inadvertently be deactivated by a long press of the ADAS button on the radio.",
+          "remedy": "On the affected vehicles the radio software will be updated by an Over-The-Air update which will be remotely checked as successfully installed.",
+          "models": [
+            {
+              "model": "CORSA F",
+              "buildStart": "2023-06-01",
+              "buildEnd": "2024-05-03",
+              "vehiclesAffected": 2582
+            }
+          ],
+          "link": "https://www.check-vehicle-recalls.service.gov.uk/recall-type/vehicle/make/VAUXHALL/model/CORSA%20F/year/2023/recalls",
+          "matchedBy": "text"
+        },
+        {
+          "recallNumber": "R/2024/374",
+          "launchDate": "2024-09-26",
+          "category": "cars, HGVs and PSVs",
+          "make": "VAUXHALL",
+          "model": "CORSA D",
+          "buildStart": "2009-04-28",
+          "buildEnd": "2009-05-19",
+          "vehiclesAffected": 122,
+          "concern": "Vauxhall Corsa D Passenger Airbag",
+          "defect": "On affected vehicles the passenger front airbag may not deploy properly in the event of a collision.",
+          "remedy": "On affected vehicles the passenger front air bag will be replaced.",
+          "models": [
+            {
+              "model": "CORSA D",
+              "buildStart": "2009-04-28",
+              "buildEnd": "2009-05-19",
+              "vehiclesAffected": 122
+            }
+          ],
+          "link": "https://www.check-vehicle-recalls.service.gov.uk/recall-type/vehicle/make/VAUXHALL/model/CORSA%20D/year/2009/recalls",
+          "matchedBy": "text"
+        },
+        {
+          "recallNumber": "R/2024/291",
+          "launchDate": "2024-07-24",
+          "category": "cars, HGVs and PSVs",
+          "make": "VAUXHALL",
+          "model": "CORSA F",
+          "buildStart": "2019-07-15",
+          "buildEnd": "2023-01-26",
+          "vehiclesAffected": 53853,
+          "concern": "Vauxhall Corsa F- Evaporation test results on EB2FA engines.",
+          "defect": "Affected vehicles may exceed regulatory emission standards",
+          "remedy": "Replace the canister purge valve (CPV) and or fuel line.",
+          "models": [
+            {
+              "model": "CORSA F",
+              "buildStart": "2019-07-15",
+              "buildEnd": "2023-01-26",
+              "vehiclesAffected": 53853
+            }
+          ],
+          "link": "https://www.check-vehicle-recalls.service.gov.uk/recall-type/vehicle/make/VAUXHALL/model/CORSA%20F/year/2019/recalls",
+          "matchedBy": "text"
+        },
+        {
+          "recallNumber": "R/2024/175",
+          "launchDate": "2024-04-16",
+          "category": "cars, HGVs and PSVs",
+          "make": "VAUXHALL",
+          "model": "CORSA ELECTRIC",
+          "buildStart": "2023-12-11",
+          "buildEnd": "2024-02-21",
+          "vehiclesAffected": 265,
+          "concern": "MCU software",
+          "defect": "On affected vehicles incorrect MCU (Motor Control Unit) calibration may result in a loss of propulsion while driving.",
+          "remedy": "Update the MCU (Motor Control Unit) calibration",
+          "models": [
+            {
+              "model": "CORSA ELECTRIC",
+              "buildStart": "2023-12-11",
+              "buildEnd": "2024-02-21",
+              "vehiclesAffected": 265
+            }
+          ],
+          "link": "https://www.check-vehicle-recalls.service.gov.uk/recall-type/vehicle/make/VAUXHALL/model/CORSA%20ELECTRIC/year/2023/recalls",
+          "matchedBy": "text"
+        },
+        {
+          "recallNumber": "R/2024/133",
+          "launchDate": "2024-03-13",
+          "category": "cars, HGVs and PSVs",
+          "make": "VAUXHALL",
+          "model": "CORSA",
+          "buildStart": "2022-01-05",
+          "buildEnd": "2022-10-19",
+          "vehiclesAffected": 376,
+          "concern": "Cross carline Engine software",
+          "defect": "On affected vehicles below 12500 miles under certain conditions engine emissions may lead to a non-compliance to regulatory requirements.",
+          "remedy": "Check the mileage of the vehicle and update the ECU (Engine Control Unit) calibration on vehicles below 12500 miles.",
+          "models": [
+            {
+              "model": "CORSA",
+              "buildStart": "2022-01-05",
+              "buildEnd": "2022-10-19",
+              "vehiclesAffected": 376
+            }
+          ],
+          "otherModelsOnRecall": [
+            "ASTRA L",
+            "CROSSLAND",
+            "MOKKA"
+          ],
+          "link": "https://www.check-vehicle-recalls.service.gov.uk/recall-type/vehicle/make/VAUXHALL/model/CORSA/year/2022/recalls",
+          "matchedBy": "exact"
+        },
+        {
+          "recallNumber": "R/2024/043",
+          "launchDate": "2024-02-16",
+          "category": "cars, HGVs and PSVs",
+          "make": "VAUXHALL",
+          "model": "CORSA F",
+          "buildStart": "2023-01-13",
+          "buildEnd": "2023-01-18",
+          "vehiclesAffected": 74,
+          "concern": "Vauxhall Corsa F Rear axle",
+          "defect": "Affected vehicles may have been built with a rear axle not properly welded.",
+          "remedy": "Check the rear axle assembly and replace it if necessary.",
+          "models": [
+            {
+              "model": "CORSA F",
+              "buildStart": "2023-01-13",
+              "buildEnd": "2023-01-18",
+              "vehiclesAffected": null
+            },
+            {
+              "model": "CORSA F",
+              "buildStart": "2023-01-13",
+              "buildEnd": "2023-01-18",
+              "vehiclesAffected": 74
+            }
+          ],
+          "link": "https://www.check-vehicle-recalls.service.gov.uk/recall-type/vehicle/make/VAUXHALL/model/CORSA%20F/year/2023/recalls",
+          "matchedBy": "text"
+        },
+        {
+          "recallNumber": "R/2023/139",
+          "launchDate": "2023-05-09",
+          "category": "cars, HGVs and PSVs",
+          "make": "VAUXHALL",
+          "model": "CORSA-e",
+          "buildStart": "2019-10-16",
+          "buildEnd": "2022-11-04",
+          "vehiclesAffected": 34528,
+          "concern": "On affected vehicles the AC compressor stator wiring could develop a fault leading to current loss inside the AC compressor that could result in a vehicle powertrain shutdown when driving.",
+          "defect": "On affected vehicles the AC compressor stator wiring could develop a fault leading to current loss inside the AC compressor that could result in a vehicle powertrain shutdown when driving.",
+          "remedy": "Reprogram the Powertrain Diagnosis ECU with updated software.",
+          "models": [
+            {
+              "model": "CORSA-e",
+              "buildStart": "2019-10-16",
+              "buildEnd": "2022-11-04",
+              "vehiclesAffected": 34528
+            }
+          ],
+          "otherModelsOnRecall": [
+            "VIVARO-e",
+            "COMBO-e",
+            "MOKKA-e"
+          ],
+          "link": "https://www.check-vehicle-recalls.service.gov.uk/recall-type/vehicle/make/VAUXHALL/model/CORSA-e/year/2019/recalls",
+          "matchedBy": "text"
+        },
+        {
+          "recallNumber": "R/2023/008",
+          "launchDate": "2023-01-17",
+          "category": "cars, HGVs and PSVs",
+          "make": "VAUXHALL",
+          "model": "CORSA ELECTRIC",
+          "buildStart": "2022-08-17",
+          "buildEnd": "2022-12-07",
+          "vehiclesAffected": 3666,
+          "concern": "There is an error in the software calibration of the traction battery control unit which could result in a loss of propulsion when driving.",
+          "defect": "There is an error in the software calibration of the traction battery control unit which could result in a loss of propulsion when driving.",
+          "remedy": "Update the software of the traction battery control unit.",
+          "models": [
+            {
+              "model": "CORSA ELECTRIC",
+              "buildStart": "2022-08-17",
+              "buildEnd": "2022-12-07",
+              "vehiclesAffected": 3666
+            }
+          ],
+          "otherModelsOnRecall": [
+            "MOKKA ELECTRIC",
+            "COMBO ELECTRIC"
+          ],
+          "link": "https://www.check-vehicle-recalls.service.gov.uk/recall-type/vehicle/make/VAUXHALL/model/CORSA%20ELECTRIC/year/2022/recalls",
+          "matchedBy": "text"
+        },
+        {
+          "recallNumber": "R/2022/293",
+          "launchDate": "2022-10-10",
+          "category": "cars, HGVs and PSVs",
+          "make": "VAUXHALL",
+          "model": "CORSA ELECTRIC",
+          "buildStart": "2019-11-07",
+          "buildEnd": "2022-05-16",
+          "vehiclesAffected": 6361,
+          "concern": "SOFTWARE DOES NOT ALLOW CONFORMITY TESTING",
+          "defect": "Software does not allow the authorities to test according to regulation.",
+          "remedy": "Re-flash the Body Control software.",
+          "models": [
+            {
+              "model": "CORSA ELECTRIC",
+              "buildStart": "2019-11-07",
+              "buildEnd": "2022-05-16",
+              "vehiclesAffected": 6361
+            }
+          ],
+          "link": "https://www.check-vehicle-recalls.service.gov.uk/recall-type/vehicle/make/VAUXHALL/model/CORSA%20ELECTRIC/year/2019/recalls",
+          "matchedBy": "text"
+        },
+        {
+          "recallNumber": "R/2022/046",
+          "launchDate": "2022-02-22",
+          "category": "cars, HGVs and PSVs",
+          "make": "VAUXHALL",
+          "model": "CORSA F",
+          "buildStart": "2019-08-28",
+          "buildEnd": "2021-05-31",
+          "vehiclesAffected": 66176,
+          "concern": "THE CUSTOMER MIGHT NOT BE ALERTED TO A MALFUNCTION OF THE TURN INDICATOR",
+          "defect": "The customer might not be alerted to a malfunction of the turn indicator.",
+          "remedy": "Update the Built-in System Interface (BSI) module with new software.",
+          "models": [
+            {
+              "model": "CORSA F",
+              "buildStart": "2019-08-28",
+              "buildEnd": "2021-05-31",
+              "vehiclesAffected": 66176
+            }
+          ],
+          "link": "https://www.check-vehicle-recalls.service.gov.uk/recall-type/vehicle/make/VAUXHALL/model/CORSA%20F/year/2019/recalls",
+          "matchedBy": "text"
+        },
+        {
+          "recallNumber": "R/2022/044",
+          "launchDate": "2022-02-15",
+          "category": "cars, HGVs and PSVs",
+          "make": "VAUXHALL",
+          "model": "CORSA-e",
+          "buildStart": "2019-11-08",
+          "buildEnd": "2020-09-30",
+          "vehiclesAffected": 450,
+          "concern": "A POTENTIAL FOR AN INTERMITTENT INTERNAL CONNECTION ISSUE ON THE DC/DC CHIP OF THE ON-BOARD CHARGER",
+          "defect": "A potential for an intermittent internal connection issue on the DC/DC chip of the on-board charger.",
+          "remedy": "Check and if necessary replace the on-board charger and update with the latest software.",
+          "models": [
+            {
+              "model": "CORSA-e",
+              "buildStart": "2019-11-08",
+              "buildEnd": "2020-09-30",
+              "vehiclesAffected": 450
+            }
+          ],
+          "link": "https://www.check-vehicle-recalls.service.gov.uk/recall-type/vehicle/make/VAUXHALL/model/CORSA-e/year/2019/recalls",
+          "matchedBy": "text"
+        },
+        {
+          "recallNumber": "R/2020/383",
+          "launchDate": "2020-12-21",
+          "category": "cars, HGVs and PSVs",
+          "make": "VAUXHALL",
+          "model": "CORSA F",
+          "buildStart": "2020-06-30",
+          "buildEnd": "2020-12-04",
+          "vehiclesAffected": 21068,
+          "concern": "POSSIBLE UNEXPECTED SIDE AIRBAG DEPLOYMENT DUE TO INSUFFICIENT ELECTRICAL GROUNDING",
+          "defect": "Possible unexpected side airbag deployment due to insufficient electrical grounding.",
+          "remedy": "Rework the affected ground studs to ensure sufficient electrical grounding.",
+          "models": [
+            {
+              "model": "CORSA F",
+              "buildStart": "2020-06-30",
+              "buildEnd": "2020-12-04",
+              "vehiclesAffected": 21068
+            }
+          ],
+          "link": "https://www.check-vehicle-recalls.service.gov.uk/recall-type/vehicle/make/VAUXHALL/model/CORSA%20F/year/2020/recalls",
+          "matchedBy": "text"
+        },
+        {
+          "recallNumber": "R/2019/450",
+          "launchDate": "2020-03-03",
+          "category": "cars, HGVs and PSVs",
+          "make": "VAUXHALL",
+          "model": "CORSA E",
+          "buildStart": "2019-05-21",
+          "buildEnd": "2019-06-28",
+          "vehiclesAffected": 1122,
+          "concern": "SEATBELTS MAY STICK WHEN PULLED OUT OR RETRACTED",
+          "defect": "On affected vehicles certain seat belts might stick when pulled out and retracted.",
+          "remedy": "Replace the affected seat belts on the affected vehicles.",
+          "models": [
+            {
+              "model": "CORSA E",
+              "buildStart": "2019-05-21",
+              "buildEnd": "2019-06-28",
+              "vehiclesAffected": 1122
+            }
+          ],
+          "link": "https://www.check-vehicle-recalls.service.gov.uk/recall-type/vehicle/make/VAUXHALL/model/CORSA%20E/year/2019/recalls",
+          "matchedBy": "text"
+        },
+        {
+          "recallNumber": "R/2019/070",
+          "launchDate": "2019-04-08",
+          "category": "cars, HGVs and PSVs",
+          "make": "VAUXHALL",
+          "model": "CORSA E",
+          "buildStart": "2018-01-05",
+          "buildEnd": "2019-04-09",
+          "vehiclesAffected": 53981,
+          "concern": "THE LAMBDA CONTROL MIGHT NOT BE ROBUST/PRECISE ENOUGH AT HIGH SPEED",
+          "defect": "lambda control may result in NOx limit being exceeded during the vehicle lifetime.",
+          "remedy": "An engine management system software upgrade will be installed.",
+          "models": [
+            {
+              "model": "CORSA E",
+              "buildStart": "2018-01-05",
+              "buildEnd": "2019-04-09",
+              "vehiclesAffected": 53981
+            }
+          ],
+          "otherModelsOnRecall": [
+            "ADAM"
+          ],
+          "link": "https://www.check-vehicle-recalls.service.gov.uk/recall-type/vehicle/make/VAUXHALL/model/CORSA%20E/year/2018/recalls",
+          "matchedBy": "text"
+        },
+        {
+          "recallNumber": "R/2018/269",
+          "launchDate": "2018-10-05",
+          "category": "cars, HGVs and PSVs",
+          "make": "VAUXHALL",
+          "model": "CORSA E",
+          "buildStart": "2018-02-02",
+          "buildEnd": "2018-05-29",
+          "vehiclesAffected": 6167,
+          "concern": "MODEL MAY BE AFFECTED BY UNEXPECTED OPENING OF THE HOOD WHILE DRIVING",
+          "defect": "Unexpected opening of the hood while driving.",
+          "remedy": "Check operation and repair if required.",
+          "models": [
+            {
+              "model": "CORSA E",
+              "buildStart": "2018-02-02",
+              "buildEnd": "2018-05-29",
+              "vehiclesAffected": 6167
+            }
+          ],
+          "link": "https://www.check-vehicle-recalls.service.gov.uk/recall-type/vehicle/make/VAUXHALL/model/CORSA%20E/year/2018/recalls",
+          "matchedBy": "text"
+        },
+        {
+          "recallNumber": "R/2017/111",
+          "launchDate": "2017-03-27",
+          "category": "cars, HGVs and PSVs",
+          "make": "VAUXHALL",
+          "model": "CORSA E",
+          "buildStart": "2016-08-26",
+          "buildEnd": "2017-01-30",
+          "vehiclesAffected": 1530,
+          "concern": "HANDBRAKE MAY DISENGAGE",
+          "defect": "Due to a possible contamination of the tooth segment the handbrake pawl may not latch correctly. This may cause the handbrake to disengage.",
+          "remedy": "On affected vehicles Replace the parking brake lever assembly.",
+          "models": [
+            {
+              "model": "CORSA E",
+              "buildStart": "2016-08-26",
+              "buildEnd": "2017-01-30",
+              "vehiclesAffected": 1530
+            }
+          ],
+          "otherModelsOnRecall": [
+            "ADAM"
+          ],
+          "link": "https://www.check-vehicle-recalls.service.gov.uk/recall-type/vehicle/make/VAUXHALL/model/CORSA%20E/year/2016/recalls",
+          "matchedBy": "text"
+        },
+        {
+          "recallNumber": "R/2017/033",
+          "launchDate": "2017-03-17",
+          "category": "cars, HGVs and PSVs",
+          "make": "VAUXHALL",
+          "model": "CORSA",
+          "buildStart": "2016-08-25",
+          "buildEnd": "2016-12-01",
+          "vehiclesAffected": 102,
+          "concern": "ROOF SIDE RAIL AIRBAG MAY DEPLOY INCORRECTLY",
+          "defect": "A roof side rail air bag may not deploy as intended",
+          "remedy": "On affected vehicles replace the airbag module assembly",
+          "models": [
+            {
+              "model": "CORSA",
+              "buildStart": "2016-08-25",
+              "buildEnd": "2016-12-01",
+              "vehiclesAffected": 102
+            }
+          ],
+          "link": "https://www.check-vehicle-recalls.service.gov.uk/recall-type/vehicle/make/VAUXHALL/model/CORSA/year/2016/recalls",
+          "matchedBy": "exact"
+        },
+        {
+          "recallNumber": "R/2016/292",
+          "launchDate": "2017-02-13",
+          "category": "cars, HGVs and PSVs",
+          "make": "VAUXHALL",
+          "model": "CORSA / CORSA D",
+          "buildStart": "2014-10-18",
+          "buildEnd": "2015-01-28",
+          "vehiclesAffected": 3333,
+          "concern": "STEERING RACK MAY FRACTURE",
+          "defect": "Due to a manufacturing process deviation the toothed rack of the steering gear might break under extensive force application i.e. when manoeuvring at slow speed.",
+          "remedy": "Recall the vehicles that are likely to be affected and check the build date of the steering rack. Where the steering rack is proved to be from the affected batch the steering rack will be replaced.",
+          "models": [
+            {
+              "model": "CORSA",
+              "buildStart": "2014-10-18",
+              "buildEnd": "2015-01-28",
+              "vehiclesAffected": 3333
+            },
+            {
+              "model": "CORSA D",
+              "buildStart": "2014-10-27",
+              "buildEnd": "2015-01-05",
+              "vehiclesAffected": 3333
+            }
+          ],
+          "otherModelsOnRecall": [
+            "ADAM"
+          ],
+          "link": "https://www.check-vehicle-recalls.service.gov.uk/recall-type/vehicle/make/VAUXHALL/model/CORSA/year/2014/recalls",
+          "matchedBy": "exact"
+        },
+        {
+          "recallNumber": "R/2017/021",
+          "launchDate": "2017-02-10",
+          "category": "cars, HGVs and PSVs",
+          "make": "VAUXHALL",
+          "model": "CORSA D",
+          "buildStart": "2012-07-03",
+          "buildEnd": "2014-09-03",
+          "vehiclesAffected": 4046,
+          "concern": "SHORT CIRCUIT MAY OCCUR",
+          "defect": "There is the possibility of water penetration into the vent hose resulting in water ingress into the vacuum pump over the wire harness and into the relay box. In the worst case a short circuit may lead to a risk of fire.",
+          "remedy": "On affected vehicles add a spray deflector to avoid water ingress into the vent hose replace the electronic vacuum pump/relay box assembly and apply special grease to the electrical terminals.",
+          "models": [
+            {
+              "model": "CORSA D",
+              "buildStart": "2012-07-03",
+              "buildEnd": "2014-09-03",
+              "vehiclesAffected": 4046
+            }
+          ],
+          "link": "https://www.check-vehicle-recalls.service.gov.uk/recall-type/vehicle/make/VAUXHALL/model/CORSA%20D/year/2012/recalls",
+          "matchedBy": "text"
+        },
+        {
+          "recallNumber": "R/2016/087",
+          "launchDate": "2016-04-22",
+          "category": "cars, HGVs and PSVs",
+          "make": "VAUXHALL",
+          "model": "CORSA D",
+          "buildStart": "2012-07-03",
+          "buildEnd": "2014-09-03",
+          "vehiclesAffected": 4046,
+          "concern": "RISK OF FIRE",
+          "defect": "Water ingress to the relay on the electrical vacuum pump may cause a short. In extreme instances this may lead to fire.",
+          "remedy": "On affected vehicles replace Vacuum Pump/Relay Assembly and apply special grease to electrical connectors",
+          "models": [
+            {
+              "model": "CORSA D",
+              "buildStart": "2012-07-03",
+              "buildEnd": "2014-09-03",
+              "vehiclesAffected": 4046
+            }
+          ],
+          "link": "https://www.check-vehicle-recalls.service.gov.uk/recall-type/vehicle/make/VAUXHALL/model/CORSA%20D/year/2012/recalls",
+          "matchedBy": "text"
+        }
+      ],
+      "matching": "exact = the recall's model name equals yours after normalisation (case, accents, punctuation ignored); text = your model string appears as a whole word inside the recall's model name (so \"corsa\" also matches \"CORSA D\" and \"CORSA-e\", never \"CORSAVAN\"). A make query also covers DVSA's product-line entries for that brand (e.g. \"mercedes\" includes MERCEDES-BENZ VANS); makeNamesInSource lists the published make strings behind the slug.",
+      "notes": {
+        "vehiclesAffected": "DVSA records the recall total against each model row (occasionally a per-model figure); vehiclesAffected is the largest figure among the model rows shown, so a multi-model recall is not this model's share.",
+        "link": "link opens the GOV.UK recall checker at make / model / build year, which lists this recall among any others for that year."
+      },
+      "freshness": {
+        "verifiedDate": "2026-10-03",
+        "nextScheduledRefresh": "2026-11-03"
+      },
+      "cite": {
+        "url": "https://databutler.dev/r/vehicles/uk/recalls?make=vauxhall&model=corsa",
+        "text": "databutler.dev, verified 2026-10-03 against https://www.check-vehicle-recalls.service.gov.uk/"
+      }
+    }
+  },
+  "/api/vehicles/fr/recalls?brand=peugeot&model=208": {
+    "status": 200,
+    "body": {
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate.",
+      "brand": "peugeot",
+      "model": "208",
+      "curatedModel": "Peugeot 208",
+      "count": 43,
+      "truncated": false,
+      "recalls": [
+        {
+          "fiche": "sr/01584/26",
+          "date": "2026-08-03",
+          "brand": "peugeot",
+          "models": "208 v2 voiture de tourisme. niv : vr3uphnkxr5176395 - vr3uphpy3t5000166.",
+          "label": "208 v2 voiture particulière",
+          "risks": [
+            "blessures"
+          ],
+          "motif": "les boulons supérieurs du bras de suspension inférieur peuvent ne pas avoir été serrés correctement. cela pourrait provoquer un relâchement du bras, créant un bruit de cliquetis à l'avant et pouvant entraîner une perte de contrôle du véhicule, augmentant ainsi le risque d'accident.",
+          "periods": [
+            "08.07.2025 - 09.09.2025"
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/49866/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "sr/00970/26",
+          "date": "2026-06-30",
+          "brand": "peugeot",
+          "models": "208 v2, 308 v3, rifter, partner, expert voiture de tourisme / voiture de tourisme. 308 v3: vin: vr3fcyhz3sy602929 - vr3fcyhz5ty519195 208 v2: vin: vr3ubyht2s5111548 - vr3ubyhtxt5044554 rifter / partenaire: vin: vr3ebyht6sj893476 - vr3edyht7vn001551 expert 4: vin: vf3vjyhvxru368327 - vf3vjyhv5tz019649",
+          "label": "208 v2, 308 v3, rifter, partner, expert voiture de tourisme / voiture de tourisme",
+          "risks": [
+            "blessures"
+          ],
+          "motif": "le moteur dv5r peut subir une perte de puissance en raison du glissement de la poulie de la pompe à eau. ce glissement peut provoquer un désalignement de la courroie de distribution, entraînant potentiellement l'arrêt du moteur. le pignon de la poulie de la pompe à eau peut se détacher de l'arbre, ce qui peut entraîner la perte de pièces sur la route et augmenter le risque d'accidents et de blessures.",
+          "periods": [
+            "208 v2: 02.11.2025 - 24.02.2026\n308 v3: 19.10.2025 - 05.02.2026\nexpert 4: 15.10.2025 - 28.02.2026\nrifter / partner: 15.10.2025 - 26.02.2026"
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/49430/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "sr/00819/26",
+          "date": "2026-06-30",
+          "brand": "peugeot",
+          "models": "208 v2, 2008 v2 voiture de tourisme. 208 vin : vr3uphpy5p4105270 - vr3uphpx8t5030898  niv 2008 : vr3ushpy5pj917475 - vr3ushpy9tj558206.",
+          "label": "208 v2, 2008 v2 voiture particulière",
+          "risks": [
+            "incendie"
+          ],
+          "motif": "le véhicule peut avoir un contact ou un dégagement insuffisant (< 10 mm) entre le tuyau du filtre à particules d'essence et le capuchon de protection du démarreur à bande 48 v. dans des conditions humides, le dégagement insuffisant et le contact possible entre ces composants peuvent entraîner une infiltration d'eau, provoquant un arc électrique, qui pourrait déclencher un événement thermique, tel qu'une surchauffe, pouvant entraîner un incendie.",
+          "periods": [
+            "2008 ii 5.01.2024 – 10.01.2026\n208 ii 7.06.2023 – 21.01.2026"
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/49388/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "sr/02936/25",
+          "date": "2026-01-28",
+          "brand": "peugeot",
+          "models": "208 v2, 308 v3, 408, 2008 v2, 3008 v2, 3008 v3, 5008 v2, 5008 v3 voiture de tourisme.",
+          "label": "208 v2, 308 v3, 408, 2008 v2, 3008 v2, 3008 v3, 5008 v2, 5008 v3 voiture particulière",
+          "risks": [
+            "incendie"
+          ],
+          "motif": "le véhicule peut présenter une fuite de carburant dans le tuyau à haute pression, entre la pompe à haute pression et le rail, en raison de l'absence d'écrou. cela peut provoquer un incendie dans le véhicule.",
+          "periods": [
+            "11.4.2023 - 22.4.2025 208 v2\n2.4.2024 - 17.4.2025 308 v3\n2.4.2024 - 17.4.2025 408\n26.10.2022 - 23.5.2024 3008 v2\n26.7.2023 - 22.4.2025 3008 v3\n4.4.2024 - 22.4.2025 2008 v2\n5.12.2023 - 22.4.2025 5008 v3\n7.11.2022 - 9.10.2024 5008 v2"
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/47769/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "sr/02876/25",
+          "date": "2026-01-23",
+          "brand": "peugeot",
+          "models": "208, 2008 voiture de tourisme.",
+          "label": "208, 2008 voiture particulière",
+          "risks": [
+            "incendie"
+          ],
+          "motif": "le réservoir de carburant peut ne pas être étanche et pourrait laisser le carburant s'échapper. en cas de fuite, le carburant qui fuit peut s'enflammer sur des composants chauds ou des étincelles et s'enflammer.",
+          "periods": [
+            "26.06.2023 - 08.04.2025"
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/47771/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "sr/03153/25",
+          "date": "2026-01-07",
+          "brand": "peugeot",
+          "models": "208, 301, 308, 508, 2008, 3008, 5008, rifter, partner, traveller, expert, boxer voiture de tourisme.",
+          "label": "208, 301, 308, 508, 2008, 3008, 5008, rifter, partner, traveller, expert, boxer voiture particulière",
+          "risks": [
+            "environnement"
+          ],
+          "motif": "le voyant de défaut de fonctionnement (mil) peut ne pas s'allumer si le système de diagnostic de la réduction catalytique sélective (scr) et/ou le filtre à particules diesel (dpf) ne fonctionne pas correctement après l'apparition d'un code d'erreur. cela pourrait amener le véhicule à fonctionner sans l'avertissement requis et entraîner des émissions supérieures aux limites réglementaires.",
+          "periods": [
+            "11.1.2018 - 8.10.2022 // vin: vr3fbyhzrhy167667 to vr3fbyhzrmy000867 and vr3fhehzrhy177338 to vr3fhehzrny621729 // 508 v2\n14.10.2016 - 14.5.2021 // vin: vf3lbyhzpgs262959 to vf3lcyhzrms127259 and vf3ljehzrhs011762 to vf3ljehzrls170118// 308 v2\n14.3.2018 - 9.4.2024 // vin: vf3aaaaaa12g93123 to vf3yebrfcsma13543 // boxer v3\n16.4.2019 - 8.12.2020 // vin: vr3ubyhzrk5000054 to vr3ubyhyjlt143326 // 208 v2\n2.6.2017 - 11.10.2021 // vin: vf3vayhvkhz039910 to vf3vbyhvkmz097101 and vf3veahxkjz007105 to vf3veahxknz002512 // traveller / expert\n26.4.2017 - 24.10.2022 // vin: vf3mjehzrhs086395 to vf3mjehzrns155540 // 3008 v2\n26.4.2017 - 3.11.2022 // vin: vf3mcyhzjhl026720 to vf3mcyhzrms004918 and vf3mjehzrhl014783 to vf3mjehzrns160530 // 5008 v2\n6.12.2017 - 7.11.2019 // vin: vf3cuyhyshy174384 to vf3cuyhyply005506 // 2008\n7.11.2016 - 2.10.2020 // vin: vf3ccyhysgt222436 to vf3ccyhypmw000420 // 208\n8.3.2017 - 30.9.2020 // vin: vf3ddyhyshj590829 to vf3ddyhyslj846714 // 301\n8.7.2019 - 28.11.2020 // vin: v"
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/47744/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "sr/00882/25",
+          "date": "2025-08-01",
+          "brand": "peugeot",
+          "models": "208 ii voiture de tourisme.",
+          "label": "208 ii voiture particulière",
+          "risks": [
+            "incendie"
+          ],
+          "motif": "les buses de refroidissement du jet d'huile peuvent être endommagées. le fait de ne pas refroidir le vilebrequin et/ou les pistons peut les endommager et entraîner le décrochage du moteur. cela peut entraîner la formation d'un trou dans le boîtier du moteur, provoquant des fuites d'huile sur le tuyau d'échappement. cela peut provoquer un incendie dans le compartiment moteur, provoquant l'incendie du véhicule.",
+          "periods": [
+            "07.10.2022 - 03.12.2024"
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/47839/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "sr/01450/25",
+          "date": "2025-08-01",
+          "brand": "peugeot",
+          "models": "208 ii, 2008 ii, rifter, partner, traveller, expert voiture particulière / véhicule utilitaire léger équipé de batteries haute tension.",
+          "label": "208 ii, 2008 ii, rifter, partner, traveller, expert voiture particulière / véhicule utilitaire léger",
+          "risks": [
+            "blessures"
+          ],
+          "motif": "le logiciel censé empêcher le moteur de s'arrêter soudainement et de transmettre des données au service client ne fonctionne pas correctement. cela peut entraîner l’indisponibilité du mode «prêt» après le démarrage du véhicule, une perte de puissance d’accélération et une coupure soudaine du moteur pendant la conduite. cela augmente le risque d'accidents et de blessures.",
+          "periods": [
+            "10.05.2022 - 31.03.2023 (rifter, partner)\n11.07.2022 - 02.03.2023 (traveller, expert 4)\n17.05.2022 - 13.03.2023 (208)\n28.05.2022 - 07.02.2023 (2008)"
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/47824/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "sr/02658/25",
+          "date": "2025-07-25",
+          "brand": "peugeot",
+          "models": "2008, 2008 v2, 208, 208 v2, 3008 v2, 301, 308 v2, 308 v3, 5008 v2, 508 v2, rifter, partner voiture particulière / véhicule utilitaire léger équipé du moteur dv5r.",
+          "label": "2008, 2008 v2, 208, 208 v2, 3008 v2, 301, 308 v2, 308 v3, 5008 v2, 508 v2, rifter, partner voiture particulière / véhicule utilitaire léger",
+          "risks": [
+            "blessures"
+          ],
+          "motif": "en raison de la carbonisation de l'huile et de la pression de contact élevée, la résistance de la chaîne de l'arbre à cames de 7 mm peut être réduite. cela peut provoquer la rupture de la chaîne de l'arbre à cames, entraînant une panne moteur. cela peut entraîner une perte de contrôle du véhicule et augmenter le risque d'accidents et de blessures.",
+          "periods": [
+            "02.10.2017 - 31.01.2023 (partner rifter)\n03.10.2017 - 07.09.2021 (308 v2)\n04.10.2017 - 02.10.2020 (208)\n06.12.2017 - 07.11.2019 (2008)\n08.07.2019 - 31.01.2023 (2008 v2)\n11.01.2018 - 31.01.2023 (508 v2)\n11.10.2017 - 31.01.2023 (3008 v2)\n11.10.2017 - 31.01.2023 (5008 v2)\n13.01.2021 - 31.01.2023 (308 v3)\n16.04.2019 - 31.01.2023 (208 v2)\n18.01.2018 - 21.10.2020 (traveller)\n20.02.2018 - 01.01.2022 (301)"
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/47781/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "sr/02104/25",
+          "date": "2025-06-13",
+          "brand": "peugeot",
+          "models": "208 ii, 2008 ii voiture de tourisme.",
+          "label": "208 ii, 2008 ii voiture particulière",
+          "risks": [
+            "blessures"
+          ],
+          "motif": "l'aluminium du bloc de vanne ebs peut ne pas être entièrement coulé autour des vannes. cela peut entraîner une fuite interne de liquide de frein (provenant d'un ou de plusieurs des 12 sièges de soupape) entraînant une réduction du niveau de liquide et la désactivation du contrôle de stabilité en raison d'endommagements du capteur de pression. le liquide de frein pourrait entrer en contact avec la carte de circuit imprimé et entraîner la désactivation de toutes les fonctions de commande (y compris le système antiblocage et la répartition électronique de la force de freinage).",
+          "periods": [
+            "26/5/2024 - 6/6/2024 2008 ii\n27/5/2024 - 6/6/2024 208 ii"
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/47798/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "a12/02727/24",
+          "date": "2024-10-28",
+          "brand": "peugeot",
+          "models": "208 ii voiture particulière.",
+          "label": "208 ii voiture particulière",
+          "risks": [
+            "blessures"
+          ],
+          "motif": "une fissure située à l'intérieur du moteur de direction assistée électrique du rack de direction peut provoquer le détachement de pièces en plastique de la roue à vis sans fin. cela peut entraîner un blocage de la direction, ce qui augmente le risque d'accidents et de blessures.",
+          "periods": [
+            "12.04.2024 - 05.06.2024"
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/47951/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "a12/02824/24",
+          "date": "2024-10-11",
+          "brand": "peugeot",
+          "models": "208, 2008, 301, 308, 3008, 5008, partner voiture particulière",
+          "label": "208, 2008, 301, 308, 3008, 5008, partner voiture particulière",
+          "risks": [
+            "environnement"
+          ],
+          "motif": "dans certains véhicules équipés du moteur dv5r e6.3, les émissions d'oxyde d'azote (nox) sont supérieures aux limites réglementaires. les émissions excessives de nox présentent un risque pour l'environnement.",
+          "periods": [
+            "1/2/2022 (partner)\nfrom 22/1/2022 to 1/2/2022 (301)\nfrom 3/1/2022 to 14/10/2022 (2008)\nfrom 3/1/2022 to 8/11/2022 (208)\nfrom 4/1/2022 to 8/12/2022 (5008)\nfrom 5/1/2022 to 9/12/2022 (308 and 3008)"
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/47939/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "a11/00058/24",
+          "date": "2024-07-17",
+          "brand": "peugeot",
+          "models": "208 ii voiture particulière.",
+          "label": "208 ii voiture particulière",
+          "risks": [
+            "blessures",
+            "sécurité"
+          ],
+          "motif": "l'unité de commande du moteur (mcu) peut indiquer de manière incorrecte une perte d'isolation interne, entraînant l'ouverture de l'embrayage pour des raisons de sécurité et une perte inattendue de propulsion. cela augmente le risque d'accident.",
+          "periods": [
+            "11.12.2023 - 21.02.2024"
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/48005/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "a12/00807/24",
+          "date": "2024-05-24",
+          "brand": "peugeot",
+          "models": "208 voiture de tourisme",
+          "label": "208 voiture de tourisme",
+          "risks": [
+            "blessures"
+          ],
+          "motif": "l’essieu arrière peut ne pas être correctement soudé, ce qui pourrait entraîner la formation de fissures au fil du temps. par conséquent, l’essieu arrière pourrait se casser et entraîner une réduction de la maniabilité, augmentant ainsi le risque et l’accident.",
+          "periods": [
+            "18.1.2023 - 14.3.2023"
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/48040/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "a12/03126/23",
+          "date": "2024-05-06",
+          "brand": "peugeot",
+          "models": "208 voiture particulière: peugeot 208 version 2 (p21).",
+          "label": "208 voiture de tourisme",
+          "risks": [
+            "blessures"
+          ],
+          "motif": "un clip de fixation sur la garniture du pare-brise peut être tourné de 180°. en conséquence, lorsque le coussin gonflable du rideau est déployé, la garniture sur le pare-brise pourrait se détacher, blessant les occupants du véhicule.",
+          "periods": [
+            "16.06.2023 - 22.11.2023"
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/48076/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "a12/02694/23",
+          "date": "2024-04-08",
+          "brand": "opel, peugeot",
+          "models": "corsa /  208 voiture de tourisme",
+          "label": "corsa /  208 voiture de tourisme",
+          "risks": [
+            "environnement"
+          ],
+          "motif": "l’émission évaporative du véhicule est trop élevée, causant une pollution excessive. le niveau d’hydrocarbures (hc) est supérieur à la limite légale prescrite pour les essais d’émissions par évaporation (type 4). les véhicules ne sont pas conformes aux normes antipollution.",
+          "periods": [
+            "208: 16.4.2019 - 15.2.2023\ncorsa: 15.7.2019 - 26.1.2023"
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/48091/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "a12/02927/23",
+          "date": "2023-12-01",
+          "brand": "citroen, ds, opel, peugeot",
+          "models": "c3 / 3008 ii/ 5008 ii/ ds3 crossback/ ds4/ 208/ 308/ c5 aircross/ astra-l/ mokka/ grandland x unité de commande électronique du moteur (ecu)",
+          "label": "c3 / 3008 ii/ 5008 ii/ ds3 crossback/ ds4/ 208/ 308/ c5 aircross/ astra-l/ mokka/ grandland x voiture de tourisme",
+          "risks": [
+            "environnement"
+          ],
+          "motif": "en raison d’une erreur dans le logiciel d’étalonnage spécifique de l’unité de commande électronique du moteur (ecu), une valeur incorrecte peut être donnée lorsque les données sont traitées par le véhicule. cela peut entraîner des émissions d’oxyde d’azote (nox) qui sont supérieures aux limites réglementaires. les émissions excessives de nox présentent un risque pour l’environnement.",
+          "periods": [
+            "208: 6.5.2022 - 3.7.2023\n3008: 5.4.2022 - 1.9.2023\n308: 10.5.2022 - 3.7.2023\n5008: 13.4.2022 - 6.9.2023\nastra-l: 19.7.2022 - 11.7.2023\nc3: 28.3.2022 - 3.7.2023\nc5 aircross: 3.10.2022 - 13.9.2023\nds3 crossback: 26.1.2022 - 1.9.2023\nds4: 12.7.2022 - 3.7.2023\ngrandland x: 26.9.2022 - 2.9.2023\nmokka: 5.1.2023 - 6.9.2023"
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/48085/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "a12/01870/23",
+          "date": "2023-11-14",
+          "brand": "peugeot",
+          "models": "208, 2008, 301, 308, 3008, 508, 5008, boxer, rifter, partner, traveller, expert voiture de tourisme/fourgonnette",
+          "label": "208, 2008, 301, 308, 3008, 508, 5008, boxer, rifter, partner, traveller, expert voiture de tourisme/fourgonnette",
+          "risks": [
+            "environnement"
+          ],
+          "motif": "une erreur logicielle dans l’unité de commande du moteur empêche le voyant de dysfonctionnement (mil) de s’allumer si l’injecteur d’urée cesse de fonctionner. cela peut entraîner des émissions plus élevées et présenter un risque pour l’environnement.",
+          "periods": [
+            "2008: 07/02/2020 - 14/10/2022\n208: 08/01/2020 - 19/10/2022\n3008: 18/06/2020 - 08/11/2022\n301: 15/01/2020 - 01/02/2022\n308: 26/09/2019 - 07/09/2021\n5008: 15/06/2020 - 21/11/2022\n508: 04/09/2020 - 15/07/2022\nboxer: 26/05/2020 - 02/12/2022\nrifter / partner: 17/06/2020 - 07/11/2022\ntraveller / expert: 16/06/2020 - 12/07/2022"
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/48143/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "a12/01563/23",
+          "date": "2023-07-07",
+          "brand": "peugeot",
+          "models": "208 voiture de tourisme",
+          "label": "208 voiture de tourisme",
+          "risks": [
+            "blessures"
+          ],
+          "motif": "le caoutchouc des pneus fourni à l’origine avec la voiture peut être inadéquat, ce qui peut réduire la manœuvrabilité en affectant le programme de stabilité électronique (esp), ce qui crée un risque d’accident.",
+          "periods": [
+            "28.2.2023 - 14.3.2023"
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/48186/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "a12/00332/23",
+          "date": "2023-07-03",
+          "brand": "peugeot",
+          "models": "208 ii voiture de tourisme",
+          "label": "208 ii voiture de tourisme",
+          "risks": [
+            "blessures"
+          ],
+          "motif": "le véhicule peut accélérer par inadvertance environ 30 km/h au-dessus de la vitesse de contrôle de croisière définie lorsque le régulateur de vitesse et le mode eco sont activés. cela pourrait augmenter le risque d’accident.",
+          "periods": [
+            "02/12/2020 - 11/04/2021"
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/48273/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "a11/00077/23",
+          "date": "2023-06-16",
+          "brand": "opel, peugeot",
+          "models": "2008/ 208/ 3008/ 308/ 5008/ partner/grandland x/ crossland x voiture de tourisme",
+          "label": "2008/ 208/ 3008/ 308/ 5008/ partner/grandland x/ crossland x voiture de tourisme",
+          "risks": [
+            "blessures"
+          ],
+          "motif": "la lubrification de la pompe à vide peut être insuffisante, ce qui peut provoquer une rupture, ce qui peut entraîner une réduction de l’assistance au freinage, créant ainsi un risque d’accident.",
+          "periods": [
+            "opel: 12/04/2017 - 28/08/2018\npeugeot: 03/04/2017 - 11/12/2020"
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/48204/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "a12/00439/23",
+          "date": "2023-03-03",
+          "brand": "peugeot",
+          "models": "208 ii voiture particulière, peugeot 208 ii, véhicules utilisés par les écoles de conduite",
+          "label": "208 ii voiture de tourisme",
+          "risks": [
+            "incendie"
+          ],
+          "motif": "en raison de dommages au harnais de chauffage/ventilation/climatisation (hvac) causés par le contact avec la pédale d’embrayage, la climatisation peut être activée automatiquement. cela pourrait entraîner un incendie à la suite d’un court-circuit dans les fils.",
+          "periods": [
+            "22/2/2021 - 9/2/2022"
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/48267/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "a12/00246/23",
+          "date": "2023-02-10",
+          "brand": "peugeot",
+          "models": "208 v2 (p21) une voiture de tourisme.",
+          "label": "208 v2 (p21) voiture de tourisme",
+          "risks": [
+            "blessures"
+          ],
+          "motif": "les écrous de verrouillage des tirants de direction peuvent ne pas être correctement serrés. cela pourrait entraîner une perte de contrôle sur le véhicule, créant un risque d’accident.",
+          "periods": [
+            "19/03/2020 - 24/10/2022"
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/48288/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "a12/01494/22",
+          "date": "2022-10-28",
+          "brand": "peugeot",
+          "models": "208, 2008 voiture de tourisme",
+          "label": "208, 2008 voiture de tourisme",
+          "risks": [
+            "blessures"
+          ],
+          "motif": "un couple incorrect sur le raccordement roue/essieu peut entraîner la perte de connexion entre une roue et l’essieu (avant et arrière), ou une rupture de la ligne de frein arrière ou une ouverture inattendue d’une porte pendant la conduite, ce qui augmente le risque de blessure.",
+          "periods": [
+            "02.04.2022 - 04.04.2022"
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/48324/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "a12/01315/22",
+          "date": "2022-09-23",
+          "brand": "peugeot",
+          "models": "208 voiture de tourisme",
+          "label": "208 voiture de tourisme",
+          "risks": [
+            "incendie"
+          ],
+          "motif": "la conduite de carburant peut se frotter contre d’autres composants, ce qui entraîne des fuites de carburant, ce qui crée un risque d’incendie.",
+          "periods": [
+            "5.08.021 - 23.11.2021"
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/48359/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "a12/01307/22",
+          "date": "2022-09-23",
+          "brand": "peugeot",
+          "models": "expert, traveller, 208, 2008 voiture de tourisme",
+          "label": "expert, traveller, 208, 2008 voiture de tourisme",
+          "risks": [
+            "incendie"
+          ],
+          "motif": "le faisceau de câblage haute tension peut être défectueux. cela pourrait entraîner un risque accru d’incendie.",
+          "periods": [
+            "17.03.2022 - 30.04.2022"
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/48358/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "a12/00418/22",
+          "date": "2022-04-28",
+          "brand": "peugeot",
+          "models": "208 voiture de tourisme",
+          "label": "208 voiture de tourisme",
+          "risks": [
+            "blessures"
+          ],
+          "motif": "les anneaux inadéquats utilisés pour les protecteurs de panneaux de bascule peuvent les amener à se détacher et à tomber sur la route, ce qui représente un risque pour la circulation. un contact peut se produire entre le tuyau d’aspiration et les parties environnantes. cela peut entraîner une perte de l’assistance au freinage, ce qui augmente le risque d’accident. les vis de verrouillage du capot sont insuffisamment serrées. en conséquence, le capot pourrait se détacher pendant la conduite, augmentant ainsi le risque d’accident.",
+          "periods": [
+            "21.05.2019 - 25.11.2019"
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/48454/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "a12/00570/22",
+          "date": "2022-04-15",
+          "brand": "peugeot",
+          "models": "2008, 208 voiture de tourisme.",
+          "label": "2008, 208 voiture de tourisme",
+          "risks": [
+            "blessures"
+          ],
+          "motif": "le système de détection de circuit ouvert sur le circuit haute tension peut être sursensible et pourrait inutilement couper le courant électrique. en conséquence, le véhicule peut perdre de l’énergie pendant la conduite, ce qui augmente le risque d’accident. de plus, il pourrait être impossible de redémarrer ou de déplacer le véhicule pendant plusieurs minutes.",
+          "periods": [
+            "03/07/2019 - 27/09/2020"
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/48420/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "a11/00055/22",
+          "date": "2022-04-01",
+          "brand": "peugeot",
+          "models": "208 voiture de tourisme",
+          "label": "208 voiture de tourisme",
+          "risks": [
+            "blessures"
+          ],
+          "motif": "les composants de l’essieu arrière mal serrés peuvent entraîner la perte ou l’endommagement de plusieurs pièces (pouce pour la roue et le châssis, étrier de frein, fixation de l’essieu arrière, capteur abs, boîtier de frein, support du boîtier de frein). cela peut entraîner une perte de stabilité au volant, ce qui augmente le risque d’accident.",
+          "periods": [
+            "09.12.2021 - 10.12.2021"
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/48425/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "a12/00171/22",
+          "date": "2022-01-28",
+          "brand": "peugeot",
+          "models": "e 208, e 2008 voiture électrique.",
+          "label": "e 208, e 2008 voiture de tourisme",
+          "risks": [
+            "incendie"
+          ],
+          "motif": "en raison d’une erreur dans le processus de fabrication, un court-circuit peut se produire dans la batterie située sous le capot avant. cela pourrait augmenter le risque d’incendie pendant que le véhicule est chargé ou en marche.",
+          "periods": [
+            "15/01/2020 - 20/06/2020"
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/48474/rapex",
+          "matchedBy": "text"
+        },
+        {
+          "fiche": "a12/00046/22",
+          "date": "2022-01-14",
+          "brand": "peugeot",
+          "models": "208 (a9)   2008 (a94)   308 v2 (t9)   3008 v2 (p84)   5008 v2 (p87) voiture de tourisme",
+          "label": "208 (a9)   2008 (a94)   308 v2 (t9)   3008 v2 (p84)   5008 v2 (p87) voiture de tourisme",
+          "risks": [
+            "environnement"
+          ],
+          "motif": "les logiciels utilisés dans les opérations après-vente entre octobre 2020 et janvier 2021 étaient incorrects. cela peut conduire à des émissions d’oxydes d’azote (nox) supérieures aux limites réglementaires. les émissions excessives de nox posent un risque pour l’environnement.",
+          "periods": [
+            "2008(a94), 14/05/2018 - 18/06/2019, 3008 v2 (p84), 12/07/2018 - 25/06/2019,\n208 (a9)  05/06/2018 - 15/07/2019, 308 v2 (t9), 01/06/2017 - 29/05/2019,\n5008 v2 (p87) 01/09/2018 - 23/06/2019."
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/48488/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "a12/01184/21",
+          "date": "2021-10-27",
+          "brand": "peugeot",
+          "models": "208, 2008, 3008, 3008 v2, 301, 308 v2, 5008, 5008 v2, 508, partner v3, traveller/expert 4 voiture de tourisme",
+          "label": "208, 2008, 3008, 3008 v2, 301, 308 v2, 5008, 5008 v2, 508, partner v3, traveller/expert 4 voiture de tourisme",
+          "risks": [
+            "blessures"
+          ],
+          "motif": "les dents de la courroie de synchronisation peuvent s’épuiser prématurément en raison d’une tension dynamique excessive dans des conditions poussiéreuses. par conséquent, le moteur peut décrocher à régime élevé et ne pas être en mesure de redémarrer, ce qui augmente le risque d’accident.",
+          "periods": [
+            "2008 (a94) from 30/01/2015 to 19/04/2018,\n208 (a9) from 09/02/2015 to 11/04/2018,\n3008 (t84) from 04/03/2015 to 23/08/2016,\n3008 v2 (p84) from 07/06/2016 to 30/08/2018,\n301 from 01/07/2015 to 13/04/2018,\n308 v2 (t9) from 08/07/2014 to 23/08/2018,\n5008 (t87) from 24/05/2014 to 08/11/2016,\n5008 v2 (p87) from 21/11/2016 to 30/08/2018,\n508 (w2) from 22/04/2015 to 12/04/2018,\npartner v3 (b9) from 30/04/2015 to 13/04/2018,\ntraveller / expert 4 (k0) from 16/06/2016 to 12/04/2018."
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/48589/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "a12/00751/20",
+          "date": "2021-05-11",
+          "brand": "peugeot",
+          "models": "208",
+          "label": "208 voiture particulière",
+          "risks": [
+            "blessures"
+          ],
+          "motif": "la colonne de direction ne peut pas être fabriquée conformément aux spécifications. cela peut entraîner une défaillance de la direction et une perte de contrôle sur le véhicule, ce qui augmente le risque d’accident.",
+          "periods": [
+            "the affected vehicles were manufactured between 3 and 30 december 2019."
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/48962/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "a12/01021/20",
+          "date": "2021-05-11",
+          "brand": "peugeot",
+          "models": "208 voiture de tourisme",
+          "label": "208 voiture de tourisme",
+          "risks": [
+            "blessures"
+          ],
+          "motif": "les fixations des amortisseurs arrière ne sont pas bien serrées. par conséquent, les amortisseurs pourraient tomber pendant que le véhicule est en mouvement, ce qui augmente le risque d’accident pour le trafic entrant.",
+          "periods": [
+            "21.5.2019 to 30.11.2019"
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/48921/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "a12/01171/20",
+          "date": "2021-05-11",
+          "brand": "peugeot",
+          "models": "208 voiture de tourisme",
+          "label": "208 voiture de tourisme",
+          "risks": [
+            "blessures"
+          ],
+          "motif": "l’alignement de la roue de l’essieu avant peut être incorrect. il peut en résulter une conduite instable du véhicule, ce qui augmente le risque d’accident.",
+          "periods": [
+            "the affected vehicles were manufactured between 12 september 2019 and 18 march 2020."
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/48880/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "a12/01036/20",
+          "date": "2020-11-25",
+          "brand": "ds, peugeot",
+          "models": "tpeugeot 208ii, 2008ii, ds3 crossback peugeot 208 ii vin: vr3ubyhyjkt037089 à vr3uphmhdkt099265. peugeot 2008 ii vin: vr3udyhyjj838596 à vr3ushnsklj533853. ds3 crossback vin: vr1ucyhzrkw031090 à vr1urhnlnlw000981",
+          "label": "tpeugeot 208ii, 2008ii, ds3 crossback voiture de tourisme",
+          "risks": [
+            "blessures"
+          ],
+          "motif": "les tuyaux de frein arrière peuvent avoir été mal acheminés. cela pourrait entraîner une rupture d’un tuyau, affectant les performances de freinage du véhicule et augmentant le risque d’accident.",
+          "periods": [
+            "ds3 crossback: manufactured between 26/04/2019 and 02/10/2019.\npeugeot 2008 ii: manufactured between 08/11/2019 and 02/12/2019.\npeugeot 208 ii: manufactured between 26/04/2019 and 16/10/2019."
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/48909/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "a12/01505/20",
+          "date": "2020-11-20",
+          "brand": "peugeot",
+          "models": "208, 308, 2008, 3008, 5008, partner véhicules équipés d’un turbomoteur essence de 1,2 litre.",
+          "label": "208, 308, 2008, 3008, 5008, partner voiture de tourisme",
+          "risks": [
+            "blessures"
+          ],
+          "motif": "la pompe à vide peut être endommagée par l’abrasion du matériau de la courroie de cog. par conséquent, l’assistance au freinage pourrait être réduite ou perdue, augmentant ainsi le risque d’accident.",
+          "periods": [
+            "the affected vehicles were manufactured between march 2013 and april 2017."
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/48836/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "a12/01462/20",
+          "date": "2020-11-06",
+          "brand": "peugeot",
+          "models": "208, partner, rifter voiture de tourisme",
+          "label": "208, partner, rifter voiture de tourisme",
+          "risks": [
+            "blessures"
+          ],
+          "motif": "la pompe haute pression n’a pas été serrée au moteur avec le bon couple. par conséquent, le carburant peut s’écouler sur la route, ce qui pose un risque pour la circulation suivante.",
+          "periods": [
+            "the affected vehicles were manufactured between 14 january 2019 and 11 march 2020."
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/48841/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "a12/00762/20",
+          "date": "2020-05-22",
+          "brand": "peugeot",
+          "models": "208",
+          "label": "208 voiture de tourisme",
+          "risks": [
+            "blessures"
+          ],
+          "motif": "les enjoliveurs de timonerie avant peuvent être insuffisamment fixés. en conséquence, ils peuvent se détacher en mouvement, ce qui représente un risque pour le trafic suivant.",
+          "periods": [
+            "the affected vehicles were manufactured between 29 july and 2 december 2019."
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/48963/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "a12/00016/19",
+          "date": "2020-04-01",
+          "brand": "peugeot",
+          "models": "208 i 2008 i voiture particulière sous le code de rappel peugeot: jlu.",
+          "label": "208 i 2008 i voiture de tourisme",
+          "risks": [
+            "blessures"
+          ],
+          "motif": "les vis de fixation de l’essieu arrière peuvent être défectueuses et peuvent se briser. cela peut entraîner la perte de l’essieu arrière pendant la conduite, ce qui augmente le risque d’accident.",
+          "periods": [
+            "2008 i: 14/3/2019 to 18/3/2019\n208 i: 12/3/2019 to 21/3/2019"
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/49060/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "a12/0236/19",
+          "date": "2019-02-08",
+          "brand": "peugeot",
+          "models": "208 voiture de tourisme. code de rappel peugeot jjj",
+          "label": "208 voiture de tourisme",
+          "risks": [
+            "blessures"
+          ],
+          "motif": "la colonne de direction peut avoir été incorrectement fixée à l’arbre du système de direction du véhicule.",
+          "periods": [
+            "vehicles manufactured between 06/07/2018 and 12/07/2018 — vin: vf3ccyhysjt054705 to vf3ccbhy6kt001518 -"
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/49122/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "a12/0624/18",
+          "date": "2018-05-04",
+          "brand": "peugeot",
+          "models": "208 voiture de tourisme",
+          "label": "208 voiture de tourisme",
+          "risks": [
+            "blessures"
+          ],
+          "motif": "l’essieu de la roue avant peut être mal serré.",
+          "periods": [
+            "vehicles manufactured on 22/6/2017"
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/49170/rapex",
+          "matchedBy": "curated+text"
+        },
+        {
+          "fiche": "a12/0487/18",
+          "date": "2018-04-06",
+          "brand": "peugeot",
+          "models": "208 voiture de tourisme",
+          "label": "208 voiture de tourisme",
+          "risks": [
+            "blessures"
+          ],
+          "motif": "les vis d’ancrage de l’alternateur et du compresseur de climatisation peuvent ne pas être serrées au bon couple.",
+          "periods": [
+            "vehicles manufactured between 27/11/2017 and 29/11/2017"
+          ],
+          "link": "https://rappel.conso.gouv.fr/fiche-rappel/49177/rapex",
+          "matchedBy": "curated+text"
+        }
+      ],
+      "matching": "curated = reviewed brand/model alias match from controle-technique-fiabilite.com (longest alias wins, e.g. \"c3 aircross\" never counts as \"c3\"); text = whole-word match of your model string in the fiche's model/label text, which can include variants (e.g. \"e-208\" for \"208\"). Check `models` on each fiche.",
+      "dateRange": {
+        "from": "2018-01-19",
+        "to": "2026-08-07"
+      },
+      "verifiedDate": "2026-10-02",
+      "source": "https://rappel.conso.gouv.fr/",
+      "dataset": "rappelconso-v2-gtin-espaces",
+      "datasetUrl": "https://data.economie.gouv.fr/explore/dataset/rappelconso-v2-gtin-espaces/",
+      "publisher": "DGCCRF (open data RappelConso)",
+      "licence": "Licence Ouverte 2.0 (Etalab)",
+      "attributionNote": "Official published recall notices (RappelConso, DGCCRF), reused under Licence Ouverte 2.0 — a citation, not an endorsement by the French state or any manufacturer. Fiche counts are not a reliability measure.",
+      "freshness": {
+        "verifiedDate": "2026-10-02",
+        "nextScheduledRefresh": "2026-11-02"
+      },
+      "cite": {
+        "url": "https://databutler.dev/r/vehicles/fr/recalls?brand=peugeot&model=208",
+        "text": "databutler.dev, verified 2026-10-02 against https://rappel.conso.gouv.fr/"
+      }
+    }
+  },
+  "/api/vehicles/jp/complaints?make=honda&model=n-box": {
+    "status": 200,
+    "body": {
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "total = all owner reports MLIT holds for this model name; the by-device breakdown (share = % of sampled) uses the newest 500 reports. Owner reports are unverified and not normalised by sales volume — compare shapes, not raw counts.",
+      "model": {
+        "slug": "honda-n-box",
+        "make": "ホンダ",
+        "model": "N-BOX",
+        "makeEn": "Honda",
+        "modelEn": "N-BOX",
+        "mlitName": "Ｎ－ＢＯＸ"
+      },
+      "complaints": {
+        "total": 914,
+        "sampledForBreakdown": 500,
+        "byDevice": [
+          {
+            "device": "エンジン",
+            "count": 188,
+            "share": 37.6
+          },
+          {
+            "device": "保安灯火",
+            "count": 133,
+            "share": 26.6
+          },
+          {
+            "device": "動力伝達",
+            "count": 40,
+            "share": 8
+          },
+          {
+            "device": "制動装置",
+            "count": 35,
+            "share": 7
+          },
+          {
+            "device": "車枠・車体",
+            "count": 24,
+            "share": 4.8
+          },
+          {
+            "device": "燃料装置",
+            "count": 21,
+            "share": 4.2
+          },
+          {
+            "device": "乗車装置",
+            "count": 20,
+            "share": 4
+          },
+          {
+            "device": "その他",
+            "count": 17,
+            "share": 3.4
+          },
+          {
+            "device": "電気装置",
+            "count": 8,
+            "share": 1.6
+          },
+          {
+            "device": "走行装置",
+            "count": 6,
+            "share": 1.2
+          },
+          {
+            "device": "かじ取り",
+            "count": 3,
+            "share": 0.6
+          },
+          {
+            "device": "排ｶﾞｽ･騒音",
+            "count": 3,
+            "share": 0.6
+          },
+          {
+            "device": "緩衝装置",
+            "count": 2,
+            "share": 0.4
+          }
+        ]
+      },
+      "recallFilings": 13,
+      "verifiedDate": "2026-08-30",
+      "source": "https://renrakuda.mlit.go.jp/",
+      "sourceName": "国土交通省 自動車のリコール・不具合情報 (MLIT, Japan — recall filings and owner defect reports)",
+      "licence": "MLIT terms (政府標準利用規約-compliant): reuse with source attribution",
+      "attributionNote": "出典：国土交通省「自動車のリコール・不具合情報」. Official filings and owner-submitted reports; a complaint is a report, not a verified defect, and counts are not normalised by sales volume.",
+      "freshness": {
+        "verifiedDate": "2026-08-30",
+        "nextScheduledRefresh": "2026-09-30"
+      },
+      "cite": {
+        "url": "https://databutler.dev/r/vehicles/jp/complaints?make=honda&model=n-box",
+        "text": "databutler.dev, verified 2026-08-30 against https://renrakuda.mlit.go.jp/"
+      }
+    }
+  },
+  "/api/software-eol/status?product=nodejs&version=18.19.0": {
+    "status": 200,
+    "body": {
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate.",
+      "product": "nodejs",
+      "productName": "Node.js",
+      "kind": "runtime",
+      "requested": {
+        "product": "nodejs",
+        "version": "18.19.0"
+      },
+      "cycle": "18",
+      "matchedBy": "prefix",
+      "releaseDate": "2022-04-19",
+      "supported": false,
+      "eol": "2025-04-30",
+      "daysSinceEol": 521,
+      "activeSupportEnds": "2023-10-18",
+      "inActiveSupport": false,
+      "lts": true,
+      "ltsFrom": "2022-10-25",
+      "latest": "18.20.8",
+      "latestReleaseDate": "2025-03-27",
+      "isNewestCycle": false,
+      "newestCycle": {
+        "cycle": "26",
+        "releaseDate": "2026-05-05",
+        "supported": true,
+        "eol": "2029-04-30",
+        "lts": false,
+        "ltsFrom": "2026-10-28",
+        "latest": "26.10.0",
+        "latestReleaseDate": "2026-09-22",
+        "activeSupportEnds": "2027-10-27"
+      },
+      "newestSupportedLts": {
+        "cycle": "24",
+        "releaseDate": "2025-05-06",
+        "supported": true,
+        "eol": "2028-04-30",
+        "lts": true,
+        "ltsFrom": "2025-10-28",
+        "latest": "24.21.0",
+        "latestReleaseDate": "2026-09-08",
+        "activeSupportEnds": "2026-10-20"
+      },
+      "recommendation": "Node.js 18 reached end of life on 2025-04-30, 521 days before 2026-10-03; no further security fixes are published for it. The newest supported LTS cycle is Node.js 24 (latest 24.21.0, supported until 2028-04-30).",
+      "asOf": "2026-10-03",
+      "source": "https://endoflife.date/nodejs",
+      "verifiedDate": "2026-10-03",
+      "definitions": {
+        "supported": "true while the cycle has not reached its eol date (or has no eol date set) as of asOf; security fixes are still published",
+        "eol": "end of life — the date security updates stop under standard support, as endoflife.date records it from the vendor; null when no date is set",
+        "activeSupportEnds": "end of active (feature and bug-fix) support; after it a supported cycle receives security fixes only; null when not tracked",
+        "extendedSupportEnds": "end of the vendor's extended or paid support where one exists (Ubuntu Pro, Debian LTS/ELTS, Windows ESU, Oracle extended support)",
+        "lts": "long-term-support cycle as of asOf (Node.js cycles become LTS on ltsFrom)",
+        "latest": "latest release in the cycle at the snapshot (verifiedDate); a newer patch may exist since"
+      },
+      "dataset": "endoflife.date — release cycles with release, active-support and end-of-life dates for 14 runtimes, operating systems, a database and a framework",
+      "datasetHome": "https://endoflife.date/",
+      "publisher": "endoflife.date contributors (community-maintained open data compiled from vendor release and support pages)",
+      "licence": "MIT License — https://github.com/endoflife-date/endoflife.date/blob/master/LICENSE (copyright 2020 endoflife.date contributors)",
+      "attributionNote": "Data from endoflife.date (MIT License), https://endoflife.date/ — reshaped, not edited; a citation, not an endorsement by endoflife.date or any vendor.",
+      "upstreamProvenance": {
+        "attribution": "endoflife.date",
+        "link": "https://endoflife.date/nodejs",
+        "api": "https://endoflife.date/api/nodejs.json",
+        "repository": "https://github.com/endoflife-date/endoflife.date",
+        "licence": "MIT License",
+        "fetched": "2026-10-03T13:31:04.005Z",
+        "verifiedDate": "2026-10-03"
+      },
+      "freshness": {
+        "verifiedDate": "2026-10-03",
+        "nextScheduledRefresh": "2026-11-07"
+      },
+      "cite": {
+        "url": "https://databutler.dev/r/software-eol/status?product=nodejs&version=18.19.0",
+        "text": "databutler.dev, verified 2026-10-03 against https://endoflife.date/nodejs"
+      }
+    }
+  },
+  "/api/policy-rates?bank=boe": {
+    "status": 200,
+    "body": {
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate.",
+      "bank": "boe",
+      "name": "Bank of England",
+      "committee": "Monetary Policy Committee (MPC)",
+      "jurisdiction": "United Kingdom",
+      "currency": "GBP",
+      "rateName": "Bank Rate",
+      "figures": [
+        {
+          "key": "bank-rate",
+          "label": "Bank Rate",
+          "value": 3.75,
+          "unit": "%"
+        }
+      ],
+      "effectiveFrom": "2025-12-18",
+      "decisionDate": "2025-12-18",
+      "decisionMeeting": "MPC meeting ending 17 December 2025, decision published 18 December 2025 — Bank Rate reduced by 0.25 percentage points to 3.75% (vote 5–4)",
+      "previous": {
+        "figures": [
+          {
+            "key": "bank-rate",
+            "label": "Bank Rate",
+            "value": 4,
+            "unit": "%"
+          }
+        ],
+        "effectiveFrom": "2025-08-07"
+      },
+      "latestDecision": {
+        "date": "2026-09-17",
+        "outcome": "held at 3.75%",
+        "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026"
+      },
+      "nextDecision": "2026-11-05",
+      "decisionsPerYear": 8,
+      "source": "https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate",
+      "decisionSource": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2025/december-2025",
+      "historySource": "https://www.bankofengland.co.uk/boeapps/database/Bank-Rate.asp",
+      "verifiedDate": "2026-10-03",
+      "notes": "Bank Rate takes effect on the day the decision is published. The Bank Rate page also shows the current CPI inflation rate, which updates monthly, so a change on that page is not necessarily a Bank Rate change — the history table in historySource is the check.",
+      "unit": "% per annum",
+      "freshness": {
+        "verifiedDate": "2026-10-03",
+        "nextScheduledRefresh": "2026-11-17"
+      },
+      "cite": {
+        "url": "https://databutler.dev/r/policy-rates?bank=boe",
+        "text": "databutler.dev, verified 2026-10-03 against https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate"
+      }
+    }
+  },
+  "/api/policy-rates?bank=boj": {
+    "status": 200,
+    "body": {
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate.",
+      "covered": false,
+      "requested": "boj",
+      "message": "unknown bank \"boj\" — Data Butler serves boe (Bank of England), fed (US Federal Reserve), ecb (European Central Bank)",
+      "nearest": [
+        "boe",
+        "ecb",
+        "fed"
+      ],
+      "coverage": [
+        "boe",
+        "fed",
+        "ecb"
+      ],
+      "notCovered": [
+        "other central banks: Bank of Japan, Swiss National Bank, Bank of Canada, Reserve Bank of Australia, Reserve Bank of New Zealand, Sveriges Riksbank, Norges Bank, People's Bank of China, Reserve Bank of India",
+        "full historical rate series (only the current level and the previous one are served; each bank's history page is linked)",
+        "Fed interest on reserve balances, discount rate and ON RRP rate; ECB TLTRO, APP/PEPP; BoE QT programme",
+        "market-implied rate expectations and forecasts",
+        "commercial lending, mortgage or savings rates"
+      ],
+      "freshness": {
+        "verifiedDate": "2026-10-03",
+        "nextScheduledRefresh": "2026-11-17"
+      },
+      "cite": {
+        "url": "https://databutler.dev/r/policy-rates?bank=boj",
+        "text": "databutler.dev, verified 2026-10-03"
+      }
+    }
+  },
+  "/api/changes?since=2026-06-01&area=uk-rates": {
+    "status": 200,
+    "body": {
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Changelog coverage starts 2026-08-31 (first full verification). Changes between 2026-06-01 and 2026-08-31 are not itemised — but every figure served was verified on or after 2026-08-31, so call the lookup tools for current values rather than relying on memory.",
+      "protocol": "verified-changes/0.1",
+      "schema": "https://databutler.dev/schema/changes.v0.json",
+      "publisher": {
+        "name": "Data Butler",
+        "url": "https://databutler.dev/"
+      },
+      "generated": "2026-10-03",
+      "since": "2026-06-01",
+      "area": "uk-rates",
+      "coverageStart": "2026-08-31",
+      "areasCovered": [
+        "uk-rates",
+        "uk-exams",
+        "vehicles",
+        "software-eol",
+        "policy-rates"
+      ],
+      "count": 0,
+      "entries": [],
+      "freshness": {
+        "verifiedDate": "2026-10-03",
+        "nextScheduledRefresh": null
+      },
+      "cite": {
+        "url": "https://databutler.dev/r/changes?since=2026-06-01&area=uk-rates",
+        "text": "databutler.dev, computed live 2026-10-03"
+      }
+    }
+  }
+}
