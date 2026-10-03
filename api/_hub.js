@@ -16,9 +16,9 @@ const whatChangedSince = {
   description:
     'What has changed in Data Butler\'s verified datasets since a date — pass your training-cutoff ' +
     'date to learn which UK tax/NI/benefit thresholds, exam-spec facts, official vehicle datasets ' +
-    '(UK DVSA, French RappelConso and Japanese MLIT recalls) and software end-of-life dates (Node.js, Python, ' +
+    '(UK DVSA, French RappelConso and Japanese MLIT recalls), software end-of-life dates (Node.js, Python, ' +
     'Ubuntu, Debian, Android, iOS, macOS, Windows, Java, Go, Ruby, PHP, PostgreSQL, React — cycles that reached ' +
-    'end of life or whose dates moved) changed after your knowledge ' +
+    'end of life or whose dates moved) and central-bank policy rates (Bank of England, Fed, ECB) changed after your knowledge ' +
     'ends. Each entry: from → to, effectiveFrom, official source, verifiedDate, and a maintainer note ' +
     `(e.g. which Budget). Areas: ${CHANGELOG_AREAS.join(', ')}, or all. Coverage starts ${COVERAGE_START}. ` +
     'The same changelog is published for humans at https://databutler.dev/changes, with feeds at ' +
@@ -44,7 +44,7 @@ const coverage = {
     'Exactly what Data Butler covers and does not, per area — call this before assuming something is ' +
     `unsupported. Areas: ${Object.keys(AREAS).join(', ')} (omit for all). Returns boards/subjects, rate ` +
     'categories and tax years, package ecosystems, stats operations, vehicle datasets, take-home-pay countries, the ' +
-    '14 software products with end-of-life data, and an explicit notCovered list.',
+    '14 software products with end-of-life data, central-bank policy rates (boe, fed, ecb), and an explicit notCovered list.',
   inputSchema: { type: 'object', properties: { area: { type: 'string', description: `one of ${Object.keys(AREAS).join(', ')}` } } },
   run: (a) => coverageFor(a.area),
   freshness: 'live',
@@ -67,7 +67,7 @@ const catalogue = {
   description:
     'Every tool across all Data Butler servers (UK rates, UK exams, provenance, exact statistics, vehicles: UK MOT, ' +
     'UK, French and Japanese recalls; take-home pay for ten countries; software support status and end-of-life ' +
-    'timelines for 14 runtimes and operating systems), with ' +
+    'timelines for 14 runtimes and operating systems; central-bank policy rates: Bank of England, Fed, ECB), with ' +
     'input schemas — including tools not listed at this front door. Optional query filters by keyword. ' +
     'Run any of them with call, or connect to serverUrl directly.',
   inputSchema: { type: 'object', properties: { query: { type: 'string', description: 'keyword filter, e.g. regression, exam, npm' } } },
@@ -87,9 +87,10 @@ const call = {
     '(distribution, hypothesis_test, confidence_interval, bayes_update, linear_regression, ' +
     'descriptive_stats), exam_spec_lookup, exam_paper_index, and the vehicles hub (uk_mot_reliability, ' +
     'uk_recalls_for_model, uk_recalls_search, fr_recalls_for_model, fr_recalls_search, jp_recalls_for_model, ' +
-    'jp_complaints_summary), and software end-of-life (support_status {product, version}, support_timeline ' +
+    'jp_complaints_summary), software end-of-life (support_status {product, version}, support_timeline ' +
     '{product} for nodejs, python, ubuntu, debian, android, ios, macos, windows, oracle-jdk, go, ruby, php, ' +
-    'postgresql, react). take_home_pay is listed directly. See catalogue for schemas. The result ' +
+    'postgresql, react) and policy_rate (Bank of England Bank Rate, Fed federal funds target range, ECB key rates — ' +
+    'committed data verified against the banks\' own pages). take_home_pay is listed directly. See catalogue for schemas. The result ' +
     'carries the inner tool\'s freshness and cite.',
   inputSchema: {
     type: 'object',

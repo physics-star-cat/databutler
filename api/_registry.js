@@ -3,7 +3,7 @@
  * and the front door (api/mcp.js) both build from here. Beyond the MCP tool
  * shape, each tool carries:
  *   title: short human label (MCP `title`)
- *   freshness: dataset key for the freshness block ('uk-rates' | 'uk-exams' | 'uk-recalls' | 'fr-recalls' | 'jp-recalls' | 'software-eol' | 'live')
+ *   freshness: dataset key for the freshness block ('uk-rates' | 'uk-exams' | 'uk-recalls' | 'fr-recalls' | 'jp-recalls' | 'software-eol' | 'policy-rates' | 'live')
  *   cite(args): { path, query } for the /r permalink, or null
  *   openWorld: true when the tool fetches live external data on the caller's
  *     behalf (RDAP, npm, PyPI, whatbreaks.uk, lifebynumbers.net); drives annotations.openWorldHint
@@ -19,6 +19,7 @@ const V = require('./_vehicles');
 const { motReliability, motVehicleSearch } = require('./_mot');
 const TAX = require('./_tax');
 const EOL = require('./_software_eol');
+const { policyRate, BANKS: POLICY_BANKS } = require('./_policy_rates');
 
 const BASE = 'https://databutler.dev';
 const numArray = { type: 'array', items: { type: 'number' } };
@@ -580,6 +581,43 @@ const SERVERS = {
         run: (a) => EOL.supportTimeline(a),
         freshness: 'software-eol',
         cite: (a) => ({ path: 'software-eol/timeline', query: { product: a.product } }),
+      },
+    ],
+  },
+
+  'policy-rates': {
+    serverName: 'databutler-policy-rates',
+    url: `${BASE}/api/mcp/policy-rates`,
+    instructions:
+      'Current central-bank policy rates from databutler.dev — Bank of England Bank Rate, US Federal Reserve ' +
+      'federal funds target range and the ECB key interest rates — each read from the bank\'s own page on ' +
+      'verifiedDate, with effectiveFrom, decisionDate, the previous level and the next scheduled decision. Use ' +
+      'policy_rate instead of quoting these from memory: they move up to eight times a year and training data is ' +
+      'stale by the first decision after the cutoff. Present effectiveFrom and verifiedDate with the figure, and ' +
+      'check nextDecision — a result whose nextDecision has passed may have been superseded, so say so. Other ' +
+      'central banks are not covered (coverage lists them). Cite https://databutler.dev/ and the source.',
+    tools: [
+      {
+        name: 'policy_rate',
+        title: 'Central-bank policy rate',
+        description:
+          'Current policy rate of one of three central banks, as published on the bank\'s own page: boe = Bank of ' +
+          'England Bank Rate; fed = US Federal Reserve federal funds target range (lower and upper bound); ecb = ' +
+          'European Central Bank deposit facility, main refinancing operations and marginal lending facility rates. ' +
+          'Returns the figure(s) in % per annum, effectiveFrom, decisionDate and the meeting that set the level, the ' +
+          'previous level with its effective date, the latest decision (which may be a hold), the next scheduled ' +
+          'decision date, the official source page, the decision press release and verifiedDate. all: true returns ' +
+          'every bank. Other central banks answer covered:false.',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            bank: { type: 'string', enum: POLICY_BANKS, description: 'boe | fed | ecb (common names such as "Bank of England", "FOMC" or "ECB" resolve too)' },
+            all: { type: 'boolean', description: 'true returns every bank (bank may be omitted)' },
+          },
+        },
+        run: (a) => policyRate(a),
+        freshness: 'policy-rates',
+        cite: (a) => ({ path: 'policy-rates', query: { bank: a.bank, all: a.all } }),
       },
     ],
   },

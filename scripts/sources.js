@@ -14,7 +14,8 @@ const OUT = path.join(ROOT, 'data/sources.json');
 
 function allSourceUrls() {
   const dir = (d) => fs.readdirSync(path.join(ROOT, d)).filter((f) => f.endsWith('.json')).map((f) => JSON.parse(fs.readFileSync(path.join(ROOT, d, f), 'utf8')));
-  return sourceUrls({ rates: dir('data/uk/rates'), exams: dir('data/uk/exams') });
+  const policy = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/policy-rates.json'), 'utf8'));
+  return sourceUrls({ rates: dir('data/uk/rates'), exams: dir('data/uk/exams'), policy: [policy] });
 }
 
 async function refreshSources(urls = allSourceUrls()) {

@@ -75,11 +75,13 @@ const FIX = [
 
 const EOL_PRODUCTS = ['nodejs', 'python', 'ubuntu', 'debian', 'android', 'ios', 'macos', 'windows', 'oracle-jdk', 'go', 'ruby', 'php', 'postgresql', 'react'];
 
-test('live changelog: three vehicles + fourteen software-eol dataset entries in the dataset-script shape', () => {
-  assert.equal(CHANGELOG.length, 17);
-  const keys = CHANGELOG.map((e) => e.key).sort();
+test('live changelog: three vehicles + fourteen software-eol dataset entries in the dataset-script shape (+ six policy-rates figure entries)', () => {
+  // 3 vehicles + 14 software-eol dataset entries + 6 policy-rates figure entries (the latter are checked in tests/policy-rates.test.js)
+  assert.equal(CHANGELOG.length, 23);
+  const DATASETS = CHANGELOG.filter((e) => e.area !== 'policy-rates');
+  const keys = DATASETS.map((e) => e.key).sort();
   assert.deepEqual(keys, ['eu-safety-gate/dataset', 'fr-recalls/dataset', 'jp-recalls/dataset', ...EOL_PRODUCTS.map((p) => `${p}/dataset`)].sort());
-  for (const e of CHANGELOG) {
+  for (const e of DATASETS) {
     assert.deepEqual(Object.keys(e), ['area', 'key', 'label', 'from', 'to', 'effectiveFrom', 'source', 'verifiedDate', 'note'], e.key);
     assert.equal(e.area, /\/dataset$/.test(e.key) && EOL_PRODUCTS.includes(e.key.split('/')[0]) ? 'software-eol' : 'vehicles', e.key);
     assert.equal(e.from, null);
@@ -104,7 +106,7 @@ test('live changelog: three vehicles + fourteen software-eol dataset entries in 
     assert.equal(e.source, `https://endoflife.date/${p}`); assert.match(e.note, /endoflife\.date/); assert.match(e.note, /MIT/); assert.match(e.note, /\d+ release cycles/);
   }
   // ids are unique: the dedupe key for mergeEntries and the basis of feed guids
-  assert.equal(new Set(CHANGELOG.map(entryId)).size, 17);
+  assert.equal(new Set(CHANGELOG.map(entryId)).size, 23);
   assert.equal(entryId(fr), 'vehicles|fr-recalls/dataset|2026-10-02');
 });
 
@@ -156,11 +158,12 @@ test('listEntries: newest first, area + since filters, since optional', () => {
   // effectiveFrom after since counts even when verified earlier
   const e = { ...FIX[0], verifiedDate: '2026-01-01', effectiveFrom: '2027-04-06' };
   assert.equal(listEntries({ since: '2026-06-01' }, [e]).length, 1);
-  // live data: three vehicles + fourteen software-eol entries, newest first (same day: area, then key)
+  // live data: three vehicles + fourteen software-eol + six policy-rates entries, newest first (same day: area, then key)
   const live = listEntries();
-  assert.equal(live.length, 17);
-  assert.equal(live[0].verifiedDate, '2026-10-03'); assert.equal(live[0].area, 'software-eol'); assert.equal(live[live.length - 1].key, 'fr-recalls/dataset');
+  assert.equal(live.length, 23);
+  assert.equal(live[0].verifiedDate, '2026-10-03'); assert.equal(live[0].area, 'policy-rates'); assert.equal(live[live.length - 1].key, 'fr-recalls/dataset');
   assert.equal(listEntries({ area: 'software-eol' }).length, 14);
+  assert.equal(listEntries({ area: 'policy-rates' }).length, 6);
   assert.equal(listEntries({ area: 'uk-rates' }).length, 0);
 });
 
@@ -346,9 +349,10 @@ test('GET /changes handler: 200 HTML, indexable, public cache headers, live entr
   assert.equal(r.headers['Access-Control-Allow-Origin'], '*');
   const html = String(r.raw);
   assert.doesNotMatch(html, /noindex/);
-  assert.equal(count(html, /<article /g), 17);
+  assert.equal(count(html, /<article /g), 23);
   assert.match(html, /<h2>October 2026<\/h2>/);
   assert.match(html, /Node\.js support lifecycle dataset/);
+  assert.match(html, /<dt>Context<\/dt><dd>Bank of England, decision 2025-12-18<\/dd>/);
   assert.match(html, /RappelConso automobile recalls dataset/);
   assert.match(html, /https:\/\/renrakuda\.mlit\.go\.jp\//);
   assert.match(html, /<code>none<\/code> → <code>stub<\/code>/);
@@ -362,8 +366,9 @@ test('GET /changes handler: area and since filters; empty since-view; 400 no-sto
   assert.equal(count(String(v.raw), /<article /g), 3);
   assert.match(String(v.raw), /rel="canonical" href="https:\/\/databutler\.dev\/changes\?area=vehicles"/);
   const s = await get(changesPage, '/api/changes-page?since=2026-10-02');
-  assert.equal(count(String(s.raw), /<article /g), 16);
+  assert.equal(count(String(s.raw), /<article /g), 22);
   assert.equal(count(String((await get(changesPage, '/api/changes-page?area=software-eol')).raw), /<article /g), 14);
+  assert.equal(count(String((await get(changesPage, '/api/changes-page?area=policy-rates')).raw), /<article /g), 6);
   const none = await get(changesPage, '/api/changes-page?area=uk-rates');
   assert.equal(none.status, 200);
   assert.match(String(none.raw), /No entries recorded yet for uk-rates/);
@@ -387,7 +392,7 @@ test('GET /changes.rss|.atom handler: content types, cache, well-formed, area fi
   assert.equal(rss.headers['Content-Type'], 'application/rss+xml; charset=utf-8');
   assert.equal(rss.headers['Cache-Control'], 'public, max-age=300, s-maxage=3600');
   assert.equal(checkXml(String(rss.raw)), 'rss');
-  assert.equal(count(String(rss.raw), /<item>/g), 17);
+  assert.equal(count(String(rss.raw), /<item>/g), 23);
   assert.match(String(rss.raw), /<guid isPermaLink="true">https:\/\/databutler\.dev\/changes#vehicles-fr-recalls-dataset-2026-10-02<\/guid>/);
   assert.match(String(rss.raw), /<guid isPermaLink="true">https:\/\/databutler\.dev\/changes#software-eol-nodejs-dataset-2026-10-03<\/guid>/);
   assert.match(String(rss.raw), /<pubDate>Fri, 02 Oct 2026 00:00:00 GMT<\/pubDate>/);
@@ -473,7 +478,7 @@ test('discoverability: index.html, robots.txt, sitemap.xml, llms.txt, /api index
   assert.deepEqual(tagText(sitemap, 'loc'), [
     'https://databutler.dev/', 'https://databutler.dev/changes',
     'https://databutler.dev/changes?area=uk-rates', 'https://databutler.dev/changes?area=uk-exams', 'https://databutler.dev/changes?area=vehicles',
-    'https://databutler.dev/changes?area=software-eol',
+    'https://databutler.dev/changes?area=software-eol', 'https://databutler.dev/changes?area=policy-rates',
     'https://databutler.dev/protocol', 'https://databutler.dev/privacy', 'https://databutler.dev/api',
   ]);
   assert.doesNotMatch(sitemap, /lastmod/);

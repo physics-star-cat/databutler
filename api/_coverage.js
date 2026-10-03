@@ -8,6 +8,7 @@ const { nearest } = require('./_text');
 const { vehiclesCoverage } = require('./_vehicles');
 const TAX = require('./_tax');
 const { softwareEolCoverage } = require('./_software_eol');
+const { policyRatesCoverage } = require('./_policy_rates');
 
 const AREAS = {
   'uk-rates': () => ({
@@ -59,6 +60,7 @@ const AREAS = {
     ],
   }),
   'software-eol': softwareEolCoverage,
+  'policy-rates': policyRatesCoverage,
 };
 
 function coverageFor(area) {

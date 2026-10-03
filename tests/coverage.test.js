@@ -4,8 +4,9 @@ const { coverageFor, AREAS } = require('../api/_coverage');
 
 test('coverage: all areas, each with a notCovered list', () => {
   const all = coverageFor();
-  assert.deepEqual(all.areas, ['uk-rates', 'uk-exams', 'provenance', 'stats', 'vehicles', 'tax', 'software-eol']);
+  assert.deepEqual(all.areas, ['uk-rates', 'uk-exams', 'provenance', 'stats', 'vehicles', 'tax', 'software-eol', 'policy-rates']);
   assert.equal(Object.keys(all['software-eol'].products).length, 14);
+  assert.deepEqual(Object.keys(all['policy-rates'].banks), ['boe', 'fed', 'ecb']);
   assert.equal(all.tax.countries.es.computed, false);
   assert.equal(all.vehicles.frRecalls.fiches, 1663);
   assert.equal(all.vehicles.jpRecalls.models, 75);
@@ -19,5 +20,5 @@ test('coverage: one area, and near-miss for unknown', () => {
   const miss = coverageFor('rates');
   assert.equal(miss.covered, false);
   assert.deepEqual(miss.nearest[0], 'uk-rates');
-  assert.deepEqual(Object.keys(AREAS), ['uk-rates', 'uk-exams', 'provenance', 'stats', 'vehicles', 'tax', 'software-eol']);
+  assert.deepEqual(Object.keys(AREAS), ['uk-rates', 'uk-exams', 'provenance', 'stats', 'vehicles', 'tax', 'software-eol', 'policy-rates']);
 });

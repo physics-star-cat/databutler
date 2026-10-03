@@ -2,12 +2,12 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const { rpc } = require('./helpers');
 
-test('registry: 24 tools across 7 servers, each with freshness + server url', () => {
+test('registry: 25 tools across 8 servers, each with freshness + server url', () => {
   const { SERVERS, ALL_TOOLS } = require('../api/_registry');
-  assert.deepEqual(Object.keys(SERVERS), ['uk-rates', 'uk-exams', 'provenance', 'stats', 'vehicles', 'tax', 'software-eol']);
-  assert.equal(Object.keys(ALL_TOOLS).length, 24);
+  assert.deepEqual(Object.keys(SERVERS), ['uk-rates', 'uk-exams', 'provenance', 'stats', 'vehicles', 'tax', 'software-eol', 'policy-rates']);
+  assert.equal(Object.keys(ALL_TOOLS).length, 25);
   for (const t of Object.values(ALL_TOOLS)) {
-    assert.ok(['uk-rates', 'uk-exams', 'uk-recalls', 'fr-recalls', 'jp-recalls', 'software-eol', 'live'].includes(t.freshness), `${t.name} freshness`);
+    assert.ok(['uk-rates', 'uk-exams', 'uk-recalls', 'fr-recalls', 'jp-recalls', 'software-eol', 'policy-rates', 'live'].includes(t.freshness), `${t.name} freshness`);
     assert.match(t.serverUrl, /^https:\/\/databutler\.dev\/api\/mcp\//);
     assert.equal(typeof t.run, 'function');
   }
@@ -22,6 +22,7 @@ test('registry: per-vertical servers list the same tool names as before, no extr
     vehicles: ['uk_mot_reliability', 'uk_mot_vehicle_search', 'uk_recalls_for_model', 'uk_recalls_search', 'fr_recalls_for_model', 'fr_recalls_search', 'jp_recalls_for_model', 'jp_complaints_summary', 'eu_safety_gate_recalls'],
     tax: ['take_home_pay'],
     'software-eol': ['support_status', 'support_timeline'],
+    'policy-rates': ['policy_rate'],
   };
   for (const [key, names] of Object.entries(expected)) {
     const handler = require(`../api/_routes/mcp/${key}`);

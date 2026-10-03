@@ -11,7 +11,8 @@ const PAGE_URL = `${BASE}/changes`;
 const TITLE = 'Data Butler changelog — what changed in the official facts';
 const DESCRIPTION =
   'A changelog of verified official facts: UK tax and National Insurance thresholds, exam specifications, ' +
-  'and official vehicle datasets (French RappelConso recalls, Japanese MLIT recalls and complaints). ' +
+  'and official vehicle datasets (French RappelConso recalls, Japanese MLIT recalls and complaints), plus ' +
+  'central-bank policy rates (Bank of England, Fed, ECB). ' +
   'Each entry records what changed (from → to), when it took effect, the official source, the date it was ' +
   'verified, and a maintainer note.';
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -39,6 +40,7 @@ function fmtValue(v, unit) {
 function context(e) {
   if (e.area === 'uk-rates') return e.taxYear ? `tax year ${e.taxYear}` : '';
   if (e.area === 'uk-exams') return [e.board, e.level, e.subject, e.specCode ? `(${e.specCode})` : ''].filter(Boolean).join(' ');
+  if (e.area === 'policy-rates') return [e.bankName, e.decisionDate ? `decision ${e.decisionDate}` : ''].filter(Boolean).join(', ');
   return '';
 }
 

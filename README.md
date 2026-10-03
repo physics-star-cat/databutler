@@ -55,6 +55,7 @@ product is designed with Claude as the end user, by Claude:
 | 6 | **Vehicles hub** — UK MOT failure data (live proxy to whatbreaks.uk), UK safety recalls (DVSA, 4,876 recalls since 2016), French recalls (RappelConso, 1,663 fiches), Japanese recalls + owner complaints (MLIT, 75 models); EU Safety Gate stub | `/api/mcp/vehicles` | **v1 — built 2026-10-03** |
 | 14 | **Take-home pay** — `take_home_pay` for us, uk, ca, au, in, br, de, fr, pl (+ es listed, covered:false): live proxy to the LifeByNumbers salary calculators (same operator), uniform shape (gross/net/deductions annual + monthly, typed breakdown, taxYear, assumptions). Listed at the front door — the highest-frequency money question after rates | `/api/mcp/tax` | **v1 — built 2026-10-03** |
 | 15 | **Software end-of-life** — "is this version still supported, and until when" for the 14 runtimes/OSes agents are asked about most (Node.js, Python, Ubuntu, Debian, Android, iOS, macOS, Windows, Oracle JDK, Go, Ruby, PHP, PostgreSQL, React): committed monthly snapshot of endoflife.date open data (MIT, 340 cycles), version → cycle resolution, days remaining/since, changelog entries when a cycle reaches EOL or a date moves | `/api/mcp/software-eol` | **v1 — built 2026-10-03** |
+| 16 | **Policy rates** — `policy_rate`: the three most-asked central-bank rates (BoE Bank Rate, Fed federal funds target range, ECB key rates) as committed, changelogged, source-watched data; the first global step of the "is this still true?" layer (#9, #12). Freshness `due` after 45 days; eight decisions a year each | `/api/mcp/policy-rates` | **v1 — built 2026-10-03** |
 | 6b | UK councils phase 2 (above) | — | later |
 | 7 | **Current-docs for libraries** (wishlist #4) | — | parked — Context7 et al. exist; only enter if a clearly underserved niche appears |
 | 8 | **Infra-config/auth broker** (wishlist #5) | — | out of scope — VC-scale product, documented so we stop re-litigating it |
@@ -76,7 +77,7 @@ Existing family members on their own domains: whatbreaks.uk `/api/mcp`
 (MOT reliability), lowriskquotes.com `/api/mcp/` (Monte Carlo), and
 lifebynumbers.net (the Flask/Lambda salary calculators behind `take_home_pay`).
 
-## Tool catalogue (24 tools, 7 focused servers + front door)
+## Tool catalogue (25 tools, 8 focused servers + front door)
 
 | Server | Tools | Data |
 |---|---|---|
@@ -87,13 +88,14 @@ lifebynumbers.net (the Flask/Lambda salary calculators behind `take_home_pay`).
 | `/api/mcp/vehicles` | `uk_mot_reliability`, `uk_mot_vehicle_search` (live proxy → whatbreaks.uk, 8 s timeout, UA `databutler-hub/1.0`); `uk_recalls_for_model`, `uk_recalls_search` (`data/vehicles/uk-recalls.json`, DVSA bulk CSV, Open Government Licence v3.0, recalls launched in the last ten calendar years); `fr_recalls_for_model`, `fr_recalls_search` (`data/vehicles/fr-recalls.json`, RappelConso V2 open data, Licence Ouverte 2.0); `jp_recalls_for_model`, `jp_complaints_summary` (`data/vehicles/jp-recalls.json`, MLIT); `eu_safety_gate_recalls` (**stub**) | regenerate with `node scripts/vehicles.js` — FR/JP from the sibling `car_websites/` repos after their fetchers run, UK straight from DVSA (`node scripts/vehicles.js uk`) |
 | `/api/mcp/tax` | `take_home_pay` — country ∈ {us, uk, ca, au, in, br, de, es, fr, pl}, gross (annual, or monthly with `period`), optional `state`/`filingStatus` (US), `province` (CA), `region` (UK) | live proxy → LifeByNumbers Lambda `POST /calculate {calculatorId:'<cc>-salary', input}` (8 s timeout, UA `databutler-hub/1.0`); contract + per-country fields + tax years documented in `api/_tax.js`. **Spain returns `covered:false`** — lifebynumbers.net computes it client-side, no backend calculator. Tax years are hard-coded upstream and mirrored in `_tax.js` `COUNTRIES[].taxYear`: re-check when LBN updates rates |
 | `/api/mcp/software-eol` | `support_status` {product, version} — resolves "18", "18.19.0", "3.11", "22.04", "bookworm", "1.8.0_392", "11-24h2-w" to its release cycle; supported true\|false as of today, eol date, days remaining/since, active/extended-support ends, LTS, latest release, newest supported (LTS) cycle, plain-statement recommendation; `support_timeline` {product} — every cycle. Products: nodejs, python, ubuntu, debian, android, ios, macos, windows, oracle-jdk (java/jdk alias; the site has no "java" product — /java redirects to its java-distribution tag), go, ruby, php, postgresql, react | `data/software-eol.json` (65 KB, 340 cycles): monthly snapshot of endoflife.date `/api/<product>.json`, MIT License, `upstreamProvenance` on every result; regenerate with `node scripts/software-eol.js` (appends `software-eol` changelog entries: first derivation → `<product>/dataset`; afterwards `<product>/<cycle>` when an eol date moves, a cycle reaches end of life between snapshots, or a new cycle appears) |
+| `/api/mcp/policy-rates` | `policy_rate` — bank ∈ {boe, fed, ecb}, optional `all: true` | `data/policy-rates.json`: Bank of England Bank Rate, Fed federal funds target range (lower/upper bound), ECB deposit facility / main refinancing / marginal lending — current level, effectiveFrom, decisionDate + meeting, previous level, latest decision (may be a hold), next scheduled decision, the bank's own page as `source` and the decision press release. **Committed data, not a live proxy**, verified against the banks' pages; freshness turns `due` 45 days after verifiedDate; the three source pages sit in `data/sources.json` for the weekly watcher. Refresh: edit the file against the pages, `node scripts/changelog.js` (docs/CURATION.md) |
 | `/api/mcp` (front door) | the five high-frequency tools above (`uk_rates_lookup`, `exam_topic_paper`, `domain_provenance`, `package_provenance`, `take_home_pay`) + `what_changed_since`, `coverage`, `catalogue`, `call` | — |
 
 Every tool carries `title` and MCP annotations (`readOnlyHint: true`,
 `destructiveHint: false`, `openWorldHint` true only for live fetches). REST
 mirrors: `/api/uk/*`, `/api/provenance/*`, `/api/stats`, `/api/vehicles/{uk,fr,jp,eu}/*`
 (UK: `/api/vehicles/uk/{mot,search,recalls,recalls-search}`), `/api/tax/take-home`,
-`/api/software-eol/{status,timeline}`.
+`/api/software-eol/{status,timeline}`, `/api/policy-rates`.
 Privacy statement: `/privacy`.
 
 ## The changelog is a product

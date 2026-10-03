@@ -27,7 +27,7 @@ check package "$(inner "$(tool package_provenance '{"ecosystem":"npm","name":"ex
 check changed "$(inner "$(tool what_changed_since '{"since":"2026-06-01"}')")" \
   "d['since']=='2026-06-01' and isinstance(d['entries'],list) and d['coverageStart']=='2026-08-31'"
 check coverage "$(inner "$(tool coverage '{"area":"uk-exams"}')")" "'aqa' in d['boards']"
-check catalogue "$(inner "$(tool catalogue '{}')")" "d['count']==24"
+check catalogue "$(inner "$(tool catalogue '{}')")" "d['count']==25"
 check take-home-uk "$(inner "$(tool take_home_pay '{"country":"uk","gross":50000}')")" \
   "(d['currency']=='GBP' and d['taxYear'] and d['net']['annual']<50000 and d['upstreamProvenance']['attribution']=='lifebynumbers.net' and d['cite']['url'].startswith('https://databutler.dev/r/tax/take-home?country=uk')) or d.get('error')=='upstream unavailable'"
 check take-home-es "$(inner "$(tool take_home_pay '{"country":"es","gross":40000}')")" "d['covered']==False and 'lifebynumbers.net/es/' in d['source']"
@@ -36,8 +36,13 @@ check call-stats "$(inner "$(tool call '{"tool":"distribution","arguments":{"dis
   "abs(d['cdf']-0.975)<0.001 and d['cite']['url'].startswith('https://databutler.dev/r/stats?op=distribution')"
 check call-unknown "$(inner "$(tool call '{"tool":"linear_regresion","arguments":{}}')")" "d['covered']==False and d['nearest'][0]=='linear_regression'"
 check call-nearmiss-rates "$(inner "$(tool uk_rates_lookup '{"category":"incme"}')")" "d['covered']==False and 'income-tax' in d['nearest']"
+check call-policy-boe "$(inner "$(tool call '{"tool":"policy_rate","arguments":{"bank":"boe"}}')")" \
+  "d['bank']=='boe' and d['figures'][0]['key']=='bank-rate' and d['source'].startswith('https://www.bankofengland.co.uk/') and d['freshness']['staleness'] in ('fresh','due','overdue') and d['cite']['url']=='https://databutler.dev/r/policy-rates?bank=boe'"
+check call-policy-all "$(inner "$(tool call '{"tool":"policy_rate","arguments":{"all":true}}')")" \
+  "d['count']==3 and [b['bank'] for b in d['banks']]==['boe','fed','ecb'] and all(b['source'] and b['effectiveFrom'] and b['nextDecision'] for b in d['banks'])"
+check call-policy-bad "$(inner "$(tool call '{"tool":"policy_rate","arguments":{"bank":"boj"}}')")" "d['covered']==False and 'boe' in d['coverage']"
 
-for name in uk-rates uk-exams provenance stats vehicles tax software-eol; do
+for name in uk-rates uk-exams provenance stats vehicles tax software-eol policy-rates; do
   check "legacy $name tools/list" "$(curl -sS -X POST "$BASE/api/mcp/$name" -H 'Content-Type: application/json' -d '{"jsonrpc":"2.0","id":2,"method":"tools/list"}')" "len(d['result']['tools'])>0"
 done
 
@@ -57,6 +62,8 @@ check rest-software-eol-timeline "$(curl -sS "$BASE/api/software-eol/timeline?pr
 check rest-software-eol-400 "$(curl -sS "$BASE/api/software-eol/status?product=nodejs")" "'missing' in d['error']"
 check rest-take-home "$(curl -sS "$BASE/api/tax/take-home?country=de&gross=48000")" "'freshness' in d and (d.get('currency')=='EUR' or d.get('error')=='upstream unavailable')"
 check rest-take-home-400 "$(curl -sS "$BASE/api/tax/take-home?country=uk")" "'missing' in d['error']"
+check rest-policy-rates "$(curl -sS "$BASE/api/policy-rates?bank=ecb")" "d['bank']=='ecb' and len(d['figures'])==3 and 'freshness' in d and d['cite']['url']=='https://databutler.dev/r/policy-rates?bank=ecb'"
+check rest-policy-rates-400 "$(curl -sS "$BASE/api/policy-rates")" "'missing' in d['error']"
 check rest-changes "$(curl -sS "$BASE/api/changes?since=2026-06-01&area=uk-rates")" "d['area']=='uk-rates' and 'cite' in d"
 check rest-rates-envelope "$(curl -sS "$BASE/api/uk/rates?category=vat")" "'freshness' in d and 'cite' in d"
 

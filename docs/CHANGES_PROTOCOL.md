@@ -99,6 +99,11 @@ Data Butler's discovery document:
       "name": "software-eol",
       "description": "Support and end-of-life dates for 14 runtimes and operating systems (endoflife.date snapshot): dataset additions, new cycles, moved or reached end-of-life dates",
       "cadence": "monthly"
+    },
+    {
+      "name": "policy-rates",
+      "description": "Central-bank policy rates verified against the banks' own pages: Bank of England Bank Rate, US Federal Reserve federal funds target range, ECB key interest rates (deposit facility, main refinancing, marginal lending).",
+      "cadence": "After each scheduled decision (eight a year per bank); re-verified within 45 days of verifiedDate; every source page re-fetched weekly."
     }
   ],
   "endpoints": {

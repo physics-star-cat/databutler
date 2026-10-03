@@ -7,6 +7,7 @@ const FR_RECALLS = require('../data/vehicles/fr-recalls.json');
 const JP_RECALLS = require('../data/vehicles/jp-recalls.json');
 const UK_RECALLS = require('../data/vehicles/uk-recalls.json');
 const SOFTWARE_EOL = require('../data/software-eol.json');
+const POLICY_RATES = require('../data/policy-rates.json');
 
 const DUE_WINDOW_DAYS = 14;
 const DATASETS = {
@@ -16,6 +17,7 @@ const DATASETS = {
   'jp-recalls': JP_RECALLS,
   'uk-recalls': UK_RECALLS,
   'software-eol': SOFTWARE_EOL, // nextScheduledRefresh = verifiedDate + 35 days (scripts/software-eol.js), so `due` begins 35 days after the fetch
+  'policy-rates': POLICY_RATES, // nextScheduledRefresh = verifiedDate + 45 days (scripts/changelog.js)
 };
 
 function freshnessFor(dataset, now = new Date()) {
