@@ -1,6 +1,7 @@
 const { sendJson, handleOptions, ATTRIBUTION, coverageSummary, RATES } = require('./_lib');
 const { FR, JP, UK } = require('./_vehicles');
 const TAX = require('./_tax');
+const { POLICY } = require('./_policy_rates');
 
 module.exports = (req, res) => {
   if (handleOptions(req, res)) return;
@@ -21,14 +22,14 @@ module.exports = (req, res) => {
       },
       'GET /api/changes': {
         description: 'What changed in the verified datasets since a date (REST mirror of what_changed_since). format=html|rss|atom serves the /changes page or feeds instead of JSON.',
-        params: { since: 'YYYY-MM-DD', area: 'uk-rates | uk-exams | vehicles | all', format: 'json (default) | html | rss | atom' },
+        params: { since: 'YYYY-MM-DD', area: 'uk-rates | uk-exams | vehicles | policy-rates | all', format: 'json (default) | html | rss | atom' },
         example: 'https://databutler.dev/api/changes?since=2026-06-01',
       },
       'GET /changes': {
         description:
-          'The changelog as a page: every verified change to UK tax/NI thresholds, exam specs and official vehicle datasets, ' +
+          'The changelog as a page: every verified change to UK tax/NI thresholds, exam specs, official vehicle datasets and central-bank policy rates, ' +
           'newest first by month — area, from → to, effectiveFrom, official source, maintainer note, verifiedDate. Indexable, cached 1 h at the edge.',
-        params: { area: 'optional: uk-rates | uk-exams | vehicles', since: 'optional YYYY-MM-DD' },
+        params: { area: 'optional: uk-rates | uk-exams | vehicles | policy-rates', since: 'optional YYYY-MM-DD' },
         example: 'https://databutler.dev/changes?area=vehicles',
       },
       'GET /changes.rss': {
@@ -142,6 +143,15 @@ module.exports = (req, res) => {
         },
         example: 'https://databutler.dev/api/tax/take-home?country=uk&gross=50000',
       },
+      'GET /api/policy-rates': {
+        description:
+          `Central-bank policy rates, verified ${POLICY.verifiedDate} against the banks' own pages: Bank of England Bank Rate, ` +
+          'US Federal Reserve federal funds target range (lower/upper bound), ECB deposit facility, main refinancing and marginal ' +
+          'lending rates — each with effectiveFrom, decisionDate and meeting, previous level, latest decision, next scheduled ' +
+          'decision and the decision press release. Committed data (not a live proxy), re-verified within 45 days and after each decision.',
+        params: { bank: 'boe | fed | ecb | all' },
+        example: 'https://databutler.dev/api/policy-rates?bank=boe',
+      },
       'POST /api/mcp/uk-rates': 'Remote MCP server — tool uk_rates_lookup.',
       'POST /api/mcp/uk-exams': 'Remote MCP server — tools exam_topic_paper, exam_spec_lookup, exam_paper_index.',
       'POST /api/mcp/provenance': 'Remote MCP server — tools domain_provenance, package_provenance.',
@@ -152,6 +162,7 @@ module.exports = (req, res) => {
         'uk_recalls_search (DVSA), fr_recalls_for_model, fr_recalls_search, jp_recalls_for_model, jp_complaints_summary, ' +
         'eu_safety_gate_recalls (stub).',
       'POST /api/mcp/tax': 'Remote MCP server — tool take_home_pay (live via the LifeByNumbers salary calculators).',
+      'POST /api/mcp/policy-rates': 'Remote MCP server — tool policy_rate (Bank of England, Fed, ECB; committed data verified against the banks\' own pages).',
     },
     coverage: {
       exams: coverageSummary(),
@@ -163,6 +174,7 @@ module.exports = (req, res) => {
         jpRecalls: `${JP.counts.recallFilings} MLIT filings + ${JP.counts.complaints} owner complaints across ${JP.counts.models} models, verified ${JP.verifiedDate}`,
         euSafetyGate: 'stub',
       },
+      policyRates: Object.fromEntries(Object.entries(POLICY.banks).map(([k, b]) => [k, `${b.name} ${b.rateName}: ${b.figures.map((f) => f.value).join(' / ')}% from ${b.effectiveFrom}, verified ${b.verifiedDate}, next decision ${b.nextDecision}`])),
       tax: Object.fromEntries(Object.entries(TAX.COUNTRIES).map(([k, c]) => [k, c.calculatorId ? `${c.currency}, tax year ${c.taxYear} (live via lifebynumbers.net)` : 'not computed upstream — covered:false'])),
     },
     privacy: 'https://databutler.dev/privacy',

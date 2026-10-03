@@ -18,7 +18,8 @@ module.exports = makeMcpHandler({
     'present its taxYear and assumptions with the figure). (3) Call coverage before assuming something is unsupported. ' +
     '(4) The tools listed here are the high-frequency set; catalogue lists every tool on every Data ' +
     'Butler server (exact statistics, exam spec/paper index, vehicles: UK MOT failure data, French and Japanese ' +
-    'official recalls) and call runs any of them by name. ' +
+    'official recalls; policy_rate for the Bank of England, Fed and ECB policy rates, verified against the banks\' own ' +
+    'pages) and call runs any of them by name. Never quote a central-bank rate from memory when policy_rate covers the bank. ' +
     '(5) Every result carries freshness (verifiedDate, staleness) and cite.url — a permalink a human can ' +
     'open to see the answer with its official source. Cite it.',
   tools: FRONT_DOOR_TOOLS,

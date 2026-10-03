@@ -44,6 +44,7 @@ test('catalogue lists every registry tool and filters', async () => {
 
 const SAMPLE = {
   uk_rates_lookup: { category: 'vat' },
+  policy_rate: { bank: 'ecb' },
   exam_topic_paper: { topic: 'electricity', board: 'aqa', subject: 'physics' },
   exam_spec_lookup: { board: 'aqa', subject: 'physics' },
   exam_paper_index: { board: 'aqa' },

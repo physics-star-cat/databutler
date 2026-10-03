@@ -74,10 +74,12 @@ const FIX = [
 /* ---------------- live data ---------------- */
 
 test('live changelog: three vehicles dataset entries in the scripts/vehicles.js shape', () => {
-  assert.equal(CHANGELOG.length, 3);
-  const keys = CHANGELOG.map((e) => e.key).sort();
+  // 3 vehicles dataset entries + 6 policy-rates figure entries (the latter are checked in tests/policy-rates.test.js)
+  assert.equal(CHANGELOG.length, 9);
+  const VEHICLES = CHANGELOG.filter((e) => e.area === 'vehicles');
+  const keys = VEHICLES.map((e) => e.key).sort();
   assert.deepEqual(keys, ['eu-safety-gate/dataset', 'fr-recalls/dataset', 'jp-recalls/dataset']);
-  for (const e of CHANGELOG) {
+  for (const e of VEHICLES) {
     assert.deepEqual(Object.keys(e), ['area', 'key', 'label', 'from', 'to', 'effectiveFrom', 'source', 'verifiedDate', 'note'], e.key);
     assert.equal(e.area, 'vehicles');
     assert.equal(e.from, null);
@@ -97,7 +99,7 @@ test('live changelog: three vehicles dataset entries in the scripts/vehicles.js 
   assert.equal(eu.to, 'stub'); assert.equal(eu.verifiedDate, '2026-10-03');
   assert.equal(eu.source, 'https://ec.europa.eu/safety-gate-alerts/screen/webReport');
   // ids are unique: the dedupe key for mergeEntries and the basis of feed guids
-  assert.equal(new Set(CHANGELOG.map(entryId)).size, 3);
+  assert.equal(new Set(CHANGELOG.map(entryId)).size, 9);
   assert.equal(entryId(fr), 'vehicles|fr-recalls/dataset|2026-10-02');
 });
 
@@ -143,10 +145,11 @@ test('listEntries: newest first, area + since filters, since optional', () => {
   // effectiveFrom after since counts even when verified earlier
   const e = { ...FIX[0], verifiedDate: '2026-01-01', effectiveFrom: '2027-04-06' };
   assert.equal(listEntries({ since: '2026-06-01' }, [e]).length, 1);
-  // live data: three vehicles entries, newest first
+  // live data: three vehicles entries + six policy-rates entries, newest first (same day: area, then key)
   const live = listEntries();
-  assert.equal(live.length, 3);
-  assert.equal(live[0].verifiedDate, '2026-10-03'); assert.equal(live[2].key, 'fr-recalls/dataset');
+  assert.equal(live.length, 9);
+  assert.equal(live[0].verifiedDate, '2026-10-03'); assert.equal(live[0].area, 'policy-rates'); assert.equal(live[8].key, 'fr-recalls/dataset');
+  assert.equal(listEntries({ area: 'policy-rates' }).length, 6);
   assert.equal(listEntries({ area: 'uk-rates' }).length, 0);
 });
 
@@ -332,8 +335,9 @@ test('GET /changes handler: 200 HTML, indexable, public cache headers, live entr
   assert.equal(r.headers['Access-Control-Allow-Origin'], '*');
   const html = String(r.raw);
   assert.doesNotMatch(html, /noindex/);
-  assert.equal(count(html, /<article /g), 3);
+  assert.equal(count(html, /<article /g), 9);
   assert.match(html, /<h2>October 2026<\/h2>/);
+  assert.match(html, /<dt>Context<\/dt><dd>Bank of England, decision 2025-12-18<\/dd>/);
   assert.match(html, /RappelConso automobile recalls dataset/);
   assert.match(html, /https:\/\/renrakuda\.mlit\.go\.jp\//);
   assert.match(html, /<code>none<\/code> → <code>stub<\/code>/);
@@ -347,7 +351,7 @@ test('GET /changes handler: area and since filters; empty since-view; 400 no-sto
   assert.equal(count(String(v.raw), /<article /g), 3);
   assert.match(String(v.raw), /rel="canonical" href="https:\/\/databutler\.dev\/changes\?area=vehicles"/);
   const s = await get(changesPage, '/api/changes-page?since=2026-10-02');
-  assert.equal(count(String(s.raw), /<article /g), 2);
+  assert.equal(count(String(s.raw), /<article /g), 8);
   const none = await get(changesPage, '/api/changes-page?area=uk-rates');
   assert.equal(none.status, 200);
   assert.match(String(none.raw), /No entries recorded yet for uk-rates/);
@@ -371,7 +375,7 @@ test('GET /changes.rss|.atom handler: content types, cache, well-formed, area fi
   assert.equal(rss.headers['Content-Type'], 'application/rss+xml; charset=utf-8');
   assert.equal(rss.headers['Cache-Control'], 'public, max-age=300, s-maxage=3600');
   assert.equal(checkXml(String(rss.raw)), 'rss');
-  assert.equal(count(String(rss.raw), /<item>/g), 3);
+  assert.equal(count(String(rss.raw), /<item>/g), 9);
   assert.match(String(rss.raw), /<guid isPermaLink="true">https:\/\/databutler\.dev\/changes#vehicles-fr-recalls-dataset-2026-10-02<\/guid>/);
   assert.match(String(rss.raw), /<pubDate>Fri, 02 Oct 2026 00:00:00 GMT<\/pubDate>/);
   assert.equal(String((await get(changesFeed, '/api/changes-feed?format=rss')).raw), String(rss.raw));
@@ -456,6 +460,7 @@ test('discoverability: index.html, robots.txt, sitemap.xml, llms.txt, /api index
   assert.deepEqual(tagText(sitemap, 'loc'), [
     'https://databutler.dev/', 'https://databutler.dev/changes',
     'https://databutler.dev/changes?area=uk-rates', 'https://databutler.dev/changes?area=uk-exams', 'https://databutler.dev/changes?area=vehicles',
+    'https://databutler.dev/changes?area=policy-rates',
     'https://databutler.dev/privacy', 'https://databutler.dev/api',
   ]);
   assert.doesNotMatch(sitemap, /lastmod/);

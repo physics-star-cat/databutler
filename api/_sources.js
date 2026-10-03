@@ -57,10 +57,11 @@ async function checkSource(url) {
   return { url, updatedAt: null, bodyHash: hash(stripHtml(html)), via: 'html' };
 }
 
-function sourceUrls({ rates = [], exams = [] }) {
+function sourceUrls({ rates = [], exams = [], policy = [] }) {
   const urls = new Set();
   for (const r of rates) for (const c of Object.values(r.categories || {})) if (c.source) urls.add(c.source);
   for (const e of exams) for (const s of e.specs || []) if (s.specUrl) urls.add(s.specUrl);
+  for (const p of policy) for (const b of Object.values(p.banks || {})) if (b.source) urls.add(b.source);
   return [...urls];
 }
 

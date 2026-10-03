@@ -5,6 +5,7 @@
  * Vercel cron sends Authorization: Bearer $CRON_SECRET.
  */
 const { sendJson, RATES, AQA_GCSE } = require('../../_lib');
+const { POLICY } = require('../../_policy_rates');
 const SEEN = require('../../../data/sources.json');
 const { checkSource, sourceUrls, compareSource } = require('../../_sources');
 const { planIssues, listOpenIssues, openIssue } = require('../../_github');
@@ -15,7 +16,7 @@ module.exports = async (req, res) => {
   if (!secret || auth !== `Bearer ${secret}`) return sendJson(res, 401, { error: 'unauthorised' });
 
   const dry = new URL(req.url, 'https://databutler.dev').searchParams.get('dry') === '1';
-  const urls = sourceUrls({ rates: [RATES], exams: [AQA_GCSE] });
+  const urls = sourceUrls({ rates: [RATES], exams: [AQA_GCSE], policy: [POLICY] });
   const seenByUrl = Object.fromEntries(SEEN.map((s) => [s.url, s]));
 
   const results = await Promise.all(urls.map(async (url) => {

@@ -8,7 +8,9 @@
  * rename is not detected as a rename — it surfaces as a removal of the old
  * label plus an addition of the new one, same as any other structural change.
  *
- * Vehicles entries come from scripts/vehicles.js. The same entries are
+ * diffPolicyRates covers data/policy-rates.json (one entry per bank figure
+ * that moved; with no committed version, each bank's own `previous` block is
+ * the from side). Vehicles entries come from scripts/vehicles.js. The same entries are
  * published for humans and feed readers at /changes, /changes.rss and
  * /changes.atom (api/_changes_render.js) via listEntries.
  */
@@ -16,7 +18,7 @@ const CHANGELOG = require('../data/changelog.json');
 const { nearest } = require('./_text');
 
 const COVERAGE_START = '2026-08-31'; // first full verification of every dataset
-const CHANGELOG_AREAS = ['uk-rates', 'uk-exams', 'vehicles']; // provenance/stats hold no dataset; vehicles entries come from scripts/vehicles.js
+const CHANGELOG_AREAS = ['uk-rates', 'uk-exams', 'vehicles', 'policy-rates']; // provenance/stats/tax hold no dataset; vehicles entries come from scripts/vehicles.js
 const MAX_ENTRIES = 100;
 
 const slug = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -121,6 +123,55 @@ function diffExams(prev, next) {
   return out;
 }
 
+/**
+ * Central-bank policy rates: one entry per bank figure whose value moved.
+ * prev === null (first commit) or a bank new to the file → the bank's own
+ * `previous` block supplies the from side, so a bank's arrival records its
+ * last real change (previous → current) rather than null → current. The
+ * entry's source is the decision press release, not the rates page.
+ */
+function diffPolicyRates(prev, next) {
+  const out = [];
+  const entry = (bank, b, f, from, to) => ({
+    area: 'policy-rates',
+    key: `${bank}/${f.key}`,
+    label: `${b.name}: ${f.label}`,
+    from,
+    to,
+    unit: f.unit || '%',
+    bank,
+    bankName: b.name,
+    decisionDate: b.decisionDate || null,
+    effectiveFrom: b.effectiveFrom || null,
+    source: b.decisionSource || b.source,
+    verifiedDate: b.verifiedDate || next.verifiedDate,
+    note: '',
+  });
+  for (const [bank, b] of Object.entries(next.banks || {})) {
+    const p = prev && prev.banks ? prev.banks[bank] : null;
+    const baseline = p ? p.figures : b.previous && b.previous.figures;
+    const before = new Map((baseline || []).map((f) => [f.key, f]));
+    for (const f of b.figures || []) {
+      const was = before.get(f.key);
+      if (was && same(was.value, f.value)) continue;
+      out.push(entry(bank, b, f, was ? was.value : null, f.value));
+    }
+    // Removed figures: present in the committed version, absent now.
+    if (p) for (const f of p.figures || []) {
+      if ((b.figures || []).some((x) => x.key === f.key)) continue;
+      out.push(entry(bank, b, f, f.value, null));
+    }
+  }
+  // Removed banks: present in the committed version, absent now.
+  if (prev && prev.banks) {
+    for (const [bank, p] of Object.entries(prev.banks)) {
+      if ((next.banks || {})[bank]) continue;
+      for (const f of p.figures || []) out.push(entry(bank, { ...p, verifiedDate: next.verifiedDate }, f, f.value, null));
+    }
+  }
+  return out;
+}
+
 const entryId = (e) => `${e.area}|${e.key}|${e.verifiedDate}`;
 
 /** A bad ?area= or ?since= on the public changelog page/feeds → HTTP 400. */
@@ -194,4 +245,4 @@ function changesSince({ since, area = 'all' } = {}, entries = CHANGELOG) {
   return { since: s, area: a, coverageStart: COVERAGE_START, areasCovered: CHANGELOG_AREAS, count: hits.length, entries: hits, note };
 }
 
-module.exports = { changesSince, listEntries, entryId, ChangelogFilterError, diffRates, diffExams, mergeEntries, COVERAGE_START, CHANGELOG_AREAS };
+module.exports = { changesSince, listEntries, entryId, ChangelogFilterError, diffRates, diffExams, diffPolicyRates, mergeEntries, COVERAGE_START, CHANGELOG_AREAS };

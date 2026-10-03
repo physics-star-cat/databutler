@@ -7,6 +7,7 @@ const { SERVERS } = require('./_registry');
 const { nearest } = require('./_text');
 const { vehiclesCoverage } = require('./_vehicles');
 const TAX = require('./_tax');
+const { policyRatesCoverage } = require('./_policy_rates');
 
 const AREAS = {
   'uk-rates': () => ({
@@ -57,6 +58,7 @@ const AREAS = {
       'Indian old regime, German tax classes 2-6 / church tax, French quotient familial above 1 part, Polish youth relief / PPK, Brazilian dependents / 13th salary',
     ],
   }),
+  'policy-rates': policyRatesCoverage,
 };
 
 function coverageFor(area) {

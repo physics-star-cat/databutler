@@ -19,9 +19,10 @@ The product is trust. A wrong number is worse than no number. Rules:
 | `data/vehicles/fr-recalls.json` | Monthly (RappelConso publishes continuously) | In `../car_websites/controle-technique`: `node data/fetch-rappelconso.js`, commit; then here `node scripts/vehicles.js fr` (derives the compact file, bumps `verifiedDate`/`nextScheduledRefresh` from the fetch date, appends a `vehicles` changelog entry when counts move). |
 | `data/vehicles/jp-recalls.json` | Monthly (MLIT filings are newsworthy when fresh) | In `../car_websites/shaken-data`: `node data/fetch-mlit.js` (15–20 min, 700 ms politeness delay — do not hammer), commit; then here `node scripts/vehicles.js jp`. |
 | `data/vehicles/uk-recalls.json` | Monthly (DVSA regenerates the source CSV daily; new recalls land every week) | `node scripts/vehicles.js uk` — downloads DVSA's bulk `RecallsFile.csv` (one ~8 MB request, UA names databutler.dev), keeps recalls launched in the ten calendar years before the fetch year plus the fetch year, groups rows by recall number, bumps `verifiedDate`/`nextScheduledRefresh`, appends a `vehicles` changelog entry when counts move. `DVSA_RECALLS_CSV=path` builds from a saved copy. Each January the window rolls forward a year — say so in the changelog note. |
+| `data/policy-rates.json` | Within 45 days of `verifiedDate` (freshness flips to `due`) and after every scheduled decision — BoE MPC ("Next due" on the Bank Rate page), FOMC (fomccalendars.htm), ECB Governing Council (mgcgc calendar); each decides eight times a year. The weekly watcher hashes the three bank source pages. | Open the bank's `source` page and the decision press release; edit `figures`, move the replaced level into `previous`, update `effectiveFrom`, `decisionDate`, `decisionMeeting`, `latestDecision`, `nextDecision`, `decisionSource` and both `verifiedDate`s; then `node scripts/changelog.js` (sets `nextScheduledRefresh` = verifiedDate + 45 days, appends one `policy-rates` entry per figure that moved, refreshes `data/sources.json`). A hold moves no figure: update `latestDecision`/`nextDecision`/`verifiedDate` only, no entry. |
 | UK MOT (vehicles) | — | No dataset here: live proxy to whatbreaks.uk, which owns the DfT bulk-data refresh. |
 | `data/sources.json` | After every data refresh (automatic via `scripts/changelog.js`) | `node scripts/sources.js` re-checks every source URL (gov.uk content API / page hash). |
-| `data/changelog.json` | With every data refresh | `node scripts/changelog.js` (UK data) or `node scripts/vehicles.js` (vehicles); fill in `note` lines. See "Changelog & source watcher" and "How to add a changelog entry when a dataset is refreshed". |
+| `data/changelog.json` | With every data refresh | `node scripts/changelog.js` (UK data and policy rates) or `node scripts/vehicles.js` (vehicles); fill in `note` lines. See "Changelog & source watcher" and "How to add a changelog entry when a dataset is refreshed". |
 
 ## Verification log
 
@@ -79,6 +80,44 @@ The product is trust. A wrong number is worse than no number. Rules:
   so "Vauxhall Corsa" and "vauxhall corsa" resolve identically — `make` is
   always served as published alongside the slug.
 
+## Verification log (policy rates, added 2026-10-03)
+
+All three banks fetched 2026-10-03 with curl (UA `databutler-curation/1.0`);
+none blocked the automated fetch. Figures read from the pages, never from
+memory. Cadence: each bank decides eight times a year; the file is
+re-verified within 45 days of `verifiedDate` and after every decision.
+
+- Bank of England — `https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate`
+  showed "Current Bank Rate 3.75%", "Next due: 5 November 2026" and "Bank
+  rate maintained at 3.75% — September 2026" (published 17 September 2026).
+  History table `https://www.bankofengland.co.uk/boeapps/database/Bank-Rate.asp`:
+  18 Dec 25 → 3.75, 07 Aug 25 → 4.00. Decision page
+  `https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2025/december-2025`:
+  "At its meeting ending on 17 December 2025, the MPC voted by a majority of
+  5–4 to reduce Bank Rate by 0.25 percentage points, to 3.75%", published
+  18 December 2025. Watcher caveat: the Bank Rate page also carries the
+  monthly CPI figure, so a `source-changed` issue on it needs the history
+  table checked before anything is edited.
+- US Federal Reserve — `https://www.federalreserve.gov/monetarypolicy/openmarket.htm`
+  table: 2026 "September 17 | +25 | 3.75-4.00"; 2025 "December 11 | −25 |
+  3.50-3.75". FOMC statement
+  `https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm`
+  (12–0 vote): "raise the target range for the federal funds rate by 1/4
+  percentage point to 3-3/4 to 4 percent"; implementation note
+  `…/monetary20260916a1.htm`: "Effective September 17, 2026 … target range of
+  3-3/4 to 4 percent". Calendar `https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm`:
+  2026 meetings September 15–16, October 27–28, December 8–9.
+- European Central Bank — `https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html`
+  table (date "with effect from"): 2026 16 Sep. 2.50 / 2.65 / 2.90; 2026
+  17 Jun. 2.25 / 2.40 / 2.65. Press release
+  `https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html`
+  (10 September 2026): "raise the three key ECB interest rates by 25 basis
+  points … increased to 2.50%, 2.65% and 2.90% respectively, with effect from
+  16 September 2026". Calendar `https://www.ecb.europa.eu/press/calendars/mgcgc/html/index.en.html`:
+  next monetary policy meeting 28–29 October 2026, then 16–17 December 2026.
+  The decisions index page is JavaScript-rendered; the per-year snippet
+  `/press/govcdec/mopo/2026/html/index_include.en.html` is plain HTML.
+
 ## Expansion queue (exams)
 
 Edexcel GCSE sciences/maths → OCR Gateway + 21st Century → AQA/Edexcel/OCR
@@ -128,7 +167,7 @@ entries (`api/_changelog.js` → `listEntries` for the public ones,
 
 | Surface | URL | Handler |
 |---|---|---|
-| Page (indexable) | `/changes`, `/changes?area=uk-rates\|uk-exams\|vehicles`, `?since=YYYY-MM-DD` | `api/_routes/changes-page.js` |
+| Page (indexable) | `/changes`, `/changes?area=uk-rates\|uk-exams\|vehicles\|policy-rates`, `?since=YYYY-MM-DD` | `api/_routes/changes-page.js` |
 | RSS 2.0 | `/changes.rss` (`?area=`) | `api/_routes/changes-feed.js` (`format=rss`) |
 | Atom | `/changes.atom` (`?area=`) | `api/_routes/changes-feed.js` (`format=atom`) |
 | JSON | `/api/changes?since=…&area=…` (`format=html\|rss\|atom` delegates) | `api/_routes/changes.js` |
@@ -153,12 +192,25 @@ Entries are never typed into `data/changelog.json` by hand; a script writes
 the entry and the maintainer writes the note. Each entry carries
 `area, key, label, from, to, effectiveFrom, source, verifiedDate, note`
 (uk-rates adds `unit`/`taxYear`/`band`; uk-exams adds `board`/`level`/
-`subject`/`specCode`).
+`subject`/`specCode`; policy-rates adds `unit`/`bank`/`bankName`/`decisionDate`).
 
 - **UK rates or exams** (`data/uk/**`): edit the data file against the live
   source page, then `node scripts/changelog.js`. It diffs against git, appends
   one entry per changed figure/topic/paper with `note: ""`, and refreshes
   `data/sources.json`. Fill in each note (which Budget, which spec update).
+- **Policy rates** (`data/policy-rates.json`): open the bank's `source` page
+  and the new decision press release; set the bank's `figures`, move the old
+  figures into `previous` (with its `effectiveFrom`), update `effectiveFrom`,
+  `decisionDate`, `decisionMeeting`, `latestDecision`, `nextDecision`,
+  `decisionSource` and both `verifiedDate`s, then `node scripts/changelog.js`.
+  It keeps `nextScheduledRefresh` at verifiedDate + 45 days, appends one
+  `policy-rates` entry per figure that moved (`<bank>/<figure>`, with
+  `unit`/`bank`/`bankName`/`decisionDate`, source = the decision page) and
+  refreshes `data/sources.json`. Fill in each note with the meeting ("MPC
+  meeting ending 17 December 2025", "FOMC 15–16 September 2026"). A hold
+  moves no figure and adds no entry — still bump `latestDecision`,
+  `nextDecision` and `verifiedDate`. The six entries dated 2026-10-03 came
+  from the first run, where each bank's `previous` block was the from side.
 - **Vehicles** (`data/vehicles/*.json`): refresh the sibling repo's fetcher
   (`controle-technique` → `node data/fetch-rappelconso.js`; `shaken-data` →
   `node data/fetch-mlit.js`), commit there, then here

@@ -1,0 +1,112 @@
+{
+  "dataset": "Central-bank policy rates — Bank of England (Bank Rate), US Federal Reserve (federal funds target range), European Central Bank (deposit facility, main refinancing operations, marginal lending facility)",
+  "verifiedDate": "2026-10-03",
+  "nextScheduledRefresh": "2026-11-17",
+  "refreshRule": "Re-verified within 45 days of verifiedDate (nextScheduledRefresh = verifiedDate + 45 days, maintained by scripts/changelog.js) and after every scheduled decision; the weekly source watcher re-checks each bank's `source` page in between.",
+  "verificationMethod": "Each bank's `source` page was fetched on verifiedDate (curl, User-Agent databutler-curation/1.0) and the current level read from it; the level, its effective date and the previous level were cross-checked against the bank's own history table (`historySource` / the same page) and the decision press release in `decisionSource`, which was also fetched. Next decision dates come from the banks' published calendars (`calendarSource`, or the Bank Rate page's 'Next due'). Figures are copied from the pages, never written from memory.",
+  "unit": "% per annum",
+  "banks": {
+    "boe": {
+      "name": "Bank of England",
+      "committee": "Monetary Policy Committee (MPC)",
+      "jurisdiction": "United Kingdom",
+      "currency": "GBP",
+      "rateName": "Bank Rate",
+      "figures": [
+        { "key": "bank-rate", "label": "Bank Rate", "value": 3.75, "unit": "%" }
+      ],
+      "effectiveFrom": "2025-12-18",
+      "decisionDate": "2025-12-18",
+      "decisionMeeting": "MPC meeting ending 17 December 2025, decision published 18 December 2025 — Bank Rate reduced by 0.25 percentage points to 3.75% (vote 5–4)",
+      "previous": {
+        "figures": [
+          { "key": "bank-rate", "label": "Bank Rate", "value": 4.00, "unit": "%" }
+        ],
+        "effectiveFrom": "2025-08-07"
+      },
+      "latestDecision": {
+        "date": "2026-09-17",
+        "outcome": "held at 3.75%",
+        "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026"
+      },
+      "nextDecision": "2026-11-05",
+      "decisionsPerYear": 8,
+      "source": "https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate",
+      "decisionSource": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2025/december-2025",
+      "historySource": "https://www.bankofengland.co.uk/boeapps/database/Bank-Rate.asp",
+      "verifiedDate": "2026-10-03",
+      "notes": "Bank Rate takes effect on the day the decision is published. The Bank Rate page also shows the current CPI inflation rate, which updates monthly, so a change on that page is not necessarily a Bank Rate change — the history table in historySource is the check."
+    },
+    "fed": {
+      "name": "US Federal Reserve",
+      "committee": "Federal Open Market Committee (FOMC)",
+      "jurisdiction": "United States",
+      "currency": "USD",
+      "rateName": "Federal funds target range",
+      "figures": [
+        { "key": "target-range-lower", "label": "Federal funds target range — lower bound", "value": 3.75, "unit": "%" },
+        { "key": "target-range-upper", "label": "Federal funds target range — upper bound", "value": 4.00, "unit": "%" }
+      ],
+      "effectiveFrom": "2026-09-17",
+      "decisionDate": "2026-09-16",
+      "decisionMeeting": "FOMC meeting of 15–16 September 2026 — target range raised by 1/4 percentage point to 3-3/4 to 4 percent (vote 12–0), effective 17 September 2026",
+      "previous": {
+        "figures": [
+          { "key": "target-range-lower", "label": "Federal funds target range — lower bound", "value": 3.50, "unit": "%" },
+          { "key": "target-range-upper", "label": "Federal funds target range — upper bound", "value": 3.75, "unit": "%" }
+        ],
+        "effectiveFrom": "2025-12-11"
+      },
+      "latestDecision": {
+        "date": "2026-09-16",
+        "outcome": "raised 25 basis points to 3.75–4.00%",
+        "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm"
+      },
+      "nextDecision": "2026-10-28",
+      "nextMeeting": "27–28 October 2026",
+      "decisionsPerYear": 8,
+      "source": "https://www.federalreserve.gov/monetarypolicy/openmarket.htm",
+      "decisionSource": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
+      "implementationNote": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a1.htm",
+      "calendarSource": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+      "verifiedDate": "2026-10-03",
+      "notes": "The Fed sets a range, not a single rate; the effective federal funds rate trades inside it. The open-market-operations table dates each level by its effective date, the day after the meeting ends. Interest on reserve balances, the discount rate and the ON RRP offering rate are not served."
+    },
+    "ecb": {
+      "name": "European Central Bank",
+      "committee": "Governing Council",
+      "jurisdiction": "Euro area",
+      "currency": "EUR",
+      "rateName": "Key ECB interest rates",
+      "figures": [
+        { "key": "deposit-facility", "label": "Deposit facility rate", "value": 2.50, "unit": "%", "note": "the rate through which the Governing Council steers the monetary policy stance (decided March 2024)" },
+        { "key": "main-refinancing", "label": "Main refinancing operations rate (fixed rate tenders)", "value": 2.65, "unit": "%" },
+        { "key": "marginal-lending", "label": "Marginal lending facility rate", "value": 2.90, "unit": "%" }
+      ],
+      "effectiveFrom": "2026-09-16",
+      "decisionDate": "2026-09-10",
+      "decisionMeeting": "Governing Council monetary policy meeting of 10 September 2026 — all three key ECB interest rates raised by 25 basis points, with effect from 16 September 2026",
+      "previous": {
+        "figures": [
+          { "key": "deposit-facility", "label": "Deposit facility rate", "value": 2.25, "unit": "%" },
+          { "key": "main-refinancing", "label": "Main refinancing operations rate (fixed rate tenders)", "value": 2.40, "unit": "%" },
+          { "key": "marginal-lending", "label": "Marginal lending facility rate", "value": 2.65, "unit": "%" }
+        ],
+        "effectiveFrom": "2026-06-17"
+      },
+      "latestDecision": {
+        "date": "2026-09-10",
+        "outcome": "all three key rates raised 25 basis points",
+        "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html"
+      },
+      "nextDecision": "2026-10-29",
+      "nextMeeting": "28–29 October 2026",
+      "decisionsPerYear": 8,
+      "source": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
+      "decisionSource": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html",
+      "calendarSource": "https://www.ecb.europa.eu/press/calendars/mgcgc/html/index.en.html",
+      "verifiedDate": "2026-10-03",
+      "notes": "ECB rate changes take effect on the Wednesday after the decision (start of the next reserve maintenance period), so effectiveFrom is later than decisionDate. The key-rates page dates each row 'with effect from'."
+    }
+  }
+}

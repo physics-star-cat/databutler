@@ -6,6 +6,7 @@ const { RATES, AQA_GCSE } = require('./_lib');
 const FR_RECALLS = require('../data/vehicles/fr-recalls.json');
 const JP_RECALLS = require('../data/vehicles/jp-recalls.json');
 const UK_RECALLS = require('../data/vehicles/uk-recalls.json');
+const POLICY_RATES = require('../data/policy-rates.json');
 
 const DUE_WINDOW_DAYS = 14;
 const DATASETS = {
@@ -14,6 +15,7 @@ const DATASETS = {
   'fr-recalls': FR_RECALLS,
   'jp-recalls': JP_RECALLS,
   'uk-recalls': UK_RECALLS,
+  'policy-rates': POLICY_RATES, // nextScheduledRefresh = verifiedDate + 45 days (scripts/changelog.js)
 };
 
 function freshnessFor(dataset, now = new Date()) {
