@@ -3,7 +3,7 @@
  * and the front door (api/mcp.js) both build from here. Beyond the MCP tool
  * shape, each tool carries:
  *   title: short human label (MCP `title`)
- *   freshness: dataset key for the freshness block ('uk-rates' | 'uk-exams' | 'uk-recalls' | 'fr-recalls' | 'jp-recalls' | 'live')
+ *   freshness: dataset key for the freshness block ('uk-rates' | 'uk-exams' | 'uk-recalls' | 'fr-recalls' | 'jp-recalls' | 'software-eol' | 'live')
  *   cite(args): { path, query } for the /r permalink, or null
  *   openWorld: true when the tool fetches live external data on the caller's
  *     behalf (RDAP, npm, PyPI, whatbreaks.uk, lifebynumbers.net); drives annotations.openWorldHint
@@ -18,6 +18,7 @@ const S = require('./_stats.js');
 const V = require('./_vehicles');
 const { motReliability, motVehicleSearch } = require('./_mot');
 const TAX = require('./_tax');
+const EOL = require('./_software_eol');
 
 const BASE = 'https://databutler.dev';
 const numArray = { type: 'array', items: { type: 'number' } };
@@ -524,6 +525,61 @@ const SERVERS = {
         freshness: 'live',
         openWorld: true,
         cite: (a) => ({ path: 'tax/take-home', query: { country: a.country, gross: a.gross, period: a.period, state: a.state, filingStatus: a.filingStatus, province: a.province, region: a.region } }),
+      },
+    ],
+  },
+  'software-eol': {
+    serverName: 'databutler-software-eol',
+    url: `${BASE}/api/mcp/software-eol`,
+    instructions:
+      'Software support lifecycles from databutler.dev: is this version still supported, and until when — for ' +
+      EOL.PRODUCT_IDS.join(', ') + '. A committed monthly snapshot of endoflife.date open data (MIT), with the snapshot date on every ' +
+      'answer, used in place of recalling end-of-life dates from memory, which drift every few months. support_status resolves a ' +
+      'version string to its release cycle and states supported true/false with the eol date and days remaining or elapsed; ' +
+      'support_timeline lists every cycle. Dates are as endoflife.date publishes them from vendor lifecycle pages; the ' +
+      'recommendation is a plain statement, not advice about any one deployment. Cite https://databutler.dev/ and the ' +
+      'endoflife.date product page in source.',
+    tools: [
+      {
+        name: 'support_status',
+        title: 'Software support status',
+        description:
+          `Whether a version of ${EOL.PRODUCT_IDS.join(', ')} is still supported, from a monthly snapshot of endoflife.date ` +
+          `(${EOL.DATA.cycleCount} release cycles, verified ${EOL.DATA.verifiedDate}). A version string resolves to its release cycle ` +
+          '("18", "18.19.0" and "v18" → Node.js 18; "3.11.4" → Python 3.11; "22.04.3" → Ubuntu 22.04; "bookworm" → Debian 12; ' +
+          '"1.8.0_392" → Java 8; "11-24h2-w" → Windows 11 24H2 consumer). Returns supported true|false as of today, the eol date, ' +
+          'days remaining or since end of life, active-support and extended-support end dates, LTS status, the latest release in ' +
+          'the cycle, the newest supported (LTS) cycle, a plain-statement recommendation, and the endoflife.date page as source. ' +
+          '"java" and "jdk" resolve to oracle-jdk; a version that fits several Windows editions comes back as candidates with ' +
+          'each one\'s status; unknown products and versions answer with the nearest matches.',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            product: { type: 'string', description: `one of ${EOL.PRODUCT_IDS.join(', ')} (aliases: node, java, jdk, postgres, golang, osx, win)` },
+            version: { type: 'string', description: 'a cycle ("18", "3.11", "22.04"), a full release ("18.19.0", "3.11.4"), a codename ("bookworm", "sonoma") or a Windows cycle id ("11-24h2-w")' },
+          },
+          required: ['product', 'version'],
+        },
+        run: (a) => EOL.supportStatus(a),
+        freshness: 'software-eol',
+        cite: (a) => ({ path: 'software-eol/status', query: { product: a.product, version: a.version } }),
+      },
+      {
+        name: 'support_timeline',
+        title: 'Software support timeline',
+        description:
+          `Every release cycle of one of ${EOL.PRODUCT_IDS.join(', ')}, newest first, each with release date, supported true|false ` +
+          'as of today, eol date, LTS status, latest release and active/extended-support end dates, plus the list of currently ' +
+          'supported cycles and the newest supported LTS. From the same monthly endoflife.date snapshot as support_status, with ' +
+          'the product page as source.',
+        inputSchema: {
+          type: 'object',
+          properties: { product: { type: 'string', description: `one of ${EOL.PRODUCT_IDS.join(', ')} (aliases accepted, e.g. node, java, postgres)` } },
+          required: ['product'],
+        },
+        run: (a) => EOL.supportTimeline(a),
+        freshness: 'software-eol',
+        cite: (a) => ({ path: 'software-eol/timeline', query: { product: a.product } }),
       },
     ],
   },
