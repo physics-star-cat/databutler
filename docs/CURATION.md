@@ -18,6 +18,7 @@ The product is trust. A wrong number is worse than no number. Rules:
 | `data/uk/exams/*.json` | Each September (spec changes announce ~a year ahead) | Re-fetch each `specUrl` at-a-glance page; bump `verifiedDate`; diff topic lists. |
 | `data/vehicles/fr-recalls.json` | Monthly (RappelConso publishes continuously) | In `../car_websites/controle-technique`: `node data/fetch-rappelconso.js`, commit; then here `node scripts/vehicles.js fr` (derives the compact file, bumps `verifiedDate`/`nextScheduledRefresh` from the fetch date, appends a `vehicles` changelog entry when counts move). |
 | `data/vehicles/jp-recalls.json` | Monthly (MLIT filings are newsworthy when fresh) | In `../car_websites/shaken-data`: `node data/fetch-mlit.js` (15–20 min, 700 ms politeness delay — do not hammer), commit; then here `node scripts/vehicles.js jp`. |
+| `data/vehicles/uk-recalls.json` | Monthly (DVSA regenerates the source CSV daily; new recalls land every week) | `node scripts/vehicles.js uk` — downloads DVSA's bulk `RecallsFile.csv` (one ~8 MB request, UA names databutler.dev), keeps recalls launched in the ten calendar years before the fetch year plus the fetch year, groups rows by recall number, bumps `verifiedDate`/`nextScheduledRefresh`, appends a `vehicles` changelog entry when counts move. `DVSA_RECALLS_CSV=path` builds from a saved copy. Each January the window rolls forward a year — say so in the changelog note. |
 | UK MOT (vehicles) | — | No dataset here: live proxy to whatbreaks.uk, which owns the DfT bulk-data refresh. |
 | `data/sources.json` | After every data refresh (automatic via `scripts/changelog.js`) | `node scripts/sources.js` re-checks every source URL (gov.uk content API / page hash). |
 | `data/changelog.json` | With every data refresh | `node scripts/changelog.js`; fill in `note` lines. See "Changelog & source watcher". |
@@ -45,6 +46,38 @@ The product is trust. A wrong number is worse than no number. Rules:
   200 on 2026-10-03. Data is a month old at build time — the freshness block
   says `due` honestly until the monthly refresh runs.
 - EU Safety Gate: stub only; no data claimed.
+- 2026-10-03 — DVSA (UK) recalls: full bulk download of
+  `https://www.check-vehicle-recalls.service.gov.uk/documents/RecallsFile.csv`
+  (7.67 MB, 17,711 rows = 8,975 distinct recall numbers, launch dates
+  1992 → 2026; `Last-Modified: Sat, 03 Oct 2026 03:02:52 GMT`), the file the
+  GOV.UK "Check if a vehicle, part or accessory has been recalled" service
+  links as "All recalls since 1992 (CSV)". Licence: the service footer states
+  "All content is available under the Open Government Licence v3.0, except
+  where otherwise stated" (Crown copyright). Field definitions from DVSA's
+  "Recalls Data User Guide v4" (April 2015, `/documents/Recalls%20Data%20User%20Guide_v4.doc`):
+  one row per recall × model, `Vehicle Numbers` is the recall total repeated
+  against each model (observed to differ per model in 641 recalls — served
+  as published, `vehiclesAffected` = largest figure among the rows shown),
+  recall-number prefixes R/RM/RCOMP/RCT/RPT/RSPV/RTW/RPC classify the product.
+  Update cadence: the CSV is regenerated daily (Last-Modified moves each
+  night). Served window: launch dates from 2016-01-01 (ten calendar years +
+  current) → 4,876 recalls / 10,879 model rows / 272 make slugs in a 2.6 MB
+  file; older recalls stay in the source CSV, which every response links as
+  `datasetUrl`. Not on data.gov.uk: CKAN lists only an empty, unpublished
+  VOSA "Vehicle Safety Branch Recalls Database" entry (no resources), so the
+  service's own download is the official bulk route. Quirks kept as
+  published: 742 rows contain U+FFFD from the source's own encoding history;
+  one recall (R/2026/030, Ford Kuga) carries launch date 2027-02-03; `Model`
+  and `Recalls Model Information` are identical in every row, so only `Model`
+  is kept. Per-recall links use the checker's make / model / build-year page
+  (`/recall-type/vehicle/make/<MAKE>/model/<MODEL>/year/<YYYY>/recalls`),
+  verified 200 with recall numbers listed for VAUXHALL/CORSA/2015 and
+  TOYOTA (GB) PLC/YARIS/2019; equipment categories (RCOMP, RTW, RPC) link to
+  the dataset because their page layout was not verified. Make strings are
+  the importer's legal name ("MERCEDES-BENZ CARS UK LTD", "TOYOTA (GB)
+  PLC"); `ukMakeSlug` in `api/_vehicles_text.js` drops the corporate noise
+  so "Vauxhall Corsa" and "vauxhall corsa" resolve identically — `make` is
+  always served as published alongside the slug.
 
 ## Expansion queue (exams)
 

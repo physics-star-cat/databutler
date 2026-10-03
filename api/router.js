@@ -29,6 +29,8 @@ const ROUTES = {
   'provenance/package': require('./_routes/provenance/package'),
   'vehicles/uk/mot': require('./_routes/vehicles/uk/mot'),
   'vehicles/uk/search': require('./_routes/vehicles/uk/search'),
+  'vehicles/uk/recalls': require('./_routes/vehicles/uk/recalls'),
+  'vehicles/uk/recalls-search': require('./_routes/vehicles/uk/recalls-search'),
   'vehicles/fr/recalls': require('./_routes/vehicles/fr/recalls'),
   'vehicles/fr/search': require('./_routes/vehicles/fr/search'),
   'vehicles/jp/recalls': require('./_routes/vehicles/jp/recalls'),

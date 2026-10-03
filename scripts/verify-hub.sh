@@ -27,7 +27,7 @@ check package "$(inner "$(tool package_provenance '{"ecosystem":"npm","name":"ex
 check changed "$(inner "$(tool what_changed_since '{"since":"2026-06-01"}')")" \
   "d['since']=='2026-06-01' and isinstance(d['entries'],list) and d['coverageStart']=='2026-08-31'"
 check coverage "$(inner "$(tool coverage '{"area":"uk-exams"}')")" "'aqa' in d['boards']"
-check catalogue "$(inner "$(tool catalogue '{}')")" "d['count']==19"
+check catalogue "$(inner "$(tool catalogue '{}')")" "d['count']==21"
 check call-stats "$(inner "$(tool call '{"tool":"distribution","arguments":{"dist":"normal","at":1.96}}')")" \
   "abs(d['cdf']-0.975)<0.001 and d['cite']['url'].startswith('https://databutler.dev/r/stats?op=distribution')"
 check call-unknown "$(inner "$(tool call '{"tool":"linear_regresion","arguments":{}}')")" "d['covered']==False and d['nearest'][0]=='linear_regression'"
@@ -39,6 +39,9 @@ done
 
 check call-fr-recalls "$(inner "$(tool call '{"tool":"fr_recalls_for_model","arguments":{"brand":"peugeot","model":"208"}}')")" \
   "d['count']>0 and d['recalls'][0]['link'].startswith('https://rappel.conso.gouv.fr/') and d['freshness']['verifiedDate']"
+check call-uk-recalls "$(inner "$(tool call '{"tool":"uk_recalls_for_model","arguments":{"make":"Vauxhall","model":"Corsa"}}')")" \
+  "d['count']>0 and d['recalls'][0]['link'].startswith('https://www.check-vehicle-recalls.service.gov.uk/') and d['freshness']['verifiedDate']"
+check rest-uk-recalls-search "$(curl -sS "$BASE/api/vehicles/uk/recalls-search?text=airbag&since=2025-01-01")" "'freshness' in d and d['cite']['url'].startswith('https://databutler.dev/r/vehicles/uk/recalls-search?')"
 check call-jp-recalls "$(inner "$(tool call '{"tool":"jp_recalls_for_model","arguments":{"make":"toyota","model":"prius"}}')")" \
   "d['count']>0 and d['recalls'][0]['officialPdf'].startswith('https://renrakuda.mlit.go.jp/mt/recallpdf/')"
 check call-mot-search "$(inner "$(tool call '{"tool":"uk_mot_vehicle_search","arguments":{"q":"golf"}}')")" \

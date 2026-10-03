@@ -1,7 +1,8 @@
 /**
  * Text normalisation shared by the vehicles dataset builder (scripts/) and
  * the query-time matcher (api/_vehicles.js). Lives apart from _vehicles.js so
- * the script can require it without loading the datasets.
+ * the script can require it without loading the datasets. FR (RappelConso)
+ * brand helpers first, then the UK (DVSA) make normaliser.
  */
 
 /** lowercase, accents stripped, anything non-alphanumeric → single space. */
@@ -81,4 +82,39 @@ function hasWord(haystack, alias) {
   return re.test(haystack);
 }
 
-module.exports = { norm, brandSlugs, brandSlug, modelPortion, hasWord, BRAND_ALIASES };
+/* ---------------- UK (DVSA) make normalisation ---------------- */
+
+// DVSA records the importer/legal entity as the make ("MERCEDES-BENZ CARS UK
+// LTD", "TOYOTA (GB) PLC", "Nissan Motor (GB) Limited"). These corporate
+// tokens are dropped before slugging so the brand is what remains; product
+// lines ("VOLVO TRUCKS", "BMW MOTORRAD", "MERCEDES-BENZ VANS") stay as
+// `<brand>-<line>` slugs, which a query for the bare brand also matches.
+const UK_MAKE_NOISE = new Set([
+  'uk', 'gb', 'ltd', 'limited', 'plc', 'co', 'company', 'corp', 'corporation', 'inc', 'llc', 'gmbh', 'ag', 'kg', 'sa',
+  'sas', 'spa', 'bv', 'nv', 'ab', 'motor', 'motors', 'car', 'cars', 'automobile', 'automobiles', 'automotive', 'group',
+  'europe', 'international', 'sales', 'concessionaires', 'holdings', 'and', 'the',
+]);
+
+// Whole-string aliases applied after the noise tokens are gone.
+const UK_MAKE_ALIASES = {
+  vw: 'volkswagen',
+  'mercedes benz': 'mercedes',
+  'brp can am': 'can-am',
+  'brp can am 1': 'can-am',
+  renaulttrucks: 'renault-trucks',
+  'omoda jaecoo': 'omoda',
+  general: 'general-motors', // "GENERAL MOTORS CO LLC" once the noise words are gone
+};
+
+/** One make slug for a DVSA make string or a caller's query ("Vauxhall", "Mercedes-Benz", "VW", "TOYOTA (GB) PLC"). */
+function ukMakeSlug(make) {
+  const all = norm(make).split(' ').filter(Boolean);
+  let tokens = all.filter((t) => !UK_MAKE_NOISE.has(t));
+  if (!tokens.length) tokens = all; // the make was nothing but noise words — keep it as published
+  const joined = tokens.join(' ');
+  if (!joined) return '';
+  if (UK_MAKE_ALIASES[joined]) return UK_MAKE_ALIASES[joined];
+  return joined.replace(/^mercedes benz\b/, 'mercedes').replace(/ /g, '-');
+}
+
+module.exports = { norm, brandSlugs, brandSlug, modelPortion, hasWord, ukMakeSlug, BRAND_ALIASES, UK_MAKE_ALIASES };

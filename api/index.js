@@ -1,5 +1,5 @@
 const { sendJson, handleOptions, ATTRIBUTION, coverageSummary, RATES } = require('./_lib');
-const { FR, JP } = require('./_vehicles');
+const { FR, JP, UK } = require('./_vehicles');
 
 module.exports = (req, res) => {
   if (handleOptions(req, res)) return;
@@ -77,6 +77,18 @@ module.exports = (req, res) => {
         params: { q: 'free text, e.g. golf' },
         example: 'https://databutler.dev/api/vehicles/uk/search?q=golf',
       },
+      'GET /api/vehicles/uk/recalls': {
+        description:
+          `Official UK vehicle safety recalls (DVSA open data, OGL v3.0; ${UK.count} recalls launched ${UK.filter.launchDateFrom} → ${UK.dateRange.to}) ` +
+          'for a make (+ model): recall number, launch date, concern, defect and remedy text, build-date range, vehicles affected, GOV.UK recall-checker link.',
+        params: { make: 'e.g. Vauxhall, Mercedes-Benz, VW', model: 'optional, e.g. Corsa (omit to list the make and its model names)', since: 'optional YYYY-MM-DD' },
+        example: 'https://databutler.dev/api/vehicles/uk/recalls?make=vauxhall&model=corsa',
+      },
+      'GET /api/vehicles/uk/recalls-search': {
+        description: 'Keyword search across all served DVSA recalls (English text: make, model, concern, defect, remedy), newest first, optional since date.',
+        params: { text: 'e.g. airbag takata', since: 'optional YYYY-MM-DD' },
+        example: 'https://databutler.dev/api/vehicles/uk/recalls-search?text=airbag%20takata&since=2025-01-01',
+      },
       'GET /api/vehicles/fr/recalls': {
         description:
           `Official French vehicle recalls (RappelConso / DGCCRF open data, ${FR.count} automobile fiches ${FR.dateRange.from} → ${FR.dateRange.to}) ` +
@@ -108,14 +120,16 @@ module.exports = (req, res) => {
       'POST /api/mcp/stats':
         'Remote MCP server — descriptive_stats, distribution, hypothesis_test, confidence_interval, bayes_update, linear_regression.',
       'POST /api/mcp/vehicles':
-        'Remote MCP server — uk_mot_reliability, uk_mot_vehicle_search (live via whatbreaks.uk), fr_recalls_for_model, ' +
-        'fr_recalls_search, jp_recalls_for_model, jp_complaints_summary, eu_safety_gate_recalls (stub).',
+        'Remote MCP server — uk_mot_reliability, uk_mot_vehicle_search (live via whatbreaks.uk), uk_recalls_for_model, ' +
+        'uk_recalls_search (DVSA), fr_recalls_for_model, fr_recalls_search, jp_recalls_for_model, jp_complaints_summary, ' +
+        'eu_safety_gate_recalls (stub).',
     },
     coverage: {
       exams: coverageSummary(),
       rates: `tax year ${RATES.taxYear}`,
       vehicles: {
         ukMot: '530 UK model generations (live proxy to whatbreaks.uk)',
+        ukRecalls: `${UK.count} DVSA safety recalls launched since ${UK.filter.launchDateFrom}, verified ${UK.verifiedDate}`,
         frRecalls: `${FR.count} RappelConso automobile fiches, verified ${FR.verifiedDate}`,
         jpRecalls: `${JP.counts.recallFilings} MLIT filings + ${JP.counts.complaints} owner complaints across ${JP.counts.models} models, verified ${JP.verifiedDate}`,
         euSafetyGate: 'stub',

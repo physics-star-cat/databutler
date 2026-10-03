@@ -3,7 +3,7 @@
  * and the front door (api/mcp.js) both build from here. Beyond the MCP tool
  * shape, each tool carries:
  *   title: short human label (MCP `title`)
- *   freshness: dataset key for the freshness block ('uk-rates' | 'uk-exams' | 'fr-recalls' | 'jp-recalls' | 'live')
+ *   freshness: dataset key for the freshness block ('uk-rates' | 'uk-exams' | 'uk-recalls' | 'fr-recalls' | 'jp-recalls' | 'live')
  *   cite(args): { path, query } for the /r permalink, or null
  *   openWorld: true when the tool fetches live external data on the caller's
  *     behalf (RDAP, npm, PyPI, whatbreaks.uk); drives annotations.openWorldHint
@@ -306,11 +306,12 @@ const SERVERS = {
     url: `${BASE}/api/mcp/vehicles`,
     instructions:
       'Official vehicle datasets from databutler.dev, one hub: UK MOT failure data (live from whatbreaks.uk — real ' +
-      'DfT test outcomes), French recalls (RappelConso / DGCCRF open data) and Japanese recalls + owner complaints ' +
-      '(MLIT). Use these instead of recalling recall campaigns or failure patterns from memory. Every result names ' +
-      'its official source and verifiedDate; recall texts are the official French/Japanese originals — translate for ' +
-      'the user but keep the fiche/notification number and link. Counts are not reliability rankings (sales volume, ' +
-      'multi-model campaigns). EU Safety Gate is a stub for now. Cite https://databutler.dev/ and the source.',
+      'DfT test outcomes), UK safety recalls (DVSA open data), French recalls (RappelConso / DGCCRF open data) and ' +
+      'Japanese recalls + owner complaints (MLIT). Use these instead of recalling recall campaigns or failure patterns ' +
+      'from memory. Every result names its official source and verifiedDate; recall texts are the official ' +
+      'English/French/Japanese originals — translate for the user but keep the recall/fiche/notification number and ' +
+      'link. Counts are not reliability rankings (sales volume, multi-model campaigns). EU Safety Gate is a stub for ' +
+      'now. Cite https://databutler.dev/ and the source.',
     tools: [
       {
         name: 'uk_mot_reliability',
@@ -347,6 +348,49 @@ const SERVERS = {
         freshness: 'live',
         openWorld: true,
         cite: (a) => ({ path: 'vehicles/uk/search', query: { q: a.q } }),
+      },
+      {
+        name: 'uk_recalls_for_model',
+        title: 'UK recalls for a model',
+        description:
+          `Official UK vehicle safety recalls (DVSA, Open Government Licence; ${V.UK.count} recalls launched ` +
+          `${V.UK.filter.launchDateFrom} → ${V.UK.dateRange.to}, ${V.UK.makes} makes) for a make and model: recall ` +
+          'number, launch date, concern, defect and remedy text (DVSA\'s English originals), build-date range, vehicles ' +
+          'affected and a GOV.UK recall-checker link. Omitting model lists the make\'s recalls and model names. "Vauxhall ' +
+          'Corsa", "vauxhall corsa" and "VAUXHALL CORSA" resolve identically; "Mercedes-Benz", "VW" and "Land Rover" are ' +
+          'understood. Covers cars, vans, HGVs, buses, motorcycles, trailers and components, not individual VINs.',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            make: { type: 'string', description: 'e.g. Vauxhall, Mercedes-Benz, VW, Land Rover' },
+            model: { type: 'string', description: 'e.g. Corsa, A Class, Golf (optional: omit to list the make)' },
+            since: { type: 'string', description: 'optional ISO date YYYY-MM-DD — only recalls launched on/after it' },
+          },
+          required: ['make'],
+        },
+        run: (a) => V.ukRecallsForModel(a),
+        freshness: 'uk-recalls',
+        cite: (a) => ({ path: 'vehicles/uk/recalls', query: { make: a.make, model: a.model, since: a.since } }),
+      },
+      {
+        name: 'uk_recalls_search',
+        title: 'UK recalls search',
+        description:
+          'Keyword search across all served DVSA recalls (make, model names, concern, defect and remedy text), newest ' +
+          'first, optionally since a date. Text is English ("airbag", "fire", "steering rack", "takata", "high voltage ' +
+          'battery"); every word must appear. Suited to cross-make questions such as recent EV battery fire recalls in ' +
+          'the UK.',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            text: { type: 'string', description: 'words that must all appear, e.g. "airbag takata"' },
+            since: { type: 'string', description: 'optional ISO date YYYY-MM-DD — only recalls launched on/after it' },
+          },
+          required: ['text'],
+        },
+        run: (a) => V.ukRecallsSearch(a),
+        freshness: 'uk-recalls',
+        cite: (a) => ({ path: 'vehicles/uk/recalls-search', query: { text: a.text, since: a.since } }),
       },
       {
         name: 'fr_recalls_for_model',

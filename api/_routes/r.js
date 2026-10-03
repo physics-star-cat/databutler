@@ -35,6 +35,8 @@ const ROUTES = {
   stats: { tool: (q) => ALL_TOOLS[STATS_OPS[q.op]], args: (q) => { const { op, ...rest } = parseJsonValues(q); return rest; }, rest: (q) => `/api/stats${qs(q)}` },
   'vehicles/uk/mot': { tool: () => ALL_TOOLS.uk_mot_reliability, args: (q) => ({ make: q.make, model: q.model, ...(q.year ? { year: Number(q.year) } : {}), ...(q.mileage ? { mileage: Number(q.mileage) } : {}) }), rest: (q) => `/api/vehicles/uk/mot${qs(q)}` },
   'vehicles/uk/search': { tool: () => ALL_TOOLS.uk_mot_vehicle_search, args: (q) => ({ q: q.q }), rest: (q) => `/api/vehicles/uk/search${qs(q)}` },
+  'vehicles/uk/recalls': { tool: () => ALL_TOOLS.uk_recalls_for_model, args: (q) => ({ make: q.make, model: q.model, since: q.since }), rest: (q) => `/api/vehicles/uk/recalls${qs(q)}` },
+  'vehicles/uk/recalls-search': { tool: () => ALL_TOOLS.uk_recalls_search, args: (q) => ({ text: q.text, since: q.since }), rest: (q) => `/api/vehicles/uk/recalls-search${qs(q)}` },
   'vehicles/fr/recalls': { tool: () => ALL_TOOLS.fr_recalls_for_model, args: (q) => ({ brand: q.brand, model: q.model }), rest: (q) => `/api/vehicles/fr/recalls${qs(q)}` },
   'vehicles/fr/search': { tool: () => ALL_TOOLS.fr_recalls_search, args: (q) => ({ text: q.text, since: q.since }), rest: (q) => `/api/vehicles/fr/search${qs(q)}` },
   'vehicles/jp/recalls': { tool: () => ALL_TOOLS.jp_recalls_for_model, args: (q) => ({ make: q.make, model: q.model }), rest: (q) => `/api/vehicles/jp/recalls${qs(q)}` },

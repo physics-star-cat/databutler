@@ -225,9 +225,9 @@ test('MOT proxy: missing params never hit the network', async () => {
 
 /* ---------------- MCP server, front door, REST, citation page ---------------- */
 
-test('/api/mcp/vehicles lists the 7 tools; results carry the envelope with dataset freshness', async () => {
+test('/api/mcp/vehicles lists the 9 tools; results carry the envelope with dataset freshness', async () => {
   const list = await rpc(vehiclesServer, 'tools/list');
-  assert.deepEqual(list.body.result.tools.map((t) => t.name), ['uk_mot_reliability', 'uk_mot_vehicle_search', 'fr_recalls_for_model', 'fr_recalls_search', 'jp_recalls_for_model', 'jp_complaints_summary', 'eu_safety_gate_recalls']);
+  assert.deepEqual(list.body.result.tools.map((t) => t.name), ['uk_mot_reliability', 'uk_mot_vehicle_search', 'uk_recalls_for_model', 'uk_recalls_search', 'fr_recalls_for_model', 'fr_recalls_search', 'jp_recalls_for_model', 'jp_complaints_summary', 'eu_safety_gate_recalls']);
   const init = await rpc(vehiclesServer, 'initialize', { protocolVersion: '2025-06-18', capabilities: {}, clientInfo: { name: 't', version: '0' } });
   assert.equal(init.body.result.serverInfo.name, 'databutler-vehicles');
   const fr = await callTool(vehiclesServer, 'fr_recalls_for_model', { brand: 'peugeot', model: '208' });
@@ -243,6 +243,14 @@ test('/api/mcp/vehicles lists the 7 tools; results carry the envelope with datas
   const eu = await callTool(vehiclesServer, 'eu_safety_gate_recalls', {});
   assert.equal(eu.isError, false);
   assert.equal(eu.data.covered, false);
+  const uk = await callTool(vehiclesServer, 'uk_recalls_for_model', { make: 'Vauxhall', model: 'Corsa', since: '2020-01-01' });
+  assert.equal(uk.isError, false);
+  assert.ok(uk.data.count > 0);
+  assert.equal(uk.data.freshness.verifiedDate, V.UK.verifiedDate);
+  assert.equal(uk.data.cite.url, 'https://databutler.dev/r/vehicles/uk/recalls?make=Vauxhall&model=Corsa&since=2020-01-01');
+  assert.match(uk.data.cite.text, /verified \d{4}-\d{2}-\d{2} against https:\/\/www\.check-vehicle-recalls\.service\.gov\.uk\//);
+  const uks = await callTool(vehiclesServer, 'uk_recalls_search', { text: 'airbag' });
+  assert.equal(uks.data.cite.url, 'https://databutler.dev/r/vehicles/uk/recalls-search?text=airbag');
 });
 
 test('front door: vehicles tools are behind call (not listed), reachable, and catalogued', async () => {
@@ -262,11 +270,17 @@ test('front door: vehicles tools are behind call (not listed), reachable, and ca
   assert.ok(cat.data.tools.some((t) => t.name === 'fr_recalls_search' && t.server === 'vehicles' && t.serverUrl === 'https://databutler.dev/api/mcp/vehicles'));
   const cov = await callTool(frontDoor, 'coverage', { area: 'vehicles' });
   assert.equal(cov.data.frRecalls.fiches, V.FR.count);
+  assert.equal(cov.data.ukRecalls.recalls, V.UK.count);
+  assert.ok(cov.data.ukRecalls.makes.includes('vauxhall'));
   assert.ok(cov.data.notCovered.some((x) => /Safety Gate/.test(x)));
+  assert.ok(!cov.data.notCovered.some((x) => /only MOT outcomes/.test(x)), 'DVSA recalls are covered now');
+  assert.ok(cat.data.tools.some((t) => t.name === 'uk_recalls_search'));
 });
 
 test('REST mirrors under /api/vehicles carry freshness + cite; required params â†’ 400', async () => {
   const cases = [
+    [require('../api/_routes/vehicles/uk/recalls'), '/api/vehicles/uk/recalls?make=vauxhall&model=corsa', 'https://databutler.dev/r/vehicles/uk/recalls?make=vauxhall&model=corsa'],
+    [require('../api/_routes/vehicles/uk/recalls-search'), '/api/vehicles/uk/recalls-search?text=airbag&since=2025-01-01', 'https://databutler.dev/r/vehicles/uk/recalls-search?text=airbag&since=2025-01-01'],
     [require('../api/_routes/vehicles/fr/recalls'), '/api/vehicles/fr/recalls?brand=peugeot&model=208', 'https://databutler.dev/r/vehicles/fr/recalls?brand=peugeot&model=208'],
     [require('../api/_routes/vehicles/fr/search'), '/api/vehicles/fr/search?text=airbag&since=2026-01-01', 'https://databutler.dev/r/vehicles/fr/search?text=airbag&since=2026-01-01'],
     [require('../api/_routes/vehicles/jp/recalls'), '/api/vehicles/jp/recalls?make=toyota&model=prius', 'https://databutler.dev/r/vehicles/jp/recalls?make=toyota&model=prius'],
@@ -281,6 +295,8 @@ test('REST mirrors under /api/vehicles carry freshness + cite; required params â
     assert.equal(res.body.attribution, 'databutler.dev');
   }
   assert.equal((await get(require('../api/_routes/vehicles/fr/recalls'), '/api/vehicles/fr/recalls')).status, 400);
+  assert.equal((await get(require('../api/_routes/vehicles/uk/recalls'), '/api/vehicles/uk/recalls?model=corsa')).status, 400);
+  assert.equal((await get(require('../api/_routes/vehicles/uk/recalls-search'), '/api/vehicles/uk/recalls-search')).status, 400);
   assert.equal((await get(require('../api/_routes/vehicles/jp/recalls'), '/api/vehicles/jp/recalls?make=toyota')).status, 400);
   assert.equal((await get(require('../api/_routes/vehicles/uk/mot'), '/api/vehicles/uk/mot?make=Ford')).status, 400);
   assert.equal((await get(require('../api/_routes/vehicles/uk/search'), '/api/vehicles/uk/search')).status, 400);
@@ -300,6 +316,10 @@ test('/r/vehicles/* citation pages render with the official source link', async 
   assert.match(String(fr.raw), /href="\/api\/vehicles\/fr\/recalls\?brand=peugeot&amp;model=208"/);
   const jp = await get(r, '/api/r?path=vehicles/jp/recalls&make=toyota&model=prius');
   assert.match(String(jp.raw), /renrakuda\.mlit\.go\.jp\/mt\/recallpdf/);
+  const uk = await get(r, '/api/r?path=vehicles/uk/recalls&make=vauxhall&model=corsa');
+  assert.equal(uk.status, 200);
+  assert.match(String(uk.raw), /check-vehicle-recalls\.service\.gov\.uk\/recall-type\/vehicle\/make\/VAUXHALL/);
+  assert.match(String(uk.raw), /href="\/api\/vehicles\/uk\/recalls\?make=vauxhall&amp;model=corsa"/);
   const m = mockFetch(() => { throw new Error('offline'); });
   try {
     const mot = await get(r, '/api/r?path=vehicles/uk/mot&make=Ford&model=Focus&year=2015');

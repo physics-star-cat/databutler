@@ -52,7 +52,7 @@ product is designed with Claude as the end user, by Claude:
 | 11 | **Provenance, widened** — crates.io, RubyGems, Go modules, Docker Hub, GitHub Actions, browser extensions; then **MCP-server provenance** (cross-check a registry listing's claimed domain, repo and publisher — the hub that vets other hubs) | `/api/mcp/provenance` | after front door |
 | 12 | **Rates, country #2 = US** (IRS pages are bot-fetchable; AU/CA/IN sites 403 automated fetches — browser-only curation, wait for the source watcher to prove the loop) | `/api/us/rates` | after drift facts |
 | 13 | **Exams, global boards** — IB and AP: same topic→paper query stream, same teaching moat; curation-heavy, gated on UK exams 🤖 counts | `/api/mcp/exams` | gated |
-| 6 | **Vehicles hub** — UK MOT failure data (live proxy to whatbreaks.uk), French recalls (RappelConso, 1,663 fiches), Japanese recalls + owner complaints (MLIT, 75 models); EU Safety Gate stub | `/api/mcp/vehicles` | **v1 — built 2026-10-03** |
+| 6 | **Vehicles hub** — UK MOT failure data (live proxy to whatbreaks.uk), UK safety recalls (DVSA, 4,876 recalls since 2016), French recalls (RappelConso, 1,663 fiches), Japanese recalls + owner complaints (MLIT, 75 models); EU Safety Gate stub | `/api/mcp/vehicles` | **v1 — built 2026-10-03** |
 | 6b | UK councils phase 2 (above) | — | later |
 | 7 | **Current-docs for libraries** (wishlist #4) | — | parked — Context7 et al. exist; only enter if a clearly underserved niche appears |
 | 8 | **Infra-config/auth broker** (wishlist #5) | — | out of scope — VC-scale product, documented so we stop re-litigating it |
@@ -73,7 +73,7 @@ each need real engineering programmes; they wait for evidence of demand
 Existing family members on their own domains: whatbreaks.uk `/api/mcp`
 (MOT reliability), lowriskquotes.com `/api/mcp/` (Monte Carlo).
 
-## Tool catalogue (19 tools, 5 focused servers + front door)
+## Tool catalogue (21 tools, 5 focused servers + front door)
 
 | Server | Tools | Data |
 |---|---|---|
@@ -81,12 +81,13 @@ Existing family members on their own domains: whatbreaks.uk `/api/mcp`
 | `/api/mcp/uk-exams` | `exam_topic_paper`, `exam_spec_lookup`, `exam_paper_index` | `data/uk/exams/*.json`, verified against board spec pages |
 | `/api/mcp/provenance` | `domain_provenance`, `package_provenance` | live RDAP / npm / PyPI |
 | `/api/mcp/stats` | `descriptive_stats`, `distribution`, `hypothesis_test`, `confidence_interval`, `bayes_update`, `linear_regression` | pure computation, reference-validated |
-| `/api/mcp/vehicles` | `uk_mot_reliability`, `uk_mot_vehicle_search` (live proxy → whatbreaks.uk, 8 s timeout, UA `databutler-hub/1.0`); `fr_recalls_for_model`, `fr_recalls_search` (`data/vehicles/fr-recalls.json`, RappelConso V2 open data, Licence Ouverte 2.0); `jp_recalls_for_model`, `jp_complaints_summary` (`data/vehicles/jp-recalls.json`, MLIT); `eu_safety_gate_recalls` (**stub**) | regenerate with `node scripts/vehicles.js` from the sibling `car_websites/` repos after their fetchers run |
+| `/api/mcp/vehicles` | `uk_mot_reliability`, `uk_mot_vehicle_search` (live proxy → whatbreaks.uk, 8 s timeout, UA `databutler-hub/1.0`); `uk_recalls_for_model`, `uk_recalls_search` (`data/vehicles/uk-recalls.json`, DVSA bulk CSV, Open Government Licence v3.0, recalls launched in the last ten calendar years); `fr_recalls_for_model`, `fr_recalls_search` (`data/vehicles/fr-recalls.json`, RappelConso V2 open data, Licence Ouverte 2.0); `jp_recalls_for_model`, `jp_complaints_summary` (`data/vehicles/jp-recalls.json`, MLIT); `eu_safety_gate_recalls` (**stub**) | regenerate with `node scripts/vehicles.js` — FR/JP from the sibling `car_websites/` repos after their fetchers run, UK straight from DVSA (`node scripts/vehicles.js uk`) |
 | `/api/mcp` (front door) | the four high-frequency tools above + `what_changed_since`, `coverage`, `catalogue`, `call` | — |
 
 Every tool carries `title` and MCP annotations (`readOnlyHint: true`,
 `destructiveHint: false`, `openWorldHint` true only for live fetches). REST
-mirrors: `/api/uk/*`, `/api/provenance/*`, `/api/stats`, `/api/vehicles/{uk,fr,jp,eu}/*`.
+mirrors: `/api/uk/*`, `/api/provenance/*`, `/api/stats`, `/api/vehicles/{uk,fr,jp,eu}/*`
+(UK: `/api/vehicles/uk/{mot,search,recalls,recalls-search}`).
 Privacy statement: `/privacy`.
 
 ## Iron rules (learned the hard way)
