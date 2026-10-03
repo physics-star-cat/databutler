@@ -6,7 +6,7 @@
  *   freshness: dataset key for the freshness block ('uk-rates' | 'uk-exams' | 'fr-recalls' | 'jp-recalls' | 'live')
  *   cite(args): { path, query } for the /r permalink, or null
  *   openWorld: true when the tool fetches live external data on the caller's
- *     behalf (RDAP, npm, PyPI, whatbreaks.uk); drives annotations.openWorldHint
+ *     behalf (RDAP, npm, PyPI, whatbreaks.uk, lifebynumbers.net); drives annotations.openWorldHint
  *
  * annotate() stamps the MCP tool annotations every Data Butler tool shares:
  * all tools are read-only and non-destructive, so a directory reviewer (and
@@ -17,6 +17,7 @@ const { domainProvenance, packageProvenance } = require('./_provenance');
 const S = require('./_stats.js');
 const V = require('./_vehicles');
 const { motReliability, motVehicleSearch } = require('./_mot');
+const TAX = require('./_tax');
 
 const BASE = 'https://databutler.dev';
 const numArray = { type: 'array', items: { type: 'number' } };
@@ -435,6 +436,50 @@ const SERVERS = {
         run: (a) => V.euSafetyGateStub(a),
         freshness: 'live',
         cite: (a) => ({ path: 'vehicles/eu/safety-gate', query: { brand: a.brand, model: a.model } }),
+      },
+    ],
+  },
+
+  tax: {
+    serverName: 'databutler-tax',
+    url: `${BASE}/api/mcp/tax`,
+    instructions:
+      'Take-home pay from databutler.dev, computed live by the LifeByNumbers salary calculators (same operator) ' +
+      'for ' + TAX.COUNTRY_CODES.join(', ') + '. Use take_home_pay instead of estimating net salary from memory — ' +
+      'bracket thresholds, contribution ceilings and rebates move every year and models misremember them. Present ' +
+      'the taxYear, the assumptions list and the breakdown alongside the net figure: the result is a single-employee ' +
+      'estimate under stated defaults (no voluntary pension, standard allowances), not personal tax advice. Spain ' +
+      'returns covered:false (no upstream calculator). Cite https://databutler.dev/ and the source calculator page.',
+    tools: [
+      {
+        name: 'take_home_pay',
+        title: 'Take-home pay',
+        description:
+          'Net salary after income tax and social contributions for an employee in one of ten countries ' +
+          `(${TAX.COUNTRY_CODES.join(', ')}), computed live by the LifeByNumbers salary calculators (same operator). ` +
+          'Takes a gross salary in local currency (annual by default, or monthly with period) and a country code, ' +
+          'plus optional state and filingStatus for the US, province for Canada, region (england|scotland) for the UK. ' +
+          'Returns gross, net and total deductions (each annual and monthly), a line-by-line breakdown typed as tax / ' +
+          'social / contribution / repayment, effectiveRate, the tax year the figures apply to, currency, the ' +
+          'assumptions behind the estimate and the upstream calculator page as source. Spain (es) is listed but ' +
+          'answers covered:false because lifebynumbers.net computes it client-side only.',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            country: { type: 'string', enum: TAX.COUNTRY_CODES, description: 'ISO 3166-1 alpha-2, lower case: ' + TAX.COUNTRY_CODES.join(', ') },
+            gross: { type: 'number', description: 'gross salary in local currency, annual unless period is monthly, e.g. 50000' },
+            period: { type: 'string', enum: TAX.PERIODS, description: 'period of gross (default annual); results always give both annual and monthly' },
+            state: { type: 'string', description: 'US only: two-letter state code, e.g. TX (default CA)' },
+            filingStatus: { type: 'string', enum: TAX.US_FILING, description: 'US only (default single)' },
+            province: { type: 'string', description: 'Canada only: two-letter province/territory code, e.g. BC (default ON)' },
+            region: { type: 'string', enum: ['england', 'scotland', 'wales', 'northern-ireland'], description: 'UK only: scotland applies Scottish income tax bands (default england)' },
+          },
+          required: ['country', 'gross'],
+        },
+        run: (a) => TAX.takeHomePay(a),
+        freshness: 'live',
+        openWorld: true,
+        cite: (a) => ({ path: 'tax/take-home', query: { country: a.country, gross: a.gross, period: a.period, state: a.state, filingStatus: a.filingStatus, province: a.province, region: a.region } }),
       },
     ],
   },

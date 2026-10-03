@@ -2,7 +2,7 @@
  * One serverless function for every /api/* route except /api itself.
  *
  * Vercel's Hobby plan allows 12 serverless functions per deployment and the
- * estate has 23 endpoints, so the handlers live under api/_routes/ (an
+ * estate has 25 endpoints, so the handlers live under api/_routes/ (an
  * underscore directory is never deployed as functions) and vercel.json
  * rewrites /api/<route> here. The route is read from ?route=, which the
  * rewrite adds, then stripped from req.url again so every handler sees the
@@ -17,6 +17,7 @@ const ROUTES = {
   'mcp/uk-exams': require('./_routes/mcp/uk-exams'),
   'mcp/uk-rates': require('./_routes/mcp/uk-rates'),
   'mcp/vehicles': require('./_routes/mcp/vehicles'),
+  'mcp/tax': require('./_routes/mcp/tax'),
   'changes': require('./_routes/changes'),
   'r': require('./_routes/r'),
   'stats': require('./_routes/stats'),
@@ -34,6 +35,7 @@ const ROUTES = {
   'vehicles/jp/recalls': require('./_routes/vehicles/jp/recalls'),
   'vehicles/jp/complaints': require('./_routes/vehicles/jp/complaints'),
   'vehicles/eu/safety-gate': require('./_routes/vehicles/eu/safety-gate'),
+  'tax/take-home': require('./_routes/tax/take-home'),
 };
 
 /** Route name from ?route= (set by the rewrite) or, failing that, the path. */

@@ -6,7 +6,7 @@ const frontDoor = require('../api/_routes/mcp');
 
 // Tools that fetch live external data on the caller's behalf. Everything else
 // answers from local datasets or pure computation.
-const OPEN_WORLD = ['domain_provenance', 'package_provenance', 'uk_mot_reliability', 'uk_mot_vehicle_search', 'call'];
+const OPEN_WORLD = ['domain_provenance', 'package_provenance', 'uk_mot_reliability', 'uk_mot_vehicle_search', 'take_home_pay', 'call'];
 const MCP_TOOL_KEYS = ['annotations', 'description', 'inputSchema', 'name', 'title'];
 
 async function listedTools() {

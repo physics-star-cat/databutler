@@ -5,9 +5,9 @@ const frontDoor = require('../api/_routes/mcp');
 const changes = require('../api/_routes/changes');
 const { ALL_TOOLS } = require('../api/_registry');
 
-const ORDER = ['uk_rates_lookup', 'exam_topic_paper', 'domain_provenance', 'package_provenance', 'what_changed_since', 'coverage', 'catalogue', 'call'];
+const ORDER = ['uk_rates_lookup', 'exam_topic_paper', 'domain_provenance', 'package_provenance', 'take_home_pay', 'what_changed_since', 'coverage', 'catalogue', 'call'];
 
-test('front door lists exactly the 8 tools, in order, with clean defs', async () => {
+test('front door lists exactly the 9 tools, in order, with clean defs', async () => {
   const r = await rpc(frontDoor, 'tools/list');
   assert.deepEqual(r.body.result.tools.map((t) => t.name), ORDER);
   for (const t of r.body.result.tools) assert.deepEqual(Object.keys(t).sort(), ['annotations', 'description', 'inputSchema', 'name', 'title']);
@@ -64,7 +64,7 @@ test('call reaches every non-network registry tool with the inner envelope', asy
     assert.equal(data.freshness.staleness, ALL_TOOLS[name].freshness === 'live' ? 'live' : data.freshness.staleness);
   }
   // network tools exist in the registry even though we don't call them here
-  assert.ok(ALL_TOOLS.domain_provenance && ALL_TOOLS.package_provenance);
+  assert.ok(ALL_TOOLS.domain_provenance && ALL_TOOLS.package_provenance && ALL_TOOLS.take_home_pay);
 });
 
 test('call with an unknown tool is a near-miss naming the closest tools, with a cite to the catalogue', async () => {

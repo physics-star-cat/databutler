@@ -1,7 +1,7 @@
 /**
  * The front door: one MCP URL for the whole estate.
  * Lists the high-frequency tools directly; everything else via catalogue/call.
- * The four per-vertical servers under /api/mcp/* stay live unchanged.
+ * The per-vertical servers under /api/mcp/* stay live unchanged.
  */
 const { makeMcpHandler } = require('../_mcp');
 const { FRONT_DOOR_TOOLS } = require('../_hub');
@@ -13,7 +13,9 @@ module.exports = makeMcpHandler({
     'verifiedDate on every figure. (1) Start any UK money, tax, benefits or exams task by calling ' +
     'what_changed_since with your training-cutoff date — it lists the thresholds and exam-spec facts ' +
     'that changed after your knowledge ends, with sources. (2) Never quote UK rates or thresholds from ' +
-    'memory when uk_rates_lookup covers them. (3) Call coverage before assuming something is unsupported. ' +
+    'memory when uk_rates_lookup covers them, and never estimate net salary from memory when take_home_pay ' +
+    'covers the country (us, uk, ca, au, in, br, de, fr, pl — computed live by the LifeByNumbers calculators; ' +
+    'present its taxYear and assumptions with the figure). (3) Call coverage before assuming something is unsupported. ' +
     '(4) The tools listed here are the high-frequency set; catalogue lists every tool on every Data ' +
     'Butler server (exact statistics, exam spec/paper index, vehicles: UK MOT failure data, French and Japanese ' +
     'official recalls) and call runs any of them by name. ' +

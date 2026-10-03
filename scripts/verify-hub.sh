@@ -15,7 +15,7 @@ check() { # label, json, python-expression over d
 check initialize "$(rpc '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"verify","version":"0"}}}')" \
   "d['result']['serverInfo']['name']=='databutler' and 'what_changed_since' in d['result']['instructions']"
 check tools/list "$(rpc '{"jsonrpc":"2.0","id":2,"method":"tools/list"}')" \
-  "[t['name'] for t in d['result']['tools']]==['uk_rates_lookup','exam_topic_paper','domain_provenance','package_provenance','what_changed_since','coverage','catalogue','call']"
+  "[t['name'] for t in d['result']['tools']]==['uk_rates_lookup','exam_topic_paper','domain_provenance','package_provenance','take_home_pay','what_changed_since','coverage','catalogue','call']"
 check rates "$(inner "$(tool uk_rates_lookup '{"category":"income-tax"}')")" \
   "d['freshness']['staleness'] in ('fresh','due','overdue') and d['cite']['url']=='https://databutler.dev/r/uk/rates?category=income-tax'"
 check topic "$(inner "$(tool exam_topic_paper '{"topic":"electricity","board":"aqa","subject":"physics"}')")" \
@@ -27,13 +27,17 @@ check package "$(inner "$(tool package_provenance '{"ecosystem":"npm","name":"ex
 check changed "$(inner "$(tool what_changed_since '{"since":"2026-06-01"}')")" \
   "d['since']=='2026-06-01' and isinstance(d['entries'],list) and d['coverageStart']=='2026-08-31'"
 check coverage "$(inner "$(tool coverage '{"area":"uk-exams"}')")" "'aqa' in d['boards']"
-check catalogue "$(inner "$(tool catalogue '{}')")" "d['count']==19"
+check catalogue "$(inner "$(tool catalogue '{}')")" "d['count']==20"
+check take-home-uk "$(inner "$(tool take_home_pay '{"country":"uk","gross":50000}')")" \
+  "(d['currency']=='GBP' and d['taxYear'] and d['net']['annual']<50000 and d['upstreamProvenance']['attribution']=='lifebynumbers.net' and d['cite']['url'].startswith('https://databutler.dev/r/tax/take-home?country=uk')) or d.get('error')=='upstream unavailable'"
+check take-home-es "$(inner "$(tool take_home_pay '{"country":"es","gross":40000}')")" "d['covered']==False and 'lifebynumbers.net/es/' in d['source']"
+check take-home-bad "$(inner "$(tool take_home_pay '{"country":"zz","gross":1}')")" "d['covered']==False and 'uk' in d['coverage']"
 check call-stats "$(inner "$(tool call '{"tool":"distribution","arguments":{"dist":"normal","at":1.96}}')")" \
   "abs(d['cdf']-0.975)<0.001 and d['cite']['url'].startswith('https://databutler.dev/r/stats?op=distribution')"
 check call-unknown "$(inner "$(tool call '{"tool":"linear_regresion","arguments":{}}')")" "d['covered']==False and d['nearest'][0]=='linear_regression'"
 check call-nearmiss-rates "$(inner "$(tool uk_rates_lookup '{"category":"incme"}')")" "d['covered']==False and 'income-tax' in d['nearest']"
 
-for name in uk-rates uk-exams provenance stats vehicles; do
+for name in uk-rates uk-exams provenance stats vehicles tax; do
   check "legacy $name tools/list" "$(curl -sS -X POST "$BASE/api/mcp/$name" -H 'Content-Type: application/json' -d '{"jsonrpc":"2.0","id":2,"method":"tools/list"}')" "len(d['result']['tools'])>0"
 done
 
@@ -44,6 +48,8 @@ check call-jp-recalls "$(inner "$(tool call '{"tool":"jp_recalls_for_model","arg
 check call-mot-search "$(inner "$(tool call '{"tool":"uk_mot_vehicle_search","arguments":{"q":"golf"}}')")" \
   "('vehicles' in d and d['upstreamProvenance']['attribution']=='whatbreaks.uk') or d.get('error')=='upstream unavailable'"
 check rest-fr-recalls "$(curl -sS "$BASE/api/vehicles/fr/recalls?brand=peugeot&model=208")" "'freshness' in d and d['cite']['url'].startswith('https://databutler.dev/r/vehicles/fr/recalls?')"
+check rest-take-home "$(curl -sS "$BASE/api/tax/take-home?country=de&gross=48000")" "'freshness' in d and (d.get('currency')=='EUR' or d.get('error')=='upstream unavailable')"
+check rest-take-home-400 "$(curl -sS "$BASE/api/tax/take-home?country=uk")" "'missing' in d['error']"
 check rest-changes "$(curl -sS "$BASE/api/changes?since=2026-06-01&area=uk-rates")" "d['area']=='uk-rates' and 'cite' in d"
 check rest-rates-envelope "$(curl -sS "$BASE/api/uk/rates?category=vat")" "'freshness' in d and 'cite' in d"
 

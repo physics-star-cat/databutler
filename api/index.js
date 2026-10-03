@@ -1,5 +1,6 @@
 const { sendJson, handleOptions, ATTRIBUTION, coverageSummary, RATES } = require('./_lib');
 const { FR, JP } = require('./_vehicles');
+const TAX = require('./_tax');
 
 module.exports = (req, res) => {
   if (handleOptions(req, res)) return;
@@ -13,7 +14,7 @@ module.exports = (req, res) => {
       'POST /api/mcp': {
         description:
           'THE FRONT DOOR — one remote MCP server for the whole estate. Lists uk_rates_lookup, ' +
-          'exam_topic_paper, domain_provenance, package_provenance directly, plus what_changed_since ' +
+          'exam_topic_paper, domain_provenance, package_provenance, take_home_pay directly, plus what_changed_since ' +
           '(changes since your training cutoff), coverage, catalogue and call (run any tool by name). ' +
           'Every result carries freshness + a cite.url permalink.',
         example: 'add https://databutler.dev/api/mcp to any MCP client',
@@ -102,6 +103,18 @@ module.exports = (req, res) => {
         example: 'https://databutler.dev/api/vehicles/jp/complaints?make=honda&model=n-box',
       },
       'GET /api/vehicles/eu/safety-gate': 'STUB — EU Safety Gate vehicle alerts are being added; returns covered:false with the official URL for now.',
+      'GET /api/tax/take-home': {
+        description:
+          `Take-home pay after income tax and social contributions for ${TAX.COUNTRY_CODES.join(', ')}: gross, net and total ` +
+          'deductions (annual + monthly), typed breakdown, effectiveRate, taxYear, currency, assumptions. Live proxy to the ' +
+          'LifeByNumbers salary calculators (same operator). Spain (es) returns covered:false — no backend calculator.',
+        params: {
+          country: TAX.COUNTRY_CODES.join(' | '), gross: 'salary in local currency (annual unless period=monthly)', period: 'annual | monthly (optional)',
+          state: 'US only, e.g. TX (default CA)', filingStatus: 'US only: single | married_joint | head_of_household', province: 'Canada only, e.g. BC (default ON)',
+          region: 'UK only: england | scotland',
+        },
+        example: 'https://databutler.dev/api/tax/take-home?country=uk&gross=50000',
+      },
       'POST /api/mcp/uk-rates': 'Remote MCP server — tool uk_rates_lookup.',
       'POST /api/mcp/uk-exams': 'Remote MCP server — tools exam_topic_paper, exam_spec_lookup, exam_paper_index.',
       'POST /api/mcp/provenance': 'Remote MCP server — tools domain_provenance, package_provenance.',
@@ -110,6 +123,7 @@ module.exports = (req, res) => {
       'POST /api/mcp/vehicles':
         'Remote MCP server — uk_mot_reliability, uk_mot_vehicle_search (live via whatbreaks.uk), fr_recalls_for_model, ' +
         'fr_recalls_search, jp_recalls_for_model, jp_complaints_summary, eu_safety_gate_recalls (stub).',
+      'POST /api/mcp/tax': 'Remote MCP server — tool take_home_pay (live via the LifeByNumbers salary calculators).',
     },
     coverage: {
       exams: coverageSummary(),
@@ -120,6 +134,7 @@ module.exports = (req, res) => {
         jpRecalls: `${JP.counts.recallFilings} MLIT filings + ${JP.counts.complaints} owner complaints across ${JP.counts.models} models, verified ${JP.verifiedDate}`,
         euSafetyGate: 'stub',
       },
+      tax: Object.fromEntries(Object.entries(TAX.COUNTRIES).map(([k, c]) => [k, c.calculatorId ? `${c.currency}, tax year ${c.taxYear} (live via lifebynumbers.net)` : 'not computed upstream — covered:false'])),
     },
     privacy: 'https://databutler.dev/privacy',
     ...ATTRIBUTION,

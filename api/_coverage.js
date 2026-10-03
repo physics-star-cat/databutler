@@ -6,6 +6,7 @@ const { RATES, findSpecs } = require('./_lib');
 const { SERVERS } = require('./_registry');
 const { nearest } = require('./_text');
 const { vehiclesCoverage } = require('./_vehicles');
+const TAX = require('./_tax');
 
 const AREAS = {
   'uk-rates': () => ({
@@ -40,6 +41,22 @@ const AREAS = {
     notCovered: ['ANOVA', 'non-parametric tests (Mann-Whitney, Wilcoxon)', 'multiple regression', 'power analysis'],
   }),
   vehicles: vehiclesCoverage,
+  tax: () => ({
+    tool: 'take_home_pay',
+    countries: Object.fromEntries(
+      Object.entries(TAX.COUNTRIES).map(([k, c]) => [k, { name: c.name, currency: c.currency, taxYear: c.taxYear, computed: Boolean(c.calculatorId), calculator: c.page }]),
+    ),
+    options: { us: ['state', 'filingStatus'], ca: ['province'], uk: ['region'] },
+    scope: 'single employee on employment income; live proxy to the LifeByNumbers salary calculators (same operator); defaults fix voluntary pensions at zero and standard allowances — see each result\'s assumptions',
+    notCovered: [
+      'Spain (es): lifebynumbers.net computes it client-side, no backend calculator — returns covered:false',
+      'self-employment, dividends, capital gains, benefits in kind',
+      'UK student loans, NHS/Teachers pensions, tax codes other than 1257L (available on the calculator page, not exposed here)',
+      'US local/city taxes and state standard deductions (state tax is a simplified flat rate)',
+      'Canadian provinces other than Ontario use a single simplified rate',
+      'Indian old regime, German tax classes 2-6 / church tax, French quotient familial above 1 part, Polish youth relief / PPK, Brazilian dependents / 13th salary',
+    ],
+  }),
 };
 
 function coverageFor(area) {

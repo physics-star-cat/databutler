@@ -1,0 +1,9 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.physics-star-cat/databutler-tax",
+  "description": "Take-home pay for AI agents: net salary after income tax and social contributions for the US, UK, Canada, Australia, India, Brazil, Germany, France and Poland, computed live by the LifeByNumbers salary calculators (same operator). Tax year, assumptions, line-by-line breakdown and source on every answer.",
+  "repository": { "url": "https://github.com/physics-star-cat/databutler", "source": "github" },
+  "version": "1.0.0",
+  "websiteUrl": "https://databutler.dev/api",
+  "remotes": [{ "type": "streamable-http", "url": "https://databutler.dev/api/mcp/tax" }]
+}

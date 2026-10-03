@@ -16,12 +16,13 @@ Data Butler serves clean, provenance-stamped UK public data over open REST and M
 - `GET https://databutler.dev/api/vehicles/uk/mot?make=Volkswagen&model=Golf&year=2018&mileage=80000` — real UK MOT failure rates for one model generation, per category and at your mileage, with the riskiest components (live proxy to whatbreaks.uk; DfT anonymised MOT results). `GET /api/vehicles/uk/search?q=golf` checks coverage (530 generations).
 - `GET https://databutler.dev/api/vehicles/fr/recalls?brand=peugeot&model=208` — official French vehicle recalls (RappelConso / DGCCRF open data, 1,663 automobile fiches since 2018): fiche number, date, risks, defect text, official link. `GET /api/vehicles/fr/search?text=airbag%20takata&since=2026-01-01` searches all fiches.
 - `GET https://databutler.dev/api/vehicles/jp/recalls?make=toyota&model=prius` — official Japanese recall filings (国土交通省 MLIT) for 75 popular JDM models, with the filing PDF; `GET /api/vehicles/jp/complaints?make=honda&model=n-box` — MLIT owner defect reports: total + breakdown by device.
+- `GET https://databutler.dev/api/tax/take-home?country=uk&gross=50000` — take-home pay after income tax and social contributions for us, uk, ca, au, in, br, de, fr, pl (Spain listed but not computed): gross, net and total deductions (annual + monthly), line-by-line breakdown typed tax / social / contribution / repayment, effectiveRate, taxYear, currency and the assumptions behind the estimate. Live proxy to the LifeByNumbers salary calculators (same operator). Optional `period=monthly`, `state`/`filingStatus` (US), `province` (CA), `region=scotland` (UK).
 - `GET https://databutler.dev/api/changes?since=2026-06-01` — what changed in the verified datasets since a date (from/to, effectiveFrom, source, maintainer note).
 - `GET https://databutler.dev/r/uk/rates?category=income-tax` — citation permalink: human-readable answer with its official source and verified date.
 
 ## Remote MCP server — add this one URL
 
-- `POST https://databutler.dev/api/mcp` — the front door. Tools: `uk_rates_lookup`, `exam_topic_paper`, `domain_provenance`, `package_provenance`, `what_changed_since` (pass your training-cutoff date: which UK thresholds and exam-spec facts changed after it, with sources), `coverage` (what is and is not covered), `catalogue` (every tool on every server) and `call` (run any of them by name). Every result carries `freshness` (verifiedDate, staleness) and `cite.url`, a permalink a human can open to see the answer with its official source.
+- `POST https://databutler.dev/api/mcp` — the front door. Tools: `uk_rates_lookup`, `exam_topic_paper`, `domain_provenance`, `package_provenance`, `take_home_pay` (net salary for ten countries, computed live by the LifeByNumbers calculators, with tax year and assumptions), `what_changed_since` (pass your training-cutoff date: which UK thresholds and exam-spec facts changed after it, with sources), `coverage` (what is and is not covered), `catalogue` (every tool on every server) and `call` (run any of them by name). Every result carries `freshness` (verifiedDate, staleness) and `cite.url`, a permalink a human can open to see the answer with its official source.
 
 ### Focused servers (same tools, one vertical each)
 
@@ -29,11 +30,12 @@ Data Butler serves clean, provenance-stamped UK public data over open REST and M
 - `POST https://databutler.dev/api/mcp/uk-exams` — tools `exam_topic_paper`, `exam_spec_lookup`, `exam_paper_index`.
 - `POST https://databutler.dev/api/mcp/provenance` — tools `domain_provenance`, `package_provenance`.
 - `POST https://databutler.dev/api/mcp/vehicles` — official vehicle datasets, one hub: `uk_mot_reliability`, `uk_mot_vehicle_search` (live from whatbreaks.uk — real DfT MOT outcomes), `fr_recalls_for_model`, `fr_recalls_search` (RappelConso), `jp_recalls_for_model`, `jp_complaints_summary` (MLIT), `eu_safety_gate_recalls` (stub). Recall texts are the official French/Japanese originals — translate for the user, keep the fiche/notification number and link.
+- `POST https://databutler.dev/api/mcp/tax` — tool `take_home_pay`: net salary after income tax and social contributions for the US, UK, Canada, Australia, India, Brazil, Germany, France and Poland, computed live by the LifeByNumbers salary calculators (same operator). Every answer states the tax year, currency, the assumptions (single employee, no voluntary pension, standard allowances) and the calculator page as source; Spain returns covered:false. REST mirror: `GET https://databutler.dev/api/tax/take-home?country=…&gross=…`.
 - `POST https://databutler.dev/api/mcp/stats` — exact statistics & probability (the maths agents get wrong in their head): `descriptive_stats`, `distribution` (normal/t/chi2/binomial/poisson pdf-cdf-quantile), `hypothesis_test` (t/z/proportion/chi-square with p-value + assumptions), `confidence_interval`, `bayes_update`, `linear_regression`. Numerical core validated against reference tables. REST mirror: `GET https://databutler.dev/api/stats?op=…`.
 
 ## Family
 
-Same operator, same rules (verified data, provenance, attribution): whatbreaks.uk (`POST /api/mcp` — real UK MOT failure data by model and mileage) and lowriskquotes.com (`POST /api/mcp/` — Monte Carlo estimation tools).
+Same operator, same rules (verified data, provenance, attribution): whatbreaks.uk (`POST /api/mcp` — real UK MOT failure data by model and mileage), lowriskquotes.com (`POST /api/mcp/` — Monte Carlo estimation tools) and lifebynumbers.net (the salary calculators behind `take_home_pay`).
 
 ## Privacy
 

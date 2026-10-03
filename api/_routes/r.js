@@ -40,6 +40,7 @@ const ROUTES = {
   'vehicles/jp/recalls': { tool: () => ALL_TOOLS.jp_recalls_for_model, args: (q) => ({ make: q.make, model: q.model }), rest: (q) => `/api/vehicles/jp/recalls${qs(q)}` },
   'vehicles/jp/complaints': { tool: () => ALL_TOOLS.jp_complaints_summary, args: (q) => ({ make: q.make, model: q.model }), rest: (q) => `/api/vehicles/jp/complaints${qs(q)}` },
   'vehicles/eu/safety-gate': { tool: () => ALL_TOOLS.eu_safety_gate_recalls, args: (q) => ({ brand: q.brand, model: q.model }), rest: (q) => `/api/vehicles/eu/safety-gate${qs(q)}` },
+  'tax/take-home': { tool: () => ALL_TOOLS.take_home_pay, args: (q) => ({ country: q.country, gross: q.gross === undefined ? undefined : Number(q.gross), period: q.period, state: q.state, filingStatus: q.filingStatus, province: q.province, region: q.region }), rest: (q) => `/api/tax/take-home${qs(q)}` },
   changes: { tool: () => whatChangedSince, args: (q) => q, rest: (q) => `/api/changes${qs(q)}` },
   coverage: { tool: () => coverage, args: (q) => q, rest: () => '/api' },
   catalogue: { tool: () => catalogue, args: (q) => q, rest: () => '/api' },
