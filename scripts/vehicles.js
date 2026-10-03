@@ -21,7 +21,11 @@
  *
  * When a count changes against the committed file, a changelog entry
  * (area: vehicles) is appended for what_changed_since — note left blank for
- * the maintainer, same as scripts/changelog.js.
+ * the maintainer, same as scripts/changelog.js. The first derivation of a
+ * dataset (no committed file yet) appends one `<name>/dataset` entry
+ * (null → "covered") whose note carries the counts the script can see, so
+ * every dataset's arrival is on record at /changes without hand-editing
+ * data/changelog.json.
  */
 const fs = require('node:fs');
 const path = require('node:path');
@@ -306,14 +310,21 @@ async function buildUk() {
 
 /* ---------------- write + changelog ---------------- */
 
-function writeDataset(name, data, metrics) {
-  const out = path.join(OUT_DIR, `${name}.json`);
-  const prev = fs.existsSync(out) ? readJson(out) : null;
-  fs.mkdirSync(OUT_DIR, { recursive: true });
-  fs.writeFileSync(out, JSON.stringify(data) + '\n');
-  const kb = Math.round(Buffer.byteLength(JSON.stringify(data)) / 1024);
-  console.log(`${name}.json: ${kb} KB, verifiedDate ${data.verifiedDate}`);
-  if (!prev) return [];
+/**
+ * Changelog entries for one derived dataset, pure. prev === null means first
+ * derivation: one `<name>/dataset` entry, effectiveFrom = the snapshot date
+ * (data.verifiedDate), verifiedDate = the day it was derived here (today),
+ * note = the counts. Otherwise one entry per metric whose value moved.
+ */
+function datasetEntries(name, prev, data, metrics, { label = name, today = new Date().toISOString().slice(0, 10) } = {}) {
+  if (!prev) {
+    const counts = metrics.map(([, l, get]) => `${l}: ${get(data)}`).join('; ');
+    return [{
+      area: 'vehicles', key: `${name}/dataset`, label: `${label} dataset`, from: null, to: 'covered',
+      effectiveFrom: data.verifiedDate, source: data.source, verifiedDate: today,
+      note: `First derivation of data/vehicles/${name}.json from the snapshot fetched ${data.verifiedDate}${counts ? ` — ${counts}` : ''}.`,
+    }];
+  }
   const entries = [];
   for (const [key, label, get] of metrics) {
     const from = get(prev), to = get(data);
@@ -321,6 +332,16 @@ function writeDataset(name, data, metrics) {
     entries.push({ area: 'vehicles', key: `${name}/${key}`, label, from, to, effectiveFrom: data.verifiedDate, source: data.source, verifiedDate: data.verifiedDate, note: '' });
   }
   return entries;
+}
+
+function writeDataset(name, data, metrics, opts) {
+  const out = path.join(OUT_DIR, `${name}.json`);
+  const prev = fs.existsSync(out) ? readJson(out) : null;
+  fs.mkdirSync(OUT_DIR, { recursive: true });
+  fs.writeFileSync(out, JSON.stringify(data) + '\n');
+  const kb = Math.round(Buffer.byteLength(JSON.stringify(data)) / 1024);
+  console.log(`${name}.json: ${kb} KB, verifiedDate ${data.verifiedDate}${prev ? '' : ' (first derivation)'}`);
+  return datasetEntries(name, prev, data, metrics, opts);
 }
 
 async function main() {
@@ -331,13 +352,13 @@ async function main() {
     incoming.push(...writeDataset('fr-recalls', buildFr(), [
       ['count', 'RappelConso automobile fiches', (d) => d.count],
       ['curated-fiches', 'fiches matched to curated models', (d) => d.curatedFicheCount],
-    ]));
+    ], { label: 'RappelConso automobile recalls' }));
   }
   if (which === 'all' || which === 'jp') {
     incoming.push(...writeDataset('jp-recalls', buildJp(), [
       ['recall-filings', 'MLIT recall filings matched to covered models', (d) => d.counts.recallFilings],
       ['complaints', 'MLIT owner complaints across covered models', (d) => d.counts.complaints],
-    ]));
+    ], { label: 'MLIT recall filings and owner complaints' }));
   }
   if (which === 'all' || which === 'uk') {
     incoming.push(...writeDataset('uk-recalls', await buildUk(), [
@@ -349,10 +370,10 @@ async function main() {
     const existing = fs.existsSync(CHANGELOG) ? readJson(CHANGELOG) : [];
     const { merged, added } = mergeEntries(existing, incoming);
     fs.writeFileSync(CHANGELOG, JSON.stringify(merged, null, 2) + '\n');
-    console.log(`changelog: ${added.length} entr${added.length === 1 ? 'y' : 'ies'} added — fill in note:`);
+    console.log(`changelog: ${added.length} entr${added.length === 1 ? 'y' : 'ies'} added — review each note (blank for metric moves), then commit data/ together; they publish at /changes, /changes.rss, /changes.atom:`);
     for (const e of added) console.log(`  ${e.key}: ${e.from} → ${e.to}`);
   }
 }
 
 if (require.main === module) main().catch((e) => { console.error(e.message || e); process.exit(1); });
-module.exports = { buildFr, buildJp, buildUk, buildUkFrom, parseCsv, ukDate, MODELS_EN, MAKES_EN, DVSA_CSV_URL, UK_YEARS_BACK };
+module.exports = { buildFr, buildJp, buildUk, buildUkFrom, parseCsv, ukDate, datasetEntries, MODELS_EN, MAKES_EN, DVSA_CSV_URL, UK_YEARS_BACK };

@@ -20,9 +20,24 @@ module.exports = (req, res) => {
         example: 'add https://databutler.dev/api/mcp to any MCP client',
       },
       'GET /api/changes': {
-        description: 'What changed in the verified datasets since a date (REST mirror of what_changed_since).',
-        params: { since: 'YYYY-MM-DD', area: 'uk-rates | uk-exams | all' },
+        description: 'What changed in the verified datasets since a date (REST mirror of what_changed_since). format=html|rss|atom serves the /changes page or feeds instead of JSON.',
+        params: { since: 'YYYY-MM-DD', area: 'uk-rates | uk-exams | vehicles | all', format: 'json (default) | html | rss | atom' },
         example: 'https://databutler.dev/api/changes?since=2026-06-01',
+      },
+      'GET /changes': {
+        description:
+          'The changelog as a page: every verified change to UK tax/NI thresholds, exam specs and official vehicle datasets, ' +
+          'newest first by month — area, from → to, effectiveFrom, official source, maintainer note, verifiedDate. Indexable, cached 1 h at the edge.',
+        params: { area: 'optional: uk-rates | uk-exams | vehicles', since: 'optional YYYY-MM-DD' },
+        example: 'https://databutler.dev/changes?area=vehicles',
+      },
+      'GET /changes.rss': {
+        description: 'RSS 2.0 feed of the changelog (?area= optional). guid = permalink on /changes, link = official source, pubDate = verifiedDate.',
+        example: 'https://databutler.dev/changes.rss',
+      },
+      'GET /changes.atom': {
+        description: 'Atom feed of the changelog (?area= optional); same entries as /changes.rss.',
+        example: 'https://databutler.dev/changes.atom?area=uk-rates',
       },
       'GET /r/<route>?…': {
         description: 'Citation permalinks (human-readable answer + official source + verified date). Every API/MCP result includes one as cite.url.',

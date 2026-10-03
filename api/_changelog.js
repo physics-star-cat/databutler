@@ -7,6 +7,10 @@
  * whole category, an exam spec, or a paper dropped from `next`). A label
  * rename is not detected as a rename — it surfaces as a removal of the old
  * label plus an addition of the new one, same as any other structural change.
+ *
+ * Vehicles entries come from scripts/vehicles.js. The same entries are
+ * published for humans and feed readers at /changes, /changes.rss and
+ * /changes.atom (api/_changes_render.js) via listEntries.
  */
 const CHANGELOG = require('../data/changelog.json');
 const { nearest } = require('./_text');
@@ -119,6 +123,41 @@ function diffExams(prev, next) {
 
 const entryId = (e) => `${e.area}|${e.key}|${e.verifiedDate}`;
 
+/** A bad ?area= or ?since= on the public changelog page/feeds → HTTP 400. */
+class ChangelogFilterError extends Error {
+  constructor(message, field) {
+    super(message);
+    this.name = 'ChangelogFilterError';
+    this.field = field;
+  }
+}
+
+const ISO_DAY = /^\d{4}-\d{2}-\d{2}$/;
+
+/**
+ * Every entry for the public changelog (page, RSS, Atom), newest first — the
+ * whole history, not just "since my cutoff", so it is the read side for humans
+ * and feed readers; changesSince stays the agent-facing view. Both filters are
+ * optional: area narrows to one dataset area, since keeps entries verified or
+ * taking effect after that day. Invalid filters throw ChangelogFilterError.
+ */
+function listEntries({ area, since } = {}, entries = CHANGELOG) {
+  const a = String(area ?? 'all').toLowerCase().trim() || 'all';
+  if (a !== 'all' && !CHANGELOG_AREAS.includes(a)) {
+    throw new ChangelogFilterError(`unknown area "${area}" — one of ${CHANGELOG_AREAS.join(', ')}, or omit for all`, 'area');
+  }
+  let s = null;
+  if (since !== undefined && since !== null && String(since).trim() !== '') {
+    s = String(since).trim();
+    if (!ISO_DAY.test(s) || Number.isNaN(Date.parse(s))) {
+      throw new ChangelogFilterError(`since must be an ISO date (YYYY-MM-DD), got "${since}"`, 'since');
+    }
+  }
+  return entries
+    .filter((e) => (a === 'all' || e.area === a) && (s === null || e.verifiedDate > s || (e.effectiveFrom && e.effectiveFrom > s)))
+    .sort((x, y) => String(y.verifiedDate).localeCompare(String(x.verifiedDate)) || String(x.area).localeCompare(String(y.area)) || String(x.key).localeCompare(String(y.key)));
+}
+
 function mergeEntries(existing, incoming) {
   const seen = new Set(existing.map(entryId));
   const added = incoming.filter((e) => !seen.has(entryId(e)));
@@ -155,4 +194,4 @@ function changesSince({ since, area = 'all' } = {}, entries = CHANGELOG) {
   return { since: s, area: a, coverageStart: COVERAGE_START, areasCovered: CHANGELOG_AREAS, count: hits.length, entries: hits, note };
 }
 
-module.exports = { changesSince, diffRates, diffExams, mergeEntries, COVERAGE_START, CHANGELOG_AREAS };
+module.exports = { changesSince, listEntries, entryId, ChangelogFilterError, diffRates, diffExams, mergeEntries, COVERAGE_START, CHANGELOG_AREAS };

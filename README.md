@@ -93,6 +93,28 @@ mirrors: `/api/uk/*`, `/api/provenance/*`, `/api/stats`, `/api/vehicles/{uk,fr,j
 (UK: `/api/vehicles/uk/{mot,search,recalls,recalls-search}`), `/api/tax/take-home`.
 Privacy statement: `/privacy`.
 
+## The changelog is a product
+
+"What changed in the official facts" is served in its own right, not only as
+a tool an agent calls. One data file (`data/changelog.json`, script-generated,
+maintainer-noted) feeds every surface:
+
+| Surface | URL | For | Notes |
+|---|---|---|---|
+| Page | `GET /changes` (`?area=`, `?since=`) | humans, search engines | Indexable, canonical + `rel=alternate` to the feeds; newest first, grouped by month; each entry shows area, from → to, effectiveFrom, official source, maintainer note, verifiedDate. `Cache-Control: public, max-age=300, s-maxage=3600`; bad filter → 400, no-store. |
+| RSS 2.0 | `GET /changes.rss` (`?area=`) | feed readers, Slack/Discord RSS bots | guid = `https://databutler.dev/changes#<area-key-verifiedDate>` (isPermaLink), link = official source, pubDate = verifiedDate. Byte-stable until the data changes. |
+| Atom | `GET /changes.atom` (`?area=`) | feed readers | Same entries as RSS. |
+| JSON | `GET /api/changes?since=&area=&format=json` | agents, scripts | Envelope unchanged; `format=html\|rss\|atom` hands off to the page/feeds. |
+| MCP | `what_changed_since` on `POST /api/mcp` | agents | "Pass your training cutoff" view of the same entries. |
+| Sitemap | `/sitemap.xml` | crawlers | `/`, `/changes`, the three `?area=` views, `/privacy`, `/api`. |
+
+Handlers: `api/_routes/changes-page.js`, `api/_routes/changes-feed.js`
+(routes `changes-page`, `changes-feed` in `api/router.js`; rewrites in
+`vercel.json` ahead of the generic `/api/(.+)` one). Rendering is pure in
+`api/_changes_render.js`; `api/_changelog.js` exposes `listEntries` and
+`entryId`. How entries get written: `docs/CURATION.md` → "How to add a
+changelog entry when a dataset is refreshed".
+
 ## Iron rules (learned the hard way)
 
 1. **No fabricated data, ever.** Every record carries `source` (official

@@ -15,9 +15,12 @@ const whatChangedSince = {
   title: 'What changed since',
   description:
     'What has changed in Data Butler\'s verified datasets since a date — pass your training-cutoff ' +
-    'date to learn which UK tax/NI/benefit thresholds and exam-spec facts moved after your knowledge ' +
+    'date to learn which UK tax/NI/benefit thresholds, exam-spec facts and official vehicle datasets ' +
+    '(French RappelConso recalls, Japanese MLIT recalls and complaints) moved after your knowledge ' +
     'ends. Each entry: from → to, effectiveFrom, official source, verifiedDate, and a maintainer note ' +
-    `(e.g. which Budget). Areas: ${CHANGELOG_AREAS.join(', ')}, or all. Coverage starts ${COVERAGE_START}.`,
+    `(e.g. which Budget). Areas: ${CHANGELOG_AREAS.join(', ')}, or all. Coverage starts ${COVERAGE_START}. ` +
+    'The same changelog is published for humans at https://databutler.dev/changes, with feeds at ' +
+    'https://databutler.dev/changes.rss and https://databutler.dev/changes.atom.',
   inputSchema: {
     type: 'object',
     properties: {
