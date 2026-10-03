@@ -20,7 +20,7 @@ The product is trust. A wrong number is worse than no number. Rules:
 | `data/vehicles/jp-recalls.json` | Monthly (MLIT filings are newsworthy when fresh) | In `../car_websites/shaken-data`: `node data/fetch-mlit.js` (15–20 min, 700 ms politeness delay — do not hammer), commit; then here `node scripts/vehicles.js jp`. |
 | UK MOT (vehicles) | — | No dataset here: live proxy to whatbreaks.uk, which owns the DfT bulk-data refresh. |
 | `data/sources.json` | After every data refresh (automatic via `scripts/changelog.js`) | `node scripts/sources.js` re-checks every source URL (gov.uk content API / page hash). |
-| `data/changelog.json` | With every data refresh | `node scripts/changelog.js`; fill in `note` lines. See "Changelog & source watcher". |
+| `data/changelog.json` | With every data refresh | `node scripts/changelog.js` (UK data) or `node scripts/vehicles.js` (vehicles); fill in `note` lines. See "Changelog & source watcher" and "How to add a changelog entry when a dataset is refreshed". |
 
 ## Verification log
 
@@ -86,6 +86,70 @@ If the watcher fires but nothing material changed (typo fix on gov.uk), run
 
 Rules: the watcher never edits data; the script never invents an entry; a
 `from`/`to` pair always comes from two committed versions of a data file.
+
+## Where the changelog is served
+
+`data/changelog.json` is one file with five read surfaces, all from the same
+entries (`api/_changelog.js` → `listEntries` for the public ones,
+`changesSince` for the agent one):
+
+| Surface | URL | Handler |
+|---|---|---|
+| Page (indexable) | `/changes`, `/changes?area=uk-rates\|uk-exams\|vehicles`, `?since=YYYY-MM-DD` | `api/_routes/changes-page.js` |
+| RSS 2.0 | `/changes.rss` (`?area=`) | `api/_routes/changes-feed.js` (`format=rss`) |
+| Atom | `/changes.atom` (`?area=`) | `api/_routes/changes-feed.js` (`format=atom`) |
+| JSON | `/api/changes?since=…&area=…` (`format=html\|rss\|atom` delegates) | `api/_routes/changes.js` |
+| MCP | `what_changed_since` on `POST /api/mcp` | `api/_hub.js` |
+
+Rendering lives in `api/_changes_render.js` and is pure: no clock, no I/O, so
+feeds re-render byte-for-byte and edge caches (`s-maxage=3600`) stay quiet
+until the data changes. The feed `guid` is the entry's permalink on the page
+(`https://databutler.dev/changes#<area>-<key>-<verifiedDate>`), `link` is the
+official source, `pubDate` is the `verifiedDate`. Listed in
+`public/sitemap.xml`, `public/robots.txt` (`Allow: /changes*`), `public/llms.txt`,
+the `/api` index and the `rel=alternate` links on `public/index.html`.
+
+The page is the one part of the site that *is* meant to be indexed — unlike
+the `/r/` citation pages — so a change here (a new area, a renamed key) should
+keep old anchors working: `entryId` (`area|key|verifiedDate`) is the dedupe key
+and the anchor is derived from the same three fields.
+
+## How to add a changelog entry when a dataset is refreshed
+
+Entries are never typed into `data/changelog.json` by hand; a script writes
+the entry and the maintainer writes the note. Each entry carries
+`area, key, label, from, to, effectiveFrom, source, verifiedDate, note`
+(uk-rates adds `unit`/`taxYear`/`band`; uk-exams adds `board`/`level`/
+`subject`/`specCode`).
+
+- **UK rates or exams** (`data/uk/**`): edit the data file against the live
+  source page, then `node scripts/changelog.js`. It diffs against git, appends
+  one entry per changed figure/topic/paper with `note: ""`, and refreshes
+  `data/sources.json`. Fill in each note (which Budget, which spec update).
+- **Vehicles** (`data/vehicles/*.json`): refresh the sibling repo's fetcher
+  (`controle-technique` → `node data/fetch-rappelconso.js`; `shaken-data` →
+  `node data/fetch-mlit.js`), commit there, then here
+  `node scripts/vehicles.js fr|jp|all`. `writeDataset` compares the new
+  derivation with the committed file and appends one entry per metric that
+  moved (`fr-recalls/count`, `fr-recalls/curated-fiches`,
+  `jp-recalls/recall-filings`, `jp-recalls/complaints`), `effectiveFrom` and
+  `verifiedDate` both the snapshot date. On the **first** derivation of a
+  dataset (no committed file) it appends `<name>/dataset` (null → `covered`)
+  with `effectiveFrom` = snapshot date, `verifiedDate` = the day you ran it,
+  and a note carrying the counts — the three existing `vehicles` entries are
+  in exactly that shape (`fr-recalls/dataset`, `jp-recalls/dataset`,
+  `eu-safety-gate/dataset`; the EU one is a stub recorded by hand because
+  there is no dataset file to derive).
+- **A new dataset that has no script yet**: write the script first (the
+  entry shape above, `mergeEntries` for dedupe), then run it — that is how
+  the vehicles entries came to exist.
+- Review the notes, `node --test tests/*.test.js` (the changelog tests check
+  every entry's shape, dates and source URL), commit `data/` together, push.
+  Within the hour the edge cache expires and `/changes`, both feeds and
+  `what_changed_since` all show the entry.
+
+A refresh that changes nothing material (counts unchanged, typo fix on the
+source) adds no entry — the script only records a `from`/`to` that differ.
 
 The citation pages (`/r/<route>`) track their own traffic with a
 `cite_page_view` GA4 event, not `agent_*` — so webmon's agent-usage counts

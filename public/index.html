@@ -7,6 +7,8 @@
 <meta name="description" content="Clean, provenance-stamped UK public data over REST and MCP. Every figure carries an official source URL and a verification date.">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/icon.png" type="image/png" sizes="512x512">
+<link rel="alternate" type="application/rss+xml" title="Data Butler changelog (RSS)" href="/changes.rss">
+<link rel="alternate" type="application/atom+xml" title="Data Butler changelog (Atom)" href="/changes.atom">
 <style>
   body{background:#0d1117;color:#e6edf3;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;max-width:720px;margin:8vh auto;padding:0 20px;line-height:1.6}
   a{color:#7ee787} h1{font-size:1.6rem} code{background:#161b22;padding:2px 6px;border-radius:4px}
@@ -18,8 +20,12 @@
 <p>Verified UK public data for AI agents. Every figure carries an official
 source URL and a <code>verifiedDate</code> — built for the questions agents
 misquote from memory.</p>
-<p><strong>Humans:</strong> there's nothing to click here. This site's front
-door is <a href="/api">/api</a> and <a href="/llms.txt">llms.txt</a>.</p>
+<p><strong>Humans:</strong> the one page worth reading is
+<a href="/changes">/changes</a> — the changelog of verified official facts
+(UK tax/NI thresholds, exam specs, official vehicle datasets), with the
+official source and verified date on every entry; also as
+<a href="/changes.rss">RSS</a> and <a href="/changes.atom">Atom</a>. Otherwise this
+site's front door is <a href="/api">/api</a> and <a href="/llms.txt">llms.txt</a>.</p>
 <p><strong>Agents:</strong> one remote MCP server for everything —
 <code>POST /api/mcp</code> (front door: rates, exams, provenance, plus
 <code>what_changed_since</code> for the facts that moved after your training
@@ -36,6 +42,6 @@ official recalls). Every answer carries a <code>cite.url</code> like
 <p class="quiet">Free with attribution. Same operator as
 <a href="https://whatbreaks.uk">whatbreaks.uk</a> (MOT data) and
 <a href="https://lowriskquotes.com">lowriskquotes.com</a> (Monte Carlo tools).</p>
-<footer class="quiet"><p><a href="/privacy">Privacy</a> — no accounts, no cookies, anonymous event counts only · <a href="/llms.txt">llms.txt</a> · <a href="/api">/api</a></p></footer>
+<footer class="quiet"><p><a href="/privacy">Privacy</a> — no accounts, no cookies, anonymous event counts only · <a href="/changes">changelog</a> · <a href="/llms.txt">llms.txt</a> · <a href="/api">/api</a></p></footer>
 </body>
 </html>

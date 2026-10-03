@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url><loc>https://databutler.dev/</loc></url>
+<url><loc>https://databutler.dev/changes</loc></url>
+<url><loc>https://databutler.dev/changes?area=uk-rates</loc></url>
+<url><loc>https://databutler.dev/changes?area=uk-exams</loc></url>
+<url><loc>https://databutler.dev/changes?area=vehicles</loc></url>
+<url><loc>https://databutler.dev/privacy</loc></url>
+<url><loc>https://databutler.dev/api</loc></url>
+</urlset>

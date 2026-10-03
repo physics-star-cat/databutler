@@ -6,7 +6,8 @@
  * underscore directory is never deployed as functions) and vercel.json
  * rewrites /api/<route> here. The route is read from ?route=, which the
  * rewrite adds, then stripped from req.url again so every handler sees the
- * URL it always did (/api/uk/rates?category=…).
+ * URL it always did (/api/uk/rates?category=…). Public pages outside /api
+ * (/r/…, /changes, /changes.rss, /changes.atom) are rewritten here too.
  */
 const { sendJson, ATTRIBUTION } = require('./_lib');
 
@@ -18,6 +19,8 @@ const ROUTES = {
   'mcp/uk-rates': require('./_routes/mcp/uk-rates'),
   'mcp/vehicles': require('./_routes/mcp/vehicles'),
   'changes': require('./_routes/changes'),
+  'changes-page': require('./_routes/changes-page'),
+  'changes-feed': require('./_routes/changes-feed'),
   'r': require('./_routes/r'),
   'stats': require('./_routes/stats'),
   'cron/watch-sources': require('./_routes/cron/watch-sources'),

@@ -1,1 +1,35 @@
-[]
+[
+  {
+    "area": "vehicles",
+    "key": "fr-recalls/dataset",
+    "label": "RappelConso automobile recalls dataset",
+    "from": null,
+    "to": "covered",
+    "effectiveFrom": "2026-10-02",
+    "source": "https://rappel.conso.gouv.fr/",
+    "verifiedDate": "2026-10-02",
+    "note": "First derivation of data/vehicles/fr-recalls.json: 1,663 automobile fiches (2018-01-19 → 2026-08-07), the full RappelConso V2 open-data export for sub-category \"automobiles, motos, scooters\" (DGCCRF, Licence Ouverte 2.0) as committed in the controle-technique repo on 2026-10-02; 568 fiches matched to 94 curated models by that site's reviewed alias table. Records reshaped, never edited."
+  },
+  {
+    "area": "vehicles",
+    "key": "jp-recalls/dataset",
+    "label": "MLIT recall filings and owner complaints dataset",
+    "from": null,
+    "to": "covered",
+    "effectiveFrom": "2026-08-30",
+    "source": "https://renrakuda.mlit.go.jp/",
+    "verifiedDate": "2026-10-03",
+    "note": "First derivation of data/vehicles/jp-recalls.json from the shaken-data MLIT snapshot of 2026-08-30: 919 unique recall filings (1,377 model links, 1994-03-24 → 2026-07-30) and 19,659 owner complaints across 75 models. Filing PDF URL pattern https://renrakuda.mlit.go.jp/mt/recallpdf/<no>.pdf verified 200 on 2026-10-03. Snapshot is a month old at build; freshness says due until the monthly refresh runs."
+  },
+  {
+    "area": "vehicles",
+    "key": "eu-safety-gate/dataset",
+    "label": "EU Safety Gate vehicle alerts",
+    "from": null,
+    "to": "stub",
+    "effectiveFrom": "2026-10-03",
+    "source": "https://ec.europa.eu/safety-gate-alerts/screen/webReport",
+    "verifiedDate": "2026-10-03",
+    "note": "Stub only — eu_safety_gate_recalls returns covered:false with the official Safety Gate URL; no data is claimed or served. RappelConso republishes the Safety Gate automobile alerts that concern France, so fr_recalls_* covers most EU-wide vehicle recalls meanwhile."
+  }
+]

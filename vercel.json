@@ -17,6 +17,18 @@
       "destination": "/api/router?route=r&path=$1"
     },
     {
+      "source": "/changes",
+      "destination": "/api/router?route=changes-page"
+    },
+    {
+      "source": "/changes.rss",
+      "destination": "/api/router?route=changes-feed&format=rss"
+    },
+    {
+      "source": "/changes.atom",
+      "destination": "/api/router?route=changes-feed&format=atom"
+    },
+    {
       "source": "/api/(.+)",
       "destination": "/api/router?route=$1"
     }
