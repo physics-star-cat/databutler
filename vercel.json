@@ -3,16 +3,33 @@
   "headers": [
     {
       "source": "/(.*)",
-      "headers": [{ "key": "X-Content-Type-Options", "value": "nosniff" }]
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        }
+      ]
     }
   ],
   "rewrites": [
-    { "source": "/r/(.*)", "destination": "/api/r?path=$1" }
+    {
+      "source": "/r/(.*)",
+      "destination": "/api/router?route=r&path=$1"
+    },
+    {
+      "source": "/api/(.+)",
+      "destination": "/api/router?route=$1"
+    }
   ],
   "crons": [
-    { "path": "/api/cron/watch-sources", "schedule": "0 6 * * 1" }
+    {
+      "path": "/api/cron/watch-sources",
+      "schedule": "0 6 * * 1"
+    }
   ],
   "functions": {
-    "api/cron/watch-sources.js": { "maxDuration": 60 }
+    "api/router.js": {
+      "maxDuration": 60
+    }
   }
 }

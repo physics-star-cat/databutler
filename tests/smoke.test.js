@@ -2,7 +2,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const { rpc, callTool } = require('./helpers');
-const ukRates = require('../api/mcp/uk-rates');
+const ukRates = require('../api/_routes/mcp/uk-rates');
 
 test('uk-rates: tools/list names one tool', async () => {
   const r = await rpc(ukRates, 'tools/list');

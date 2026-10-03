@@ -1,8 +1,8 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const { rpc, callTool, invoke } = require('./helpers');
-const frontDoor = require('../api/mcp');
-const changes = require('../api/changes');
+const frontDoor = require('../api/_routes/mcp');
+const changes = require('../api/_routes/changes');
 const { ALL_TOOLS } = require('../api/_registry');
 
 const ORDER = ['uk_rates_lookup', 'exam_topic_paper', 'domain_provenance', 'package_provenance', 'what_changed_since', 'coverage', 'catalogue', 'call'];

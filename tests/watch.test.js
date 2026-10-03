@@ -1,7 +1,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const { invoke } = require('./helpers');
-const watch = require('../api/cron/watch-sources');
+const watch = require('../api/_routes/cron/watch-sources');
 
 test('cron rejects missing/wrong secret and refuses to run with no secret configured', async () => {
   const prev = process.env.CRON_SECRET;

@@ -22,7 +22,7 @@ test('registry: per-vertical servers list the same tool names as before, no extr
     vehicles: ['uk_mot_reliability', 'uk_mot_vehicle_search', 'fr_recalls_for_model', 'fr_recalls_search', 'jp_recalls_for_model', 'jp_complaints_summary', 'eu_safety_gate_recalls'],
   };
   for (const [key, names] of Object.entries(expected)) {
-    const handler = require(`../api/mcp/${key}`);
+    const handler = require(`../api/_routes/mcp/${key}`);
     const r = await rpc(handler, 'tools/list');
     assert.deepEqual(r.body.result.tools.map((t) => t.name), names, key);
     for (const t of r.body.result.tools) {

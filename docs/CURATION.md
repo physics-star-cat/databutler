@@ -71,7 +71,7 @@ never hand-written**; the maintainer adds the one line a script cannot know.
 Per change (target: under 10 minutes):
 
 1. A GitHub issue labelled `source-changed` arrives from the weekly watcher
-   (`api/cron/watch-sources.js`, Mondays 06:00 UTC), or a Budget/spec change
+   (`api/_routes/cron/watch-sources.js`, served through `api/router.js`, Mondays 06:00 UTC), or a Budget/spec change
    is announced.
 2. Open the source page; edit the data file against it (new tax year = new
    file; bump `verifiedDate`; set `nextScheduledRefresh`).

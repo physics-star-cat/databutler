@@ -3,9 +3,9 @@ const assert = require('node:assert/strict');
 const { rpc, callTool, invoke } = require('./helpers');
 const V = require('../api/_vehicles');
 const M = require('../api/_mot');
-const vehiclesServer = require('../api/mcp/vehicles');
-const frontDoor = require('../api/mcp');
-const r = require('../api/r');
+const vehiclesServer = require('../api/_routes/mcp/vehicles');
+const frontDoor = require('../api/_routes/mcp');
+const r = require('../api/_routes/r');
 const { freshnessFor } = require('../api/_freshness');
 const { changesSince, CHANGELOG_AREAS } = require('../api/_changelog');
 
@@ -267,11 +267,11 @@ test('front door: vehicles tools are behind call (not listed), reachable, and ca
 
 test('REST mirrors under /api/vehicles carry freshness + cite; required params â†’ 400', async () => {
   const cases = [
-    [require('../api/vehicles/fr/recalls'), '/api/vehicles/fr/recalls?brand=peugeot&model=208', 'https://databutler.dev/r/vehicles/fr/recalls?brand=peugeot&model=208'],
-    [require('../api/vehicles/fr/search'), '/api/vehicles/fr/search?text=airbag&since=2026-01-01', 'https://databutler.dev/r/vehicles/fr/search?text=airbag&since=2026-01-01'],
-    [require('../api/vehicles/jp/recalls'), '/api/vehicles/jp/recalls?make=toyota&model=prius', 'https://databutler.dev/r/vehicles/jp/recalls?make=toyota&model=prius'],
-    [require('../api/vehicles/jp/complaints'), '/api/vehicles/jp/complaints?make=honda&model=n-box', 'https://databutler.dev/r/vehicles/jp/complaints?make=honda&model=n-box'],
-    [require('../api/vehicles/eu/safety-gate'), '/api/vehicles/eu/safety-gate', 'https://databutler.dev/r/vehicles/eu/safety-gate'],
+    [require('../api/_routes/vehicles/fr/recalls'), '/api/vehicles/fr/recalls?brand=peugeot&model=208', 'https://databutler.dev/r/vehicles/fr/recalls?brand=peugeot&model=208'],
+    [require('../api/_routes/vehicles/fr/search'), '/api/vehicles/fr/search?text=airbag&since=2026-01-01', 'https://databutler.dev/r/vehicles/fr/search?text=airbag&since=2026-01-01'],
+    [require('../api/_routes/vehicles/jp/recalls'), '/api/vehicles/jp/recalls?make=toyota&model=prius', 'https://databutler.dev/r/vehicles/jp/recalls?make=toyota&model=prius'],
+    [require('../api/_routes/vehicles/jp/complaints'), '/api/vehicles/jp/complaints?make=honda&model=n-box', 'https://databutler.dev/r/vehicles/jp/complaints?make=honda&model=n-box'],
+    [require('../api/_routes/vehicles/eu/safety-gate'), '/api/vehicles/eu/safety-gate', 'https://databutler.dev/r/vehicles/eu/safety-gate'],
   ];
   for (const [h, url, cite] of cases) {
     const res = await get(h, url);
@@ -280,13 +280,13 @@ test('REST mirrors under /api/vehicles carry freshness + cite; required params â
     assert.equal(res.body.cite.url, cite);
     assert.equal(res.body.attribution, 'databutler.dev');
   }
-  assert.equal((await get(require('../api/vehicles/fr/recalls'), '/api/vehicles/fr/recalls')).status, 400);
-  assert.equal((await get(require('../api/vehicles/jp/recalls'), '/api/vehicles/jp/recalls?make=toyota')).status, 400);
-  assert.equal((await get(require('../api/vehicles/uk/mot'), '/api/vehicles/uk/mot?make=Ford')).status, 400);
-  assert.equal((await get(require('../api/vehicles/uk/search'), '/api/vehicles/uk/search')).status, 400);
+  assert.equal((await get(require('../api/_routes/vehicles/fr/recalls'), '/api/vehicles/fr/recalls')).status, 400);
+  assert.equal((await get(require('../api/_routes/vehicles/jp/recalls'), '/api/vehicles/jp/recalls?make=toyota')).status, 400);
+  assert.equal((await get(require('../api/_routes/vehicles/uk/mot'), '/api/vehicles/uk/mot?make=Ford')).status, 400);
+  assert.equal((await get(require('../api/_routes/vehicles/uk/search'), '/api/vehicles/uk/search')).status, 400);
   const m = mockFetch(() => jsonResponse(200, { vehicle: { id: 5 }, categories: [], attribution: 'whatbreaks.uk' }));
   try {
-    const res = await get(require('../api/vehicles/uk/mot'), '/api/vehicles/uk/mot?make=Volkswagen&model=Golf&year=2018&mileage=80000');
+    const res = await get(require('../api/_routes/vehicles/uk/mot'), '/api/vehicles/uk/mot?make=Volkswagen&model=Golf&year=2018&mileage=80000');
     assert.equal(res.status, 200);
     assert.equal(m.calls[0].url, 'https://whatbreaks.uk/api/mot?make=Volkswagen&model=Golf&year=2018&mileage=80000');
     assert.equal(res.body.cite.url, 'https://databutler.dev/r/vehicles/uk/mot?make=Volkswagen&model=Golf&year=2018&mileage=80000');

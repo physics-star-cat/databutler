@@ -2,7 +2,7 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const { rpc } = require('./helpers');
 const { SERVERS, ALL_TOOLS } = require('../api/_registry');
-const frontDoor = require('../api/mcp');
+const frontDoor = require('../api/_routes/mcp');
 
 // Tools that fetch live external data on the caller's behalf. Everything else
 // answers from local datasets or pure computation.
@@ -12,7 +12,7 @@ const MCP_TOOL_KEYS = ['annotations', 'description', 'inputSchema', 'name', 'tit
 async function listedTools() {
   const out = [];
   for (const key of Object.keys(SERVERS)) {
-    const r = await rpc(require(`../api/mcp/${key}`), 'tools/list');
+    const r = await rpc(require(`../api/_routes/mcp/${key}`), 'tools/list');
     out.push(...r.body.result.tools.map((t) => ({ ...t, _server: key })));
   }
   const fd = await rpc(frontDoor, 'tools/list');

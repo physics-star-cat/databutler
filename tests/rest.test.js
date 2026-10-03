@@ -6,11 +6,11 @@ const get = (handler, url) => invoke(handler, undefined, { method: 'GET', url })
 
 test('REST rates/topic/specs/papers/stats carry freshness + cite', async () => {
   const cases = [
-    [require('../api/uk/rates'), '/api/uk/rates?category=vat', 'https://databutler.dev/r/uk/rates?category=vat'],
-    [require('../api/uk/exams/topic'), '/api/uk/exams/topic?topic=electricity&board=aqa&subject=physics', 'https://databutler.dev/r/uk/exams/topic?topic=electricity&board=aqa&subject=physics'],
-    [require('../api/uk/exams/specs'), '/api/uk/exams/specs?board=aqa', 'https://databutler.dev/r/uk/exams/specs?board=aqa'],
-    [require('../api/uk/exams/papers'), '/api/uk/exams/papers?board=aqa', 'https://databutler.dev/r/uk/exams/papers?board=aqa'],
-    [require('../api/stats'), '/api/stats?op=distribution&dist=normal&at=1.96', 'https://databutler.dev/r/stats?op=distribution&dist=normal&at=1.96'],
+    [require('../api/_routes/uk/rates'), '/api/uk/rates?category=vat', 'https://databutler.dev/r/uk/rates?category=vat'],
+    [require('../api/_routes/uk/exams/topic'), '/api/uk/exams/topic?topic=electricity&board=aqa&subject=physics', 'https://databutler.dev/r/uk/exams/topic?topic=electricity&board=aqa&subject=physics'],
+    [require('../api/_routes/uk/exams/specs'), '/api/uk/exams/specs?board=aqa', 'https://databutler.dev/r/uk/exams/specs?board=aqa'],
+    [require('../api/_routes/uk/exams/papers'), '/api/uk/exams/papers?board=aqa', 'https://databutler.dev/r/uk/exams/papers?board=aqa'],
+    [require('../api/_routes/stats'), '/api/stats?op=distribution&dist=normal&at=1.96', 'https://databutler.dev/r/stats?op=distribution&dist=normal&at=1.96'],
   ];
   for (const [h, url, cite] of cases) {
     const r = await get(h, url);
@@ -22,6 +22,6 @@ test('REST rates/topic/specs/papers/stats carry freshness + cite', async () => {
 });
 
 test('REST topic still 400s without ?topic=', async () => {
-  const r = await get(require('../api/uk/exams/topic'), '/api/uk/exams/topic');
+  const r = await get(require('../api/_routes/uk/exams/topic'), '/api/uk/exams/topic');
   assert.equal(r.status, 400);
 });

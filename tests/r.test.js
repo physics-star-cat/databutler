@@ -1,7 +1,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const { invoke } = require('./helpers');
-const r = require('../api/r');
+const r = require('../api/_routes/r');
 const { ALL_TOOLS } = require('../api/_registry');
 
 const get = (url) => invoke(r, undefined, { method: 'GET', url });
