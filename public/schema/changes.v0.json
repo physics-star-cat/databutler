@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://databutler.dev/schema/changes.v0.json",
+  "title": "Verified Changes document (verified-changes/0.1)",
+  "description": "A dated, sourced list of changes to published facts. Specification: https://databutler.dev/protocol. The document is what the JSON endpoint and the MCP tool what_changed_since return; a publisher may also serve it as a static file. Extra top-level properties (a response envelope, the query that produced the document) are allowed.",
+  "type": "object",
+  "required": ["protocol", "publisher", "generated", "entries"],
+  "properties": {
+    "protocol": { "const": "verified-changes/0.1", "description": "Protocol name and version." },
+    "schema": { "type": "string", "format": "uri", "description": "URL of the JSON Schema this document validates against (this file)." },
+    "publisher": { "$ref": "#/$defs/publisher" },
+    "generated": { "type": "string", "format": "date", "description": "The day this document was produced." },
+    "since": { "type": ["string", "null"], "format": "date", "description": "The since filter applied, if any." },
+    "area": { "type": "string", "description": "The area filter applied, or \"all\"." },
+    "coverageStart": { "type": "string", "format": "date", "description": "Changes before this day are not itemised." },
+    "count": { "type": "integer", "minimum": 0 },
+    "entries": { "type": "array", "items": { "$ref": "#/$defs/entry" }, "description": "Newest verifiedDate first." }
+  },
+  "$defs": {
+    "publisher": {
+      "type": "object",
+      "required": ["name", "url"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "url": { "type": "string", "format": "uri" }
+      }
+    },
+    "entry": {
+      "title": "Verified change entry",
+      "description": "One fact that moved. Identity is area + key + verifiedDate; entries are never edited after publication — a correction is a new entry.",
+      "type": "object",
+      "required": ["area", "key", "label", "from", "to", "effectiveFrom", "source", "verifiedDate", "note"],
+      "properties": {
+        "area": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "description": "Dataset area slug, one of the publisher's declared areas." },
+        "key": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*(/[A-Za-z0-9][A-Za-z0-9._-]*)*$", "description": "Stable identifier of the fact within its area, slash-separated (e.g. income-tax/personal-allowance). The same fact keeps the same key forever." },
+        "label": { "type": "string", "minLength": 1, "description": "Human-readable name of the fact." },
+        "from": { "description": "The previous value, any JSON value. null means the fact is new." },
+        "to": { "description": "The new value, any JSON value. null means the fact was withdrawn." },
+        "effectiveFrom": { "type": ["string", "null"], "format": "date", "description": "The day the new value applies from, per the source; null when the source does not date it." },
+        "source": { "type": "string", "format": "uri", "description": "The official page the change was verified against." },
+        "verifiedDate": { "type": "string", "format": "date", "description": "The day the publisher fetched the source and confirmed the value." },
+        "note": { "type": "string", "description": "Maintainer context (which Budget, which spec update); may be empty." },
+        "unit": { "type": ["string", "null"], "description": "Unit of from/to when numeric, e.g. GBP/year, %." }
+      }
+    }
+  }
+}

@@ -1,6 +1,9 @@
 User-agent: *
 Allow: /
 Allow: /changes*
+Allow: /protocol
+Allow: /.well-known/changes.json
+Allow: /schema/
 
 Sitemap: https://databutler.dev/sitemap.xml
 

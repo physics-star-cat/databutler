@@ -456,7 +456,7 @@ test('discoverability: index.html, robots.txt, sitemap.xml, llms.txt, /api index
   assert.deepEqual(tagText(sitemap, 'loc'), [
     'https://databutler.dev/', 'https://databutler.dev/changes',
     'https://databutler.dev/changes?area=uk-rates', 'https://databutler.dev/changes?area=uk-exams', 'https://databutler.dev/changes?area=vehicles',
-    'https://databutler.dev/privacy', 'https://databutler.dev/api',
+    'https://databutler.dev/protocol', 'https://databutler.dev/privacy', 'https://databutler.dev/api',
   ]);
   assert.doesNotMatch(sitemap, /lastmod/);
   for (const a of CHANGELOG_AREAS) assert.match(sitemap, new RegExp(`changes\\?area=${a}<`));

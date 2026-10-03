@@ -1,0 +1,34 @@
+{
+  "protocol": "verified-changes/0.1",
+  "publisher": { "name": "Data Butler", "url": "https://databutler.dev/" },
+  "updated": "2026-10-03",
+  "coverageStart": "2026-08-31",
+  "areas": [
+    {
+      "name": "uk-rates",
+      "description": "UK tax-year rates and thresholds verified against gov.uk: income tax, National Insurance, minimum wage, student loans, VAT, ISA, pensions, stamp duty, capital gains, State Pension.",
+      "cadence": "Every 6 April (new tax year) and after each Budget or Autumn Statement; minimum wage on 1 April; every source page re-fetched weekly."
+    },
+    {
+      "name": "uk-exams",
+      "description": "UK exam-board specifications verified against the boards' own pages: which topic sits on which paper, durations, marks, weightings. AQA GCSE sciences and maths so far.",
+      "cadence": "Each September and on any published specification update; every source page re-fetched weekly."
+    },
+    {
+      "name": "vehicles",
+      "description": "Official vehicle recall datasets: DVSA (UK), RappelConso (France) and MLIT (Japan) recalls and complaints; EU Safety Gate is a stub.",
+      "cadence": "Monthly."
+    }
+  ],
+  "endpoints": {
+    "json": "https://databutler.dev/api/changes",
+    "html": "https://databutler.dev/changes",
+    "rss": "https://databutler.dev/changes.rss",
+    "atom": "https://databutler.dev/changes.atom",
+    "mcp": { "url": "https://databutler.dev/api/mcp", "tool": "what_changed_since" }
+  },
+  "schema": "https://databutler.dev/schema/changes.v0.json",
+  "specification": "https://databutler.dev/protocol",
+  "licence": "Free to reuse with attribution to databutler.dev. Each entry's underlying fact belongs to the linked official source and stays under that source's terms (for gov.uk, the Open Government Licence v3.0).",
+  "contact": "https://github.com/physics-star-cat/databutler/issues"
+}

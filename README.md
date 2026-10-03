@@ -108,6 +108,25 @@ maintainer-noted) feeds every surface:
 | MCP | `what_changed_since` on `POST /api/mcp` | agents | "Pass your training cutoff" view of the same entries. |
 | Sitemap | `/sitemap.xml` | crawlers | `/`, `/changes`, the three `?area=` views, `/privacy`, `/api`. |
 
+### The Verified Changes protocol (v0.1)
+
+The shape above is written down as an open convention any site can publish
+and any assistant can consume — `docs/CHANGES_PROTOCOL.md`, served indexable
+at `/protocol` (`?format=md` for the markdown; handler
+`api/_routes/protocol.js`, renderer `api/_markdown.js`). Data Butler is the
+reference implementation:
+
+| Artefact | Where |
+|---|---|
+| Discovery document | `public/.well-known/changes.json` → `/.well-known/changes.json` (areas, cadence, endpoints, schema, licence, contact) |
+| JSON Schemas (draft 2020-12) | `public/schema/changes.v0.json` (document + `$defs/entry`), `public/schema/well-known-changes.v0.json` |
+| Validator | `api/_schema_check.js` — hand-rolled subset (type/required/enum/pattern/format/$ref), no dependencies; `tests/protocol.test.js` validates `data/changelog.json`, the discovery document and the live `/api/changes` output against the schemas |
+| Conforming output | `GET /api/changes` and `what_changed_since` carry `protocol`, `schema`, `publisher`, `generated` |
+
+Bumping the version: change `PROTOCOL` in `api/_changelog.js`, add a new
+schema file (keep the old one — URLs are forever), update the `const` in
+both schemas and the discovery document, and the spec's Versioning section.
+
 Handlers: `api/_routes/changes-page.js`, `api/_routes/changes-feed.js`
 (routes `changes-page`, `changes-feed` in `api/router.js`; rewrites in
 `vercel.json` ahead of the generic `/api/(.+)` one). Rendering is pure in

@@ -19,6 +19,19 @@ const COVERAGE_START = '2026-08-31'; // first full verification of every dataset
 const CHANGELOG_AREAS = ['uk-rates', 'uk-exams', 'vehicles']; // provenance/stats hold no dataset; vehicles entries come from scripts/vehicles.js
 const MAX_ENTRIES = 100;
 
+/**
+ * The Verified Changes protocol (docs/CHANGES_PROTOCOL.md, served at
+ * /protocol): every changes document names the protocol version, the JSON
+ * Schema it validates against and its publisher. Discovery document:
+ * public/.well-known/changes.json.
+ */
+const PROTOCOL = 'verified-changes/0.1';
+const PROTOCOL_BASE = 'https://databutler.dev';
+const SCHEMA_URL = `${PROTOCOL_BASE}/schema/changes.v0.json`;
+const WELL_KNOWN_URL = `${PROTOCOL_BASE}/.well-known/changes.json`;
+const PROTOCOL_URL = `${PROTOCOL_BASE}/protocol`;
+const PUBLISHER = { name: 'Data Butler', url: `${PROTOCOL_BASE}/` };
+
 const slug = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const same = (a, b) => JSON.stringify(a ?? null) === JSON.stringify(b ?? null);
 const taxYearStart = (taxYear) => `${String(taxYear).slice(0, 4)}-04-06`;
@@ -164,7 +177,13 @@ function mergeEntries(existing, incoming) {
   return { merged: [...existing, ...added], added };
 }
 
-function changesSince({ since, area = 'all' } = {}, entries = CHANGELOG) {
+/**
+ * The agent-facing view (what_changed_since, GET /api/changes): a Verified
+ * Changes document — protocol, schema, publisher, generated, entries — plus
+ * the query that produced it. `generated` is a day, like every other date in
+ * the protocol, so two calls on the same day return identical bytes.
+ */
+function changesSince({ since, area = 'all' } = {}, entries = CHANGELOG, now = new Date()) {
   const s = String(since || '').slice(0, 10);
   if (!/^\d{4}-\d{2}-\d{2}$/.test(s) || Number.isNaN(Date.parse(s))) {
     return {
@@ -191,7 +210,13 @@ function changesSince({ since, area = 'all' } = {}, entries = CHANGELOG) {
   } else {
     note = `No recorded changes since ${s}. Figures served are current as of their verifiedDate.`;
   }
-  return { since: s, area: a, coverageStart: COVERAGE_START, areasCovered: CHANGELOG_AREAS, count: hits.length, entries: hits, note };
+  return {
+    protocol: PROTOCOL, schema: SCHEMA_URL, publisher: PUBLISHER, generated: now.toISOString().slice(0, 10),
+    since: s, area: a, coverageStart: COVERAGE_START, areasCovered: CHANGELOG_AREAS, count: hits.length, entries: hits, note,
+  };
 }
 
-module.exports = { changesSince, listEntries, entryId, ChangelogFilterError, diffRates, diffExams, mergeEntries, COVERAGE_START, CHANGELOG_AREAS };
+module.exports = {
+  changesSince, listEntries, entryId, ChangelogFilterError, diffRates, diffExams, mergeEntries,
+  COVERAGE_START, CHANGELOG_AREAS, PROTOCOL, SCHEMA_URL, WELL_KNOWN_URL, PROTOCOL_URL, PUBLISHER,
+};

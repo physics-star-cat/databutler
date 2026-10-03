@@ -4,7 +4,7 @@
  * entries always render to the same bytes, so feeds and caches stay quiet
  * until the data actually changes. Entries come from _changelog.listEntries.
  */
-const { COVERAGE_START, CHANGELOG_AREAS } = require('./_changelog');
+const { COVERAGE_START, CHANGELOG_AREAS, PROTOCOL } = require('./_changelog');
 
 const BASE = 'https://databutler.dev';
 const PAGE_URL = `${BASE}/changes`;
@@ -86,7 +86,8 @@ ${robots ? `<meta name="robots" content="${esc(robots)}">\n` : ''}<link rel="can
 <style>${STYLE}</style></head><body>`;
 }
 
-const FOOT = `<footer class="quiet"><p>Data Butler serves verified reference data to AI agents; this page is the human-readable record of what moved. <a href="/">databutler.dev</a> · <a href="/api">/api</a> · <a href="/llms.txt">llms.txt</a> · <a href="/privacy">Privacy</a></p></footer></body></html>`;
+const FOOT = `<footer class="quiet"><p>Data Butler serves verified reference data to AI agents; this page is the human-readable record of what moved. <a href="/">databutler.dev</a> · <a href="/api">/api</a> · <a href="/llms.txt">llms.txt</a> · <a href="/privacy">Privacy</a></p>
+<p>Published under the <a href="/protocol">Verified Changes protocol</a> (${PROTOCOL}) — any site can publish its changes this way; discovery document at <a href="/.well-known/changes.json"><code>/.well-known/changes.json</code></a>.</p></footer></body></html>`;
 
 function renderEntryHtml(e) {
   const ctx = context(e);
@@ -209,5 +210,5 @@ ${items}
 module.exports = {
   renderChangesHtml, renderErrorHtml, renderRss, renderAtom,
   entryAnchor, entryGuid, groupByMonth, monthLabel, changeText, rfc822,
-  PAGE_URL, TITLE, DESCRIPTION,
+  PAGE_URL, TITLE, DESCRIPTION, STYLE,
 };

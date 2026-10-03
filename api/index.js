@@ -24,6 +24,21 @@ module.exports = (req, res) => {
         params: { since: 'YYYY-MM-DD', area: 'uk-rates | uk-exams | vehicles | all', format: 'json (default) | html | rss | atom' },
         example: 'https://databutler.dev/api/changes?since=2026-06-01',
       },
+      'GET /protocol': {
+        description:
+          'The Verified Changes protocol v0.1 specification — the open convention /api/changes, /changes, the feeds and ' +
+          'what_changed_since follow, so any site can publish dated, sourced from/to entries and any assistant can consume them. ' +
+          'Indexable HTML; ?format=md returns the markdown.',
+        example: 'https://databutler.dev/protocol',
+      },
+      'GET /.well-known/changes.json': {
+        description: 'Protocol discovery document: areas tracked, cadence, endpoints (json/html/rss/atom/mcp), schema URL, licence, contact.',
+        example: 'https://databutler.dev/.well-known/changes.json',
+      },
+      'GET /schema/changes.v0.json': {
+        description: 'JSON Schema (draft 2020-12) for a changes document and a single entry; /schema/well-known-changes.v0.json covers the discovery document.',
+        example: 'https://databutler.dev/schema/changes.v0.json',
+      },
       'GET /changes': {
         description:
           'The changelog as a page: every verified change to UK tax/NI thresholds, exam specs and official vehicle datasets, ' +
@@ -164,6 +179,12 @@ module.exports = (req, res) => {
         euSafetyGate: 'stub',
       },
       tax: Object.fromEntries(Object.entries(TAX.COUNTRIES).map(([k, c]) => [k, c.calculatorId ? `${c.currency}, tax year ${c.taxYear} (live via lifebynumbers.net)` : 'not computed upstream — covered:false'])),
+    },
+    protocol: {
+      name: 'verified-changes/0.1',
+      specification: 'https://databutler.dev/protocol',
+      discovery: 'https://databutler.dev/.well-known/changes.json',
+      schema: 'https://databutler.dev/schema/changes.v0.json',
     },
     privacy: 'https://databutler.dev/privacy',
     ...ATTRIBUTION,
