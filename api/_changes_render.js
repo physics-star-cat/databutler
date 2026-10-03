@@ -5,6 +5,7 @@
  * until the data actually changes. Entries come from _changelog.listEntries.
  */
 const { COVERAGE_START, CHANGELOG_AREAS, PROTOCOL } = require('./_changelog');
+const { BY_KEY } = require('./_areas');
 
 const BASE = 'https://databutler.dev';
 const PAGE_URL = `${BASE}/changes`;
@@ -37,11 +38,10 @@ function fmtValue(v, unit) {
 }
 
 /** Dataset-specific context a reader needs to place the entry (tax year, spec). */
+/** Per-area context line under an entry (tax year, spec, bank…) — each area module's changelog.context(entry). */
 function context(e) {
-  if (e.area === 'uk-rates') return e.taxYear ? `tax year ${e.taxYear}` : '';
-  if (e.area === 'uk-exams') return [e.board, e.level, e.subject, e.specCode ? `(${e.specCode})` : ''].filter(Boolean).join(' ');
-  if (e.area === 'policy-rates') return [e.bankName, e.decisionDate ? `decision ${e.decisionDate}` : ''].filter(Boolean).join(', ');
-  return '';
+  const a = BY_KEY[e.area];
+  return a && a.changelog && a.changelog.context ? a.changelog.context(e) || '' : '';
 }
 
 /** "from → to" as plain text, with bands when a threshold band moved. */

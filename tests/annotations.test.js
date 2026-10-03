@@ -12,7 +12,7 @@ const MCP_TOOL_KEYS = ['annotations', 'description', 'inputSchema', 'name', 'tit
 async function listedTools() {
   const out = [];
   for (const key of Object.keys(SERVERS)) {
-    const r = await rpc(require(`../api/_routes/mcp/${key}`), 'tools/list');
+    const r = await rpc(require('../api/router').ROUTES[`mcp/${key}`], 'tools/list');
     out.push(...r.body.result.tools.map((t) => ({ ...t, _server: key })));
   }
   const fd = await rpc(frontDoor, 'tools/list');

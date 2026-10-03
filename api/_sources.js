@@ -57,6 +57,11 @@ async function checkSource(url) {
   return { url, updatedAt: null, bodyHash: hash(stripHtml(html)), via: 'html' };
 }
 
+/**
+ * Legacy collector over raw data files (rates categories, exam specUrls, bank
+ * pages). The watcher and scripts/sources.js now use api/_areas.js sourceUrls()
+ * — every area module's sources() — so a new area needs no change here.
+ */
 function sourceUrls({ rates = [], exams = [], policy = [] }) {
   const urls = new Set();
   for (const r of rates) for (const c of Object.values(r.categories || {})) if (c.source) urls.add(c.source);

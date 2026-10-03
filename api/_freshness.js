@@ -1,24 +1,14 @@
 /**
- * Freshness block for the response envelope. Datasets declare verifiedDate
- * and nextScheduledRefresh in their JSON (see docs/CURATION.md calendar).
+ * Freshness block for the response envelope. Every committed dataset declares
+ * verifiedDate and nextScheduledRefresh in its JSON (see docs/CURATION.md
+ * calendar); the datasets themselves come from the area modules' `freshness`
+ * (api/_areas.js datasets()), keyed by dataset key — an area's slug, or the
+ * per-dataset keys of a multi-dataset area such as vehicles.
  */
-const { RATES, AQA_GCSE } = require('./_lib');
-const FR_RECALLS = require('../data/vehicles/fr-recalls.json');
-const JP_RECALLS = require('../data/vehicles/jp-recalls.json');
-const UK_RECALLS = require('../data/vehicles/uk-recalls.json');
-const SOFTWARE_EOL = require('../data/software-eol.json');
-const POLICY_RATES = require('../data/policy-rates.json');
+const { datasets } = require('./_areas');
 
 const DUE_WINDOW_DAYS = 14;
-const DATASETS = {
-  'uk-rates': RATES,
-  'uk-exams': AQA_GCSE,
-  'fr-recalls': FR_RECALLS,
-  'jp-recalls': JP_RECALLS,
-  'uk-recalls': UK_RECALLS,
-  'software-eol': SOFTWARE_EOL, // nextScheduledRefresh = verifiedDate + 35 days (scripts/software-eol.js), so `due` begins 35 days after the fetch
-  'policy-rates': POLICY_RATES, // nextScheduledRefresh = verifiedDate + 45 days (scripts/changelog.js)
-};
+const DATASETS = Object.fromEntries(datasets().map((d) => [d.key, d.data]));
 
 function freshnessFor(dataset, now = new Date()) {
   if (dataset === 'live') {

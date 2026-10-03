@@ -4,8 +4,8 @@
  * per message answered with application/json; notifications get 202; no
  * sessions, no SSE. Build a handler with makeMcpHandler().
  *
- * Tool objects may carry, beyond the MCP shape: run(args), freshness, cite
- * (see _registry.js) and delegate(args) → { tool, args } — used by the front
+ * Tool objects may carry, beyond the MCP shape: run(args), freshness, cite,
+ * openWorld, frontDoor (see _registry.js) and delegate(args) → { tool, args } — used by the front
  * door's `call` to run any registry tool while the envelope describes the
  * inner tool.
  */
@@ -18,7 +18,7 @@ const PROTOCOL_VERSION = '2025-06-18';
 function makeMcpHandler({ serverName, instructions, tools }) {
   // Strip everything that is not part of the MCP tool shape (run/freshness/cite/
   // delegate/openWorld, plus the registry's server/serverUrl bookkeeping).
-  const toolDefs = tools.map(({ run, freshness, cite, delegate, openWorld, server, serverUrl, ...def }) => def);
+  const toolDefs = tools.map(({ run, freshness, cite, delegate, openWorld, frontDoor, server, serverUrl, ...def }) => def);
   const byName = Object.fromEntries(tools.map((t) => [t.name, t]));
 
   async function handle(msg, req) {

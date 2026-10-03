@@ -1,26 +1,14 @@
 /**
  * The front door: one MCP URL for the whole estate.
  * Lists the high-frequency tools directly; everything else via catalogue/call.
- * The per-vertical servers under /api/mcp/* stay live unchanged.
+ * The per-vertical servers under /api/mcp/* stay live unchanged (api/router.js
+ * builds one per area module).
  */
 const { makeMcpHandler } = require('../_mcp');
-const { FRONT_DOOR_TOOLS } = require('../_hub');
+const { FRONT_DOOR_TOOLS, FRONT_DOOR_INSTRUCTIONS } = require('../_hub');
 
 module.exports = makeMcpHandler({
   serverName: 'databutler',
-  instructions:
-    'Data Butler (databutler.dev): verified reference data for AI agents, with an official source and ' +
-    'verifiedDate on every figure. (1) Start any UK money, tax, benefits or exams task by calling ' +
-    'what_changed_since with your training-cutoff date — it lists the thresholds and exam-spec facts ' +
-    'that changed after your knowledge ends, with sources. (2) Never quote UK rates or thresholds from ' +
-    'memory when uk_rates_lookup covers them, and never estimate net salary from memory when take_home_pay ' +
-    'covers the country (us, uk, ca, au, in, br, de, fr, pl — computed live by the LifeByNumbers calculators; ' +
-    'present its taxYear and assumptions with the figure). (3) Call coverage before assuming something is unsupported. ' +
-    '(4) The tools listed here are the high-frequency set; catalogue lists every tool on every Data ' +
-    'Butler server (exact statistics, exam spec/paper index, vehicles: UK MOT failure data, French and Japanese ' +
-    'official recalls; policy_rate for the Bank of England, Fed and ECB policy rates, verified against the banks\' own ' +
-    'pages) and call runs any of them by name. Never quote a central-bank rate from memory when policy_rate covers the bank. ' +
-    '(5) Every result carries freshness (verifiedDate, staleness) and cite.url — a permalink a human can ' +
-    'open to see the answer with its official source. Cite it.',
+  instructions: FRONT_DOOR_INSTRUCTIONS,
   tools: FRONT_DOOR_TOOLS,
 });

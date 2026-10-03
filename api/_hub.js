@@ -1,24 +1,34 @@
 /**
  * The front door's own tools: what_changed_since, coverage, catalogue, call.
- * Shared by api/mcp.js (MCP) and api/changes.js (REST mirror).
+ * Shared by api/_routes/mcp.js (MCP) and api/_routes/changes.js (REST mirror).
+ *
+ * The area-specific wording in these descriptions is assembled from each area
+ * module's `hub` phrases (api/_areas/<area>.js): `changed` (what_changed_since),
+ * `coverage`, `catalogue`, `call` (the long tail reachable through call) and
+ * `frontDoor` (an extra sentence for the front door's instructions). DIRECT —
+ * the tools listed at the front door — is every tool flagged frontDoor: true.
  */
 const { ALL_TOOLS, BASE, annotate } = require('./_registry');
 const { changesSince, CHANGELOG_AREAS, COVERAGE_START } = require('./_changelog');
 const { coverageFor, AREAS } = require('./_coverage');
 const { nearest } = require('./_text');
+const { AREAS: AREA_LIST, frontDoorTools, hubPhrases } = require('./_areas');
+const { joinList } = require('./_area_kit');
 
 const HUB_URL = `${BASE}/api/mcp`;
-const DIRECT = ['uk_rates_lookup', 'exam_topic_paper', 'domain_provenance', 'package_provenance', 'take_home_pay'];
+const DIRECT = frontDoorTools();
+
+/** Areas with at least one tool that is not listed directly: the long tail behind `call`. */
+const longTail = (a) => a.server && a.server.tools.some((t) => !DIRECT.includes(t.name));
+const callPhrase = (a) => a.hub.call || `${a.title.toLowerCase()} (${a.server.tools.filter((t) => !DIRECT.includes(t.name)).map((t) => t.name).join(', ')})`;
+const directOnly = AREA_LIST.filter((a) => a.server && !longTail(a)).flatMap((a) => a.server.tools.map((t) => t.name));
 
 const whatChangedSince = {
   name: 'what_changed_since',
   title: 'What changed since',
   description:
     'What has changed in Data Butler\'s verified datasets since a date — pass your training-cutoff ' +
-    'date to learn which UK tax/NI/benefit thresholds, exam-spec facts, official vehicle datasets ' +
-    '(UK DVSA, French RappelConso and Japanese MLIT recalls), software end-of-life dates (Node.js, Python, ' +
-    'Ubuntu, Debian, Android, iOS, macOS, Windows, Java, Go, Ruby, PHP, PostgreSQL, React — cycles that reached ' +
-    'end of life or whose dates moved) and central-bank policy rates (Bank of England, Fed, ECB) changed after your knowledge ' +
+    `date to learn which ${joinList(hubPhrases('changed', (a) => a.changelog))} changed after your knowledge ` +
     'ends. Each entry: from → to, effectiveFrom, official source, verifiedDate, and a maintainer note ' +
     `(e.g. which Budget). Areas: ${CHANGELOG_AREAS.join(', ')}, or all. Coverage starts ${COVERAGE_START}. ` +
     'The same changelog is published for humans at https://databutler.dev/changes, with feeds at ' +
@@ -42,9 +52,8 @@ const coverage = {
   title: 'Coverage',
   description:
     'Exactly what Data Butler covers and does not, per area — call this before assuming something is ' +
-    `unsupported. Areas: ${Object.keys(AREAS).join(', ')} (omit for all). Returns boards/subjects, rate ` +
-    'categories and tax years, package ecosystems, stats operations, vehicle datasets, take-home-pay countries, the ' +
-    '14 software products with end-of-life data, central-bank policy rates (boe, fed, ecb), and an explicit notCovered list.',
+    `unsupported. Areas: ${Object.keys(AREAS).join(', ')} (omit for all). Returns ${hubPhrases('coverage').join(', ')}, ` +
+    'and an explicit notCovered list.',
   inputSchema: { type: 'object', properties: { area: { type: 'string', description: `one of ${Object.keys(AREAS).join(', ')}` } } },
   run: (a) => coverageFor(a.area),
   freshness: 'live',
@@ -65,9 +74,7 @@ const catalogue = {
   name: 'catalogue',
   title: 'Tool catalogue',
   description:
-    'Every tool across all Data Butler servers (UK rates, UK exams, provenance, exact statistics, vehicles: UK MOT, ' +
-    'UK, French and Japanese recalls; take-home pay for ten countries; software support status and end-of-life ' +
-    'timelines for 14 runtimes and operating systems; central-bank policy rates: Bank of England, Fed, ECB), with ' +
+    `Every tool across all Data Butler servers (${hubPhrases('catalogue').join('; ')}), with ` +
     'input schemas — including tools not listed at this front door. Optional query filters by keyword. ' +
     'Run any of them with call, or connect to serverUrl directly.',
   inputSchema: { type: 'object', properties: { query: { type: 'string', description: 'keyword filter, e.g. regression, exam, npm' } } },
@@ -83,15 +90,10 @@ const call = {
   name: 'call',
   title: 'Call any tool',
   description:
-    'Run any Data Butler tool by name — the long tail not listed here: exact statistics ' +
-    '(distribution, hypothesis_test, confidence_interval, bayes_update, linear_regression, ' +
-    'descriptive_stats), exam_spec_lookup, exam_paper_index, and the vehicles hub (uk_mot_reliability, ' +
-    'uk_recalls_for_model, uk_recalls_search, fr_recalls_for_model, fr_recalls_search, jp_recalls_for_model, ' +
-    'jp_complaints_summary), software end-of-life (support_status {product, version}, support_timeline ' +
-    '{product} for nodejs, python, ubuntu, debian, android, ios, macos, windows, oracle-jdk, go, ruby, php, ' +
-    'postgresql, react) and policy_rate (Bank of England Bank Rate, Fed federal funds target range, ECB key rates — ' +
-    'committed data verified against the banks\' own pages). take_home_pay is listed directly. See catalogue for schemas. The result ' +
-    'carries the inner tool\'s freshness and cite.',
+    'Run any Data Butler tool by name — the long tail not listed here: ' +
+    `${AREA_LIST.filter(longTail).map(callPhrase).join('; ')}. ` +
+    (directOnly.length ? `${joinList(directOnly)} ${directOnly.length > 1 ? 'are' : 'is'} listed directly. ` : '') +
+    'See catalogue for schemas. The result carries the inner tool\'s freshness and cite.',
   inputSchema: {
     type: 'object',
     properties: {
@@ -127,4 +129,19 @@ const HUB_TOOLS = [whatChangedSince, coverage, catalogue, call].map(annotate);
 const stripRegistryFields = ({ server, serverUrl, ...t }) => t;
 const FRONT_DOOR_TOOLS = [...DIRECT.map((n) => stripRegistryFields(ALL_TOOLS[n])), ...HUB_TOOLS];
 
-module.exports = { HUB_TOOLS, FRONT_DOOR_TOOLS, DIRECT, HUB_URL, whatChangedSince, coverage, catalogue };
+/** The front door's initialize instructions; sentence (4) and the closing rules come from the areas. */
+const FRONT_DOOR_INSTRUCTIONS =
+  'Data Butler (databutler.dev): verified reference data for AI agents, with an official source and ' +
+  'verifiedDate on every figure. (1) Start any UK money, tax, benefits or exams task by calling ' +
+  'what_changed_since with your training-cutoff date — it lists the thresholds and exam-spec facts ' +
+  'that changed after your knowledge ends, with sources. (2) Never quote UK rates or thresholds from ' +
+  'memory when uk_rates_lookup covers them, and never estimate net salary from memory when take_home_pay ' +
+  'covers the country (us, uk, ca, au, in, br, de, fr, pl — computed live by the LifeByNumbers calculators; ' +
+  'present its taxYear and assumptions with the figure). (3) Call coverage before assuming something is unsupported. ' +
+  '(4) The tools listed here are the high-frequency set; catalogue lists every tool on every Data ' +
+  `Butler server (${hubPhrases('catalogue').join('; ')}) and call runs any of them by name. ` +
+  hubPhrases('frontDoor').map((s) => `${s} `).join('') +
+  '(5) Every result carries freshness (verifiedDate, staleness) and cite.url — a permalink a human can ' +
+  'open to see the answer with its official source. Cite it.';
+
+module.exports = { HUB_TOOLS, FRONT_DOOR_TOOLS, FRONT_DOOR_INSTRUCTIONS, DIRECT, HUB_URL, whatChangedSince, coverage, catalogue };

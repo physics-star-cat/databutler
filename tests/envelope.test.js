@@ -5,7 +5,7 @@ const { withEnvelope, findSource } = require('../api/_envelope');
 const { makeMcpHandler } = require('../api/_mcp');
 const { ALL_TOOLS } = require('../api/_registry');
 const { ATTRIBUTION } = require('../api/_lib');
-const statsServer = require('../api/_routes/mcp/stats');
+const statsServer = require('../api/router').ROUTES['mcp/stats'];
 
 test('withEnvelope adds freshness, cite and attribution for a dataset tool', () => {
   const tool = ALL_TOOLS.uk_rates_lookup;

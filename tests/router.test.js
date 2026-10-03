@@ -8,7 +8,7 @@ const router = require('../api/router');
 
 const get = (url) => invoke(router, undefined, { method: 'GET', url });
 
-test('router: every file under api/_routes is reachable and nothing else is a function', () => {
+test('router: every hand-written handler and every area-derived route is reachable; nothing else is a function', () => {
   const files = [];
   (function walk(d) {
     for (const f of fs.readdirSync(d)) {
@@ -16,11 +16,16 @@ test('router: every file under api/_routes is reachable and nothing else is a fu
       if (fs.statSync(p).isDirectory()) walk(p); else if (f.endsWith('.js')) files.push(p);
     }
   })(path.join(__dirname, '../api/_routes'));
-  const routes = files.map((f) => path.relative(path.join(__dirname, '../api/_routes'), f).replace(/\.js$/, '')).sort();
-  assert.deepEqual(routes, Object.keys(router.ROUTES).sort());
+  const handWritten = files.map((f) => path.relative(path.join(__dirname, '../api/_routes'), f).replace(/\.js$/, ''));
+  const { SERVERS } = require('../api/_registry');
+  const { restRoutes } = require('../api/_areas');
+  const derived = [...Object.keys(SERVERS).map((k) => `mcp/${k}`), ...restRoutes().map((r) => r.path)];
+  assert.deepEqual(Object.keys(router.ROUTES).sort(), [...new Set([...handWritten, ...derived])].sort());
   // Hobby plan: at most 12 functions. Only index.js and router.js may be functions.
   const fns = fs.readdirSync(path.join(__dirname, '../api')).filter((f) => f.endsWith('.js') && !f.startsWith('_'));
   assert.deepEqual(fns.sort(), ['index.js', 'router.js']);
+  // and the api/_areas directory never is: its loader lives at api/_areas.js, the modules under api/_areas/
+  assert.ok(fs.statSync(path.join(__dirname, '../api/_areas')).isDirectory());
 });
 
 test('router: ?route= from the rewrite reaches the handler with a clean URL', async () => {

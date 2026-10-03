@@ -33,6 +33,18 @@ function queryParams(req) {
   return Object.fromEntries(new URL(req.url, 'https://databutler.dev').searchParams);
 }
 
+/** Query values that look like JSON (arrays, objects, numbers, booleans, null) → parsed; the rest stay strings. */
+function parseJsonValues(q) {
+  const out = {};
+  for (const [k, v] of Object.entries(q)) {
+    if (typeof v === 'string' && /^[\[{]|^-?\d+(\.\d+)?([eE][-+]?\d+)?$|^(true|false|null)$/.test(v)) {
+      try { out[k] = JSON.parse(v); continue; } catch { /* keep string */ }
+    }
+    out[k] = v;
+  }
+  return out;
+}
+
 /* ---------------- rates ---------------- */
 
 function ratesLookup(category) {
@@ -179,6 +191,7 @@ module.exports = {
   sendJson,
   handleOptions,
   queryParams,
+  parseJsonValues,
   ratesLookup,
   findSpecs,
   topicLookup,

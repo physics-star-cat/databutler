@@ -1,7 +1,9 @@
 // tests/changelog.test.js
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { changesSince, diffRates, diffExams, mergeEntries, COVERAGE_START } = require('../api/_changelog');
+const { changesSince, mergeEntries, COVERAGE_START } = require('../api/_changelog');
+const { diff: diffRates } = require('../api/_areas/uk-rates').changelog;
+const { diff: diffExams } = require('../api/_areas/uk-exams').changelog;
 const rp = require('./fixtures/rates-prev.json'), rn = require('./fixtures/rates-next.json');
 const ep = require('./fixtures/exams-prev.json'), en = require('./fixtures/exams-next.json');
 const rr = require('./fixtures/rates-removed.json'), er = require('./fixtures/exams-removed.json');

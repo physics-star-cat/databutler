@@ -4,10 +4,10 @@
  * combined issue for URLs it could not check. ?dry=1 reports without filing.
  * Vercel cron sends Authorization: Bearer $CRON_SECRET.
  */
-const { sendJson, RATES, AQA_GCSE } = require('../../_lib');
-const { POLICY } = require('../../_policy_rates');
+const { sendJson } = require('../../_lib');
 const SEEN = require('../../../data/sources.json');
-const { checkSource, sourceUrls, compareSource } = require('../../_sources');
+const { checkSource, compareSource } = require('../../_sources');
+const { sourceUrls } = require('../../_areas');
 const { planIssues, listOpenIssues, openIssue } = require('../../_github');
 
 module.exports = async (req, res) => {
@@ -16,7 +16,7 @@ module.exports = async (req, res) => {
   if (!secret || auth !== `Bearer ${secret}`) return sendJson(res, 401, { error: 'unauthorised' });
 
   const dry = new URL(req.url, 'https://databutler.dev').searchParams.get('dry') === '1';
-  const urls = sourceUrls({ rates: [RATES], exams: [AQA_GCSE], policy: [POLICY] });
+  const urls = sourceUrls(); // every area module's sources(), deduped
   const seenByUrl = Object.fromEntries(SEEN.map((s) => [s.url, s]));
 
   const results = await Promise.all(urls.map(async (url) => {

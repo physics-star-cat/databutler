@@ -3,7 +3,7 @@ const assert = require('node:assert/strict');
 const { rpc, callTool, invoke } = require('./helpers');
 const V = require('../api/_vehicles');
 const M = require('../api/_mot');
-const vehiclesServer = require('../api/_routes/mcp/vehicles');
+const vehiclesServer = require('../api/router').ROUTES['mcp/vehicles'];
 const frontDoor = require('../api/_routes/mcp');
 const r = require('../api/_routes/r');
 const { freshnessFor } = require('../api/_freshness');
@@ -279,13 +279,13 @@ test('front door: vehicles tools are behind call (not listed), reachable, and ca
 
 test('REST mirrors under /api/vehicles carry freshness + cite; required params â†’ 400', async () => {
   const cases = [
-    [require('../api/_routes/vehicles/uk/recalls'), '/api/vehicles/uk/recalls?make=vauxhall&model=corsa', 'https://databutler.dev/r/vehicles/uk/recalls?make=vauxhall&model=corsa'],
-    [require('../api/_routes/vehicles/uk/recalls-search'), '/api/vehicles/uk/recalls-search?text=airbag&since=2025-01-01', 'https://databutler.dev/r/vehicles/uk/recalls-search?text=airbag&since=2025-01-01'],
-    [require('../api/_routes/vehicles/fr/recalls'), '/api/vehicles/fr/recalls?brand=peugeot&model=208', 'https://databutler.dev/r/vehicles/fr/recalls?brand=peugeot&model=208'],
-    [require('../api/_routes/vehicles/fr/search'), '/api/vehicles/fr/search?text=airbag&since=2026-01-01', 'https://databutler.dev/r/vehicles/fr/search?text=airbag&since=2026-01-01'],
-    [require('../api/_routes/vehicles/jp/recalls'), '/api/vehicles/jp/recalls?make=toyota&model=prius', 'https://databutler.dev/r/vehicles/jp/recalls?make=toyota&model=prius'],
-    [require('../api/_routes/vehicles/jp/complaints'), '/api/vehicles/jp/complaints?make=honda&model=n-box', 'https://databutler.dev/r/vehicles/jp/complaints?make=honda&model=n-box'],
-    [require('../api/_routes/vehicles/eu/safety-gate'), '/api/vehicles/eu/safety-gate', 'https://databutler.dev/r/vehicles/eu/safety-gate'],
+    [require('../api/router').ROUTES['vehicles/uk/recalls'], '/api/vehicles/uk/recalls?make=vauxhall&model=corsa', 'https://databutler.dev/r/vehicles/uk/recalls?make=vauxhall&model=corsa'],
+    [require('../api/router').ROUTES['vehicles/uk/recalls-search'], '/api/vehicles/uk/recalls-search?text=airbag&since=2025-01-01', 'https://databutler.dev/r/vehicles/uk/recalls-search?text=airbag&since=2025-01-01'],
+    [require('../api/router').ROUTES['vehicles/fr/recalls'], '/api/vehicles/fr/recalls?brand=peugeot&model=208', 'https://databutler.dev/r/vehicles/fr/recalls?brand=peugeot&model=208'],
+    [require('../api/router').ROUTES['vehicles/fr/search'], '/api/vehicles/fr/search?text=airbag&since=2026-01-01', 'https://databutler.dev/r/vehicles/fr/search?text=airbag&since=2026-01-01'],
+    [require('../api/router').ROUTES['vehicles/jp/recalls'], '/api/vehicles/jp/recalls?make=toyota&model=prius', 'https://databutler.dev/r/vehicles/jp/recalls?make=toyota&model=prius'],
+    [require('../api/router').ROUTES['vehicles/jp/complaints'], '/api/vehicles/jp/complaints?make=honda&model=n-box', 'https://databutler.dev/r/vehicles/jp/complaints?make=honda&model=n-box'],
+    [require('../api/router').ROUTES['vehicles/eu/safety-gate'], '/api/vehicles/eu/safety-gate', 'https://databutler.dev/r/vehicles/eu/safety-gate'],
   ];
   for (const [h, url, cite] of cases) {
     const res = await get(h, url);
@@ -294,15 +294,15 @@ test('REST mirrors under /api/vehicles carry freshness + cite; required params â
     assert.equal(res.body.cite.url, cite);
     assert.equal(res.body.attribution, 'databutler.dev');
   }
-  assert.equal((await get(require('../api/_routes/vehicles/fr/recalls'), '/api/vehicles/fr/recalls')).status, 400);
-  assert.equal((await get(require('../api/_routes/vehicles/uk/recalls'), '/api/vehicles/uk/recalls?model=corsa')).status, 400);
-  assert.equal((await get(require('../api/_routes/vehicles/uk/recalls-search'), '/api/vehicles/uk/recalls-search')).status, 400);
-  assert.equal((await get(require('../api/_routes/vehicles/jp/recalls'), '/api/vehicles/jp/recalls?make=toyota')).status, 400);
-  assert.equal((await get(require('../api/_routes/vehicles/uk/mot'), '/api/vehicles/uk/mot?make=Ford')).status, 400);
-  assert.equal((await get(require('../api/_routes/vehicles/uk/search'), '/api/vehicles/uk/search')).status, 400);
+  assert.equal((await get(require('../api/router').ROUTES['vehicles/fr/recalls'], '/api/vehicles/fr/recalls')).status, 400);
+  assert.equal((await get(require('../api/router').ROUTES['vehicles/uk/recalls'], '/api/vehicles/uk/recalls?model=corsa')).status, 400);
+  assert.equal((await get(require('../api/router').ROUTES['vehicles/uk/recalls-search'], '/api/vehicles/uk/recalls-search')).status, 400);
+  assert.equal((await get(require('../api/router').ROUTES['vehicles/jp/recalls'], '/api/vehicles/jp/recalls?make=toyota')).status, 400);
+  assert.equal((await get(require('../api/router').ROUTES['vehicles/uk/mot'], '/api/vehicles/uk/mot?make=Ford')).status, 400);
+  assert.equal((await get(require('../api/router').ROUTES['vehicles/uk/search'], '/api/vehicles/uk/search')).status, 400);
   const m = mockFetch(() => jsonResponse(200, { vehicle: { id: 5 }, categories: [], attribution: 'whatbreaks.uk' }));
   try {
-    const res = await get(require('../api/_routes/vehicles/uk/mot'), '/api/vehicles/uk/mot?make=Volkswagen&model=Golf&year=2018&mileage=80000');
+    const res = await get(require('../api/router').ROUTES['vehicles/uk/mot'], '/api/vehicles/uk/mot?make=Volkswagen&model=Golf&year=2018&mileage=80000');
     assert.equal(res.status, 200);
     assert.equal(m.calls[0].url, 'https://whatbreaks.uk/api/mot?make=Volkswagen&model=Golf&year=2018&mileage=80000');
     assert.equal(res.body.cite.url, 'https://databutler.dev/r/vehicles/uk/mot?make=Volkswagen&model=Golf&year=2018&mileage=80000');

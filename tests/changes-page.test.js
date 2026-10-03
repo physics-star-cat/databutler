@@ -477,8 +477,7 @@ test('discoverability: index.html, robots.txt, sitemap.xml, llms.txt, /api index
   assert.match(sitemap, /<urlset xmlns="http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9">/);
   assert.deepEqual(tagText(sitemap, 'loc'), [
     'https://databutler.dev/', 'https://databutler.dev/changes',
-    'https://databutler.dev/changes?area=uk-rates', 'https://databutler.dev/changes?area=uk-exams', 'https://databutler.dev/changes?area=vehicles',
-    'https://databutler.dev/changes?area=software-eol', 'https://databutler.dev/changes?area=policy-rates',
+    ...CHANGELOG_AREAS.map((a) => `https://databutler.dev/changes?area=${a}`),
     'https://databutler.dev/protocol', 'https://databutler.dev/privacy', 'https://databutler.dev/api',
   ]);
   assert.doesNotMatch(sitemap, /lastmod/);

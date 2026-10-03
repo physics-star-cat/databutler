@@ -7,15 +7,15 @@
  */
 const fs = require('node:fs');
 const path = require('node:path');
-const { checkSource, sourceUrls } = require('../api/_sources');
+const { checkSource } = require('../api/_sources');
+const { sourceUrls: areaSourceUrls } = require('../api/_areas');
 
 const ROOT = path.resolve(__dirname, '..');
 const OUT = path.join(ROOT, 'data/sources.json');
 
+/** Every watched source page: each area module's sources() (api/_areas/<area>.js), deduped. */
 function allSourceUrls() {
-  const dir = (d) => fs.readdirSync(path.join(ROOT, d)).filter((f) => f.endsWith('.json')).map((f) => JSON.parse(fs.readFileSync(path.join(ROOT, d, f), 'utf8')));
-  const policy = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/policy-rates.json'), 'utf8'));
-  return sourceUrls({ rates: dir('data/uk/rates'), exams: dir('data/uk/exams'), policy: [policy] });
+  return areaSourceUrls();
 }
 
 async function refreshSources(urls = allSourceUrls()) {

@@ -2,12 +2,16 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const { rpc } = require('./helpers');
 
-test('registry: 25 tools across 8 servers, each with freshness + server url', () => {
+test('registry: one server per area module with a server, every tool with a known freshness key + server url', () => {
   const { SERVERS, ALL_TOOLS } = require('../api/_registry');
-  assert.deepEqual(Object.keys(SERVERS), ['uk-rates', 'uk-exams', 'provenance', 'stats', 'vehicles', 'tax', 'software-eol', 'policy-rates']);
-  assert.equal(Object.keys(ALL_TOOLS).length, 25);
+  const { AREAS } = require('../api/_areas');
+  const { DATASETS } = require('../api/_freshness');
+  assert.deepEqual(Object.keys(SERVERS), AREAS.filter((a) => a.server).map((a) => a.area));
+  assert.ok(Object.keys(SERVERS).length >= 8, 'the eight original servers are still there');
+  assert.equal(Object.keys(ALL_TOOLS).length, AREAS.reduce((n, a) => n + (a.server ? a.server.tools.length : 0), 0));
+  assert.ok(Object.keys(ALL_TOOLS).length >= 25);
   for (const t of Object.values(ALL_TOOLS)) {
-    assert.ok(['uk-rates', 'uk-exams', 'uk-recalls', 'fr-recalls', 'jp-recalls', 'software-eol', 'policy-rates', 'live'].includes(t.freshness), `${t.name} freshness`);
+    assert.ok(t.freshness === 'live' || DATASETS[t.freshness], `${t.name} freshness "${t.freshness}" is a dataset key`);
     assert.match(t.serverUrl, /^https:\/\/databutler\.dev\/api\/mcp\//);
     assert.equal(typeof t.run, 'function');
   }
@@ -25,7 +29,7 @@ test('registry: per-vertical servers list the same tool names as before, no extr
     'policy-rates': ['policy_rate'],
   };
   for (const [key, names] of Object.entries(expected)) {
-    const handler = require(`../api/_routes/mcp/${key}`);
+    const handler = require('../api/router').ROUTES[`mcp/${key}`];
     const r = await rpc(handler, 'tools/list');
     assert.deepEqual(r.body.result.tools.map((t) => t.name), names, key);
     for (const t of r.body.result.tools) {

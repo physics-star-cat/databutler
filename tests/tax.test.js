@@ -4,9 +4,9 @@ const assert = require('node:assert/strict');
 const { rpc, callTool, invoke } = require('./helpers');
 const T = require('../api/_tax');
 const { ALL_TOOLS, SERVERS } = require('../api/_registry');
-const taxServer = require('../api/_routes/mcp/tax');
+const taxServer = require('../api/router').ROUTES['mcp/tax'];
 const frontDoor = require('../api/_routes/mcp');
-const takeHomeRest = require('../api/_routes/tax/take-home');
+const takeHomeRest = require('../api/router').ROUTES['tax/take-home'];
 const r = require('../api/_routes/r');
 const { coverageFor } = require('../api/_coverage');
 

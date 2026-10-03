@@ -9,10 +9,10 @@ const { freshnessFor } = require('../api/_freshness');
 const { coverageFor } = require('../api/_coverage');
 const { CHANGELOG_AREAS } = require('../api/_changelog');
 const S = require('../scripts/software-eol');
-const server = require('../api/_routes/mcp/software-eol');
+const server = require('../api/router').ROUTES['mcp/software-eol'];
 const frontDoor = require('../api/_routes/mcp');
-const statusRest = require('../api/_routes/software-eol/status');
-const timelineRest = require('../api/_routes/software-eol/timeline');
+const statusRest = require('../api/router').ROUTES['software-eol/status'];
+const timelineRest = require('../api/router').ROUTES['software-eol/timeline'];
 const cite = require('../api/_routes/r');
 
 const D = E.DATA;
