@@ -46,7 +46,7 @@
   "functions": {
     "api/router.js": {
       "maxDuration": 60,
-      "includeFiles": "docs/CHANGES_PROTOCOL.md"
+      "includeFiles": "{docs/CHANGES_PROTOCOL.md,api/_areas/**,data/**}"
     }
   }
 }

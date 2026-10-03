@@ -243,7 +243,7 @@ test('/protocol: registered, rewritten before /api/(.+), spec file bundled with 
   const idx = (source) => VERCEL.rewrites.findIndex((r) => r.source === source);
   assert.equal(VERCEL.rewrites[idx('/protocol')].destination, '/api/router?route=protocol');
   assert.ok(idx('/protocol') >= 0 && idx('/protocol') < idx('/api/(.+)'), '/protocol before the generic rewrite');
-  assert.equal(VERCEL.functions['api/router.js'].includeFiles, 'docs/CHANGES_PROTOCOL.md');
+  assert.match(VERCEL.functions['api/router.js'].includeFiles, /docs\/CHANGES_PROTOCOL\.md/); // the kit also bundles api/_areas/** and data/** (wildcard require)
 });
 
 test('/protocol: indexable HTML of the spec with every section, cached like /changes; ?format=md is the file', async () => {
