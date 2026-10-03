@@ -142,6 +142,13 @@ official source, `pubDate` is the `verifiedDate`. Listed in
 `public/sitemap.xml`, `public/robots.txt` (`Allow: /changes*`), `public/llms.txt`,
 the `/api` index and the `rel=alternate` links on `public/index.html`.
 
+All five surfaces follow the Verified Changes protocol v0.1
+(`docs/CHANGES_PROTOCOL.md`, served at `/protocol`): the entry shape is the
+protocol's entry schema, `/api/changes` and `what_changed_since` return a
+protocol document, and `public/.well-known/changes.json` is the discovery
+document — **when an area is added to `CHANGELOG_AREAS`, add it there too**
+(`tests/protocol.test.js` checks the two lists agree).
+
 The page is the one part of the site that *is* meant to be indexed — unlike
 the `/r/` citation pages — so a change here (a new area, a renamed key) should
 keep old anchors working: `entryId` (`area|key|verifiedDate`) is the dedupe key

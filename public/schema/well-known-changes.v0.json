@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://databutler.dev/schema/well-known-changes.v0.json",
+  "title": "Verified Changes discovery document (/.well-known/changes.json)",
+  "description": "Published at https://<site>/.well-known/changes.json: which areas a site tracks, how often, and where the changes are served. Specification: https://databutler.dev/protocol.",
+  "type": "object",
+  "required": ["protocol", "publisher", "areas", "endpoints", "schema"],
+  "properties": {
+    "protocol": { "const": "verified-changes/0.1" },
+    "publisher": {
+      "type": "object",
+      "required": ["name", "url"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "url": { "type": "string", "format": "uri" }
+      }
+    },
+    "updated": { "type": "string", "format": "date", "description": "When this discovery document last changed." },
+    "coverageStart": { "type": "string", "format": "date", "description": "Changes before this day are not itemised." },
+    "areas": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "description", "cadence"],
+        "properties": {
+          "name": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "description": "The value entries carry in their area field." },
+          "description": { "type": "string", "minLength": 1, "description": "What facts the area covers." },
+          "cadence": { "type": "string", "minLength": 1, "description": "How often the sources are re-checked, in plain words." }
+        }
+      }
+    },
+    "endpoints": {
+      "type": "object",
+      "required": ["json"],
+      "properties": {
+        "json": { "type": "string", "format": "uri", "description": "Changes document; accepts ?since=YYYY-MM-DD and ?area=." },
+        "html": { "type": "string", "format": "uri", "description": "Human-readable page of the same entries." },
+        "rss": { "type": "string", "format": "uri" },
+        "atom": { "type": "string", "format": "uri" },
+        "mcp": {
+          "type": "object",
+          "required": ["url", "tool"],
+          "properties": {
+            "url": { "type": "string", "format": "uri", "description": "Streamable HTTP MCP server URL." },
+            "tool": { "type": "string", "minLength": 1, "description": "Tool name; what_changed_since by convention." }
+          }
+        }
+      }
+    },
+    "schema": { "type": "string", "format": "uri", "description": "JSON Schema the changes document validates against." },
+    "specification": { "type": "string", "format": "uri", "description": "Where the protocol version is specified." },
+    "licence": { "type": "string", "minLength": 1, "description": "Terms the changes may be reused under." },
+    "contact": { "type": "string", "format": "uri", "description": "Where to report a wrong entry: an https: or mailto: URL." }
+  }
+}

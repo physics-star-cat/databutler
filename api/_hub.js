@@ -20,7 +20,8 @@ const whatChangedSince = {
     'ends. Each entry: from → to, effectiveFrom, official source, verifiedDate, and a maintainer note ' +
     `(e.g. which Budget). Areas: ${CHANGELOG_AREAS.join(', ')}, or all. Coverage starts ${COVERAGE_START}. ` +
     'The same changelog is published for humans at https://databutler.dev/changes, with feeds at ' +
-    'https://databutler.dev/changes.rss and https://databutler.dev/changes.atom.',
+    'https://databutler.dev/changes.rss and https://databutler.dev/changes.atom. Output is a Verified Changes ' +
+    'protocol document (verified-changes/0.1, spec https://databutler.dev/protocol).',
   inputSchema: {
     type: 'object',
     properties: {

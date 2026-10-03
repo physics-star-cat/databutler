@@ -29,6 +29,10 @@
       "destination": "/api/router?route=changes-feed&format=atom"
     },
     {
+      "source": "/protocol",
+      "destination": "/api/router?route=protocol"
+    },
+    {
       "source": "/api/(.+)",
       "destination": "/api/router?route=$1"
     }
@@ -41,7 +45,8 @@
   ],
   "functions": {
     "api/router.js": {
-      "maxDuration": 60
+      "maxDuration": 60,
+      "includeFiles": "docs/CHANGES_PROTOCOL.md"
     }
   }
 }
