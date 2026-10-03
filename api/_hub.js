@@ -59,7 +59,7 @@ const catalogue = {
   title: 'Tool catalogue',
   description:
     'Every tool across all Data Butler servers (UK rates, UK exams, provenance, exact statistics, vehicles: UK MOT, ' +
-    'French and Japanese recalls; take-home pay for ten countries), with ' +
+    'UK, French and Japanese recalls; take-home pay for ten countries), with ' +
     'input schemas — including tools not listed at this front door. Optional query filters by keyword. ' +
     'Run any of them with call, or connect to serverUrl directly.',
   inputSchema: { type: 'object', properties: { query: { type: 'string', description: 'keyword filter, e.g. regression, exam, npm' } } },
@@ -78,8 +78,9 @@ const call = {
     'Run any Data Butler tool by name — the long tail not listed here: exact statistics ' +
     '(distribution, hypothesis_test, confidence_interval, bayes_update, linear_regression, ' +
     'descriptive_stats), exam_spec_lookup, exam_paper_index, and the vehicles hub (uk_mot_reliability, ' +
-    'fr_recalls_for_model, fr_recalls_search, jp_recalls_for_model, jp_complaints_summary). take_home_pay is listed ' +
-    'directly. See catalogue for schemas. The result carries the inner tool\'s freshness and cite.',
+    'uk_recalls_for_model, uk_recalls_search, fr_recalls_for_model, fr_recalls_search, jp_recalls_for_model, ' +
+    'jp_complaints_summary). take_home_pay is listed directly. See catalogue for schemas. The result ' +
+    'carries the inner tool\'s freshness and cite.',
   inputSchema: {
     type: 'object',
     properties: {

@@ -1,17 +1,23 @@
 #!/usr/bin/env node
 /**
- * Regenerate data/vehicles/*.json from the sibling car-site repos' committed
- * pipeline outputs. No network: those repos own the fetchers (and their
- * politeness rules); this script only derives compact, agent-shaped files.
+ * Regenerate data/vehicles/*.json.
  *
- *   node scripts/vehicles.js            # both datasets
- *   node scripts/vehicles.js fr | jp    # one
+ *   node scripts/vehicles.js                 # all three datasets
+ *   node scripts/vehicles.js fr | jp | uk    # one
  *
- * Inputs (override with RAPPELCONSO_DIR / MLIT_DIR):
+ * FR and JP derive from the sibling car-site repos' committed pipeline
+ * outputs — no network: those repos own the fetchers (and their politeness
+ * rules); this script only derives compact, agent-shaped files.
  *   ../car_websites/controle-technique/data/rappelconso/{raw-automobiles,summary}.json
- *       (refresh there first: `node data/fetch-rappelconso.js`)
+ *       (refresh there first: `node data/fetch-rappelconso.js`; override dir with RAPPELCONSO_DIR)
  *   ../car_websites/shaken-data/data/mlit/summary.json
- *       (refresh there first: `node data/fetch-mlit.js`)
+ *       (refresh there first: `node data/fetch-mlit.js`; override dir with MLIT_DIR)
+ *
+ * UK has no sibling repo: `uk` downloads DVSA's bulk recalls CSV (one
+ * request, ~8 MB, Open Government Licence v3.0) straight from the
+ * check-vehicle-recalls service, identifying itself as databutler.dev. Set
+ * DVSA_RECALLS_CSV=/path/to/RecallsFile.csv to build from a saved copy
+ * instead (the fetch date is then the file's mtime).
  *
  * When a count changes against the committed file, a changelog entry
  * (area: vehicles) is appended for what_changed_since — note left blank for
@@ -20,13 +26,23 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { mergeEntries } = require('../api/_changelog');
-const { brandSlugs, norm } = require('../api/_vehicles_text');
+const { brandSlugs, norm, ukMakeSlug } = require('../api/_vehicles_text');
 
 const ROOT = path.resolve(__dirname, '..');
 const OUT_DIR = path.join(ROOT, 'data/vehicles');
 const CHANGELOG = path.join(ROOT, 'data/changelog.json');
 const RAPPELCONSO_DIR = process.env.RAPPELCONSO_DIR || path.join(ROOT, '../car_websites/controle-technique/data/rappelconso');
 const MLIT_DIR = process.env.MLIT_DIR || path.join(ROOT, '../car_websites/shaken-data/data/mlit');
+
+const DVSA_SERVICE = 'https://www.check-vehicle-recalls.service.gov.uk/';
+const DVSA_CSV_URL = `${DVSA_SERVICE}documents/RecallsFile.csv`;
+const DVSA_GUIDE_URL = `${DVSA_SERVICE}documents/Recalls%20Data%20User%20Guide_v4.doc`;
+const UA = 'databutler.dev data curation (+https://databutler.dev)';
+// The committed file keeps recalls launched in the ten calendar years before
+// the fetch year plus the fetch year — the DVSA guide's own "minimum of ten
+// years" promise, and what keeps the file near 3 MB. Older recalls stay in
+// the source CSV, which the dataset metadata links.
+const UK_YEARS_BACK = 10;
 
 const readJson = (p) => JSON.parse(fs.readFileSync(p, 'utf8'));
 const day = (iso) => String(iso).slice(0, 10);
@@ -166,6 +182,128 @@ function buildJp() {
   };
 }
 
+/* ---------------- UK: DVSA ---------------- */
+
+/** RFC 4180 CSV → array of rows (arrays of strings). Handles quoted fields with commas, quotes and newlines. */
+function parseCsv(text) {
+  const rows = [];
+  let row = [], field = '', quoted = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (quoted) {
+      if (c === '"') {
+        if (text[i + 1] === '"') { field += '"'; i++; } else quoted = false;
+      } else field += c;
+    } else if (c === '"') quoted = true;
+    else if (c === ',') { row.push(field); field = ''; }
+    else if (c === '\n' || c === '\r') {
+      if (c === '\r' && text[i + 1] === '\n') i++;
+      row.push(field); field = '';
+      rows.push(row); row = [];
+    } else field += c;
+  }
+  if (field !== '' || row.length) { row.push(field); rows.push(row); }
+  return rows.filter((r) => r.length > 1 || (r.length === 1 && r[0] !== ''));
+}
+
+/** DVSA dates are dd/mm/yyyy; anything else (blank) → null. */
+function ukDate(s) {
+  const m = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(String(s || '').trim());
+  return m ? `${m[3]}-${m[2]}-${m[1]}` : null;
+}
+
+async function loadDvsaCsv() {
+  if (process.env.DVSA_RECALLS_CSV) {
+    const p = process.env.DVSA_RECALLS_CSV;
+    return { text: fs.readFileSync(p, 'utf8'), fetched: fs.statSync(p).mtime.toISOString(), sourceLastModified: null, via: `local file ${p}` };
+  }
+  const r = await fetch(DVSA_CSV_URL, { headers: { 'User-Agent': UA, Accept: 'text/csv' } });
+  if (!r.ok) throw new Error(`DVSA CSV: HTTP ${r.status}`);
+  return { text: await r.text(), fetched: new Date().toISOString(), sourceLastModified: r.headers.get('last-modified'), via: DVSA_CSV_URL };
+}
+
+/**
+ * One record per recall number (the CSV repeats the recall text once per
+ * model); models nest as [model, buildStart, buildEnd, vehiclesAffected]
+ * tuples (see `modelFields`). Texts are DVSA's, never edited — including the
+ * occasional U+FFFD the source itself contains.
+ */
+function buildUkFrom(csvText, { fetched, sourceLastModified, via }) {
+  const rows = parseCsv(csvText.replace(/^﻿/, ''));
+  const header = rows[0].map((h) => h.trim());
+  const col = (name) => {
+    const i = header.indexOf(name);
+    if (i < 0) throw new Error(`DVSA CSV: column "${name}" missing — header is ${header.join(', ')}`);
+    return i;
+  };
+  const C = {
+    launch: col('Launch Date'), no: col('Recalls Number'), make: col('Make'), concern: col('Concern'), defect: col('Defect'),
+    remedy: col('Remedy'), vehicles: col('Vehicle Numbers'), model: col('Model'), buildStart: col('Build Start'), buildEnd: col('Build End'),
+  };
+  const fetchYear = Number(fetched.slice(0, 4));
+  const floor = `${fetchYear - UK_YEARS_BACK}-01-01`;
+  const byNo = new Map();
+  let sourceRows = 0;
+  for (const r of rows.slice(1)) {
+    sourceRows++;
+    const no = r[C.no].trim();
+    const launch = ukDate(r[C.launch]);
+    if (!no || !launch) throw new Error(`DVSA CSV: row without recall number / launch date: ${r.slice(0, 3).join(' | ')}`);
+    if (launch < floor) continue;
+    const text = (s) => String(s || '').replace(/\s+/g, ' ').trim();
+    let rec = byNo.get(no);
+    if (!rec) {
+      rec = {
+        no, date: launch, make: text(r[C.make]), makeSlug: ukMakeSlug(r[C.make]),
+        concern: text(r[C.concern]), defect: text(r[C.defect]), remedy: text(r[C.remedy]), models: [],
+      };
+      byNo.set(no, rec);
+    }
+    const n = parseInt(String(r[C.vehicles]).replace(/[^\d]/g, ''), 10);
+    rec.models.push([text(r[C.model]) || null, ukDate(r[C.buildStart]), ukDate(r[C.buildEnd]), Number.isNaN(n) ? null : n]);
+  }
+  const records = [...byNo.values()].sort((a, b) => b.date.localeCompare(a.date) || b.no.localeCompare(a.no));
+  const dates = records.map((r) => r.date).sort();
+  const verifiedDate = day(fetched);
+  const makes = new Set(records.map((r) => r.makeSlug));
+  return {
+    dataset: 'DVSA vehicle safety recalls — bulk download (RecallsFile.csv, "all recalls since 1992")',
+    datasetUrl: DVSA_CSV_URL,
+    guideUrl: DVSA_GUIDE_URL,
+    source: DVSA_SERVICE,
+    publisher: 'Driver and Vehicle Standards Agency (DVSA), Vehicle Safety Branch — GOV.UK',
+    licence: 'Open Government Licence v3.0 (Crown copyright)',
+    updateCadence: 'Source CSV is regenerated by DVSA daily (Last-Modified header); refreshed here monthly.',
+    filter: { launchDateFrom: floor, rule: `recalls launched from 1 January ${fetchYear - UK_YEARS_BACK} (${UK_YEARS_BACK} calendar years before the fetch year) to the fetch date` },
+    fetched,
+    fetchedVia: via,
+    sourceLastModified,
+    verifiedDate,
+    nextScheduledRefresh: plusOneMonth(verifiedDate),
+    verificationMethod:
+      'Full download of DVSA\'s RecallsFile.csv (the file linked from the check-vehicle-recalls service home page) on ' +
+      '`fetched`; rows grouped by recall number (the CSV repeats a recall once per model), dates converted from dd/mm/yyyy, ' +
+      'texts never edited. makeSlug is databutler\'s normalisation of the published make (importer suffixes such as ' +
+      '"(GB) PLC" dropped); make is as published.',
+    modelFields: ['model', 'buildStart', 'buildEnd', 'vehiclesAffected'],
+    recallNumberPrefixes: {
+      R: 'cars, HGVs and PSVs', RM: 'motorcycles', RCOMP: 'components (primarily aftermarket)', RCT: 'large commercial trailers (> 3,500 kg)',
+      RPT: 'light trailers incl. caravans', RSPV: 'special purpose vehicles', RTW: 'wheels and tyres', RPC: 'pedal cycles (now Trading Standards)',
+    },
+    sourceCounts: { rows: sourceRows, recalls: new Set(rows.slice(1).map((r) => r[C.no].trim())).size },
+    count: records.length,
+    modelRows: records.reduce((n, r) => n + r.models.length, 0),
+    makes: makes.size,
+    dateRange: { from: dates[0], to: dates[dates.length - 1] },
+    records,
+  };
+}
+
+async function buildUk() {
+  const src = await loadDvsaCsv();
+  return buildUkFrom(src.text, src);
+}
+
 /* ---------------- write + changelog ---------------- */
 
 function writeDataset(name, data, metrics) {
@@ -185,8 +323,9 @@ function writeDataset(name, data, metrics) {
   return entries;
 }
 
-function main() {
+async function main() {
   const which = process.argv[2] || 'all';
+  if (!['all', 'fr', 'jp', 'uk'].includes(which)) throw new Error(`usage: node scripts/vehicles.js [all|fr|jp|uk] (got "${which}")`);
   let incoming = [];
   if (which === 'all' || which === 'fr') {
     incoming.push(...writeDataset('fr-recalls', buildFr(), [
@@ -200,6 +339,12 @@ function main() {
       ['complaints', 'MLIT owner complaints across covered models', (d) => d.counts.complaints],
     ]));
   }
+  if (which === 'all' || which === 'uk') {
+    incoming.push(...writeDataset('uk-recalls', await buildUk(), [
+      ['count', 'DVSA recalls in the served window', (d) => d.count],
+      ['model-rows', 'DVSA recall × model rows in the served window', (d) => d.modelRows],
+    ]));
+  }
   if (incoming.length) {
     const existing = fs.existsSync(CHANGELOG) ? readJson(CHANGELOG) : [];
     const { merged, added } = mergeEntries(existing, incoming);
@@ -209,5 +354,5 @@ function main() {
   }
 }
 
-if (require.main === module) main();
-module.exports = { buildFr, buildJp, MODELS_EN, MAKES_EN };
+if (require.main === module) main().catch((e) => { console.error(e.message || e); process.exit(1); });
+module.exports = { buildFr, buildJp, buildUk, buildUkFrom, parseCsv, ukDate, MODELS_EN, MAKES_EN, DVSA_CSV_URL, UK_YEARS_BACK };

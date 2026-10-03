@@ -1,12 +1,14 @@
 /**
- * Vehicles vertical — local datasets: French recalls (RappelConso) and
- * Japanese recalls/complaints (MLIT), derived by scripts/vehicles.js from the
- * sibling car-site repos. Query-time matching only; records are served as
- * published. The UK MOT tools live in _mot.js (live proxy).
+ * Vehicles vertical — local datasets: UK recalls (DVSA), French recalls
+ * (RappelConso) and Japanese recalls/complaints (MLIT), built by
+ * scripts/vehicles.js (FR/JP from the sibling car-site repos, UK from DVSA's
+ * bulk CSV). Query-time matching only; records are served as published. The
+ * UK MOT tools live in _mot.js (live proxy).
  */
 const FR = require('../data/vehicles/fr-recalls.json');
 const JP = require('../data/vehicles/jp-recalls.json');
-const { norm, brandSlug, modelPortion, hasWord } = require('./_vehicles_text');
+const UK = require('../data/vehicles/uk-recalls.json');
+const { norm, brandSlug, modelPortion, hasWord, ukMakeSlug } = require('./_vehicles_text');
 const { nearest } = require('./_text');
 
 const MAX_RESULTS = 50;
@@ -28,6 +30,17 @@ const JP_ATTRIBUTION = {
   attributionNote:
     '出典：国土交通省「自動車のリコール・不具合情報」. Official filings and owner-submitted reports; a complaint is a ' +
     'report, not a verified defect, and counts are not normalised by sales volume.',
+};
+const UK_ATTRIBUTION = {
+  source: UK.source,
+  dataset: UK.dataset,
+  datasetUrl: UK.datasetUrl,
+  publisher: UK.publisher,
+  licence: UK.licence,
+  attributionNote:
+    'Contains public sector information licensed under the Open Government Licence v3.0 — DVSA safety recall notices ' +
+    'as published (texts unedited); a citation, not an endorsement by DVSA or any manufacturer. Recall counts are not a ' +
+    'reliability measure (sales volume, multi-model campaigns).',
 };
 
 /* ---------------- FR helpers ---------------- */
@@ -139,6 +152,148 @@ function frRecallsSearch({ text, since } = {}) {
   };
 }
 
+/* ---------------- UK helpers ---------------- */
+
+// Recall-number prefixes the check-vehicle-recalls service files under
+// "vehicle"; the rest (components, tyres, pedal cycles) are "equipment",
+// whose pages were not verified, so those records link to the dataset.
+const UK_VEHICLE_PREFIXES = new Set(['R', 'RM', 'RSPV', 'RCT', 'RPT']);
+const ukPrefix = (no) => String(no).split('/')[0];
+const ukCategory = (no) => UK.recallNumberPrefixes[ukPrefix(no)] || null;
+
+let ukMakeIndex = null;
+function ukMakes() {
+  if (!ukMakeIndex) {
+    ukMakeIndex = {};
+    for (const r of UK.records) ukMakeIndex[r.makeSlug] = (ukMakeIndex[r.makeSlug] || 0) + 1;
+  }
+  return ukMakeIndex;
+}
+
+/** Official page listing this recall: the service's make/model/build-year view (verified 2026-10-03), or the dataset. */
+function ukLink(r, modelTuple) {
+  const model = modelTuple && modelTuple[0];
+  if (!model || !UK_VEHICLE_PREFIXES.has(ukPrefix(r.no))) return UK.datasetUrl;
+  const year = (modelTuple[1] || r.date).slice(0, 4);
+  return `${UK.source}recall-type/vehicle/make/${encodeURIComponent(r.make)}/model/${encodeURIComponent(model)}/year/${year}/recalls`;
+}
+
+const ukModelObj = ([model, buildStart, buildEnd, vehiclesAffected]) => ({ model, buildStart, buildEnd, vehiclesAffected });
+
+/** One output record per recall; `matched` narrows the model rows to those the query hit. */
+function ukRecord(r, matched, matchedBy) {
+  const ms = matched && matched.length ? matched : r.models;
+  const starts = ms.map((m) => m[1]).filter(Boolean).sort();
+  const ends = ms.map((m) => m[2]).filter(Boolean).sort();
+  const vehicles = ms.map((m) => m[3]).filter((n) => n !== null && n !== undefined);
+  const others = matched ? [...new Set(r.models.filter((m) => !matched.includes(m)).map((m) => m[0]).filter(Boolean))] : [];
+  return {
+    recallNumber: r.no,
+    launchDate: r.date,
+    category: ukCategory(r.no),
+    make: r.make,
+    model: [...new Set(ms.map((m) => m[0]).filter(Boolean))].join(' / ') || null,
+    buildStart: starts[0] || null,
+    buildEnd: ends[ends.length - 1] || null,
+    vehiclesAffected: vehicles.length ? Math.max(...vehicles) : null,
+    concern: r.concern,
+    defect: r.defect,
+    remedy: r.remedy,
+    models: ms.map(ukModelObj),
+    ...(others.length ? { otherModelsOnRecall: others } : {}),
+    link: ukLink(r, ms[0]),
+    ...(matchedBy ? { matchedBy } : {}),
+  };
+}
+
+const UK_NOTES = {
+  vehiclesAffected:
+    'DVSA records the recall total against each model row (occasionally a per-model figure); vehiclesAffected is the ' +
+    'largest figure among the model rows shown, so a multi-model recall is not this model\'s share.',
+  link: 'link opens the GOV.UK recall checker at make / model / build year, which lists this recall among any others for that year.',
+};
+
+const ukByDateDesc = (a, b) => b.date.localeCompare(a.date) || b.no.localeCompare(a.no);
+
+/** Recalls for one make + model: exact normalised model name, or whole-word match inside the model name. */
+function ukRecallsForModel({ make, model, since } = {}) {
+  const mk = ukMakeSlug(make);
+  const makes = ukMakes();
+  const makeList = Object.keys(makes).sort();
+  if (!mk) {
+    return { covered: false, requested: { make, model, since }, message: 'pass a make (and a model)', coverage: { makes: makeList, recalls: UK.count, dateRange: UK.dateRange } };
+  }
+  const makeKeys = makeList.filter((k) => k === mk || k.startsWith(`${mk}-`));
+  if (!makeKeys.length) {
+    return {
+      covered: false, requested: { make, model, since },
+      message: `no DVSA recall launched since ${UK.filter.launchDateFrom} lists make "${make}"`,
+      nearest: nearest(mk, makeList), coverage: { makes: makeList, recalls: UK.count, dateRange: UK.dateRange },
+    };
+  }
+  const s = validSince(since);
+  if (!s.ok) return { covered: false, requested: { make, model, since }, message: 'since must be an ISO date YYYY-MM-DD', example: { make, model, since: '2024-01-01' } };
+  const makeRecords = UK.records.filter((r) => makeKeys.includes(r.makeSlug) && (!s.since || r.date >= s.since));
+  const makeNames = [...new Set(makeRecords.map((r) => r.make))].sort();
+  const modelNames = [...new Set(makeRecords.flatMap((r) => r.models.map((m) => m[0]).filter(Boolean)))].sort();
+  const base = {
+    make: mk, makeNamesInSource: makeNames, since: s.since,
+    dateRange: UK.dateRange, launchDateFrom: UK.filter.launchDateFrom, verifiedDate: UK.verifiedDate, ...UK_ATTRIBUTION,
+  };
+  const m = norm(model);
+  if (!m) {
+    const out = makeRecords.slice().sort(ukByDateDesc);
+    return {
+      ...base, model: null, count: out.length, truncated: out.length > MAX_RESULTS,
+      recalls: out.slice(0, MAX_RESULTS).map((r) => ukRecord(r)),
+      modelsInSource: modelNames, notes: UK_NOTES,
+    };
+  }
+  const hits = [];
+  for (const r of makeRecords) {
+    const matched = r.models.filter((mm) => mm[0] && (norm(mm[0]) === m || hasWord(norm(mm[0]), m)));
+    if (matched.length) hits.push({ r, matched, matchedBy: matched.some((mm) => norm(mm[0]) === m) ? 'exact' : 'text' });
+  }
+  hits.sort((x, y) => ukByDateDesc(x.r, y.r));
+  return {
+    ...base, model: m, count: hits.length, truncated: hits.length > MAX_RESULTS,
+    recalls: hits.slice(0, MAX_RESULTS).map(({ r, matched, matchedBy }) => ukRecord(r, matched, matchedBy)),
+    ...(hits.length ? {} : {
+      makeRecallCount: makeRecords.length,
+      nearestModels: nearest(m, modelNames.map((x) => norm(x))).filter(Boolean),
+      hint: 'no DVSA recall in the served window names this model; try uk_recalls_search with a keyword, or omit model to list the make\'s recalls and model names',
+    }),
+    matching:
+      'exact = the recall\'s model name equals yours after normalisation (case, accents, punctuation ignored); text = your ' +
+      'model string appears as a whole word inside the recall\'s model name (so "corsa" also matches "CORSA D" and "CORSA-e", ' +
+      'never "CORSAVAN"). A make query also covers DVSA\'s product-line entries for that brand (e.g. "mercedes" includes ' +
+      'MERCEDES-BENZ VANS); makeNamesInSource lists the published make strings behind the slug.',
+    notes: UK_NOTES,
+  };
+}
+
+/** Free-text search over make, model names, concern, defect and remedy; optional since date. */
+function ukRecallsSearch({ text, since } = {}) {
+  const tokens = norm(text).split(' ').filter(Boolean);
+  if (!tokens.length) {
+    return { covered: false, requested: { text, since }, message: 'pass text to search (e.g. "airbag takata", "fire battery", "steering rack")', example: { text: 'airbag', since: '2025-01-01' } };
+  }
+  const s = validSince(since);
+  if (!s.ok) return { covered: false, requested: { text, since }, message: 'since must be an ISO date YYYY-MM-DD', example: { text, since: '2025-01-01' } };
+  const out = UK.records.filter((r) => {
+    if (s.since && r.date < s.since) return false;
+    const hay = norm(`${r.make} ${r.models.map((m) => m[0]).join(' ')} ${r.concern} ${r.defect} ${r.remedy}`);
+    return tokens.every((t) => hay.includes(t));
+  }).sort(ukByDateDesc);
+  return {
+    text, since: s.since, count: out.length, truncated: out.length > MAX_RESULTS,
+    recalls: out.slice(0, MAX_RESULTS).map((r) => ukRecord(r)),
+    ...(out.length ? {} : { hint: 'no recall in the served window contains every word; DVSA text is English — try a component name ("steering rack", "fuel pump") or a symptom ("fire", "loss of power")' }),
+    notes: UK_NOTES,
+    dateRange: UK.dateRange, launchDateFrom: UK.filter.launchDateFrom, verifiedDate: UK.verifiedDate, ...UK_ATTRIBUTION,
+  };
+}
+
 /* ---------------- JP helpers ---------------- */
 
 const jpKey = (s) => String(s ?? '').normalize('NFKC').toLowerCase().replace(/[\s\-–—−ー・:：]/g, '');
@@ -240,6 +395,11 @@ function vehiclesCoverage() {
       how: 'live proxy to whatbreaks.uk (same operator): UK DfT anonymised MOT test results aggregated per model generation',
       coverage: 'GB passenger cars, 530 model generations — use uk_mot_vehicle_search to check a model',
     },
+    ukRecalls: {
+      recalls: UK.count, modelRows: UK.modelRows, dateRange: UK.dateRange, launchDateFrom: UK.filter.launchDateFrom,
+      verifiedDate: UK.verifiedDate, makes: Object.keys(ukMakes()).sort(), categories: UK.recallNumberPrefixes,
+      scope: 'every DVSA safety recall (cars, HGVs, PSVs, motorcycles, trailers, special-purpose vehicles, components, tyres) launched on or after launchDateFrom',
+    },
     frRecalls: {
       fiches: FR.count, dateRange: FR.dateRange, verifiedDate: FR.verifiedDate,
       brands: Object.keys(brands).sort(), curatedModels: FR.curatedModelCount, scope: FR.filter,
@@ -251,7 +411,8 @@ function vehiclesCoverage() {
     euSafetyGate: { status: 'planned (stub tool eu_safety_gate_recalls)', officialSource: EU_SAFETY_GATE_URL },
     notCovered: [
       'EU Safety Gate alerts directly (stub; use fr_recalls_* meanwhile)',
-      'UK DVSA recalls (only MOT outcomes via whatbreaks.uk)',
+      `UK DVSA recalls launched before ${UK.filter.launchDateFrom} (in the source CSV, not served here)`,
+      'UK recall status for an individual VIN or registration (the GOV.UK checker and manufacturers hold that)',
       'US NHTSA recalls/complaints',
       'German KBA recalls / TÜV reports',
       'Japanese models outside the 75 covered (shakendata.com list)',
@@ -261,6 +422,7 @@ function vehiclesCoverage() {
 }
 
 module.exports = {
-  frRecallsForModel, frRecallsSearch, jpRecallsForModel, jpComplaintsSummary, euSafetyGateStub, vehiclesCoverage,
-  FR, JP, EU_SAFETY_GATE_URL, MAX_RESULTS,
+  frRecallsForModel, frRecallsSearch, ukRecallsForModel, ukRecallsSearch, jpRecallsForModel, jpComplaintsSummary,
+  euSafetyGateStub, vehiclesCoverage,
+  FR, JP, UK, EU_SAFETY_GATE_URL, MAX_RESULTS,
 };
