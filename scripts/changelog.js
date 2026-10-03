@@ -88,7 +88,8 @@ function expectedDirty() {
 }
 
 function changedDataFiles() {
-  const entries = parsePorcelain(shRaw('git status --porcelain'));
+  // --untracked-files=all: a brand-new directory (the per-year layout's data/<slug>/) is listed file by file, not as "data/<slug>/"
+  const entries = parsePorcelain(shRaw('git status --porcelain --untracked-files=all'));
   const allowed = expectedDirty();
   const outside = entries.filter((e) => !e.path.startsWith('data/') && !allowed.has(e.path));
   if (outside.length && !flag('--allow-dirty')) {
