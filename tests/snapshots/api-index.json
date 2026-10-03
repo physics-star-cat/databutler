@@ -265,7 +265,7 @@
     "POST /api/mcp/vehicles": "Remote MCP server — uk_mot_reliability, uk_mot_vehicle_search (live via whatbreaks.uk), uk_recalls_for_model, uk_recalls_search (DVSA), fr_recalls_for_model, fr_recalls_search, jp_recalls_for_model, jp_complaints_summary, eu_safety_gate_recalls (stub)."
   },
   "name": "Data Butler",
-  "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate.",
+  "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate.",
   "privacy": "https://databutler.dev/privacy",
   "protocol": {
     "discovery": "https://databutler.dev/.well-known/changes.json",

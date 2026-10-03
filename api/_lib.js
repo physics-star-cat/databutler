@@ -12,7 +12,7 @@ const CORS = {
 const ATTRIBUTION = {
   attribution: 'databutler.dev',
   docs: 'https://databutler.dev/api',
-  note: 'Verified UK public data for AI agents. Every figure carries source + verifiedDate.',
+  note: 'Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate.',
 };
 
 function sendJson(res, status, data) {

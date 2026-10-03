@@ -4,7 +4,7 @@
     "body": {
       "attribution": "databutler.dev",
       "docs": "https://databutler.dev/api",
-      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate.",
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate.",
       "taxYear": "2026-27",
       "taxYearRuns": "6 April 2026 to 5 April 2027",
       "categories": {
@@ -36,7 +36,7 @@
       "error": "missing ?topic= (plus optional board, subject, level). See /api for usage.",
       "attribution": "databutler.dev",
       "docs": "https://databutler.dev/api",
-      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate."
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate."
     }
   },
   "/api/uk/exams/specs": {
@@ -44,7 +44,7 @@
     "body": {
       "attribution": "databutler.dev",
       "docs": "https://databutler.dev/api",
-      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate.",
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate.",
       "count": 5,
       "specs": [
         {
@@ -313,7 +313,7 @@
     "body": {
       "attribution": "databutler.dev",
       "docs": "https://databutler.dev/api",
-      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate.",
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate.",
       "count": 5,
       "specs": [
         {
@@ -379,7 +379,7 @@
       "error": "missing ?domain= (e.g. example.com). See /api for usage.",
       "attribution": "databutler.dev",
       "docs": "https://databutler.dev/api",
-      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate."
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate."
     }
   },
   "/api/provenance/package": {
@@ -388,7 +388,7 @@
       "error": "missing ?ecosystem=(npm|pypi)&name=. See /api for usage.",
       "attribution": "databutler.dev",
       "docs": "https://databutler.dev/api",
-      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate."
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate."
     }
   },
   "/api/stats": {
@@ -397,7 +397,7 @@
       "error": "pass ?op= one of: descriptive, distribution, hypothesis-test, confidence-interval, bayes-update, regression. See /api for usage.",
       "attribution": "databutler.dev",
       "docs": "https://databutler.dev/api",
-      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate."
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate."
     }
   },
   "/api/vehicles/uk/mot": {
@@ -406,7 +406,7 @@
       "error": "missing ?make= and ?model=. See /api for usage.",
       "attribution": "databutler.dev",
       "docs": "https://databutler.dev/api",
-      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate."
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate."
     }
   },
   "/api/vehicles/uk/search": {
@@ -415,7 +415,7 @@
       "error": "missing ?q=. See /api for usage.",
       "attribution": "databutler.dev",
       "docs": "https://databutler.dev/api",
-      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate."
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate."
     }
   },
   "/api/vehicles/uk/recalls": {
@@ -424,7 +424,7 @@
       "error": "missing ?make=. See /api for usage.",
       "attribution": "databutler.dev",
       "docs": "https://databutler.dev/api",
-      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate."
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate."
     }
   },
   "/api/vehicles/uk/recalls-search": {
@@ -433,7 +433,7 @@
       "error": "missing ?text=. See /api for usage.",
       "attribution": "databutler.dev",
       "docs": "https://databutler.dev/api",
-      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate."
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate."
     }
   },
   "/api/vehicles/fr/recalls": {
@@ -442,7 +442,7 @@
       "error": "missing ?brand=. See /api for usage.",
       "attribution": "databutler.dev",
       "docs": "https://databutler.dev/api",
-      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate."
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate."
     }
   },
   "/api/vehicles/fr/search": {
@@ -451,7 +451,7 @@
       "error": "missing ?text=. See /api for usage.",
       "attribution": "databutler.dev",
       "docs": "https://databutler.dev/api",
-      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate."
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate."
     }
   },
   "/api/vehicles/jp/recalls": {
@@ -460,7 +460,7 @@
       "error": "missing ?make= and ?model=. See /api for usage.",
       "attribution": "databutler.dev",
       "docs": "https://databutler.dev/api",
-      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate."
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate."
     }
   },
   "/api/vehicles/jp/complaints": {
@@ -469,7 +469,7 @@
       "error": "missing ?make= and ?model=. See /api for usage.",
       "attribution": "databutler.dev",
       "docs": "https://databutler.dev/api",
-      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate."
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate."
     }
   },
   "/api/vehicles/eu/safety-gate": {
@@ -477,7 +477,7 @@
     "body": {
       "attribution": "databutler.dev",
       "docs": "https://databutler.dev/api",
-      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate.",
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate.",
       "covered": false,
       "status": "planned",
       "requested": {},
@@ -500,7 +500,7 @@
       "error": "missing ?country= and ?gross=. See /api for usage.",
       "attribution": "databutler.dev",
       "docs": "https://databutler.dev/api",
-      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate."
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate."
     }
   },
   "/api/software-eol/status": {
@@ -509,7 +509,7 @@
       "error": "missing ?product= and ?version=. See /api for usage.",
       "attribution": "databutler.dev",
       "docs": "https://databutler.dev/api",
-      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate."
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate."
     }
   },
   "/api/software-eol/timeline": {
@@ -518,7 +518,7 @@
       "error": "missing ?product=. See /api for usage.",
       "attribution": "databutler.dev",
       "docs": "https://databutler.dev/api",
-      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate."
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate."
     }
   },
   "/api/policy-rates": {
@@ -527,7 +527,7 @@
       "error": "missing ?bank=. See /api for usage.",
       "attribution": "databutler.dev",
       "docs": "https://databutler.dev/api",
-      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate."
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate."
     }
   },
   "/api/uk/rates?category=vat": {
@@ -535,7 +535,7 @@
     "body": {
       "attribution": "databutler.dev",
       "docs": "https://databutler.dev/api",
-      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate.",
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate.",
       "taxYear": "2026-27",
       "taxYearRuns": "6 April 2026 to 5 April 2027",
       "verifiedDate": "2026-08-31",
@@ -577,7 +577,7 @@
     "body": {
       "attribution": "databutler.dev",
       "docs": "https://databutler.dev/api",
-      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate.",
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate.",
       "query": {
         "board": "aqa",
         "subject": "physics",
@@ -620,7 +620,7 @@
     "body": {
       "attribution": "databutler.dev",
       "docs": "https://databutler.dev/api",
-      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate.",
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate.",
       "count": 5,
       "specs": [
         {
@@ -708,7 +708,7 @@
     "body": {
       "attribution": "databutler.dev",
       "docs": "https://databutler.dev/api",
-      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate.",
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate.",
       "make": "vauxhall",
       "makeNamesInSource": [
         "VAUXHALL"
@@ -1621,7 +1621,7 @@
     "body": {
       "attribution": "databutler.dev",
       "docs": "https://databutler.dev/api",
-      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate.",
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate.",
       "brand": "peugeot",
       "model": "208",
       "curatedModel": "Peugeot 208",
@@ -2446,7 +2446,7 @@
     "body": {
       "attribution": "databutler.dev",
       "docs": "https://databutler.dev/api",
-      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate.",
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate.",
       "product": "nodejs",
       "productName": "Node.js",
       "kind": "runtime",
@@ -2530,7 +2530,7 @@
     "body": {
       "attribution": "databutler.dev",
       "docs": "https://databutler.dev/api",
-      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate.",
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate.",
       "bank": "boe",
       "name": "Bank of England",
       "committee": "Monetary Policy Committee (MPC)",
@@ -2587,7 +2587,7 @@
     "body": {
       "attribution": "databutler.dev",
       "docs": "https://databutler.dev/api",
-      "note": "Verified UK public data for AI agents. Every figure carries source + verifiedDate.",
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate.",
       "covered": false,
       "requested": "boj",
       "message": "unknown bank \"boj\" — Data Butler serves boe (Bank of England), fed (US Federal Reserve), ecb (European Central Bank)",

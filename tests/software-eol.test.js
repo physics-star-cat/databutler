@@ -241,7 +241,7 @@ test('MCP: tools/call on the server and via the front door call carry the datase
   assert.equal(direct.data.cite.url, 'https://databutler.dev/r/software-eol/status?product=nodejs&version=18.19.0');
   assert.match(direct.data.cite.text, /^databutler\.dev, verified \d{4}-\d{2}-\d{2} against https:\/\/endoflife\.date\/nodejs$/);
   assert.equal(direct.data.attribution, 'databutler.dev'); assert.equal(direct.data.upstreamProvenance.attribution, 'endoflife.date');
-  assert.match(direct.data.note, /Verified UK public data/, 'envelope attribution note intact');
+  assert.match(direct.data.note, /Verified reference data/, 'envelope attribution note intact');
   const viaCall = await callTool(frontDoor, 'call', { tool: 'support_timeline', arguments: { product: 'postgres' } });
   assert.equal(viaCall.isError, false);
   assert.equal(viaCall.data.product, 'postgresql');
