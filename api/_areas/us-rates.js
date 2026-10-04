@@ -73,7 +73,7 @@ module.exports = {
 
   server: {
     serverName: 'databutler-us-rates',
-    description: "Current US federal tax-year rates and thresholds — IRS income-tax rate schedules and standard deduction, Social Security wage base, Medicare, 401(k)/IRA/HSA limits, estate and gift exclusions — read from the IRS revenue procedures, notices and SSA's Federal Register notice, with source URL, quoted sentence, verification date and prior-year value on every figure.",
+    description: 'US federal 2026 tax brackets, standard deductions, payroll and retirement limits, sourced.',
     url: `${BASE}/api/mcp/us-rates`,
     instructions:
       `Verified US federal rates and thresholds from databutler.dev — tax year ${TAX_YEAR}, each figure read from the IRS revenue ` +

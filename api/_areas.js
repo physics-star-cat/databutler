@@ -30,6 +30,7 @@ function validate(m, file) {
   if (m.server !== null) {
     const s = m.server;
     if (!s || typeof s !== 'object') fail(file, 'server must be an object or null');
+    if (typeof s.description === 'string' && s.description.length > 100) fail(file, `server.description is ${s.description.length} chars; the MCP Registry rejects more than 100`);
     for (const k of ['serverName', 'url', 'instructions', 'description']) if (typeof s[k] !== 'string' || !s[k]) fail(file, `server.${k} is required${k === 'description' ? ' (one sentence for the server-<key>.json registry manifest, written by scripts/sync-areas.js)' : ''}`);
     if (!Array.isArray(s.tools) || !s.tools.length) fail(file, 'server.tools must be a non-empty array');
     for (const t of s.tools) {

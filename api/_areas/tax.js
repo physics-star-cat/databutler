@@ -16,7 +16,7 @@ module.exports = {
 
   server: {
     serverName: 'databutler-tax',
-    description: "Take-home pay for AI agents: net salary after income tax and social contributions for the US, UK, Canada, Australia, India, Brazil, Germany, France and Poland, computed live by the LifeByNumbers salary calculators (same operator). Tax year, assumptions, line-by-line breakdown and source on every answer.",
+    description: 'Take-home pay after tax and social contributions for nine countries, with tax year.',
     url: `${BASE}/api/mcp/tax`,
     instructions:
       'Take-home pay from databutler.dev, computed live by the LifeByNumbers salary calculators (same operator) ' +

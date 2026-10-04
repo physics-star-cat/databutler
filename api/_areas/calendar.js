@@ -31,7 +31,7 @@ module.exports = {
   server: {
     serverName: 'databutler-calendar',
     url: `${BASE}/api/mcp/calendar`,
-    description: `Calendar facts for ${SPAN} a model's training data cannot hold: public holidays for the UK (England & Wales, Scotland, Northern Ireland), US federal, Germany (nationwide and all 16 Länder) and France (métropole, Alsace-Moselle) from the official lists, tax-year starts and ends for nine countries with the statute quoted, and daylight-saving switch dates with their statutory rule — a monthly snapshot with source URL and verification date on every answer.`,
+    description: 'Public holidays (UK, US, DE, FR), tax-year dates and DST switches for 2026-2028.',
     instructions:
       `Calendar facts from databutler.dev for ${YEARS.join(', ')}: public holidays (uk, us, de, fr), tax-year starts and ends (${TAX_COUNTRIES.join(', ')}) and daylight-saving switches ` +
       `(${DST_COUNTRIES.join(', ')}; Brazil observes none). A committed monthly snapshot of the official lists (gov.uk bank-holidays.json, OPM's federal holiday tables, ` +

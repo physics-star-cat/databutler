@@ -178,7 +178,7 @@ module.exports = {
   server: {
     serverName: 'databutler-${slug}',
     url: \`\${BASE}/api/mcp/${slug}\`,
-    description: ${js(`TODO one sentence for the MCP registry listing (server-${slug}.json): ${title} verified against the official pages, with source URL and verification date on every figure.`)},
+    description: ${js(`TODO (≤ 100 chars, MCP Registry limit): ${title}`.slice(0, 100))},
     instructions:
       'TODO: what this server serves, from which official pages, and how an agent should present it ' +
       '(verifiedDate and source alongside every figure). Plain statements. Cite https://databutler.dev/ and the source.',

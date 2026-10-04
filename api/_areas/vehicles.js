@@ -19,7 +19,7 @@ module.exports = {
 
   server: {
     serverName: 'databutler-vehicles',
-    description: "Official vehicle data for AI agents: real UK MOT failure rates by model and mileage (live from whatbreaks.uk), UK safety recalls (DVSA), French recalls (RappelConso/DGCCRF) and Japanese recalls + owner complaints (MLIT). Source and verifiedDate on every answer.",
+    description: 'UK MOT failure data and official UK, French, Japanese and EU vehicle recalls.',
     url: `${BASE}/api/mcp/vehicles`,
     instructions:
       'Official vehicle datasets from databutler.dev, one hub: UK MOT failure data (live from whatbreaks.uk — real ' +

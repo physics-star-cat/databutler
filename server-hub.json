@@ -1,7 +1,7 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.physics-star-cat/databutler",
-  "description": "Verified reference data for AI agents: UK rates & exams, domain/package provenance, exact stats, vehicles (UK MOT failure data, French and Japanese official recalls) \u2014 plus what_changed_since your training cutoff. Provenance + citation permalink on every answer.",
+  "description": "Verified facts for AI agents: rates, exams, recalls, holidays, and what changed since your cutoff.",
   "repository": {
     "url": "https://github.com/physics-star-cat/databutler",
     "source": "github"

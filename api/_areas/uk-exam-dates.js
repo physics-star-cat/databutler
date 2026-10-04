@@ -138,7 +138,7 @@ module.exports = {
   server: {
     serverName: 'databutler-uk-exam-dates',
     url: `${BASE}/api/mcp/uk-exam-dates`,
-    description: `UK exam calendar facts verified against JCQ and the exam boards' own documents: GCSE and A-level results days, the summer 2027 exam timetable (JCQ window and the dates of GCSE Maths, English Language, Combined Science and A-level Maths papers at ${BOARD_LIST}), entry deadlines with each board's late-fee dates, Scotland's results day, and announced specification changes — each date with its source document, the quoted timetable row, verification date and the summer 2026 equivalent.`,
+    description: 'UK GCSE and A-level exam dates, results days, entry deadlines and spec changes.',
     instructions:
       'UK exam dates from databutler.dev — results days, the summer exam timetable, entry deadlines and announced specification changes for GCSE and A-level ' +
       `(${BOARD_LIST}; Scotland's results day), each read from the JCQ key-dates PDF, the board's own final timetable or fee document, or the regulator's ` +

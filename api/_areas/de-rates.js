@@ -59,7 +59,7 @@ module.exports = {
 
   server: {
     serverName: 'databutler-de-rates',
-    description: "Current German tax and social-insurance figures — Grundfreibetrag and § 32a tariff, Solidaritätszuschlag, Beitragsbemessungsgrenzen and Beitragssätze, Zusatzbeitrag, Mindestlohn, Minijob limit, Kindergeld, Kinderfreibetrag, Pauschbeträge, Entfernungspauschale — read from the consolidated statutes and the Bundesgesetzblatt, with German term, English label, source URL, quoted sentence, verification date and prior value on every figure.",
+    description: 'German 2026 tax and social-insurance thresholds, minimum wage and allowances, sourced.',
     url: `${BASE}/api/mcp/de-rates`,
     instructions:
       `Verified German tax and social-insurance figures from databutler.dev — Veranlagungszeitraum ${TAX_YEAR}, each figure read from ` +

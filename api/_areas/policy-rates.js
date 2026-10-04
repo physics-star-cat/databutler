@@ -66,7 +66,7 @@ module.exports = {
 
   server: {
     serverName: 'databutler-policy-rates',
-    description: "Central-bank policy rates — Bank of England Bank Rate, Fed federal funds target range, ECB key rates — as committed, changelogged data read from each bank's decision page, with source URL, decision date and verification date on every figure.",
+    description: "Bank of England, Fed and ECB policy rates, read from the banks' own pages, with dates.",
     url: `${BASE}/api/mcp/policy-rates`,
     instructions:
       'Current central-bank policy rates from databutler.dev — Bank of England Bank Rate, US Federal Reserve ' +

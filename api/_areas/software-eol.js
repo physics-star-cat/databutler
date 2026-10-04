@@ -18,7 +18,7 @@ module.exports = {
 
   server: {
     serverName: 'databutler-software-eol',
-    description: "Is this version still supported, and until when: support status and end-of-life timelines for Node.js, Python, Ubuntu, Debian, Android, iOS, macOS, Windows, Oracle JDK, Go, Ruby, PHP, PostgreSQL and React — a monthly snapshot of endoflife.date open data (MIT) with the snapshot date and source on every answer.",
+    description: 'Is this version still supported? End-of-life dates for 14 runtimes and operating systems.',
     url: `${BASE}/api/mcp/software-eol`,
     instructions:
       'Software support lifecycles from databutler.dev: is this version still supported, and until when — for ' +

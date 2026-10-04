@@ -53,7 +53,7 @@ module.exports = {
   server: {
     serverName: 'databutler-uk-vehicle-rules',
     url: `${BASE}/api/mcp/uk-vehicle-rules`,
-    description: 'UK vehicle tax (VED) rates and MOT rules for the current tax year — first-year CO2 bands, standard rate, expensive car supplement, 2001–2017 bands, pre-2001 engine-size rates, electric-vehicle rules, historic-vehicle exemptions, MOT due dates, maximum fees, retests and penalties — verified against gov.uk with the source URL, the quoted line and the previous year\'s value on every figure.',
+    description: 'UK vehicle tax (VED) bands, expensive-car supplement, EV rules and MOT fees, sourced.',
     instructions:
       `UK vehicle tax (VED) and MOT rules for ${TAX_YEAR} from databutler.dev, each figure read from the gov.uk page ` +
       'in its source on verifiedDate with the table row or sentence it came from as quote and its 2025-26 value as previous. ' +

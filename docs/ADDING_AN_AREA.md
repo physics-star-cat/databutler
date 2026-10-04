@@ -63,6 +63,8 @@ Add the script to `.github/workflows/refresh-datasets.yml` for the monthly PR.
   (else `large: 'reason'`). **URLs are forever:** paths, tool names, slugs never change once deployed.
 - **Tests stay offline** (`verify` is the live check); count-pinning tests derive from the modules.
 
+- **`server.description` ≤ 100 characters**: it becomes the MCP Registry listing, which rejects longer text (the loader enforces it).
+
 ## When the area is live
 
 `scripts/publish-registry.sh --check`, then `scripts/publish-registry.sh` (PulseMCP ingests from the registry);
