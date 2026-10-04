@@ -485,12 +485,12 @@
       "officialSource": "https://ec.europa.eu/safety-gate-alerts/screen/webReport",
       "hint": "For now: fr_recalls_for_model / fr_recalls_search — RappelConso republishes the Safety Gate automobile alerts that concern France (fiche links ending /rapex), so most EU-wide vehicle recalls appear there in French.",
       "freshness": {
-        "verifiedDate": "2026-10-03",
+        "verifiedDate": "2026-10-04",
         "nextScheduledRefresh": null
       },
       "cite": {
         "url": "https://databutler.dev/r/vehicles/eu/safety-gate",
-        "text": "databutler.dev, computed live 2026-10-03"
+        "text": "databutler.dev, computed live 2026-10-04"
       }
     }
   },
@@ -592,6 +592,46 @@
       "cite": {
         "url": "https://databutler.dev/r/de/rates",
         "text": "databutler.dev, verified 2026-10-03"
+      }
+    }
+  },
+  "/api/uk/exam-dates": {
+    "status": 200,
+    "body": {
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate.",
+      "area": "uk-exam-dates",
+      "jurisdiction": "England, Wales and Northern Ireland (JCQ awarding bodies AQA, Pearson Edexcel, Cambridge OCR, WJEC/Eduqas) for timetables and deadlines; Scotland (Qualifications Scotland, formerly SQA) for the results day only. CCEA (Northern Ireland) timetables and deadlines are not covered.",
+      "verifiedDate": "2026-10-04",
+      "kinds": {
+        "results": "Results days — summer 2027 (A-level 12 August, GCSE 19 August), November 2026 GCSE resits (13 January 2027), Scotland (10 August 2027), with the summer 2026 dates as previous",
+        "timetable": "Summer 2027 exam timetable — JCQ common window (10 May – 22 June 2027, contingency 23 June) and, per board, the dates of GCSE Maths, English Language and Combined Science papers and A-level Maths; all four boards' timetables are FINAL",
+        "deadlines": "Entry deadlines for summer 2027 (JCQ 21 February 2027) and November 2026 (4 October 2026), and each board's dates and multipliers for late and very late entry fees",
+        "spec-changes": "Specification changes announced — first-teaching and first-exam years for new or revised GCSE/A-level specifications, the DfE reform timetable and Ofqual decisions"
+      },
+      "boards": {
+        "jcq": "Joint Council for Qualifications — common timetable, entry deadline and results days shared by AQA, Pearson Edexcel, Cambridge OCR, WJEC/Eduqas and CCEA",
+        "aqa": "AQA",
+        "pearson": "Pearson Edexcel (aliases: edexcel)",
+        "ocr": "Cambridge OCR (aliases: cambridge)",
+        "wjec-eduqas": "WJEC (Wales) and Eduqas (England) — one timetable (aliases: wjec, eduqas)",
+        "sqa": "Qualifications Scotland, formerly SQA — results day only",
+        "ofqual": "Ofqual (regulator, England) — specification rules and decisions",
+        "dfe": "Department for Education (England) — qualification reform timetable"
+      },
+      "qualifications": [
+        "gcse",
+        "a-level"
+      ],
+      "usage": "pass kind=<results|timetable|deadlines|spec-changes>, optionally board=<jcq|aqa|pearson|ocr|wjec-eduqas|sqa|ofqual|dfe> and qualification=<gcse|a-level>",
+      "freshness": {
+        "verifiedDate": "2026-10-04",
+        "nextScheduledRefresh": "2027-01-15"
+      },
+      "cite": {
+        "url": "https://databutler.dev/r/uk/exam-dates",
+        "text": "databutler.dev, verified 2026-10-04"
       }
     }
   },
@@ -759,12 +799,12 @@
       "mean": 0,
       "variance": 1,
       "freshness": {
-        "verifiedDate": "2026-10-03",
+        "verifiedDate": "2026-10-04",
         "nextScheduledRefresh": null
       },
       "cite": {
         "url": "https://databutler.dev/r/stats?op=distribution&dist=normal&at=1.96",
-        "text": "databutler.dev, computed live 2026-10-03"
+        "text": "databutler.dev, computed live 2026-10-04"
       }
     }
   },
@@ -2524,7 +2564,7 @@
       "releaseDate": "2022-04-19",
       "supported": false,
       "eol": "2025-04-30",
-      "daysSinceEol": 521,
+      "daysSinceEol": 522,
       "activeSupportEnds": "2023-10-18",
       "inActiveSupport": false,
       "lts": true,
@@ -2554,8 +2594,8 @@
         "latestReleaseDate": "2026-09-08",
         "activeSupportEnds": "2026-10-20"
       },
-      "recommendation": "Node.js 18 reached end of life on 2025-04-30, 521 days before 2026-10-03; no further security fixes are published for it. The newest supported LTS cycle is Node.js 24 (latest 24.21.0, supported until 2028-04-30).",
-      "asOf": "2026-10-03",
+      "recommendation": "Node.js 18 reached end of life on 2025-04-30, 522 days before 2026-10-04; no further security fixes are published for it. The newest supported LTS cycle is Node.js 24 (latest 24.21.0, supported until 2028-04-30).",
+      "asOf": "2026-10-04",
       "source": "https://endoflife.date/nodejs",
       "verifiedDate": "2026-10-03",
       "definitions": {
@@ -2695,7 +2735,7 @@
         "name": "Data Butler",
         "url": "https://databutler.dev/"
       },
-      "generated": "2026-10-03",
+      "generated": "2026-10-04",
       "since": "2026-06-01",
       "area": "uk-rates",
       "coverageStart": "2026-08-31",
@@ -2706,17 +2746,18 @@
         "software-eol",
         "policy-rates",
         "us-rates",
-        "de-rates"
+        "de-rates",
+        "uk-exam-dates"
       ],
       "count": 0,
       "entries": [],
       "freshness": {
-        "verifiedDate": "2026-10-03",
+        "verifiedDate": "2026-10-04",
         "nextScheduledRefresh": null
       },
       "cite": {
         "url": "https://databutler.dev/r/changes?since=2026-06-01&area=uk-rates",
-        "text": "databutler.dev, computed live 2026-10-03"
+        "text": "databutler.dev, computed live 2026-10-04"
       }
     }
   }

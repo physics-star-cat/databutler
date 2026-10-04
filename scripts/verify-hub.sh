@@ -24,7 +24,7 @@ check rest-changes "$(curl -sS "$BASE/api/changes?since=2026-06-01&area=uk-rates
 # sync-areas:checks start
 check tools/list "$(rpc '{"jsonrpc":"2.0","id":2,"method":"tools/list"}')" \
   "[t['name'] for t in d['result']['tools']]==['uk_rates_lookup','exam_topic_paper','domain_provenance','package_provenance','take_home_pay','what_changed_since','coverage','catalogue','call']"
-check catalogue "$(inner "$(tool catalogue '{}')")" "d['count']==27"
+check catalogue "$(inner "$(tool catalogue '{}')")" "d['count']==28"
 # uk-rates
 check rates "$(inner "$(tool uk_rates_lookup '{"category":"income-tax"}')")" \
   "d['freshness']['staleness'] in ('fresh','due','overdue') and d['cite']['url']=='https://databutler.dev/r/uk/rates?category=income-tax'"
@@ -94,7 +94,14 @@ check call-de-rates-income-tax "$(inner "$(tool call '{"tool":"de_rates_lookup",
 check call-de-rates-nearmiss "$(inner "$(tool call '{"tool":"de_rates_lookup","arguments":{"category":"kirchensteuer"}}')")" \
   "d['covered']==False and 'income-tax' in d['coverage'] and len(d['nearest'])>0"
 check rest-de-rates "$(curl -sS "$BASE/api/de/rates?category=minimum-wage")" "d['category']=='minimum-wage' and 'freshness' in d and d['cite']['url']=='https://databutler.dev/r/de/rates?category=minimum-wage'"
-for name in uk-rates uk-exams provenance stats vehicles tax software-eol policy-rates us-rates de-rates; do
+# uk-exam-dates
+check uk-exam-dates-listing "$(inner "$(tool call '{"tool":"uk_exam_dates","arguments":{}}')")" \
+  "'kinds' in d and 'boards' in d and 'freshness' in d"
+check uk-exam-dates-results-jcq "$(inner "$(tool call '{"tool":"uk_exam_dates","arguments":{"kind":"results","board":"jcq","qualification":"gcse"}}')")" \
+  "d['kind']=='results' and any(f['key']=='jcq-gcse-results-day' and f['value']=='2027-08-19' for f in d['figures']) and d['cite']['url'].startswith('https://databutler.dev/r/uk/exam-dates?')"
+check uk-exam-dates-rest-listing "$(curl -sS "$BASE/api/uk/exam-dates")" "'kinds' in d and 'cite' in d"
+check uk-exam-dates-rest-nearmiss "$(curl -sS "$BASE/api/uk/exam-dates?kind=timetable&board=cie")" "d['covered']==False and 'nearest' in d"
+for name in uk-rates uk-exams provenance stats vehicles tax software-eol policy-rates us-rates de-rates uk-exam-dates; do
   check "legacy $name tools/list" "$(curl -sS -X POST "$BASE/api/mcp/$name" -H 'Content-Type: application/json' -d '{"jsonrpc":"2.0","id":2,"method":"tools/list"}')" "len(d['result']['tools'])>0"
 done
 # sync-areas:checks end

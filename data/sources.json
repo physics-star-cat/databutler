@@ -243,5 +243,33 @@
     "bodyHash": "4840fb0fe62d3a88",
     "via": "html",
     "checkedAt": "2026-10-03"
+  },
+  {
+    "url": "https://www.aqa.org.uk/exams-administration/dates-and-timetables",
+    "updatedAt": null,
+    "bodyHash": "446488edef9dccb3",
+    "via": "html",
+    "checkedAt": "2026-10-04"
+  },
+  {
+    "url": "https://qualifications.pearson.com/en/support/support-topics/exams/exam-timetables.html",
+    "updatedAt": null,
+    "bodyHash": "2ef9f2ddb33c72fc",
+    "via": "html",
+    "checkedAt": "2026-10-04"
+  },
+  {
+    "url": "https://www.ocr.org.uk/administration/key-dates-and-timetables/",
+    "updatedAt": null,
+    "bodyHash": "8a7214177fd10f36",
+    "via": "html",
+    "checkedAt": "2026-10-04"
+  },
+  {
+    "url": "https://www.wjec.co.uk/home/administration/key-dates-and-timetables/",
+    "updatedAt": null,
+    "bodyHash": "12ef351f023ffc7d",
+    "via": "html",
+    "checkedAt": "2026-10-04"
   }
 ]

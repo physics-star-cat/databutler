@@ -12,6 +12,7 @@
     "mcp/software-eol",
     "mcp/stats",
     "mcp/tax",
+    "mcp/uk-exam-dates",
     "mcp/uk-exams",
     "mcp/uk-rates",
     "mcp/us-rates",
@@ -25,6 +26,7 @@
     "software-eol/timeline",
     "stats",
     "tax/take-home",
+    "uk/exam-dates",
     "uk/exams/papers",
     "uk/exams/specs",
     "uk/exams/topic",
@@ -52,6 +54,7 @@
     "software-eol/timeline",
     "stats",
     "tax/take-home",
+    "uk/exam-dates",
     "uk/exams/papers",
     "uk/exams/specs",
     "uk/exams/topic",
@@ -255,6 +258,14 @@
       "path": "de/rates",
       "queryKeys": [
         "category"
+      ]
+    },
+    "uk_exam_dates": {
+      "path": "uk/exam-dates",
+      "queryKeys": [
+        "board",
+        "kind",
+        "qualification"
       ]
     }
   }

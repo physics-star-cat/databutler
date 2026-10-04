@@ -4,7 +4,7 @@
     "name": "Data Butler",
     "url": "https://databutler.dev/"
   },
-  "updated": "2026-10-03",
+  "updated": "2026-10-04",
   "coverageStart": "2026-08-31",
   "areas": [
     {
@@ -41,6 +41,11 @@
       "name": "de-rates",
       "description": "German tax and social-insurance figures read from the consolidated statutes, the Bundesgesetzblatt and the BMG/DRV/BMAS pages: Grundfreibetrag and § 32a tariff, Solidaritätszuschlag, Beitragsbemessungsgrenzen and Beitragssätze, Zusatzbeitrag, Mindestlohn, Geringfügigkeitsgrenze, Kindergeld, Kinderfreibetrag, Pauschbeträge, Entfernungspauschale.",
       "cadence": "Annual: after the Sozialversicherungsrechengrößen-Verordnung and the Zusatzbeitrag announcement (November), and any Steuergesetz changing § 32a EStG for the next Veranlagungszeitraum; every source page re-fetched weekly."
+    },
+    {
+      "name": "uk-exam-dates",
+      "description": "UK exam calendar facts verified against JCQ and the boards' own documents: GCSE and A-level results days, the summer exam timetable (JCQ window, contingency day, dates of the most-asked papers at AQA, Pearson Edexcel, Cambridge OCR, WJEC/Eduqas), entry deadlines and late-fee dates, Scotland's results day, and announced specification changes with first-teaching and first-exam years.",
+      "cadence": "Annual, calendar-driven: when JCQ and the boards publish the following summer's final timetables (early in the calendar year) and the results days; the weekly watcher hashes the JCQ and board timetable pages"
     }
   ],
   "endpoints": {

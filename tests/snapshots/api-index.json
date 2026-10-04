@@ -28,6 +28,7 @@
       "uk": "GBP, tax year 2025/26 (live via lifebynumbers.net)",
       "us": "USD, tax year 2026 (live via lifebynumbers.net)"
     },
+    "ukExamDates": "results, timetable, deadlines, spec-changes for jcq, aqa, pearson, ocr, wjec-eduqas, sqa, ofqual, dfe; summer 2027 (final at all four boards), November 2026, summer 2026 as previous; verified 2026-10-04",
     "usRates": "tax year 2026, 6 categories, verified 2026-10-03; federal only",
     "vehicles": {
       "euSafetyGate": "stub",
@@ -48,7 +49,7 @@
       "description": "What changed in the verified datasets since a date (REST mirror of what_changed_since). format=html|rss|atom serves the /changes page or feeds instead of JSON.",
       "example": "https://databutler.dev/api/changes?since=2026-06-01",
       "params": {
-        "area": "uk-rates | uk-exams | vehicles | software-eol | policy-rates | us-rates | de-rates | all",
+        "area": "uk-rates | uk-exams | vehicles | software-eol | policy-rates | us-rates | de-rates | uk-exam-dates | all",
         "format": "json (default) | html | rss | atom",
         "since": "YYYY-MM-DD"
       }
@@ -108,6 +109,15 @@
         "province": "Canada only, e.g. BC (default ON)",
         "region": "UK only: england | scotland",
         "state": "US only, e.g. TX (default CA)"
+      }
+    },
+    "GET /api/uk/exam-dates": {
+      "description": "UK exam dates verified 2026-10-04 against JCQ and the boards' own documents: results days, the summer 2027 exam timetable (JCQ window and the dates of GCSE Maths, English Language, Combined Science and A-level Maths papers at AQA, Pearson Edexcel, Cambridge OCR and WJEC/Eduqas, all final), entry deadlines with each board's late-fee dates, Scotland's results day and announced specification changes; each figure with source document, quoted row and the summer-2026 date as previous.",
+      "example": "https://databutler.dev/api/uk/exam-dates?kind=timetable&board=aqa&qualification=gcse",
+      "params": {
+        "board": "optional: jcq, aqa, pearson, ocr, wjec-eduqas, sqa, ofqual, dfe",
+        "kind": "one of results, timetable, deadlines, spec-changes (omit to list)",
+        "qualification": "optional: gcse or a-level"
       }
     },
     "GET /api/uk/exams/papers": {
@@ -218,10 +228,10 @@
       }
     },
     "GET /changes": {
-      "description": "The changelog as a page: every verified change to UK tax/NI thresholds, exam specs, official vehicle datasets, software end-of-life dates, central-bank policy rates, US federal tax thresholds and German tax and social-insurance thresholds, newest first by month — area, from → to, effectiveFrom, official source, maintainer note, verifiedDate. Indexable, cached 1 h at the edge.",
+      "description": "The changelog as a page: every verified change to UK tax/NI thresholds, exam specs, official vehicle datasets, software end-of-life dates, central-bank policy rates, US federal tax thresholds, German tax and social-insurance thresholds and UK exam dates, newest first by month — area, from → to, effectiveFrom, official source, maintainer note, verifiedDate. Indexable, cached 1 h at the edge.",
       "example": "https://databutler.dev/changes?area=vehicles",
       "params": {
-        "area": "optional: uk-rates | uk-exams | vehicles | software-eol | policy-rates | us-rates | de-rates",
+        "area": "optional: uk-rates | uk-exams | vehicles | software-eol | policy-rates | us-rates | de-rates | uk-exam-dates",
         "since": "optional YYYY-MM-DD"
       }
     },
@@ -259,6 +269,7 @@
     "POST /api/mcp/software-eol": "Remote MCP server — tools support_status, support_timeline (monthly snapshot of endoflife.date open data for 14 runtimes, operating systems, PostgreSQL and React).",
     "POST /api/mcp/stats": "Remote MCP server — descriptive_stats, distribution, hypothesis_test, confidence_interval, bayes_update, linear_regression.",
     "POST /api/mcp/tax": "Remote MCP server — tool take_home_pay (live via the LifeByNumbers salary calculators).",
+    "POST /api/mcp/uk-exam-dates": "Remote MCP server — tool uk_exam_dates (results days, summer timetable paper dates, entry deadlines and late-fee dates, spec changes; JCQ, AQA, Pearson Edexcel, Cambridge OCR, WJEC/Eduqas, Scotland's results day).",
     "POST /api/mcp/uk-exams": "Remote MCP server — tools exam_topic_paper, exam_spec_lookup, exam_paper_index.",
     "POST /api/mcp/uk-rates": "Remote MCP server — tool uk_rates_lookup.",
     "POST /api/mcp/us-rates": "Remote MCP server — tool us_rates_lookup (US federal rates and thresholds, tax year 2026; committed data read from the IRS and SSA documents).",
