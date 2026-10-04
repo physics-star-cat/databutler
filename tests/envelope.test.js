@@ -10,10 +10,10 @@ const statsServer = require('../api/router').ROUTES['mcp/stats'];
 test('withEnvelope adds freshness, cite and attribution for a dataset tool', () => {
   const tool = ALL_TOOLS.uk_rates_lookup;
   const out = withEnvelope(tool, { category: 'vat' }, tool.run({ category: 'vat' }));
-  assert.equal(out.freshness.verifiedDate, '2026-08-31');
+  assert.equal(out.freshness.verifiedDate, '2026-10-04');
   assert.ok(['fresh', 'due', 'overdue'].includes(out.freshness.staleness));
   assert.equal(out.cite.url, 'https://databutler.dev/r/uk/rates?category=vat');
-  assert.match(out.cite.text, /^databutler\.dev, verified 2026-08-31 against https:\/\/www\.gov\.uk\/vat-rates$/);
+  assert.match(out.cite.text, /^databutler\.dev, verified 2026-10-04 against https:\/\/www\.gov\.uk\/vat-rates$/);
   assert.equal(out.attribution, 'databutler.dev');
 });
 

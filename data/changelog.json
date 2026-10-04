@@ -8,7 +8,7 @@
     "effectiveFrom": "2026-10-02",
     "source": "https://rappel.conso.gouv.fr/",
     "verifiedDate": "2026-10-02",
-    "note": "First derivation of data/vehicles/fr-recalls.json: 1,663 automobile fiches (2018-01-19 \u2192 2026-08-07), the full RappelConso V2 open-data export for sub-category \"automobiles, motos, scooters\" (DGCCRF, Licence Ouverte 2.0) as committed in the controle-technique repo on 2026-10-02; 568 fiches matched to 94 curated models by that site's reviewed alias table. Records reshaped, never edited."
+    "note": "First derivation of data/vehicles/fr-recalls.json: 1,663 automobile fiches (2018-01-19 → 2026-08-07), the full RappelConso V2 open-data export for sub-category \"automobiles, motos, scooters\" (DGCCRF, Licence Ouverte 2.0) as committed in the controle-technique repo on 2026-10-02; 568 fiches matched to 94 curated models by that site's reviewed alias table. Records reshaped, never edited."
   },
   {
     "area": "vehicles",
@@ -19,7 +19,7 @@
     "effectiveFrom": "2026-08-30",
     "source": "https://renrakuda.mlit.go.jp/",
     "verifiedDate": "2026-10-03",
-    "note": "First derivation of data/vehicles/jp-recalls.json from the shaken-data MLIT snapshot of 2026-08-30: 919 unique recall filings (1,377 model links, 1994-03-24 \u2192 2026-07-30) and 19,659 owner complaints across 75 models. Filing PDF URL pattern https://renrakuda.mlit.go.jp/mt/recallpdf/<no>.pdf verified 200 on 2026-10-03. Snapshot is a month old at build; freshness says due until the monthly refresh runs."
+    "note": "First derivation of data/vehicles/jp-recalls.json from the shaken-data MLIT snapshot of 2026-08-30: 919 unique recall filings (1,377 model links, 1994-03-24 → 2026-07-30) and 19,659 owner complaints across 75 models. Filing PDF URL pattern https://renrakuda.mlit.go.jp/mt/recallpdf/<no>.pdf verified 200 on 2026-10-03. Snapshot is a month old at build; freshness says due until the monthly refresh runs."
   },
   {
     "area": "vehicles",
@@ -30,7 +30,7 @@
     "effectiveFrom": "2026-10-03",
     "source": "https://ec.europa.eu/safety-gate-alerts/screen/webReport",
     "verifiedDate": "2026-10-03",
-    "note": "Stub only \u2014 eu_safety_gate_recalls returns covered:false with the official Safety Gate URL; no data is claimed or served. RappelConso republishes the Safety Gate automobile alerts that concern France, so fr_recalls_* covers most EU-wide vehicle recalls meanwhile."
+    "note": "Stub only — eu_safety_gate_recalls returns covered:false with the official Safety Gate URL; no data is claimed or served. RappelConso republishes the Safety Gate automobile alerts that concern France, so fr_recalls_* covers most EU-wide vehicle recalls meanwhile."
   },
   {
     "area": "software-eol",
@@ -41,7 +41,7 @@
     "effectiveFrom": "2026-10-03",
     "source": "https://endoflife.date/nodejs",
     "verifiedDate": "2026-10-03",
-    "note": "First derivation of data/software-eol.json for Node.js from endoflife.date (https://endoflife.date/api/nodejs.json, MIT License) fetched 2026-10-03: 26 release cycles (2015-01-20 \u2192 2026-05-05), 3 not yet at end of life. Fields kept as published, never edited."
+    "note": "First derivation of data/software-eol.json for Node.js from endoflife.date (https://endoflife.date/api/nodejs.json, MIT License) fetched 2026-10-03: 26 release cycles (2015-01-20 → 2026-05-05), 3 not yet at end of life. Fields kept as published, never edited."
   },
   {
     "area": "software-eol",
@@ -52,7 +52,7 @@
     "effectiveFrom": "2026-10-03",
     "source": "https://endoflife.date/python",
     "verifiedDate": "2026-10-03",
-    "note": "First derivation of data/software-eol.json for Python from endoflife.date (https://endoflife.date/api/python.json, MIT License) fetched 2026-10-03: 17 release cycles (2008-10-01 \u2192 2025-10-07), 4 not yet at end of life. Fields kept as published, never edited."
+    "note": "First derivation of data/software-eol.json for Python from endoflife.date (https://endoflife.date/api/python.json, MIT License) fetched 2026-10-03: 17 release cycles (2008-10-01 → 2025-10-07), 4 not yet at end of life. Fields kept as published, never edited."
   },
   {
     "area": "software-eol",
@@ -63,7 +63,7 @@
     "effectiveFrom": "2026-10-03",
     "source": "https://endoflife.date/ubuntu",
     "verifiedDate": "2026-10-03",
-    "note": "First derivation of data/software-eol.json for Ubuntu from endoflife.date (https://endoflife.date/api/ubuntu.json, MIT License) fetched 2026-10-03: 44 release cycles (2004-10-26 \u2192 2026-04-23), 3 not yet at end of life. Fields kept as published, never edited."
+    "note": "First derivation of data/software-eol.json for Ubuntu from endoflife.date (https://endoflife.date/api/ubuntu.json, MIT License) fetched 2026-10-03: 44 release cycles (2004-10-26 → 2026-04-23), 3 not yet at end of life. Fields kept as published, never edited."
   },
   {
     "area": "software-eol",
@@ -74,7 +74,7 @@
     "effectiveFrom": "2026-10-03",
     "source": "https://endoflife.date/debian",
     "verifiedDate": "2026-10-03",
-    "note": "First derivation of data/software-eol.json for Debian from endoflife.date (https://endoflife.date/api/debian.json, MIT License) fetched 2026-10-03: 18 release cycles (1996-06-17 \u2192 2025-08-09), 2 not yet at end of life. Fields kept as published, never edited."
+    "note": "First derivation of data/software-eol.json for Debian from endoflife.date (https://endoflife.date/api/debian.json, MIT License) fetched 2026-10-03: 18 release cycles (1996-06-17 → 2025-08-09), 2 not yet at end of life. Fields kept as published, never edited."
   },
   {
     "area": "software-eol",
@@ -85,7 +85,7 @@
     "effectiveFrom": "2026-10-03",
     "source": "https://endoflife.date/android",
     "verifiedDate": "2026-10-03",
-    "note": "First derivation of data/software-eol.json for Android from endoflife.date (https://endoflife.date/api/android.json, MIT License) fetched 2026-10-03: 34 release cycles (2008-09-23 \u2192 2026-06-16), 4 not yet at end of life. Fields kept as published, never edited."
+    "note": "First derivation of data/software-eol.json for Android from endoflife.date (https://endoflife.date/api/android.json, MIT License) fetched 2026-10-03: 34 release cycles (2008-09-23 → 2026-06-16), 4 not yet at end of life. Fields kept as published, never edited."
   },
   {
     "area": "software-eol",
@@ -96,7 +96,7 @@
     "effectiveFrom": "2026-10-03",
     "source": "https://endoflife.date/ios",
     "verifiedDate": "2026-10-03",
-    "note": "First derivation of data/software-eol.json for iOS from endoflife.date (https://endoflife.date/api/ios.json, MIT License) fetched 2026-10-03: 16 release cycles (2011-10-12 \u2192 2026-09-14), 5 not yet at end of life. Fields kept as published, never edited."
+    "note": "First derivation of data/software-eol.json for iOS from endoflife.date (https://endoflife.date/api/ios.json, MIT License) fetched 2026-10-03: 16 release cycles (2011-10-12 → 2026-09-14), 5 not yet at end of life. Fields kept as published, never edited."
   },
   {
     "area": "software-eol",
@@ -107,7 +107,7 @@
     "effectiveFrom": "2026-10-03",
     "source": "https://endoflife.date/macos",
     "verifiedDate": "2026-10-03",
-    "note": "First derivation of data/software-eol.json for macOS from endoflife.date (https://endoflife.date/api/macos.json, MIT License) fetched 2026-10-03: 23 release cycles (2001-03-24 \u2192 2026-09-14), 3 not yet at end of life. Fields kept as published, never edited."
+    "note": "First derivation of data/software-eol.json for macOS from endoflife.date (https://endoflife.date/api/macos.json, MIT License) fetched 2026-10-03: 23 release cycles (2001-03-24 → 2026-09-14), 3 not yet at end of life. Fields kept as published, never edited."
   },
   {
     "area": "software-eol",
@@ -118,7 +118,7 @@
     "effectiveFrom": "2026-10-03",
     "source": "https://endoflife.date/windows",
     "verifiedDate": "2026-10-03",
-    "note": "First derivation of data/software-eol.json for Windows from endoflife.date (https://endoflife.date/api/windows.json, MIT License) fetched 2026-10-03: 49 release cycles (2008-04-21 \u2192 2026-09-29), 15 not yet at end of life. Fields kept as published, never edited."
+    "note": "First derivation of data/software-eol.json for Windows from endoflife.date (https://endoflife.date/api/windows.json, MIT License) fetched 2026-10-03: 49 release cycles (2008-04-21 → 2026-09-29), 15 not yet at end of life. Fields kept as published, never edited."
   },
   {
     "area": "software-eol",
@@ -129,7 +129,7 @@
     "effectiveFrom": "2026-10-03",
     "source": "https://endoflife.date/oracle-jdk",
     "verifiedDate": "2026-10-03",
-    "note": "First derivation of data/software-eol.json for Oracle JDK (Java SE) from endoflife.date (https://endoflife.date/api/oracle-jdk.json, MIT License) fetched 2026-10-03: 28 release cycles (1996-01-23 \u2192 2026-09-15), 3 not yet at end of life. Fields kept as published, never edited."
+    "note": "First derivation of data/software-eol.json for Oracle JDK (Java SE) from endoflife.date (https://endoflife.date/api/oracle-jdk.json, MIT License) fetched 2026-10-03: 28 release cycles (1996-01-23 → 2026-09-15), 3 not yet at end of life. Fields kept as published, never edited."
   },
   {
     "area": "software-eol",
@@ -140,7 +140,7 @@
     "effectiveFrom": "2026-10-03",
     "source": "https://endoflife.date/go",
     "verifiedDate": "2026-10-03",
-    "note": "First derivation of data/software-eol.json for Go from endoflife.date (https://endoflife.date/api/go.json, MIT License) fetched 2026-10-03: 18 release cycles (2018-02-16 \u2192 2026-08-19), 2 not yet at end of life. Fields kept as published, never edited."
+    "note": "First derivation of data/software-eol.json for Go from endoflife.date (https://endoflife.date/api/go.json, MIT License) fetched 2026-10-03: 18 release cycles (2018-02-16 → 2026-08-19), 2 not yet at end of life. Fields kept as published, never edited."
   },
   {
     "area": "software-eol",
@@ -151,7 +151,7 @@
     "effectiveFrom": "2026-10-03",
     "source": "https://endoflife.date/ruby",
     "verifiedDate": "2026-10-03",
-    "note": "First derivation of data/software-eol.json for Ruby from endoflife.date (https://endoflife.date/api/ruby.json, MIT License) fetched 2026-10-03: 15 release cycles (2011-10-30 \u2192 2025-12-25), 3 not yet at end of life. Fields kept as published, never edited."
+    "note": "First derivation of data/software-eol.json for Ruby from endoflife.date (https://endoflife.date/api/ruby.json, MIT License) fetched 2026-10-03: 15 release cycles (2011-10-30 → 2025-12-25), 3 not yet at end of life. Fields kept as published, never edited."
   },
   {
     "area": "software-eol",
@@ -162,7 +162,7 @@
     "effectiveFrom": "2026-10-03",
     "source": "https://endoflife.date/php",
     "verifiedDate": "2026-10-03",
-    "note": "First derivation of data/software-eol.json for PHP from endoflife.date (https://endoflife.date/api/php.json, MIT License) fetched 2026-10-03: 18 release cycles (2004-07-13 \u2192 2025-11-20), 4 not yet at end of life. Fields kept as published, never edited."
+    "note": "First derivation of data/software-eol.json for PHP from endoflife.date (https://endoflife.date/api/php.json, MIT License) fetched 2026-10-03: 18 release cycles (2004-07-13 → 2025-11-20), 4 not yet at end of life. Fields kept as published, never edited."
   },
   {
     "area": "software-eol",
@@ -173,7 +173,7 @@
     "effectiveFrom": "2026-10-03",
     "source": "https://endoflife.date/postgresql",
     "verifiedDate": "2026-10-03",
-    "note": "First derivation of data/software-eol.json for PostgreSQL from endoflife.date (https://endoflife.date/api/postgresql.json, MIT License) fetched 2026-10-03: 29 release cycles (1998-03-01 \u2192 2025-09-25), 5 not yet at end of life. Fields kept as published, never edited."
+    "note": "First derivation of data/software-eol.json for PostgreSQL from endoflife.date (https://endoflife.date/api/postgresql.json, MIT License) fetched 2026-10-03: 29 release cycles (1998-03-01 → 2025-09-25), 5 not yet at end of life. Fields kept as published, never edited."
   },
   {
     "area": "software-eol",
@@ -184,7 +184,7 @@
     "effectiveFrom": "2026-10-03",
     "source": "https://endoflife.date/react",
     "verifiedDate": "2026-10-03",
-    "note": "First derivation of data/software-eol.json for React from endoflife.date (https://endoflife.date/api/react.json, MIT License) fetched 2026-10-03: 5 release cycles (2016-04-07 \u2192 2024-12-05), 5 not yet at end of life. Fields kept as published, never edited."
+    "note": "First derivation of data/software-eol.json for React from endoflife.date (https://endoflife.date/api/react.json, MIT License) fetched 2026-10-03: 5 release cycles (2016-04-07 → 2024-12-05), 5 not yet at end of life. Fields kept as published, never edited."
   },
   {
     "area": "policy-rates",
@@ -199,12 +199,12 @@
     "effectiveFrom": "2025-12-18",
     "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2025/december-2025",
     "verifiedDate": "2026-10-03",
-    "note": "MPC meeting ending 17 December 2025 (decision published 18 December 2025): Bank Rate reduced by 0.25 percentage points from 4.00% to 3.75%, vote 5\u20134. Held at 3.75% at the June, July and September 2026 meetings (latest published 17 September 2026); next decision due 5 November 2026. Verified 2026-10-03 against the Bank Rate page and the Bank Rate history table."
+    "note": "MPC meeting ending 17 December 2025 (decision published 18 December 2025): Bank Rate reduced by 0.25 percentage points from 4.00% to 3.75%, vote 5–4. Held at 3.75% at the June, July and September 2026 meetings (latest published 17 September 2026); next decision due 5 November 2026. Verified 2026-10-03 against the Bank Rate page and the Bank Rate history table."
   },
   {
     "area": "policy-rates",
     "key": "fed/target-range-lower",
-    "label": "US Federal Reserve: Federal funds target range \u2014 lower bound",
+    "label": "US Federal Reserve: Federal funds target range — lower bound",
     "from": 3.5,
     "to": 3.75,
     "unit": "%",
@@ -214,12 +214,12 @@
     "effectiveFrom": "2026-09-17",
     "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
     "verifiedDate": "2026-10-03",
-    "note": "FOMC meeting of 15\u201316 September 2026 (statement 16 September 2026, vote 12\u20130): target range for the federal funds rate raised by 1/4 percentage point from 3.50\u20133.75% to 3.75\u20134.00% (lower bound), effective 17 September 2026 per the implementation note. The previous range had applied since 11 December 2025. Next meeting 27\u201328 October 2026."
+    "note": "FOMC meeting of 15–16 September 2026 (statement 16 September 2026, vote 12–0): target range for the federal funds rate raised by 1/4 percentage point from 3.50–3.75% to 3.75–4.00% (lower bound), effective 17 September 2026 per the implementation note. The previous range had applied since 11 December 2025. Next meeting 27–28 October 2026."
   },
   {
     "area": "policy-rates",
     "key": "fed/target-range-upper",
-    "label": "US Federal Reserve: Federal funds target range \u2014 upper bound",
+    "label": "US Federal Reserve: Federal funds target range — upper bound",
     "from": 3.75,
     "to": 4,
     "unit": "%",
@@ -229,7 +229,7 @@
     "effectiveFrom": "2026-09-17",
     "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
     "verifiedDate": "2026-10-03",
-    "note": "FOMC meeting of 15\u201316 September 2026 (statement 16 September 2026, vote 12\u20130): target range for the federal funds rate raised by 1/4 percentage point from 3.50\u20133.75% to 3.75\u20134.00% (upper bound), effective 17 September 2026 per the implementation note. The previous range had applied since 11 December 2025. Next meeting 27\u201328 October 2026."
+    "note": "FOMC meeting of 15–16 September 2026 (statement 16 September 2026, vote 12–0): target range for the federal funds rate raised by 1/4 percentage point from 3.50–3.75% to 3.75–4.00% (upper bound), effective 17 September 2026 per the implementation note. The previous range had applied since 11 December 2025. Next meeting 27–28 October 2026."
   },
   {
     "area": "policy-rates",
@@ -244,7 +244,7 @@
     "effectiveFrom": "2026-09-16",
     "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html",
     "verifiedDate": "2026-10-03",
-    "note": "Governing Council monetary policy meeting of 10 September 2026: the three key ECB interest rates raised by 25 basis points with effect from 16 September 2026 \u2014 deposit facility rate 2.25% \u2192 2.50%, the rate through which the Council steers the monetary policy stance. The previous level had applied since 17 June 2026. Next monetary policy meeting 28\u201329 October 2026."
+    "note": "Governing Council monetary policy meeting of 10 September 2026: the three key ECB interest rates raised by 25 basis points with effect from 16 September 2026 — deposit facility rate 2.25% → 2.50%, the rate through which the Council steers the monetary policy stance. The previous level had applied since 17 June 2026. Next monetary policy meeting 28–29 October 2026."
   },
   {
     "area": "policy-rates",
@@ -259,7 +259,7 @@
     "effectiveFrom": "2026-09-16",
     "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html",
     "verifiedDate": "2026-10-03",
-    "note": "Governing Council monetary policy meeting of 10 September 2026: the three key ECB interest rates raised by 25 basis points with effect from 16 September 2026 \u2014 main refinancing operations rate 2.40% \u2192 2.65%. The previous level had applied since 17 June 2026. Next monetary policy meeting 28\u201329 October 2026."
+    "note": "Governing Council monetary policy meeting of 10 September 2026: the three key ECB interest rates raised by 25 basis points with effect from 16 September 2026 — main refinancing operations rate 2.40% → 2.65%. The previous level had applied since 17 June 2026. Next monetary policy meeting 28–29 October 2026."
   },
   {
     "area": "policy-rates",
@@ -274,7 +274,7 @@
     "effectiveFrom": "2026-09-16",
     "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html",
     "verifiedDate": "2026-10-03",
-    "note": "Governing Council monetary policy meeting of 10 September 2026: the three key ECB interest rates raised by 25 basis points with effect from 16 September 2026 \u2014 marginal lending facility rate 2.65% \u2192 2.90%. The previous level had applied since 17 June 2026. Next monetary policy meeting 28\u201329 October 2026."
+    "note": "Governing Council monetary policy meeting of 10 September 2026: the three key ECB interest rates raised by 25 basis points with effect from 16 September 2026 — marginal lending facility rate 2.65% → 2.90%. The previous level had applied since 17 June 2026. Next monetary policy meeting 28–29 October 2026."
   },
   {
     "area": "de-rates",
@@ -286,149 +286,149 @@
     "effectiveFrom": "2026-01-01",
     "source": "https://www.gesetze-im-internet.de/estg/__32a.html",
     "verifiedDate": "2026-10-03",
-    "note": "Steuerfortentwicklungsgesetz (SteFeG), BGBl. 2024 I Nr. 449, Art. 2 Nr. 2 (in force 1 January 2026 per Art. 10 Abs. 2): \u00a7 32a Abs. 1 EStG 'bis 12 348 Euro (Grundfreibetrag)' for VZ 2026, up from 12 096 Euro for VZ 2025 (Art. 1). Consolidated text on gesetze-im-internet.de reads 'ab dem Veranlagungszeitraum 2026'.",
+    "note": "Steuerfortentwicklungsgesetz (SteFeG), BGBl. 2024 I Nr. 449, Art. 2 Nr. 2 (in force 1 January 2026 per Art. 10 Abs. 2): § 32a Abs. 1 EStG 'bis 12 348 Euro (Grundfreibetrag)' for VZ 2026, up from 12 096 Euro for VZ 2025 (Art. 1). Consolidated text on gesetze-im-internet.de reads 'ab dem Veranlagungszeitraum 2026'.",
     "taxYear": "2026",
     "term": "Grundfreibetrag"
   },
   {
     "area": "de-rates",
     "key": "income-tax/soli-freigrenze-einzel",
-    "label": "Solidarit\u00e4tszuschlag \u2014 Freigrenze (Einzelveranlagung) / Solidarity surcharge exemption threshold, measured on the income tax due, single assessment",
+    "label": "Solidaritätszuschlag — Freigrenze (Einzelveranlagung) / Solidarity surcharge exemption threshold, measured on the income tax due, single assessment",
     "from": 19950,
     "to": 20350,
     "unit": "EUR Einkommensteuer/year",
     "effectiveFrom": "2026-01-01",
     "source": "https://www.gesetze-im-internet.de/solzg_1995/__3.html",
     "verifiedDate": "2026-10-03",
-    "note": "SteFeG, BGBl. 2024 I Nr. 449, Art. 4: \u00a7 3 Abs. 3 Nr. 2 SolzG Freigrenze 20 350 Euro (Einzelveranlagung) 'erstmals im Veranlagungszeitraum 2026', up from 19 950 Euro for 2025 (Art. 3).",
+    "note": "SteFeG, BGBl. 2024 I Nr. 449, Art. 4: § 3 Abs. 3 Nr. 2 SolzG Freigrenze 20 350 Euro (Einzelveranlagung) 'erstmals im Veranlagungszeitraum 2026', up from 19 950 Euro for 2025 (Art. 3).",
     "taxYear": "2026",
-    "term": "Solidarit\u00e4tszuschlag \u2014 Freigrenze (Einzelveranlagung)"
+    "term": "Solidaritätszuschlag — Freigrenze (Einzelveranlagung)"
   },
   {
     "area": "de-rates",
     "key": "income-tax/soli-freigrenze-splitting",
-    "label": "Solidarit\u00e4tszuschlag \u2014 Freigrenze (Zusammenveranlagung / Splitting) / Solidarity surcharge exemption threshold, joint assessment",
+    "label": "Solidaritätszuschlag — Freigrenze (Zusammenveranlagung / Splitting) / Solidarity surcharge exemption threshold, joint assessment",
     "from": 39900,
     "to": 40700,
     "unit": "EUR Einkommensteuer/year",
     "effectiveFrom": "2026-01-01",
     "source": "https://www.gesetze-im-internet.de/solzg_1995/__3.html",
     "verifiedDate": "2026-10-03",
-    "note": "SteFeG, BGBl. 2024 I Nr. 449, Art. 4: \u00a7 3 Abs. 3 Nr. 1 SolzG Freigrenze 40 700 Euro (Zusammenveranlagung, \u00a7 32a Abs. 5 und 6 EStG) from VZ 2026, up from 39 900 Euro for 2025 (Art. 3).",
+    "note": "SteFeG, BGBl. 2024 I Nr. 449, Art. 4: § 3 Abs. 3 Nr. 1 SolzG Freigrenze 40 700 Euro (Zusammenveranlagung, § 32a Abs. 5 und 6 EStG) from VZ 2026, up from 39 900 Euro for 2025 (Art. 3).",
     "taxYear": "2026",
-    "term": "Solidarit\u00e4tszuschlag \u2014 Freigrenze (Zusammenveranlagung / Splitting)"
+    "term": "Solidaritätszuschlag — Freigrenze (Zusammenveranlagung / Splitting)"
   },
   {
     "area": "de-rates",
     "key": "social-insurance/bbg-rv-av-jahr",
-    "label": "Beitragsbemessungsgrenze allgemeine Rentenversicherung / Arbeitslosenversicherung (Jahr) / Contribution ceiling, pension and unemployment insurance \u2014 annual",
+    "label": "Beitragsbemessungsgrenze allgemeine Rentenversicherung / Arbeitslosenversicherung (Jahr) / Contribution ceiling, pension and unemployment insurance — annual",
     "from": 96600,
     "to": 101400,
     "unit": "EUR/year",
     "effectiveFrom": "2026-01-01",
     "source": "https://www.recht.bund.de/bgbl/1/2025/278/regelungstext.pdf?__blob=publicationFile&v=2",
     "verifiedDate": "2026-10-03",
-    "note": "Sozialversicherungsrechengr\u00f6\u00dfen-Verordnung 2026, BGBl. 2025 I Nr. 278 (24 November 2025, in force 1 January 2026), \u00a7 4 Abs. 1 Nr. 1: Beitragsbemessungsgrenze in der allgemeinen Rentenversicherung 101 400 Euro j\u00e4hrlich (also the AV ceiling, \u00a7 341 Abs. 4 SGB III); 2025: 96 600 Euro (SV-Rechengr\u00f6\u00dfen-VO 2025, BMAS page / DRV Werte).",
+    "note": "Sozialversicherungsrechengrößen-Verordnung 2026, BGBl. 2025 I Nr. 278 (24 November 2025, in force 1 January 2026), § 4 Abs. 1 Nr. 1: Beitragsbemessungsgrenze in der allgemeinen Rentenversicherung 101 400 Euro jährlich (also the AV ceiling, § 341 Abs. 4 SGB III); 2025: 96 600 Euro (SV-Rechengrößen-VO 2025, BMAS page / DRV Werte).",
     "taxYear": "2026",
     "term": "Beitragsbemessungsgrenze allgemeine Rentenversicherung / Arbeitslosenversicherung (Jahr)"
   },
   {
     "area": "de-rates",
     "key": "social-insurance/bbg-rv-av-monat",
-    "label": "Beitragsbemessungsgrenze RV/AV (Monat) / Contribution ceiling, pension and unemployment insurance \u2014 monthly",
+    "label": "Beitragsbemessungsgrenze RV/AV (Monat) / Contribution ceiling, pension and unemployment insurance — monthly",
     "from": 8050,
     "to": 8450,
     "unit": "EUR/month",
     "effectiveFrom": "2026-01-01",
     "source": "https://www.recht.bund.de/bgbl/1/2025/278/regelungstext.pdf?__blob=publicationFile&v=2",
     "verifiedDate": "2026-10-03",
-    "note": "Sozialversicherungsrechengr\u00f6\u00dfen-Verordnung 2026, BGBl. 2025 I Nr. 278, \u00a7 4 Abs. 1 Nr. 1: 8 450 Euro monatlich, up from 8 050 Euro (2025, SV-Rechengr\u00f6\u00dfen-VO 2025; DRV Werte history \"ab 1.1.2025 \u2026 8.050; ab 1.1.2026 \u2026 8.450\").",
+    "note": "Sozialversicherungsrechengrößen-Verordnung 2026, BGBl. 2025 I Nr. 278, § 4 Abs. 1 Nr. 1: 8 450 Euro monatlich, up from 8 050 Euro (2025, SV-Rechengrößen-VO 2025; DRV Werte history \"ab 1.1.2025 … 8.050; ab 1.1.2026 … 8.450\").",
     "taxYear": "2026",
     "term": "Beitragsbemessungsgrenze RV/AV (Monat)"
   },
   {
     "area": "de-rates",
     "key": "social-insurance/bbg-kv-pv-jahr",
-    "label": "Beitragsbemessungsgrenze Kranken- und Pflegeversicherung (Jahr) = Jahresarbeitsentgeltgrenze \u00a7 6 Abs. 7 SGB V / Contribution ceiling, health and long-term-care insurance \u2014 annual",
+    "label": "Beitragsbemessungsgrenze Kranken- und Pflegeversicherung (Jahr) = Jahresarbeitsentgeltgrenze § 6 Abs. 7 SGB V / Contribution ceiling, health and long-term-care insurance — annual",
     "from": 66150,
     "to": 69750,
     "unit": "EUR/year",
     "effectiveFrom": "2026-01-01",
     "source": "https://www.recht.bund.de/bgbl/1/2025/278/regelungstext.pdf?__blob=publicationFile&v=2",
     "verifiedDate": "2026-10-03",
-    "note": "Sozialversicherungsrechengr\u00f6\u00dfen-Verordnung 2026, BGBl. 2025 I Nr. 278, \u00a7 2 Abs. 2: Jahresarbeitsentgeltgrenze nach \u00a7 6 Abs. 7 SGB V 69 750 Euro = Beitragsbemessungsgrenze KV/PV 2026 (BMG Beitr\u00e4ge table agrees), up from 66 150 Euro (2025). The 2027 Referentenentwurf decouples the KV ceiling from this JAEG \u2014 do not assume equality next year.",
+    "note": "Sozialversicherungsrechengrößen-Verordnung 2026, BGBl. 2025 I Nr. 278, § 2 Abs. 2: Jahresarbeitsentgeltgrenze nach § 6 Abs. 7 SGB V 69 750 Euro = Beitragsbemessungsgrenze KV/PV 2026 (BMG Beiträge table agrees), up from 66 150 Euro (2025). The 2027 Referentenentwurf decouples the KV ceiling from this JAEG — do not assume equality next year.",
     "taxYear": "2026",
-    "term": "Beitragsbemessungsgrenze Kranken- und Pflegeversicherung (Jahr) = Jahresarbeitsentgeltgrenze \u00a7 6 Abs. 7 SGB V"
+    "term": "Beitragsbemessungsgrenze Kranken- und Pflegeversicherung (Jahr) = Jahresarbeitsentgeltgrenze § 6 Abs. 7 SGB V"
   },
   {
     "area": "de-rates",
     "key": "social-insurance/bbg-kv-pv-monat",
-    "label": "Beitragsbemessungsgrenze KV/PV (Monat) / Contribution ceiling, health and care insurance \u2014 monthly",
+    "label": "Beitragsbemessungsgrenze KV/PV (Monat) / Contribution ceiling, health and care insurance — monthly",
     "from": 5512.5,
     "to": 5812.5,
     "unit": "EUR/month",
     "effectiveFrom": "2026-01-01",
     "source": "https://www.recht.bund.de/bgbl/1/2025/278/regelungstext.pdf?__blob=publicationFile&v=2",
     "verifiedDate": "2026-10-03",
-    "note": "Sozialversicherungsrechengr\u00f6\u00dfen-Verordnung 2026, BGBl. 2025 I Nr. 278, \u00a7 2 Abs. 2: 5 812,50 Euro monatlich, up from 5 512,50 Euro (2025, BMAS SV-Rechengr\u00f6\u00dfen 2025 page).",
+    "note": "Sozialversicherungsrechengrößen-Verordnung 2026, BGBl. 2025 I Nr. 278, § 2 Abs. 2: 5 812,50 Euro monatlich, up from 5 512,50 Euro (2025, BMAS SV-Rechengrößen 2025 page).",
     "taxYear": "2026",
     "term": "Beitragsbemessungsgrenze KV/PV (Monat)"
   },
   {
     "area": "de-rates",
     "key": "social-insurance/jaeg-jahr",
-    "label": "Jahresarbeitsentgeltgrenze / Versicherungspflichtgrenze \u00a7 6 Abs. 6 SGB V (Jahr) / Compulsory-insurance income threshold for statutory health insurance \u2014 annual",
+    "label": "Jahresarbeitsentgeltgrenze / Versicherungspflichtgrenze § 6 Abs. 6 SGB V (Jahr) / Compulsory-insurance income threshold for statutory health insurance — annual",
     "from": 73800,
     "to": 77400,
     "unit": "EUR/year",
     "effectiveFrom": "2026-01-01",
     "source": "https://www.recht.bund.de/bgbl/1/2025/278/regelungstext.pdf?__blob=publicationFile&v=2",
     "verifiedDate": "2026-10-03",
-    "note": "Sozialversicherungsrechengr\u00f6\u00dfen-Verordnung 2026, BGBl. 2025 I Nr. 278, \u00a7 2 Abs. 1: Jahresarbeitsentgeltgrenze nach \u00a7 6 Abs. 6 SGB V (Versicherungspflichtgrenze) 77 400 Euro (6 450 Euro monatlich), up from 73 800 Euro (2025: 6 150 Euro monatlich, BMAS page).",
+    "note": "Sozialversicherungsrechengrößen-Verordnung 2026, BGBl. 2025 I Nr. 278, § 2 Abs. 1: Jahresarbeitsentgeltgrenze nach § 6 Abs. 6 SGB V (Versicherungspflichtgrenze) 77 400 Euro (6 450 Euro monatlich), up from 73 800 Euro (2025: 6 150 Euro monatlich, BMAS page).",
     "taxYear": "2026",
-    "term": "Jahresarbeitsentgeltgrenze / Versicherungspflichtgrenze \u00a7 6 Abs. 6 SGB V (Jahr)"
+    "term": "Jahresarbeitsentgeltgrenze / Versicherungspflichtgrenze § 6 Abs. 6 SGB V (Jahr)"
   },
   {
     "area": "de-rates",
     "key": "social-insurance/bezugsgroesse-jahr",
-    "label": "Bezugsgr\u00f6\u00dfe \u00a7 18 SGB IV (Jahr) / Reference value of the social insurance system \u2014 annual",
+    "label": "Bezugsgröße § 18 SGB IV (Jahr) / Reference value of the social insurance system — annual",
     "from": 44940,
     "to": 47460,
     "unit": "EUR/year",
     "effectiveFrom": "2026-01-01",
     "source": "https://www.recht.bund.de/bgbl/1/2025/278/regelungstext.pdf?__blob=publicationFile&v=2",
     "verifiedDate": "2026-10-03",
-    "note": "Sozialversicherungsrechengr\u00f6\u00dfen-Verordnung 2026, BGBl. 2025 I Nr. 278, \u00a7 1: Bezugsgr\u00f6\u00dfe 47 460 Euro (3 955 Euro monatlich) for 2026, up from 44 940 Euro (3 745 Euro monatlich) in 2025 (DRV Werte history).",
+    "note": "Sozialversicherungsrechengrößen-Verordnung 2026, BGBl. 2025 I Nr. 278, § 1: Bezugsgröße 47 460 Euro (3 955 Euro monatlich) for 2026, up from 44 940 Euro (3 745 Euro monatlich) in 2025 (DRV Werte history).",
     "taxYear": "2026",
-    "term": "Bezugsgr\u00f6\u00dfe \u00a7 18 SGB IV (Jahr)"
+    "term": "Bezugsgröße § 18 SGB IV (Jahr)"
   },
   {
     "area": "de-rates",
     "key": "social-insurance/kv-durchschnittlicher-zusatzbeitrag",
-    "label": "Krankenversicherung \u2014 durchschnittlicher Zusatzbeitragssatz 2026 / Average supplementary health insurance contribution rate announced by the BMG for 2026 (total; split equally employee/employer; each Krankenkasse sets its own actual rate)",
+    "label": "Krankenversicherung — durchschnittlicher Zusatzbeitragssatz 2026 / Average supplementary health insurance contribution rate announced by the BMG for 2026 (total; split equally employee/employer; each Krankenkasse sets its own actual rate)",
     "from": 2.5,
     "to": 2.9,
     "unit": "%",
     "effectiveFrom": "2026-01-01",
     "source": "https://www.bundesgesundheitsministerium.de/beitraege",
     "verifiedDate": "2026-10-03",
-    "note": "BMG Bekanntmachung des durchschnittlichen Zusatzbeitragssatzes nach \u00a7 242a SGB V for 2026: 2,9 Prozent (BMG Beitr\u00e4ge page, Stand 3 September 2026), up from 2,5 Prozent for 2025 (BAnz AT 07.11.2024 B4). Statutory average, split equally employee/employer; each Krankenkasse sets its own actual rate.",
+    "note": "BMG Bekanntmachung des durchschnittlichen Zusatzbeitragssatzes nach § 242a SGB V for 2026: 2,9 Prozent (BMG Beiträge page, Stand 3 September 2026), up from 2,5 Prozent for 2025 (BAnz AT 07.11.2024 B4). Statutory average, split equally employee/employer; each Krankenkasse sets its own actual rate.",
     "taxYear": "2026",
-    "term": "Krankenversicherung \u2014 durchschnittlicher Zusatzbeitragssatz 2026"
+    "term": "Krankenversicherung — durchschnittlicher Zusatzbeitragssatz 2026"
   },
   {
     "area": "de-rates",
     "key": "social-insurance/pv-beitragssatz",
-    "label": "Pflegeversicherung \u2014 Beitragssatz / Long-term-care insurance contribution rate (total; employee and employer each 1.8 % outside Sachsen)",
+    "label": "Pflegeversicherung — Beitragssatz / Long-term-care insurance contribution rate (total; employee and employer each 1.8 % outside Sachsen)",
     "from": 3.4,
     "to": 3.6,
     "unit": "%",
     "effectiveFrom": "2025-01-01",
     "source": "https://www.gesetze-im-internet.de/pbav_2025/__1.html",
     "verifiedDate": "2026-10-03",
-    "note": "Pflegeversicherungs-Beitragssatzanpassungsverordnung 2025 (PBAV 2025) \u00a7 1, under \u00a7 55 Abs. 1a SGB XI: Beitragssatz 3,6 Prozent from 1 January 2025 (+0,2 points on the 3,4 Prozent of 2024); unchanged for 2026 (BMG Finanzierung page, Stand 14 September 2026). \u00a7 55 SGB XI still prints the 3,4 Prozent base rate \u2014 the Verordnung, not the statute, carries the operative figure.",
+    "note": "Pflegeversicherungs-Beitragssatzanpassungsverordnung 2025 (PBAV 2025) § 1, under § 55 Abs. 1a SGB XI: Beitragssatz 3,6 Prozent from 1 January 2025 (+0,2 points on the 3,4 Prozent of 2024); unchanged for 2026 (BMG Finanzierung page, Stand 14 September 2026). § 55 SGB XI still prints the 3,4 Prozent base rate — the Verordnung, not the statute, carries the operative figure.",
     "taxYear": "2026",
-    "term": "Pflegeversicherung \u2014 Beitragssatz"
+    "term": "Pflegeversicherung — Beitragssatz"
   },
   {
     "area": "de-rates",
@@ -440,7 +440,7 @@
     "effectiveFrom": "2026-01-01",
     "source": "https://www.gesetze-im-internet.de/milov5/__1.html",
     "verifiedDate": "2026-10-03",
-    "note": "F\u00fcnfte Mindestlohnanpassungsverordnung (MiLoV5), BGBl. 2025 I Nr. 268 (5 November 2025, in force 1 January 2026), \u00a7 1 Nr. 1: Mindestlohn 13,90 Euro brutto je Zeitstunde from 1 January 2026, up from 12,82 Euro (2025, MiLoV4; BMAS history table).",
+    "note": "Fünfte Mindestlohnanpassungsverordnung (MiLoV5), BGBl. 2025 I Nr. 268 (5 November 2025, in force 1 January 2026), § 1 Nr. 1: Mindestlohn 13,90 Euro brutto je Zeitstunde from 1 January 2026, up from 12,82 Euro (2025, MiLoV4; BMAS history table).",
     "taxYear": "2026",
     "term": "Mindestlohn ab 1. Januar 2026"
   },
@@ -454,37 +454,37 @@
     "effectiveFrom": "2027-01-01",
     "source": "https://www.gesetze-im-internet.de/milov5/__1.html",
     "verifiedDate": "2026-10-03",
-    "note": "MiLoV5, BGBl. 2025 I Nr. 268, \u00a7 1 Nr. 2: Mindestlohn 14,60 Euro brutto je Zeitstunde from 1 January 2027 \u2014 already enacted on 2026-10-03, served as its own figure with effectiveFrom 2027-01-01. Next Mindestlohnkommission decision due by 30 June 2027 for 2028.",
+    "note": "MiLoV5, BGBl. 2025 I Nr. 268, § 1 Nr. 2: Mindestlohn 14,60 Euro brutto je Zeitstunde from 1 January 2027 — already enacted on 2026-10-03, served as its own figure with effectiveFrom 2027-01-01. Next Mindestlohnkommission decision due by 30 June 2027 for 2028.",
     "taxYear": "2027",
     "term": "Mindestlohn ab 1. Januar 2027"
   },
   {
     "area": "de-rates",
     "key": "minijob/geringfuegigkeitsgrenze-2026",
-    "label": "Geringf\u00fcgigkeitsgrenze 2026 / Minijob monthly earnings limit 2026",
+    "label": "Geringfügigkeitsgrenze 2026 / Minijob monthly earnings limit 2026",
     "from": 556,
     "to": 603,
     "unit": "EUR/month",
     "effectiveFrom": "2026-01-01",
     "source": "https://www.deutsche-rentenversicherung.de/DRV/DE/Experten/Zahlen-und-Fakten/Werte-der-Rentenversicherung/werte-der-rentenversicherung_node.html",
     "verifiedDate": "2026-10-03",
-    "note": "\u00a7 8 Abs. 1a SGB IV (Mindestlohn \u00d7 130 \u00f7 3, rounded up to full euros) applied to the 13,90 Euro Mindestlohn (MiLoV5): Geringf\u00fcgigkeitsgrenze 603 Euro per month for 2026 (7 236 Euro a year, Minijob-Zentrale), up from 556 Euro in 2025 (DRV Werte page).",
+    "note": "§ 8 Abs. 1a SGB IV (Mindestlohn × 130 ÷ 3, rounded up to full euros) applied to the 13,90 Euro Mindestlohn (MiLoV5): Geringfügigkeitsgrenze 603 Euro per month for 2026 (7 236 Euro a year, Minijob-Zentrale), up from 556 Euro in 2025 (DRV Werte page).",
     "taxYear": "2026",
-    "term": "Geringf\u00fcgigkeitsgrenze 2026"
+    "term": "Geringfügigkeitsgrenze 2026"
   },
   {
     "area": "de-rates",
     "key": "minijob/geringfuegigkeitsgrenze-2027",
-    "label": "Geringf\u00fcgigkeitsgrenze 2027 / Minijob monthly earnings limit 2027 (follows the 14,60 \u20ac Mindestlohn)",
+    "label": "Geringfügigkeitsgrenze 2027 / Minijob monthly earnings limit 2027 (follows the 14,60 € Mindestlohn)",
     "from": 603,
     "to": 633,
     "unit": "EUR/month",
     "effectiveFrom": "2027-01-01",
     "source": "https://www.deutsche-rentenversicherung.de/DRV/DE/Experten/Zahlen-und-Fakten/Werte-der-Rentenversicherung/werte-der-rentenversicherung_node.html",
     "verifiedDate": "2026-10-03",
-    "note": "\u00a7 8 Abs. 1a SGB IV applied to the enacted 14,60 Euro Mindestlohn 2027 (MiLoV5 \u00a7 1 Nr. 2): 633 Euro per month from 1 January 2027 (DRV Werte page: 'Ab dem 1.1.2027 \u2026 633,00 EUR'). Served with effectiveFrom 2027-01-01.",
+    "note": "§ 8 Abs. 1a SGB IV applied to the enacted 14,60 Euro Mindestlohn 2027 (MiLoV5 § 1 Nr. 2): 633 Euro per month from 1 January 2027 (DRV Werte page: 'Ab dem 1.1.2027 … 633,00 EUR'). Served with effectiveFrom 2027-01-01.",
     "taxYear": "2027",
-    "term": "Geringf\u00fcgigkeitsgrenze 2027"
+    "term": "Geringfügigkeitsgrenze 2027"
   },
   {
     "area": "de-rates",
@@ -496,115 +496,115 @@
     "effectiveFrom": "2026-01-01",
     "source": "https://www.gesetze-im-internet.de/estg/__66.html",
     "verifiedDate": "2026-10-03",
-    "note": "SteFeG, BGBl. 2024 I Nr. 449, Art. 2 Nr. 4: \u00a7 66 Abs. 1 EStG Kindergeld '259 Euro' monthly per child from 1 January 2026, up from 255 Euro in 2025 (Art. 1 Nr. 4); BMFSFJ Kindergeld page agrees ('zum 1. Januar 2026 monatlich 259 Euro pro Kind').",
+    "note": "SteFeG, BGBl. 2024 I Nr. 449, Art. 2 Nr. 4: § 66 Abs. 1 EStG Kindergeld '259 Euro' monthly per child from 1 January 2026, up from 255 Euro in 2025 (Art. 1 Nr. 4); BMFSFJ Kindergeld page agrees ('zum 1. Januar 2026 monatlich 259 Euro pro Kind').",
     "taxYear": "2026",
     "term": "Kindergeld (monatlich je Kind)"
   },
   {
     "area": "de-rates",
     "key": "kinderfreibetrag/kinderfreibetrag",
-    "label": "Kinderfreibetrag (s\u00e4chliches Existenzminimum) \u2014 je Elternteil / Child allowance for the child's basic subsistence \u2014 per parent",
+    "label": "Kinderfreibetrag (sächliches Existenzminimum) — je Elternteil / Child allowance for the child's basic subsistence — per parent",
     "from": 3336,
     "to": 3414,
     "unit": "EUR/year",
     "effectiveFrom": "2026-01-01",
     "source": "https://www.gesetze-im-internet.de/estg/__32.html",
     "verifiedDate": "2026-10-03",
-    "note": "SteFeG, BGBl. 2024 I Nr. 449, Art. 2 Nr. 1: \u00a7 32 Abs. 6 EStG Kinderfreibetrag 3 414 Euro per parent for VZ 2026, up from 3 336 Euro in 2025 (Art. 1 Nr. 1); the BEA-Freibetrag stays 1 464 Euro.",
+    "note": "SteFeG, BGBl. 2024 I Nr. 449, Art. 2 Nr. 1: § 32 Abs. 6 EStG Kinderfreibetrag 3 414 Euro per parent for VZ 2026, up from 3 336 Euro in 2025 (Art. 1 Nr. 1); the BEA-Freibetrag stays 1 464 Euro.",
     "taxYear": "2026",
-    "term": "Kinderfreibetrag (s\u00e4chliches Existenzminimum) \u2014 je Elternteil"
+    "term": "Kinderfreibetrag (sächliches Existenzminimum) — je Elternteil"
   },
   {
     "area": "de-rates",
     "key": "kinderfreibetrag/freibetraege-kinder-gesamt",
-    "label": "Freibetr\u00e4ge f\u00fcr Kinder gesamt (beide Elternteile) / Total child allowances per child for jointly assessed parents: 2 \u00d7 (3 414 + 1 464)",
+    "label": "Freibeträge für Kinder gesamt (beide Elternteile) / Total child allowances per child for jointly assessed parents: 2 × (3 414 + 1 464)",
     "from": 9600,
     "to": 9756,
     "unit": "EUR/year",
     "effectiveFrom": "2026-01-01",
     "source": "https://www.gesetze-im-internet.de/estg/__32.html",
     "verifiedDate": "2026-10-03",
-    "note": "Derived figure: 2 \u00d7 (3 414 + 1 464) = 9 756 Euro per child for jointly assessed parents in VZ 2026, after 2 \u00d7 (3 336 + 1 464) = 9 600 Euro in 2025 \u2014 follows the SteFeG (BGBl. 2024 I Nr. 449) Kinderfreibetrag step; \u00a7 32 Abs. 6 Satz 2 EStG doubles the amounts for Zusammenveranlagung.",
+    "note": "Derived figure: 2 × (3 414 + 1 464) = 9 756 Euro per child for jointly assessed parents in VZ 2026, after 2 × (3 336 + 1 464) = 9 600 Euro in 2025 — follows the SteFeG (BGBl. 2024 I Nr. 449) Kinderfreibetrag step; § 32 Abs. 6 Satz 2 EStG doubles the amounts for Zusammenveranlagung.",
     "taxYear": "2026",
-    "term": "Freibetr\u00e4ge f\u00fcr Kinder gesamt (beide Elternteile)"
+    "term": "Freibeträge für Kinder gesamt (beide Elternteile)"
   },
   {
     "area": "de-rates",
     "key": "entfernungspauschale/entfernungspauschale",
     "label": "Entfernungspauschale je Entfernungskilometer (ab dem 1. Kilometer) / Commuting allowance per kilometre of distance, from the first kilometre",
-    "from": "0,30 \u20ac for km 1\u201320 and 0,38 \u20ac from the 21st km",
+    "from": "0,30 € for km 1–20 and 0,38 € from the 21st km",
     "to": 0.38,
     "unit": "EUR/km/working day",
     "effectiveFrom": "2026-01-01",
     "source": "https://www.gesetze-im-internet.de/estg/__9.html",
     "verifiedDate": "2026-10-03",
-    "note": "Steuer\u00e4nderungsgesetz 2025 (St\u00c4ndG 2025), BGBl. 2025 I Nr. 363 (22 December 2025): in \u00a7 9 Abs. 1 Satz 3 Nr. 4 EStG '0,30 Euro' is replaced by '0,38 Euro' in Satz 2 and Satz 6, so 0,38 Euro applies from the first kilometre from VZ 2026. Until 2025 the rule was two-tier (0,30 Euro for km 1\u201320, 0,38 Euro from the 21st km), which is why the previous value is a description rather than a number.",
+    "note": "Steueränderungsgesetz 2025 (StÄndG 2025), BGBl. 2025 I Nr. 363 (22 December 2025): in § 9 Abs. 1 Satz 3 Nr. 4 EStG '0,30 Euro' is replaced by '0,38 Euro' in Satz 2 and Satz 6, so 0,38 Euro applies from the first kilometre from VZ 2026. Until 2025 the rule was two-tier (0,30 Euro for km 1–20, 0,38 Euro from the 21st km), which is why the previous value is a description rather than a number.",
     "taxYear": "2026",
     "term": "Entfernungspauschale je Entfernungskilometer (ab dem 1. Kilometer)"
   },
   {
     "area": "us-rates",
     "key": "income-tax/standard-deduction-single",
-    "label": "Standard deduction \u2014 Single and Married filing separately",
+    "label": "Standard deduction — Single and Married filing separately",
     "from": 15750,
     "to": 16100,
     "unit": "USD/year",
     "effectiveFrom": "2026-01-01",
     "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
     "verifiedDate": "2026-10-03",
-    "note": "Rev. Proc. 2025-32 \u00a7 3.14(1), tax year 2026 as amended by the One, Big, Beautiful Bill Act (OBBBA): standard deduction $16,100 for unmarried individuals and married filing separately; the 2025 amount as rewritten by OBBBA ($15,750) is in \u00a7 3.01 of the same Rev. Proc. Announced in IR-2025-103 (9 October 2025).",
+    "note": "Rev. Proc. 2025-32 § 3.14(1), tax year 2026 as amended by the One, Big, Beautiful Bill Act (OBBBA): standard deduction $16,100 for unmarried individuals and married filing separately; the 2025 amount as rewritten by OBBBA ($15,750) is in § 3.01 of the same Rev. Proc. Announced in IR-2025-103 (9 October 2025).",
     "taxYear": "2026"
   },
   {
     "area": "us-rates",
     "key": "income-tax/standard-deduction-married-joint",
-    "label": "Standard deduction \u2014 Married filing jointly and surviving spouses",
+    "label": "Standard deduction — Married filing jointly and surviving spouses",
     "from": 31500,
     "to": 32200,
     "unit": "USD/year",
     "effectiveFrom": "2026-01-01",
     "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
     "verifiedDate": "2026-10-03",
-    "note": "Rev. Proc. 2025-32 \u00a7 3.14(1), tax year 2026 (OBBBA-indexed): $32,200 for married filing jointly and surviving spouses, up from the OBBBA-rewritten 2025 amount of $31,500 (\u00a7 3.01). Announced in IR-2025-103 (9 October 2025).",
+    "note": "Rev. Proc. 2025-32 § 3.14(1), tax year 2026 (OBBBA-indexed): $32,200 for married filing jointly and surviving spouses, up from the OBBBA-rewritten 2025 amount of $31,500 (§ 3.01). Announced in IR-2025-103 (9 October 2025).",
     "taxYear": "2026"
   },
   {
     "area": "us-rates",
     "key": "income-tax/standard-deduction-head-of-household",
-    "label": "Standard deduction \u2014 Heads of households",
+    "label": "Standard deduction — Heads of households",
     "from": 23625,
     "to": 24150,
     "unit": "USD/year",
     "effectiveFrom": "2026-01-01",
     "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
     "verifiedDate": "2026-10-03",
-    "note": "Rev. Proc. 2025-32 \u00a7 3.14(1), tax year 2026 (OBBBA-indexed): $24,150 for heads of households, up from the OBBBA-rewritten 2025 amount of $23,625 (\u00a7 3.01). Announced in IR-2025-103 (9 October 2025).",
+    "note": "Rev. Proc. 2025-32 § 3.14(1), tax year 2026 (OBBBA-indexed): $24,150 for heads of households, up from the OBBBA-rewritten 2025 amount of $23,625 (§ 3.01). Announced in IR-2025-103 (9 October 2025).",
     "taxYear": "2026"
   },
   {
     "area": "us-rates",
     "key": "income-tax/additional-standard-deduction-aged-blind",
-    "label": "Additional standard deduction for aged (65+) or blind, \u00a7 63(f) \u2014 per qualifying condition, married or surviving spouse",
+    "label": "Additional standard deduction for aged (65+) or blind, § 63(f) — per qualifying condition, married or surviving spouse",
     "from": 1600,
     "to": 1650,
     "unit": "USD/year",
     "effectiveFrom": "2026-01-01",
     "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
     "verifiedDate": "2026-10-03",
-    "note": "Rev. Proc. 2025-32 \u00a7 3.14(3): additional standard deduction for the aged or blind $1,650 per qualifying condition (married or surviving spouse), up from $1,600 in Rev. Proc. 2024-40. Distinct from the OBBBA $6,000 senior deduction, which is not served.",
+    "note": "Rev. Proc. 2025-32 § 3.14(3): additional standard deduction for the aged or blind $1,650 per qualifying condition (married or surviving spouse), up from $1,600 in Rev. Proc. 2024-40. Distinct from the OBBBA $6,000 senior deduction, which is not served.",
     "taxYear": "2026"
   },
   {
     "area": "us-rates",
     "key": "income-tax/additional-standard-deduction-aged-blind-unmarried",
-    "label": "Additional standard deduction for aged (65+) or blind, \u00a7 63(f) \u2014 per qualifying condition, unmarried and not a surviving spouse",
+    "label": "Additional standard deduction for aged (65+) or blind, § 63(f) — per qualifying condition, unmarried and not a surviving spouse",
     "from": 2000,
     "to": 2050,
     "unit": "USD/year",
     "effectiveFrom": "2026-01-01",
     "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
     "verifiedDate": "2026-10-03",
-    "note": "Rev. Proc. 2025-32 \u00a7 3.14(3): the additional amount is increased to $2,050 if the individual is also unmarried and not a surviving spouse, up from $2,000 in Rev. Proc. 2024-40.",
+    "note": "Rev. Proc. 2025-32 § 3.14(3): the additional amount is increased to $2,050 if the individual is also unmarried and not a surviving spouse, up from $2,000 in Rev. Proc. 2024-40.",
     "taxYear": "2026"
   },
   {
@@ -623,7 +623,7 @@
   {
     "area": "us-rates",
     "key": "retirement/401k-elective-deferral",
-    "label": "401(k) / 403(b) / governmental 457(b) / TSP elective deferral limit, \u00a7 402(g)(1)",
+    "label": "401(k) / 403(b) / governmental 457(b) / TSP elective deferral limit, § 402(g)(1)",
     "from": 23500,
     "to": 24500,
     "unit": "USD/year",
@@ -636,33 +636,33 @@
   {
     "area": "us-rates",
     "key": "retirement/401k-catch-up-50",
-    "label": "Catch-up contribution, age 50 and over, \u00a7 414(v)(2)(B)(i)",
+    "label": "Catch-up contribution, age 50 and over, § 414(v)(2)(B)(i)",
     "from": 7500,
     "to": 8000,
     "unit": "USD/year",
     "effectiveFrom": "2026-01-01",
     "source": "https://www.irs.gov/pub/irs-drop/n-25-67.pdf",
     "verifiedDate": "2026-10-03",
-    "note": "IRS Notice 2025-67 (2026 cost-of-living adjustments for retirement plans and IRAs), announced in IR-2025-111 (13 November 2025): \"The limitation under section 414(v)(2)(B)(i) for catch-up contributions to an applicable employer plan \u2026 that generally applies for individuals aged 50 or over is increased from $7,500 to $8,000.\" Prior-year value as stated in the same sentence; Notice 2024-80 agrees.",
+    "note": "IRS Notice 2025-67 (2026 cost-of-living adjustments for retirement plans and IRAs), announced in IR-2025-111 (13 November 2025): \"The limitation under section 414(v)(2)(B)(i) for catch-up contributions to an applicable employer plan … that generally applies for individuals aged 50 or over is increased from $7,500 to $8,000.\" Prior-year value as stated in the same sentence; Notice 2024-80 agrees.",
     "taxYear": "2026"
   },
   {
     "area": "us-rates",
     "key": "retirement/roth-catch-up-wage-threshold",
-    "label": "Wage threshold above which catch-up contributions must be Roth, \u00a7 414(v)(7)(A) (based on prior-year FICA wages)",
+    "label": "Wage threshold above which catch-up contributions must be Roth, § 414(v)(7)(A) (based on prior-year FICA wages)",
     "from": 145000,
     "to": 150000,
     "unit": "USD/year",
     "effectiveFrom": "2026-01-01",
     "source": "https://www.irs.gov/pub/irs-drop/n-25-67.pdf",
     "verifiedDate": "2026-10-03",
-    "note": "IRS Notice 2025-67 (2026 cost-of-living adjustments for retirement plans and IRAs), announced in IR-2025-111 (13 November 2025): \"The Roth catch-up wage threshold for 2025, which under section 414(v)(7)(A) is used to determine whether an individual's catch-up contributions \u2026 for 2026 must be designated as Roth contributions, is increased from $145,000 to $150,000.\" Prior-year value as stated in the same sentence; Notice 2024-80 agrees.",
+    "note": "IRS Notice 2025-67 (2026 cost-of-living adjustments for retirement plans and IRAs), announced in IR-2025-111 (13 November 2025): \"The Roth catch-up wage threshold for 2025, which under section 414(v)(7)(A) is used to determine whether an individual's catch-up contributions … for 2026 must be designated as Roth contributions, is increased from $145,000 to $150,000.\" Prior-year value as stated in the same sentence; Notice 2024-80 agrees.",
     "taxYear": "2026"
   },
   {
     "area": "us-rates",
     "key": "retirement/defined-contribution-annual-additions",
-    "label": "Defined contribution plan annual additions limit, \u00a7 415(c)(1)(A)",
+    "label": "Defined contribution plan annual additions limit, § 415(c)(1)(A)",
     "from": 70000,
     "to": 72000,
     "unit": "USD/year",
@@ -675,7 +675,7 @@
   {
     "area": "us-rates",
     "key": "retirement/compensation-limit",
-    "label": "Annual compensation limit, \u00a7 401(a)(17)",
+    "label": "Annual compensation limit, § 401(a)(17)",
     "from": 350000,
     "to": 360000,
     "unit": "USD/year",
@@ -688,7 +688,7 @@
   {
     "area": "us-rates",
     "key": "retirement/ira-limit",
-    "label": "IRA contribution limit (traditional + Roth combined), \u00a7 219(b)(5)(A)",
+    "label": "IRA contribution limit (traditional + Roth combined), § 219(b)(5)(A)",
     "from": 7000,
     "to": 7500,
     "unit": "USD/year",
@@ -701,7 +701,7 @@
   {
     "area": "us-rates",
     "key": "retirement/ira-catch-up",
-    "label": "IRA catch-up contribution, age 50 and over, \u00a7 219(b)(5)(B)(ii) (indexed from 2024 under SECURE 2.0)",
+    "label": "IRA catch-up contribution, age 50 and over, § 219(b)(5)(B)(ii) (indexed from 2024 under SECURE 2.0)",
     "from": 1000,
     "to": 1100,
     "unit": "USD/year",
@@ -714,92 +714,92 @@
   {
     "area": "us-rates",
     "key": "retirement/simple-deferral",
-    "label": "SIMPLE IRA / SIMPLE 401(k) salary reduction limit, \u00a7 408(p)(2)(E)(i)(III)",
+    "label": "SIMPLE IRA / SIMPLE 401(k) salary reduction limit, § 408(p)(2)(E)(i)(III)",
     "from": 16500,
     "to": 17000,
     "unit": "USD/year",
     "effectiveFrom": "2026-01-01",
     "source": "https://www.irs.gov/pub/irs-drop/n-25-67.pdf",
     "verifiedDate": "2026-10-03",
-    "note": "IRS Notice 2025-67 (2026 cost-of-living adjustments for retirement plans and IRAs), announced in IR-2025-111 (13 November 2025): \"\u2026 salary reduction contributions under a SIMPLE retirement account or elective contributions under a SIMPLE 401(k) plan is increased from $16,500 to $17,000.\" Prior-year value as stated in the same sentence; Notice 2024-80 agrees.",
+    "note": "IRS Notice 2025-67 (2026 cost-of-living adjustments for retirement plans and IRAs), announced in IR-2025-111 (13 November 2025): \"… salary reduction contributions under a SIMPLE retirement account or elective contributions under a SIMPLE 401(k) plan is increased from $16,500 to $17,000.\" Prior-year value as stated in the same sentence; Notice 2024-80 agrees.",
     "taxYear": "2026"
   },
   {
     "area": "us-rates",
     "key": "hsa/contribution-self-only",
-    "label": "HSA annual contribution limit \u2014 self-only HDHP coverage, \u00a7 223(b)(2)(A)",
+    "label": "HSA annual contribution limit — self-only HDHP coverage, § 223(b)(2)(A)",
     "from": 4300,
     "to": 4400,
     "unit": "USD/year",
     "effectiveFrom": "2026-01-01",
     "source": "https://www.irs.gov/pub/irs-drop/rp-25-19.pdf",
     "verifiedDate": "2026-10-03",
-    "note": "Rev. Proc. 2025-19 (2026 inflation-adjusted amounts for Health Savings Accounts and HDHPs): \"For calendar year 2026, the annual limitation on deductions under \u00a7 223(b)(2)(A) for an individual with self-only coverage under a high deductible health plan is $4,400.\" Prior-year value from Rev. Proc. 2024-25.",
+    "note": "Rev. Proc. 2025-19 (2026 inflation-adjusted amounts for Health Savings Accounts and HDHPs): \"For calendar year 2026, the annual limitation on deductions under § 223(b)(2)(A) for an individual with self-only coverage under a high deductible health plan is $4,400.\" Prior-year value from Rev. Proc. 2024-25.",
     "taxYear": "2026"
   },
   {
     "area": "us-rates",
     "key": "hsa/contribution-family",
-    "label": "HSA annual contribution limit \u2014 family HDHP coverage, \u00a7 223(b)(2)(B)",
+    "label": "HSA annual contribution limit — family HDHP coverage, § 223(b)(2)(B)",
     "from": 8550,
     "to": 8750,
     "unit": "USD/year",
     "effectiveFrom": "2026-01-01",
     "source": "https://www.irs.gov/pub/irs-drop/rp-25-19.pdf",
     "verifiedDate": "2026-10-03",
-    "note": "Rev. Proc. 2025-19 (2026 inflation-adjusted amounts for Health Savings Accounts and HDHPs): \"For calendar year 2026, the annual limitation on deductions under \u00a7 223(b)(2)(B) for an individual with family coverage under a high deductible health plan is $8,750.\" Prior-year value from Rev. Proc. 2024-25.",
+    "note": "Rev. Proc. 2025-19 (2026 inflation-adjusted amounts for Health Savings Accounts and HDHPs): \"For calendar year 2026, the annual limitation on deductions under § 223(b)(2)(B) for an individual with family coverage under a high deductible health plan is $8,750.\" Prior-year value from Rev. Proc. 2024-25.",
     "taxYear": "2026"
   },
   {
     "area": "us-rates",
     "key": "hsa/hdhp-min-deductible-self-only",
-    "label": "HDHP minimum annual deductible \u2014 self-only",
+    "label": "HDHP minimum annual deductible — self-only",
     "from": 1650,
     "to": 1700,
     "unit": "USD",
     "effectiveFrom": "2026-01-01",
     "source": "https://www.irs.gov/pub/irs-drop/rp-25-19.pdf",
     "verifiedDate": "2026-10-03",
-    "note": "Rev. Proc. 2025-19 (2026 inflation-adjusted amounts for Health Savings Accounts and HDHPs): \"a \"high deductible health plan\" is defined under \u00a7 223(c)(2)(A) as a health plan with an annual deductible that is not less than $1,700 for self-only coverage or $3,400 for family coverage\" Prior-year value from Rev. Proc. 2024-25.",
+    "note": "Rev. Proc. 2025-19 (2026 inflation-adjusted amounts for Health Savings Accounts and HDHPs): \"a \"high deductible health plan\" is defined under § 223(c)(2)(A) as a health plan with an annual deductible that is not less than $1,700 for self-only coverage or $3,400 for family coverage\" Prior-year value from Rev. Proc. 2024-25.",
     "taxYear": "2026"
   },
   {
     "area": "us-rates",
     "key": "hsa/hdhp-min-deductible-family",
-    "label": "HDHP minimum annual deductible \u2014 family",
+    "label": "HDHP minimum annual deductible — family",
     "from": 3300,
     "to": 3400,
     "unit": "USD",
     "effectiveFrom": "2026-01-01",
     "source": "https://www.irs.gov/pub/irs-drop/rp-25-19.pdf",
     "verifiedDate": "2026-10-03",
-    "note": "Rev. Proc. 2025-19 (2026 inflation-adjusted amounts for Health Savings Accounts and HDHPs): \"\u2026 not less than $1,700 for self-only coverage or $3,400 for family coverage\" Prior-year value from Rev. Proc. 2024-25.",
+    "note": "Rev. Proc. 2025-19 (2026 inflation-adjusted amounts for Health Savings Accounts and HDHPs): \"… not less than $1,700 for self-only coverage or $3,400 for family coverage\" Prior-year value from Rev. Proc. 2024-25.",
     "taxYear": "2026"
   },
   {
     "area": "us-rates",
     "key": "hsa/hdhp-max-out-of-pocket-self-only",
-    "label": "HDHP maximum annual out-of-pocket (deductibles, co-payments, other amounts, not premiums) \u2014 self-only",
+    "label": "HDHP maximum annual out-of-pocket (deductibles, co-payments, other amounts, not premiums) — self-only",
     "from": 8300,
     "to": 8500,
     "unit": "USD",
     "effectiveFrom": "2026-01-01",
     "source": "https://www.irs.gov/pub/irs-drop/rp-25-19.pdf",
     "verifiedDate": "2026-10-03",
-    "note": "Rev. Proc. 2025-19 (2026 inflation-adjusted amounts for Health Savings Accounts and HDHPs): \"\u2026 the annual out-of-pocket expenses \u2026 do not exceed $8,500 for self-only coverage or $17,000 for family coverage.\" Prior-year value from Rev. Proc. 2024-25.",
+    "note": "Rev. Proc. 2025-19 (2026 inflation-adjusted amounts for Health Savings Accounts and HDHPs): \"… the annual out-of-pocket expenses … do not exceed $8,500 for self-only coverage or $17,000 for family coverage.\" Prior-year value from Rev. Proc. 2024-25.",
     "taxYear": "2026"
   },
   {
     "area": "us-rates",
     "key": "hsa/hdhp-max-out-of-pocket-family",
-    "label": "HDHP maximum annual out-of-pocket \u2014 family",
+    "label": "HDHP maximum annual out-of-pocket — family",
     "from": 16600,
     "to": 17000,
     "unit": "USD",
     "effectiveFrom": "2026-01-01",
     "source": "https://www.irs.gov/pub/irs-drop/rp-25-19.pdf",
     "verifiedDate": "2026-10-03",
-    "note": "Rev. Proc. 2025-19 (2026 inflation-adjusted amounts for Health Savings Accounts and HDHPs): \"\u2026 do not exceed $8,500 for self-only coverage or $17,000 for family coverage.\" Prior-year value from Rev. Proc. 2024-25.",
+    "note": "Rev. Proc. 2025-19 (2026 inflation-adjusted amounts for Health Savings Accounts and HDHPs): \"… do not exceed $8,500 for self-only coverage or $17,000 for family coverage.\" Prior-year value from Rev. Proc. 2024-25.",
     "taxYear": "2026"
   },
   {
@@ -812,39 +812,39 @@
     "effectiveFrom": "2026-01-01",
     "source": "https://www.irs.gov/pub/irs-drop/rp-25-19.pdf",
     "verifiedDate": "2026-10-03",
-    "note": "Rev. Proc. 2025-19 (2026 inflation-adjusted amounts for Health Savings Accounts and HDHPs): \"For plan years beginning in 2026, the maximum amount that may be made newly available for the plan year for an excepted benefit HRA under \u00a7 54.9831-1(c)(3)(viii) is $2,200.\" Prior-year value from Rev. Proc. 2024-25.",
+    "note": "Rev. Proc. 2025-19 (2026 inflation-adjusted amounts for Health Savings Accounts and HDHPs): \"For plan years beginning in 2026, the maximum amount that may be made newly available for the plan year for an excepted benefit HRA under § 54.9831-1(c)(3)(viii) is $2,200.\" Prior-year value from Rev. Proc. 2024-25.",
     "taxYear": "2026"
   },
   {
     "area": "us-rates",
     "key": "estate-gift/basic-exclusion",
-    "label": "Estate and gift tax basic exclusion amount, \u00a7 2010(c)(3) (set by OBBBA \u00a7 70106 for 2026; indexed from 2027)",
+    "label": "Estate and gift tax basic exclusion amount, § 2010(c)(3) (set by OBBBA § 70106 for 2026; indexed from 2027)",
     "from": 13990000,
     "to": 15000000,
     "unit": "USD",
     "effectiveFrom": "2026-01-01",
     "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
     "verifiedDate": "2026-10-03",
-    "note": "OBBBA \u00a7 70106 amended \u00a7 2010(c)(3): basic exclusion amount fixed at $15,000,000 for calendar year 2026 (Rev. Proc. 2025-32 \u00a7 2.14), up from $13,990,000 for 2025 (Rev. Proc. 2024-40 \u00a7 2.41); indexed for inflation from 2027, so the 2027 Rev. Proc. will carry a new figure. Announced in IR-2025-103.",
+    "note": "OBBBA § 70106 amended § 2010(c)(3): basic exclusion amount fixed at $15,000,000 for calendar year 2026 (Rev. Proc. 2025-32 § 2.14), up from $13,990,000 for 2025 (Rev. Proc. 2024-40 § 2.41); indexed for inflation from 2027, so the 2027 Rev. Proc. will carry a new figure. Announced in IR-2025-103.",
     "taxYear": "2026"
   },
   {
     "area": "us-rates",
     "key": "estate-gift/annual-gift-exclusion-noncitizen-spouse",
-    "label": "Annual exclusion for gifts to a spouse who is not a U.S. citizen, \u00a7 2523(i)(2)",
+    "label": "Annual exclusion for gifts to a spouse who is not a U.S. citizen, § 2523(i)(2)",
     "from": 190000,
     "to": 194000,
     "unit": "USD/year",
     "effectiveFrom": "2026-01-01",
     "source": "https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill",
     "verifiedDate": "2026-10-03",
-    "note": "Rev. Proc. 2025-32 \u00a7 3.42(2) / IR-2025-103: annual exclusion for gifts to a spouse who is not a U.S. citizen $194,000 for calendar year 2026, up $4,000 from $190,000 in 2025 (Rev. Proc. 2024-40). The ordinary annual gift exclusion stays at $19,000 (no entry).",
+    "note": "Rev. Proc. 2025-32 § 3.42(2) / IR-2025-103: annual exclusion for gifts to a spouse who is not a U.S. citizen $194,000 for calendar year 2026, up $4,000 from $190,000 in 2025 (Rev. Proc. 2024-40). The ordinary annual gift exclusion stays at $19,000 (no entry).",
     "taxYear": "2026"
   },
   {
     "area": "us-rates",
     "key": "income-tax/brackets-single",
-    "label": "Rate schedule \u2014 Single (unmarried individuals other than surviving spouses and heads of household), \u00a7 1(j)(2)(C) \u2014 bracket upper bounds",
+    "label": "Rate schedule — Single (unmarried individuals other than surviving spouses and heads of household), § 1(j)(2)(C) — bracket upper bounds",
     "from": [
       11925,
       48475,
@@ -866,12 +866,12 @@
     "effectiveFrom": "2026-01-01",
     "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
     "verifiedDate": "2026-10-03",
-    "note": "Rev. Proc. 2025-32 \u00a7 3.01 TABLE 3 (Single), tax year 2026, OBBBA-indexed: bracket upper bounds moved from the 2025 bounds in Rev. Proc. 2024-40 TABLE 3; marginal rates unchanged at 10/12/22/24/32/35/37 %. Announced in IR-2025-103 (9 October 2025). Entry shape: upper bound of each bracket below the top rate."
+    "note": "Rev. Proc. 2025-32 § 3.01 TABLE 3 (Single), tax year 2026, OBBBA-indexed: bracket upper bounds moved from the 2025 bounds in Rev. Proc. 2024-40 TABLE 3; marginal rates unchanged at 10/12/22/24/32/35/37 %. Announced in IR-2025-103 (9 October 2025). Entry shape: upper bound of each bracket below the top rate."
   },
   {
     "area": "us-rates",
     "key": "income-tax/brackets-married-joint",
-    "label": "Rate schedule \u2014 Married filing jointly and surviving spouses, \u00a7 1(j)(2)(A) \u2014 bracket upper bounds",
+    "label": "Rate schedule — Married filing jointly and surviving spouses, § 1(j)(2)(A) — bracket upper bounds",
     "from": [
       23850,
       96950,
@@ -893,12 +893,12 @@
     "effectiveFrom": "2026-01-01",
     "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
     "verifiedDate": "2026-10-03",
-    "note": "Rev. Proc. 2025-32 \u00a7 3.01 TABLE 1 (Married filing jointly and surviving spouses), tax year 2026: bracket upper bounds moved from the 2025 bounds in Rev. Proc. 2024-40 TABLE 1; rates unchanged. The 35 %/37 % bounds are $512,450 / $768,700 as published \u2014 LifeByNumbers app.py had 512,400 / 768,400 (first catch of the curated layer, docs/CURATION.md)."
+    "note": "Rev. Proc. 2025-32 § 3.01 TABLE 1 (Married filing jointly and surviving spouses), tax year 2026: bracket upper bounds moved from the 2025 bounds in Rev. Proc. 2024-40 TABLE 1; rates unchanged. The 35 %/37 % bounds are $512,450 / $768,700 as published — LifeByNumbers app.py had 512,400 / 768,400 (first catch of the curated layer, docs/CURATION.md)."
   },
   {
     "area": "us-rates",
     "key": "income-tax/brackets-head-of-household",
-    "label": "Rate schedule \u2014 Heads of households, \u00a7 1(j)(2)(B) \u2014 bracket upper bounds",
+    "label": "Rate schedule — Heads of households, § 1(j)(2)(B) — bracket upper bounds",
     "from": [
       17000,
       64850,
@@ -920,12 +920,12 @@
     "effectiveFrom": "2026-01-01",
     "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
     "verifiedDate": "2026-10-03",
-    "note": "Rev. Proc. 2025-32 \u00a7 3.01 TABLE 2 (Heads of households), tax year 2026: bracket upper bounds moved from the 2025 bounds in Rev. Proc. 2024-40 TABLE 2; rates unchanged. The 12\u219222 %, 24\u219232 % and 32\u219235 % bounds are $67,450 / $201,750 / $256,200 as published \u2014 $25 apart from Single at two points, as in 2025 (250,500 vs 250,525); LifeByNumbers app.py had used 67,400 / 201,775 / 256,225."
+    "note": "Rev. Proc. 2025-32 § 3.01 TABLE 2 (Heads of households), tax year 2026: bracket upper bounds moved from the 2025 bounds in Rev. Proc. 2024-40 TABLE 2; rates unchanged. The 12→22 %, 24→32 % and 32→35 % bounds are $67,450 / $201,750 / $256,200 as published — $25 apart from Single at two points, as in 2025 (250,500 vs 250,525); LifeByNumbers app.py had used 67,400 / 201,775 / 256,225."
   },
   {
     "area": "us-rates",
     "key": "income-tax/brackets-married-separate",
-    "label": "Rate schedule \u2014 Married filing separately, \u00a7 1(j)(2)(D) \u2014 bracket upper bounds",
+    "label": "Rate schedule — Married filing separately, § 1(j)(2)(D) — bracket upper bounds",
     "from": [
       11925,
       48475,
@@ -947,7 +947,7 @@
     "effectiveFrom": "2026-01-01",
     "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
     "verifiedDate": "2026-10-03",
-    "note": "Rev. Proc. 2025-32 \u00a7 3.01 TABLE 4 (Married filing separately), tax year 2026: as the Single schedule up to $256,225, then 35 % to $384,350 (2025: $375,800, Rev. Proc. 2024-40 TABLE 4); rates unchanged. Announced in IR-2025-103."
+    "note": "Rev. Proc. 2025-32 § 3.01 TABLE 4 (Married filing separately), tax year 2026: as the Single schedule up to $256,225, then 35 % to $384,350 (2025: $375,800, Rev. Proc. 2024-40 TABLE 4); rates unchanged. Announced in IR-2025-103."
   },
   {
     "area": "uk-vehicle-rules",
@@ -966,7 +966,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/vehicle-tax-rate-tables",
     "verifiedDate": "2026-10-04",
-    "note": "First-year rate, 1 to 50g/km: \u00a3110 \u2192 \u00a3115 (petrol, RDE2 diesel, alternative fuel and zero emission) and \u00a3130 \u2192 \u00a3135 (all other diesel) from 2026-04-01 (gov.uk/vehicle-tax-rate-tables row: 1 to 50g/km | \u00a3115 | \u00a3135)",
+    "note": "First-year rate, 1 to 50g/km: £110 → £115 (petrol, RDE2 diesel, alternative fuel and zero emission) and £130 → £135 (all other diesel) from 2026-04-01 (gov.uk/vehicle-tax-rate-tables row: 1 to 50g/km | £115 | £135)",
     "taxYear": "2026-27"
   },
   {
@@ -986,7 +986,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/vehicle-tax-rate-tables",
     "verifiedDate": "2026-10-04",
-    "note": "First-year rate, 51 to 75g/km: \u00a3130 \u2192 \u00a3135 (petrol, RDE2 diesel, alternative fuel and zero emission) and \u00a3270 \u2192 \u00a3280 (all other diesel) from 2026-04-01 (gov.uk/vehicle-tax-rate-tables row: 51 to 75g/km | \u00a3135 | \u00a3280)",
+    "note": "First-year rate, 51 to 75g/km: £130 → £135 (petrol, RDE2 diesel, alternative fuel and zero emission) and £270 → £280 (all other diesel) from 2026-04-01 (gov.uk/vehicle-tax-rate-tables row: 51 to 75g/km | £135 | £280)",
     "taxYear": "2026-27"
   },
   {
@@ -1006,7 +1006,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/vehicle-tax-rate-tables",
     "verifiedDate": "2026-10-04",
-    "note": "First-year rate, 76 to 90g/km: \u00a3270 \u2192 \u00a3280 (petrol, RDE2 diesel, alternative fuel and zero emission) and \u00a3350 \u2192 \u00a3365 (all other diesel) from 2026-04-01 (gov.uk/vehicle-tax-rate-tables row: 76 to 90g/km | \u00a3280 | \u00a3365)",
+    "note": "First-year rate, 76 to 90g/km: £270 → £280 (petrol, RDE2 diesel, alternative fuel and zero emission) and £350 → £365 (all other diesel) from 2026-04-01 (gov.uk/vehicle-tax-rate-tables row: 76 to 90g/km | £280 | £365)",
     "taxYear": "2026-27"
   },
   {
@@ -1026,7 +1026,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/vehicle-tax-rate-tables",
     "verifiedDate": "2026-10-04",
-    "note": "First-year rate, 91 to 100g/km: \u00a3350 \u2192 \u00a3365 (petrol, RDE2 diesel, alternative fuel and zero emission) and \u00a3390 \u2192 \u00a3405 (all other diesel) from 2026-04-01 (gov.uk/vehicle-tax-rate-tables row: 91 to 100g/km | \u00a3365 | \u00a3405)",
+    "note": "First-year rate, 91 to 100g/km: £350 → £365 (petrol, RDE2 diesel, alternative fuel and zero emission) and £390 → £405 (all other diesel) from 2026-04-01 (gov.uk/vehicle-tax-rate-tables row: 91 to 100g/km | £365 | £405)",
     "taxYear": "2026-27"
   },
   {
@@ -1046,7 +1046,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/vehicle-tax-rate-tables",
     "verifiedDate": "2026-10-04",
-    "note": "First-year rate, 101 to 110g/km: \u00a3390 \u2192 \u00a3405 (petrol, RDE2 diesel, alternative fuel and zero emission) and \u00a3440 \u2192 \u00a3455 (all other diesel) from 2026-04-01 (gov.uk/vehicle-tax-rate-tables row: 101 to 110g/km | \u00a3405 | \u00a3455)",
+    "note": "First-year rate, 101 to 110g/km: £390 → £405 (petrol, RDE2 diesel, alternative fuel and zero emission) and £440 → £455 (all other diesel) from 2026-04-01 (gov.uk/vehicle-tax-rate-tables row: 101 to 110g/km | £405 | £455)",
     "taxYear": "2026-27"
   },
   {
@@ -1066,7 +1066,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/vehicle-tax-rate-tables",
     "verifiedDate": "2026-10-04",
-    "note": "First-year rate, 111 to 130g/km: \u00a3440 \u2192 \u00a3455 (petrol, RDE2 diesel, alternative fuel and zero emission) and \u00a3540 \u2192 \u00a3560 (all other diesel) from 2026-04-01 (gov.uk/vehicle-tax-rate-tables row: 111 to 130g/km | \u00a3455 | \u00a3560)",
+    "note": "First-year rate, 111 to 130g/km: £440 → £455 (petrol, RDE2 diesel, alternative fuel and zero emission) and £540 → £560 (all other diesel) from 2026-04-01 (gov.uk/vehicle-tax-rate-tables row: 111 to 130g/km | £455 | £560)",
     "taxYear": "2026-27"
   },
   {
@@ -1086,7 +1086,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/vehicle-tax-rate-tables",
     "verifiedDate": "2026-10-04",
-    "note": "First-year rate, 131 to 150g/km: \u00a3540 \u2192 \u00a3560 (petrol, RDE2 diesel, alternative fuel and zero emission) and \u00a31,360 \u2192 \u00a31,410 (all other diesel) from 2026-04-01 (gov.uk/vehicle-tax-rate-tables row: 131 to 150g/km | \u00a3560 | \u00a31,410)",
+    "note": "First-year rate, 131 to 150g/km: £540 → £560 (petrol, RDE2 diesel, alternative fuel and zero emission) and £1,360 → £1,410 (all other diesel) from 2026-04-01 (gov.uk/vehicle-tax-rate-tables row: 131 to 150g/km | £560 | £1,410)",
     "taxYear": "2026-27"
   },
   {
@@ -1106,7 +1106,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/vehicle-tax-rate-tables",
     "verifiedDate": "2026-10-04",
-    "note": "First-year rate, 151 to 170g/km: \u00a31,360 \u2192 \u00a31,410 (petrol, RDE2 diesel, alternative fuel and zero emission) and \u00a32,190 \u2192 \u00a32,270 (all other diesel) from 2026-04-01 (gov.uk/vehicle-tax-rate-tables row: 151 to 170g/km | \u00a31,410 | \u00a32,270)",
+    "note": "First-year rate, 151 to 170g/km: £1,360 → £1,410 (petrol, RDE2 diesel, alternative fuel and zero emission) and £2,190 → £2,270 (all other diesel) from 2026-04-01 (gov.uk/vehicle-tax-rate-tables row: 151 to 170g/km | £1,410 | £2,270)",
     "taxYear": "2026-27"
   },
   {
@@ -1126,7 +1126,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/vehicle-tax-rate-tables",
     "verifiedDate": "2026-10-04",
-    "note": "First-year rate, 171 to 190g/km: \u00a32,190 \u2192 \u00a32,270 (petrol, RDE2 diesel, alternative fuel and zero emission) and \u00a33,300 \u2192 \u00a33,420 (all other diesel) from 2026-04-01 (gov.uk/vehicle-tax-rate-tables row: 171 to 190g/km | \u00a32,270 | \u00a33,420)",
+    "note": "First-year rate, 171 to 190g/km: £2,190 → £2,270 (petrol, RDE2 diesel, alternative fuel and zero emission) and £3,300 → £3,420 (all other diesel) from 2026-04-01 (gov.uk/vehicle-tax-rate-tables row: 171 to 190g/km | £2,270 | £3,420)",
     "taxYear": "2026-27"
   },
   {
@@ -1146,7 +1146,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/vehicle-tax-rate-tables",
     "verifiedDate": "2026-10-04",
-    "note": "First-year rate, 191 to 225g/km: \u00a33,300 \u2192 \u00a33,420 (petrol, RDE2 diesel, alternative fuel and zero emission) and \u00a34,680 \u2192 \u00a34,850 (all other diesel) from 2026-04-01 (gov.uk/vehicle-tax-rate-tables row: 191 to 225g/km | \u00a33,420 | \u00a34,850)",
+    "note": "First-year rate, 191 to 225g/km: £3,300 → £3,420 (petrol, RDE2 diesel, alternative fuel and zero emission) and £4,680 → £4,850 (all other diesel) from 2026-04-01 (gov.uk/vehicle-tax-rate-tables row: 191 to 225g/km | £3,420 | £4,850)",
     "taxYear": "2026-27"
   },
   {
@@ -1166,7 +1166,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/vehicle-tax-rate-tables",
     "verifiedDate": "2026-10-04",
-    "note": "First-year rate, 226 to 255g/km: \u00a34,680 \u2192 \u00a34,850 (petrol, RDE2 diesel, alternative fuel and zero emission) and \u00a35,490 \u2192 \u00a35,690 (all other diesel) from 2026-04-01 (gov.uk/vehicle-tax-rate-tables row: 226 to 255g/km | \u00a34,850 | \u00a35,690)",
+    "note": "First-year rate, 226 to 255g/km: £4,680 → £4,850 (petrol, RDE2 diesel, alternative fuel and zero emission) and £5,490 → £5,690 (all other diesel) from 2026-04-01 (gov.uk/vehicle-tax-rate-tables row: 226 to 255g/km | £4,850 | £5,690)",
     "taxYear": "2026-27"
   },
   {
@@ -1186,7 +1186,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/vehicle-tax-rate-tables",
     "verifiedDate": "2026-10-04",
-    "note": "First-year rate, Over 255g/km: \u00a35,490 \u2192 \u00a35,690 (petrol, RDE2 diesel, alternative fuel and zero emission) and \u00a35,490 \u2192 \u00a35,690 (all other diesel) from 2026-04-01 (gov.uk/vehicle-tax-rate-tables row: Over 255g/km | \u00a35,690 | \u00a35,690)",
+    "note": "First-year rate, Over 255g/km: £5,490 → £5,690 (petrol, RDE2 diesel, alternative fuel and zero emission) and £5,490 → £5,690 (all other diesel) from 2026-04-01 (gov.uk/vehicle-tax-rate-tables row: Over 255g/km | £5,690 | £5,690)",
     "taxYear": "2026-27"
   },
   {
@@ -1199,7 +1199,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/vehicle-tax-rate-tables",
     "verifiedDate": "2026-10-04",
-    "note": "Standard rate, single 12 month payment: 195 \u2192 200 from 2026-04-01 (Rates for second tax payment onwards \u2026 Petrol or diesel, Electric & Alternative Fuel | Single 12 month payment | \u00a3200)",
+    "note": "Standard rate, single 12 month payment: 195 → 200 from 2026-04-01 (Rates for second tax payment onwards … Petrol or diesel, Electric & Alternative Fuel | Single 12 month payment | £200)",
     "taxYear": "2026-27"
   },
   {
@@ -1212,7 +1212,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/vehicle-tax-rate-tables",
     "verifiedDate": "2026-10-04",
-    "note": "Standard rate, single 12 month payment by Direct Debit: 195 \u2192 200 from 2026-04-01 (Single 12 month payment by Direct Debit | \u00a3200)",
+    "note": "Standard rate, single 12 month payment by Direct Debit: 195 → 200 from 2026-04-01 (Single 12 month payment by Direct Debit | £200)",
     "taxYear": "2026-27"
   },
   {
@@ -1225,7 +1225,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/vehicle-tax-rate-tables",
     "verifiedDate": "2026-10-04",
-    "note": "Standard rate, total of 12 monthly payments by Direct Debit: 204.75 \u2192 210 from 2026-04-01 (Total of 12 monthly payments by Direct Debit | \u00a3210)",
+    "note": "Standard rate, total of 12 monthly payments by Direct Debit: 204.75 → 210 from 2026-04-01 (Total of 12 monthly payments by Direct Debit | £210)",
     "taxYear": "2026-27"
   },
   {
@@ -1238,7 +1238,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/vehicle-tax-rate-tables",
     "verifiedDate": "2026-10-04",
-    "note": "Standard rate, single 6 month payment: 107.25 \u2192 110 from 2026-04-01 (Single 6 month payment | \u00a3110)",
+    "note": "Standard rate, single 6 month payment: 107.25 → 110 from 2026-04-01 (Single 6 month payment | £110)",
     "taxYear": "2026-27"
   },
   {
@@ -1251,7 +1251,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/vehicle-tax-rate-tables",
     "verifiedDate": "2026-10-04",
-    "note": "Standard rate, single 6 month payment by Direct Debit: 102.38 \u2192 105 from 2026-04-01 (Single 6 month payment by Direct Debit | \u00a3105)",
+    "note": "Standard rate, single 6 month payment by Direct Debit: 102.38 → 105 from 2026-04-01 (Single 6 month payment by Direct Debit | £105)",
     "taxYear": "2026-27"
   },
   {
@@ -1264,7 +1264,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/government/publications/vehicle-excise-duty-for-expensive-car-supplement-threshold-increase-for-zero-emission-vehicles/increase-in-the-vehicle-excise-duty-expensive-car-supplement-threshold-for-zero-emission-cars",
     "verifiedDate": "2026-10-04",
-    "note": "List price threshold for zero-emission (electric) cars and motorhomes registered on or after 1 April 2025: 40000 \u2192 50000 from 2026-04-01 (this measure increases the VED (Vehicle Excise Duty) Expensive Car Supplement (ECS) threshold for zero-emission cars, from its current level of \u00a340,000 to \u00a350,000. \u2026 The change will have effect from 1 April 2026.)",
+    "note": "List price threshold for zero-emission (electric) cars and motorhomes registered on or after 1 April 2025: 40000 → 50000 from 2026-04-01 (this measure increases the VED (Vehicle Excise Duty) Expensive Car Supplement (ECS) threshold for zero-emission cars, from its current level of £40,000 to £50,000. … The change will have effect from 1 April 2026.)",
     "taxYear": "2026-27"
   },
   {
@@ -1277,7 +1277,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/vehicle-tax-rate-tables",
     "verifiedDate": "2026-10-04",
-    "note": "Expensive car supplement, annual amount on top of the standard rate: 425 \u2192 440 from 2026-04-01 (You have to pay an extra \u00a3440 a year if you have any of the following: a car or motorhome with a list price of more than \u00a340,000; an electric car or motorhome with a list price of more than \u00a350,000)",
+    "note": "Expensive car supplement, annual amount on top of the standard rate: 425 → 440 from 2026-04-01 (You have to pay an extra £440 a year if you have any of the following: a car or motorhome with a list price of more than £40,000; an electric car or motorhome with a list price of more than £50,000)",
     "taxYear": "2026-27"
   },
   {
@@ -1290,7 +1290,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/vehicle-tax-rate-tables",
     "verifiedDate": "2026-10-04",
-    "note": "Standard rate plus supplement, single 12 month payment: 620 \u2192 640 from 2026-04-01 (Petrol or diesel, Electric & Alternative Fuel | Single 12 month payment | \u00a3640)",
+    "note": "Standard rate plus supplement, single 12 month payment: 620 → 640 from 2026-04-01 (Petrol or diesel, Electric & Alternative Fuel | Single 12 month payment | £640)",
     "taxYear": "2026-27"
   },
   {
@@ -1303,7 +1303,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/vehicle-tax-rate-tables",
     "verifiedDate": "2026-10-04",
-    "note": "Standard rate plus supplement, total of 12 monthly payments by Direct Debit: 651 \u2192 672 from 2026-04-01 (Total of 12 monthly payments by Direct Debit | \u00a3672)",
+    "note": "Standard rate plus supplement, total of 12 monthly payments by Direct Debit: 651 → 672 from 2026-04-01 (Total of 12 monthly payments by Direct Debit | £672)",
     "taxYear": "2026-27"
   },
   {
@@ -1316,7 +1316,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/vehicle-tax-rate-tables",
     "verifiedDate": "2026-10-04",
-    "note": "Standard rate plus supplement, single 6 month payment: 341 \u2192 352 from 2026-04-01 (Single 6 month payment | \u00a3352)",
+    "note": "Standard rate plus supplement, single 6 month payment: 341 → 352 from 2026-04-01 (Single 6 month payment | £352)",
     "taxYear": "2026-27"
   },
   {
@@ -1329,7 +1329,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/vehicle-tax-rate-tables",
     "verifiedDate": "2026-10-04",
-    "note": "Standard rate plus supplement, single 6 month payment by Direct Debit: 325.5 \u2192 336 from 2026-04-01 (Single 6 month payment by Direct Debit | \u00a3336)",
+    "note": "Standard rate plus supplement, single 6 month payment by Direct Debit: 325.5 → 336 from 2026-04-01 (Single 6 month payment by Direct Debit | £336)",
     "taxYear": "2026-27"
   },
   {
@@ -1343,7 +1343,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-registered-on-or-after-1-march-2001",
     "verifiedDate": "2026-10-04",
-    "note": "Band D: 121 to 130g/km: 165 \u2192 170 from 2026-04-01 (D: 121 to 130g/km | \u00a3170 | \u00a3170 | \u2026)",
+    "note": "Band D: 121 to 130g/km: 165 → 170 from 2026-04-01 (D: 121 to 130g/km | £170 | £170 | …)",
     "taxYear": "2026-27"
   },
   {
@@ -1357,7 +1357,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-registered-on-or-after-1-march-2001",
     "verifiedDate": "2026-10-04",
-    "note": "Band E: 131 to 140g/km: 195 \u2192 200 from 2026-04-01 (E: 131 to 140g/km | \u00a3200 | \u00a3200 | \u2026)",
+    "note": "Band E: 131 to 140g/km: 195 → 200 from 2026-04-01 (E: 131 to 140g/km | £200 | £200 | …)",
     "taxYear": "2026-27"
   },
   {
@@ -1371,7 +1371,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-registered-on-or-after-1-march-2001",
     "verifiedDate": "2026-10-04",
-    "note": "Band F: 141 to 150g/km: 215 \u2192 225 from 2026-04-01 (F: 141 to 150g/km | \u00a3225 | \u00a3225 | \u2026)",
+    "note": "Band F: 141 to 150g/km: 215 → 225 from 2026-04-01 (F: 141 to 150g/km | £225 | £225 | …)",
     "taxYear": "2026-27"
   },
   {
@@ -1385,7 +1385,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-registered-on-or-after-1-march-2001",
     "verifiedDate": "2026-10-04",
-    "note": "Band G: 151 to 165g/km: 265 \u2192 275 from 2026-04-01 (G: 151 to 165g/km | \u00a3275 | \u00a3275 | \u2026)",
+    "note": "Band G: 151 to 165g/km: 265 → 275 from 2026-04-01 (G: 151 to 165g/km | £275 | £275 | …)",
     "taxYear": "2026-27"
   },
   {
@@ -1399,7 +1399,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-registered-on-or-after-1-march-2001",
     "verifiedDate": "2026-10-04",
-    "note": "Band H: 166 to 175g/km: 315 \u2192 325 from 2026-04-01 (H: 166 to 175g/km | \u00a3325 | \u00a3325 | \u2026)",
+    "note": "Band H: 166 to 175g/km: 315 → 325 from 2026-04-01 (H: 166 to 175g/km | £325 | £325 | …)",
     "taxYear": "2026-27"
   },
   {
@@ -1413,7 +1413,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-registered-on-or-after-1-march-2001",
     "verifiedDate": "2026-10-04",
-    "note": "Band I: 176 to 185g/km: 345 \u2192 360 from 2026-04-01 (I: 176 to 185g/km | \u00a3360 | \u00a3360 | \u2026)",
+    "note": "Band I: 176 to 185g/km: 345 → 360 from 2026-04-01 (I: 176 to 185g/km | £360 | £360 | …)",
     "taxYear": "2026-27"
   },
   {
@@ -1427,7 +1427,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-registered-on-or-after-1-march-2001",
     "verifiedDate": "2026-10-04",
-    "note": "Band J: 186 to 200g/km: 395 \u2192 410 from 2026-04-01 (J: 186 to 200g/km | \u00a3410 | \u00a3410 | \u2026)",
+    "note": "Band J: 186 to 200g/km: 395 → 410 from 2026-04-01 (J: 186 to 200g/km | £410 | £410 | …)",
     "taxYear": "2026-27"
   },
   {
@@ -1441,7 +1441,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-registered-on-or-after-1-march-2001",
     "verifiedDate": "2026-10-04",
-    "note": "Band K: 201 to 225g/km: 430 \u2192 445 from 2026-04-01 (K*: 201 to 225g/km | \u00a3445 | \u00a3445 | \u2026)",
+    "note": "Band K: 201 to 225g/km: 430 → 445 from 2026-04-01 (K*: 201 to 225g/km | £445 | £445 | …)",
     "taxYear": "2026-27"
   },
   {
@@ -1455,7 +1455,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-registered-on-or-after-1-march-2001",
     "verifiedDate": "2026-10-04",
-    "note": "Band L: 226 to 255g/km: 735 \u2192 760 from 2026-04-01 (L: 226 to 255g/km | \u00a3760 | \u00a3760 | \u2026)",
+    "note": "Band L: 226 to 255g/km: 735 → 760 from 2026-04-01 (L: 226 to 255g/km | £760 | £760 | …)",
     "taxYear": "2026-27"
   },
   {
@@ -1469,7 +1469,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-registered-on-or-after-1-march-2001",
     "verifiedDate": "2026-10-04",
-    "note": "Band M: Over 255g/km: 760 \u2192 790 from 2026-04-01 (M: Over 255g/km | \u00a3790 | \u00a3790 | \u2026)",
+    "note": "Band M: Over 255g/km: 760 → 790 from 2026-04-01 (M: Over 255g/km | £790 | £790 | …)",
     "taxYear": "2026-27"
   },
   {
@@ -1483,7 +1483,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-and-light-goods-vehicles-registered-before-1-march-2001",
     "verifiedDate": "2026-10-04",
-    "note": "Engine not over 1549cc: 220 \u2192 230 from 2026-04-01 (Not over 1549 | \u00a3230 | \u00a3230 | \u00a3241.50 | \u00a3126.50 | \u00a3120.75)",
+    "note": "Engine not over 1549cc: 220 → 230 from 2026-04-01 (Not over 1549 | £230 | £230 | £241.50 | £126.50 | £120.75)",
     "taxYear": "2026-27"
   },
   {
@@ -1497,7 +1497,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-and-light-goods-vehicles-registered-before-1-march-2001",
     "verifiedDate": "2026-10-04",
-    "note": "Engine over 1549cc: 360 \u2192 375 from 2026-04-01 (Over 1549 | \u00a3375 | \u00a3375 | \u00a3393.75 | \u00a3206.25 | \u00a3196.88)",
+    "note": "Engine over 1549cc: 360 → 375 from 2026-04-01 (Over 1549 | £375 | £375 | £393.75 | £206.25 | £196.88)",
     "taxYear": "2026-27"
   },
   {
@@ -1510,7 +1510,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/vehicle-tax-rate-tables",
     "verifiedDate": "2026-10-04",
-    "note": "Standard rate from the second year, zero-emission car: 195 \u2192 200 from 2026-04-01 (Petrol or diesel, Electric & Alternative Fuel | Single 12 month payment | \u00a3200)",
+    "note": "Standard rate from the second year, zero-emission car: 195 → 200 from 2026-04-01 (Petrol or diesel, Electric & Alternative Fuel | Single 12 month payment | £200)",
     "taxYear": "2026-27"
   },
   {
@@ -1523,7 +1523,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/vehicle-tax-rate-tables",
     "verifiedDate": "2026-10-04",
-    "note": "Expensive car supplement list price threshold for zero-emission cars (registered on or after 1 April 2025): 40000 \u2192 50000 from 2026-04-01 (an electric car or motorhome with a list price of more than \u00a350,000 \u2026 This also applies to electric vehicles registered between 1 April 2025 and 31 March 2026.)",
+    "note": "Expensive car supplement list price threshold for zero-emission cars (registered on or after 1 April 2025): 40000 → 50000 from 2026-04-01 (an electric car or motorhome with a list price of more than £50,000 … This also applies to electric vehicles registered between 1 April 2025 and 31 March 2026.)",
     "taxYear": "2026-27"
   },
   {
@@ -1536,7 +1536,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/vehicle-tax-rate-tables",
     "verifiedDate": "2026-10-04",
-    "note": "Expensive car supplement, annual amount (zero-emission car over the threshold): 425 \u2192 440 from 2026-04-01 (You have to pay an extra \u00a3440 a year if you have any of the following: \u2026 an electric car or motorhome with a list price of more than \u00a350,000)",
+    "note": "Expensive car supplement, annual amount (zero-emission car over the threshold): 425 → 440 from 2026-04-01 (You have to pay an extra £440 a year if you have any of the following: … an electric car or motorhome with a list price of more than £50,000)",
     "taxYear": "2026-27"
   },
   {
@@ -1549,7 +1549,7 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/historic-vehicles/vehicles-exempt-from-vehicle-tax",
     "verifiedDate": "2026-10-04",
-    "note": "Vehicle tax exemption: built before: 1985-01-01 \u2192 1986-01-01 from 2026-04-01 (You can apply to stop paying for vehicle tax from 1 April 2026 if your vehicle was built before 1 January 1986. You must tax your vehicle even if you do not have to pay.)",
+    "note": "Vehicle tax exemption: built before: 1985-01-01 → 1986-01-01 from 2026-04-01 (You can apply to stop paying for vehicle tax from 1 April 2026 if your vehicle was built before 1 January 1986. You must tax your vehicle even if you do not have to pay.)",
     "taxYear": "2026-27"
   },
   {
@@ -1562,20 +1562,20 @@
     "effectiveFrom": "2026-04-01",
     "source": "https://www.gov.uk/historic-vehicles/vehicles-exempt-from-vehicle-tax",
     "verifiedDate": "2026-10-04",
-    "note": "Vehicle tax exemption when the build date is unknown: first registered before: 1985-01-08 \u2192 1986-01-08 from 2026-04-01 (If you do not know when your vehicle was built, but it was first registered before 8 January 1986, you can still apply to stop paying vehicle tax.)",
+    "note": "Vehicle tax exemption when the build date is unknown: first registered before: 1985-01-08 → 1986-01-08 from 2026-04-01 (If you do not know when your vehicle was built, but it was first registered before 8 January 1986, you can still apply to stop paying vehicle tax.)",
     "taxYear": "2026-27"
   },
   {
     "area": "uk-exam-dates",
     "key": "results/jcq-a-level-results-day",
-    "label": "A-level (GCE) results day \u2014 release of results to candidates",
+    "label": "A-level (GCE) results day — release of results to candidates",
     "from": "2026-08-13",
     "to": "2027-08-12",
     "unit": "date",
     "effectiveFrom": "2027-08-12",
     "source": "https://www.jcq.org.uk/wp-content/uploads/sites/2/2026/05/Key_Dates_June2027_FINAL.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "A-level (GCE) results day \u2014 release of results to candidates: 2026-08-13 \u2192 2027-08-12 (JCQ, Key dates in the examination cycle \u2014 June 2027 examination series (\u00a9JCQCIC 2026), p. 3; previous from JCQ, Key dates in the examination cycle \u2014 June 2026 examination series (\u00a9JCQCIC 2025), p. 3)",
+    "note": "A-level (GCE) results day — release of results to candidates: 2026-08-13 → 2027-08-12 (JCQ, Key dates in the examination cycle — June 2027 examination series (©JCQCIC 2026), p. 3; previous from JCQ, Key dates in the examination cycle — June 2026 examination series (©JCQCIC 2025), p. 3)",
     "board": "jcq",
     "qualification": "a-level",
     "series": "summer-2027"
@@ -1590,7 +1590,7 @@
     "effectiveFrom": "2027-08-11",
     "source": "https://www.jcq.org.uk/wp-content/uploads/sites/2/2026/05/Key_Dates_June2027_FINAL.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "A-level (GCE) restricted release of results to centres only: 2026-08-12 \u2192 2027-08-11 (JCQ, Key dates in the examination cycle \u2014 June 2027 examination series (\u00a9JCQCIC 2026), p. 3; previous from JCQ, Key dates in the examination cycle \u2014 June 2026 examination series (\u00a9JCQCIC 2025), p. 3)",
+    "note": "A-level (GCE) restricted release of results to centres only: 2026-08-12 → 2027-08-11 (JCQ, Key dates in the examination cycle — June 2027 examination series (©JCQCIC 2026), p. 3; previous from JCQ, Key dates in the examination cycle — June 2026 examination series (©JCQCIC 2025), p. 3)",
     "board": "jcq",
     "qualification": "a-level",
     "series": "summer-2027"
@@ -1598,14 +1598,14 @@
   {
     "area": "uk-exam-dates",
     "key": "results/jcq-gcse-results-day",
-    "label": "GCSE results day \u2014 release of results to candidates",
+    "label": "GCSE results day — release of results to candidates",
     "from": "2026-08-20",
     "to": "2027-08-19",
     "unit": "date",
     "effectiveFrom": "2027-08-19",
     "source": "https://www.jcq.org.uk/wp-content/uploads/sites/2/2026/05/Key_Dates_June2027_FINAL.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "GCSE results day \u2014 release of results to candidates: 2026-08-20 \u2192 2027-08-19 (JCQ, Key dates in the examination cycle \u2014 June 2027 examination series (\u00a9JCQCIC 2026), p. 3; previous from JCQ, Key dates in the examination cycle \u2014 June 2026 examination series (\u00a9JCQCIC 2025), p. 3)",
+    "note": "GCSE results day — release of results to candidates: 2026-08-20 → 2027-08-19 (JCQ, Key dates in the examination cycle — June 2027 examination series (©JCQCIC 2026), p. 3; previous from JCQ, Key dates in the examination cycle — June 2026 examination series (©JCQCIC 2025), p. 3)",
     "board": "jcq",
     "qualification": "gcse",
     "series": "summer-2027"
@@ -1620,7 +1620,7 @@
     "effectiveFrom": "2027-08-18",
     "source": "https://www.jcq.org.uk/wp-content/uploads/sites/2/2026/05/Key_Dates_June2027_FINAL.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "GCSE restricted release of results to centres only: 2026-08-19 \u2192 2027-08-18 (JCQ, Key dates in the examination cycle \u2014 June 2027 examination series (\u00a9JCQCIC 2026), p. 3; previous from JCQ, Key dates in the examination cycle \u2014 June 2026 examination series (\u00a9JCQCIC 2025), p. 3)",
+    "note": "GCSE restricted release of results to centres only: 2026-08-19 → 2027-08-18 (JCQ, Key dates in the examination cycle — June 2027 examination series (©JCQCIC 2026), p. 3; previous from JCQ, Key dates in the examination cycle — June 2026 examination series (©JCQCIC 2025), p. 3)",
     "board": "jcq",
     "qualification": "gcse",
     "series": "summer-2027"
@@ -1628,14 +1628,14 @@
   {
     "area": "uk-exam-dates",
     "key": "results/sqa-results-day",
-    "label": "Scotland (Qualifications Scotland / SQA) \u2014 National Qualifications results day",
+    "label": "Scotland (Qualifications Scotland / SQA) — National Qualifications results day",
     "from": "2026-08-04",
     "to": "2027-08-10",
     "unit": "date",
     "effectiveFrom": "2027-08-10",
     "source": "https://www.sqa.org.uk/sqa/41324.html",
     "verifiedDate": "2026-10-04",
-    "note": "Scotland (Qualifications Scotland / SQA) \u2014 National Qualifications results day: 2026-08-04 \u2192 2027-08-10 (Qualifications Scotland, My Qualifications Scotland \u2014 get results by text and email; previous from Qualifications Scotland, Your results 2026 \u2014 what you need to know (PDF))",
+    "note": "Scotland (Qualifications Scotland / SQA) — National Qualifications results day: 2026-08-04 → 2027-08-10 (Qualifications Scotland, My Qualifications Scotland — get results by text and email; previous from Qualifications Scotland, Your results 2026 — what you need to know (PDF))",
     "board": "sqa",
     "qualification": "scottish-national-qualifications",
     "series": "summer-2027"
@@ -1650,7 +1650,7 @@
     "effectiveFrom": "2027-05-10",
     "source": "https://www.jcq.org.uk/wp-content/uploads/sites/2/2026/05/Key_Dates_June2027_FINAL.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "First examination on the JCQ common timetable (GCSE and GCE): 2026-05-07 \u2192 2027-05-10 (JCQ, Key dates in the examination cycle \u2014 June 2027 examination series (\u00a9JCQCIC 2026), p. 3; previous from JCQ, Key dates in the examination cycle \u2014 June 2026 examination series (\u00a9JCQCIC 2025), p. 3)",
+    "note": "First examination on the JCQ common timetable (GCSE and GCE): 2026-05-07 → 2027-05-10 (JCQ, Key dates in the examination cycle — June 2027 examination series (©JCQCIC 2026), p. 3; previous from JCQ, Key dates in the examination cycle — June 2026 examination series (©JCQCIC 2025), p. 3)",
     "board": "jcq",
     "qualification": "gcse-and-a-level",
     "series": "summer-2027"
@@ -1665,7 +1665,7 @@
     "effectiveFrom": "2027-06-18",
     "source": "https://www.jcq.org.uk/wp-content/uploads/sites/2/2026/05/Key_Dates_June2027_FINAL.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "Final GCSE examination on the JCQ common timetable: 2026-06-17 \u2192 2027-06-18 (JCQ, Key dates in the examination cycle \u2014 June 2027 examination series (\u00a9JCQCIC 2026), p. 3; previous from JCQ, Key dates in the examination cycle \u2014 June 2026 examination series (\u00a9JCQCIC 2025), p. 3)",
+    "note": "Final GCSE examination on the JCQ common timetable: 2026-06-17 → 2027-06-18 (JCQ, Key dates in the examination cycle — June 2027 examination series (©JCQCIC 2026), p. 3; previous from JCQ, Key dates in the examination cycle — June 2026 examination series (©JCQCIC 2025), p. 3)",
     "board": "jcq",
     "qualification": "gcse",
     "series": "summer-2027"
@@ -1680,7 +1680,7 @@
     "effectiveFrom": "2027-06-22",
     "source": "https://www.jcq.org.uk/wp-content/uploads/sites/2/2026/05/Key_Dates_June2027_FINAL.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "Final GCE (AS/A-level) examination on the JCQ common timetable: 2026-06-23 \u2192 2027-06-22 (JCQ, Key dates in the examination cycle \u2014 June 2027 examination series (\u00a9JCQCIC 2026), p. 3; previous from JCQ, Key dates in the examination cycle \u2014 June 2026 examination series (\u00a9JCQCIC 2025), p. 3)",
+    "note": "Final GCE (AS/A-level) examination on the JCQ common timetable: 2026-06-23 → 2027-06-22 (JCQ, Key dates in the examination cycle — June 2027 examination series (©JCQCIC 2026), p. 3; previous from JCQ, Key dates in the examination cycle — June 2026 examination series (©JCQCIC 2025), p. 3)",
     "board": "jcq",
     "qualification": "a-level",
     "series": "summer-2027"
@@ -1695,7 +1695,7 @@
     "effectiveFrom": "2027-06-23",
     "source": "https://www.jcq.org.uk/wp-content/uploads/sites/2/2026/05/Key_Dates_June2027_FINAL.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "Contingency day (candidates must remain available): 2026-06-24 \u2192 2027-06-23 (JCQ, Key dates in the examination cycle \u2014 June 2027 examination series (\u00a9JCQCIC 2026), p. 3; previous from JCQ, Key dates in the examination cycle \u2014 June 2026 examination series (\u00a9JCQCIC 2025), p. 3)",
+    "note": "Contingency day (candidates must remain available): 2026-06-24 → 2027-06-23 (JCQ, Key dates in the examination cycle — June 2027 examination series (©JCQCIC 2026), p. 3; previous from JCQ, Key dates in the examination cycle — June 2026 examination series (©JCQCIC 2025), p. 3)",
     "board": "jcq",
     "qualification": "gcse-and-a-level",
     "series": "summer-2027"
@@ -1710,7 +1710,7 @@
     "effectiveFrom": "2027-05-14",
     "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8572d66498f4d624b9c6ecb4abf5f0a01aff69f3.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "AQA GCSE Mathematics 8300 Paper 1 (non-calculator), F and H: 2026-05-14 \u2192 2027-05-14 (AQA, Exam timetable May/June 2027 \u2014 GCSE, AQA Certificates, ELC and Projects (Version 1.1); previous from AQA, Exam timetable May/June 2026 \u2014 GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0))",
+    "note": "AQA GCSE Mathematics 8300 Paper 1 (non-calculator), F and H: 2026-05-14 → 2027-05-14 (AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.1); previous from AQA, Exam timetable May/June 2026 — GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0))",
     "board": "aqa",
     "qualification": "gcse",
     "series": "summer-2027"
@@ -1725,7 +1725,7 @@
     "effectiveFrom": "2027-05-27",
     "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8572d66498f4d624b9c6ecb4abf5f0a01aff69f3.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "AQA GCSE Mathematics 8300 Paper 2 (calculator), F and H: 2026-06-03 \u2192 2027-05-27 (AQA, Exam timetable May/June 2027 \u2014 GCSE, AQA Certificates, ELC and Projects (Version 1.1); previous from AQA, Exam timetable May/June 2026 \u2014 GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0))",
+    "note": "AQA GCSE Mathematics 8300 Paper 2 (calculator), F and H: 2026-06-03 → 2027-05-27 (AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.1); previous from AQA, Exam timetable May/June 2026 — GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0))",
     "board": "aqa",
     "qualification": "gcse",
     "series": "summer-2027"
@@ -1740,7 +1740,7 @@
     "effectiveFrom": "2027-06-14",
     "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8572d66498f4d624b9c6ecb4abf5f0a01aff69f3.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "AQA GCSE Mathematics 8300 Paper 3 (calculator), F and H: 2026-06-10 \u2192 2027-06-14 (AQA, Exam timetable May/June 2027 \u2014 GCSE, AQA Certificates, ELC and Projects (Version 1.1); previous from AQA, Exam timetable May/June 2026 \u2014 GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0))",
+    "note": "AQA GCSE Mathematics 8300 Paper 3 (calculator), F and H: 2026-06-10 → 2027-06-14 (AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.1); previous from AQA, Exam timetable May/June 2026 — GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0))",
     "board": "aqa",
     "qualification": "gcse",
     "series": "summer-2027"
@@ -1755,7 +1755,7 @@
     "effectiveFrom": "2027-05-24",
     "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8572d66498f4d624b9c6ecb4abf5f0a01aff69f3.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "AQA GCSE English Language 8700 Paper 1: 2026-05-21 \u2192 2027-05-24 (AQA, Exam timetable May/June 2027 \u2014 GCSE, AQA Certificates, ELC and Projects (Version 1.1); previous from AQA, Exam timetable May/June 2026 \u2014 GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0))",
+    "note": "AQA GCSE English Language 8700 Paper 1: 2026-05-21 → 2027-05-24 (AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.1); previous from AQA, Exam timetable May/June 2026 — GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0))",
     "board": "aqa",
     "qualification": "gcse",
     "series": "summer-2027"
@@ -1770,7 +1770,7 @@
     "effectiveFrom": "2027-06-08",
     "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8572d66498f4d624b9c6ecb4abf5f0a01aff69f3.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "AQA GCSE English Language 8700 Paper 2: 2026-06-05 \u2192 2027-06-08 (AQA, Exam timetable May/June 2027 \u2014 GCSE, AQA Certificates, ELC and Projects (Version 1.1); previous from AQA, Exam timetable May/June 2026 \u2014 GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0))",
+    "note": "AQA GCSE English Language 8700 Paper 2: 2026-06-05 → 2027-06-08 (AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.1); previous from AQA, Exam timetable May/June 2026 — GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0))",
     "board": "aqa",
     "qualification": "gcse",
     "series": "summer-2027"
@@ -1785,7 +1785,7 @@
     "effectiveFrom": "2027-05-11",
     "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8572d66498f4d624b9c6ecb4abf5f0a01aff69f3.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "AQA GCSE Combined Science: Trilogy 8464 Biology Paper 1: 2026-05-12 \u2192 2027-05-11 (AQA, Exam timetable May/June 2027 \u2014 GCSE, AQA Certificates, ELC and Projects (Version 1.1); previous from AQA, Exam timetable May/June 2026 \u2014 GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0))",
+    "note": "AQA GCSE Combined Science: Trilogy 8464 Biology Paper 1: 2026-05-12 → 2027-05-11 (AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.1); previous from AQA, Exam timetable May/June 2026 — GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0))",
     "board": "aqa",
     "qualification": "gcse",
     "series": "summer-2027"
@@ -1800,7 +1800,7 @@
     "effectiveFrom": "2027-05-17",
     "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8572d66498f4d624b9c6ecb4abf5f0a01aff69f3.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "AQA GCSE Combined Science: Trilogy 8464 Chemistry Paper 1: 2026-05-18 \u2192 2027-05-17 (AQA, Exam timetable May/June 2027 \u2014 GCSE, AQA Certificates, ELC and Projects (Version 1.1); previous from AQA, Exam timetable May/June 2026 \u2014 GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0))",
+    "note": "AQA GCSE Combined Science: Trilogy 8464 Chemistry Paper 1: 2026-05-18 → 2027-05-17 (AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.1); previous from AQA, Exam timetable May/June 2026 — GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0))",
     "board": "aqa",
     "qualification": "gcse",
     "series": "summer-2027"
@@ -1815,7 +1815,7 @@
     "effectiveFrom": "2027-05-25",
     "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8572d66498f4d624b9c6ecb4abf5f0a01aff69f3.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "AQA GCSE Combined Science: Trilogy 8464 Physics Paper 1: 2026-06-02 \u2192 2027-05-25 (AQA, Exam timetable May/June 2027 \u2014 GCSE, AQA Certificates, ELC and Projects (Version 1.1); previous from AQA, Exam timetable May/June 2026 \u2014 GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0))",
+    "note": "AQA GCSE Combined Science: Trilogy 8464 Physics Paper 1: 2026-06-02 → 2027-05-25 (AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.1); previous from AQA, Exam timetable May/June 2026 — GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0))",
     "board": "aqa",
     "qualification": "gcse",
     "series": "summer-2027"
@@ -1830,7 +1830,7 @@
     "effectiveFrom": "2027-06-10",
     "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8572d66498f4d624b9c6ecb4abf5f0a01aff69f3.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "AQA GCSE Combined Science: Trilogy 8464 Biology Paper 2: 2026-06-08 \u2192 2027-06-10 (AQA, Exam timetable May/June 2027 \u2014 GCSE, AQA Certificates, ELC and Projects (Version 1.1); previous from AQA, Exam timetable May/June 2026 \u2014 GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0))",
+    "note": "AQA GCSE Combined Science: Trilogy 8464 Biology Paper 2: 2026-06-08 → 2027-06-10 (AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.1); previous from AQA, Exam timetable May/June 2026 — GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0))",
     "board": "aqa",
     "qualification": "gcse",
     "series": "summer-2027"
@@ -1845,7 +1845,7 @@
     "effectiveFrom": "2027-06-15",
     "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8572d66498f4d624b9c6ecb4abf5f0a01aff69f3.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "AQA GCSE Combined Science: Trilogy 8464 Chemistry Paper 2: 2026-06-12 \u2192 2027-06-15 (AQA, Exam timetable May/June 2027 \u2014 GCSE, AQA Certificates, ELC and Projects (Version 1.1); previous from AQA, Exam timetable May/June 2026 \u2014 GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0))",
+    "note": "AQA GCSE Combined Science: Trilogy 8464 Chemistry Paper 2: 2026-06-12 → 2027-06-15 (AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.1); previous from AQA, Exam timetable May/June 2026 — GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0))",
     "board": "aqa",
     "qualification": "gcse",
     "series": "summer-2027"
@@ -1860,7 +1860,7 @@
     "effectiveFrom": "2027-06-18",
     "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8572d66498f4d624b9c6ecb4abf5f0a01aff69f3.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "AQA GCSE Combined Science: Trilogy 8464 Physics Paper 2: 2026-06-15 \u2192 2027-06-18 (AQA, Exam timetable May/June 2027 \u2014 GCSE, AQA Certificates, ELC and Projects (Version 1.1); previous from AQA, Exam timetable May/June 2026 \u2014 GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0))",
+    "note": "AQA GCSE Combined Science: Trilogy 8464 Physics Paper 2: 2026-06-15 → 2027-06-18 (AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.1); previous from AQA, Exam timetable May/June 2026 — GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0))",
     "board": "aqa",
     "qualification": "gcse",
     "series": "summer-2027"
@@ -1875,7 +1875,7 @@
     "effectiveFrom": "2027-05-26",
     "source": "https://www.aqa.org.uk/files/f8837da9-1846-4e7f-89a3-fb265c42f2e5/0ada6c345d4c272c8a4a42e48a5986983bfb0d56.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "AQA A-level Mathematics 7357 Paper 1: 2026-06-03 \u2192 2027-05-26 (AQA, Exam timetable May/June 2027 \u2014 AS, A-level, Applied General, Level 3 Certificates and Level 3 Extended Project (Version 1.2); previous from AQA, Exam timetable May/June 2026 \u2014 A-level, AS, Level 3 certificates, and Applied General (Version 1.1))",
+    "note": "AQA A-level Mathematics 7357 Paper 1: 2026-06-03 → 2027-05-26 (AQA, Exam timetable May/June 2027 — AS, A-level, Applied General, Level 3 Certificates and Level 3 Extended Project (Version 1.2); previous from AQA, Exam timetable May/June 2026 — A-level, AS, Level 3 certificates, and Applied General (Version 1.1))",
     "board": "aqa",
     "qualification": "a-level",
     "series": "summer-2027"
@@ -1890,7 +1890,7 @@
     "effectiveFrom": "2027-06-09",
     "source": "https://www.aqa.org.uk/files/f8837da9-1846-4e7f-89a3-fb265c42f2e5/0ada6c345d4c272c8a4a42e48a5986983bfb0d56.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "AQA A-level Mathematics 7357 Paper 2: 2026-06-11 \u2192 2027-06-09 (AQA, Exam timetable May/June 2027 \u2014 AS, A-level, Applied General, Level 3 Certificates and Level 3 Extended Project (Version 1.2); previous from AQA, Exam timetable May/June 2026 \u2014 A-level, AS, Level 3 certificates, and Applied General (Version 1.1))",
+    "note": "AQA A-level Mathematics 7357 Paper 2: 2026-06-11 → 2027-06-09 (AQA, Exam timetable May/June 2027 — AS, A-level, Applied General, Level 3 Certificates and Level 3 Extended Project (Version 1.2); previous from AQA, Exam timetable May/June 2026 — A-level, AS, Level 3 certificates, and Applied General (Version 1.1))",
     "board": "aqa",
     "qualification": "a-level",
     "series": "summer-2027"
@@ -1905,7 +1905,7 @@
     "effectiveFrom": "2027-06-16",
     "source": "https://www.aqa.org.uk/files/f8837da9-1846-4e7f-89a3-fb265c42f2e5/0ada6c345d4c272c8a4a42e48a5986983bfb0d56.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "AQA A-level Mathematics 7357 Paper 3: 2026-06-18 \u2192 2027-06-16 (AQA, Exam timetable May/June 2027 \u2014 AS, A-level, Applied General, Level 3 Certificates and Level 3 Extended Project (Version 1.2); previous from AQA, Exam timetable May/June 2026 \u2014 A-level, AS, Level 3 certificates, and Applied General (Version 1.1))",
+    "note": "AQA A-level Mathematics 7357 Paper 3: 2026-06-18 → 2027-06-16 (AQA, Exam timetable May/June 2027 — AS, A-level, Applied General, Level 3 Certificates and Level 3 Extended Project (Version 1.2); previous from AQA, Exam timetable May/June 2026 — A-level, AS, Level 3 certificates, and Applied General (Version 1.1))",
     "board": "aqa",
     "qualification": "a-level",
     "series": "summer-2027"
@@ -1920,7 +1920,7 @@
     "effectiveFrom": "2027-05-14",
     "source": "https://www.ocr.org.uk/Images/758618-june-2027-final-exam-timetable-gcse-and-cambridge-nationals.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "OCR GCSE Mathematics J560 Paper 1 / Paper 4 (calculator; Foundation / Higher): 2026-05-14 \u2192 2027-05-14 (Cambridge OCR, GCSE and Cambridge Nationals \u2014 Final Examination Timetable June 2027 (\u00a9 Cambridge OCR 2026); previous from OCR, GCSE and Cambridge Nationals \u2014 Final Examination Timetable June 2026)",
+    "note": "OCR GCSE Mathematics J560 Paper 1 / Paper 4 (calculator; Foundation / Higher): 2026-05-14 → 2027-05-14 (Cambridge OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2027 (© Cambridge OCR 2026); previous from OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2026)",
     "board": "ocr",
     "qualification": "gcse",
     "series": "summer-2027"
@@ -1935,7 +1935,7 @@
     "effectiveFrom": "2027-05-27",
     "source": "https://www.ocr.org.uk/Images/758618-june-2027-final-exam-timetable-gcse-and-cambridge-nationals.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "OCR GCSE Mathematics J560 Paper 2 / Paper 5 (non-calculator; Foundation / Higher): 2026-06-03 \u2192 2027-05-27 (Cambridge OCR, GCSE and Cambridge Nationals \u2014 Final Examination Timetable June 2027 (\u00a9 Cambridge OCR 2026); previous from OCR, GCSE and Cambridge Nationals \u2014 Final Examination Timetable June 2026)",
+    "note": "OCR GCSE Mathematics J560 Paper 2 / Paper 5 (non-calculator; Foundation / Higher): 2026-06-03 → 2027-05-27 (Cambridge OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2027 (© Cambridge OCR 2026); previous from OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2026)",
     "board": "ocr",
     "qualification": "gcse",
     "series": "summer-2027"
@@ -1950,7 +1950,7 @@
     "effectiveFrom": "2027-06-14",
     "source": "https://www.ocr.org.uk/Images/758618-june-2027-final-exam-timetable-gcse-and-cambridge-nationals.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "OCR GCSE Mathematics J560 Paper 3 / Paper 6 (calculator; Foundation / Higher): 2026-06-10 \u2192 2027-06-14 (Cambridge OCR, GCSE and Cambridge Nationals \u2014 Final Examination Timetable June 2027 (\u00a9 Cambridge OCR 2026); previous from OCR, GCSE and Cambridge Nationals \u2014 Final Examination Timetable June 2026)",
+    "note": "OCR GCSE Mathematics J560 Paper 3 / Paper 6 (calculator; Foundation / Higher): 2026-06-10 → 2027-06-14 (Cambridge OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2027 (© Cambridge OCR 2026); previous from OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2026)",
     "board": "ocr",
     "qualification": "gcse",
     "series": "summer-2027"
@@ -1965,7 +1965,7 @@
     "effectiveFrom": "2027-05-24",
     "source": "https://www.ocr.org.uk/Images/758618-june-2027-final-exam-timetable-gcse-and-cambridge-nationals.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "OCR GCSE English Language J351 Component 01: 2026-05-21 \u2192 2027-05-24 (Cambridge OCR, GCSE and Cambridge Nationals \u2014 Final Examination Timetable June 2027 (\u00a9 Cambridge OCR 2026); previous from OCR, GCSE and Cambridge Nationals \u2014 Final Examination Timetable June 2026)",
+    "note": "OCR GCSE English Language J351 Component 01: 2026-05-21 → 2027-05-24 (Cambridge OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2027 (© Cambridge OCR 2026); previous from OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2026)",
     "board": "ocr",
     "qualification": "gcse",
     "series": "summer-2027"
@@ -1980,7 +1980,7 @@
     "effectiveFrom": "2027-06-08",
     "source": "https://www.ocr.org.uk/Images/758618-june-2027-final-exam-timetable-gcse-and-cambridge-nationals.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "OCR GCSE English Language J351 Component 02: 2026-06-05 \u2192 2027-06-08 (Cambridge OCR, GCSE and Cambridge Nationals \u2014 Final Examination Timetable June 2027 (\u00a9 Cambridge OCR 2026); previous from OCR, GCSE and Cambridge Nationals \u2014 Final Examination Timetable June 2026)",
+    "note": "OCR GCSE English Language J351 Component 02: 2026-06-05 → 2027-06-08 (Cambridge OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2027 (© Cambridge OCR 2026); previous from OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2026)",
     "board": "ocr",
     "qualification": "gcse",
     "series": "summer-2027"
@@ -1995,7 +1995,7 @@
     "effectiveFrom": "2027-05-11",
     "source": "https://www.ocr.org.uk/Images/758618-june-2027-final-exam-timetable-gcse-and-cambridge-nationals.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "OCR GCSE Combined Science A (Gateway) J250 Paper 1 / 7 (Biology; Foundation / Higher): 2026-05-12 \u2192 2027-05-11 (Cambridge OCR, GCSE and Cambridge Nationals \u2014 Final Examination Timetable June 2027 (\u00a9 Cambridge OCR 2026); previous from OCR, GCSE and Cambridge Nationals \u2014 Final Examination Timetable June 2026)",
+    "note": "OCR GCSE Combined Science A (Gateway) J250 Paper 1 / 7 (Biology; Foundation / Higher): 2026-05-12 → 2027-05-11 (Cambridge OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2027 (© Cambridge OCR 2026); previous from OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2026)",
     "board": "ocr",
     "qualification": "gcse",
     "series": "summer-2027"
@@ -2010,7 +2010,7 @@
     "effectiveFrom": "2027-05-17",
     "source": "https://www.ocr.org.uk/Images/758618-june-2027-final-exam-timetable-gcse-and-cambridge-nationals.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "OCR GCSE Combined Science A (Gateway) J250 Paper 3 / 9 (Chemistry; Foundation / Higher): 2026-05-18 \u2192 2027-05-17 (Cambridge OCR, GCSE and Cambridge Nationals \u2014 Final Examination Timetable June 2027 (\u00a9 Cambridge OCR 2026); previous from OCR, GCSE and Cambridge Nationals \u2014 Final Examination Timetable June 2026)",
+    "note": "OCR GCSE Combined Science A (Gateway) J250 Paper 3 / 9 (Chemistry; Foundation / Higher): 2026-05-18 → 2027-05-17 (Cambridge OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2027 (© Cambridge OCR 2026); previous from OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2026)",
     "board": "ocr",
     "qualification": "gcse",
     "series": "summer-2027"
@@ -2025,7 +2025,7 @@
     "effectiveFrom": "2027-05-25",
     "source": "https://www.ocr.org.uk/Images/758618-june-2027-final-exam-timetable-gcse-and-cambridge-nationals.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "OCR GCSE Combined Science A (Gateway) J250 Paper 5 / 11 (Physics; Foundation / Higher): 2026-06-02 \u2192 2027-05-25 (Cambridge OCR, GCSE and Cambridge Nationals \u2014 Final Examination Timetable June 2027 (\u00a9 Cambridge OCR 2026); previous from OCR, GCSE and Cambridge Nationals \u2014 Final Examination Timetable June 2026)",
+    "note": "OCR GCSE Combined Science A (Gateway) J250 Paper 5 / 11 (Physics; Foundation / Higher): 2026-06-02 → 2027-05-25 (Cambridge OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2027 (© Cambridge OCR 2026); previous from OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2026)",
     "board": "ocr",
     "qualification": "gcse",
     "series": "summer-2027"
@@ -2040,7 +2040,7 @@
     "effectiveFrom": "2027-06-10",
     "source": "https://www.ocr.org.uk/Images/758618-june-2027-final-exam-timetable-gcse-and-cambridge-nationals.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "OCR GCSE Combined Science A (Gateway) J250 Paper 2 / 8 (Biology; Foundation / Higher): 2026-06-08 \u2192 2027-06-10 (Cambridge OCR, GCSE and Cambridge Nationals \u2014 Final Examination Timetable June 2027 (\u00a9 Cambridge OCR 2026); previous from OCR, GCSE and Cambridge Nationals \u2014 Final Examination Timetable June 2026)",
+    "note": "OCR GCSE Combined Science A (Gateway) J250 Paper 2 / 8 (Biology; Foundation / Higher): 2026-06-08 → 2027-06-10 (Cambridge OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2027 (© Cambridge OCR 2026); previous from OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2026)",
     "board": "ocr",
     "qualification": "gcse",
     "series": "summer-2027"
@@ -2055,7 +2055,7 @@
     "effectiveFrom": "2027-06-15",
     "source": "https://www.ocr.org.uk/Images/758618-june-2027-final-exam-timetable-gcse-and-cambridge-nationals.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "OCR GCSE Combined Science A (Gateway) J250 Paper 4 / 10 (Chemistry; Foundation / Higher): 2026-06-12 \u2192 2027-06-15 (Cambridge OCR, GCSE and Cambridge Nationals \u2014 Final Examination Timetable June 2027 (\u00a9 Cambridge OCR 2026); previous from OCR, GCSE and Cambridge Nationals \u2014 Final Examination Timetable June 2026)",
+    "note": "OCR GCSE Combined Science A (Gateway) J250 Paper 4 / 10 (Chemistry; Foundation / Higher): 2026-06-12 → 2027-06-15 (Cambridge OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2027 (© Cambridge OCR 2026); previous from OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2026)",
     "board": "ocr",
     "qualification": "gcse",
     "series": "summer-2027"
@@ -2070,7 +2070,7 @@
     "effectiveFrom": "2027-06-18",
     "source": "https://www.ocr.org.uk/Images/758618-june-2027-final-exam-timetable-gcse-and-cambridge-nationals.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "OCR GCSE Combined Science A (Gateway) J250 Paper 6 / 12 (Physics; Foundation / Higher): 2026-06-15 \u2192 2027-06-18 (Cambridge OCR, GCSE and Cambridge Nationals \u2014 Final Examination Timetable June 2027 (\u00a9 Cambridge OCR 2026); previous from OCR, GCSE and Cambridge Nationals \u2014 Final Examination Timetable June 2026)",
+    "note": "OCR GCSE Combined Science A (Gateway) J250 Paper 6 / 12 (Physics; Foundation / Higher): 2026-06-15 → 2027-06-18 (Cambridge OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2027 (© Cambridge OCR 2026); previous from OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2026)",
     "board": "ocr",
     "qualification": "gcse",
     "series": "summer-2027"
@@ -2085,7 +2085,7 @@
     "effectiveFrom": "2027-05-26",
     "source": "https://www.ocr.org.uk/Images/758622-june-2027-final-exam-timetable-as-a-level-core-maths-and-fsmq.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "OCR A Level Mathematics A H240/01 Pure mathematics: 2026-06-03 \u2192 2027-05-26 (Cambridge OCR, AS and A Level, FSMQ and Level 3 Certificate Core Maths \u2014 Final Examination Timetable June 2027; previous from OCR, AS and A Level, FSMQ and Level 3 Certificate Core Maths \u2014 Final Examination Timetable June 2026)",
+    "note": "OCR A Level Mathematics A H240/01 Pure mathematics: 2026-06-03 → 2027-05-26 (Cambridge OCR, AS and A Level, FSMQ and Level 3 Certificate Core Maths — Final Examination Timetable June 2027; previous from OCR, AS and A Level, FSMQ and Level 3 Certificate Core Maths — Final Examination Timetable June 2026)",
     "board": "ocr",
     "qualification": "a-level",
     "series": "summer-2027"
@@ -2100,7 +2100,7 @@
     "effectiveFrom": "2027-06-09",
     "source": "https://www.ocr.org.uk/Images/758622-june-2027-final-exam-timetable-as-a-level-core-maths-and-fsmq.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "OCR A Level Mathematics A H240/02 Pure mathematics and statistics: 2026-06-11 \u2192 2027-06-09 (Cambridge OCR, AS and A Level, FSMQ and Level 3 Certificate Core Maths \u2014 Final Examination Timetable June 2027; previous from OCR, AS and A Level, FSMQ and Level 3 Certificate Core Maths \u2014 Final Examination Timetable June 2026)",
+    "note": "OCR A Level Mathematics A H240/02 Pure mathematics and statistics: 2026-06-11 → 2027-06-09 (Cambridge OCR, AS and A Level, FSMQ and Level 3 Certificate Core Maths — Final Examination Timetable June 2027; previous from OCR, AS and A Level, FSMQ and Level 3 Certificate Core Maths — Final Examination Timetable June 2026)",
     "board": "ocr",
     "qualification": "a-level",
     "series": "summer-2027"
@@ -2115,7 +2115,7 @@
     "effectiveFrom": "2027-06-16",
     "source": "https://www.ocr.org.uk/Images/758622-june-2027-final-exam-timetable-as-a-level-core-maths-and-fsmq.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "OCR A Level Mathematics A H240/03 Pure mathematics and mechanics: 2026-06-18 \u2192 2027-06-16 (Cambridge OCR, AS and A Level, FSMQ and Level 3 Certificate Core Maths \u2014 Final Examination Timetable June 2027; previous from OCR, AS and A Level, FSMQ and Level 3 Certificate Core Maths \u2014 Final Examination Timetable June 2026)",
+    "note": "OCR A Level Mathematics A H240/03 Pure mathematics and mechanics: 2026-06-18 → 2027-06-16 (Cambridge OCR, AS and A Level, FSMQ and Level 3 Certificate Core Maths — Final Examination Timetable June 2027; previous from OCR, AS and A Level, FSMQ and Level 3 Certificate Core Maths — Final Examination Timetable June 2026)",
     "board": "ocr",
     "qualification": "a-level",
     "series": "summer-2027"
@@ -2130,7 +2130,7 @@
     "effectiveFrom": "2027-05-14",
     "source": "https://www.wjec.co.uk/media/1awnxucv/summer-2027-wales-and-eduqas-gcse-final-version-080726.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "Eduqas GCSE Mathematics C300 Component 1 (Foundation C300U10-1 / Higher C300UA0-1): 2026-05-14 \u2192 2027-05-14 (WJEC Wales and Eduqas Summer 2027 FINAL Examination Timetable (version 2) \u2014 GCSE; previous from WJEC Wales and Eduqas Summer 2026 FINAL Examination Timetable \u2014 GCSE)",
+    "note": "Eduqas GCSE Mathematics C300 Component 1 (Foundation C300U10-1 / Higher C300UA0-1): 2026-05-14 → 2027-05-14 (WJEC Wales and Eduqas Summer 2027 FINAL Examination Timetable (version 2) — GCSE; previous from WJEC Wales and Eduqas Summer 2026 FINAL Examination Timetable — GCSE)",
     "board": "wjec-eduqas",
     "qualification": "gcse",
     "series": "summer-2027"
@@ -2145,7 +2145,7 @@
     "effectiveFrom": "2027-05-27",
     "source": "https://www.wjec.co.uk/media/1awnxucv/summer-2027-wales-and-eduqas-gcse-final-version-080726.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "Eduqas GCSE Mathematics C300 Component 2 (Foundation C300U20-1 / Higher C300UB0-1): 2026-06-03 \u2192 2027-05-27 (WJEC Wales and Eduqas Summer 2027 FINAL Examination Timetable (version 2) \u2014 GCSE; previous from WJEC Wales and Eduqas Summer 2026 FINAL Examination Timetable \u2014 GCSE)",
+    "note": "Eduqas GCSE Mathematics C300 Component 2 (Foundation C300U20-1 / Higher C300UB0-1): 2026-06-03 → 2027-05-27 (WJEC Wales and Eduqas Summer 2027 FINAL Examination Timetable (version 2) — GCSE; previous from WJEC Wales and Eduqas Summer 2026 FINAL Examination Timetable — GCSE)",
     "board": "wjec-eduqas",
     "qualification": "gcse",
     "series": "summer-2027"
@@ -2160,7 +2160,7 @@
     "effectiveFrom": "2027-05-24",
     "source": "https://www.wjec.co.uk/media/1awnxucv/summer-2027-wales-and-eduqas-gcse-final-version-080726.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "Eduqas GCSE English Language C700U10-1 Component 1: 2026-05-21 \u2192 2027-05-24 (WJEC Wales and Eduqas Summer 2027 FINAL Examination Timetable (version 2) \u2014 GCSE; previous from WJEC Wales and Eduqas Summer 2026 FINAL Examination Timetable \u2014 GCSE)",
+    "note": "Eduqas GCSE English Language C700U10-1 Component 1: 2026-05-21 → 2027-05-24 (WJEC Wales and Eduqas Summer 2027 FINAL Examination Timetable (version 2) — GCSE; previous from WJEC Wales and Eduqas Summer 2026 FINAL Examination Timetable — GCSE)",
     "board": "wjec-eduqas",
     "qualification": "gcse",
     "series": "summer-2027"
@@ -2175,7 +2175,7 @@
     "effectiveFrom": "2027-06-08",
     "source": "https://www.wjec.co.uk/media/1awnxucv/summer-2027-wales-and-eduqas-gcse-final-version-080726.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "Eduqas GCSE English Language C700U20-1 Component 2: 2026-06-05 \u2192 2027-06-08 (WJEC Wales and Eduqas Summer 2027 FINAL Examination Timetable (version 2) \u2014 GCSE; previous from WJEC Wales and Eduqas Summer 2026 FINAL Examination Timetable \u2014 GCSE)",
+    "note": "Eduqas GCSE English Language C700U20-1 Component 2: 2026-06-05 → 2027-06-08 (WJEC Wales and Eduqas Summer 2027 FINAL Examination Timetable (version 2) — GCSE; previous from WJEC Wales and Eduqas Summer 2026 FINAL Examination Timetable — GCSE)",
     "board": "wjec-eduqas",
     "qualification": "gcse",
     "series": "summer-2027"
@@ -2190,7 +2190,7 @@
     "effectiveFrom": "2027-05-25",
     "source": "https://www.wjec.co.uk/media/nwjexxw0/summer-2027-wales-and-eduqas-asplusa-level-final-version.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "WJEC (Wales) GCE A level Mathematics 1300U30-1 A2 Unit 3: 2026-06-03 \u2192 2027-05-25 (WJEC Wales and Eduqas Summer 2027 FINAL Examination Timetable \u2014 GCE AS/A level; previous from WJEC Wales and Eduqas Summer 2026 FINAL Examination Timetable (15.04.25) \u2014 GCE AS/A level)",
+    "note": "WJEC (Wales) GCE A level Mathematics 1300U30-1 A2 Unit 3: 2026-06-03 → 2027-05-25 (WJEC Wales and Eduqas Summer 2027 FINAL Examination Timetable — GCE AS/A level; previous from WJEC Wales and Eduqas Summer 2026 FINAL Examination Timetable (15.04.25) — GCE AS/A level)",
     "board": "wjec-eduqas",
     "qualification": "a-level",
     "series": "summer-2027"
@@ -2205,7 +2205,7 @@
     "effectiveFrom": "2027-06-09",
     "source": "https://www.wjec.co.uk/media/nwjexxw0/summer-2027-wales-and-eduqas-asplusa-level-final-version.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "WJEC (Wales) GCE A level Mathematics 1300U40-1 A2 Unit 4: 2026-06-11 \u2192 2027-06-09 (WJEC Wales and Eduqas Summer 2027 FINAL Examination Timetable \u2014 GCE AS/A level; previous from WJEC Wales and Eduqas Summer 2026 FINAL Examination Timetable (15.04.25) \u2014 GCE AS/A level)",
+    "note": "WJEC (Wales) GCE A level Mathematics 1300U40-1 A2 Unit 4: 2026-06-11 → 2027-06-09 (WJEC Wales and Eduqas Summer 2027 FINAL Examination Timetable — GCE AS/A level; previous from WJEC Wales and Eduqas Summer 2026 FINAL Examination Timetable (15.04.25) — GCE AS/A level)",
     "board": "wjec-eduqas",
     "qualification": "a-level",
     "series": "summer-2027"
@@ -2220,7 +2220,7 @@
     "effectiveFrom": "2027-02-21",
     "source": "https://www.jcq.org.uk/wp-content/uploads/sites/2/2026/05/Key_Dates_June2027_FINAL.pdf",
     "verifiedDate": "2026-10-04",
-    "note": "JCQ deadline for entries, June 2027 series (GCSE and GCE): 2026-02-21 \u2192 2027-02-21 (JCQ, Key dates in the examination cycle \u2014 June 2027 examination series (\u00a9JCQCIC 2026), p. 3; previous from JCQ, Key dates in the examination cycle \u2014 June 2026 examination series (\u00a9JCQCIC 2025), p. 3)",
+    "note": "JCQ deadline for entries, June 2027 series (GCSE and GCE): 2026-02-21 → 2027-02-21 (JCQ, Key dates in the examination cycle — June 2027 examination series (©JCQCIC 2026), p. 3; previous from JCQ, Key dates in the examination cycle — June 2026 examination series (©JCQCIC 2025), p. 3)",
     "board": "jcq",
     "qualification": "gcse-and-a-level",
     "series": "summer-2027"
@@ -2228,7 +2228,7 @@
   {
     "area": "uk-exam-dates",
     "key": "spec-changes/dfe-reformed-gcses-a-levels",
-    "label": "England \u2014 reformed GCSEs and A levels following the Curriculum and Assessment Review (DfE)",
+    "label": "England — reformed GCSEs and A levels following the Curriculum and Assessment Review (DfE)",
     "from": null,
     "to": {
       "nationalCurriculumPublished": "2027 (aim: by spring 2027)",
@@ -2246,7 +2246,7 @@
     "effectiveFrom": "2025-11-05",
     "source": "https://www.gov.uk/government/publications/curriculum-and-assessment-review-final-report-government-response",
     "verifiedDate": "2026-10-04",
-    "note": "England \u2014 reformed GCSEs and A levels following the Curriculum and Assessment Review (DfE): announced nationalCurriculumPublished 2027 (aim: by spring 2027), nationalCurriculumFirstTeaching 2028-09, gcseFirstTeaching 2029 / 2030, asALevelFirstTeaching 2031 / 2032 (DfE, Curriculum and Assessment Review Final Report: government response (published 5 November 2025; PDF \"Government response to the Curriculum and Assessment Review\", November 2025))",
+    "note": "England — reformed GCSEs and A levels following the Curriculum and Assessment Review (DfE): announced nationalCurriculumPublished 2027 (aim: by spring 2027), nationalCurriculumFirstTeaching 2028-09, gcseFirstTeaching 2029 / 2030, asALevelFirstTeaching 2031 / 2032 (DfE, Curriculum and Assessment Review Final Report: government response (published 5 November 2025; PDF \"Government response to the Curriculum and Assessment Review\", November 2025))",
     "board": "dfe",
     "qualification": "gcse-and-a-level",
     "series": null
@@ -2254,7 +2254,7 @@
   {
     "area": "uk-exam-dates",
     "key": "spec-changes/ofqual-formulae-sheets-2028-onwards",
-    "label": "England \u2014 formulae and equation sheets in GCSE mathematics, physics and combined science made permanent for the current specifications (Ofqual decision)",
+    "label": "England — formulae and equation sheets in GCSE mathematics, physics and combined science made permanent for the current specifications (Ofqual decision)",
     "from": null,
     "to": {
       "appliesTo": "GCSE mathematics, physics and combined science exams from 2028 onwards, for the lifetime of the current qualifications including resits",
@@ -2264,7 +2264,7 @@
     "effectiveFrom": "2026-05-05",
     "source": "https://www.gov.uk/government/consultations/proposed-changes-to-the-assessment-of-mathematics-physics-and-combined-science-gcses/outcome/decisions-proposed-changes-to-the-assessment-of-mathematics-physics-and-combined-science-gcses",
     "verifiedDate": "2026-10-04",
-    "note": "England \u2014 formulae and equation sheets in GCSE mathematics, physics and combined science made permanent for the current specifications (Ofqual decision): announced appliesTo GCSE mathematics, physics and combined science exams from 2028 onwards, for the lifetime of the current qualifications including resits, sheetsPublishedBy 1 September of the year before each exam series (Ofqual, Decisions: proposed changes to the assessment of mathematics, physics and combined science GCSEs (consultation published 2 March 2026, decisions added 5 May 2026))",
+    "note": "England — formulae and equation sheets in GCSE mathematics, physics and combined science made permanent for the current specifications (Ofqual decision): announced appliesTo GCSE mathematics, physics and combined science exams from 2028 onwards, for the lifetime of the current qualifications including resits, sheetsPublishedBy 1 September of the year before each exam series (Ofqual, Decisions: proposed changes to the assessment of mathematics, physics and combined science GCSEs (consultation published 2 March 2026, decisions added 5 May 2026))",
     "board": "ofqual",
     "qualification": "gcse",
     "series": null
@@ -2272,7 +2272,7 @@
   {
     "area": "uk-exam-dates",
     "key": "spec-changes/aqa-a-level-business-7137-7138",
-    "label": "AQA AS and A-level Business \u2014 new specification 7137 (AS) / 7138 (A-level)",
+    "label": "AQA AS and A-level Business — new specification 7137 (AS) / 7138 (A-level)",
     "from": null,
     "to": {
       "specCodes": [
@@ -2291,7 +2291,7 @@
     "effectiveFrom": "2025-10-09",
     "source": "https://www.aqa.org.uk/news/as-a-level-business-accredited-teaching-from-2026",
     "verifiedDate": "2026-10-04",
-    "note": "AQA AS and A-level Business \u2014 new specification 7137 (AS) / 7138 (A-level): announced specCodes 7137 / 7138, firstTeaching 2026-09, firstAsExams 2027, firstALevelExams 2028, replaces 7131 / 7132 (AQA news, AS and A-level Business: our new accredited specification (published 9 October 2025))",
+    "note": "AQA AS and A-level Business — new specification 7137 (AS) / 7138 (A-level): announced specCodes 7137 / 7138, firstTeaching 2026-09, firstAsExams 2027, firstALevelExams 2028, replaces 7131 / 7132 (AQA news, AS and A-level Business: our new accredited specification (published 9 October 2025))",
     "board": "aqa",
     "qualification": "a-level",
     "series": null
@@ -2299,7 +2299,7 @@
   {
     "area": "uk-exam-dates",
     "key": "spec-changes/pearson-a-level-history-amendments",
-    "label": "Pearson Edexcel AS and A level History \u2014 amended specifications",
+    "label": "Pearson Edexcel AS and A level History — amended specifications",
     "from": null,
     "to": {
       "firstTeaching": "2026-09",
@@ -2310,7 +2310,7 @@
     "effectiveFrom": "2026-06-22",
     "source": "https://qualifications.pearson.com/en/subjects/history.updates.html?article=%2Fcontent%2Fdemo%2Fen%2Fnews-policy%2Fsubject-updates%2Fhistory%2Fedexcel-as-and-a-level-history-specification-amendments",
     "verifiedDate": "2026-10-04",
-    "note": "Pearson Edexcel AS and A level History \u2014 amended specifications: announced firstTeaching 2026-09, firstAssessmentAS 2027-06, firstAssessmentALevel 2028-06 (Pearson Edexcel subject update, Edexcel AS and A level History specification amendments (published 22 June 2026))",
+    "note": "Pearson Edexcel AS and A level History — amended specifications: announced firstTeaching 2026-09, firstAssessmentAS 2027-06, firstAssessmentALevel 2028-06 (Pearson Edexcel subject update, Edexcel AS and A level History specification amendments (published 22 June 2026))",
     "board": "pearson",
     "qualification": "a-level",
     "series": null
@@ -2318,7 +2318,7 @@
   {
     "area": "uk-exam-dates",
     "key": "spec-changes/ocr-a-level-psychology-h569",
-    "label": "Cambridge OCR A Level Psychology \u2014 new specification H569",
+    "label": "Cambridge OCR A Level Psychology — new specification H569",
     "from": null,
     "to": {
       "specCode": "H569",
@@ -2329,7 +2329,7 @@
     "effectiveFrom": "2026-04-29",
     "source": "https://www.ocr.org.uk/administration/support-and-tools/subject-updates/alevel-psychology-update-757969/",
     "verifiedDate": "2026-10-04",
-    "note": "Cambridge OCR A Level Psychology \u2014 new specification H569: announced specCode H569, firstTeaching 2027-09, firstExams 2029-06 (Cambridge OCR subject update, A Level Psychology update (29 April 2026))",
+    "note": "Cambridge OCR A Level Psychology — new specification H569: announced specCode H569, firstTeaching 2027-09, firstExams 2029-06 (Cambridge OCR subject update, A Level Psychology update (29 April 2026))",
     "board": "ocr",
     "qualification": "a-level",
     "series": null
@@ -2337,7 +2337,7 @@
   {
     "area": "uk-exam-dates",
     "key": "spec-changes/wales-made-for-wales-gcses",
-    "label": "Wales \u2014 26 new Made-for-Wales GCSEs (WJEC), including Mathematics and Numeracy (Double Award) 3320QD and The Sciences (Double Award)",
+    "label": "Wales — 26 new Made-for-Wales GCSEs (WJEC), including Mathematics and Numeracy (Double Award) 3320QD and The Sciences (Double Award)",
     "from": null,
     "to": {
       "count": 26,
@@ -2348,7 +2348,7 @@
     "effectiveFrom": "2023-06-28",
     "source": "https://qualifications.wales/news-views/learners-in-wales-to-study-new-made-for-wales-gcses-from-2025/",
     "verifiedDate": "2026-10-04",
-    "note": "Wales \u2014 26 new Made-for-Wales GCSEs (WJEC), including Mathematics and Numeracy (Double Award) 3320QD and The Sciences (Double Award): announced count 26, firstTeaching 2025-09, firstAwards 2027 (Qualifications Wales, Learners in Wales to study new Made-for-Wales GCSEs from 2025 (28 June 2023))",
+    "note": "Wales — 26 new Made-for-Wales GCSEs (WJEC), including Mathematics and Numeracy (Double Award) 3320QD and The Sciences (Double Award): announced count 26, firstTeaching 2025-09, firstAwards 2027 (Qualifications Wales, Learners in Wales to study new Made-for-Wales GCSEs from 2025 (28 June 2023))",
     "board": "wjec-eduqas",
     "qualification": "gcse",
     "series": null
@@ -2356,7 +2356,7 @@
   {
     "area": "uk-exam-dates",
     "key": "spec-changes/ofqual-british-sign-language-gcse",
-    "label": "England \u2014 GCSE British Sign Language: Ofqual rules confirmed, no accredited specification yet",
+    "label": "England — GCSE British Sign Language: Ofqual rules confirmed, no accredited specification yet",
     "from": null,
     "to": {
       "rulesConfirmed": "2025-11-13",
@@ -2368,7 +2368,7 @@
     "effectiveFrom": "2025-11-13",
     "source": "https://www.gov.uk/government/news/ofqual-announces-rules-for-unique-british-sign-language-gcse",
     "verifiedDate": "2026-10-04",
-    "note": "England \u2014 GCSE British Sign Language: Ofqual rules confirmed, no accredited specification yet: announced rulesConfirmed 2025-11-13, accreditedSpecification none, firstTeaching none, firstExams none (Ofqual press release, Ofqual announces rules for unique British Sign Language GCSE (13 November 2025))",
+    "note": "England — GCSE British Sign Language: Ofqual rules confirmed, no accredited specification yet: announced rulesConfirmed 2025-11-13, accreditedSpecification none, firstTeaching none, firstExams none (Ofqual press release, Ofqual announces rules for unique British Sign Language GCSE (13 November 2025))",
     "board": "ofqual",
     "qualification": "gcse",
     "series": null
@@ -2382,7 +2382,7 @@
     "effectiveFrom": "2026-10-04",
     "source": "https://www.gov.uk/bank-holidays",
     "verifiedDate": "2026-10-04",
-    "note": "First derivation of data/calendar.json for United Kingdom: 82 holiday entries across 3 region(s) for 2026, 2027, 2028 from GOV.UK (Government Digital Service) \u2014 bank-holidays.json (Open Government Licence v3.0), fetched/verified 2026-10-04."
+    "note": "First derivation of data/calendar.json for United Kingdom: 82 holiday entries across 3 region(s) for 2026, 2027, 2028 from GOV.UK (Government Digital Service) — bank-holidays.json (Open Government Licence v3.0), fetched/verified 2026-10-04."
   },
   {
     "area": "calendar",
@@ -2393,7 +2393,7 @@
     "effectiveFrom": "2026-10-04",
     "source": "https://www.opm.gov/policy-data-oversight/pay-leave/federal-holidays/",
     "verifiedDate": "2026-10-04",
-    "note": "First derivation of data/calendar.json for United States: 33 holiday entries across 1 region(s) for 2026, 2027, 2028 from U.S. Office of Personnel Management \u2014 federal holidays tables (Work of the United States Government \u2014 public domain), fetched/verified 2026-10-04."
+    "note": "First derivation of data/calendar.json for United States: 33 holiday entries across 1 region(s) for 2026, 2027, 2028 from U.S. Office of Personnel Management — federal holidays tables (Work of the United States Government — public domain), fetched/verified 2026-10-04."
   },
   {
     "area": "calendar",
@@ -2409,13 +2409,13 @@
   {
     "area": "calendar",
     "key": "fr/holidays",
-    "label": "France jours f\u00e9ri\u00e9s (f\u00eates l\u00e9gales) dataset",
+    "label": "France jours fériés (fêtes légales) dataset",
     "from": null,
     "to": "covered",
     "effectiveFrom": "2026-10-04",
     "source": "https://calendrier.api.gouv.fr/jours-feries/metropole/2026.json",
     "verifiedDate": "2026-10-04",
-    "note": "First derivation of data/calendar.json for France: 72 holiday entries across 2 region(s) for 2026, 2027, 2028 from data.gouv.fr / DINUM \u2014 \"Jours f\u00e9ri\u00e9s en France\" (API calendrier.api.gouv.fr) (Licence Ouverte / Open Licence version 2.0), fetched/verified 2026-10-04."
+    "note": "First derivation of data/calendar.json for France: 72 holiday entries across 2 region(s) for 2026, 2027, 2028 from data.gouv.fr / DINUM — \"Jours fériés en France\" (API calendrier.api.gouv.fr) (Licence Ouverte / Open Licence version 2.0), fetched/verified 2026-10-04."
   },
   {
     "area": "calendar",
@@ -2437,7 +2437,7 @@
     "effectiveFrom": "2026-10-04",
     "source": "https://www.irs.gov/businesses/small-businesses-self-employed/tax-years",
     "verifiedDate": "2026-10-04",
-    "note": "First derivation: The US individual tax year is the calendar year, 1 January to 31 December (a fiscal year ending in another month is possible with IRS approval). Government: The US federal government fiscal year runs from 1 October to 30 September and is named for the calendar year in which it ends (FY2027 = 1 Oct 2026 \u2013 30 Sep 2027). Source quoted in the data file; verified 2026-10-04."
+    "note": "First derivation: The US individual tax year is the calendar year, 1 January to 31 December (a fiscal year ending in another month is possible with IRS approval). Government: The US federal government fiscal year runs from 1 October to 30 September and is named for the calendar year in which it ends (FY2027 = 1 Oct 2026 – 30 Sep 2027). Source quoted in the data file; verified 2026-10-04."
   },
   {
     "area": "calendar",
@@ -2448,7 +2448,7 @@
     "effectiveFrom": "2026-10-04",
     "source": "https://www.payrolltax.gov.au/financial-year",
     "verifiedDate": "2026-10-04",
-    "note": "First derivation: The Australian financial year runs from 1 July to 30 June; it is named for both years (2026\u201327). Source quoted in the data file; verified 2026-10-04."
+    "note": "First derivation: The Australian financial year runs from 1 July to 30 June; it is named for both years (2026–27). Source quoted in the data file; verified 2026-10-04."
   },
   {
     "area": "calendar",
@@ -2492,7 +2492,7 @@
     "effectiveFrom": "2026-10-04",
     "source": "https://www.service-public.gouv.fr/particuliers/vosdroits/F358",
     "verifiedDate": "2026-10-04",
-    "note": "First derivation: French income tax (imp\u00f4t sur le revenu) is assessed on the income of a calendar year, declared the following spring (the 2026 declaration covers 2025 income). Source quoted in the data file; verified 2026-10-04."
+    "note": "First derivation: French income tax (impôt sur le revenu) is assessed on the income of a calendar year, declared the following spring (the 2026 declaration covers 2025 income). Source quoted in the data file; verified 2026-10-04."
   },
   {
     "area": "calendar",
@@ -2503,7 +2503,7 @@
     "effectiveFrom": "2026-10-04",
     "source": "https://www2.camara.leg.br/legin/fed/lei/1960-1969/lei-4320-17-marco-1964-376590-normaatualizada-pl.html",
     "verifiedDate": "2026-10-04",
-    "note": "First derivation: Brazilian personal income tax (IRPF) is assessed on the ano-calend\u00e1rio \u2014 the calendar year \u2014 declared the following year. Government: Brazil's public-sector financial year coincides with the calendar year. Source quoted in the data file; verified 2026-10-04."
+    "note": "First derivation: Brazilian personal income tax (IRPF) is assessed on the ano-calendário — the calendar year — declared the following year. Government: Brazil's public-sector financial year coincides with the calendar year. Source quoted in the data file; verified 2026-10-04."
   },
   {
     "area": "calendar",
@@ -2536,7 +2536,7 @@
     "effectiveFrom": "2026-10-04",
     "source": "https://www.gesetze-im-internet.de/sozv/__2.html",
     "verifiedDate": "2026-10-04",
-    "note": "First derivation: Summer time begins at 02:00 CET on the last Sunday in March (clocks to 03:00) and ends at 03:00 CEST on the last Sunday in October (clocks to 02:00) \u2014 the EU-wide arrangement of Directive 2000/84/EC, 01:00 UTC both ways. Transitions for 2026, 2027, 2028 computed from the rule; verified 2026-10-04."
+    "note": "First derivation: Summer time begins at 02:00 CET on the last Sunday in March (clocks to 03:00) and ends at 03:00 CEST on the last Sunday in October (clocks to 02:00) — the EU-wide arrangement of Directive 2000/84/EC, 01:00 UTC both ways. Transitions for 2026, 2027, 2028 computed from the rule; verified 2026-10-04."
   },
   {
     "area": "calendar",
@@ -2547,7 +2547,7 @@
     "effectiveFrom": "2026-10-04",
     "source": "https://eur-lex.europa.eu/eli/dir/2000/84/oj",
     "verifiedDate": "2026-10-04",
-    "note": "First derivation: Metropolitan France follows the EU-wide arrangement: clocks forward at 02:00 on the last Sunday in March and back at 03:00 on the last Sunday in October (01:00 UTC both ways). Transitions for 2026, 2027, 2028 computed from the rule \u2014 statute text not re-verified on the verification date, see the data file; verified 2026-10-04."
+    "note": "First derivation: Metropolitan France follows the EU-wide arrangement: clocks forward at 02:00 on the last Sunday in March and back at 03:00 on the last Sunday in October (01:00 UTC both ways). Transitions for 2026, 2027, 2028 computed from the rule — statute text not re-verified on the verification date, see the data file; verified 2026-10-04."
   },
   {
     "area": "calendar",
@@ -2580,6 +2580,227 @@
     "effectiveFrom": "2026-10-04",
     "source": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2019/decreto/D9772.htm",
     "verifiedDate": "2026-10-04",
-    "note": "First derivation: Brazil has had no daylight saving time since 2019: Decreto n\u00ba 9.772 of 26 April 2019 revoked the hor\u00e1rio de ver\u00e3o. No transitions (not observed) \u2014 statute text not re-verified on the verification date, see the data file; verified 2026-10-04."
+    "note": "First derivation: Brazil has had no daylight saving time since 2019: Decreto nº 9.772 of 26 April 2019 revoked the horário de verão. No transitions (not observed) — statute text not re-verified on the verification date, see the data file; verified 2026-10-04."
+  },
+  {
+    "area": "uk-rates",
+    "key": "state-pension/full-basic-state-pension",
+    "label": "Full basic State Pension",
+    "from": 176.45,
+    "to": 184.9,
+    "unit": "GBP/week",
+    "taxYear": "2026-27",
+    "effectiveFrom": "2026-04-06",
+    "source": "https://www.gov.uk/state-pension/how-much-you-get",
+    "verifiedDate": "2026-10-04",
+    "note": "Full basic State Pension: 176.45 → 184.9 GBP/week from 2026-04-06 — \"The full basic State Pension is £184.90 per week.\" (was: DWP Benefit and pension rates 2026 to 2027, column \"Rates 2025/26\")"
+  },
+  {
+    "area": "uk-rates",
+    "key": "state-pension/basic-state-pension-category-b-lower-spouse-or-civil-partner-s-insurance",
+    "label": "Basic State Pension, Category B (lower) — spouse or civil partner’s insurance",
+    "from": 105.7,
+    "to": 110.75,
+    "unit": "GBP/week",
+    "taxYear": "2026-27",
+    "effectiveFrom": "2026-04-06",
+    "source": "https://www.gov.uk/government/publications/benefit-and-pension-rates-2026-to-2027/proposed-benefit-and-pension-rates-2026-to-2027",
+    "verifiedDate": "2026-10-04",
+    "note": "Basic State Pension, Category B (lower) — spouse or civil partner’s insurance: 105.7 → 110.75 GBP/week from 2026-04-06 — \"Category B (lower) basic pension - spouse or civil partner’s insurance | 105.70 | 110.75\" (was: DWP Benefit and pension rates 2026 to 2027, column \"Rates 2025/26\")"
+  },
+  {
+    "area": "uk-rates",
+    "key": "state-pension/triple-lock-uprating-applied-in-april-2026",
+    "label": "Triple-lock uprating applied in April 2026",
+    "from": null,
+    "to": 4.8,
+    "unit": "%",
+    "taxYear": "2026-27",
+    "effectiveFrom": "2026-04-06",
+    "source": "https://www.gov.uk/government/news/over-12-million-pensioners-to-receive-575-state-pension-boost",
+    "verifiedDate": "2026-10-04",
+    "note": "Triple-lock uprating applied in April 2026: none → 4.8 % from 2026-04-06 — \"The full rate of the new State Pension will increase by 4.8% in line with the increase in average earnings from £230.25 to £241.30 a week. The full basic State Pension will increase from £176.45 to £184.90 a week.\""
+  },
+  {
+    "area": "uk-rates",
+    "key": "capital-gains/business-asset-disposal-relief-rate",
+    "label": "Business Asset Disposal Relief rate",
+    "from": 14,
+    "to": 18,
+    "unit": "%",
+    "taxYear": "2026-27",
+    "effectiveFrom": "2026-04-06",
+    "source": "https://www.gov.uk/capital-gains-tax/rates",
+    "verifiedDate": "2026-10-04",
+    "note": "Business Asset Disposal Relief rate: 14 → 18 % from 2026-04-06 — \"From 6 April 2026 you’ll pay 18% if you’re a sole trader, partnership or trustee and your gains qualify for Business Asset Disposal Relief.\" (was: Capital Gains Tax rates — UK Government Web Archive capture 30 June 2025)"
+  },
+  {
+    "area": "uk-rates",
+    "key": "capital-gains/carried-interest",
+    "label": "Carried interest",
+    "from": "32% Capital Gains Tax",
+    "to": "not subject to Capital Gains Tax from 6 April 2026 — charged to Income Tax and National Insurance instead",
+    "unit": "rule",
+    "taxYear": "2026-27",
+    "effectiveFrom": "2026-04-06",
+    "source": "https://www.gov.uk/capital-gains-tax/rates",
+    "verifiedDate": "2026-10-04",
+    "note": "Carried interest: 32% Capital Gains Tax → not subject to Capital Gains Tax from 6 April 2026 — charged to Income Tax and National Insurance instead rule from 2026-04-06 — \"You do not pay Capital Gains Tax on certain assets, including any gains you make from: … carried interest (from 6 April 2026). You’ll pay Income Tax and National Insurance contributions on carried interest you receive from 6 April 2026 instead.\" (was: Capital Gains Tax rates — UK Government Web Archive capture 30 June 2025)"
+  },
+  {
+    "area": "uk-rates",
+    "key": "dividends/dividend-basic-rate",
+    "label": "Dividend basic rate",
+    "from": 8.75,
+    "to": 10.75,
+    "unit": "%",
+    "taxYear": "2026-27",
+    "effectiveFrom": "2026-04-06",
+    "source": "https://www.gov.uk/tax-on-dividends",
+    "verifiedDate": "2026-10-04",
+    "note": "Dividend basic rate: 8.75 → 10.75 % from 2026-04-06 — \"This table shows the rates from 6 April 2026 to 5 April 2027. | Basic rate | 10.75%\" (was: HMRC Income Tax rates and allowances for current and previous tax years, column \"2025 to 2026\")"
+  },
+  {
+    "area": "uk-rates",
+    "key": "dividends/dividend-higher-rate",
+    "label": "Dividend higher rate",
+    "from": 33.75,
+    "to": 35.75,
+    "unit": "%",
+    "taxYear": "2026-27",
+    "effectiveFrom": "2026-04-06",
+    "source": "https://www.gov.uk/tax-on-dividends",
+    "verifiedDate": "2026-10-04",
+    "note": "Dividend higher rate: 33.75 → 35.75 % from 2026-04-06 — \"Higher rate | 35.75%\" (was: HMRC Income Tax rates and allowances for current and previous tax years, column \"2025 to 2026\")"
+  },
+  {
+    "area": "uk-rates",
+    "key": "statutory-sick-pay/ssp-weekly-rate",
+    "label": "SSP weekly rate",
+    "from": 118.75,
+    "to": 123.25,
+    "unit": "GBP/week",
+    "taxYear": "2026-27",
+    "effectiveFrom": "2026-04-06",
+    "source": "https://www.gov.uk/statutory-sick-pay/what-youll-get",
+    "verifiedDate": "2026-10-04",
+    "note": "SSP weekly rate: 118.75 → 123.25 GBP/week from 2026-04-06 — \"If you’re eligible, you can get £123.25 a week Statutory Sick Pay (SSP) or 80% of your normal weekly earnings - whichever is lower. It’s paid for up to 28 weeks.\" (was: DWP Benefit and pension rates 2026 to 2027, column \"Rates 2025/26\")"
+  },
+  {
+    "area": "uk-rates",
+    "key": "statutory-sick-pay/ssp-amount-rule",
+    "label": "SSP amount rule",
+    "from": "flat £118.75 a week; employee had to earn an average of at least £125 a week",
+    "to": "the lower of £123.25 a week or 80% of normal weekly earnings",
+    "unit": "rule",
+    "taxYear": "2026-27",
+    "effectiveFrom": "2026-04-06",
+    "source": "https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027",
+    "verifiedDate": "2026-10-04",
+    "note": "SSP amount rule: flat £118.75 a week; employee had to earn an average of at least £125 a week → the lower of £123.25 a week or 80% of normal weekly earnings rule from 2026-04-06 — \"The weekly rate of Statutory Sick Pay (SSP) for 2026 to 2027 is £123.25 or 80% of the employee’s average weekly earnings, whichever is lower.\" (was: Statutory Sick Pay — UK Government Web Archive capture 3 July 2025)"
+  },
+  {
+    "area": "uk-rates",
+    "key": "statutory-sick-pay/ssp-paid-from",
+    "label": "SSP paid from",
+    "from": "fourth qualifying day (first 3 days unpaid)",
+    "to": "first day of sickness",
+    "unit": "rule",
+    "taxYear": "2026-27",
+    "effectiveFrom": "2026-04-06",
+    "source": "https://www.gov.uk/statutory-sick-pay/what-youll-get",
+    "verifiedDate": "2026-10-04",
+    "note": "SSP paid from: fourth qualifying day (first 3 days unpaid) → first day of sickness rule from 2026-04-06 — \"You’ll be paid SSP for all the full days you’re off sick that you normally would have worked. (Employer guide: SSP is paid “for each day they’re off work from the first day of illness”.)\" (was: Statutory Sick Pay — UK Government Web Archive capture 3 July 2025)"
+  },
+  {
+    "area": "uk-rates",
+    "key": "statutory-parental-pay/statutory-maternity-pay-next-33-weeks",
+    "label": "Statutory Maternity Pay — next 33 weeks",
+    "from": 187.18,
+    "to": 194.32,
+    "unit": "GBP/week",
+    "taxYear": "2026-27",
+    "effectiveFrom": "2026-04-05",
+    "source": "https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027",
+    "verifiedDate": "2026-10-04",
+    "note": "Statutory Maternity Pay — next 33 weeks: 187.18 → 194.32 GBP/week from 2026-04-05 — \"SMP — weekly rate for remaining weeks | £194.32 or 90% of the employee’s average weekly earnings, whichever is lower. (Maternity pay guide: “£194.32 or 90% of your average weekly earnings (whichever is lower) for the next 33 weeks”.) The Statutory Maternity Pay (SMP) rate applies from 5 April 2026. All other rates apply from 6 April 2026.\" (was: DWP Benefit and pension rates 2026 to 2027, column \"Rates 2025/26\")"
+  },
+  {
+    "area": "uk-rates",
+    "key": "statutory-parental-pay/statutory-paternity-pay",
+    "label": "Statutory Paternity Pay",
+    "from": 187.18,
+    "to": 194.32,
+    "unit": "GBP/week",
+    "taxYear": "2026-27",
+    "effectiveFrom": "2026-04-06",
+    "source": "https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027",
+    "verifiedDate": "2026-10-04",
+    "note": "Statutory Paternity Pay: 187.18 → 194.32 GBP/week from 2026-04-06 — \"Statutory Paternity Pay (SPP) — weekly rate | £194.32 or 90% of the employee’s average weekly earnings, whichever is lower\" (was: DWP Benefit and pension rates 2026 to 2027, column \"Rates 2025/26\")"
+  },
+  {
+    "area": "uk-rates",
+    "key": "statutory-parental-pay/statutory-adoption-pay-after-first-6-weeks",
+    "label": "Statutory Adoption Pay — after first 6 weeks",
+    "from": 187.18,
+    "to": 194.32,
+    "unit": "GBP/week",
+    "taxYear": "2026-27",
+    "effectiveFrom": "2026-04-06",
+    "source": "https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027",
+    "verifiedDate": "2026-10-04",
+    "note": "Statutory Adoption Pay — after first 6 weeks: 187.18 → 194.32 GBP/week from 2026-04-06 — \"SAP — weekly rate for remaining weeks | £194.32 or 90% of the employee’s average weekly earnings, whichever is lower\" (was: DWP Benefit and pension rates 2026 to 2027, column \"Rates 2025/26\")"
+  },
+  {
+    "area": "uk-rates",
+    "key": "statutory-parental-pay/statutory-shared-parental-pay",
+    "label": "Statutory Shared Parental Pay",
+    "from": 187.18,
+    "to": 194.32,
+    "unit": "GBP/week",
+    "taxYear": "2026-27",
+    "effectiveFrom": "2026-04-06",
+    "source": "https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027",
+    "verifiedDate": "2026-10-04",
+    "note": "Statutory Shared Parental Pay: 187.18 → 194.32 GBP/week from 2026-04-06 — \"Statutory Shared Parental Pay (ShPP) — weekly rate | £194.32 or 90% of the employee’s average weekly earnings, whichever is lower\" (was: DWP Benefit and pension rates 2026 to 2027, column \"Rates 2025/26\")"
+  },
+  {
+    "area": "uk-rates",
+    "key": "statutory-parental-pay/earnings-threshold-to-qualify",
+    "label": "Earnings threshold to qualify",
+    "from": 125,
+    "to": 129,
+    "unit": "GBP/week",
+    "taxYear": "2026-27",
+    "effectiveFrom": "2026-04-06",
+    "source": "https://www.gov.uk/government/publications/benefit-and-pension-rates-2026-to-2027/proposed-benefit-and-pension-rates-2026-to-2027",
+    "verifiedDate": "2026-10-04",
+    "note": "Earnings threshold to qualify: 125 → 129 GBP/week from 2026-04-06 — \"earn on average at least £129 a week (maternity pay guide, eligibility); Statutory Maternity Pay | Earnings threshold | 125.00 | 129.00\" (was: DWP Benefit and pension rates 2026 to 2027, column \"Rates 2025/26\")"
+  },
+  {
+    "area": "uk-rates",
+    "key": "child-benefit/eldest-or-only-child",
+    "label": "Eldest or only child",
+    "from": 26.05,
+    "to": 27.05,
+    "unit": "GBP/week",
+    "taxYear": "2026-27",
+    "effectiveFrom": "2026-04-06",
+    "source": "https://www.gov.uk/child-benefit/what-youll-get",
+    "verifiedDate": "2026-10-04",
+    "note": "Eldest or only child: 26.05 → 27.05 GBP/week from 2026-04-06 — \"Eldest or only child | £27.05\" (was: Child Benefit — UK Government Web Archive capture 2 July 2025)"
+  },
+  {
+    "area": "uk-rates",
+    "key": "child-benefit/additional-children-each",
+    "label": "Additional children (each)",
+    "from": 17.25,
+    "to": 17.9,
+    "unit": "GBP/week",
+    "taxYear": "2026-27",
+    "effectiveFrom": "2026-04-06",
+    "source": "https://www.gov.uk/child-benefit/what-youll-get",
+    "verifiedDate": "2026-10-04",
+    "note": "Additional children (each): 17.25 → 17.9 GBP/week from 2026-04-06 — \"Additional children | £17.90 per child\" (was: Child Benefit — UK Government Web Archive capture 2 July 2025)"
   }
 ]

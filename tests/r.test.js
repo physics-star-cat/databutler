@@ -15,7 +15,7 @@ test('/r/uk/rates renders the answer, source link, verified date, noindex', asyn
   assert.match(html, /<meta name="robots" content="noindex">/);
   assert.match(html, /https:\/\/www\.gov\.uk\/income-tax-rates/);
   assert.match(html, /Personal Allowance/);
-  assert.match(html, /verified 2026-08-31/);
+  assert.match(html, /verified 2026-10-04/);
   assert.match(html, /href="\/api\/uk\/rates\?category=income-tax"/);
 });
 

@@ -9,7 +9,7 @@
   "areas": [
     {
       "name": "uk-rates",
-      "description": "UK tax-year rates and thresholds verified against gov.uk: income tax, National Insurance, minimum wage, student loans, VAT, ISA, pensions, stamp duty, capital gains, State Pension.",
+      "description": "UK tax-year rates and thresholds verified against gov.uk: income tax, National Insurance, minimum wage, student loans, VAT, ISA, pensions, stamp duty, capital gains, dividends, savings and marriage allowances, State Pension and State Pension age, statutory sick/maternity/paternity pay, Child Benefit.",
       "cadence": "Every 6 April (new tax year) and after each Budget or Autumn Statement; minimum wage on 1 April; every source page re-fetched weekly."
     },
     {

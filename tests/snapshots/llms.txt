@@ -7,7 +7,7 @@ Data Butler serves clean, provenance-stamped UK public data over open REST and M
 ## API (index: https://databutler.dev/api)
 
 <!-- sync-areas:rest start -->
-- `GET https://databutler.dev/api/uk/rates?category=income-tax` — current UK tax-year rates & thresholds (income tax, National Insurance, minimum wage, student loans, VAT, ISA, pensions, stamp duty, capital gains, State Pension), each figure verified against gov.uk with source + verifiedDate.
+- `GET https://databutler.dev/api/uk/rates?category=income-tax` — current UK tax-year rates & thresholds (income tax, National Insurance, minimum wage, student loans, VAT, ISA, pensions, stamp duty, capital gains, dividends, savings, marriage allowance, State Pension and State Pension age, statutory sick/maternity/paternity pay, Child Benefit), each figure verified against gov.uk with source + verifiedDate.
 - `GET https://databutler.dev/api/uk/exams/topic?board=aqa&subject=physics&level=gcse&topic=electricity` — which exam paper is a topic on ("is electricity paper 2 AQA?" → no, Paper 1), verified against official board specifications.
 - `GET https://databutler.dev/api/uk/exams/specs` — spec metadata: codes, paper structure, tiers, official links.
 - `GET https://databutler.dev/api/uk/exams/papers` — official past-paper archive links (links only; papers are board copyright).
