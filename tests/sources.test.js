@@ -14,6 +14,12 @@ test('govukBodyText joins body + parts and strips tags', () => {
   assert.equal(govukBodyText(j), 'Hello there one');
 });
 
+test('govukBodyText includes a transaction start page\'s fields (an edit there changes the hash)', () => {
+  const j = { details: { introductory_paragraph: '<p>An ETA costs £20.</p>', more_information: '<p>More</p>', start_button_text: 'Start now' } };
+  assert.equal(govukBodyText(j), 'An ETA costs £20. More');
+  assert.equal(govukBodyText({ details: {} }), '', 'a page with none of the fields still hashes as empty, as before');
+});
+
 test('stripHtml removes script/style/nav/header/footer and collapses whitespace', () => {
   const html = '<html><head><style>a{}</style><script>x()</script></head><body><nav>menu</nav><header>h</header><main>Rate  is <b>20%</b></main><footer>f</footer></body></html>';
   assert.equal(stripHtml(html), 'Rate is 20%');

@@ -25,10 +25,18 @@ function stripHtml(html) {
     .trim();
 }
 
+/**
+ * The text a gov.uk page answers with: `body` and guide `parts`, plus the fields a `transaction` start page
+ * keeps its content in (introductory_paragraph, more_information, other_ways_to_apply, what_you_need_to_know —
+ * e.g. /vehicle-tax, /register-to-vote, /eta's start pages), which otherwise hash as an empty page and hide every
+ * edit. Pages without those fields hash exactly as before.
+ */
+const TRANSACTION_FIELDS = ['introductory_paragraph', 'more_information', 'other_ways_to_apply', 'what_you_need_to_know'];
 function govukBodyText(content) {
   const d = (content && content.details) || {};
-  const parts = Array.isArray(d.parts) ? d.parts.map((p) => p.body || '') : [];
-  return stripHtml([d.body || '', ...parts].join(' '));
+  const html = (v) => (typeof v === 'string' ? v : Array.isArray(v) ? v.map((x) => (x && x.content) || '').join(' ') : '');
+  const parts = Array.isArray(d.parts) ? d.parts.map((p) => html(p.body)) : [];
+  return stripHtml([html(d.body), ...parts, ...TRANSACTION_FIELDS.map((k) => html(d[k]))].join(' '));
 }
 
 const hash = (s) => crypto.createHash('sha256').update(s).digest('hex').slice(0, 16);
