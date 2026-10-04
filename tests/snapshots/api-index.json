@@ -171,7 +171,7 @@
       "description": "UK tax-year rates & thresholds (2026-27), verified against gov.uk.",
       "example": "https://databutler.dev/api/uk/rates?category=income-tax",
       "params": {
-        "category": "one of income-tax, national-insurance, minimum-wage, student-loans, vat, isa, state-pension, stamp-duty, capital-gains, pensions (omit to list)"
+        "category": "one of income-tax, national-insurance, minimum-wage, student-loans, vat, isa, state-pension, state-pension-age, stamp-duty, capital-gains, pensions, dividends, savings, marriage-allowance, statutory-sick-pay, statutory-parental-pay, child-benefit (omit to list)"
       }
     },
     "GET /api/uk/vehicle-rules": {

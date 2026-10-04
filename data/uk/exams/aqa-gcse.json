@@ -670,6 +670,8 @@
    "specCode": "8300",
    "subject": "Mathematics",
    "specUrl": "https://www.aqa.org.uk/subjects/mathematics/gcse/mathematics-8300/specification/specification-at-a-glance",
+   "verifiedDate": "2026-10-04",
+   "verification": "Re-verified 2026-10-04 against the live at-a-glance page after the source watcher reported a body change: three papers, each 'written exam: 1 hour 30 minutes', '80 marks', '33⅓% of the GCSE Mathematics assessment'; Paper 1 'non-calculator', Papers 2 and 3 'calculator allowed'; 'Content from any part of the specification may be assessed'; Foundation tier (grades 1 – 5), Higher tier (grades 4 – 9). No change.",
    "pastPapersUrl": "https://www.aqa.org.uk/subjects/mathematics/gcse/mathematics-8300/assessment-resources",
    "tiers": [
     "Foundation (1–5)",

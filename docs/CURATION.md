@@ -55,6 +55,57 @@ are re-read by hand (a browser) at each refresh; `node scripts/sources.js` retri
   specification-at-a-glance pages. Notable verified quirks: Trilogy Physics
   Paper 2 has NO Space physics; Maths has no topic→paper mapping (any topic,
   any paper; Paper 1 non-calculator).
+- 2026-10-04 — rates 2026-27 **re-verified, no figure wrong**; AQA Maths 8300
+  **re-verified, no change**; uk-rates extended to 17 categories (details below).
+
+### uk-rates re-verification and extension (2026-10-04)
+
+Fetch notes: every gov.uk page through the content API
+(`https://www.gov.uk/api/content/<path>`, UA `databutler-curation/1.0`), all
+200; every cited URL (40, including the archive captures) answered 200 to curl.
+Previous (2025-26) values: the same page where it prints the earlier year, the
+DWP "Benefit and pension rates 2026 to 2027" table (column "Rates 2025/26"),
+HMRC's current-and-previous rates table, the 2025-26 employer rates page, or a
+UK Government Web Archive capture (`…/ukgwa/<timestamp>mp_/https://www.gov.uk/…`
+reads the page without the banner; the data cites the bare timestamp URL).
+Nothing from memory. Each figure now carries `quote`, `previous` (where a source
+gave one) and its own `verifiedDate`.
+
+**The four watched pages that changed body since 2026-09-01 — figures or wording?**
+Their content-API `updated_at` moved (income-tax-rates 2026-10-01, CGT
+2026-10-02, new-state-pension 2026-09-09; `public_updated_at` unchanged), and
+the watcher baseline had already been re-hashed on 2026-10-03.
+
+- `https://www.gov.uk/income-tax-rates` — **wording only.** "The current tax year is from 6 April 2026 to 5 April 2027."; "The standard Personal Allowance is £12,570"; "Your personal allowance goes down by £1 for every £2 that your adjusted net income is above £100,000. This means your allowance is zero if your income is £125,140 or above."; "Personal Allowance | Up to £12,570 | 0%"; "Basic rate | £12,571 to £50,270 | 20%"; "Higher rate | £50,271 to £125,140 | 40%"; "Additional rate | over £125,140 | 45%". Part "Previous tax years": "The standard Personal Allowance from 6 April 2025 to 5 April 2026 was £12,570." All five figures re-verified 2026-10-04, no change.
+- `https://www.gov.uk/capital-gains-tax/rates` — **wording, plus two facts not previously held.** Held figures unchanged: allowances part "The Capital Gains tax-free allowance is: £3,000; £1,500 for trusts"; "If this amount is within the basic Income Tax band, you’ll pay 18% on your gains made from 6 April 2026."; "If you’re a higher or additional rate taxpayer, you’ll pay 24% on your gains from 6 April 2026." — re-verified, no change. What changed on the page against the 30 June 2025 capture: the carried-interest 32% lines are gone ("carried interest (from 6 April 2026) … You’ll pay Income Tax and National Insurance contributions on carried interest you receive from 6 April 2026 instead."), and "From 6 April 2026 you’ll pay 18% if you’re a sole trader, partnership or trustee and your gains qualify for Business Asset Disposal Relief." (2025: "From 6 April 2025 you’ll pay 14% …"). Both added as figures with changelog entries (BADR 14 → 18; carried interest "32% Capital Gains Tax" → not CGT). Example 2 was also corrected by gov.uk: the 2025 capture said "18% on £30,270 and then 24% on £19,330", the live page "18% on £17,700 and then 24% on £31,900 … £10,842" (the live arithmetic is right: £20,000 + £49,600 − £37,700).
+- `https://www.gov.uk/new-state-pension/what-youll-get` — **wording only.** "The full rate of new State Pension is £241.30 a week." (also "up to the full rate (£241.30 a week)"). Re-verified, no change; previous 230.25 from the DWP table "New State Pension | Full rate | 230.25 | 241.30".
+- AQA Maths 8300 at-a-glance (uk-exams) — **no change.** "Students must take three question papers at the same tier."; each of Paper 1 "non-calculator", Paper 2 "calculator allowed", Paper 3 "calculator allowed": "written exam: 1 hour 30 minutes | 80 marks | 33⅓% of the GCSE Mathematics assessment", "Content from any part of the specification may be assessed"; "a Foundation tier (grades 1 – 5) and a Higher tier (grades 4 – 9)". The only date on the page is the specification PDF "for first teaching in 2015, 09 Dec 2014" — not a field in the data. The spec now carries `verifiedDate: 2026-10-04` and a `verification` line; the file-level `verifiedDate` stays 2026-08-31 because the other four specs were not re-read. Its live hash equals the 2026-10-03 baseline.
+
+**The other held figures (re-verified 2026-10-04, no change):**
+
+- NI — `…/guidance/rates-and-thresholds-for-employers-2026-to-2027`: "Lower earnings limit | £129 per week £559 per month £6,708 per year"; "Primary threshold | £242 per week £1,048 per month £12,570 per year"; "Secondary threshold | £96 per week £417 per month £5,000 per year"; "Upper earnings limit | £967 per week £4,189 per month £50,270 per year"; category A employee "0% | 8% | 2%", employer "15% | 15% | 15% | 15%"; "Employment Allowance for 2026 to 2027 is £10,500." Previous from the 2025-26 page (LEL £125, others equal).
+- Minimum wage — `…/national-minimum-wage-rates`: "April 2026 | £12.71 | £10.85 | £8 | £8"; previous "April 2025 to March 2026 | £12.21 | £10 | £7.55 | £7.55"; apprentice rule "aged under 19; aged 19 or over and in the first year of their apprenticeship". The category already covered every age band and the apprentice rate, so nothing was added there.
+- Student loans — `…/repaying-your-student-loan/what-you-pay`: "Plan 1 | £26,900", "Plan 2 | £29,385", "Plan 4 | £33,795", "Plan 5 | £25,000", "Postgraduate Loan | £21,000"; 9% / 6%. Previous (capture 20250630160709): £26,065, £28,470, £32,745, £25,000, £21,000.
+- VAT — "Standard rate | 20%", "Reduced rate | 5%", "Zero rate | 0%" (capture 20250630153708 identical).
+- ISA — "In the 2026 to 2027 tax year, the maximum you can save in ISAs is £20,000"; Lifetime ISA "up to £4,000 each year", "25% bonus … up to a maximum of £1,000 per year" (captures 20250630175307, 20250630155332 identical).
+- SDLT — "Up to £125,000 | Zero"; "£125,001 to £250,000 | 2%"; "£250,001 to £925,000 | 5%"; "£925,001 to £1.5 million | 10%"; "above £1.5 million | 12%"; first-time buyers "no SDLT up to £300,000; 5% … £300,001 to £500,000"; "5% on top"; "2% surcharge" (capture 20250630201411 identical).
+- Pensions — "This is £60,000 this tax year."; "‘threshold income’ is over £200,000"; "‘adjusted income’ is over £260,000" (capture 20250702115612 identical).
+
+44 held figures re-verified (plus the 8300 paper structure); **none was wrong.**
+
+**Added (46 figures, 7 new categories + 3 in state-pension + 2 in capital-gains):**
+
+- state-pension (retitled "State Pension (new and basic)") — `…/state-pension/how-much-you-get`: "The full basic State Pension is £184.90 per week." (prev 176.45); DWP table "Category B (lower) basic pension - spouse or civil partner’s insurance | 105.70 | 110.75"; DWP press release `…/government/news/over-12-million-pensioners-to-receive-575-state-pension-boost`: "The full rate of the new State Pension will increase by 4.8% in line with the increase in average earnings from £230.25 to £241.30 a week. The full basic State Pension will increase from £176.45 to £184.90 a week." (the release's "Monday 6 April 2025" is a typo on gov.uk — the rates are 2026-27). No page gave the 2025-26 uprating %, so the triple-lock figure has no `previous` (entry null → 4.8).
+- state-pension-age — `…/government/publications/state-pension-age-timetable/state-pension-age-timetable` (DWP): Table 3 "6 October 1954 – 5 April 1960 | 66th birthday"; Table 4 rows "6 April 1960 – 5 May 1960 | 66 years and 1 month" … "6 February 1961 – 5 March 1961 | 66 years and 11 months", "6 March 1961 – 5 April 1977* | 67"; Table 5 "6 April 1977 – 5 May 1977 | 6 May 2044" … "6 March 1978 – 5 April 1978 | 6 March 2046", "6 April 1978 onwards | 68th birthday"; "The State Pension age for men and women will now increase to 67 between 2026 and 2028." **The page does not print "6 May 2026"**: the figure "66 → 67 rise: first people reach State Pension age = 2026-05-06" is marked `derived` (born 6 April 1960 + 66 years 1 month). Capture 20250702110140 has identical tables, so these carry previous = value and log no entry.
+- dividends — `…/tax-on-dividends`: "dividend allowance of £500 each year"; "rates from 6 April 2026 to 5 April 2027 | Basic rate | 10.75% | Higher rate | 35.75% | Additional rate | 39.35%". Previous from HMRC `…/rates-and-allowances-income-tax/income-tax-rates-and-allowances-current-and-past`: "Dividend allowance | £500 | £500 | £500 | £1,000"; "Basic rate | 10.75% | 8.75% …"; "Higher rate | 35.75% | 33.75% …"; "Additional rate | 39.35% | 39.35% …". **Basic and higher dividend rates each rose 2 points** (entries 8.75 → 10.75, 33.75 → 35.75).
+- savings — `…/apply-tax-free-interest-on-savings/how-much-is-tax-free`: "Basic rate | £1,000", "Higher rate | £500", "Additional rate | £0"; "less than £17,570 … up to £5,000 of interest" (capture 20250630153905 identical).
+- marriage-allowance — `…/marriage-allowance`: "transfer £1,260 of your Personal Allowance"; "reduces their tax by up to £252" (capture 20250630170819 identical).
+- statutory-sick-pay — `…/statutory-sick-pay/what-youll-get`: "£123.25 a week Statutory Sick Pay (SSP) or 80% of your normal weekly earnings - whichever is lower. It’s paid for up to 28 weeks."; "all the full days you’re off sick"; employer page "for each day they’re off work from the first day of illness". Capture 20250703214005: "£118.75 a week … except for the first 3"; eligibility "earn an average of at least £125 per week". Entries: rate 118.75 → 123.25, amount rule, paid-from rule.
+- statutory-parental-pay — employer page: "SMP — weekly rate for first 6 weeks | 90%"; "SMP — weekly rate for remaining weeks | £194.32 or 90% … whichever is lower"; SPP, SAP, ShPP the same £194.32; "The Statutory Maternity Pay (SMP) rate applies from 5 April 2026. All other rates apply from 6 April 2026." (SMP effectiveFrom 2026-04-05). Maternity guide "earn on average at least £129 a week". DWP table: 187.18 → 194.32; earnings threshold 125.00 → 129.00.
+- child-benefit — `…/child-benefit/what-youll-get`: "Eldest or only child | £27.05", "Additional children | £17.90 per child" (capture 20250702194804: £26.05, £17.25); `…/child-benefit-tax-charge`: "over £60,000 for tax years starting from 2024 to 2025"; "1% of your Child Benefit for every £200 you earn over £60,000. If you earn over £80,000 you’ll pay it all back."
+
+`scripts/changelog.js --only uk-rates` wrote 17 entries (all verifiedDate 2026-10-04): basic SP ×2, triple lock, BADR, carried interest, dividend ×2, SSP ×3, statutory parental pay ×5, Child Benefit ×2. Unchanged new figures carry previous = value and log nothing. The uk-rates diff now honours `previous.value`, per-figure `source` and `effectiveFrom` (commit before this one). `--only uk-exams`: 0 entries.
+
 
 ## Verification log (vehicles, added 2026-10-03)
 

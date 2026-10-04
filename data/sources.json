@@ -4,105 +4,196 @@
     "updatedAt": "2024-11-07T14:57:18+00:00",
     "bodyHash": "010e312454d19b97",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-03"
+    "checkedAt": "2026-10-04"
   },
   {
     "url": "https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027",
     "updatedAt": "2026-09-01T00:15:03+01:00",
     "bodyHash": "b3a707ce74a85690",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-03"
+    "checkedAt": "2026-10-04"
   },
   {
     "url": "https://www.gov.uk/national-minimum-wage-rates",
     "updatedAt": "2024-10-30T11:07:08+00:00",
     "bodyHash": "6392f4a8c45f6cd5",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-03"
+    "checkedAt": "2026-10-04"
   },
   {
     "url": "https://www.gov.uk/repaying-your-student-loan/what-you-pay",
     "updatedAt": "2024-10-18T13:50:42+01:00",
     "bodyHash": "63a1ed25edb4db9f",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-03"
+    "checkedAt": "2026-10-04"
   },
   {
     "url": "https://www.gov.uk/vat-rates",
     "updatedAt": "2014-12-12T14:55:23+00:00",
     "bodyHash": "f2c1a31029487b0a",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-03"
+    "checkedAt": "2026-10-04"
   },
   {
     "url": "https://www.gov.uk/individual-savings-accounts",
     "updatedAt": "2025-01-08T15:23:26+00:00",
     "bodyHash": "97c466b575264611",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-03"
+    "checkedAt": "2026-10-04"
   },
   {
     "url": "https://www.gov.uk/new-state-pension/what-youll-get",
     "updatedAt": "2025-01-31T11:26:31+00:00",
     "bodyHash": "9fa2be5326e71305",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-03"
+    "checkedAt": "2026-10-04"
+  },
+  {
+    "url": "https://www.gov.uk/government/publications/state-pension-age-timetable/state-pension-age-timetable",
+    "updatedAt": "2014-05-15T09:00:10+01:00",
+    "bodyHash": "e6a97a4bcb97da30",
+    "via": "govuk-content-api",
+    "checkedAt": "2026-10-04"
   },
   {
     "url": "https://www.gov.uk/stamp-duty-land-tax/residential-property-rates",
     "updatedAt": "2024-10-30T14:07:41+00:00",
     "bodyHash": "e75718af562b56f8",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-03"
+    "checkedAt": "2026-10-04"
   },
   {
     "url": "https://www.gov.uk/capital-gains-tax/rates",
     "updatedAt": "2024-10-30T14:06:47+00:00",
     "bodyHash": "abe53df0e5b46ae2",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-03"
+    "checkedAt": "2026-10-04"
   },
   {
     "url": "https://www.gov.uk/tax-on-your-private-pension/annual-allowance",
     "updatedAt": "2024-11-08T15:41:39+00:00",
     "bodyHash": "5098d17dd57c9023",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-03"
+    "checkedAt": "2026-10-04"
+  },
+  {
+    "url": "https://www.gov.uk/tax-on-dividends",
+    "updatedAt": "2024-12-02T16:37:01+00:00",
+    "bodyHash": "2e3bc049549ce403",
+    "via": "govuk-content-api",
+    "checkedAt": "2026-10-04"
+  },
+  {
+    "url": "https://www.gov.uk/apply-tax-free-interest-on-savings/how-much-is-tax-free",
+    "updatedAt": "2016-04-06T00:01:11+01:00",
+    "bodyHash": "5a9be8d2ea294a7d",
+    "via": "govuk-content-api",
+    "checkedAt": "2026-10-04"
+  },
+  {
+    "url": "https://www.gov.uk/marriage-allowance",
+    "updatedAt": "2017-11-30T08:32:16+00:00",
+    "bodyHash": "1933062a7bc11185",
+    "via": "govuk-content-api",
+    "checkedAt": "2026-10-04"
+  },
+  {
+    "url": "https://www.gov.uk/statutory-sick-pay/what-youll-get",
+    "updatedAt": "2015-03-09T14:15:47+00:00",
+    "bodyHash": "b787de0c7c17f8ab",
+    "via": "govuk-content-api",
+    "checkedAt": "2026-10-04"
+  },
+  {
+    "url": "https://www.gov.uk/child-benefit/what-youll-get",
+    "updatedAt": "2024-11-22T11:57:33+00:00",
+    "bodyHash": "9a9e998505b58760",
+    "via": "govuk-content-api",
+    "checkedAt": "2026-10-04"
+  },
+  {
+    "url": "https://www.gov.uk/lifetime-isa",
+    "updatedAt": "2024-11-08T16:28:27+00:00",
+    "bodyHash": "a1d4f270c7defe25",
+    "via": "govuk-content-api",
+    "checkedAt": "2026-10-04"
+  },
+  {
+    "url": "https://www.gov.uk/state-pension/how-much-you-get",
+    "updatedAt": "2015-03-17T18:23:25+00:00",
+    "bodyHash": "1e778274d1e32201",
+    "via": "govuk-content-api",
+    "checkedAt": "2026-10-04"
+  },
+  {
+    "url": "https://www.gov.uk/government/publications/benefit-and-pension-rates-2026-to-2027/proposed-benefit-and-pension-rates-2026-to-2027",
+    "updatedAt": "2026-02-16T14:18:37+00:00",
+    "bodyHash": "dc1d6eba9f9bdb4c",
+    "via": "govuk-content-api",
+    "checkedAt": "2026-10-04"
+  },
+  {
+    "url": "https://www.gov.uk/government/news/over-12-million-pensioners-to-receive-575-state-pension-boost",
+    "updatedAt": "2026-04-04T22:30:00+01:00",
+    "bodyHash": "5ca80f5cf7e73d0c",
+    "via": "govuk-content-api",
+    "checkedAt": "2026-10-04"
+  },
+  {
+    "url": "https://www.gov.uk/capital-gains-tax/allowances",
+    "updatedAt": "2024-10-30T14:06:47+00:00",
+    "bodyHash": "abe53df0e5b46ae2",
+    "via": "govuk-content-api",
+    "checkedAt": "2026-10-04"
+  },
+  {
+    "url": "https://www.gov.uk/maternity-pay-leave/pay",
+    "updatedAt": "2015-04-06T00:01:49+01:00",
+    "bodyHash": "09c046f60c16c3a7",
+    "via": "govuk-content-api",
+    "checkedAt": "2026-10-04"
+  },
+  {
+    "url": "https://www.gov.uk/child-benefit-tax-charge",
+    "updatedAt": "2024-12-31T16:40:48+00:00",
+    "bodyHash": "60d3f7076c843d29",
+    "via": "govuk-content-api",
+    "checkedAt": "2026-10-04"
   },
   {
     "url": "https://www.aqa.org.uk/subjects/physics/gcse/physics-8463/specification/specification-at-a-glance",
     "updatedAt": null,
     "bodyHash": "f6ae7bf2319ecebd",
     "via": "html",
-    "checkedAt": "2026-10-03"
+    "checkedAt": "2026-10-04"
   },
   {
     "url": "https://www.aqa.org.uk/subjects/biology/gcse/biology-8461/specification/specification-at-a-glance",
     "updatedAt": null,
     "bodyHash": "7d71ebdd9224dc2e",
     "via": "html",
-    "checkedAt": "2026-10-03"
+    "checkedAt": "2026-10-04"
   },
   {
     "url": "https://www.aqa.org.uk/subjects/chemistry/gcse/chemistry-8462/specification/specification-at-a-glance",
     "updatedAt": null,
     "bodyHash": "403446dbb626107e",
     "via": "html",
-    "checkedAt": "2026-10-03"
+    "checkedAt": "2026-10-04"
   },
   {
     "url": "https://www.aqa.org.uk/subjects/science/gcse/combined-science-trilogy-8464/specification/specification-at-a-glance",
     "updatedAt": null,
     "bodyHash": "9fe2e25cd7323f42",
     "via": "html",
-    "checkedAt": "2026-10-03"
+    "checkedAt": "2026-10-04"
   },
   {
     "url": "https://www.aqa.org.uk/subjects/mathematics/gcse/mathematics-8300/specification/specification-at-a-glance",
     "updatedAt": null,
     "bodyHash": "33d231d3e7dedee6",
     "via": "html",
-    "checkedAt": "2026-10-03"
+    "checkedAt": "2026-10-04"
   },
   {
     "url": "https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate",
