@@ -485,12 +485,12 @@
       "officialSource": "https://ec.europa.eu/safety-gate-alerts/screen/webReport",
       "hint": "For now: fr_recalls_for_model / fr_recalls_search — RappelConso republishes the Safety Gate automobile alerts that concern France (fiche links ending /rapex), so most EU-wide vehicle recalls appear there in French.",
       "freshness": {
-        "verifiedDate": "2026-10-04",
+        "verifiedDate": "<today>",
         "nextScheduledRefresh": null
       },
       "cite": {
         "url": "https://databutler.dev/r/vehicles/eu/safety-gate",
-        "text": "databutler.dev, computed live 2026-10-04"
+        "text": "databutler.dev, computed live <today>"
       }
     }
   },
@@ -968,12 +968,12 @@
       "mean": 0,
       "variance": 1,
       "freshness": {
-        "verifiedDate": "2026-10-04",
+        "verifiedDate": "<today>",
         "nextScheduledRefresh": null
       },
       "cite": {
         "url": "https://databutler.dev/r/stats?op=distribution&dist=normal&at=1.96",
-        "text": "databutler.dev, computed live 2026-10-04"
+        "text": "databutler.dev, computed live <today>"
       }
     }
   },
@@ -2733,7 +2733,7 @@
       "releaseDate": "2022-04-19",
       "supported": false,
       "eol": "2025-04-30",
-      "daysSinceEol": 522,
+      "daysSinceEol": "<days>",
       "activeSupportEnds": "2023-10-18",
       "inActiveSupport": false,
       "lts": true,
@@ -2763,8 +2763,8 @@
         "latestReleaseDate": "2026-09-08",
         "activeSupportEnds": "2026-10-20"
       },
-      "recommendation": "Node.js 18 reached end of life on 2025-04-30, 522 days before 2026-10-04; no further security fixes are published for it. The newest supported LTS cycle is Node.js 24 (latest 24.21.0, supported until 2028-04-30).",
-      "asOf": "2026-10-04",
+      "recommendation": "Node.js 18 reached end of life on 2025-04-30, <days> days before <today>; no further security fixes are published for it. The newest supported LTS cycle is Node.js 24 (latest 24.21.0, supported until 2028-04-30).",
+      "asOf": "<today>",
       "source": "https://endoflife.date/nodejs",
       "verifiedDate": "2026-10-03",
       "definitions": {
@@ -2904,7 +2904,7 @@
         "name": "Data Butler",
         "url": "https://databutler.dev/"
       },
-      "generated": "2026-10-04",
+      "generated": "<today>",
       "since": "2026-06-01",
       "area": "uk-rates",
       "coverageStart": "2026-08-31",
@@ -2923,12 +2923,12 @@
       "count": 0,
       "entries": [],
       "freshness": {
-        "verifiedDate": "2026-10-04",
+        "verifiedDate": "<today>",
         "nextScheduledRefresh": null
       },
       "cite": {
         "url": "https://databutler.dev/r/changes?since=2026-06-01&area=uk-rates",
-        "text": "databutler.dev, computed live 2026-10-04"
+        "text": "databutler.dev, computed live <today>"
       }
     }
   }
