@@ -39,6 +39,21 @@ except Exception: print('?')")
     echo "UNKNOWN   $name $ver (registry lookup failed; re-run)"
     continue
   fi
+  # The registry's search index lags publishes by minutes: re-ask before
+  # calling something missing (and before trying to publish it twice).
+  for retry in 1 2; do
+    sleep 10
+    again=$(curl -s -m 60 "$REG?search=$name&limit=10" | python3 -c "
+import sys,json
+try:
+  d=json.load(sys.stdin); print(','.join(sorted({(s.get('server') or s)['version'] for s in d.get('servers',[]) if (s.get('server') or s)['name']=='$name'})))
+except Exception: print('')")
+    [[ ",$again," == *",$ver,"* ]] && break
+  done
+  if [[ ",$again," == *",$ver,"* ]]; then
+    echo "ok        $name $ver (after index catch-up)"
+    continue
+  fi
   missing=$((missing+1))
   if [[ "$CHECK" == "--check" ]]; then
     echo "MISSING   $name $ver (registry has: ${live:-none})"
