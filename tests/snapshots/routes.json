@@ -1,11 +1,14 @@
 {
   "router": [
+    "calendar",
+    "calendar/next",
     "changes",
     "changes-feed",
     "changes-page",
     "cron/watch-sources",
     "de/rates",
     "mcp",
+    "mcp/calendar",
     "mcp/de-rates",
     "mcp/policy-rates",
     "mcp/provenance",
@@ -45,6 +48,8 @@
     "vehicles/uk/search"
   ],
   "cite": [
+    "calendar",
+    "calendar/next",
     "catalogue",
     "changes",
     "coverage",
@@ -275,6 +280,23 @@
         "board",
         "kind",
         "qualification"
+      ]
+    },
+    "calendar_facts": {
+      "path": "calendar",
+      "queryKeys": [
+        "country",
+        "kind",
+        "region",
+        "year"
+      ]
+    },
+    "next_holiday": {
+      "path": "calendar/next",
+      "queryKeys": [
+        "country",
+        "from",
+        "region"
       ]
     }
   }

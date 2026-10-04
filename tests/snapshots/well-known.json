@@ -51,6 +51,11 @@
       "name": "uk-exam-dates",
       "description": "UK exam calendar facts verified against JCQ and the boards' own documents: GCSE and A-level results days, the summer exam timetable (JCQ window, contingency day, dates of the most-asked papers at AQA, Pearson Edexcel, Cambridge OCR, WJEC/Eduqas), entry deadlines and late-fee dates, Scotland's results day, and announced specification changes with first-teaching and first-exam years.",
       "cadence": "Annual, calendar-driven: when JCQ and the boards publish the following summer's final timetables (early in the calendar year) and the results days; the weekly watcher hashes the JCQ and board timetable pages"
+    },
+    {
+      "name": "calendar",
+      "description": "Public holidays (UK, US federal, German Länder, France), tax-year starts/ends (nine countries) and daylight-saving switch dates for 2026–2028: new years published, holidays added or moved, rule changes",
+      "cadence": "monthly"
     }
   ],
   "endpoints": {

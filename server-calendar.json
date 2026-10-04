@@ -1,0 +1,9 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.physics-star-cat/databutler-calendar",
+  "description": "Calendar facts for 2026–2028 a model's training data cannot hold: public holidays for the UK (England & Wales, Scotland, Northern Ireland), US federal, Germany (nationwide and all 16 Länder) and France (métropole, Alsace-Moselle) from the official lists, tax-year starts and ends for nine countries with the statute quoted, and daylight-saving switch dates with their statutory rule — a monthly snapshot with source URL and verification date on every answer.",
+  "repository": { "url": "https://github.com/physics-star-cat/databutler", "source": "github" },
+  "version": "1.0.0",
+  "websiteUrl": "https://databutler.dev/api",
+  "remotes": [{ "type": "streamable-http", "url": "https://databutler.dev/api/mcp/calendar" }]
+}

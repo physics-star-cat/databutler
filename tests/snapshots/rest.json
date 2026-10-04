@@ -669,6 +669,141 @@
       }
     }
   },
+  "/api/calendar": {
+    "status": 200,
+    "body": {
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate.",
+      "countries": {
+        "uk": {
+          "name": "United Kingdom",
+          "kinds": [
+            "holidays",
+            "tax-year",
+            "dst"
+          ],
+          "holidayRegions": {
+            "england-and-wales": "England and Wales",
+            "scotland": "Scotland",
+            "northern-ireland": "Northern Ireland"
+          }
+        },
+        "us": {
+          "name": "United States",
+          "kinds": [
+            "holidays",
+            "tax-year",
+            "dst"
+          ],
+          "holidayRegions": {
+            "federal": "Federal (5 U.S.C. § 6103)"
+          }
+        },
+        "de": {
+          "name": "Germany",
+          "kinds": [
+            "holidays",
+            "tax-year",
+            "dst"
+          ],
+          "holidayRegions": {
+            "nationwide": "Bundesweit (die neun bundeseinheitlichen Feiertage)",
+            "BW": "Baden-Württemberg",
+            "BY": "Bayern",
+            "BE": "Berlin",
+            "BB": "Brandenburg",
+            "HB": "Bremen",
+            "HH": "Hamburg",
+            "HE": "Hessen",
+            "MV": "Mecklenburg-Vorpommern",
+            "NI": "Niedersachsen",
+            "NW": "Nordrhein-Westfalen",
+            "RP": "Rheinland-Pfalz",
+            "SL": "Saarland",
+            "SN": "Sachsen",
+            "ST": "Sachsen-Anhalt",
+            "SH": "Schleswig-Holstein",
+            "TH": "Thüringen"
+          }
+        },
+        "fr": {
+          "name": "France",
+          "kinds": [
+            "holidays",
+            "tax-year",
+            "dst"
+          ],
+          "holidayRegions": {
+            "metropole": "France métropolitaine (cas général)",
+            "alsace-moselle": "Alsace-Moselle (Bas-Rhin, Haut-Rhin, Moselle)"
+          }
+        },
+        "au": {
+          "name": "Australia",
+          "kinds": [
+            "tax-year",
+            "dst"
+          ]
+        },
+        "in": {
+          "name": "India",
+          "kinds": [
+            "tax-year"
+          ]
+        },
+        "ca": {
+          "name": "Canada",
+          "kinds": [
+            "tax-year"
+          ]
+        },
+        "br": {
+          "name": "Brazil",
+          "kinds": [
+            "tax-year",
+            "dst"
+          ]
+        },
+        "pl": {
+          "name": "Poland",
+          "kinds": [
+            "tax-year"
+          ]
+        }
+      },
+      "kinds": [
+        "holidays",
+        "tax-year",
+        "dst"
+      ],
+      "years": [
+        2026,
+        2027,
+        2028
+      ],
+      "verifiedDate": "2026-10-04",
+      "usage": "pass country=<code or name> and kind=holidays|tax-year|dst; year (one of the years listed) and region (a UK nation, a German Land code or name, metropole|alsace-moselle) are optional",
+      "source": "https://www.gov.uk/bank-holidays",
+      "freshness": {
+        "verifiedDate": "2026-10-04",
+        "nextScheduledRefresh": "2026-11-08"
+      },
+      "cite": {
+        "url": "https://databutler.dev/r/calendar",
+        "text": "databutler.dev, verified 2026-10-04 against https://www.gov.uk/bank-holidays"
+      }
+    }
+  },
+  "/api/calendar/next": {
+    "status": 400,
+    "body": {
+      "error": "missing ?country=. See /api for usage.",
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate."
+    }
+  },
   "/api/uk/rates?category=vat": {
     "status": 200,
     "body": {
@@ -2782,7 +2917,8 @@
         "us-rates",
         "de-rates",
         "uk-vehicle-rules",
-        "uk-exam-dates"
+        "uk-exam-dates",
+        "calendar"
       ],
       "count": 0,
       "entries": [],
