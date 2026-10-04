@@ -243,5 +243,68 @@
     "bodyHash": "4840fb0fe62d3a88",
     "via": "html",
     "checkedAt": "2026-10-03"
+  },
+  {
+    "url": "https://www.gov.uk/vehicle-tax-rate-tables",
+    "updatedAt": "2015-04-01T01:01:09+01:00",
+    "bodyHash": "14c86f1123aeff63",
+    "via": "govuk-content-api",
+    "checkedAt": "2026-10-04"
+  },
+  {
+    "url": "https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-registered-on-or-after-1-march-2001",
+    "updatedAt": "2015-04-01T01:01:09+01:00",
+    "bodyHash": "14c86f1123aeff63",
+    "via": "govuk-content-api",
+    "checkedAt": "2026-10-04"
+  },
+  {
+    "url": "https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-and-light-goods-vehicles-registered-before-1-march-2001",
+    "updatedAt": "2015-04-01T01:01:09+01:00",
+    "bodyHash": "14c86f1123aeff63",
+    "via": "govuk-content-api",
+    "checkedAt": "2026-10-04"
+  },
+  {
+    "url": "https://www.gov.uk/vehicle-exempt-from-vehicle-tax",
+    "updatedAt": "2015-04-03T00:01:07+01:00",
+    "bodyHash": "f1c50eb798ab7f05",
+    "via": "govuk-content-api",
+    "checkedAt": "2026-10-04"
+  },
+  {
+    "url": "https://www.gov.uk/historic-vehicles",
+    "updatedAt": "2025-01-24T14:09:14+00:00",
+    "bodyHash": "cbc118308f0834bb",
+    "via": "govuk-content-api",
+    "checkedAt": "2026-10-04"
+  },
+  {
+    "url": "https://www.gov.uk/getting-an-mot/mot-test-fees",
+    "updatedAt": "2024-11-28T17:41:18+00:00",
+    "bodyHash": "d31e3aab0d0f4ba5",
+    "via": "govuk-content-api",
+    "checkedAt": "2026-10-04"
+  },
+  {
+    "url": "https://www.gov.uk/getting-an-mot/when-to-get-an-mot",
+    "updatedAt": "2024-11-28T17:41:18+00:00",
+    "bodyHash": "d31e3aab0d0f4ba5",
+    "via": "govuk-content-api",
+    "checkedAt": "2026-10-04"
+  },
+  {
+    "url": "https://www.gov.uk/vehicle-tax-direct-debit",
+    "updatedAt": "2025-01-30T13:50:53+00:00",
+    "bodyHash": "d88e9e89f384c762",
+    "via": "govuk-content-api",
+    "checkedAt": "2026-10-04"
+  },
+  {
+    "url": "https://www.gov.uk/government/publications/vehicle-excise-duty-for-expensive-car-supplement-threshold-increase-for-zero-emission-vehicles/increase-in-the-vehicle-excise-duty-expensive-car-supplement-threshold-for-zero-emission-cars",
+    "updatedAt": "2025-11-26T16:52:28+00:00",
+    "bodyHash": "d3995a7763b1d3eb",
+    "via": "govuk-content-api",
+    "checkedAt": "2026-10-04"
   }
 ]

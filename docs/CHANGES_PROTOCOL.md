@@ -77,7 +77,7 @@ Data Butler's discovery document:
     "name": "Data Butler",
     "url": "https://databutler.dev/"
   },
-  "updated": "2026-10-03",
+  "updated": "2026-10-04",
   "coverageStart": "2026-08-31",
   "areas": [
     {
@@ -114,6 +114,11 @@ Data Butler's discovery document:
       "name": "de-rates",
       "description": "German tax and social-insurance figures read from the consolidated statutes, the Bundesgesetzblatt and the BMG/DRV/BMAS pages: Grundfreibetrag and § 32a tariff, Solidaritätszuschlag, Beitragsbemessungsgrenzen and Beitragssätze, Zusatzbeitrag, Mindestlohn, Geringfügigkeitsgrenze, Kindergeld, Kinderfreibetrag, Pauschbeträge, Entfernungspauschale.",
       "cadence": "Annual: after the Sozialversicherungsrechengrößen-Verordnung and the Zusatzbeitrag announcement (November), and any Steuergesetz changing § 32a EStG for the next Veranlagungszeitraum; every source page re-fetched weekly."
+    },
+    {
+      "name": "uk-vehicle-rules",
+      "description": "UK vehicle tax (VED) and MOT rules verified against gov.uk: first-year rates by CO2 band, the standard rate, the expensive car supplement, 2001–2017 bands, pre-2001 engine-size rates, electric-vehicle rules since April 2025, historic-vehicle exemptions, MOT due dates, maximum fees, early renewal, retests, exemptions and penalties.",
+      "cadence": "Every 1 April (VED rates and the historic-vehicle exemption date move with the Finance Act) and after each Budget; MOT fees and rules when DVSA changes them; every source page re-fetched weekly."
     }
   ],
   "endpoints": {

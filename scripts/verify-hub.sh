@@ -24,7 +24,7 @@ check rest-changes "$(curl -sS "$BASE/api/changes?since=2026-06-01&area=uk-rates
 # sync-areas:checks start
 check tools/list "$(rpc '{"jsonrpc":"2.0","id":2,"method":"tools/list"}')" \
   "[t['name'] for t in d['result']['tools']]==['uk_rates_lookup','exam_topic_paper','domain_provenance','package_provenance','take_home_pay','what_changed_since','coverage','catalogue','call']"
-check catalogue "$(inner "$(tool catalogue '{}')")" "d['count']==27"
+check catalogue "$(inner "$(tool catalogue '{}')")" "d['count']==28"
 # uk-rates
 check rates "$(inner "$(tool uk_rates_lookup '{"category":"income-tax"}')")" \
   "d['freshness']['staleness'] in ('fresh','due','overdue') and d['cite']['url']=='https://databutler.dev/r/uk/rates?category=income-tax'"
@@ -94,7 +94,16 @@ check call-de-rates-income-tax "$(inner "$(tool call '{"tool":"de_rates_lookup",
 check call-de-rates-nearmiss "$(inner "$(tool call '{"tool":"de_rates_lookup","arguments":{"category":"kirchensteuer"}}')")" \
   "d['covered']==False and 'income-tax' in d['coverage'] and len(d['nearest'])>0"
 check rest-de-rates "$(curl -sS "$BASE/api/de/rates?category=minimum-wage")" "d['category']=='minimum-wage' and 'freshness' in d and d['cite']['url']=='https://databutler.dev/r/de/rates?category=minimum-wage'"
-for name in uk-rates uk-exams provenance stats vehicles tax software-eol policy-rates us-rates de-rates; do
+# uk-vehicle-rules
+check uk-vehicle-rules-listing "$(inner "$(tool call '{"tool":"uk_vehicle_rules_lookup","arguments":{}}')")" \
+  "'categories' in d and 'ved-first-year' in d['categories'] and 'freshness' in d"
+check uk-vehicle-rules-rest-listing "$(curl -sS "$BASE/api/uk/vehicle-rules")" "'categories' in d and 'cite' in d"
+check call-uk-vehicle-rules-standard "$(inner "$(tool call '{"tool":"uk_vehicle_rules_lookup","arguments":{"category":"ved-standard"}}')")" \
+  "d['category']=='ved-standard' and d['figures'][0]['value']==200 and d['source'].startswith('https://www.gov.uk/') and d['freshness']['staleness'] in ('fresh','due','overdue') and d['cite']['url']=='https://databutler.dev/r/uk/vehicle-rules?category=ved-standard'"
+check call-uk-vehicle-rules-nearmiss "$(inner "$(tool call '{"tool":"uk_vehicle_rules_lookup","arguments":{"category":"mot-fees"}}')")" \
+  "(d.get('covered')==False and 'mot' in d['nearest']) or d.get('category')=='mot'"
+check rest-uk-vehicle-rules-mot "$(curl -sS "$BASE/api/uk/vehicle-rules?category=mot")" "d['category']=='mot' and any(f['key']=='max-fee-car' and f['value']==54.85 for f in d['figures']) and 'freshness' in d and d['cite']['url']=='https://databutler.dev/r/uk/vehicle-rules?category=mot'"
+for name in uk-rates uk-exams provenance stats vehicles tax software-eol policy-rates us-rates de-rates uk-vehicle-rules; do
   check "legacy $name tools/list" "$(curl -sS -X POST "$BASE/api/mcp/$name" -H 'Content-Type: application/json' -d '{"jsonrpc":"2.0","id":2,"method":"tools/list"}')" "len(d['result']['tools'])>0"
 done
 # sync-areas:checks end

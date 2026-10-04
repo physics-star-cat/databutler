@@ -28,6 +28,7 @@
       "uk": "GBP, tax year 2025/26 (live via lifebynumbers.net)",
       "us": "USD, tax year 2026 (live via lifebynumbers.net)"
     },
+    "ukVehicleRules": "tax year 2026-27: 9 categories, verified 2026-10-04",
     "usRates": "tax year 2026, 6 categories, verified 2026-10-03; federal only",
     "vehicles": {
       "euSafetyGate": "stub",
@@ -48,7 +49,7 @@
       "description": "What changed in the verified datasets since a date (REST mirror of what_changed_since). format=html|rss|atom serves the /changes page or feeds instead of JSON.",
       "example": "https://databutler.dev/api/changes?since=2026-06-01",
       "params": {
-        "area": "uk-rates | uk-exams | vehicles | software-eol | policy-rates | us-rates | de-rates | all",
+        "area": "uk-rates | uk-exams | vehicles | software-eol | policy-rates | us-rates | de-rates | uk-vehicle-rules | all",
         "format": "json (default) | html | rss | atom",
         "since": "YYYY-MM-DD"
       }
@@ -143,6 +144,13 @@
         "category": "one of income-tax, national-insurance, minimum-wage, student-loans, vat, isa, state-pension, stamp-duty, capital-gains, pensions (omit to list)"
       }
     },
+    "GET /api/uk/vehicle-rules": {
+      "description": "UK vehicle tax (VED) and MOT rules for 2026-27, verified 2026-10-04 against gov.uk: first-year VED by CO2 band (cars registered on or after 1 April 2017), the standard rate and Direct Debit surcharges, the expensive car supplement (£40,000 / £50,000 zero-emission threshold, annual amount, years), bands A–M for 2001–2017 cars, pre-2001 engine-size rates, electric-car rules since 1 April 2025, historic-vehicle exemptions, MOT due dates, maximum fees, early renewal, retests, exemptions and penalties — each figure with the quoted gov.uk line, source URL, effectiveFrom and its previous-year value.",
+      "example": "https://databutler.dev/api/uk/vehicle-rules?category=ved-first-year",
+      "params": {
+        "category": "one of ved-first-year, ved-standard, ved-expensive-car, ved-2001-2017, ved-pre-2001, ved-electric, historic, mot, penalties (omit to list)"
+      }
+    },
     "GET /api/us/rates": {
       "description": "US federal rates and thresholds for tax year 2026, verified 2026-10-03 against the IRS revenue procedures and notices and SSA's Federal Register notice: income-tax rate schedules (bracket rows) and standard deduction, Social Security wage base and rates, Medicare and Additional Medicare Tax, retirement-plan and IRA limits, HSA/HDHP limits, estate and gift exclusions — each figure with source, quote, verifiedDate and the prior-year value. Committed data (not a live proxy), refreshed annually at the IRS release window.",
       "example": "https://databutler.dev/api/us/rates?category=income-tax",
@@ -218,10 +226,10 @@
       }
     },
     "GET /changes": {
-      "description": "The changelog as a page: every verified change to UK tax/NI thresholds, exam specs, official vehicle datasets, software end-of-life dates, central-bank policy rates, US federal tax thresholds and German tax and social-insurance thresholds, newest first by month — area, from → to, effectiveFrom, official source, maintainer note, verifiedDate. Indexable, cached 1 h at the edge.",
+      "description": "The changelog as a page: every verified change to UK tax/NI thresholds, exam specs, official vehicle datasets, software end-of-life dates, central-bank policy rates, US federal tax thresholds, German tax and social-insurance thresholds and UK car tax (VED) and MOT rules, newest first by month — area, from → to, effectiveFrom, official source, maintainer note, verifiedDate. Indexable, cached 1 h at the edge.",
       "example": "https://databutler.dev/changes?area=vehicles",
       "params": {
-        "area": "optional: uk-rates | uk-exams | vehicles | software-eol | policy-rates | us-rates | de-rates",
+        "area": "optional: uk-rates | uk-exams | vehicles | software-eol | policy-rates | us-rates | de-rates | uk-vehicle-rules",
         "since": "optional YYYY-MM-DD"
       }
     },
@@ -261,6 +269,7 @@
     "POST /api/mcp/tax": "Remote MCP server — tool take_home_pay (live via the LifeByNumbers salary calculators).",
     "POST /api/mcp/uk-exams": "Remote MCP server — tools exam_topic_paper, exam_spec_lookup, exam_paper_index.",
     "POST /api/mcp/uk-rates": "Remote MCP server — tool uk_rates_lookup.",
+    "POST /api/mcp/uk-vehicle-rules": "Remote MCP server — tool uk_vehicle_rules_lookup.",
     "POST /api/mcp/us-rates": "Remote MCP server — tool us_rates_lookup (US federal rates and thresholds, tax year 2026; committed data read from the IRS and SSA documents).",
     "POST /api/mcp/vehicles": "Remote MCP server — uk_mot_reliability, uk_mot_vehicle_search (live via whatbreaks.uk), uk_recalls_for_model, uk_recalls_search (DVSA), fr_recalls_for_model, fr_recalls_search, jp_recalls_for_model, jp_complaints_summary, eu_safety_gate_recalls (stub)."
   },
