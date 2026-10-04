@@ -1,0 +1,66 @@
+# Monthly refresh of the datasets that have a fetch script (no AI needed).
+#
+# Runs each script against its official source, lets the scripts append
+# changelog entries, regenerates derived files, runs the full test suite, and
+# opens a pull request. Nothing is deployed until a human merges the PR.
+#
+# Covered: software-eol (endoflife.date), calendar (gov.uk / OPM / French API
+# + data/calendar/manual.json), UK recalls (DVSA bulk CSV).
+# Not covered: FR/JP recalls (derived from the sibling car-site repos, run
+# locally), and every page-read area (rates, policy rates, exam dates, vehicle
+# rules) — those are flagged by the weekly watcher cron and updated by hand
+# via docs/ADDING_AN_AREA.md.
+#
+# Repo setting needed once: Settings → Actions → General → "Allow GitHub
+# Actions to create and approve pull requests".
+name: Refresh datasets
+
+on:
+  schedule:
+    - cron: '0 7 3 * *' # 07:00 UTC on the 3rd of each month
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Fetch
+        run: |
+          set -e
+          node scripts/software-eol.js
+          node scripts/calendar.js
+          node scripts/vehicles.js uk
+
+      - name: Regenerate derived files
+        run: node scripts/sync-areas.js
+
+      - name: Test (snapshots refreshed; the PR diff is the review)
+        run: |
+          UPDATE_SNAPSHOTS=1 node --test tests/snapshot.test.js > /dev/null || true
+          node --test tests/*.test.js
+          node scripts/sync-areas.js --check
+
+      - name: Open pull request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if git diff --quiet; then echo "No dataset changes this month."; exit 0; fi
+          branch="refresh/$(date -u +%Y-%m-%d)"
+          git config user.name "databutler-refresh"
+          git config user.email "actions@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add -A
+          git commit -m "data: monthly refresh $(date -u +%Y-%m-%d) (software-eol, calendar, UK recalls)"
+          git push origin "$branch"
+          gh pr create --base master --head "$branch" \
+            --title "Monthly dataset refresh $(date -u +%Y-%m-%d)" \
+            --body "Automated run of scripts/software-eol.js, scripts/calendar.js and scripts/vehicles.js uk. Tests passed in CI. Review the data/changelog.json additions (fill any blank notes), then merge to deploy."

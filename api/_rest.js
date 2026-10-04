@@ -13,6 +13,22 @@ const { withEnvelope } = require('./_envelope');
 const { trackEvent } = require('./_track');
 const { coerceNumeric } = require('./_area_kit');
 
+/**
+ * Edge caching for successful GET answers (added 2026-10-04). Curated data
+ * changes at most daily, so Vercel's CDN can answer repeats without running the
+ * function: 1 h fresh, then served stale for a day while one request
+ * revalidates. Live tools (openWorld: RDAP/npm/PyPI/whatbreaks/LBN proxies)
+ * get 5 minutes. Errors are never cached. MCP is POST and is not cacheable.
+ * Trade-off: a CDN hit does not run trackEvent, so GA4 counts unique-ish REST
+ * calls, not every repeat.
+ */
+function cacheHeaders(tool) {
+  const live = tool.openWorld === true || tool.freshness === 'live';
+  return live
+    ? { 'Cache-Control': 'public, max-age=0, s-maxage=300, stale-while-revalidate=3600' }
+    : { 'Cache-Control': 'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400' };
+}
+
 function restMirror({ tool: toolName, event, args: pick, required = [], numeric = [], missing, decorate }) {
   return async (req, res) => {
     if (handleOptions(req, res)) return;
@@ -25,8 +41,10 @@ function restMirror({ tool: toolName, event, args: pick, required = [], numeric 
     }
     const tool = ALL_TOOLS[toolName];
     const result = await tool.run(args);
-    sendJson(res, 200, withEnvelope(tool, args, decorate ? decorate(result) : result));
+    const body = withEnvelope(tool, args, decorate ? decorate(result) : result);
+    const ok = req.method === 'GET' && body && body.covered !== false && !body.error;
+    sendJson(res, 200, body, ok ? cacheHeaders(tool) : { 'Cache-Control': 'no-store' });
   };
 }
 
-module.exports = { restMirror };
+module.exports = { restMirror, cacheHeaders };

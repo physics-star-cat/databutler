@@ -67,5 +67,6 @@ README rows, index.html, verify-hub.sh) derives from the module. Contract and he
 
 1. `scripts/publish-registry.sh --check` → publish the new `server-<key>.json` with
    `scripts/publish-registry.sh` (needs `mcp-publisher login github` once). PulseMCP ingests from there.
-2. Resubmit the sitemap to Google (`searchconsole` API) and Bing (`webmon/bing_feeds.py`): the
+3. Resubmit the sitemap to Google (`searchconsole` API) and Bing (`webmon/bing_feeds.py`): the
    area's `/changes?area=` view is new. Nothing to tell the Claude directory unless a front-door tool changed.
+- If the area has a fetch script, add it to `.github/workflows/refresh-datasets.yml` so it refreshes monthly by PR.

@@ -15,8 +15,8 @@ const ATTRIBUTION = {
   note: 'Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate.',
 };
 
-function sendJson(res, status, data) {
-  res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8', ...CORS });
+function sendJson(res, status, data, headers = {}) {
+  res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8', ...CORS, ...headers });
   res.end(JSON.stringify(data));
 }
 
