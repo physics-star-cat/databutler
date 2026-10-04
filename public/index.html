@@ -24,7 +24,7 @@ misquote from memory.</p>
 <p><strong>Humans:</strong> the one page worth reading is
 <a href="/changes">/changes</a> — the changelog of verified official facts
 <!-- sync-areas:humans start -->
-(UK tax/NI thresholds, exam specs, official vehicle datasets, software end-of-life dates, central-bank policy rates, US federal tax thresholds, German tax and social-insurance thresholds)
+(UK tax/NI thresholds, exam specs, official vehicle datasets, software end-of-life dates, central-bank policy rates, US federal tax thresholds, German tax and social-insurance thresholds, public holidays, tax-year and daylight-saving dates)
 <!-- sync-areas:humans end -->, with the
 official source and verified date on every entry; also as
 <a href="/changes.rss">RSS</a> and <a href="/changes.atom">Atom</a>. Otherwise this
@@ -34,7 +34,7 @@ site's front door is <a href="/api">/api</a> and <a href="/llms.txt">llms.txt</a
 <code>what_changed_since</code> for the facts that moved after your training
 cutoff, <code>coverage</code>, <code>catalogue</code>, <code>call</code>).
 <!-- sync-areas:agents start -->
-REST at <code>/api/uk/rates</code>, <code>/api/uk/exams/topic</code>, <code>/api/provenance/domain</code>, <code>/api/stats</code>, <code>/api/vehicles/uk/mot</code>, <code>/api/tax/take-home</code>, <code>/api/software-eol/status</code>, <code>/api/policy-rates</code>, <code>/api/us/rates</code>, <code>/api/de/rates</code>, <code>/api/changes</code>; focused MCP servers at
+REST at <code>/api/uk/rates</code>, <code>/api/uk/exams/topic</code>, <code>/api/provenance/domain</code>, <code>/api/stats</code>, <code>/api/vehicles/uk/mot</code>, <code>/api/tax/take-home</code>, <code>/api/software-eol/status</code>, <code>/api/policy-rates</code>, <code>/api/us/rates</code>, <code>/api/de/rates</code>, <code>/api/calendar</code>, <code>/api/changes</code>; focused MCP servers at
 <code>/api/mcp/uk-rates</code>,
 <code>/api/mcp/uk-exams</code>,
 <code>/api/mcp/provenance</code>,
@@ -43,8 +43,9 @@ REST at <code>/api/uk/rates</code>, <code>/api/uk/exams/topic</code>, <code>/api
 <code>/api/mcp/tax</code> (net salary for ten countries, live from lifebynumbers.net),
 <code>/api/mcp/software-eol</code> (is this version still supported, and until when — Node.js, Python, Ubuntu, Windows and ten more, from endoflife.date),
 <code>/api/mcp/policy-rates</code> (Bank of England, Fed and ECB policy rates, verified against the banks' own pages),
-<code>/api/mcp/us-rates</code> (US federal tax year 2026: IRS brackets and standard deduction, Social Security wage base, Medicare, 401(k)/IRA/HSA limits, estate and gift exclusions, read from the IRS and SSA documents) and
-<code>/api/mcp/de-rates</code> (German Veranlagungszeitraum 2026: Grundfreibetrag and tariff, Beitragsbemessungsgrenzen and Beitragssätze, Mindestlohn, Minijob, Kindergeld, Pauschbeträge, read from the statutes and the Bundesgesetzblatt).
+<code>/api/mcp/us-rates</code> (US federal tax year 2026: IRS brackets and standard deduction, Social Security wage base, Medicare, 401(k)/IRA/HSA limits, estate and gift exclusions, read from the IRS and SSA documents),
+<code>/api/mcp/de-rates</code> (German Veranlagungszeitraum 2026: Grundfreibetrag and tariff, Beitragsbemessungsgrenzen and Beitragssätze, Mindestlohn, Minijob, Kindergeld, Pauschbeträge, read from the statutes and the Bundesgesetzblatt) and
+<code>/api/mcp/calendar</code> (public holidays, tax-year and clock-change dates for 2026–2028 — UK, US, Germany, France and five more, from the official lists).
 <!-- sync-areas:agents end --> Every answer carries a <code>cite.url</code> like
 <a href="/r/uk/rates?category=income-tax">/r/uk/rates?category=income-tax</a>.</p>
 <p class="quiet">Try: <a href="/api/uk/exams/topic?board=aqa&subject=physics&level=gcse&topic=electricity">is electricity paper 2 AQA?</a>

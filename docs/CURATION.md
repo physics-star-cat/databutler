@@ -25,6 +25,7 @@ The product is trust. A wrong number is worse than no number. Rules:
 | `data/policy-rates.json` | Within 45 days of `verifiedDate` (freshness flips to `due`) and after every scheduled decision — BoE MPC ("Next due" on the Bank Rate page), FOMC (fomccalendars.htm), ECB Governing Council (mgcgc calendar); each decides eight times a year. The weekly watcher hashes the three bank source pages. | Open the bank's `source` page and the decision press release; edit `figures`, move the replaced level into `previous`, update `effectiveFrom`, `decisionDate`, `decisionMeeting`, `latestDecision`, `nextDecision`, `decisionSource` and both `verifiedDate`s; then `node scripts/changelog.js` (sets `nextScheduledRefresh` = verifiedDate + 45 days, appends one `policy-rates` entry per figure that moved, refreshes `data/sources.json`). A hold moves no figure: update `latestDecision`/`nextDecision`/`verifiedDate` only, no entry. |
 | `data/us-rates.json` | Annual, calendar-driven (`cadenceDays: null`; `nextScheduledRefresh` set by hand to the IRS release window, 2026-11-01 for tax year 2027): the IRS tax-year inflation adjustments (Rev. Proc., mid/late October, announced on the newsroom page), the retirement-plan limits (Notice, early/mid November), SSA's COLA/wage-base Federal Register notice (late October/November), the HSA Rev. Proc. (May). The weekly watcher hashes the five pages in `sources()` (newsroom, Federal Register API, Tax Topic 751, COLA limits table, Pub 969). | Fetch the new Rev. Proc./Notice PDF from `/pub/irs-drop/`; for each figure move `value` into `previous` (with its source), write the new `value`, `effectiveFrom`, `source`, `quote`, `verifiedDate`; bump the file's `taxYear`, `taxYearRuns`, `verifiedDate` and set `nextScheduledRefresh` to the next release window; then `node scripts/changelog.js` (one `us-rates` entry per figure that moved, from → to; refreshes `data/sources.json`); fill each `note` with the Rev. Proc./Notice number. ssa.gov blocks curl — read the Federal Register notice instead. |
 | `data/de-rates.json` | Annual, calendar-driven (`cadenceDays: null`; `nextScheduledRefresh` set by hand, 2026-12-15 for 2027): the Sozialversicherungsrechengrößen-Verordnung in the BGBl (late November; the BMAS Verordnung page's "Umsetzungsstand" flips first), the durchschnittlicher Zusatzbeitragssatz in the Bundesanzeiger (by 1 November; BMG `/beitraege` table), any Steuergesetz rewriting § 32a/§ 32/§ 66 EStG (consolidated text on gesetze-im-internet.de within days), the Mindestlohnkommission decision (by 30 June of the year before). The weekly watcher hashes the twelve pages in `sources()`. | Open the BGBl PDF on recht.bund.de and the consolidated § pages; for each figure move `value` into `previous` (with its source and quote), write the new `value`, `effectiveFrom`, `source`, `quote`, `verifiedDate`; promote the already-fixed next-year figures (Mindestlohn, Geringfügigkeitsgrenze) and add the following year's if enacted; bump `taxYear`, `taxYearRuns`, `verifiedDate`, set `nextScheduledRefresh`; then `node scripts/changelog.js` (one `de-rates` entry per figure that moved; refreshes `data/sources.json`); fill each `note` with the Verordnung/Gesetz and BGBl citation. bundesfinanzministerium.de serves a CAPTCHA to curl — the statutes and BGBl are the primary sources anyway. |
+| `data/calendar.json` | Monthly (freshness says `due` from 35 days after the fetch); and when a government publishes the next year's list (gov.uk and OPM publish ~2 years ahead, calendrier.api.gouv.fr 5 years) | `node scripts/calendar.js` — fetches gov.uk `bank-holidays.json`, OPM's federal-holidays page and `calendrier.api.gouv.fr` (UA names databutler.dev, 500 ms apart), merges `data/calendar/manual.json` (German Länder rules, tax-year and DST rules — edit that file against the official pages, bump its `verifiedDate`, keep every `quote`/`verification`), computes rule-based dates and stops if a hand-copied official date disagrees, bumps `verifiedDate`/`nextScheduledRefresh` (+35 days), appends `calendar` changelog entries (`<cc>/holidays/<year>` for a new year, `<cc>/holidays/<region>/<year>/<key>` for an added/removed/moved day, `<cc>/tax-year/<part>`, `<cc>/dst/<year>` for rule changes). Fill the blank notes, commit `data/` together. To widen the window add the year to `manual.json` `years`. `CAL_DIR=path` builds from saved copies. Re-try the `nonOfficial` entries (HB, MV, SH, TH holidays; fr and br DST; br personal tax year) each refresh. |
 | `data/sources.json` | After every data refresh (automatic via `scripts/changelog.js`) | `node scripts/sources.js` re-checks every source URL (gov.uk content API / page hash). |
 | `data/changelog.json` | With every data refresh | `node scripts/changelog.js` (areas with a `changelog.diff`) or the dataset's own script (`changelog.script`); fill in `note` lines. See "Changelog & source watcher" and docs/ADDING_AN_AREA.md. |
 <!-- sync-areas:calendar end -->
@@ -581,3 +582,156 @@ consolidated § pages for every statutory figure (they cannot lag the BGBl by
 more than days), the BMAS SV-Rechengrößen-VO 2027 page (its "Umsetzungsstand"
 flips when promulgated), the BMG contributions table, the DRV values page, the
 BMAS Mindestlohn history and the Minijob-Zentrale limit page.
+
+## Verification log (calendar, added 2026-10-04)
+
+Area `calendar`: public holidays (UK, US federal, Germany, France), tax-year
+starts/ends (nine countries) and daylight-saving switches, for 2026–2028.
+Built by `node scripts/calendar.js` from three machine-readable official sources
+plus `data/calendar/manual.json`, where every hand-verified entry carries the
+page it was read from on 2026-10-04 and the sentence read (`quote`), and a
+`verification` line saying what was fetched. Rule-based dates (Easter-relative
+holidays, US statutory dates, DST transitions, tax-year periods) are **computed
+from the quoted rule** and the build **stops** if a computed date disagrees with
+a date copied by hand from an official page (`checks`). Everything that could
+not be re-verified against an official page carries `nonOfficial: true` in the
+served data and is listed under "Not re-verified" below — seven entries.
+
+- 2026-10-04 — **gov.uk** `https://www.gov.uk/bank-holidays.json` (200, 22 KB,
+  User-Agent `databutler.dev data curation (+https://databutler.dev)`): three
+  divisions, events 2019–2028; kept 2026–2028: England and Wales 8/8/8,
+  Scotland 10/9/9, Northern Ireland 10/10/10 = 82 entries. Titles kept as
+  published, `(substitute day)` flagged `substitute`. **Licence:** page footer
+  "All content is available under the Open Government Licence v3.0, except where
+  otherwise stated © Crown copyright". Statutory basis linked: Banking and
+  Financial Dealings Act 1971 Sch. 1 (legislation.gov.uk, 200; e.g. Scotland
+  "30th November, if it is not a Saturday or Sunday or, if it is a Saturday or
+  Sunday, the first Monday following that day").
+- 2026-10-04 — **OPM** `https://www.opm.gov/policy-data-oversight/pay-leave/federal-holidays/`
+  (200, 152 KB): one `<table>` per year captioned "YYYY Holiday Schedule",
+  tables for 2011–2030 present; parsed 2026/2027/2028 (11 rows each). OPM prints
+  the **observed** date (month and day only): 2026 Independence Day → Friday
+  July 03; 2027 Juneteenth → Friday June 18, Independence Day → Monday July 05,
+  Christmas → Friday December 24; 2028 New Year's Day → Friday December 31
+  (i.e. 2027-12-31), Veterans Day → Friday November 10. Footnotes read on the
+  page: "If a holiday falls on a Saturday, for most Federal employees, the
+  preceding Friday will be treated as a holiday for pay and leave purposes." /
+  "If a holiday falls on a Sunday, for most Federal employees, the following
+  Monday will be treated as a holiday for pay and leave purposes." The served
+  `date` is the **statutory** date computed from 5 U.S.C. § 6103(a) (govinfo.gov
+  USCODE-2023 HTML, 200, quoted in manual.json) and `observed` is OPM's date when
+  it differs — the build fails if OPM's date is more than three days from the
+  statutory one or a statute holiday is missing from the table. **Licence:** US
+  Government work, public domain (17 U.S.C. § 105; govinfo.gov/about/policies:
+  "place in the public domain all work of the United States Government"); the
+  OPM page itself carries no licence statement. Inauguration Day (2029, DC area
+  only) is outside the window.
+- 2026-10-04 — **calendrier.api.gouv.fr** `/jours-feries/metropole/{2026,2027,2028}.json`
+  and `/alsace-moselle/…` (all six 200): 11 metropole + 13 Alsace-Moselle days
+  per year = 72 entries, names kept as published ("1er janvier", "Lundi de
+  Pâques", "Vendredi saint", "2ème jour de Noël"). Dataset page
+  `https://www.data.gouv.fr/fr/datasets/jours-feries-en-france/` (200):
+  **Licence "Licence Ouverte / Open Licence version 2.0"**, producteur
+  data.gouv.fr, "La liste des jours fériés est définie dans le code du travail"
+  (art. L3133-1 à L3133-3, L3422-2); exports cover 20 years back / 5 forward.
+  Cross-checked against service-public.gouv.fr F2405 (200; "Sauf mention
+  contraire, tous les contenus de ce site sont sous licence etalab-2.0"), whose
+  2026 and 2027 tables match date for date, Alsace-Moselle Vendredi Saint
+  "(dans les communes ayant un temple protestant ou une église mixte)" included.
+- 2026-10-04 — **Germany, nationwide**: BMI
+  `…/nationale-feiertage/nationale-feiertage-node.html` (200 after following its
+  cookie-check redirect with a cookie jar): "Durch die Sonn- und Feiertagsgesetze
+  der Länder sind jedoch neun Feiertage bundeseinheitlich gesetzlich geschützt:
+  Neujahr Karfreitag Ostermontag Christi Himmelfahrt Pfingstmontag 1. Mai Tag der
+  Deutschen Einheit erster Weihnachtstag zweiter Weihnachtstag" and "Alle anderen
+  Feiertage legen die Länder fest." Easter computed (Meeus/Jones/Butcher):
+  2026-04-05, 2027-03-28, 2028-04-16; asserted against **Hessen**
+  (innen.hessen.de/buerger-staat/feiertage, 200: Karfreitag 03.04.2026,
+  Ostermontag 06.04.2026, Christi Himmelfahrt 14.05.2026, Pfingstmontag
+  25.05.2026, Fronleichnam 04.06.2026) and **Rheinland-Pfalz** (mdi.rlp.de
+  Sonn- und Feiertagsrecht, 200: 2027 Karfreitag 26.03., Ostermontag 29.03.,
+  Christi Himmelfahrt 06.05., Pfingstmontag 17.05., Fronleichnam 27.05.;
+  Allerheiligen 01.11.) and gov.uk's Good Friday 2028-04-14. Buß- und Bettag =
+  the Wednesday before 23 November: 2026-11-18, 2027-11-17, 2028-11-22.
+- 2026-10-04 — **Germany, per Land** (additions to the nine): **BY** Art. 1 FTG
+  on gesetze-bayern.de (200): Heilige Drei Könige, Fronleichnam, Allerheiligen;
+  Mariä Himmelfahrt "in Gemeinden mit überwiegend katholischer Bevölkerung"
+  (served `partial` with scope); 8 August Friedensfest "in der Stadt Augsburg".
+  **BE** berlin.de Senatsverwaltung für Inneres (200): "der Frauentag (8. März)".
+  **BB** § 2 FTG on bravors.brandenburg.de (200): Ostersonntag, Pfingstsonntag,
+  Reformationsfest. **HE** (200): Fronleichnam. **HH** hamburg.de Ferien und
+  Feiertage 2026 (200): "Reformationstag: Sa. 31.10.2026". **NI** § 2 NFeiertagsG
+  on mi.niedersachsen.de (200): "h) der 31. Oktober, als Reformationstag". **RP**
+  (200): Fronleichnam, Allerheiligen. **SN** § 1 SächsSFG PDF on
+  recht.sachsen.de (200, pdftotext): Reformationstag, Buß- und Bettag,
+  Fronleichnam "(nur in den vom Staatsministerium des Innern durch
+  Rechtsverordnung bestimmten Regionen)" → `partial`. **BW, NW, SL, ST** from the
+  Hamburg Behörde für Schule und Berufsbildung's "Übersicht über die gesetzlichen
+  Feiertage in der Bundesrepublik Deutschland (Stand: September 2018)"
+  (hamburg.de PDF, 200, pdftotext, column positions checked against the header):
+  BW Hl. Drei Könige/Fronleichnam/Allerheiligen; NW Fronleichnam/Allerheiligen;
+  SL Fronleichnam/Mariä Himmelfahrt/Allerheiligen; ST Hl. Drei
+  Könige/Reformationstag — official but dated, so it also served to confirm
+  MV/TH Reformationstag and the TH partial Fronleichnam (footnote 3). Every Land
+  answer carries its own `source`, `quote` where a sentence was read, and
+  `verification`. The juris-based Landesrecht portals (BW, BE, HH, HE, MV, RP,
+  SL, ST, SH, TH) all answer "Aktivieren Sie bitte JavaScript" to the fetcher;
+  recht.nrw.de redirects to a search page; thueringen.de serves a Link11
+  CAPTCHA; saarland.de 403.
+- 2026-10-04 — **Tax years** (quoted in manual.json → served on every answer):
+  UK gov.uk/income-tax-rates (200) "The current tax year is from 6 April 2026 to
+  5 April 2027." and Interpretation Act 1978 Sch. 1 (200) "the twelve months
+  ending with 31st March" for the government year; US irs.gov Tax years (200)
+  "Calendar year – 12 consecutive months beginning January 1 and ending December
+  31." and 31 U.S.C. § 1102 (govinfo, 200) "begins on October 1 of each year and
+  ends on September 30"; Australia payrolltax.gov.au (200, the state revenue
+  offices' joint site) "financial year Each year commencing on 1 July and ending
+  30 June." — ato.gov.au 403, legislation.gov.au (ITAA 1997 s 995-1) is a
+  JavaScript app, business.gov.au/moneysmart 404/403; India ies.gov.in
+  Arthapedia (200) "India's financial year runs from 1st April to 31st March of
+  next year." plus incometax.gov.in "Objective and scope of the New Act" (200):
+  the Income Tax Act, 2025 repeals the 1961 Act on 01.04.2026 and "A 'Tax year'
+  is a period of twelve months contained in a financial year … applicable from
+  01 April 2026 … Tax Year 2026-27" — incometaxindia.gov.in and
+  indiacode.nic.in 403; Canada ITA s. 249(1)(c) "in any other case, a calendar
+  year" and FAA s. 2 "fiscal year means the period beginning on April 1 in one
+  year and ending on March 31 in the next year" (laws-lois.justice.gc.ca, both
+  200); Germany § 25 EStG and § 4 BHO (gesetze-im-internet.de, 200); France
+  service-public.gouv.fr F358 (200) "Déclaration 2026 des revenus 2025" —
+  Légifrance (CGI art. 12) 403; Brazil Lei 4.320/1964 art. 34 "O exercício
+  financeiro coincidirá com o ano civil." (camara.leg.br, 200); Poland Ordynacja
+  podatkowa art. 11 "Rokiem podatkowym jest rok kalendarzowy, chyba że ustawa
+  podatkowa stanowi inaczej." (ISAP consolidated PDF, 200, pdftotext).
+- 2026-10-04 — **DST**: UK Summer Time Act 1972 s. 1(2) (legislation.gov.uk,
+  200; the Act is 1972 c. 6 — `/ukpga/1972/48` is a different Act and 404s)
+  "beginning at one o'clock, Greenwich mean time, in the morning of the last
+  Sunday in March and ending at one o'clock, Greenwich mean time, in the morning
+  of the last Sunday in October"; computed 2026-03-29/10-25, 2027-03-28/10-31,
+  2028-03-26/10-29 asserted against gov.uk/when-do-the-clocks-change (200) table
+  "2026 29 March 25 October 2027 28 March 31 October 2028 26 March 29 October".
+  Germany § 2 SoZV (gesetze-im-internet.de, 200) "letzten Sonntag im März um 2
+  Uhr … letzten Sonntag im Oktober um 3 Uhr". US 15 U.S.C. § 260a(a) (govinfo,
+  200) "second Sunday of March … first Sunday of November"; computed
+  2026-03-08/11-01, 2027-03-14/11-07, 2028-03-12/11-05. Australia
+  dcj.nsw.gov.au (200) "begins at 2am on the first Sunday in October and ends at
+  3am on the first Sunday in April"; observing/not-observing lists from the same
+  page and nsw.gov.au (200: "Sunday 4 October 2026 … Sunday 4 April 2027");
+  computed 2026-10-04/2026-04-05, 2027-10-03/2027-04-04, 2028-10-01/2028-04-02
+  asserted against those two dates. EUR-Lex (Directive 2000/84/EC) served a bot
+  wall (HTTP 202, empty) and legislation.gov.uk's `/eudr/2000/84` has only a
+  title page; state legislation sites (NSW, SA, Tas 403; Vic, ACT JavaScript)
+  could not be read.
+- **Not re-verified on 2026-10-04 (`nonOfficial: true`, re-try each refresh):**
+  `de/holidays/HB` and `SH` (Reformationstag — bremen.de/schleswig-holstein.de
+  404, the 2018 overview predates their laws), `de/holidays/MV` (Frauentag since
+  2023 — regierung-mv.de 404), `de/holidays/TH` (Weltkindertag since 2019 —
+  CAPTCHA), `br/tax-year/personal` (Lei 9.250/1995 ano-calendário —
+  planalto.gov.br resets connections, normas.leg.br JavaScript), `fr/dst`
+  (directive/décret text unread; rule identical to the fetched German SoZV),
+  `br/dst` (Decreto 9.772/2019 text unreachable).
+- **Counts committed:** holidays uk 82, us 33, de 561 (17 regions × 3 years),
+  fr 72; 9 tax-year countries; 6 DST countries. `data/calendar.json` ≈ 138 KB
+  (97 KB compact). Window fixed at 2026–2028 even though OPM (to 2030) and
+  calendrier.api.gouv.fr (5 years ahead) publish further: gov.uk stops at 2028
+  and the German/DST rules were only cross-checked that far — widen by adding
+  the year to `manual.json` `years` and re-running.

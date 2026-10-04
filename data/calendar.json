@@ -1,0 +1,4938 @@
+{
+ "dataset": "Calendar facts a model with a training cutoff cannot know for next year: public holidays (UK, US, Germany, France), tax-year starts and ends (UK, US, Australia, India, Canada, Germany, France, Brazil, Poland) and daylight-saving switches (UK, Germany, France, US, Australia; Brazil has none), for 2026, 2027, 2028",
+ "years": [
+  2026,
+  2027,
+  2028
+ ],
+ "verifiedDate": "2026-10-04",
+ "nextScheduledRefresh": "2026-11-08",
+ "fetched": "2026-10-04T10:15:13.761Z",
+ "fetchedVia": "https://www.gov.uk/bank-holidays.json, https://www.opm.gov/policy-data-oversight/pay-leave/federal-holidays/, https://calendrier.api.gouv.fr/jours-feries/<zone>/<year>.json — one request each",
+ "licence": "Per source: gov.uk — Open Government Licence v3.0; OPM and the US Code — US Government works, public domain; calendrier.api.gouv.fr — Licence Ouverte 2.0; German statutes and ministry pages — official works (§ 5 UrhG); other statutes as recorded on each block.",
+ "verificationMethod": "The three machine-readable sources were fetched on `fetched` (User-Agent \"databutler.dev data curation (+https://databutler.dev)\", 500 ms apart) and reshaped, not edited. Everything else comes from data/calendar/manual.json, where each entry names the official page it was read from on verifiedDate and quotes the sentence; rule-based dates (Easter-relative holidays, US statutory dates, DST transitions, tax-year periods) are computed by scripts/calendar.js from the quoted rule and asserted against dates official pages publish. Entries that could not be re-verified against an official page carry `nonOfficial: true` and say why.",
+ "manualVerifiedDate": "2026-10-04",
+ "counts": {
+  "holidays": {
+   "uk": 82,
+   "us": 33,
+   "de": 561,
+   "fr": 72
+  },
+  "taxYearCountries": 9,
+  "dstCountries": 6
+ },
+ "holidays": {
+  "uk": {
+   "name": "United Kingdom",
+   "kind": "bank and public holidays",
+   "source": "https://www.gov.uk/bank-holidays.json",
+   "page": "https://www.gov.uk/bank-holidays",
+   "publisher": "GOV.UK (Government Digital Service) — bank-holidays.json",
+   "licence": "Open Government Licence v3.0 (\"All content is available under the Open Government Licence v3.0, except where otherwise stated © Crown copyright\")",
+   "statute": {
+    "source": "https://www.legislation.gov.uk/ukpga/1971/80/schedule/1",
+    "note": "Banking and Financial Dealings Act 1971, Schedule 1 (bank holidays by division); the remaining days are proclaimed or customary, as GOV.UK lists them."
+   },
+   "defaultRegion": "england-and-wales",
+   "regions": {
+    "england-and-wales": {
+     "name": "England and Wales",
+     "years": {
+      "2026": [
+       {
+        "date": "2026-01-01",
+        "name": "New Year’s Day",
+        "key": "new-years-day"
+       },
+       {
+        "date": "2026-04-03",
+        "name": "Good Friday",
+        "key": "good-friday"
+       },
+       {
+        "date": "2026-04-06",
+        "name": "Easter Monday",
+        "key": "easter-monday"
+       },
+       {
+        "date": "2026-05-04",
+        "name": "Early May bank holiday",
+        "key": "early-may-bank-holiday"
+       },
+       {
+        "date": "2026-05-25",
+        "name": "Spring bank holiday",
+        "key": "spring-bank-holiday"
+       },
+       {
+        "date": "2026-08-31",
+        "name": "Summer bank holiday",
+        "key": "summer-bank-holiday"
+       },
+       {
+        "date": "2026-12-25",
+        "name": "Christmas Day",
+        "key": "christmas-day"
+       },
+       {
+        "date": "2026-12-28",
+        "name": "Boxing Day",
+        "key": "boxing-day",
+        "substitute": true,
+        "notes": "Substitute day"
+       }
+      ],
+      "2027": [
+       {
+        "date": "2027-01-01",
+        "name": "New Year’s Day",
+        "key": "new-years-day"
+       },
+       {
+        "date": "2027-03-26",
+        "name": "Good Friday",
+        "key": "good-friday"
+       },
+       {
+        "date": "2027-03-29",
+        "name": "Easter Monday",
+        "key": "easter-monday"
+       },
+       {
+        "date": "2027-05-03",
+        "name": "Early May bank holiday",
+        "key": "early-may-bank-holiday"
+       },
+       {
+        "date": "2027-05-31",
+        "name": "Spring bank holiday",
+        "key": "spring-bank-holiday"
+       },
+       {
+        "date": "2027-08-30",
+        "name": "Summer bank holiday",
+        "key": "summer-bank-holiday"
+       },
+       {
+        "date": "2027-12-27",
+        "name": "Christmas Day",
+        "key": "christmas-day",
+        "substitute": true,
+        "notes": "Substitute day"
+       },
+       {
+        "date": "2027-12-28",
+        "name": "Boxing Day",
+        "key": "boxing-day",
+        "substitute": true,
+        "notes": "Substitute day"
+       }
+      ],
+      "2028": [
+       {
+        "date": "2028-01-03",
+        "name": "New Year’s Day",
+        "key": "new-years-day",
+        "substitute": true,
+        "notes": "Substitute day"
+       },
+       {
+        "date": "2028-04-14",
+        "name": "Good Friday",
+        "key": "good-friday"
+       },
+       {
+        "date": "2028-04-17",
+        "name": "Easter Monday",
+        "key": "easter-monday"
+       },
+       {
+        "date": "2028-05-01",
+        "name": "Early May bank holiday",
+        "key": "early-may-bank-holiday"
+       },
+       {
+        "date": "2028-05-29",
+        "name": "Spring bank holiday",
+        "key": "spring-bank-holiday"
+       },
+       {
+        "date": "2028-08-28",
+        "name": "Summer bank holiday",
+        "key": "summer-bank-holiday"
+       },
+       {
+        "date": "2028-12-25",
+        "name": "Christmas Day",
+        "key": "christmas-day"
+       },
+       {
+        "date": "2028-12-26",
+        "name": "Boxing Day",
+        "key": "boxing-day"
+       }
+      ]
+     }
+    },
+    "scotland": {
+     "name": "Scotland",
+     "years": {
+      "2026": [
+       {
+        "date": "2026-01-01",
+        "name": "New Year’s Day",
+        "key": "new-years-day"
+       },
+       {
+        "date": "2026-01-02",
+        "name": "2nd January",
+        "key": "2nd-january"
+       },
+       {
+        "date": "2026-04-03",
+        "name": "Good Friday",
+        "key": "good-friday"
+       },
+       {
+        "date": "2026-05-04",
+        "name": "Early May bank holiday",
+        "key": "early-may-bank-holiday"
+       },
+       {
+        "date": "2026-05-25",
+        "name": "Spring bank holiday",
+        "key": "spring-bank-holiday"
+       },
+       {
+        "date": "2026-06-15",
+        "name": "World Cup bank holiday",
+        "key": "world-cup-bank-holiday"
+       },
+       {
+        "date": "2026-08-03",
+        "name": "Summer bank holiday",
+        "key": "summer-bank-holiday"
+       },
+       {
+        "date": "2026-11-30",
+        "name": "St Andrew’s Day",
+        "key": "st-andrews-day"
+       },
+       {
+        "date": "2026-12-25",
+        "name": "Christmas Day",
+        "key": "christmas-day"
+       },
+       {
+        "date": "2026-12-28",
+        "name": "Boxing Day",
+        "key": "boxing-day",
+        "substitute": true,
+        "notes": "Substitute day"
+       }
+      ],
+      "2027": [
+       {
+        "date": "2027-01-01",
+        "name": "New Year’s Day",
+        "key": "new-years-day"
+       },
+       {
+        "date": "2027-01-04",
+        "name": "2nd January",
+        "key": "2nd-january",
+        "substitute": true,
+        "notes": "Substitute day"
+       },
+       {
+        "date": "2027-03-26",
+        "name": "Good Friday",
+        "key": "good-friday"
+       },
+       {
+        "date": "2027-05-03",
+        "name": "Early May bank holiday",
+        "key": "early-may-bank-holiday"
+       },
+       {
+        "date": "2027-05-31",
+        "name": "Spring bank holiday",
+        "key": "spring-bank-holiday"
+       },
+       {
+        "date": "2027-08-02",
+        "name": "Summer bank holiday",
+        "key": "summer-bank-holiday"
+       },
+       {
+        "date": "2027-11-30",
+        "name": "St Andrew’s Day",
+        "key": "st-andrews-day"
+       },
+       {
+        "date": "2027-12-27",
+        "name": "Christmas Day",
+        "key": "christmas-day",
+        "substitute": true,
+        "notes": "Substitute day"
+       },
+       {
+        "date": "2027-12-28",
+        "name": "Boxing Day",
+        "key": "boxing-day",
+        "substitute": true,
+        "notes": "Substitute day"
+       }
+      ],
+      "2028": [
+       {
+        "date": "2028-01-03",
+        "name": "New Year’s Day",
+        "key": "new-years-day",
+        "substitute": true,
+        "notes": "Substitute day"
+       },
+       {
+        "date": "2028-01-04",
+        "name": "2nd January",
+        "key": "2nd-january",
+        "substitute": true,
+        "notes": "Substitute day"
+       },
+       {
+        "date": "2028-04-14",
+        "name": "Good Friday",
+        "key": "good-friday"
+       },
+       {
+        "date": "2028-05-01",
+        "name": "Early May bank holiday",
+        "key": "early-may-bank-holiday"
+       },
+       {
+        "date": "2028-05-29",
+        "name": "Spring bank holiday",
+        "key": "spring-bank-holiday"
+       },
+       {
+        "date": "2028-08-07",
+        "name": "Summer bank holiday",
+        "key": "summer-bank-holiday"
+       },
+       {
+        "date": "2028-11-30",
+        "name": "St Andrew’s Day",
+        "key": "st-andrews-day"
+       },
+       {
+        "date": "2028-12-25",
+        "name": "Christmas Day",
+        "key": "christmas-day"
+       },
+       {
+        "date": "2028-12-26",
+        "name": "Boxing Day",
+        "key": "boxing-day"
+       }
+      ]
+     }
+    },
+    "northern-ireland": {
+     "name": "Northern Ireland",
+     "years": {
+      "2026": [
+       {
+        "date": "2026-01-01",
+        "name": "New Year’s Day",
+        "key": "new-years-day"
+       },
+       {
+        "date": "2026-03-17",
+        "name": "St Patrick’s Day",
+        "key": "st-patricks-day"
+       },
+       {
+        "date": "2026-04-03",
+        "name": "Good Friday",
+        "key": "good-friday"
+       },
+       {
+        "date": "2026-04-06",
+        "name": "Easter Monday",
+        "key": "easter-monday"
+       },
+       {
+        "date": "2026-05-04",
+        "name": "Early May bank holiday",
+        "key": "early-may-bank-holiday"
+       },
+       {
+        "date": "2026-05-25",
+        "name": "Spring bank holiday",
+        "key": "spring-bank-holiday"
+       },
+       {
+        "date": "2026-07-13",
+        "name": "Battle of the Boyne (Orangemen’s Day)",
+        "key": "battle-of-the-boyne-orangemens-day",
+        "substitute": true,
+        "notes": "Substitute day"
+       },
+       {
+        "date": "2026-08-31",
+        "name": "Summer bank holiday",
+        "key": "summer-bank-holiday"
+       },
+       {
+        "date": "2026-12-25",
+        "name": "Christmas Day",
+        "key": "christmas-day"
+       },
+       {
+        "date": "2026-12-28",
+        "name": "Boxing Day",
+        "key": "boxing-day",
+        "substitute": true,
+        "notes": "Substitute day"
+       }
+      ],
+      "2027": [
+       {
+        "date": "2027-01-01",
+        "name": "New Year’s Day",
+        "key": "new-years-day"
+       },
+       {
+        "date": "2027-03-17",
+        "name": "St Patrick’s Day",
+        "key": "st-patricks-day"
+       },
+       {
+        "date": "2027-03-26",
+        "name": "Good Friday",
+        "key": "good-friday"
+       },
+       {
+        "date": "2027-03-29",
+        "name": "Easter Monday",
+        "key": "easter-monday"
+       },
+       {
+        "date": "2027-05-03",
+        "name": "Early May bank holiday",
+        "key": "early-may-bank-holiday"
+       },
+       {
+        "date": "2027-05-31",
+        "name": "Spring bank holiday",
+        "key": "spring-bank-holiday"
+       },
+       {
+        "date": "2027-07-12",
+        "name": "Battle of the Boyne (Orangemen’s Day)",
+        "key": "battle-of-the-boyne-orangemens-day"
+       },
+       {
+        "date": "2027-08-30",
+        "name": "Summer bank holiday",
+        "key": "summer-bank-holiday"
+       },
+       {
+        "date": "2027-12-27",
+        "name": "Christmas Day",
+        "key": "christmas-day",
+        "substitute": true,
+        "notes": "Substitute day"
+       },
+       {
+        "date": "2027-12-28",
+        "name": "Boxing Day",
+        "key": "boxing-day",
+        "substitute": true,
+        "notes": "Substitute day"
+       }
+      ],
+      "2028": [
+       {
+        "date": "2028-01-03",
+        "name": "New Year’s Day",
+        "key": "new-years-day",
+        "substitute": true,
+        "notes": "Substitute day"
+       },
+       {
+        "date": "2028-03-17",
+        "name": "St Patrick’s Day",
+        "key": "st-patricks-day"
+       },
+       {
+        "date": "2028-04-14",
+        "name": "Good Friday",
+        "key": "good-friday"
+       },
+       {
+        "date": "2028-04-17",
+        "name": "Easter Monday",
+        "key": "easter-monday"
+       },
+       {
+        "date": "2028-05-01",
+        "name": "Early May bank holiday",
+        "key": "early-may-bank-holiday"
+       },
+       {
+        "date": "2028-05-29",
+        "name": "Spring bank holiday",
+        "key": "spring-bank-holiday"
+       },
+       {
+        "date": "2028-07-12",
+        "name": "Battle of the Boyne (Orangemen’s Day)",
+        "key": "battle-of-the-boyne-orangemens-day"
+       },
+       {
+        "date": "2028-08-28",
+        "name": "Summer bank holiday",
+        "key": "summer-bank-holiday"
+       },
+       {
+        "date": "2028-12-25",
+        "name": "Christmas Day",
+        "key": "christmas-day"
+       },
+       {
+        "date": "2028-12-26",
+        "name": "Boxing Day",
+        "key": "boxing-day"
+       }
+      ]
+     }
+    }
+   },
+   "notes": "Substitute days (when a holiday falls on a weekend) are listed as GOV.UK publishes them, flagged `substitute`."
+  },
+  "us": {
+   "name": "United States",
+   "kind": "federal holidays",
+   "source": "https://www.opm.gov/policy-data-oversight/pay-leave/federal-holidays/",
+   "publisher": "U.S. Office of Personnel Management — federal holidays tables",
+   "licence": "Work of the United States Government — public domain (17 U.S.C. § 105; govinfo.gov policies page: \"The intent of the section is to place in the public domain all work of the United States Government\").",
+   "statute": {
+    "source": "https://www.govinfo.gov/content/pkg/USCODE-2023-title5/html/USCODE-2023-title5-partIII-subpartE-chap61-subchapI-sec6103.htm",
+    "quote": "(a) The following are legal public holidays: New Year's Day, January 1. Birthday of Martin Luther King, Jr., the third Monday in January. Washington's Birthday, the third Monday in February. Memorial Day, the last Monday in May. Juneteenth National Independence Day, June 19. Independence Day, July 4. Labor Day, the first Monday in September. Columbus Day, the second Monday in October. Veterans Day, November 11. Thanksgiving Day, the fourth Thursday in November. Christmas Day, December 25.",
+    "observedRule": "(b) ... (1) Instead of a holiday that occurs on a Saturday, the Friday immediately before is a legal public holiday for— (A) employees whose basic workweek is Monday through Friday ... [and, from OPM's footnote:] If a holiday falls on a Sunday, for most Federal employees, the following Monday will be treated as a holiday for pay and leave purposes.",
+    "inaugurationDay": "(c) January 20 of each fourth year after 1965, Inauguration Day, is a legal public holiday for the purpose of statutes relating to pay and leave of employees ... employed in the District of Columbia, Montgomery and Prince Georges Counties in Maryland, Arlington and Fairfax Counties in Virginia, and the cities of Alexandria and Falls Church in Virginia."
+   },
+   "defaultRegion": "federal",
+   "regions": {
+    "federal": {
+     "name": "Federal (5 U.S.C. § 6103)",
+     "years": {
+      "2026": [
+       {
+        "date": "2026-01-01",
+        "name": "New Year's Day",
+        "key": "new-years-day"
+       },
+       {
+        "date": "2026-01-19",
+        "name": "Birthday of Martin Luther King, Jr.",
+        "key": "birthday-of-martin-luther-king-jr"
+       },
+       {
+        "date": "2026-02-16",
+        "name": "Washington's Birthday",
+        "key": "washingtons-birthday"
+       },
+       {
+        "date": "2026-05-25",
+        "name": "Memorial Day",
+        "key": "memorial-day"
+       },
+       {
+        "date": "2026-06-19",
+        "name": "Juneteenth National Independence Day",
+        "key": "juneteenth-national-independence-day"
+       },
+       {
+        "date": "2026-07-04",
+        "name": "Independence Day",
+        "key": "independence-day",
+        "observed": "2026-07-03",
+        "note": "Independence Day 2026 falls on a Saturday; OPM lists 2026-07-03 (Friday) as the holiday for pay and leave purposes"
+       },
+       {
+        "date": "2026-09-07",
+        "name": "Labor Day",
+        "key": "labor-day"
+       },
+       {
+        "date": "2026-10-12",
+        "name": "Columbus Day",
+        "key": "columbus-day"
+       },
+       {
+        "date": "2026-11-11",
+        "name": "Veterans Day",
+        "key": "veterans-day"
+       },
+       {
+        "date": "2026-11-26",
+        "name": "Thanksgiving Day",
+        "key": "thanksgiving-day"
+       },
+       {
+        "date": "2026-12-25",
+        "name": "Christmas Day",
+        "key": "christmas-day"
+       }
+      ],
+      "2027": [
+       {
+        "date": "2027-01-01",
+        "name": "New Year's Day",
+        "key": "new-years-day"
+       },
+       {
+        "date": "2027-01-18",
+        "name": "Birthday of Martin Luther King, Jr.",
+        "key": "birthday-of-martin-luther-king-jr"
+       },
+       {
+        "date": "2027-02-15",
+        "name": "Washington's Birthday",
+        "key": "washingtons-birthday"
+       },
+       {
+        "date": "2027-05-31",
+        "name": "Memorial Day",
+        "key": "memorial-day"
+       },
+       {
+        "date": "2027-06-19",
+        "name": "Juneteenth National Independence Day",
+        "key": "juneteenth-national-independence-day",
+        "observed": "2027-06-18",
+        "note": "Juneteenth National Independence Day 2027 falls on a Saturday; OPM lists 2027-06-18 (Friday) as the holiday for pay and leave purposes"
+       },
+       {
+        "date": "2027-07-04",
+        "name": "Independence Day",
+        "key": "independence-day",
+        "observed": "2027-07-05",
+        "note": "Independence Day 2027 falls on a Sunday; OPM lists 2027-07-05 (Monday) as the holiday for pay and leave purposes"
+       },
+       {
+        "date": "2027-09-06",
+        "name": "Labor Day",
+        "key": "labor-day"
+       },
+       {
+        "date": "2027-10-11",
+        "name": "Columbus Day",
+        "key": "columbus-day"
+       },
+       {
+        "date": "2027-11-11",
+        "name": "Veterans Day",
+        "key": "veterans-day"
+       },
+       {
+        "date": "2027-11-25",
+        "name": "Thanksgiving Day",
+        "key": "thanksgiving-day"
+       },
+       {
+        "date": "2027-12-25",
+        "name": "Christmas Day",
+        "key": "christmas-day",
+        "observed": "2027-12-24",
+        "note": "Christmas Day 2027 falls on a Saturday; OPM lists 2027-12-24 (Friday) as the holiday for pay and leave purposes"
+       }
+      ],
+      "2028": [
+       {
+        "date": "2028-01-01",
+        "name": "New Year's Day",
+        "key": "new-years-day",
+        "observed": "2027-12-31",
+        "note": "New Year's Day 2028 falls on a Saturday; OPM lists 2027-12-31 (Friday) as the holiday for pay and leave purposes"
+       },
+       {
+        "date": "2028-01-17",
+        "name": "Birthday of Martin Luther King, Jr.",
+        "key": "birthday-of-martin-luther-king-jr"
+       },
+       {
+        "date": "2028-02-21",
+        "name": "Washington's Birthday",
+        "key": "washingtons-birthday"
+       },
+       {
+        "date": "2028-05-29",
+        "name": "Memorial Day",
+        "key": "memorial-day"
+       },
+       {
+        "date": "2028-06-19",
+        "name": "Juneteenth National Independence Day",
+        "key": "juneteenth-national-independence-day"
+       },
+       {
+        "date": "2028-07-04",
+        "name": "Independence Day",
+        "key": "independence-day"
+       },
+       {
+        "date": "2028-09-04",
+        "name": "Labor Day",
+        "key": "labor-day"
+       },
+       {
+        "date": "2028-10-09",
+        "name": "Columbus Day",
+        "key": "columbus-day"
+       },
+       {
+        "date": "2028-11-11",
+        "name": "Veterans Day",
+        "key": "veterans-day",
+        "observed": "2028-11-10",
+        "note": "Veterans Day 2028 falls on a Saturday; OPM lists 2028-11-10 (Friday) as the holiday for pay and leave purposes"
+       },
+       {
+        "date": "2028-11-23",
+        "name": "Thanksgiving Day",
+        "key": "thanksgiving-day"
+       },
+       {
+        "date": "2028-12-25",
+        "name": "Christmas Day",
+        "key": "christmas-day"
+       }
+      ]
+     }
+    }
+   },
+   "notes": "`date` is the statutory date; `observed` is OPM's date for pay and leave when the holiday falls on a Saturday (preceding Friday) or Sunday (following Monday). State holidays are not covered."
+  },
+  "de": {
+   "name": "Germany",
+   "kind": "gesetzliche Feiertage",
+   "source": "https://www.bmi.bund.de/DE/themen/verfassung/staatliche-symbole/nationale-feiertage/nationale-feiertage-node.html",
+   "publisher": "Bundesministerium des Innern (BMI)",
+   "licence": "Statutory texts and ministry pages are official works (§ 5 UrhG); the BMI page carries no separate licence statement.",
+   "overview": {
+    "source": "https://www.hamburg.de/resource/blob/134374/7a4a9de67fd46caec0947c11bf23316d/bsb-feiertage-data.pdf",
+    "publisher": "Freie und Hansestadt Hamburg, Behörde für Schule und Berufsbildung — \"Übersicht über die gesetzlichen Feiertage in der Bundesrepublik Deutschland (Stand: September 2018)\"",
+    "note": "A Land ministry's table of every Land's statutory holidays. Dated September 2018, so it predates the Reformationstag in Bremen, Niedersachsen and Schleswig-Holstein (2018 laws, shown only for BB, HH, MV, SN, ST, TH), the Berlin Frauentag (2019), the Thüringen Weltkindertag (2019) and the Mecklenburg-Vorpommern Frauentag (2023); those are verified separately below where an official page could be fetched."
+   },
+   "defaultRegion": "nationwide",
+   "regions": {
+    "nationwide": {
+     "name": "Bundesweit (die neun bundeseinheitlichen Feiertage)",
+     "source": "https://www.bmi.bund.de/DE/themen/verfassung/staatliche-symbole/nationale-feiertage/nationale-feiertage-node.html",
+     "publisher": "Bundesministerium des Innern (BMI)",
+     "quote": "Durch die Sonn- und Feiertagsgesetze der Länder sind jedoch neun Feiertage bundeseinheitlich gesetzlich geschützt: Neujahr Karfreitag Ostermontag Christi Himmelfahrt Pfingstmontag 1. Mai Tag der Deutschen Einheit erster Weihnachtstag zweiter Weihnachtstag",
+     "years": {
+      "2026": [
+       {
+        "date": "2026-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2026-04-03",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2026-04-06",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2026-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2026-05-14",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2026-05-25",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2026-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2026-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2026-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ],
+      "2027": [
+       {
+        "date": "2027-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2027-03-26",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2027-03-29",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2027-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2027-05-06",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2027-05-17",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2027-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2027-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2027-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ],
+      "2028": [
+       {
+        "date": "2028-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2028-04-14",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2028-04-17",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2028-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2028-05-25",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2028-06-05",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2028-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2028-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2028-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ]
+     }
+    },
+    "BW": {
+     "name": "Baden-Württemberg",
+     "source": "https://www.hamburg.de/resource/blob/134374/7a4a9de67fd46caec0947c11bf23316d/bsb-feiertage-data.pdf",
+     "verification": "Hamburg BSB overview (official, Stand 2018): Hl. Drei Könige X, Fronleichnam X, Allerheiligen X for BW. The Land's own page (im.baden-wuerttemberg.de/de/service/feiertage) and landesrecht-bw.de render only with JavaScript and could not be read by the fetcher.",
+     "nonOfficial": false,
+     "years": {
+      "2026": [
+       {
+        "date": "2026-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2026-01-06",
+        "name": "Heilige Drei Könige",
+        "key": "heilige-drei-koenige"
+       },
+       {
+        "date": "2026-04-03",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2026-04-06",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2026-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2026-05-14",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2026-05-25",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2026-06-04",
+        "name": "Fronleichnam",
+        "key": "fronleichnam"
+       },
+       {
+        "date": "2026-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2026-11-01",
+        "name": "Allerheiligen",
+        "key": "allerheiligen"
+       },
+       {
+        "date": "2026-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2026-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ],
+      "2027": [
+       {
+        "date": "2027-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2027-01-06",
+        "name": "Heilige Drei Könige",
+        "key": "heilige-drei-koenige"
+       },
+       {
+        "date": "2027-03-26",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2027-03-29",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2027-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2027-05-06",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2027-05-17",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2027-05-27",
+        "name": "Fronleichnam",
+        "key": "fronleichnam"
+       },
+       {
+        "date": "2027-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2027-11-01",
+        "name": "Allerheiligen",
+        "key": "allerheiligen"
+       },
+       {
+        "date": "2027-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2027-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ],
+      "2028": [
+       {
+        "date": "2028-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2028-01-06",
+        "name": "Heilige Drei Könige",
+        "key": "heilige-drei-koenige"
+       },
+       {
+        "date": "2028-04-14",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2028-04-17",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2028-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2028-05-25",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2028-06-05",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2028-06-15",
+        "name": "Fronleichnam",
+        "key": "fronleichnam"
+       },
+       {
+        "date": "2028-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2028-11-01",
+        "name": "Allerheiligen",
+        "key": "allerheiligen"
+       },
+       {
+        "date": "2028-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2028-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ]
+     }
+    },
+    "BY": {
+     "name": "Bayern",
+     "source": "https://www.gesetze-bayern.de/Content/Document/BayFTG-1",
+     "quote": "Gesetzliche Feiertage sind 1. im ganzen Staatsgebiet Neujahr, Heilige Drei Könige (Epiphanias), Karfreitag, Ostermontag, der 1. Mai, Christi Himmelfahrt, Pfingstmontag, Fronleichnam, der 3. Oktober als Tag der Deutschen Einheit, Allerheiligen, Erster Weihnachtstag, Zweiter Weihnachtstag, 2. in Gemeinden mit überwiegend katholischer Bevölkerung Mariä Himmelfahrt. (2) In der Stadt Augsburg ist außerdem der 8. August (Friedensfest) gesetzlicher Feiertag.",
+     "verification": "Art. 1 Feiertagsgesetz (FTG) on BAYERN.RECHT, fetched 2026-10-04.",
+     "nonOfficial": false,
+     "years": {
+      "2026": [
+       {
+        "date": "2026-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2026-01-06",
+        "name": "Heilige Drei Könige",
+        "key": "heilige-drei-koenige"
+       },
+       {
+        "date": "2026-04-03",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2026-04-06",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2026-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2026-05-14",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2026-05-25",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2026-06-04",
+        "name": "Fronleichnam",
+        "key": "fronleichnam"
+       },
+       {
+        "date": "2026-08-08",
+        "name": "Augsburger Hohes Friedensfest",
+        "key": "friedensfest",
+        "partial": true,
+        "scope": "Stadt Augsburg only (Art. 1 Abs. 2 FTG)"
+       },
+       {
+        "date": "2026-08-15",
+        "name": "Mariä Himmelfahrt",
+        "key": "mariae-himmelfahrt",
+        "partial": true,
+        "scope": "in Gemeinden mit überwiegend katholischer Bevölkerung (Art. 1 Abs. 1 Nr. 2 FTG); the Landesamt für Statistik determines the Gemeinden after each census"
+       },
+       {
+        "date": "2026-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2026-11-01",
+        "name": "Allerheiligen",
+        "key": "allerheiligen"
+       },
+       {
+        "date": "2026-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2026-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ],
+      "2027": [
+       {
+        "date": "2027-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2027-01-06",
+        "name": "Heilige Drei Könige",
+        "key": "heilige-drei-koenige"
+       },
+       {
+        "date": "2027-03-26",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2027-03-29",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2027-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2027-05-06",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2027-05-17",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2027-05-27",
+        "name": "Fronleichnam",
+        "key": "fronleichnam"
+       },
+       {
+        "date": "2027-08-08",
+        "name": "Augsburger Hohes Friedensfest",
+        "key": "friedensfest",
+        "partial": true,
+        "scope": "Stadt Augsburg only (Art. 1 Abs. 2 FTG)"
+       },
+       {
+        "date": "2027-08-15",
+        "name": "Mariä Himmelfahrt",
+        "key": "mariae-himmelfahrt",
+        "partial": true,
+        "scope": "in Gemeinden mit überwiegend katholischer Bevölkerung (Art. 1 Abs. 1 Nr. 2 FTG); the Landesamt für Statistik determines the Gemeinden after each census"
+       },
+       {
+        "date": "2027-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2027-11-01",
+        "name": "Allerheiligen",
+        "key": "allerheiligen"
+       },
+       {
+        "date": "2027-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2027-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ],
+      "2028": [
+       {
+        "date": "2028-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2028-01-06",
+        "name": "Heilige Drei Könige",
+        "key": "heilige-drei-koenige"
+       },
+       {
+        "date": "2028-04-14",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2028-04-17",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2028-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2028-05-25",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2028-06-05",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2028-06-15",
+        "name": "Fronleichnam",
+        "key": "fronleichnam"
+       },
+       {
+        "date": "2028-08-08",
+        "name": "Augsburger Hohes Friedensfest",
+        "key": "friedensfest",
+        "partial": true,
+        "scope": "Stadt Augsburg only (Art. 1 Abs. 2 FTG)"
+       },
+       {
+        "date": "2028-08-15",
+        "name": "Mariä Himmelfahrt",
+        "key": "mariae-himmelfahrt",
+        "partial": true,
+        "scope": "in Gemeinden mit überwiegend katholischer Bevölkerung (Art. 1 Abs. 1 Nr. 2 FTG); the Landesamt für Statistik determines the Gemeinden after each census"
+       },
+       {
+        "date": "2028-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2028-11-01",
+        "name": "Allerheiligen",
+        "key": "allerheiligen"
+       },
+       {
+        "date": "2028-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2028-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ]
+     }
+    },
+    "BE": {
+     "name": "Berlin",
+     "source": "https://www.berlin.de/sen/inneres/buerger-und-staat/verfassungs-und-verwaltungsrecht/artikel.1435639.php",
+     "quote": "Gesetzliche Feiertage sind im Land Berlin – außer den Sonntagen – der Neujahrstag, der Frauentag (8. März), der Karfreitag, der Ostermontag, der 1. Mai, der Himmelfahrtstag, der Pfingstmontag, der Tag der deutschen Einheit sowie der erste und der zweite Weihnachtstag.",
+     "verification": "Senatsverwaltung für Inneres und Sport, Sonn- und Feiertagsrecht, fetched 2026-10-04.",
+     "nonOfficial": false,
+     "years": {
+      "2026": [
+       {
+        "date": "2026-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2026-03-08",
+        "name": "Internationaler Frauentag",
+        "key": "frauentag"
+       },
+       {
+        "date": "2026-04-03",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2026-04-06",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2026-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2026-05-14",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2026-05-25",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2026-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2026-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2026-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ],
+      "2027": [
+       {
+        "date": "2027-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2027-03-08",
+        "name": "Internationaler Frauentag",
+        "key": "frauentag"
+       },
+       {
+        "date": "2027-03-26",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2027-03-29",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2027-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2027-05-06",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2027-05-17",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2027-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2027-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2027-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ],
+      "2028": [
+       {
+        "date": "2028-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2028-03-08",
+        "name": "Internationaler Frauentag",
+        "key": "frauentag"
+       },
+       {
+        "date": "2028-04-14",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2028-04-17",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2028-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2028-05-25",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2028-06-05",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2028-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2028-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2028-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ]
+     }
+    },
+    "BB": {
+     "name": "Brandenburg",
+     "source": "https://bravors.brandenburg.de/gesetze/ftg_2015",
+     "quote": "Gesetzlich anerkannte Feiertage sind: der Neujahrstag (1. Januar), der Karfreitag, der Ostersonntag, der Ostermontag, der 1. Mai (Tag der Arbeit), der Christi Himmelfahrtstag, der Pfingstsonntag, der Pfingstmontag, der Tag der deutschen Einheit (3. Oktober), das Reformationsfest (31. Oktober), der 1. Weihnachtsfeiertag (25. Dezember), der 2. Weihnachtsfeiertag (26. Dezember).",
+     "verification": "§ 2 Feiertagsgesetz (FTG) Brandenburg on BRAVORS, fetched 2026-10-04.",
+     "nonOfficial": false,
+     "years": {
+      "2026": [
+       {
+        "date": "2026-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2026-04-03",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2026-04-05",
+        "name": "Ostersonntag",
+        "key": "ostersonntag"
+       },
+       {
+        "date": "2026-04-06",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2026-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2026-05-14",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2026-05-24",
+        "name": "Pfingstsonntag",
+        "key": "pfingstsonntag"
+       },
+       {
+        "date": "2026-05-25",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2026-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2026-10-31",
+        "name": "Reformationstag",
+        "key": "reformationstag"
+       },
+       {
+        "date": "2026-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2026-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ],
+      "2027": [
+       {
+        "date": "2027-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2027-03-26",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2027-03-28",
+        "name": "Ostersonntag",
+        "key": "ostersonntag"
+       },
+       {
+        "date": "2027-03-29",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2027-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2027-05-06",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2027-05-16",
+        "name": "Pfingstsonntag",
+        "key": "pfingstsonntag"
+       },
+       {
+        "date": "2027-05-17",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2027-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2027-10-31",
+        "name": "Reformationstag",
+        "key": "reformationstag"
+       },
+       {
+        "date": "2027-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2027-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ],
+      "2028": [
+       {
+        "date": "2028-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2028-04-14",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2028-04-16",
+        "name": "Ostersonntag",
+        "key": "ostersonntag"
+       },
+       {
+        "date": "2028-04-17",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2028-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2028-05-25",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2028-06-04",
+        "name": "Pfingstsonntag",
+        "key": "pfingstsonntag"
+       },
+       {
+        "date": "2028-06-05",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2028-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2028-10-31",
+        "name": "Reformationstag",
+        "key": "reformationstag"
+       },
+       {
+        "date": "2028-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2028-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ]
+     }
+    },
+    "HB": {
+     "name": "Bremen",
+     "source": "https://www.hamburg.de/resource/blob/134374/7a4a9de67fd46caec0947c11bf23316d/bsb-feiertage-data.pdf",
+     "verification": "NOT VERIFIED against an official Bremen page on 2026-10-04: every bremen.de / transparenz.bremen.de URL tried answered 404, and the Hamburg overview (Stand September 2018) does not yet show the Reformationstag for HB. The Reformationstag entry rests on the 2018 amendment of the Bremen Feiertagsgesetz as commonly reported — treat as non-official until re-verified.",
+     "nonOfficial": true,
+     "years": {
+      "2026": [
+       {
+        "date": "2026-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2026-04-03",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2026-04-06",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2026-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2026-05-14",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2026-05-25",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2026-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2026-10-31",
+        "name": "Reformationstag",
+        "key": "reformationstag"
+       },
+       {
+        "date": "2026-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2026-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ],
+      "2027": [
+       {
+        "date": "2027-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2027-03-26",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2027-03-29",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2027-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2027-05-06",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2027-05-17",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2027-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2027-10-31",
+        "name": "Reformationstag",
+        "key": "reformationstag"
+       },
+       {
+        "date": "2027-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2027-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ],
+      "2028": [
+       {
+        "date": "2028-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2028-04-14",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2028-04-17",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2028-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2028-05-25",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2028-06-05",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2028-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2028-10-31",
+        "name": "Reformationstag",
+        "key": "reformationstag"
+       },
+       {
+        "date": "2028-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2028-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ]
+     }
+    },
+    "HH": {
+     "name": "Hamburg",
+     "source": "https://www.hamburg.de/leben-in-hamburg/ferien-feiertage-termine-378818",
+     "quote": "Tag der Deutschen Einheit: Sa. 03.10.2026 Herbstferien: Mo. 19.10.2026 - Fr. 30.10.2026 Reformationstag: Sa. 31.10.2026",
+     "verification": "hamburg.de \"Schulferien und Feiertage in Hamburg 2026\" lists the Reformationstag among the gesetzliche Feiertage; the BSB overview shows HH X for Reformationstag. Fetched 2026-10-04.",
+     "nonOfficial": false,
+     "years": {
+      "2026": [
+       {
+        "date": "2026-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2026-04-03",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2026-04-06",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2026-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2026-05-14",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2026-05-25",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2026-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2026-10-31",
+        "name": "Reformationstag",
+        "key": "reformationstag"
+       },
+       {
+        "date": "2026-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2026-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ],
+      "2027": [
+       {
+        "date": "2027-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2027-03-26",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2027-03-29",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2027-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2027-05-06",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2027-05-17",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2027-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2027-10-31",
+        "name": "Reformationstag",
+        "key": "reformationstag"
+       },
+       {
+        "date": "2027-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2027-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ],
+      "2028": [
+       {
+        "date": "2028-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2028-04-14",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2028-04-17",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2028-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2028-05-25",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2028-06-05",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2028-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2028-10-31",
+        "name": "Reformationstag",
+        "key": "reformationstag"
+       },
+       {
+        "date": "2028-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2028-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ]
+     }
+    },
+    "HE": {
+     "name": "Hessen",
+     "source": "https://innen.hessen.de/buerger-staat/feiertage",
+     "quote": "Feiertage in Hessen im Jahr 2026 Neujahr: 01.01.2026 Karfreitag: 03.04.2026 Ostermontag: 06.04.2026 Tag der Arbeit: 01.05.2026 Christi Himmelfahrt: 14.05.2026 Pfingstmontag: 25.05.2026 Fronleichnam: 04.06.2026 Tag der Deutschen Einheit: 03.10.2026 1. Weihnachtsfeiertag: 25.12.2026 2. Weihnachtsfeiertag: 26.12.2026",
+     "verification": "Hessisches Ministerium des Innern, fetched 2026-10-04; the ten 2026 dates are asserted by the script.",
+     "nonOfficial": false,
+     "years": {
+      "2026": [
+       {
+        "date": "2026-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2026-04-03",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2026-04-06",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2026-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2026-05-14",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2026-05-25",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2026-06-04",
+        "name": "Fronleichnam",
+        "key": "fronleichnam"
+       },
+       {
+        "date": "2026-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2026-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2026-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ],
+      "2027": [
+       {
+        "date": "2027-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2027-03-26",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2027-03-29",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2027-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2027-05-06",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2027-05-17",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2027-05-27",
+        "name": "Fronleichnam",
+        "key": "fronleichnam"
+       },
+       {
+        "date": "2027-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2027-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2027-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ],
+      "2028": [
+       {
+        "date": "2028-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2028-04-14",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2028-04-17",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2028-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2028-05-25",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2028-06-05",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2028-06-15",
+        "name": "Fronleichnam",
+        "key": "fronleichnam"
+       },
+       {
+        "date": "2028-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2028-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2028-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ]
+     }
+    },
+    "MV": {
+     "name": "Mecklenburg-Vorpommern",
+     "source": "https://www.hamburg.de/resource/blob/134374/7a4a9de67fd46caec0947c11bf23316d/bsb-feiertage-data.pdf",
+     "verification": "Reformationstag: Hamburg BSB overview shows MV X (official). Frauentag (8 March, statutory since 2023): NOT VERIFIED against an official MV page on 2026-10-04 — regierung-mv.de URLs tried answered 404 and landesrecht-mv.de needs JavaScript; rests on the 2022 amendment of the Feiertagsgesetz M-V as commonly reported — treat as non-official until re-verified.",
+     "nonOfficial": true,
+     "years": {
+      "2026": [
+       {
+        "date": "2026-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2026-03-08",
+        "name": "Internationaler Frauentag",
+        "key": "frauentag"
+       },
+       {
+        "date": "2026-04-03",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2026-04-06",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2026-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2026-05-14",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2026-05-25",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2026-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2026-10-31",
+        "name": "Reformationstag",
+        "key": "reformationstag"
+       },
+       {
+        "date": "2026-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2026-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ],
+      "2027": [
+       {
+        "date": "2027-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2027-03-08",
+        "name": "Internationaler Frauentag",
+        "key": "frauentag"
+       },
+       {
+        "date": "2027-03-26",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2027-03-29",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2027-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2027-05-06",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2027-05-17",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2027-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2027-10-31",
+        "name": "Reformationstag",
+        "key": "reformationstag"
+       },
+       {
+        "date": "2027-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2027-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ],
+      "2028": [
+       {
+        "date": "2028-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2028-03-08",
+        "name": "Internationaler Frauentag",
+        "key": "frauentag"
+       },
+       {
+        "date": "2028-04-14",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2028-04-17",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2028-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2028-05-25",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2028-06-05",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2028-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2028-10-31",
+        "name": "Reformationstag",
+        "key": "reformationstag"
+       },
+       {
+        "date": "2028-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2028-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ]
+     }
+    },
+    "NI": {
+     "name": "Niedersachsen",
+     "source": "https://www.mi.niedersachsen.de/themen/allgemeine_angelegenheiten_inneren/feiertagsrecht/feiertagsgesetz-61491.html",
+     "quote": "§ 2 (1) Staatlich anerkannte Feiertage sind: a) Neujahrstag, b) Karfreitag, c) Ostermontag, d) der 1. Mai, e) Himmelfahrtstag, f) Pfingstmontag, g) der 3. Oktober, als Tag der Deutschen Einheit, h) der 31. Oktober, als Reformationstag, i) 1. Weihnachtstag, j) 2. Weihnachtstag.",
+     "verification": "Niedersächsisches Gesetz über die Feiertage, § 2, on the Ministry of the Interior's site, fetched 2026-10-04.",
+     "nonOfficial": false,
+     "years": {
+      "2026": [
+       {
+        "date": "2026-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2026-04-03",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2026-04-06",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2026-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2026-05-14",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2026-05-25",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2026-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2026-10-31",
+        "name": "Reformationstag",
+        "key": "reformationstag"
+       },
+       {
+        "date": "2026-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2026-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ],
+      "2027": [
+       {
+        "date": "2027-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2027-03-26",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2027-03-29",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2027-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2027-05-06",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2027-05-17",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2027-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2027-10-31",
+        "name": "Reformationstag",
+        "key": "reformationstag"
+       },
+       {
+        "date": "2027-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2027-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ],
+      "2028": [
+       {
+        "date": "2028-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2028-04-14",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2028-04-17",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2028-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2028-05-25",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2028-06-05",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2028-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2028-10-31",
+        "name": "Reformationstag",
+        "key": "reformationstag"
+       },
+       {
+        "date": "2028-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2028-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ]
+     }
+    },
+    "NW": {
+     "name": "Nordrhein-Westfalen",
+     "source": "https://www.hamburg.de/resource/blob/134374/7a4a9de67fd46caec0947c11bf23316d/bsb-feiertage-data.pdf",
+     "verification": "Hamburg BSB overview (official, Stand 2018): Fronleichnam X, Allerheiligen X for NW; NRW's own pages (mags.nrw, land.nrw, recht.nrw.de) answered 404 or redirected on 2026-10-04.",
+     "nonOfficial": false,
+     "years": {
+      "2026": [
+       {
+        "date": "2026-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2026-04-03",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2026-04-06",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2026-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2026-05-14",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2026-05-25",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2026-06-04",
+        "name": "Fronleichnam",
+        "key": "fronleichnam"
+       },
+       {
+        "date": "2026-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2026-11-01",
+        "name": "Allerheiligen",
+        "key": "allerheiligen"
+       },
+       {
+        "date": "2026-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2026-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ],
+      "2027": [
+       {
+        "date": "2027-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2027-03-26",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2027-03-29",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2027-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2027-05-06",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2027-05-17",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2027-05-27",
+        "name": "Fronleichnam",
+        "key": "fronleichnam"
+       },
+       {
+        "date": "2027-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2027-11-01",
+        "name": "Allerheiligen",
+        "key": "allerheiligen"
+       },
+       {
+        "date": "2027-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2027-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ],
+      "2028": [
+       {
+        "date": "2028-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2028-04-14",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2028-04-17",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2028-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2028-05-25",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2028-06-05",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2028-06-15",
+        "name": "Fronleichnam",
+        "key": "fronleichnam"
+       },
+       {
+        "date": "2028-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2028-11-01",
+        "name": "Allerheiligen",
+        "key": "allerheiligen"
+       },
+       {
+        "date": "2028-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2028-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ]
+     }
+    },
+    "RP": {
+     "name": "Rheinland-Pfalz",
+     "source": "https://mdi.rlp.de/themen/buerger-und-staat/verfassung-und-verwaltung/sonn-und-feiertagsrecht",
+     "quote": "Gesetzliche Feiertage in Rheinland-Pfalz 2026 & 2027 Do, 01. Januar 2026 Fr, 01. Januar 2027 Neujahr Fr, 03. April 2026 Fr, 26. März 2027 Karfreitag Mo, 06. April 2026 Mo, 29. März 2027 Ostermontag Fr, 01. Mai 2026 Sa, 01. Mai 2027 Tag der Arbeit Do, 14. Mai 2026 Do, 06. Mai 2027 Christi Himmelfahrt Mo, 25. Mai 2026 Mo, 17. Mai 2027 Pfingstmontag Do, 04. Juni 2026 Do, 27. Mai 2027 Fronleichnam Sa, 03. Oktober 2026 So, 03. Oktober 2027 Tag der Deutschen Einheit So, 01. November 2026 Mo, 01. November 2027 Allerheiligen Fr, 25. Dezember 2026 Sa, 25. Dezember 2027 1. Weihnachtstag Sa, 26. Dezember 2026 So, 26. Dezember 2027 2. Weihnachtstag",
+     "verification": "Ministerium des Innern und für Sport RLP, fetched 2026-10-04; the 2026 and 2027 dates are asserted by the script.",
+     "nonOfficial": false,
+     "years": {
+      "2026": [
+       {
+        "date": "2026-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2026-04-03",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2026-04-06",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2026-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2026-05-14",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2026-05-25",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2026-06-04",
+        "name": "Fronleichnam",
+        "key": "fronleichnam"
+       },
+       {
+        "date": "2026-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2026-11-01",
+        "name": "Allerheiligen",
+        "key": "allerheiligen"
+       },
+       {
+        "date": "2026-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2026-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ],
+      "2027": [
+       {
+        "date": "2027-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2027-03-26",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2027-03-29",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2027-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2027-05-06",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2027-05-17",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2027-05-27",
+        "name": "Fronleichnam",
+        "key": "fronleichnam"
+       },
+       {
+        "date": "2027-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2027-11-01",
+        "name": "Allerheiligen",
+        "key": "allerheiligen"
+       },
+       {
+        "date": "2027-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2027-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ],
+      "2028": [
+       {
+        "date": "2028-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2028-04-14",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2028-04-17",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2028-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2028-05-25",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2028-06-05",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2028-06-15",
+        "name": "Fronleichnam",
+        "key": "fronleichnam"
+       },
+       {
+        "date": "2028-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2028-11-01",
+        "name": "Allerheiligen",
+        "key": "allerheiligen"
+       },
+       {
+        "date": "2028-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2028-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ]
+     }
+    },
+    "SL": {
+     "name": "Saarland",
+     "source": "https://www.hamburg.de/resource/blob/134374/7a4a9de67fd46caec0947c11bf23316d/bsb-feiertage-data.pdf",
+     "verification": "Hamburg BSB overview (official, Stand 2018): Fronleichnam X, Mariä Himmelfahrt X, Allerheiligen X for SL; saarland.de answered 403 on 2026-10-04.",
+     "nonOfficial": false,
+     "years": {
+      "2026": [
+       {
+        "date": "2026-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2026-04-03",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2026-04-06",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2026-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2026-05-14",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2026-05-25",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2026-06-04",
+        "name": "Fronleichnam",
+        "key": "fronleichnam"
+       },
+       {
+        "date": "2026-08-15",
+        "name": "Mariä Himmelfahrt",
+        "key": "mariae-himmelfahrt"
+       },
+       {
+        "date": "2026-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2026-11-01",
+        "name": "Allerheiligen",
+        "key": "allerheiligen"
+       },
+       {
+        "date": "2026-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2026-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ],
+      "2027": [
+       {
+        "date": "2027-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2027-03-26",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2027-03-29",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2027-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2027-05-06",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2027-05-17",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2027-05-27",
+        "name": "Fronleichnam",
+        "key": "fronleichnam"
+       },
+       {
+        "date": "2027-08-15",
+        "name": "Mariä Himmelfahrt",
+        "key": "mariae-himmelfahrt"
+       },
+       {
+        "date": "2027-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2027-11-01",
+        "name": "Allerheiligen",
+        "key": "allerheiligen"
+       },
+       {
+        "date": "2027-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2027-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ],
+      "2028": [
+       {
+        "date": "2028-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2028-04-14",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2028-04-17",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2028-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2028-05-25",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2028-06-05",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2028-06-15",
+        "name": "Fronleichnam",
+        "key": "fronleichnam"
+       },
+       {
+        "date": "2028-08-15",
+        "name": "Mariä Himmelfahrt",
+        "key": "mariae-himmelfahrt"
+       },
+       {
+        "date": "2028-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2028-11-01",
+        "name": "Allerheiligen",
+        "key": "allerheiligen"
+       },
+       {
+        "date": "2028-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2028-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ]
+     }
+    },
+    "SN": {
+     "name": "Sachsen",
+     "source": "https://www.recht.sachsen.de/vorschrift_gesamt/3997/26160.pdf",
+     "quote": "(1) Gesetzliche Feiertage sind: Neujahr (1. Januar), Karfreitag, Ostermontag, Tag der Arbeit (1. Mai), Christi Himmelfahrt, Pfingstmontag, Fronleichnam (nur in den vom Staatsministerium des Innern durch Rechtsverordnung bestimmten Regionen), Tag der Deutschen Einheit (3. Oktober), Reformationstag (31. Oktober), Buß- und Bettag, 1. Weihnachtstag (25. Dezember), 2. Weihnachtstag (26. Dezember).",
+     "verification": "§ 1 Gesetz über Sonn- und Feiertage im Freistaat Sachsen (SächsSFG), REVOSax PDF, fetched 2026-10-04.",
+     "nonOfficial": false,
+     "years": {
+      "2026": [
+       {
+        "date": "2026-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2026-04-03",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2026-04-06",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2026-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2026-05-14",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2026-05-25",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2026-06-04",
+        "name": "Fronleichnam",
+        "key": "fronleichnam",
+        "partial": true,
+        "scope": "nur in den vom Staatsministerium des Innern durch Rechtsverordnung bestimmten Regionen (Landkreis Bautzen, Westlausitz)"
+       },
+       {
+        "date": "2026-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2026-10-31",
+        "name": "Reformationstag",
+        "key": "reformationstag"
+       },
+       {
+        "date": "2026-11-18",
+        "name": "Buß- und Bettag",
+        "key": "buss-und-bettag"
+       },
+       {
+        "date": "2026-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2026-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ],
+      "2027": [
+       {
+        "date": "2027-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2027-03-26",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2027-03-29",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2027-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2027-05-06",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2027-05-17",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2027-05-27",
+        "name": "Fronleichnam",
+        "key": "fronleichnam",
+        "partial": true,
+        "scope": "nur in den vom Staatsministerium des Innern durch Rechtsverordnung bestimmten Regionen (Landkreis Bautzen, Westlausitz)"
+       },
+       {
+        "date": "2027-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2027-10-31",
+        "name": "Reformationstag",
+        "key": "reformationstag"
+       },
+       {
+        "date": "2027-11-17",
+        "name": "Buß- und Bettag",
+        "key": "buss-und-bettag"
+       },
+       {
+        "date": "2027-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2027-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ],
+      "2028": [
+       {
+        "date": "2028-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2028-04-14",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2028-04-17",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2028-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2028-05-25",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2028-06-05",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2028-06-15",
+        "name": "Fronleichnam",
+        "key": "fronleichnam",
+        "partial": true,
+        "scope": "nur in den vom Staatsministerium des Innern durch Rechtsverordnung bestimmten Regionen (Landkreis Bautzen, Westlausitz)"
+       },
+       {
+        "date": "2028-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2028-10-31",
+        "name": "Reformationstag",
+        "key": "reformationstag"
+       },
+       {
+        "date": "2028-11-22",
+        "name": "Buß- und Bettag",
+        "key": "buss-und-bettag"
+       },
+       {
+        "date": "2028-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2028-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ]
+     }
+    },
+    "ST": {
+     "name": "Sachsen-Anhalt",
+     "source": "https://www.hamburg.de/resource/blob/134374/7a4a9de67fd46caec0947c11bf23316d/bsb-feiertage-data.pdf",
+     "verification": "Hamburg BSB overview (official, Stand 2018): Hl. Drei Könige X, Reformationstag X for ST; sachsen-anhalt.de pages answered 404 on 2026-10-04.",
+     "nonOfficial": false,
+     "years": {
+      "2026": [
+       {
+        "date": "2026-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2026-01-06",
+        "name": "Heilige Drei Könige",
+        "key": "heilige-drei-koenige"
+       },
+       {
+        "date": "2026-04-03",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2026-04-06",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2026-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2026-05-14",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2026-05-25",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2026-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2026-10-31",
+        "name": "Reformationstag",
+        "key": "reformationstag"
+       },
+       {
+        "date": "2026-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2026-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ],
+      "2027": [
+       {
+        "date": "2027-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2027-01-06",
+        "name": "Heilige Drei Könige",
+        "key": "heilige-drei-koenige"
+       },
+       {
+        "date": "2027-03-26",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2027-03-29",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2027-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2027-05-06",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2027-05-17",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2027-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2027-10-31",
+        "name": "Reformationstag",
+        "key": "reformationstag"
+       },
+       {
+        "date": "2027-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2027-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ],
+      "2028": [
+       {
+        "date": "2028-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2028-01-06",
+        "name": "Heilige Drei Könige",
+        "key": "heilige-drei-koenige"
+       },
+       {
+        "date": "2028-04-14",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2028-04-17",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2028-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2028-05-25",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2028-06-05",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2028-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2028-10-31",
+        "name": "Reformationstag",
+        "key": "reformationstag"
+       },
+       {
+        "date": "2028-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2028-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ]
+     }
+    },
+    "SH": {
+     "name": "Schleswig-Holstein",
+     "source": "https://www.hamburg.de/resource/blob/134374/7a4a9de67fd46caec0947c11bf23316d/bsb-feiertage-data.pdf",
+     "verification": "NOT VERIFIED against an official SH page on 2026-10-04: schleswig-holstein.de URLs tried answered 404 and the juris portal needs JavaScript; the Hamburg overview (Stand September 2018) does not yet show the Reformationstag for SH. Rests on the 2018 amendment of the SH Feiertagsgesetz as commonly reported — treat as non-official until re-verified.",
+     "nonOfficial": true,
+     "years": {
+      "2026": [
+       {
+        "date": "2026-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2026-04-03",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2026-04-06",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2026-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2026-05-14",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2026-05-25",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2026-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2026-10-31",
+        "name": "Reformationstag",
+        "key": "reformationstag"
+       },
+       {
+        "date": "2026-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2026-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ],
+      "2027": [
+       {
+        "date": "2027-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2027-03-26",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2027-03-29",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2027-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2027-05-06",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2027-05-17",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2027-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2027-10-31",
+        "name": "Reformationstag",
+        "key": "reformationstag"
+       },
+       {
+        "date": "2027-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2027-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ],
+      "2028": [
+       {
+        "date": "2028-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2028-04-14",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2028-04-17",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2028-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2028-05-25",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2028-06-05",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2028-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2028-10-31",
+        "name": "Reformationstag",
+        "key": "reformationstag"
+       },
+       {
+        "date": "2028-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2028-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ]
+     }
+    },
+    "TH": {
+     "name": "Thüringen",
+     "source": "https://www.hamburg.de/resource/blob/134374/7a4a9de67fd46caec0947c11bf23316d/bsb-feiertage-data.pdf",
+     "verification": "Reformationstag and the partial Fronleichnam: Hamburg BSB overview (official, Stand 2018; footnote 3 on Fronleichnam). Weltkindertag (20 September, statutory since 2019): NOT VERIFIED against an official page on 2026-10-04 — thueringen.de and innen.thueringen.de serve a CAPTCHA to the fetcher; rests on the 2019 amendment of the ThürFtG as commonly reported — treat as non-official until re-verified.",
+     "nonOfficial": true,
+     "years": {
+      "2026": [
+       {
+        "date": "2026-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2026-04-03",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2026-04-06",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2026-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2026-05-14",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2026-05-25",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2026-06-04",
+        "name": "Fronleichnam",
+        "key": "fronleichnam",
+        "partial": true,
+        "scope": "in den Teilen Thüringens, in denen er 1994 als gesetzlicher Feiertag begangen wurde (Gemeinden mit überwiegend katholischer Bevölkerung)"
+       },
+       {
+        "date": "2026-09-20",
+        "name": "Weltkindertag",
+        "key": "weltkindertag"
+       },
+       {
+        "date": "2026-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2026-10-31",
+        "name": "Reformationstag",
+        "key": "reformationstag"
+       },
+       {
+        "date": "2026-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2026-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ],
+      "2027": [
+       {
+        "date": "2027-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2027-03-26",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2027-03-29",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2027-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2027-05-06",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2027-05-17",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2027-05-27",
+        "name": "Fronleichnam",
+        "key": "fronleichnam",
+        "partial": true,
+        "scope": "in den Teilen Thüringens, in denen er 1994 als gesetzlicher Feiertag begangen wurde (Gemeinden mit überwiegend katholischer Bevölkerung)"
+       },
+       {
+        "date": "2027-09-20",
+        "name": "Weltkindertag",
+        "key": "weltkindertag"
+       },
+       {
+        "date": "2027-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2027-10-31",
+        "name": "Reformationstag",
+        "key": "reformationstag"
+       },
+       {
+        "date": "2027-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2027-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ],
+      "2028": [
+       {
+        "date": "2028-01-01",
+        "name": "Neujahr",
+        "key": "neujahr"
+       },
+       {
+        "date": "2028-04-14",
+        "name": "Karfreitag",
+        "key": "karfreitag"
+       },
+       {
+        "date": "2028-04-17",
+        "name": "Ostermontag",
+        "key": "ostermontag"
+       },
+       {
+        "date": "2028-05-01",
+        "name": "Tag der Arbeit (1. Mai)",
+        "key": "tag-der-arbeit"
+       },
+       {
+        "date": "2028-05-25",
+        "name": "Christi Himmelfahrt",
+        "key": "christi-himmelfahrt"
+       },
+       {
+        "date": "2028-06-05",
+        "name": "Pfingstmontag",
+        "key": "pfingstmontag"
+       },
+       {
+        "date": "2028-06-15",
+        "name": "Fronleichnam",
+        "key": "fronleichnam",
+        "partial": true,
+        "scope": "in den Teilen Thüringens, in denen er 1994 als gesetzlicher Feiertag begangen wurde (Gemeinden mit überwiegend katholischer Bevölkerung)"
+       },
+       {
+        "date": "2028-09-20",
+        "name": "Weltkindertag",
+        "key": "weltkindertag"
+       },
+       {
+        "date": "2028-10-03",
+        "name": "Tag der Deutschen Einheit",
+        "key": "tag-der-deutschen-einheit"
+       },
+       {
+        "date": "2028-10-31",
+        "name": "Reformationstag",
+        "key": "reformationstag"
+       },
+       {
+        "date": "2028-12-25",
+        "name": "Erster Weihnachtstag",
+        "key": "erster-weihnachtstag"
+       },
+       {
+        "date": "2028-12-26",
+        "name": "Zweiter Weihnachtstag",
+        "key": "zweiter-weihnachtstag"
+       }
+      ]
+     }
+    }
+   },
+   "notes": "Dates are computed from each holiday's rule (fixed date or Easter offset) and asserted against the 2026/2027 dates the Hessen and Rheinland-Pfalz ministries publish. `partial` holidays apply only in the Gemeinden named in `scope`. A Land marked `nonOfficial` has an addition that could not be re-verified against an official page on verifiedDate — see its `verification`."
+  },
+  "fr": {
+   "name": "France",
+   "kind": "jours fériés (fêtes légales)",
+   "source": "https://calendrier.api.gouv.fr/jours-feries/<zone>/<year>.json",
+   "dataset": "https://www.data.gouv.fr/fr/datasets/jours-feries-en-france/",
+   "publisher": "data.gouv.fr / DINUM — \"Jours fériés en France\" (API calendrier.api.gouv.fr)",
+   "licence": "Licence Ouverte / Open Licence version 2.0 (Etalab), as stated on the data.gouv.fr dataset page",
+   "statute": {
+    "source": "https://www.service-public.gouv.fr/particuliers/vosdroits/F2405",
+    "note": "Code du travail art. L3133-1 (the dataset page: \"La liste des jours fériés est définie dans le code du travail\"); service-public.fr F2405 publishes the same 2026 and 2027 tables, including the Alsace-Moselle Vendredi saint and Saint Étienne."
+   },
+   "defaultRegion": "metropole",
+   "regions": {
+    "metropole": {
+     "name": "France métropolitaine (cas général)",
+     "years": {
+      "2026": [
+       {
+        "date": "2026-01-01",
+        "name": "1er janvier",
+        "key": "1er-janvier"
+       },
+       {
+        "date": "2026-04-06",
+        "name": "Lundi de Pâques",
+        "key": "lundi-de-paques"
+       },
+       {
+        "date": "2026-05-01",
+        "name": "1er mai",
+        "key": "1er-mai"
+       },
+       {
+        "date": "2026-05-08",
+        "name": "8 mai",
+        "key": "8-mai"
+       },
+       {
+        "date": "2026-05-14",
+        "name": "Ascension",
+        "key": "ascension"
+       },
+       {
+        "date": "2026-05-25",
+        "name": "Lundi de Pentecôte",
+        "key": "lundi-de-pentecote"
+       },
+       {
+        "date": "2026-07-14",
+        "name": "14 juillet",
+        "key": "14-juillet"
+       },
+       {
+        "date": "2026-08-15",
+        "name": "Assomption",
+        "key": "assomption"
+       },
+       {
+        "date": "2026-11-01",
+        "name": "Toussaint",
+        "key": "toussaint"
+       },
+       {
+        "date": "2026-11-11",
+        "name": "11 novembre",
+        "key": "11-novembre"
+       },
+       {
+        "date": "2026-12-25",
+        "name": "Jour de Noël",
+        "key": "jour-de-noel"
+       }
+      ],
+      "2027": [
+       {
+        "date": "2027-01-01",
+        "name": "1er janvier",
+        "key": "1er-janvier"
+       },
+       {
+        "date": "2027-03-29",
+        "name": "Lundi de Pâques",
+        "key": "lundi-de-paques"
+       },
+       {
+        "date": "2027-05-01",
+        "name": "1er mai",
+        "key": "1er-mai"
+       },
+       {
+        "date": "2027-05-06",
+        "name": "Ascension",
+        "key": "ascension"
+       },
+       {
+        "date": "2027-05-08",
+        "name": "8 mai",
+        "key": "8-mai"
+       },
+       {
+        "date": "2027-05-17",
+        "name": "Lundi de Pentecôte",
+        "key": "lundi-de-pentecote"
+       },
+       {
+        "date": "2027-07-14",
+        "name": "14 juillet",
+        "key": "14-juillet"
+       },
+       {
+        "date": "2027-08-15",
+        "name": "Assomption",
+        "key": "assomption"
+       },
+       {
+        "date": "2027-11-01",
+        "name": "Toussaint",
+        "key": "toussaint"
+       },
+       {
+        "date": "2027-11-11",
+        "name": "11 novembre",
+        "key": "11-novembre"
+       },
+       {
+        "date": "2027-12-25",
+        "name": "Jour de Noël",
+        "key": "jour-de-noel"
+       }
+      ],
+      "2028": [
+       {
+        "date": "2028-01-01",
+        "name": "1er janvier",
+        "key": "1er-janvier"
+       },
+       {
+        "date": "2028-04-17",
+        "name": "Lundi de Pâques",
+        "key": "lundi-de-paques"
+       },
+       {
+        "date": "2028-05-01",
+        "name": "1er mai",
+        "key": "1er-mai"
+       },
+       {
+        "date": "2028-05-08",
+        "name": "8 mai",
+        "key": "8-mai"
+       },
+       {
+        "date": "2028-05-25",
+        "name": "Ascension",
+        "key": "ascension"
+       },
+       {
+        "date": "2028-06-05",
+        "name": "Lundi de Pentecôte",
+        "key": "lundi-de-pentecote"
+       },
+       {
+        "date": "2028-07-14",
+        "name": "14 juillet",
+        "key": "14-juillet"
+       },
+       {
+        "date": "2028-08-15",
+        "name": "Assomption",
+        "key": "assomption"
+       },
+       {
+        "date": "2028-11-01",
+        "name": "Toussaint",
+        "key": "toussaint"
+       },
+       {
+        "date": "2028-11-11",
+        "name": "11 novembre",
+        "key": "11-novembre"
+       },
+       {
+        "date": "2028-12-25",
+        "name": "Jour de Noël",
+        "key": "jour-de-noel"
+       }
+      ]
+     }
+    },
+    "alsace-moselle": {
+     "name": "Alsace-Moselle (Bas-Rhin, Haut-Rhin, Moselle)",
+     "years": {
+      "2026": [
+       {
+        "date": "2026-01-01",
+        "name": "1er janvier",
+        "key": "1er-janvier"
+       },
+       {
+        "date": "2026-04-03",
+        "name": "Vendredi saint",
+        "key": "vendredi-saint"
+       },
+       {
+        "date": "2026-04-06",
+        "name": "Lundi de Pâques",
+        "key": "lundi-de-paques"
+       },
+       {
+        "date": "2026-05-01",
+        "name": "1er mai",
+        "key": "1er-mai"
+       },
+       {
+        "date": "2026-05-08",
+        "name": "8 mai",
+        "key": "8-mai"
+       },
+       {
+        "date": "2026-05-14",
+        "name": "Ascension",
+        "key": "ascension"
+       },
+       {
+        "date": "2026-05-25",
+        "name": "Lundi de Pentecôte",
+        "key": "lundi-de-pentecote"
+       },
+       {
+        "date": "2026-07-14",
+        "name": "14 juillet",
+        "key": "14-juillet"
+       },
+       {
+        "date": "2026-08-15",
+        "name": "Assomption",
+        "key": "assomption"
+       },
+       {
+        "date": "2026-11-01",
+        "name": "Toussaint",
+        "key": "toussaint"
+       },
+       {
+        "date": "2026-11-11",
+        "name": "11 novembre",
+        "key": "11-novembre"
+       },
+       {
+        "date": "2026-12-25",
+        "name": "Jour de Noël",
+        "key": "jour-de-noel"
+       },
+       {
+        "date": "2026-12-26",
+        "name": "2ème jour de Noël",
+        "key": "2eme-jour-de-noel"
+       }
+      ],
+      "2027": [
+       {
+        "date": "2027-01-01",
+        "name": "1er janvier",
+        "key": "1er-janvier"
+       },
+       {
+        "date": "2027-03-26",
+        "name": "Vendredi saint",
+        "key": "vendredi-saint"
+       },
+       {
+        "date": "2027-03-29",
+        "name": "Lundi de Pâques",
+        "key": "lundi-de-paques"
+       },
+       {
+        "date": "2027-05-01",
+        "name": "1er mai",
+        "key": "1er-mai"
+       },
+       {
+        "date": "2027-05-06",
+        "name": "Ascension",
+        "key": "ascension"
+       },
+       {
+        "date": "2027-05-08",
+        "name": "8 mai",
+        "key": "8-mai"
+       },
+       {
+        "date": "2027-05-17",
+        "name": "Lundi de Pentecôte",
+        "key": "lundi-de-pentecote"
+       },
+       {
+        "date": "2027-07-14",
+        "name": "14 juillet",
+        "key": "14-juillet"
+       },
+       {
+        "date": "2027-08-15",
+        "name": "Assomption",
+        "key": "assomption"
+       },
+       {
+        "date": "2027-11-01",
+        "name": "Toussaint",
+        "key": "toussaint"
+       },
+       {
+        "date": "2027-11-11",
+        "name": "11 novembre",
+        "key": "11-novembre"
+       },
+       {
+        "date": "2027-12-25",
+        "name": "Jour de Noël",
+        "key": "jour-de-noel"
+       },
+       {
+        "date": "2027-12-26",
+        "name": "2ème jour de Noël",
+        "key": "2eme-jour-de-noel"
+       }
+      ],
+      "2028": [
+       {
+        "date": "2028-01-01",
+        "name": "1er janvier",
+        "key": "1er-janvier"
+       },
+       {
+        "date": "2028-04-14",
+        "name": "Vendredi saint",
+        "key": "vendredi-saint"
+       },
+       {
+        "date": "2028-04-17",
+        "name": "Lundi de Pâques",
+        "key": "lundi-de-paques"
+       },
+       {
+        "date": "2028-05-01",
+        "name": "1er mai",
+        "key": "1er-mai"
+       },
+       {
+        "date": "2028-05-08",
+        "name": "8 mai",
+        "key": "8-mai"
+       },
+       {
+        "date": "2028-05-25",
+        "name": "Ascension",
+        "key": "ascension"
+       },
+       {
+        "date": "2028-06-05",
+        "name": "Lundi de Pentecôte",
+        "key": "lundi-de-pentecote"
+       },
+       {
+        "date": "2028-07-14",
+        "name": "14 juillet",
+        "key": "14-juillet"
+       },
+       {
+        "date": "2028-08-15",
+        "name": "Assomption",
+        "key": "assomption"
+       },
+       {
+        "date": "2028-11-01",
+        "name": "Toussaint",
+        "key": "toussaint"
+       },
+       {
+        "date": "2028-11-11",
+        "name": "11 novembre",
+        "key": "11-novembre"
+       },
+       {
+        "date": "2028-12-25",
+        "name": "Jour de Noël",
+        "key": "jour-de-noel"
+       },
+       {
+        "date": "2028-12-26",
+        "name": "2ème jour de Noël",
+        "key": "2eme-jour-de-noel"
+       }
+      ]
+     }
+    }
+   },
+   "notes": "Overseas zones (Guadeloupe, Martinique, Guyane, La Réunion, Mayotte, …) exist in the same API but are not included."
+  }
+ },
+ "taxYears": {
+  "uk": {
+   "name": "United Kingdom",
+   "personal": {
+    "label": "tax year",
+    "statement": "The UK tax year for individuals runs from 6 April to 5 April of the following year.",
+    "rule": {
+     "starts": "04-06",
+     "ends": "04-05"
+    },
+    "periods": {
+     "2026": {
+      "start": "2026-04-06",
+      "end": "2027-04-05",
+      "label": "2026-27"
+     },
+     "2027": {
+      "start": "2027-04-06",
+      "end": "2028-04-05",
+      "label": "2027-28"
+     },
+     "2028": {
+      "start": "2028-04-06",
+      "end": "2029-04-05",
+      "label": "2028-29"
+     }
+    },
+    "source": "https://www.gov.uk/income-tax-rates",
+    "publisher": "HM Revenue & Customs on GOV.UK",
+    "quote": "The current tax year is from 6 April 2026 to 5 April 2027.",
+    "licence": "Open Government Licence v3.0 (\"All content is available under the Open Government Licence v3.0, except where otherwise stated © Crown copyright\")",
+    "verification": "gov.uk/income-tax-rates fetched 2026-10-04; gov.uk/self-assessment-tax-returns/deadlines says \"The last tax year started on 6 April 2025 and ended on 5 April 2026.\"",
+    "nonOfficial": false
+   },
+   "government": {
+    "label": "financial year",
+    "statement": "The UK government financial year runs from 1 April to 31 March.",
+    "rule": {
+     "starts": "04-01",
+     "ends": "03-31"
+    },
+    "periods": {
+     "2026": {
+      "start": "2026-04-01",
+      "end": "2027-03-31",
+      "label": "2026-27"
+     },
+     "2027": {
+      "start": "2027-04-01",
+      "end": "2028-03-31",
+      "label": "2027-28"
+     },
+     "2028": {
+      "start": "2028-04-01",
+      "end": "2029-03-31",
+      "label": "2028-29"
+     }
+    },
+    "source": "https://www.legislation.gov.uk/ukpga/1978/30/schedule/1",
+    "publisher": "Interpretation Act 1978, Schedule 1, on legislation.gov.uk",
+    "quote": "“Financial year” means, in relation to matters relating to the Consolidated Fund, the National Loans Fund, or moneys provided by Parliament, or to the Exchequer or to central taxes or finance, the twelve months ending with 31st March.",
+    "licence": "Open Government Licence v3.0",
+    "verification": "legislation.gov.uk fetched 2026-10-04.",
+    "nonOfficial": false
+   }
+  },
+  "us": {
+   "name": "United States",
+   "personal": {
+    "label": "tax year (calendar year)",
+    "statement": "The US individual tax year is the calendar year, 1 January to 31 December (a fiscal year ending in another month is possible with IRS approval).",
+    "rule": {
+     "starts": "01-01",
+     "ends": "12-31"
+    },
+    "periods": {
+     "2026": {
+      "start": "2026-01-01",
+      "end": "2026-12-31",
+      "label": "2026"
+     },
+     "2027": {
+      "start": "2027-01-01",
+      "end": "2027-12-31",
+      "label": "2027"
+     },
+     "2028": {
+      "start": "2028-01-01",
+      "end": "2028-12-31",
+      "label": "2028"
+     }
+    },
+    "source": "https://www.irs.gov/businesses/small-businesses-self-employed/tax-years",
+    "publisher": "Internal Revenue Service",
+    "quote": "Calendar year – 12 consecutive months beginning January 1 and ending December 31. Fiscal year – 12 consecutive months ending on the last day of any month except December.",
+    "licence": "Work of the United States Government — public domain (17 U.S.C. § 105)",
+    "verification": "irs.gov fetched 2026-10-04; the same page: \"Generally, anyone can adopt the calendar year.\"",
+    "nonOfficial": false
+   },
+   "government": {
+    "label": "federal fiscal year",
+    "statement": "The US federal government fiscal year runs from 1 October to 30 September and is named for the calendar year in which it ends (FY2027 = 1 Oct 2026 – 30 Sep 2027).",
+    "rule": {
+     "starts": "10-01",
+     "ends": "09-30",
+     "namedForEndYear": true
+    },
+    "periods": {
+     "2026": {
+      "start": "2026-10-01",
+      "end": "2027-09-30",
+      "label": "FY2027"
+     },
+     "2027": {
+      "start": "2027-10-01",
+      "end": "2028-09-30",
+      "label": "FY2028"
+     },
+     "2028": {
+      "start": "2028-10-01",
+      "end": "2029-09-30",
+      "label": "FY2029"
+     }
+    },
+    "source": "https://www.govinfo.gov/content/pkg/USCODE-2023-title31/html/USCODE-2023-title31-subtitleII-chap11-sec1102.htm",
+    "publisher": "U.S. Government Publishing Office, 31 U.S.C. § 1102",
+    "quote": "The fiscal year of the Treasury begins on October 1 of each year and ends on September 30 of the following year.",
+    "licence": "Work of the United States Government — public domain (17 U.S.C. § 105)",
+    "verification": "govinfo.gov fetched 2026-10-04.",
+    "nonOfficial": false
+   }
+  },
+  "au": {
+   "name": "Australia",
+   "personal": {
+    "label": "financial year (income year)",
+    "statement": "The Australian financial year runs from 1 July to 30 June; it is named for both years (2026–27).",
+    "rule": {
+     "starts": "07-01",
+     "ends": "06-30"
+    },
+    "periods": {
+     "2026": {
+      "start": "2026-07-01",
+      "end": "2027-06-30",
+      "label": "2026-27"
+     },
+     "2027": {
+      "start": "2027-07-01",
+      "end": "2028-06-30",
+      "label": "2027-28"
+     },
+     "2028": {
+      "start": "2028-07-01",
+      "end": "2029-06-30",
+      "label": "2028-29"
+     }
+    },
+    "source": "https://www.payrolltax.gov.au/financial-year",
+    "publisher": "Australian Revenue Offices (the state and territory revenue offices' joint payroll-tax site)",
+    "quote": "financial year Each year commencing on 1 July and ending 30 June.",
+    "licence": "No licence statement on the page; Australian government material is generally CC BY 4.0 — not confirmed for this site.",
+    "verification": "payrolltax.gov.au fetched 2026-10-04. The primary statute (Income Tax Assessment Act 1997 s 995-1, \"financial year means a period of 12 months beginning on 1 July\") sits on legislation.gov.au, which renders only with JavaScript, and ato.gov.au answers 403 to automated fetches — neither could be read by the fetcher.",
+    "nonOfficial": false
+   }
+  },
+  "in": {
+   "name": "India",
+   "personal": {
+    "label": "financial year / tax year",
+    "statement": "India's financial year runs from 1 April to 31 March. From 1 April 2026 the Income Tax Act, 2025 replaces the Income Tax Act, 1961 and calls the twelve months from 1 April the 'tax year' (Tax Year 2026-27), discontinuing the 'previous year' / 'assessment year' terms.",
+    "rule": {
+     "starts": "04-01",
+     "ends": "03-31"
+    },
+    "periods": {
+     "2026": {
+      "start": "2026-04-01",
+      "end": "2027-03-31",
+      "label": "2026-27"
+     },
+     "2027": {
+      "start": "2027-04-01",
+      "end": "2028-03-31",
+      "label": "2027-28"
+     },
+     "2028": {
+      "start": "2028-04-01",
+      "end": "2029-03-31",
+      "label": "2028-29"
+     }
+    },
+    "source": "https://ies.gov.in/arthapedia/concept/financial-year-fy-or-fiscal-year",
+    "publisher": "Indian Economic Service (Ministry of Finance) — Arthapedia",
+    "quote": "India’s financial year runs from 1st April to 31st March of next year.",
+    "secondarySource": "https://www.incometax.gov.in/iec/foportal/help/all-topics/e-filing-services/objective-and-scope-new-act",
+    "secondaryQuote": "A 'Tax year' is a period of twelve months contained in a financial year. It replaces the term 'previous year' used in the Income Tax Act, 1961. The concept of \"Tax Year \" is applicable from 01 April 2026, i.e., for income earned during FY 2026 -27 onwards and this will be referred to as Tax Year 2026-27 under the Income Tax Act ,2025. [...] The 1961 Act stands repealed on the 01.04.2026 .",
+    "licence": "No licence statement found on the page (Government of India site).",
+    "verification": "ies.gov.in and incometax.gov.in (e-filing portal help, \"Objective and scope of the New Act\") fetched 2026-10-04. incometaxindia.gov.in and indiacode.nic.in answer 403 to automated fetches, so the statute text itself was not read.",
+    "nonOfficial": false
+   }
+  },
+  "ca": {
+   "name": "Canada",
+   "personal": {
+    "label": "taxation year (calendar year)",
+    "statement": "For individuals the Canadian taxation year is the calendar year, 1 January to 31 December.",
+    "rule": {
+     "starts": "01-01",
+     "ends": "12-31"
+    },
+    "periods": {
+     "2026": {
+      "start": "2026-01-01",
+      "end": "2026-12-31",
+      "label": "2026"
+     },
+     "2027": {
+      "start": "2027-01-01",
+      "end": "2027-12-31",
+      "label": "2027"
+     },
+     "2028": {
+      "start": "2028-01-01",
+      "end": "2028-12-31",
+      "label": "2028"
+     }
+    },
+    "source": "https://laws-lois.justice.gc.ca/eng/acts/I-3.3/section-249.html",
+    "publisher": "Income Tax Act, R.S.C. 1985, c. 1 (5th Supp.), s. 249(1) — Justice Laws Website",
+    "quote": "a taxation year is (a) in the case of a corporation or Canadian resident partnership, a fiscal period; (b) in the case of a graduated rate estate, the period for which the accounts of the estate are made up for purposes of assessment under this Act; and (c) in any other case, a calendar year.",
+    "licence": "Government of Canada consolidated statute; reproduction terms not fetched (the Justice Laws 'Important note' page answered 404).",
+    "verification": "laws-lois.justice.gc.ca fetched 2026-10-04.",
+    "nonOfficial": false
+   },
+   "government": {
+    "label": "federal fiscal year",
+    "statement": "The Government of Canada's fiscal year runs from 1 April to 31 March.",
+    "rule": {
+     "starts": "04-01",
+     "ends": "03-31"
+    },
+    "periods": {
+     "2026": {
+      "start": "2026-04-01",
+      "end": "2027-03-31",
+      "label": "2026-27"
+     },
+     "2027": {
+      "start": "2027-04-01",
+      "end": "2028-03-31",
+      "label": "2027-28"
+     },
+     "2028": {
+      "start": "2028-04-01",
+      "end": "2029-03-31",
+      "label": "2028-29"
+     }
+    },
+    "source": "https://laws-lois.justice.gc.ca/eng/acts/F-11/page-1.html",
+    "publisher": "Financial Administration Act, R.S.C. 1985, c. F-11, s. 2 — Justice Laws Website",
+    "quote": "fiscal year means the period beginning on April 1 in one year and ending on March 31 in the next year; ( exercice )",
+    "licence": "Government of Canada consolidated statute; reproduction terms not fetched.",
+    "verification": "laws-lois.justice.gc.ca fetched 2026-10-04.",
+    "nonOfficial": false
+   }
+  },
+  "de": {
+   "name": "Germany",
+   "personal": {
+    "label": "Veranlagungszeitraum (Kalenderjahr)",
+    "statement": "German income tax is assessed for the calendar year (Veranlagungszeitraum = Kalenderjahr), 1 January to 31 December.",
+    "rule": {
+     "starts": "01-01",
+     "ends": "12-31"
+    },
+    "periods": {
+     "2026": {
+      "start": "2026-01-01",
+      "end": "2026-12-31",
+      "label": "2026"
+     },
+     "2027": {
+      "start": "2027-01-01",
+      "end": "2027-12-31",
+      "label": "2027"
+     },
+     "2028": {
+      "start": "2028-01-01",
+      "end": "2028-12-31",
+      "label": "2028"
+     }
+    },
+    "source": "https://www.gesetze-im-internet.de/estg/__25.html",
+    "publisher": "Einkommensteuergesetz (EStG) § 25, Bundesministerium der Justiz / juris — gesetze-im-internet.de",
+    "quote": "(1) Die Einkommensteuer wird nach Ablauf des Kalenderjahres (Veranlagungszeitraum) nach dem Einkommen veranlagt, das der Steuerpflichtige in diesem Veranlagungszeitraum bezogen hat, soweit nicht nach § 43 Absatz 5 und § 46 eine Veranlagung unterbleibt.",
+    "licence": "Amtliches Werk, frei von Urheberrecht (§ 5 UrhG)",
+    "verification": "gesetze-im-internet.de fetched 2026-10-04.",
+    "nonOfficial": false
+   },
+   "government": {
+    "label": "Haushaltsjahr (Kalenderjahr)",
+    "statement": "The German federal budget year is the calendar year.",
+    "rule": {
+     "starts": "01-01",
+     "ends": "12-31"
+    },
+    "periods": {
+     "2026": {
+      "start": "2026-01-01",
+      "end": "2026-12-31",
+      "label": "2026"
+     },
+     "2027": {
+      "start": "2027-01-01",
+      "end": "2027-12-31",
+      "label": "2027"
+     },
+     "2028": {
+      "start": "2028-01-01",
+      "end": "2028-12-31",
+      "label": "2028"
+     }
+    },
+    "source": "https://www.gesetze-im-internet.de/bho/__4.html",
+    "publisher": "Bundeshaushaltsordnung (BHO) § 4 — gesetze-im-internet.de",
+    "quote": "Rechnungsjahr (Haushaltsjahr) ist das Kalenderjahr. Das Bundesministerium der Finanzen kann für einzelne Bereiche etwas anderes bestimmen.",
+    "licence": "Amtliches Werk, frei von Urheberrecht (§ 5 UrhG)",
+    "verification": "gesetze-im-internet.de fetched 2026-10-04.",
+    "nonOfficial": false
+   }
+  },
+  "fr": {
+   "name": "France",
+   "personal": {
+    "label": "année d'imposition (année civile)",
+    "statement": "French income tax (impôt sur le revenu) is assessed on the income of a calendar year, declared the following spring (the 2026 declaration covers 2025 income).",
+    "rule": {
+     "starts": "01-01",
+     "ends": "12-31"
+    },
+    "periods": {
+     "2026": {
+      "start": "2026-01-01",
+      "end": "2026-12-31",
+      "label": "2026"
+     },
+     "2027": {
+      "start": "2027-01-01",
+      "end": "2027-12-31",
+      "label": "2027"
+     },
+     "2028": {
+      "start": "2028-01-01",
+      "end": "2028-12-31",
+      "label": "2028"
+     }
+    },
+    "source": "https://www.service-public.gouv.fr/particuliers/vosdroits/F358",
+    "publisher": "Service-Public.fr — Direction de l'information légale et administrative (Premier ministre)",
+    "quote": "Déclaration 2026 des revenus 2025 (papier) [...] Estimer le montant de son impôt sur les revenus de 2025 (déclaration de 2026)",
+    "licence": "etalab-2.0 (\"Sauf mention contraire, tous les contenus de ce site sont sous licence etalab-2.0\")",
+    "verification": "service-public.gouv.fr F358 fetched 2026-10-04 (page \"Vérifié le 05 juin 2026\"). The statutory basis, Code général des impôts art. 12 (\"L'impôt est dû chaque année à raison des bénéfices ou revenus que le contribuable réalise ou dont il dispose au cours de la même année\"), sits on Légifrance, which answers 403 to automated fetches and was not read.",
+    "nonOfficial": false
+   }
+  },
+  "br": {
+   "name": "Brazil",
+   "personal": {
+    "label": "ano-calendário",
+    "statement": "Brazilian personal income tax (IRPF) is assessed on the ano-calendário — the calendar year — declared the following year.",
+    "rule": {
+     "starts": "01-01",
+     "ends": "12-31"
+    },
+    "periods": {
+     "2026": {
+      "start": "2026-01-01",
+      "end": "2026-12-31",
+      "label": "2026"
+     },
+     "2027": {
+      "start": "2027-01-01",
+      "end": "2027-12-31",
+      "label": "2027"
+     },
+     "2028": {
+      "start": "2028-01-01",
+      "end": "2028-12-31",
+      "label": "2028"
+     }
+    },
+    "source": "https://www2.camara.leg.br/legin/fed/lei/1960-1969/lei-4320-17-marco-1964-376590-normaatualizada-pl.html",
+    "publisher": "Câmara dos Deputados — Lei nº 4.320/1964 (consolidated text)",
+    "quote": "Art. 34. O exercício financeiro coincidirá com o ano civil.",
+    "licence": "Brazilian federal legislation (official text, Portal da Câmara dos Deputados)",
+    "verification": "The government financial year quote above was fetched from camara.leg.br on 2026-10-04. The personal income-tax basis (Lei nº 9.250/1995 art. 7: income 'percebidos no ano-calendário', declared 'anualmente, até o último dia útil do mês de abril do ano-calendário subseqüente') could NOT be read: planalto.gov.br and legislacao.presidencia.gov.br reset automated connections, normas.leg.br needs JavaScript and the camara.leg.br URL answered 404 — the ano-calendário statement is therefore recorded as not re-verified on 2026-10-04.",
+    "nonOfficial": true
+   },
+   "government": {
+    "label": "exercício financeiro (ano civil)",
+    "statement": "Brazil's public-sector financial year coincides with the calendar year.",
+    "rule": {
+     "starts": "01-01",
+     "ends": "12-31"
+    },
+    "periods": {
+     "2026": {
+      "start": "2026-01-01",
+      "end": "2026-12-31",
+      "label": "2026"
+     },
+     "2027": {
+      "start": "2027-01-01",
+      "end": "2027-12-31",
+      "label": "2027"
+     },
+     "2028": {
+      "start": "2028-01-01",
+      "end": "2028-12-31",
+      "label": "2028"
+     }
+    },
+    "source": "https://www2.camara.leg.br/legin/fed/lei/1960-1969/lei-4320-17-marco-1964-376590-normaatualizada-pl.html",
+    "publisher": "Câmara dos Deputados — Lei nº 4.320/1964 art. 34",
+    "quote": "Art. 34. O exercício financeiro coincidirá com o ano civil.",
+    "licence": "Brazilian federal legislation (official text)",
+    "verification": "camara.leg.br fetched 2026-10-04.",
+    "nonOfficial": false
+   }
+  },
+  "pl": {
+   "name": "Poland",
+   "personal": {
+    "label": "rok podatkowy (rok kalendarzowy)",
+    "statement": "The Polish tax year is the calendar year unless a tax statute provides otherwise.",
+    "rule": {
+     "starts": "01-01",
+     "ends": "12-31"
+    },
+    "periods": {
+     "2026": {
+      "start": "2026-01-01",
+      "end": "2026-12-31",
+      "label": "2026"
+     },
+     "2027": {
+      "start": "2027-01-01",
+      "end": "2027-12-31",
+      "label": "2027"
+     },
+     "2028": {
+      "start": "2028-01-01",
+      "end": "2028-12-31",
+      "label": "2028"
+     }
+    },
+    "source": "https://isap.sejm.gov.pl/isap.nsf/download.xsp/WDU19971370926/U/D19970926Lj.pdf",
+    "publisher": "Ustawa z dnia 29 sierpnia 1997 r. – Ordynacja podatkowa, art. 11 (consolidated text, Kancelaria Sejmu, ISAP)",
+    "quote": "Art. 11. Rokiem podatkowym jest rok kalendarzowy, chyba że ustawa podatkowa stanowi inaczej.",
+    "licence": "Polish statute text published by the Sejm (ISAP); legal acts are not subject to copyright (art. 4 ustawy o prawie autorskim)",
+    "verification": "ISAP PDF fetched 2026-10-04 and read with pdftotext; the sentence appears at art. 11.",
+    "nonOfficial": false
+   }
+  }
+ },
+ "dst": {
+  "uk": {
+   "name": "United Kingdom",
+   "observed": true,
+   "zoneName": "British Summer Time (BST), GMT+1",
+   "ruleText": "Clocks go forward one hour at 01:00 GMT on the last Sunday in March and back one hour at 02:00 BST on the last Sunday in October.",
+   "rule": {
+    "start": {
+     "month": 3,
+     "nth": "last",
+     "weekday": 0,
+     "localTime": "01:00 GMT"
+    },
+    "end": {
+     "month": 10,
+     "nth": "last",
+     "weekday": 0,
+     "localTime": "02:00 BST (01:00 GMT)"
+    }
+   },
+   "transitions": {
+    "2026": {
+     "clocksForward": "2026-03-29",
+     "clocksBack": "2026-10-25"
+    },
+    "2027": {
+     "clocksForward": "2027-03-28",
+     "clocksBack": "2027-10-31"
+    },
+    "2028": {
+     "clocksForward": "2028-03-26",
+     "clocksBack": "2028-10-29"
+    }
+   },
+   "statute": {
+    "source": "https://www.legislation.gov.uk/ukpga/1972/6/section/1",
+    "publisher": "Summer Time Act 1972 s. 1(2) (as substituted by S.I. 2002/262), legislation.gov.uk",
+    "quote": "The period of summer time for the purposes of this Act is the period beginning at one o’clock, Greenwich mean time, in the morning of the last Sunday in March and ending at one o’clock, Greenwich mean time, in the morning of the last Sunday in October.",
+    "licence": "Open Government Licence v3.0"
+   },
+   "verifiedAgainst": {
+    "source": "https://www.gov.uk/when-do-the-clocks-change",
+    "quote": "Year Clocks go forward Clocks go back 2025 30 March 26 October 2026 29 March 25 October 2027 28 March 31 October 2028 26 March 29 October [...] In the UK the clocks go forward 1 hour at 1am on the last Sunday in March, and back 1 hour at 2am on the last Sunday in October.",
+    "licence": "Open Government Licence v3.0"
+   },
+   "verification": "legislation.gov.uk and gov.uk fetched 2026-10-04.",
+   "nonOfficial": false,
+   "source": "https://www.legislation.gov.uk/ukpga/1972/6/section/1"
+  },
+  "de": {
+   "name": "Germany",
+   "observed": true,
+   "zoneName": "Mitteleuropäische Sommerzeit (MESZ / CEST), UTC+2",
+   "ruleText": "Summer time begins at 02:00 CET on the last Sunday in March (clocks to 03:00) and ends at 03:00 CEST on the last Sunday in October (clocks to 02:00) — the EU-wide arrangement of Directive 2000/84/EC, 01:00 UTC both ways.",
+   "rule": {
+    "start": {
+     "month": 3,
+     "nth": "last",
+     "weekday": 0,
+     "localTime": "02:00 MEZ → 03:00 MESZ (01:00 UTC)"
+    },
+    "end": {
+     "month": 10,
+     "nth": "last",
+     "weekday": 0,
+     "localTime": "03:00 MESZ → 02:00 MEZ (01:00 UTC)"
+    }
+   },
+   "transitions": {
+    "2026": {
+     "clocksForward": "2026-03-29",
+     "clocksBack": "2026-10-25"
+    },
+    "2027": {
+     "clocksForward": "2027-03-28",
+     "clocksBack": "2027-10-31"
+    },
+    "2028": {
+     "clocksForward": "2028-03-26",
+     "clocksBack": "2028-10-29"
+    }
+   },
+   "statute": {
+    "source": "https://www.gesetze-im-internet.de/sozv/__2.html",
+    "publisher": "Sommerzeitverordnung (SoZV) § 2 — gesetze-im-internet.de",
+    "quote": "(1) Die mitteleuropäische Sommerzeit beginnt jeweils am letzten Sonntag im März um 2 Uhr mitteleuropäischer Zeit. Im Zeitpunkt des Beginns der Sommerzeit wird die Stundenzählung um eine Stunde von 2 Uhr auf 3 Uhr vorgestellt. (2) Die mitteleuropäische Sommerzeit endet jeweils am letzten Sonntag im Oktober um 3 Uhr mitteleuropäischer Sommerzeit.",
+    "licence": "Amtliches Werk, frei von Urheberrecht (§ 5 UrhG)"
+   },
+   "euBasis": {
+    "source": "https://eur-lex.europa.eu/eli/dir/2000/84/oj",
+    "note": "Directive 2000/84/EC of 19 January 2001 on summer-time arrangements (last Sunday in March to last Sunday in October, 1.00 a.m. GMT). EUR-Lex and the legislation.gov.uk copy answered the fetcher with a bot wall / title page only on 2026-10-04, so the directive text itself was not re-read; the German implementing regulation above was."
+   },
+   "verification": "gesetze-im-internet.de fetched 2026-10-04; the dates equal the UK's (same Sundays), which gov.uk lists for 2026–2028.",
+   "nonOfficial": false,
+   "source": "https://www.gesetze-im-internet.de/sozv/__2.html"
+  },
+  "fr": {
+   "name": "France",
+   "observed": true,
+   "zoneName": "heure d'été (CEST), UTC+2",
+   "ruleText": "Metropolitan France follows the EU-wide arrangement: clocks forward at 02:00 on the last Sunday in March and back at 03:00 on the last Sunday in October (01:00 UTC both ways).",
+   "rule": {
+    "start": {
+     "month": 3,
+     "nth": "last",
+     "weekday": 0,
+     "localTime": "02:00 CET → 03:00 CEST (01:00 UTC)"
+    },
+    "end": {
+     "month": 10,
+     "nth": "last",
+     "weekday": 0,
+     "localTime": "03:00 CEST → 02:00 CET (01:00 UTC)"
+    }
+   },
+   "transitions": {
+    "2026": {
+     "clocksForward": "2026-03-29",
+     "clocksBack": "2026-10-25"
+    },
+    "2027": {
+     "clocksForward": "2027-03-28",
+     "clocksBack": "2027-10-31"
+    },
+    "2028": {
+     "clocksForward": "2028-03-26",
+     "clocksBack": "2028-10-29"
+    }
+   },
+   "statute": {
+    "source": "https://eur-lex.europa.eu/eli/dir/2000/84/oj",
+    "publisher": "Directive 2000/84/EC on summer-time arrangements (EU-wide rule; France's implementing décret sits on Légifrance)",
+    "quote": null,
+    "licence": "EU law — reuse under Commission Decision 2011/833/EU"
+   },
+   "verification": "NOT re-verified against a French official page on 2026-10-04: Légifrance answers 403 to automated fetches and EUR-Lex served a bot wall. The rule is the EU directive's, identical to the German SoZV § 2 text fetched the same day; dates are the same Sundays gov.uk lists for 2026–2028.",
+   "nonOfficial": true,
+   "source": "https://eur-lex.europa.eu/eli/dir/2000/84/oj"
+  },
+  "us": {
+   "name": "United States",
+   "observed": true,
+   "zoneName": "daylight saving time (e.g. EDT, UTC−4 for the Eastern zone)",
+   "ruleText": "Clocks go forward one hour at 02:00 local time on the second Sunday in March and back one hour at 02:00 local time on the first Sunday in November, in every zone of a State that has not exempted itself.",
+   "exemptionsNote": "The statute lets a State lying entirely within one time zone exempt itself; which States and territories have done so is not recorded here.",
+   "rule": {
+    "start": {
+     "month": 3,
+     "nth": 2,
+     "weekday": 0,
+     "localTime": "02:00 local standard time"
+    },
+    "end": {
+     "month": 11,
+     "nth": 1,
+     "weekday": 0,
+     "localTime": "02:00 local daylight time"
+    }
+   },
+   "transitions": {
+    "2026": {
+     "clocksForward": "2026-03-08",
+     "clocksBack": "2026-11-01"
+    },
+    "2027": {
+     "clocksForward": "2027-03-14",
+     "clocksBack": "2027-11-07"
+    },
+    "2028": {
+     "clocksForward": "2028-03-12",
+     "clocksBack": "2028-11-05"
+    }
+   },
+   "statute": {
+    "source": "https://www.govinfo.gov/content/pkg/USCODE-2023-title15/html/USCODE-2023-title15-chap6-subchapIX-sec260a.htm",
+    "publisher": "15 U.S.C. § 260a(a) (Uniform Time Act 1966 as amended by the Energy Policy Act of 2005) — U.S. Government Publishing Office",
+    "quote": "During the period commencing at 2 o'clock antemeridian on the second Sunday of March of each year and ending at 2 o'clock antemeridian on the first Sunday of November of each year, the standard time of each zone established by sections 261 to 264 of this title, as modified by section 265 of this title, shall be advanced one hour [...] however, (1) any State that lies entirely within one time zone may by law exempt itself from",
+    "licence": "Work of the United States Government — public domain (17 U.S.C. § 105)"
+   },
+   "verification": "govinfo.gov fetched 2026-10-04; the 2026–2028 dates are computed from the statutory rule (second Sunday / first Sunday) and asserted in the script against these hand-computed checks — no official US table of future dates was fetched.",
+   "nonOfficial": false,
+   "source": "https://www.govinfo.gov/content/pkg/USCODE-2023-title15/html/USCODE-2023-title15-chap6-subchapIX-sec260a.htm"
+  },
+  "au": {
+   "name": "Australia",
+   "observed": "partly",
+   "zoneName": "e.g. Australian Eastern Daylight Time (AEDT), UTC+11",
+   "ruleText": "In the observing states and territories daylight saving begins at 02:00 standard time on the first Sunday in October and ends at 03:00 daylight time on the first Sunday in April (southern-hemisphere summer, so a period starting in one year ends in the next).",
+   "observing": [
+    "New South Wales",
+    "Victoria",
+    "South Australia",
+    "Tasmania",
+    "Australian Capital Territory",
+    "Norfolk Island"
+   ],
+   "notObserving": [
+    "Queensland",
+    "Western Australia",
+    "Northern Territory"
+   ],
+   "rule": {
+    "start": {
+     "month": 10,
+     "nth": 1,
+     "weekday": 0,
+     "localTime": "02:00 standard time"
+    },
+    "end": {
+     "month": 4,
+     "nth": 1,
+     "weekday": 0,
+     "localTime": "03:00 daylight time"
+    }
+   },
+   "transitions": {
+    "2026": {
+     "clocksBack": "2026-04-05",
+     "clocksForward": "2026-10-04",
+     "note": "southern hemisphere: the summer-time period that begins 2026-10-04 ends on the first Sunday in April 2027"
+    },
+    "2027": {
+     "clocksBack": "2027-04-04",
+     "clocksForward": "2027-10-03",
+     "note": "southern hemisphere: the summer-time period that begins 2027-10-03 ends on the first Sunday in April 2028"
+    },
+    "2028": {
+     "clocksBack": "2028-04-02",
+     "clocksForward": "2028-10-01",
+     "note": "southern hemisphere: the summer-time period that begins 2028-10-01 ends on the first Sunday in April 2029"
+    }
+   },
+   "statute": {
+    "source": "https://dcj.nsw.gov.au/about-us/daylight-saving.html",
+    "publisher": "NSW Department of Communities and Justice (the department administering the Standard Time Act 1987 (NSW))",
+    "quote": "Each year, daylight saving begins at 2am on the first Sunday in October and ends at 3am on the first Sunday in April. Note that Lord Howe Island is an exception (clocks are put forward and back by 30 minutes). [...] NSW, Victoria, South Australia, Tasmania, the Australian Capital Territory and Norfolk Island all observe the same period of daylight saving.",
+    "licence": "NSW Government content (CC BY 4.0 where stated; not confirmed for this page)"
+   },
+   "verifiedAgainst": {
+    "source": "https://www.nsw.gov.au/about-nsw/daylight-saving",
+    "quote": "Daylight saving 2026 start date: Date: Sunday 4 October 2026 Time: 2am Eastern Standard Time (AEST) [...] Daylight saving 2027 end date: Date: Sunday 4 April 2027 Time: 3am Eastern Daylight Time (AEDT) [...] New South Wales, Victoria, South Australia, Tasmania, and the Australian Capital Territory observe daylight saving. Queensland, Western Australia, and the Northern Territory do not."
+   },
+   "verification": "dcj.nsw.gov.au and nsw.gov.au fetched 2026-10-04; the state Acts (Standard Time Act 1987 (NSW), Summer Time Act 1972 (Vic), Daylight Saving Act 2004 (SA), Daylight Saving Act 2007 (Tas), Standard Time and Summer Time Act 1972 (ACT)) sit on legislation portals that answered 403 or render only with JavaScript.",
+   "nonOfficial": false,
+   "source": "https://dcj.nsw.gov.au/about-us/daylight-saving.html"
+  },
+  "br": {
+   "name": "Brazil",
+   "observed": false,
+   "zoneName": "Brasília time (BRT), UTC−3, all year",
+   "ruleText": "Brazil has had no daylight saving time since 2019: Decreto nº 9.772 of 26 April 2019 revoked the horário de verão.",
+   "statute": {
+    "source": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2019/decreto/D9772.htm",
+    "publisher": "Presidência da República — Decreto nº 9.772, de 26 de abril de 2019",
+    "quote": null,
+    "licence": "Brazilian federal legislation (official text)"
+   },
+   "verification": "NOT re-verified on 2026-10-04: planalto.gov.br and legislacao.presidencia.gov.br reset automated connections, in.gov.br (DOU) and camara.leg.br URLs tried answered 404, normas.leg.br needs JavaScript. Recorded as the decree's effect as commonly reported — treat as non-official until the text is read.",
+   "nonOfficial": true,
+   "source": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2019/decreto/D9772.htm"
+  }
+ }
+}

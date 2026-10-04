@@ -77,7 +77,7 @@ Data Butler's discovery document:
     "name": "Data Butler",
     "url": "https://databutler.dev/"
   },
-  "updated": "2026-10-03",
+  "updated": "2026-10-04",
   "coverageStart": "2026-08-31",
   "areas": [
     {
@@ -114,6 +114,11 @@ Data Butler's discovery document:
       "name": "de-rates",
       "description": "German tax and social-insurance figures read from the consolidated statutes, the Bundesgesetzblatt and the BMG/DRV/BMAS pages: Grundfreibetrag and § 32a tariff, Solidaritätszuschlag, Beitragsbemessungsgrenzen and Beitragssätze, Zusatzbeitrag, Mindestlohn, Geringfügigkeitsgrenze, Kindergeld, Kinderfreibetrag, Pauschbeträge, Entfernungspauschale.",
       "cadence": "Annual: after the Sozialversicherungsrechengrößen-Verordnung and the Zusatzbeitrag announcement (November), and any Steuergesetz changing § 32a EStG for the next Veranlagungszeitraum; every source page re-fetched weekly."
+    },
+    {
+      "name": "calendar",
+      "description": "Public holidays (UK, US federal, German Länder, France), tax-year starts/ends (nine countries) and daylight-saving switch dates for 2026–2028: new years published, holidays added or moved, rule changes",
+      "cadence": "monthly"
     }
   ],
   "endpoints": {

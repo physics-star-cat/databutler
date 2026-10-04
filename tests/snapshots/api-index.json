@@ -1,6 +1,7 @@
 {
   "attribution": "databutler.dev",
   "coverage": {
+    "calendar": "uk, us, de, fr holidays (748 entries), 9 tax-year countries, 6 DST countries, 2026/2027/2028, verified 2026-10-04",
     "deRates": "Veranlagungszeitraum 2026, 9 categories, verified 2026-10-03; federal law only (no Kirchensteuer, Lohnsteuerklassen, Gewerbesteuer)",
     "exams": [
       "AQA GCSE Physics (8463)",
@@ -44,11 +45,30 @@
       "description": "Protocol discovery document: areas tracked, cadence, endpoints (json/html/rss/atom/mcp), schema URL, licence, contact.",
       "example": "https://databutler.dev/.well-known/changes.json"
     },
+    "GET /api/calendar": {
+      "description": "Calendar facts for 2026–2028, verified 2026-10-04: kind=holidays — public holidays by region for uk, us, de, fr from gov.uk, OPM, the German Länder and calendrier.api.gouv.fr; kind=tax-year — start/end and periods for uk, us, au, in, ca, de, fr, br, pl with the statute quoted; kind=dst — daylight-saving rule and switch dates for uk, de, fr, us, au, br. Empty query lists coverage; unknown country/region/year answers covered:false with nearest.",
+      "example": "https://databutler.dev/api/calendar?country=uk&kind=holidays&year=2027&region=scotland",
+      "params": {
+        "country": "one of uk, us, de, fr, au, in, ca, br, pl or a name",
+        "kind": "holidays | tax-year | dst",
+        "region": "UK nation, German Land, metropole | alsace-moselle (optional)",
+        "year": "2026–2028 (optional)"
+      }
+    },
+    "GET /api/calendar/next": {
+      "description": "The next public holiday strictly after a date (default today) for uk, us, de, fr, with the three that follow; same snapshot as /api/calendar.",
+      "example": "https://databutler.dev/api/calendar/next?country=de&from=2026-12-27&region=BY",
+      "params": {
+        "country": "one of uk, us, de, fr",
+        "from": "YYYY-MM-DD (optional)",
+        "region": "as for /api/calendar (optional)"
+      }
+    },
     "GET /api/changes": {
       "description": "What changed in the verified datasets since a date (REST mirror of what_changed_since). format=html|rss|atom serves the /changes page or feeds instead of JSON.",
       "example": "https://databutler.dev/api/changes?since=2026-06-01",
       "params": {
-        "area": "uk-rates | uk-exams | vehicles | software-eol | policy-rates | us-rates | de-rates | all",
+        "area": "uk-rates | uk-exams | vehicles | software-eol | policy-rates | us-rates | de-rates | calendar | all",
         "format": "json (default) | html | rss | atom",
         "since": "YYYY-MM-DD"
       }
@@ -218,10 +238,10 @@
       }
     },
     "GET /changes": {
-      "description": "The changelog as a page: every verified change to UK tax/NI thresholds, exam specs, official vehicle datasets, software end-of-life dates, central-bank policy rates, US federal tax thresholds and German tax and social-insurance thresholds, newest first by month — area, from → to, effectiveFrom, official source, maintainer note, verifiedDate. Indexable, cached 1 h at the edge.",
+      "description": "The changelog as a page: every verified change to UK tax/NI thresholds, exam specs, official vehicle datasets, software end-of-life dates, central-bank policy rates, US federal tax thresholds, German tax and social-insurance thresholds and public holidays, tax-year and daylight-saving dates, newest first by month — area, from → to, effectiveFrom, official source, maintainer note, verifiedDate. Indexable, cached 1 h at the edge.",
       "example": "https://databutler.dev/changes?area=vehicles",
       "params": {
-        "area": "optional: uk-rates | uk-exams | vehicles | software-eol | policy-rates | us-rates | de-rates",
+        "area": "optional: uk-rates | uk-exams | vehicles | software-eol | policy-rates | us-rates | de-rates | calendar",
         "since": "optional YYYY-MM-DD"
       }
     },
@@ -253,6 +273,7 @@
       "description": "THE FRONT DOOR — one remote MCP server for the whole estate. Lists uk_rates_lookup, exam_topic_paper, domain_provenance, package_provenance, take_home_pay directly, plus what_changed_since (changes since your training cutoff), coverage, catalogue and call (run any tool by name). Every result carries freshness + a cite.url permalink.",
       "example": "add https://databutler.dev/api/mcp to any MCP client"
     },
+    "POST /api/mcp/calendar": "Remote MCP server — tools calendar_facts, next_holiday (public holidays, tax years and daylight saving from the official lists and statutes, monthly snapshot).",
     "POST /api/mcp/de-rates": "Remote MCP server — tool de_rates_lookup (German tax and social-insurance figures, Veranlagungszeitraum 2026; committed data read from the statutes and the Bundesgesetzblatt).",
     "POST /api/mcp/policy-rates": "Remote MCP server — tool policy_rate (Bank of England, Fed, ECB; committed data verified against the banks' own pages).",
     "POST /api/mcp/provenance": "Remote MCP server — tools domain_provenance, package_provenance.",

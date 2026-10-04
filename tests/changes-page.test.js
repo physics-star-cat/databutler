@@ -75,6 +75,9 @@ const FIX = [
 /* ---------------- live data ---------------- */
 
 const EOL_PRODUCTS = Object.values(require('../data/software-eol.json').products).map((p) => p.id);
+// calendar (scripts/calendar.js) writes one <country>/<kind> entry per block on first derivation
+const CAL = require('../data/calendar.json');
+const CAL_KEYS = [...Object.keys(CAL.holidays).map((c) => `${c}/holidays`), ...Object.keys(CAL.taxYears).map((c) => `${c}/tax-year`), ...Object.keys(CAL.dst).map((c) => `${c}/dst`)];
 
 // Live changelog, derived so adding an area never touches this file: the dataset-script areas (changelog.script —
 // vehicles, software-eol) write <name>/dataset entries; every area with a changelog.diff writes figure entries that
@@ -89,14 +92,14 @@ const sinceCount = (since) => CHANGELOG.filter((e) => e.verifiedDate > since || 
 
 test('live changelog: the dataset-script areas\' entries are in the dataset-script shape; every other entry belongs to a diff area', () => {
   assert.ok(LIVE_TOTAL > 0);
-  assert.deepEqual(SCRIPT_AREAS, ['vehicles', 'software-eol']);
+  assert.deepEqual(SCRIPT_AREAS, ['vehicles', 'software-eol', 'calendar']);
   for (const e of CHANGELOG) assert.ok([...FIGURE_AREAS, ...SCRIPT_AREAS].includes(e.area), `${e.area} is a changelog area`);
   const DATASETS = CHANGELOG.filter((e) => !FIGURE_AREAS.includes(e.area));
   const keys = DATASETS.map((e) => e.key).sort();
-  assert.deepEqual(keys, ['eu-safety-gate/dataset', 'fr-recalls/dataset', 'jp-recalls/dataset', ...EOL_PRODUCTS.map((p) => `${p}/dataset`)].sort());
+  assert.deepEqual(keys, ['eu-safety-gate/dataset', 'fr-recalls/dataset', 'jp-recalls/dataset', ...EOL_PRODUCTS.map((p) => `${p}/dataset`), ...CAL_KEYS].sort());
   for (const e of DATASETS) {
     assert.deepEqual(Object.keys(e), ['area', 'key', 'label', 'from', 'to', 'effectiveFrom', 'source', 'verifiedDate', 'note'], e.key);
-    assert.equal(e.area, /\/dataset$/.test(e.key) && EOL_PRODUCTS.includes(e.key.split('/')[0]) ? 'software-eol' : 'vehicles', e.key);
+    assert.equal(e.area, /\/dataset$/.test(e.key) && EOL_PRODUCTS.includes(e.key.split('/')[0]) ? 'software-eol' : CAL_KEYS.includes(e.key) ? 'calendar' : 'vehicles', e.key);
     assert.equal(e.from, null);
     assert.match(e.effectiveFrom, ISO); assert.match(e.verifiedDate, ISO);
     assert.ok(e.effectiveFrom <= e.verifiedDate, `${e.key} effectiveFrom <= verifiedDate`);

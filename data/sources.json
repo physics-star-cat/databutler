@@ -243,5 +243,61 @@
     "bodyHash": "4840fb0fe62d3a88",
     "via": "html",
     "checkedAt": "2026-10-03"
+  },
+  {
+    "url": "https://www.gov.uk/bank-holidays",
+    "updatedAt": "2025-08-11T09:26:37+01:00",
+    "bodyHash": "e3b0c44298fc1c14",
+    "via": "govuk-content-api",
+    "checkedAt": "2026-10-04"
+  },
+  {
+    "url": "https://www.gov.uk/when-do-the-clocks-change",
+    "updatedAt": "2025-08-11T09:26:41+01:00",
+    "bodyHash": "e3b0c44298fc1c14",
+    "via": "govuk-content-api",
+    "checkedAt": "2026-10-04"
+  },
+  {
+    "url": "https://www.opm.gov/policy-data-oversight/pay-leave/federal-holidays/",
+    "updatedAt": null,
+    "bodyHash": "601868f28e0f6964",
+    "via": "html",
+    "checkedAt": "2026-10-04"
+  },
+  {
+    "url": "https://calendrier.api.gouv.fr/jours-feries/metropole/2026.json",
+    "updatedAt": null,
+    "bodyHash": "8993c59425bbc75c",
+    "via": "html",
+    "checkedAt": "2026-10-04"
+  },
+  {
+    "url": "https://innen.hessen.de/buerger-staat/feiertage",
+    "updatedAt": null,
+    "bodyHash": "f86a7eba6a923d29",
+    "via": "html",
+    "checkedAt": "2026-10-04"
+  },
+  {
+    "url": "https://mdi.rlp.de/themen/buerger-und-staat/verfassung-und-verwaltung/sonn-und-feiertagsrecht",
+    "updatedAt": null,
+    "bodyHash": "7925253fd4ced449",
+    "via": "html",
+    "checkedAt": "2026-10-04"
+  },
+  {
+    "url": "https://dcj.nsw.gov.au/about-us/daylight-saving.html",
+    "updatedAt": null,
+    "bodyHash": "4b5f3d235868d154",
+    "via": "html",
+    "checkedAt": "2026-10-04"
+  },
+  {
+    "url": "https://www.payrolltax.gov.au/financial-year",
+    "updatedAt": null,
+    "bodyHash": "ef4b9a35afdfed09",
+    "via": "html",
+    "checkedAt": "2026-10-04"
   }
 ]

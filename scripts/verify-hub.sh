@@ -24,7 +24,7 @@ check rest-changes "$(curl -sS "$BASE/api/changes?since=2026-06-01&area=uk-rates
 # sync-areas:checks start
 check tools/list "$(rpc '{"jsonrpc":"2.0","id":2,"method":"tools/list"}')" \
   "[t['name'] for t in d['result']['tools']]==['uk_rates_lookup','exam_topic_paper','domain_provenance','package_provenance','take_home_pay','what_changed_since','coverage','catalogue','call']"
-check catalogue "$(inner "$(tool catalogue '{}')")" "d['count']==27"
+check catalogue "$(inner "$(tool catalogue '{}')")" "d['count']==29"
 # uk-rates
 check rates "$(inner "$(tool uk_rates_lookup '{"category":"income-tax"}')")" \
   "d['freshness']['staleness'] in ('fresh','due','overdue') and d['cite']['url']=='https://databutler.dev/r/uk/rates?category=income-tax'"
@@ -94,7 +94,17 @@ check call-de-rates-income-tax "$(inner "$(tool call '{"tool":"de_rates_lookup",
 check call-de-rates-nearmiss "$(inner "$(tool call '{"tool":"de_rates_lookup","arguments":{"category":"kirchensteuer"}}')")" \
   "d['covered']==False and 'income-tax' in d['coverage'] and len(d['nearest'])>0"
 check rest-de-rates "$(curl -sS "$BASE/api/de/rates?category=minimum-wage")" "d['category']=='minimum-wage' and 'freshness' in d and d['cite']['url']=='https://databutler.dev/r/de/rates?category=minimum-wage'"
-for name in uk-rates uk-exams provenance stats vehicles tax software-eol policy-rates us-rates de-rates; do
+# calendar
+check call-calendar-uk-2027 "$(inner "$(tool call '{"tool":"calendar_facts","arguments":{"country":"uk","kind":"holidays","year":2027}}')")" \
+  "d['region']=='england-and-wales' and d['count']==8 and d['holidays'][1]['date']=='2027-03-26' and d['freshness']['staleness'] in ('fresh','due','overdue') and d['cite']['url']=='https://databutler.dev/r/calendar?country=uk&kind=holidays&year=2027'"
+check call-next-holiday-by "$(inner "$(tool call '{"tool":"next_holiday","arguments":{"country":"de","from":"2026-12-27","region":"BY"}}')")" \
+  "d['next']['date']=='2027-01-01' and d['following'][0]['key']=='heilige-drei-koenige' and d['region']=='BY'"
+check call-calendar-nearmiss "$(inner "$(tool call '{"tool":"calendar_facts","arguments":{"country":"spain","kind":"holidays"}}')")" \
+  "d['covered']==False and 'uk' in d['coverage']"
+check rest-calendar-fr-dst "$(curl -sS "$BASE/api/calendar?country=fr&kind=dst&year=2027")" "d['observed']==True and d['transitions']['2027']['clocksForward']=='2027-03-28' and 'freshness' in d and d['cite']['url']=='https://databutler.dev/r/calendar?country=fr&kind=dst&year=2027'"
+check rest-calendar-listing "$(curl -sS "$BASE/api/calendar")" "'countries' in d and 'cite' in d"
+check rest-calendar-next-400 "$(curl -sS "$BASE/api/calendar/next")" "'missing' in d['error']"
+for name in uk-rates uk-exams provenance stats vehicles tax software-eol policy-rates us-rates de-rates calendar; do
   check "legacy $name tools/list" "$(curl -sS -X POST "$BASE/api/mcp/$name" -H 'Content-Type: application/json' -d '{"jsonrpc":"2.0","id":2,"method":"tools/list"}')" "len(d['result']['tools'])>0"
 done
 # sync-areas:checks end

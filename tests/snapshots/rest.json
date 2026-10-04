@@ -485,12 +485,12 @@
       "officialSource": "https://ec.europa.eu/safety-gate-alerts/screen/webReport",
       "hint": "For now: fr_recalls_for_model / fr_recalls_search — RappelConso republishes the Safety Gate automobile alerts that concern France (fiche links ending /rapex), so most EU-wide vehicle recalls appear there in French.",
       "freshness": {
-        "verifiedDate": "2026-10-03",
+        "verifiedDate": "2026-10-04",
         "nextScheduledRefresh": null
       },
       "cite": {
         "url": "https://databutler.dev/r/vehicles/eu/safety-gate",
-        "text": "databutler.dev, computed live 2026-10-03"
+        "text": "databutler.dev, computed live 2026-10-04"
       }
     }
   },
@@ -593,6 +593,141 @@
         "url": "https://databutler.dev/r/de/rates",
         "text": "databutler.dev, verified 2026-10-03"
       }
+    }
+  },
+  "/api/calendar": {
+    "status": 200,
+    "body": {
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate.",
+      "countries": {
+        "uk": {
+          "name": "United Kingdom",
+          "kinds": [
+            "holidays",
+            "tax-year",
+            "dst"
+          ],
+          "holidayRegions": {
+            "england-and-wales": "England and Wales",
+            "scotland": "Scotland",
+            "northern-ireland": "Northern Ireland"
+          }
+        },
+        "us": {
+          "name": "United States",
+          "kinds": [
+            "holidays",
+            "tax-year",
+            "dst"
+          ],
+          "holidayRegions": {
+            "federal": "Federal (5 U.S.C. § 6103)"
+          }
+        },
+        "de": {
+          "name": "Germany",
+          "kinds": [
+            "holidays",
+            "tax-year",
+            "dst"
+          ],
+          "holidayRegions": {
+            "nationwide": "Bundesweit (die neun bundeseinheitlichen Feiertage)",
+            "BW": "Baden-Württemberg",
+            "BY": "Bayern",
+            "BE": "Berlin",
+            "BB": "Brandenburg",
+            "HB": "Bremen",
+            "HH": "Hamburg",
+            "HE": "Hessen",
+            "MV": "Mecklenburg-Vorpommern",
+            "NI": "Niedersachsen",
+            "NW": "Nordrhein-Westfalen",
+            "RP": "Rheinland-Pfalz",
+            "SL": "Saarland",
+            "SN": "Sachsen",
+            "ST": "Sachsen-Anhalt",
+            "SH": "Schleswig-Holstein",
+            "TH": "Thüringen"
+          }
+        },
+        "fr": {
+          "name": "France",
+          "kinds": [
+            "holidays",
+            "tax-year",
+            "dst"
+          ],
+          "holidayRegions": {
+            "metropole": "France métropolitaine (cas général)",
+            "alsace-moselle": "Alsace-Moselle (Bas-Rhin, Haut-Rhin, Moselle)"
+          }
+        },
+        "au": {
+          "name": "Australia",
+          "kinds": [
+            "tax-year",
+            "dst"
+          ]
+        },
+        "in": {
+          "name": "India",
+          "kinds": [
+            "tax-year"
+          ]
+        },
+        "ca": {
+          "name": "Canada",
+          "kinds": [
+            "tax-year"
+          ]
+        },
+        "br": {
+          "name": "Brazil",
+          "kinds": [
+            "tax-year",
+            "dst"
+          ]
+        },
+        "pl": {
+          "name": "Poland",
+          "kinds": [
+            "tax-year"
+          ]
+        }
+      },
+      "kinds": [
+        "holidays",
+        "tax-year",
+        "dst"
+      ],
+      "years": [
+        2026,
+        2027,
+        2028
+      ],
+      "verifiedDate": "2026-10-04",
+      "usage": "pass country=<code or name> and kind=holidays|tax-year|dst; year (one of the years listed) and region (a UK nation, a German Land code or name, metropole|alsace-moselle) are optional",
+      "source": "https://www.gov.uk/bank-holidays",
+      "freshness": {
+        "verifiedDate": "2026-10-04",
+        "nextScheduledRefresh": "2026-11-08"
+      },
+      "cite": {
+        "url": "https://databutler.dev/r/calendar",
+        "text": "databutler.dev, verified 2026-10-04 against https://www.gov.uk/bank-holidays"
+      }
+    }
+  },
+  "/api/calendar/next": {
+    "status": 400,
+    "body": {
+      "error": "missing ?country=. See /api for usage.",
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate."
     }
   },
   "/api/uk/rates?category=vat": {
@@ -759,12 +894,12 @@
       "mean": 0,
       "variance": 1,
       "freshness": {
-        "verifiedDate": "2026-10-03",
+        "verifiedDate": "2026-10-04",
         "nextScheduledRefresh": null
       },
       "cite": {
         "url": "https://databutler.dev/r/stats?op=distribution&dist=normal&at=1.96",
-        "text": "databutler.dev, computed live 2026-10-03"
+        "text": "databutler.dev, computed live 2026-10-04"
       }
     }
   },
@@ -2524,7 +2659,7 @@
       "releaseDate": "2022-04-19",
       "supported": false,
       "eol": "2025-04-30",
-      "daysSinceEol": 521,
+      "daysSinceEol": 522,
       "activeSupportEnds": "2023-10-18",
       "inActiveSupport": false,
       "lts": true,
@@ -2554,8 +2689,8 @@
         "latestReleaseDate": "2026-09-08",
         "activeSupportEnds": "2026-10-20"
       },
-      "recommendation": "Node.js 18 reached end of life on 2025-04-30, 521 days before 2026-10-03; no further security fixes are published for it. The newest supported LTS cycle is Node.js 24 (latest 24.21.0, supported until 2028-04-30).",
-      "asOf": "2026-10-03",
+      "recommendation": "Node.js 18 reached end of life on 2025-04-30, 522 days before 2026-10-04; no further security fixes are published for it. The newest supported LTS cycle is Node.js 24 (latest 24.21.0, supported until 2028-04-30).",
+      "asOf": "2026-10-04",
       "source": "https://endoflife.date/nodejs",
       "verifiedDate": "2026-10-03",
       "definitions": {
@@ -2695,7 +2830,7 @@
         "name": "Data Butler",
         "url": "https://databutler.dev/"
       },
-      "generated": "2026-10-03",
+      "generated": "2026-10-04",
       "since": "2026-06-01",
       "area": "uk-rates",
       "coverageStart": "2026-08-31",
@@ -2706,17 +2841,18 @@
         "software-eol",
         "policy-rates",
         "us-rates",
-        "de-rates"
+        "de-rates",
+        "calendar"
       ],
       "count": 0,
       "entries": [],
       "freshness": {
-        "verifiedDate": "2026-10-03",
+        "verifiedDate": "2026-10-04",
         "nextScheduledRefresh": null
       },
       "cite": {
         "url": "https://databutler.dev/r/changes?since=2026-06-01&area=uk-rates",
-        "text": "databutler.dev, computed live 2026-10-03"
+        "text": "databutler.dev, computed live 2026-10-04"
       }
     }
   }
