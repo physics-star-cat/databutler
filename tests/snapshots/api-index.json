@@ -30,6 +30,7 @@
       "us": "USD, tax year 2026 (live via lifebynumbers.net)"
     },
     "ukExamDates": "results, timetable, deadlines, spec-changes for jcq, aqa, pearson, ocr, wjec-eduqas, sqa, ofqual, dfe; summer 2027 (final at all four boards), November 2026, summer 2026 as previous; verified 2026-10-04",
+    "ukGovProcess": "16 services, verified 2026-10-04",
     "ukVehicleRules": "tax year 2026-27: 9 categories, verified 2026-10-04",
     "usRates": "tax year 2026, 6 categories, verified 2026-10-03; federal only",
     "vehicles": {
@@ -70,7 +71,7 @@
       "description": "What changed in the verified datasets since a date (REST mirror of what_changed_since). format=html|rss|atom serves the /changes page or feeds instead of JSON.",
       "example": "https://databutler.dev/api/changes?since=2026-06-01",
       "params": {
-        "area": "uk-rates | uk-exams | vehicles | software-eol | policy-rates | us-rates | de-rates | uk-vehicle-rules | uk-exam-dates | calendar | all",
+        "area": "uk-rates | uk-exams | vehicles | software-eol | policy-rates | us-rates | de-rates | uk-vehicle-rules | uk-exam-dates | calendar | uk-gov-process | all",
         "format": "json (default) | html | rss | atom",
         "since": "YYYY-MM-DD"
       }
@@ -167,6 +168,13 @@
         "topic": "e.g. electricity"
       }
     },
+    "GET /api/uk/gov-process": {
+      "description": "UK government service facts verified 2026-10-04 against gov.uk: fees, processing times as stated, eligibility and required documents (each with the quoted sentence and source URL), the official start URL and dated changes since 2025.",
+      "example": "https://databutler.dev/api/uk/gov-process?service=passport",
+      "params": {
+        "service": "one of passport-renewal-adult, passport-child, driving-licence-renewal, provisional-licence, change-address, vehicle-tax-sorn, register-to-vote, register-birth, register-death, blue-badge, self-assessment, national-insurance-number, universal-credit, eu-settlement-scheme, evisa, eta, or an alias (passport, child-passport, brp, sorn, uc, euss, …); omit to list"
+      }
+    },
     "GET /api/uk/rates": {
       "description": "UK tax-year rates & thresholds (2026-27), verified against gov.uk.",
       "example": "https://databutler.dev/api/uk/rates?category=income-tax",
@@ -256,10 +264,10 @@
       }
     },
     "GET /changes": {
-      "description": "The changelog as a page: every verified change to UK tax/NI thresholds, exam specs, official vehicle datasets, software end-of-life dates, central-bank policy rates, US federal tax thresholds, German tax and social-insurance thresholds, UK car tax (VED) and MOT rules, UK exam dates and public holidays, tax-year and daylight-saving dates, newest first by month — area, from → to, effectiveFrom, official source, maintainer note, verifiedDate. Indexable, cached 1 h at the edge.",
+      "description": "The changelog as a page: every verified change to UK tax/NI thresholds, exam specs, official vehicle datasets, software end-of-life dates, central-bank policy rates, US federal tax thresholds, German tax and social-insurance thresholds, UK car tax (VED) and MOT rules, UK exam dates, public holidays, tax-year and daylight-saving dates and UK government service steps, fees and processing times, newest first by month — area, from → to, effectiveFrom, official source, maintainer note, verifiedDate. Indexable, cached 1 h at the edge.",
       "example": "https://databutler.dev/changes?area=vehicles",
       "params": {
-        "area": "optional: uk-rates | uk-exams | vehicles | software-eol | policy-rates | us-rates | de-rates | uk-vehicle-rules | uk-exam-dates | calendar",
+        "area": "optional: uk-rates | uk-exams | vehicles | software-eol | policy-rates | us-rates | de-rates | uk-vehicle-rules | uk-exam-dates | calendar | uk-gov-process",
         "since": "optional YYYY-MM-DD"
       }
     },
@@ -300,6 +308,7 @@
     "POST /api/mcp/tax": "Remote MCP server — tool take_home_pay (live via the LifeByNumbers salary calculators).",
     "POST /api/mcp/uk-exam-dates": "Remote MCP server — tool uk_exam_dates (results days, summer timetable paper dates, entry deadlines and late-fee dates, spec changes; JCQ, AQA, Pearson Edexcel, Cambridge OCR, WJEC/Eduqas, Scotland's results day).",
     "POST /api/mcp/uk-exams": "Remote MCP server — tools exam_topic_paper, exam_spec_lookup, exam_paper_index.",
+    "POST /api/mcp/uk-gov-process": "Remote MCP server — tool uk_gov_process {service}: UK government service fees, steps, processing times and dated changes, verified against gov.uk.",
     "POST /api/mcp/uk-rates": "Remote MCP server — tool uk_rates_lookup.",
     "POST /api/mcp/uk-vehicle-rules": "Remote MCP server — tool uk_vehicle_rules_lookup.",
     "POST /api/mcp/us-rates": "Remote MCP server — tool us_rates_lookup (US federal rates and thresholds, tax year 2026; committed data read from the IRS and SSA documents).",

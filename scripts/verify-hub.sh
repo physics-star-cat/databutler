@@ -24,7 +24,7 @@ check rest-changes "$(curl -sS "$BASE/api/changes?since=2026-06-01&area=uk-rates
 # sync-areas:checks start
 check tools/list "$(rpc '{"jsonrpc":"2.0","id":2,"method":"tools/list"}')" \
   "[t['name'] for t in d['result']['tools']]==['uk_rates_lookup','exam_topic_paper','domain_provenance','package_provenance','take_home_pay','what_changed_since','coverage','catalogue','call']"
-check catalogue "$(inner "$(tool catalogue '{}')")" "d['count']==31"
+check catalogue "$(inner "$(tool catalogue '{}')")" "d['count']==32"
 # uk-rates
 check rates "$(inner "$(tool uk_rates_lookup '{"category":"income-tax"}')")" \
   "d['freshness']['staleness'] in ('fresh','due','overdue') and d['cite']['url']=='https://databutler.dev/r/uk/rates?category=income-tax'"
@@ -120,7 +120,16 @@ check call-calendar-nearmiss "$(inner "$(tool call '{"tool":"calendar_facts","ar
 check rest-calendar-fr-dst "$(curl -sS "$BASE/api/calendar?country=fr&kind=dst&year=2027")" "d['observed']==True and d['transitions']['2027']['clocksForward']=='2027-03-28' and 'freshness' in d and d['cite']['url']=='https://databutler.dev/r/calendar?country=fr&kind=dst&year=2027'"
 check rest-calendar-listing "$(curl -sS "$BASE/api/calendar")" "'countries' in d and 'cite' in d"
 check rest-calendar-next-400 "$(curl -sS "$BASE/api/calendar/next")" "'missing' in d['error']"
-for name in uk-rates uk-exams provenance stats vehicles tax software-eol policy-rates us-rates de-rates uk-vehicle-rules uk-exam-dates calendar; do
+# uk-gov-process
+check uk-gov-process-listing "$(inner "$(tool call '{"tool":"uk_gov_process","arguments":{}}')")" \
+  "'passport-renewal-adult' in d['categories'] and 'aliases' in d and 'freshness' in d"
+check uk-gov-process-rest-listing "$(curl -sS "$BASE/api/uk/gov-process")" "'categories' in d and 'cite' in d"
+check call-uk-gov-process-passport "$(inner "$(tool call '{"tool":"uk_gov_process","arguments":{"service":"passport"}}')")" \
+  "d['service']=='passport-renewal-adult' and any(f['key']=='fee-online-uk' and f['value']==102 for f in d['figures']) and d['source'].startswith('https://www.gov.uk/') and d['freshness']['staleness'] in ('fresh','due','overdue') and d['cite']['url']=='https://databutler.dev/r/uk/gov-process?service=passport'"
+check rest-uk-gov-process-eta "$(curl -sS "$BASE/api/uk/gov-process?service=eta")" "d['service']=='eta' and any(f['key']=='fee' and f['value']==20 for f in d['figures']) and 'freshness' in d"
+check call-uk-gov-process-nearmiss "$(inner "$(tool call '{"tool":"uk_gov_process","arguments":{"service":"zzz-passprt"}}')")" \
+  "d.get('covered')==False and len(d['nearest'])>0"
+for name in uk-rates uk-exams provenance stats vehicles tax software-eol policy-rates us-rates de-rates uk-vehicle-rules uk-exam-dates calendar uk-gov-process; do
   check "legacy $name tools/list" "$(curl -sS -X POST "$BASE/api/mcp/$name" -H 'Content-Type: application/json' -d '{"jsonrpc":"2.0","id":2,"method":"tools/list"}')" "len(d['result']['tools'])>0"
 done
 # sync-areas:checks end
