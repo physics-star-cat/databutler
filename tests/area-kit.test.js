@@ -156,3 +156,103 @@ test('changelog.js: a new area (data not in git) may leave its module, test, man
   for (const rel of ['README.md', 'docs/CURATION.md', 'public/llms.txt', 'tests/snapshots/rest.json']) assert.ok(dirty.includes(rel), rel);
   assert.ok(!dirty.includes('api/_area_kit.js') && !dirty.includes('scripts/changelog.js'), 'kit files are never expected dirty');
 });
+
+/* ---------------- kit v3: params/filters, sources, note placeholders, loader, changelog script ---------------- */
+
+test('categoriesLookup param + filters: the named argument picks the category, further ones narrow its figures', () => {
+  const D = file([{ label: 'A', value: 1, board: 'AQA' }, { label: 'B', value: 2, board: 'ocr' }, { label: 'C', value: 3 }]);
+  const run = K.categoriesLookup(D, 't', { param: 'kind', filters: ['board'] });
+  assert.match(run({}).usage, /^pass kind=<key> for figures; board=<value> to narrow them$/);
+  assert.equal(run({ kind: 'income-tax' }).figures.length, 3);
+  const aqa = run({ kind: 'income', board: 'aqa' });
+  assert.deepEqual(aqa.figures.map((f) => f.label), ['A']); assert.deepEqual(aqa.filters, { board: 'aqa' });
+  const miss = run({ kind: 'income-tax', board: 'wjec' });
+  assert.equal(miss.covered, false); assert.equal(miss.field, 'board'); assert.deepEqual(miss.coverage, ['aqa', 'ocr']);
+  assert.equal(run({ kind: 'zzz' }).message, 'unknown kind "zzz"');
+  // the default stays uk_rates_lookup's: { category }
+  assert.equal(K.categoriesLookup(D, 't')({ category: 'income-tax' }).category, 'income-tax');
+});
+
+test('categorySources: category then figure sources, each URL once, unreachable by URL or hostname', () => {
+  const D = file([{ label: 'A', value: 1, source: 'https://blocked.example/a.pdf' }, { label: 'B', value: 2, source: 'https://example.gov/income-tax' }]);
+  D.categories.other = { title: 'Other', source: 'https://example.gov/income-tax', figures: [] };
+  const s = K.categorySources(D, { extra: [{ url: 'https://example.gov/extra', label: 'Extra' }], unreachable: { 'blocked.example': 'HTTP 403' } });
+  assert.deepEqual(s.map((x) => x.url), ['https://example.gov/income-tax', 'https://blocked.example/a.pdf', 'https://example.gov/extra']);
+  assert.equal(s[1].unreachable, 'HTTP 403'); assert.equal(s[0].unreachable, undefined);
+  assert.deepEqual(K.categorySources(D, { figures: false }).map((x) => x.url), ['https://example.gov/income-tax']);
+});
+
+test('noteTemplate: {title} and {previousDocument}; figureKey is the default key on both sides', () => {
+  const D = file([{ key: 'pa', label: 'Personal allowance', value: 12570, previous: { value: 12500, title: 'Rates 2025-26', source: 'https://example.gov/2025' } },
+    { key: 'br', label: 'Basic rate', value: 21, previous: { value: 20, source: 'https://example.gov/2025-br' } }]);
+  const entries = K.diffCategories('t', null, D, { previous: true });
+  assert.deepEqual(entries.map((e) => e.key), ['income-tax/pa', 'income-tax/br'], 'figure.key used without passing key');
+  const note = K.noteTemplate('{title} — {label}: {from} → {to} (previously {previousDocument})');
+  assert.equal(note(entries[0], null, D), 'Income tax — Personal allowance: 12500 → 12570 (previously Rates 2025-26)');
+  assert.equal(note(entries[1], null, D), 'Income tax — Basic rate: 20 → 21 (previously https://example.gov/2025-br)');
+  assert.equal(K.noteTemplate('{label} ({previousDocument})')({ ...entries[0], key: 'income-tax/none' }, null, D), 'Personal allowance', 'an empty () is dropped');
+});
+
+test('mergeEntries/entryId live in the kit (pure) and api/_changelog re-exports them', () => {
+  const C = require('../api/_changelog');
+  assert.equal(C.mergeEntries, K.mergeEntries); assert.equal(C.entryId, K.entryId);
+  const e = { area: 'a', key: 'k', verifiedDate: '2026-10-04' };
+  assert.deepEqual(K.mergeEntries([e], [e, { ...e, key: 'j' }]).added.map((x) => x.key), ['j']);
+});
+
+test('area loader: a script area whose data file is not written yet is unavailable (clear error); a hand-curated one still throws', () => {
+  const { loadAreas, UNAVAILABLE } = require('../api/_areas');
+  assert.deepEqual(UNAVAILABLE, [], 'the committed repo has every data file');
+  const warn = console.warn; console.warn = () => {};
+  try {
+    const { areas, unavailable } = loadAreas(require('node:path').join(__dirname, 'fixtures/areas-missing-data'));
+    assert.deepEqual(areas, []);
+    assert.equal(unavailable.length, 1);
+    assert.equal(unavailable[0].area, 'script-area'); assert.equal(unavailable[0].script, 'scripts/script-area.js');
+    assert.match(unavailable[0].error, /data\/does-not-exist-yet\.json does not exist yet — run `node scripts\/script-area\.js`/);
+    assert.throws(() => loadAreas(require('node:path').join(__dirname, 'fixtures/areas-missing-curated')), /Cannot find module/);
+  } finally { console.warn = warn; }
+});
+
+test('sources: unreachable pages (recorded or declared) are skipped by the watcher and listed; a later good fetch wins', () => {
+  const { unreachableSources, watchPlan } = require('../api/_sources');
+  const sources = [
+    { url: 'https://a/1', label: 'one', area: 'x' },
+    { url: 'https://b/2', label: 'two', area: 'x', unreachable: 'CAPTCHA' },
+    { url: 'https://c/3', label: 'three', area: 'y' },
+    { url: 'https://d/4', label: 'four', area: 'y', unreachable: 'HTTP 403' },
+  ];
+  const seen = [{ url: 'https://a/1', bodyHash: 'h' }, { url: 'https://c/3', unreachable: 'HTTP 403', checkedAt: '2026-10-04' }, { url: 'https://d/4', bodyHash: 'ok' }];
+  assert.deepEqual(unreachableSources(sources, seen).map((u) => [u.url, u.area, u.reason]), [['https://b/2', 'x', 'CAPTCHA'], ['https://c/3', 'y', 'HTTP 403']]);
+  assert.deepEqual(watchPlan(sources, seen).check, ['https://a/1', 'https://d/4']);
+  // live: jcq.org.uk is recorded, skipped, and named in coverage and CURATION
+  const { sourceList } = require('../api/_areas');
+  const live = unreachableSources(sourceList(), require('../data/sources.json'));
+  assert.ok(live.some((u) => u.area === 'uk-exam-dates' && /jcq\.org\.uk/.test(u.url)));
+  for (const u of live) assert.ok(require('../data/sources.json').some((s) => s.url === u.url && s.unreachable), `${u.url} recorded in data/sources.json`);
+  const { coverageFor } = require('../api/_coverage');
+  assert.ok(coverageFor('uk-exam-dates').unreachableSources.some((u) => /jcq/.test(u.url)));
+  assert.equal(coverageFor('us-rates').unreachableSources, undefined);
+  const curation = require('node:fs').readFileSync(require('node:path').join(__dirname, '../docs/CURATION.md'), 'utf8');
+  for (const u of live) assert.ok(curation.includes(`| ${u.area} | ${u.url} |`), `CURATION lists ${u.url}`);
+});
+
+test('scripts/changelog.js: a new area\'s fetch script, logic module and fixtures need no --allow-dirty; plain script-area message', () => {
+  const { newAreaFiles, allowedPath, scriptAreaMessage } = require('../scripts/changelog');
+  const allowed = new Set(newAreaFiles({ area: 'uk-thing', server: {} }));
+  for (const p of ['scripts/uk-thing.js', 'scripts/uk_thing.js', 'api/_uk_thing.js', 'api/_uk-thing.js', 'tests/fixtures/uk-thing/a.json', 'tests/fixtures/uk_thing.csv', 'server-uk-thing.json']) {
+    assert.ok(allowedPath(allowed, p), p);
+  }
+  assert.ok(!allowedPath(allowed, 'scripts/other.js'));
+  assert.equal(scriptAreaMessage({ area: 'calendar', changelog: { script: 'scripts/calendar.js' } }, true),
+    "calendar: this area's entries come from scripts/calendar.js; changelog.js only re-hashed its sources.");
+});
+
+test('scripts/_git.js: --redo drops only the area\'s entries that HEAD does not have', () => {
+  const { splitUncommitted } = require('../scripts/_git');
+  const committed = require('../data/changelog.json');
+  const extra = [{ area: 'uk-rates', key: 'zzz/new', verifiedDate: '2099-01-01' }, { area: 'us-rates', key: 'zzz/new', verifiedDate: '2099-01-01' }];
+  const { kept, dropped } = splitUncommitted([...committed, ...extra], 'uk-rates');
+  assert.deepEqual(dropped, [extra[0]]);
+  assert.equal(kept.length, committed.length + 1);
+});

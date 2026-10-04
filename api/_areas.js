@@ -55,6 +55,7 @@ function validate(m, file) {
     if (!c || typeof c !== 'object') fail(file, 'changelog must be an object or null');
     if (c.diff !== null && typeof c.diff !== 'function') fail(file, 'changelog.diff must be a function or null');
     if (c.diff === null && typeof c.script !== 'string') fail(file, 'a changelog without diff() must name the script that writes its entries');
+    if (c.diff === null && typeof c.datasetKeys !== 'function') fail(file, 'a script-driven changelog needs datasetKeys() → the keys of the entries its first derivation wrote (tests/changes-page.test.js checks the live changelog against them)');
     if (c.note !== undefined && typeof c.note !== 'function') fail(file, 'changelog.note must be a function (entry, prev, next) → string — see noteTemplate in api/_area_kit.js');
     if (c.previous !== undefined && typeof c.previous !== 'boolean') fail(file, 'changelog.previous must be true or false (does diff() use previous.value for first appearances?)');
     if (!m.discovery || typeof m.discovery.description !== 'string' || typeof m.discovery.cadence !== 'string') fail(file, 'a changelog area needs discovery { description, cadence }');
@@ -89,23 +90,64 @@ function validate(m, file) {
   }
 }
 
-const AREAS = fs.readdirSync(DIR)
-  .filter((f) => f.endsWith('.js'))
-  .sort()
-  .map((f) => {
-    const m = require('./_areas/' + f);
-    validate(m, f);
-    return m;
-  })
-  .sort((a, b) => a.order - b.order || a.area.localeCompare(b.area));
-
-{
-  const seen = new Set();
-  for (const a of AREAS) {
-    if (seen.has(a.order)) throw new Error(`api/_areas: two areas share order ${a.order}`);
-    seen.add(a.order);
-  }
+/**
+ * A script-driven area (changelog.script) requires the data file its script writes. On the
+ * script's first derivation that file does not exist yet, and anything that loads the areas
+ * (api/_changelog, the router) would fail before the script could write it. So when a module's
+ * require fails on a missing file under data/ AND its source names a changelog script, the area
+ * is left out and listed in UNAVAILABLE with the reason; any other load failure still throws.
+ */
+function missingScriptData(e, file, dir) {
+  if (!e || e.code !== 'MODULE_NOT_FOUND') return null;
+  const missing = (String(e.message).match(/Cannot find module '([^']+)'/) || [])[1] || '';
+  if (!/(^|\/)data\//.test(missing)) return null;
+  const src = fs.readFileSync(path.join(dir, file), 'utf8');
+  const script = (src.match(/script:\s*['"`]([^'"`]+)['"`]/) || [])[1];
+  if (!script) return null;
+  const rel = missing.replace(/^(\.\.\/)+/, '');
+  return {
+    area: file.replace(/\.js$/, ''), script, missing: rel,
+    error: `api/_areas/${file}: ${rel} does not exist yet — run \`node ${script}\` (its first derivation writes it); the area is unavailable until then`,
+  };
 }
+
+function loadAreas(dir = DIR) {
+  const unavailable = [];
+  const areas = fs.readdirSync(dir)
+    .filter((f) => f.endsWith('.js'))
+    .sort()
+    .flatMap((f) => {
+      let m;
+      try {
+        // The literal './_areas/' + f keeps the wildcard require Vercel's tracer globs (header); other dirs are tests.
+        m = dir === DIR ? require('./_areas/' + f) : require(path.join(dir, f));
+      } catch (e) {
+        const u = missingScriptData(e, f, dir);
+        if (!u) throw e;
+        unavailable.push(u);
+        return [];
+      }
+      validate(m, f);
+      return [m];
+    })
+    .sort((a, b) => a.order - b.order || a.area.localeCompare(b.area));
+  const seen = new Map();
+  for (const a of areas) {
+    if (seen.has(a.order)) {
+      const free = a.order + 5;
+      throw new Error(
+        `api/_areas: ${seen.get(a.order)} and ${a.area} share order ${a.order}. Two areas scaffolded on parallel branches both took ` +
+        `max+10 — give one a free number (e.g. order: ${free} in api/_areas/${a.area}.js) and run node scripts/sync-areas.js; ` +
+        'a scaffold that may race another branch should pass --order N to scripts/new-area.js',
+      );
+    }
+    seen.set(a.order, a.area);
+  }
+  return { areas, unavailable };
+}
+
+const { areas: AREAS, unavailable: UNAVAILABLE } = loadAreas();
+for (const u of UNAVAILABLE) console.warn(u.error);
 
 const BY_KEY = Object.fromEntries(AREAS.map((a) => [a.area, a]));
 
@@ -149,10 +191,17 @@ function citeRoutes() {
   return out;
 }
 
-/** Watched source pages, deduped by URL, in area order. */
+/** Watched source pages, deduped by URL, in area order (the first area to list a URL owns it); entries may carry `unreachable`. */
 function sourceList() {
   const seen = new Map();
-  for (const a of AREAS) for (const s of a.sources()) if (s && s.url && !seen.has(s.url)) seen.set(s.url, { ...s, area: a.area });
+  for (const a of AREAS) {
+    for (const s of a.sources()) {
+      if (!s || !s.url) continue;
+      const had = seen.get(s.url);
+      if (!had) seen.set(s.url, { ...s, area: a.area });
+      else if (s.unreachable && !had.unreachable) had.unreachable = s.unreachable; // any area's declaration counts
+    }
+  }
   return [...seen.values()];
 }
 const sourceUrls = () => sourceList().map((s) => s.url);
@@ -166,5 +215,5 @@ function frontDoorTools() {
 const hubPhrases = (kind, filter = () => true) => AREAS.filter((a) => filter(a) && a.hub && a.hub[kind]).map((a) => a.hub[kind]);
 
 module.exports = {
-  AREAS, BY_KEY, servers, datasets, changelogAreas, discovery, restRoutes, citeRoutes, sourceList, sourceUrls, frontDoorTools, hubPhrases, DIR,
+  AREAS, UNAVAILABLE, loadAreas, BY_KEY, servers, datasets, changelogAreas, discovery, restRoutes, citeRoutes, sourceList, sourceUrls, frontDoorTools, hubPhrases, DIR,
 };

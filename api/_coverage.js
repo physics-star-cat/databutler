@@ -3,10 +3,22 @@
  * coverage() supplies its block (with a notCovered list that mirrors the README
  * roadmap); this file only dispatches.
  */
-const { AREAS } = require('./_areas');
+const { AREAS, sourceList } = require('./_areas');
 const { nearest } = require('./_text');
+const { unreachableSources } = require('./_sources');
+const SEEN = require('../data/sources.json');
 
-const AREAS_BY_KEY = Object.fromEntries(AREAS.map((a) => [a.area, a.coverage]));
+/**
+ * Each area's block, plus `unreachableSources` (derived, never written by hand) when the watcher
+ * cannot read one of its source pages — so an agent knows that page is re-checked by hand only.
+ */
+const BLOCKED = unreachableSources(sourceList(), SEEN);
+const withUnreachable = (area, fn) => () => {
+  const block = fn();
+  const mine = BLOCKED.filter((u) => u.area === area).map(({ url, reason }) => ({ url, reason }));
+  return mine.length ? { ...block, unreachableSources: mine } : block;
+};
+const AREAS_BY_KEY = Object.fromEntries(AREAS.map((a) => [a.area, withUnreachable(a.area, a.coverage)]));
 
 function coverageFor(area) {
   const key = String(area || 'all').toLowerCase().trim();

@@ -12,6 +12,7 @@
 const CHANGELOG = require('../data/changelog.json');
 const { nearest } = require('./_text');
 const { BY_KEY, changelogAreas } = require('./_areas');
+const { entryId, mergeEntries } = require('./_area_kit'); // pure, so dataset scripts can require them without loading the areas
 
 const COVERAGE_START = '2026-08-31'; // first full verification of every dataset
 const CHANGELOG_AREAS = changelogAreas();
@@ -35,8 +36,6 @@ function diffFor(area) {
   const a = BY_KEY[area];
   return a && a.changelog ? a.changelog.diff : null;
 }
-
-const entryId = (e) => `${e.area}|${e.key}|${e.verifiedDate}`;
 
 /** A bad ?area= or ?since= on the public changelog page/feeds → HTTP 400. */
 class ChangelogFilterError extends Error {
@@ -71,12 +70,6 @@ function listEntries({ area, since } = {}, entries = CHANGELOG) {
   return entries
     .filter((e) => (a === 'all' || e.area === a) && (s === null || e.verifiedDate > s || (e.effectiveFrom && e.effectiveFrom > s)))
     .sort((x, y) => String(y.verifiedDate).localeCompare(String(x.verifiedDate)) || String(x.area).localeCompare(String(y.area)) || String(x.key).localeCompare(String(y.key)));
-}
-
-function mergeEntries(existing, incoming) {
-  const seen = new Set(existing.map(entryId));
-  const added = incoming.filter((e) => !seen.has(entryId(e)));
-  return { merged: [...existing, ...added], added };
 }
 
 /**

@@ -36,6 +36,21 @@ function coerceNumeric(args, keys = []) {
 
 const slug = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const same = (a, b) => JSON.stringify(a ?? null) === JSON.stringify(b ?? null);
+/** A figure's stable id within its category: its own `key` when it carries one, else slug(label). */
+const figureKey = (f) => f.key || slug(f.label);
+
+/** Changelog entry identity: one entry per area, key and verification day (the dedupe key). */
+const entryId = (e) => `${e.area}|${e.key}|${e.verifiedDate}`;
+/**
+ * Append the entries whose id is new. Pure and here (not only in api/_changelog) so a dataset
+ * script can require it at the top without loading the area modules — whose data file the
+ * script may be about to write for the first time.
+ */
+function mergeEntries(existing, incoming) {
+  const seen = new Set(existing.map(entryId));
+  const added = incoming.filter((e) => !seen.has(entryId(e)));
+  return { merged: [...existing, ...added], added };
+}
 
 /**
  * Generic changelog diff for the simplest data shape the kit scaffolds:
@@ -44,8 +59,8 @@ const same = (a, b) => JSON.stringify(a ?? null) === JSON.stringify(b ?? null);
  * figure's own `source` (when it carries one) is the entry's source, else the
  * category's. Options:
  *   effectiveFrom(next, figure) — the day the new value applies from (default: next.verifiedDate)
- *   key(figure)                 — the figure's stable id within its category (default: slug(label));
- *                                 the entry key is `<cat>/<key>`
+ *   key(figure)                 — the figure's stable id within its category (default: figureKey —
+ *                                 its own `key` when it carries one, else slug(label)); the entry key is `<cat>/<key>`
  *   previous: true              — a figure new to the file (first commit included) takes `from` from its
  *                                 own `previous.value` block, so its arrival records its last real change
  *                                 rather than null → value; a new figure without `previous.value` (a
@@ -54,7 +69,7 @@ const same = (a, b) => JSON.stringify(a ?? null) === JSON.stringify(b ?? null);
  *   extra(next, cat, figure)    — fields merged into every entry
  * Areas with richer data write their own diff — see api/_areas/uk-rates.js for the pattern.
  */
-function diffCategories(area, prev, next, { effectiveFrom = (n) => n.verifiedDate, key = (f) => slug(f.label), previous = false, extra = () => ({}) } = {}) {
+function diffCategories(area, prev, next, { effectiveFrom = (n) => n.verifiedDate, key = figureKey, previous = false, extra = () => ({}) } = {}) {
   const out = [];
   const entry = (cat, c, f, from, to, more = {}) => ({
     area, key: `${cat}/${key(f)}`, label: f.label, from, to, unit: f.unit || null, ...more,
@@ -111,26 +126,72 @@ function areaHeader(data, area) {
  * `substring` (the first key or title containing the input) and finally a
  * covered:false near-miss carrying `nearest` (when true) and `coverage`.
  *   header(data, area)  — the fields on every answer (default areaHeader)
+ *   param               — the argument that names the category (default 'category'; e.g. 'kind')
+ *   filters             — further arguments that narrow the category's figures to those whose field of
+ *                         the same name matches (case-insensitive), e.g. ['board', 'region']; a value no
+ *                         figure in the category carries answers covered:false with `field`, `nearest`
+ *                         and the values that exist
  */
-function categoriesLookup(data, area, { exact = true, substring = true, nearest: near = true, header = areaHeader } = {}) {
+function categoriesLookup(data, area, { exact = true, substring = true, nearest: near = true, header = areaHeader, param = 'category', filters = [] } = {}) {
   const keys = () => Object.keys(data.categories || {});
-  return ({ category } = {}) => {
+  const blank = (v) => v === undefined || v === null || String(v).trim() === '';
+  const low = (v) => String(v).toLowerCase().trim();
+  return (args = {}) => {
     const cats = data.categories || {};
-    if (category === undefined || category === null || String(category).trim() === '') {
-      return { ...header(data, area), categories: Object.fromEntries(keys().map((k) => [k, cats[k].title])), usage: 'pass category=<key> for figures' };
+    const category = args[param];
+    if (blank(category)) {
+      const usage = [`pass ${param}=<key> for figures`, ...filters.map((f) => `${f}=<value> to narrow them`)].join('; ');
+      return { ...header(data, area), categories: Object.fromEntries(keys().map((k) => [k, cats[k].title])), usage };
     }
-    const q = String(category).toLowerCase().trim();
+    const q = low(category);
     let hit = exact ? keys().find((k) => k === q) : undefined;
     if (!hit && substring) hit = keys().find((k) => k.includes(q) || String(cats[k].title || '').toLowerCase().includes(q));
     if (!hit) {
-      return { covered: false, requested: category, message: `unknown category "${category}"`, ...(near ? { nearest: nearest(q, keys()) } : {}), coverage: keys() };
+      return { covered: false, requested: category, message: `unknown ${param} "${category}"`, ...(near ? { nearest: nearest(q, keys()) } : {}), coverage: keys() };
     }
-    return { ...header(data, area), category: hit, ...cats[hit] };
+    let figures = cats[hit].figures || [];
+    const applied = {};
+    for (const field of filters) {
+      if (blank(args[field])) continue;
+      const want = low(args[field]);
+      const values = [...new Set(figures.map((f) => f[field]).filter((v) => !blank(v)).map(low))];
+      if (!values.includes(want)) {
+        return { covered: false, requested: args[field], field, message: `unknown ${field} "${args[field]}" in ${hit}`, ...(near ? { nearest: nearest(want, values) } : {}), coverage: values };
+      }
+      figures = figures.filter((f) => !blank(f[field]) && low(f[field]) === want);
+      applied[field] = want;
+    }
+    return { ...header(data, area), category: hit, ...cats[hit], ...(Object.keys(applied).length ? { filters: applied, figures } : {}) };
   };
 }
 
+/**
+ * The watcher list for a categories file — `sources()` for the module: every category's
+ * `source`, then (figures: true, the default) every figure's own `source`, then `extra`, each URL
+ * once (the first label wins). An entry may carry `unreachable: '<reason>'` (403, CAPTCHA): the
+ * watcher records it as such in data/sources.json and skips it on Mondays, and coverage and
+ * docs/CURATION.md list it — so a page the watcher cannot read is never silently dropped.
+ *   unreachable — { <url or hostname>: '<reason>' } applied to every matching entry
+ */
+function categorySources(data, { figures = true, extra = [], unreachable = {} } = {}) {
+  const out = new Map();
+  const add = (url, label, more = {}) => { if (url && !out.has(url)) out.set(url, { url, label, ...more }); };
+  for (const [k, c] of Object.entries(data.categories || {})) {
+    add(c.source, c.title || k);
+    if (figures) for (const f of c.figures || []) add(f.source, `${c.title || k} — ${f.label}`);
+  }
+  for (const e of extra) add(e.url, e.label, e);
+  const reasonFor = (url) => {
+    if (unreachable[url]) return unreachable[url];
+    let host = null;
+    try { host = new URL(url).hostname; } catch { /* not a URL */ }
+    return host && unreachable[host] ? unreachable[host] : null;
+  };
+  return [...out.values()].map((e) => (reasonFor(e.url) && !e.unreachable ? { ...e, unreachable: reasonFor(e.url) } : e));
+}
+
 /** The figure a changelog entry (`<cat>/<key>`) points at in a categories file, with its category; null when absent. */
-function findFigure(data, entryKey, key = (f) => f.key || slug(f.label)) {
+function findFigure(data, entryKey, key = figureKey) {
   const i = String(entryKey).indexOf('/');
   if (i === -1) return null;
   const cat = entryKey.slice(0, i), fk = entryKey.slice(i + 1);
@@ -145,20 +206,29 @@ const fmtValue = (v) => (v === null || v === undefined ? 'none' : typeof v === '
  * A changelog.note(entry, prev, next) for the module, from a template:
  * `scripts/changelog.js` fills every blank note with it (the maintainer still
  * reviews). Placeholders: {label} {key} {from} {to} {unit} {effectiveFrom}
- * {source} (the entry's), {quote} (the figure's sentence) and {document} — the
- * figure's quote when it has one, else its source URL. Default template:
- * "{label}: {from} → {to} ({document})".
+ * {source} (the entry's), {title} (the category's title), {quote} (the figure's
+ * sentence), {document} — the figure's quote when it has one, else its source
+ * URL — and {previousDocument}: the figure's `previous.title`, else
+ * `previous.document`, else `previous.source` (where the old value was read).
+ * An empty "()" left by a blank placeholder is dropped. Default template:
+ * "{label}: {from} → {to} ({document})". `key` must match the diff's (default figureKey).
  */
 function noteTemplate(template = '{label}: {from} → {to} ({document})', { key } = {}) {
   return (entry, prev, next) => {
     const hit = findFigure(next, entry.key, key) || findFigure(prev, entry.key, key);
     const f = (hit && hit.figure) || {};
+    const p = (f.previous && typeof f.previous === 'object') ? f.previous : {};
     const fields = {
       ...entry, from: fmtValue(entry.from), to: fmtValue(entry.to), unit: entry.unit || '',
+      title: (hit && hit.category && hit.category.title) || '',
       quote: f.quote || '', document: f.quote || entry.source || f.source || '',
+      previousDocument: p.title || p.document || p.source || '',
     };
-    return template.replace(/\{(\w+)\}/g, (m, k) => (k in fields ? fmtValue(fields[k]) : m)).replace(/\s+\(\)$/, '');
+    return template.replace(/\{(\w+)\}/g, (m, k) => (k in fields ? fmtValue(fields[k]) : m)).replace(/\s*\(\)/g, '').trim();
   };
 }
 
-module.exports = { BASE, joinList, plusDays, qs, coerceNumeric, slug, same, diffCategories, areaHeader, categoriesLookup, findFigure, noteTemplate };
+module.exports = {
+  BASE, joinList, plusDays, qs, coerceNumeric, slug, same, figureKey, entryId, mergeEntries,
+  diffCategories, areaHeader, categoriesLookup, categorySources, findFigure, noteTemplate,
+};

@@ -79,7 +79,8 @@ module.exports = {
   freshness: { dataFile: 'data/software-eol.json', cadenceDays: REFRESH_DAYS, data: EOL.DATA },
 
   // Entries are written by the snapshot script, not by scripts/changelog.js.
-  changelog: { diff: null, script: 'scripts/software-eol.js' },
+  // datasetKeys: the entries the script's first derivation wrote (one per product) — tests/changes-page.test.js checks them.
+  changelog: { diff: null, script: 'scripts/software-eol.js', datasetKeys: () => Object.keys(EOL.DATA.products).map((p) => `${p}/dataset`) },
   discovery: {
     description: 'Support and end-of-life dates for 14 runtimes and operating systems (endoflife.date snapshot): dataset additions, new cycles, moved or reached end-of-life dates',
     cadence: 'monthly',

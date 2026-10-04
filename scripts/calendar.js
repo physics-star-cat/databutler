@@ -35,6 +35,11 @@
  */
 const fs = require('node:fs');
 const path = require('node:path');
+// Pure helpers only: requiring api/_changelog here would load every area module, and this area's module
+// requires the data file this script is about to write (first derivation). api/_areas.js tolerates that
+// now (the area is marked unavailable), but the script needs none of it.
+const { mergeEntries } = require('../api/_area_kit');
+const { previousSnapshot } = require('./_git');
 
 const ROOT = path.resolve(__dirname, '..');
 const OUT = path.join(ROOT, 'data/calendar.json');
@@ -493,15 +498,12 @@ async function main() {
   const manual = readJson(MANUAL);
   const src = await loadRaw(manual);
   const data = buildFrom(src.raw, manual, src);
-  const prev = fs.existsSync(OUT) ? readJson(OUT) : null;
+  const prev = previousSnapshot('data/calendar.json'); // the committed file: a re-run before committing appends nothing new
   const text = JSON.stringify(data, null, 1) + '\n';
   fs.writeFileSync(OUT, text);
   console.log(`calendar.json: ${Math.round(Buffer.byteLength(text) / 1024)} KB, holidays ${JSON.stringify(data.counts.holidays)}, ${data.counts.taxYearCountries} tax-year countries, ${data.counts.dstCountries} DST countries, verifiedDate ${data.verifiedDate}${prev ? '' : ' (first derivation)'}`);
   const incoming = datasetEntries(prev, data);
   if (!incoming.length) { console.log('changelog: nothing moved against the committed file'); return; }
-  // Required here, not at the top: api/_changelog loads every area module, and api/_areas/calendar.js
-  // requires data/calendar.json — which does not exist yet on a first derivation.
-  const { mergeEntries } = require('../api/_changelog');
   const existing = fs.existsSync(CHANGELOG) ? readJson(CHANGELOG) : [];
   const { merged, added } = mergeEntries(existing, incoming);
   fs.writeFileSync(CHANGELOG, JSON.stringify(merged, null, 2) + '\n');

@@ -29,7 +29,8 @@
  */
 const fs = require('node:fs');
 const path = require('node:path');
-const { mergeEntries } = require('../api/_changelog');
+const { mergeEntries } = require('../api/_area_kit'); // pure: loads no area module (see scripts/software-eol.js)
+const { previousSnapshot } = require('./_git');
 const { brandSlugs, norm, ukMakeSlug } = require('../api/_vehicles_text');
 
 const ROOT = path.resolve(__dirname, '..');
@@ -336,7 +337,7 @@ function datasetEntries(name, prev, data, metrics, { label = name, today = new D
 
 function writeDataset(name, data, metrics, opts) {
   const out = path.join(OUT_DIR, `${name}.json`);
-  const prev = fs.existsSync(out) ? readJson(out) : null;
+  const prev = previousSnapshot(`data/vehicles/${name}.json`); // the committed file: a re-run before committing appends nothing new
   fs.mkdirSync(OUT_DIR, { recursive: true });
   fs.writeFileSync(out, JSON.stringify(data) + '\n');
   const kb = Math.round(Buffer.byteLength(JSON.stringify(data)) / 1024);

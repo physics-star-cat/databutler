@@ -28,7 +28,11 @@
  */
 const fs = require('node:fs');
 const path = require('node:path');
-const { mergeEntries } = require('../api/_changelog');
+// Pure helpers only: requiring api/_changelog here would load every area module, and this area's module
+// requires the data file this script is about to write (first derivation). api/_areas.js tolerates that
+// now (the area is marked unavailable), but the script needs none of it.
+const { mergeEntries } = require('../api/_area_kit');
+const { previousSnapshot } = require('./_git');
 
 const ROOT = path.resolve(__dirname, '..');
 const OUT = path.join(ROOT, 'data/software-eol.json');
@@ -246,7 +250,7 @@ function datasetEntries(prev, data, { today = new Date().toISOString().slice(0, 
 async function main() {
   const src = await loadRaw();
   const data = buildFrom(src.raw, src);
-  const prev = fs.existsSync(OUT) ? readJson(OUT) : null;
+  const prev = previousSnapshot('data/software-eol.json'); // the committed file: a re-run before committing appends nothing new
   fs.writeFileSync(OUT, JSON.stringify(data) + '\n');
   const kb = Math.round(Buffer.byteLength(JSON.stringify(data)) / 1024);
   console.log(`software-eol.json: ${kb} KB, ${data.productCount} products, ${data.cycleCount} cycles, verifiedDate ${data.verifiedDate}${prev ? '' : ' (first derivation)'}`);

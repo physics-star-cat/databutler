@@ -81,4 +81,32 @@ function compareSource(seen, current) {
   return { status: 'same' };
 }
 
-module.exports = { checkSource, sourceUrls, compareSource, govukContentUrl, govukBodyText, stripHtml, UA };
+/**
+ * Pages the watcher cannot read (403, CAPTCHA): data/sources.json records them as
+ * `{ url, unreachable: '<reason>', checkedAt }` (scripts/sources.js writes that when a fetch fails),
+ * and an area module may declare one up front with `unreachable` on its sources() entry. Merged here,
+ * in watch order, with the area that watches each — the Monday cron skips these instead of filing
+ * errors, and coverage and docs/CURATION.md list them.
+ *   sources — [{ url, label, area, unreachable? }] (api/_areas.js sourceList())
+ *   seen    — data/sources.json
+ */
+function unreachableSources(sources, seen) {
+  const byUrl = new Map((seen || []).map((s) => [s.url, s]));
+  const out = [];
+  for (const s of sources) {
+    const recorded = byUrl.get(s.url);
+    // A page fetched fine since it was declared unreachable counts as reachable (the record wins).
+    const reason = recorded ? recorded.unreachable : s.unreachable;
+    if (reason) out.push({ url: s.url, label: s.label, area: s.area, reason, ...(recorded && recorded.checkedAt ? { checkedAt: recorded.checkedAt } : {}) });
+  }
+  return out;
+}
+
+/** The Monday watch list: URLs to fetch and compare, and the unreachable ones skipped (never filed as errors). */
+function watchPlan(sources, seen) {
+  const skipped = unreachableSources(sources, seen);
+  const skip = new Set(skipped.map((s) => s.url));
+  return { check: sources.map((s) => s.url).filter((u) => !skip.has(u)), skipped };
+}
+
+module.exports = { checkSource, sourceUrls, compareSource, unreachableSources, watchPlan, govukContentUrl, govukBodyText, stripHtml, UA };

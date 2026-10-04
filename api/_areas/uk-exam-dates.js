@@ -112,10 +112,15 @@ function note(entry, prev, next) {
   return `${entry.label}: ${fmt(entry.from)} → ${fmt(entry.to)} (${document}${was})`;
 }
 
-/** Pages the Monday watcher re-fetches: the JCQ key-dates and timetables pages (the PDFs hang off them; jcq.org.uk answers 403 to non-browser user agents) and each board's timetable landing page. */
+/**
+ * Pages the Monday watcher re-fetches: each board's timetable landing page, and the JCQ key-dates and timetables
+ * pages (the PDFs hang off them) — declared `unreachable` because jcq.org.uk answers 403 to non-browser user agents:
+ * recorded so in data/sources.json, skipped by the watcher, listed in coverage and docs/CURATION.md for a hand check.
+ */
+const JCQ_403 = 'HTTP 403 to any non-browser user agent (jcq.org.uk) — re-read in a browser at each refresh';
 const WATCH = [
-  { url: 'https://www.jcq.org.uk/exams-office/key-dates/', label: 'JCQ — Key dates in the examination cycle (results days, entries, first/last exam, contingency day; PDFs per series)' },
-  { url: 'https://www.jcq.org.uk/exams-office/timetables/', label: 'JCQ — common examination timetables (provisional and final, per series)' },
+  { url: 'https://www.jcq.org.uk/exams-office/key-dates/', label: 'JCQ — Key dates in the examination cycle (results days, entries, first/last exam, contingency day; PDFs per series)', unreachable: JCQ_403 },
+  { url: 'https://www.jcq.org.uk/exams-office/timetables/', label: 'JCQ — common examination timetables (provisional and final, per series)', unreachable: JCQ_403 },
   { url: 'https://www.aqa.org.uk/exams-administration/dates-and-timetables', label: 'AQA — Dates and timetables (confirmed exam timetables, key dates calendar)' },
   { url: 'https://qualifications.pearson.com/en/support/support-topics/exams/exam-timetables.html', label: 'Pearson Edexcel — Exam timetables (final timetables per series)' },
   { url: 'https://www.ocr.org.uk/administration/key-dates-and-timetables/', label: 'Cambridge OCR — Key dates and timetables (final exam timetables, key dates 2026/27)' },

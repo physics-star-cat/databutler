@@ -308,6 +308,16 @@
     "checkedAt": "2026-10-04"
   },
   {
+    "url": "https://www.jcq.org.uk/exams-office/key-dates/",
+    "unreachable": "HTTP 403 to any non-browser user agent (jcq.org.uk) — re-read in a browser at each refresh",
+    "checkedAt": "2026-10-04"
+  },
+  {
+    "url": "https://www.jcq.org.uk/exams-office/timetables/",
+    "unreachable": "HTTP 403 to any non-browser user agent (jcq.org.uk) — re-read in a browser at each refresh",
+    "checkedAt": "2026-10-04"
+  },
+  {
     "url": "https://www.aqa.org.uk/exams-administration/dates-and-timetables",
     "updatedAt": null,
     "bodyHash": "446488edef9dccb3",

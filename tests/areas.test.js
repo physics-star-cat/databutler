@@ -107,13 +107,14 @@ test('scaffold: node scripts/new-area.js creates a loadable area whose skeleton 
   try {
     fs.cpSync(ROOT, tmp, { recursive: true, filter: (src) => !/\/(\.git|node_modules)(\/|$)/.test(src) });
     const slug = 'throwaway-kit';
-    const made = spawnSync(process.execPath, ['scripts/new-area.js', slug, '--title', 'Throwaway kit', '--cadence', 'monthly', '--refresh-days', '40'], { cwd: tmp, encoding: 'utf8' });
+    const made = spawnSync(process.execPath, ['scripts/new-area.js', slug, '--title', 'Throwaway kit', '--refresh-days', '40'], { cwd: tmp, encoding: 'utf8' });
     assert.equal(made.status, 0, made.stderr || made.stdout);
     for (const rel of [`api/_areas/${slug}.js`, `data/${slug}.json`, `tests/${slug}.test.js`]) assert.ok(fs.existsSync(path.join(tmp, rel)), rel);
     assert.match(fs.readFileSync(path.join(tmp, 'docs/CURATION.md'), 'utf8'), /^## Verification log \(throwaway-kit, added \d{4}-\d{2}-\d{2}\)$/m);
     assert.match(made.stdout, /Still yours to do/);
     assert.match(made.stdout, /null → value for every figure/);
     assert.ok(fs.existsSync(path.join(tmp, `server-${slug}.json`)), 'registry manifest generated');
+    assert.match(fs.readFileSync(path.join(tmp, `api/_areas/${slug}.js`), 'utf8'), /cadence: "Re-verified against the official pages every 40 days/, '--cadence is optional: stated from --refresh-days');
     // the other scaffold style in the same copy: calendar cadence, per-year layout, previous semantics, REST 400, retires a planned row
     const cal = 'throwaway-cal';
     const readmeBefore = fs.readFileSync(path.join(tmp, 'README.md'), 'utf8');
@@ -128,8 +129,49 @@ test('scaffold: node scripts/new-area.js creates a loadable area whose skeleton 
     assert.doesNotMatch(readmeAfter, /^\| 7 \| \*\*Current-docs/m, 'retired planned row removed');
     assert.match(readmeAfter, new RegExp(`^\\| ${AREAS.length + 2} \\| \\*\\*Throwaway calendar\\*\\*`, 'm'), 'roadmap rows numbered from order (two scaffolds after the live areas)');
     const calModule = fs.readFileSync(path.join(tmp, `api/_areas/${cal}.js`), 'utf8');
-    assert.match(calModule, /cadenceDays: CADENCE_DAYS/); assert.match(calModule, /const CADENCE_DAYS = null/); assert.match(calModule, /previousSibling: true/); assert.match(calModule, /required: \['category'\]/);
+    assert.match(calModule, /cadenceDays: CADENCE_DAYS/); assert.match(calModule, /const CADENCE_DAYS = null/); assert.match(calModule, /previousSibling: true/); assert.match(calModule, /required: \[PARAMS\[0\]\]/);
     assert.match(fs.readFileSync(path.join(tmp, 'scripts/verify-hub.sh'), 'utf8'), /check throwaway-cal-rest-400 /);
+    // the third style: several params, a nested REST path, a 2026-27 year starting 04-01, explicit order, long title
+    const par = 'throwaway-par';
+    const made3 = spawnSync(process.execPath, ['scripts/new-area.js', par, '--title', 'Throwaway parameters with a long title', '--params', 'kind,region', '--rest-path', 'test/par',
+      '--per-year', '2026-27', '--year-start', '04-01', '--calendar', '2027-04-01', '--previous', '--order', '995'], { cwd: tmp, encoding: 'utf8' });
+    assert.equal(made3.status, 0, made3.stderr || made3.stdout);
+    const parModule = fs.readFileSync(path.join(tmp, `api/_areas/${par}.js`), 'utf8');
+    assert.match(parModule, /order: 995,/); assert.match(parModule, /const REST_PATH = "test\/par"/); assert.match(parModule, /const PARAMS = \["kind","region"\]/);
+    assert.match(parModule, /title: "Throwaway parameters with a long title",/, 'title alone when "<title> lookup" exceeds 40 characters');
+    assert.match(parModule, /const YEAR_START = "04-01"/);
+    // fill two figures and check the derived behaviour: effectiveFrom from the first four digits, keyed figures, filters
+    const parFile = path.join(tmp, `data/${par}/2026-27.json`);
+    const parData = JSON.parse(fs.readFileSync(parFile, 'utf8'));
+    parData.categories = { rates: { title: 'Rates', source: 'https://example.gov/rates', figures: [
+      { key: 'north-rate', label: 'North rate', value: 5, region: 'north', source: 'https://example.gov/rates/north.pdf', previous: { value: 4, title: '2025-26 rates table' } },
+      { label: 'South rate', value: 7, region: 'south', previous: { value: 7 } },
+    ] } };
+    fs.writeFileSync(parFile, JSON.stringify(parData, null, 2) + '\n');
+    const probe = spawnSync(process.execPath, ['-e', `
+      const m = require('./api/_areas/${par}'); const D = m.freshness.data;
+      const e = m.changelog.diff(null, D);
+      const note = require('./api/_area_kit').noteTemplate('{title}: {label} {from} → {to} (was {previousDocument})', { key: (f) => f.key || require('./api/_area_kit').slug(f.label) })(e[0], null, D);
+      console.log(JSON.stringify({ e, note, sources: m.sources(), run: m.server.tools[0].run({ kind: 'rates', region: 'SOUTH' }), miss: m.server.tools[0].run({ kind: 'rates', region: 'east' }) }));`], { cwd: tmp, encoding: 'utf8' });
+    assert.equal(probe.status, 0, probe.stderr);
+    const got = JSON.parse(probe.stdout);
+    assert.deepEqual(got.e.map((x) => [x.key, x.from, x.to, x.effectiveFrom, x.taxYear]), [['rates/north-rate', 4, 5, '2026-04-01', '2026-27']]);
+    assert.equal(got.note, 'Rates: North rate 4 → 5 (was 2025-26 rates table)');
+    assert.deepEqual(got.sources.map((x) => x.url), ['https://example.gov/rates', 'https://example.gov/rates/north.pdf'], 'category + figure sources, each once');
+    assert.deepEqual(got.run.figures.map((f) => f.label), ['South rate']);
+    assert.equal(got.miss.covered, false); assert.equal(got.miss.field, 'region'); assert.deepEqual(got.miss.coverage, ['north', 'south']);
+    // refusals that save a broken scaffold: taken order, taken REST path, over-long --tool-title, --year-start without --per-year
+    for (const [args, msg] of [
+      [['--order', '995'], /--order 995 is taken by throwaway-par/],
+      [['--rest-path', 'test/par'], /REST path "test\/par" is taken/],
+      [['--tool-title', 'x'.repeat(41)], /--tool-title must be 3–40 characters/],
+      [['--year-start', '04-01'], /--year-start only applies with --per-year/],
+    ]) {
+      const r = spawnSync(process.execPath, ['scripts/new-area.js', 'throwaway-refused', '--title', 'Refused', ...args], { cwd: tmp, encoding: 'utf8' });
+      assert.notEqual(r.status, 0, args.join(' ')); assert.match(r.stderr, msg);
+    }
+    const long = spawnSync(process.execPath, ['scripts/new-area.js', 'throwaway-long', '--title', 'A title that is far too long for any tool title cap'], { cwd: tmp, encoding: 'utf8' });
+    assert.notEqual(long.status, 0); assert.match(long.stderr, /pass --tool-title/);
     // derived artefacts picked the area up
     const wk = JSON.parse(fs.readFileSync(path.join(tmp, 'public/.well-known/changes.json'), 'utf8'));
     assert.ok(wk.areas.some((a) => a.name === slug));
@@ -145,7 +187,7 @@ test('scaffold: node scripts/new-area.js creates a loadable area whose skeleton 
     assert.deepEqual(Object.keys(dataLoaded), ['area', 'verifiedDate', 'nextScheduledRefresh', 'licence', 'sources', 'categories']);
     assert.equal(spawnSync(process.execPath, ['scripts/sync-areas.js', '--check'], { cwd: tmp, encoding: 'utf8' }).status, 0, 'both scaffolds leave the derived files in sync');
     // refusing to clobber
-    const again = spawnSync(process.execPath, ['scripts/new-area.js', slug, '--title', 'x', '--cadence', 'y'], { cwd: tmp, encoding: 'utf8' });
+    const again = spawnSync(process.execPath, ['scripts/new-area.js', slug, '--title', 'x'], { cwd: tmp, encoding: 'utf8' });
     assert.notEqual(again.status, 0);
     assert.match(again.stderr, /already exists/);
   } finally {

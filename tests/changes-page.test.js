@@ -75,37 +75,42 @@ const FIX = [
 /* ---------------- live data ---------------- */
 
 const EOL_PRODUCTS = Object.values(require('../data/software-eol.json').products).map((p) => p.id);
-// calendar (scripts/calendar.js) writes one <country>/<kind> entry per block on first derivation
-const CAL = require('../data/calendar.json');
-const CAL_KEYS = [...Object.keys(CAL.holidays).map((c) => `${c}/holidays`), ...Object.keys(CAL.taxYears).map((c) => `${c}/tax-year`), ...Object.keys(CAL.dst).map((c) => `${c}/dst`)];
 
-// Live changelog, derived so adding an area never touches this file: the dataset-script areas (changelog.script —
-// vehicles, software-eol) write <name>/dataset entries; every area with a changelog.diff writes figure entries that
-// its own suite checks (tests/<area>.test.js).
+// Live changelog, derived so adding an area never touches this file: every changelog area is a diff area
+// (changelog.diff — figure entries its own suite checks, tests/<area>.test.js) or a script area
+// (changelog.script — its module's changelog.datasetKeys() names the entries its first derivation wrote).
 const FIGURE_AREAS = AREAS.filter((a) => a.changelog && a.changelog.diff).map((a) => a.area);
-const SCRIPT_AREAS = AREAS.filter((a) => a.changelog && !a.changelog.diff).map((a) => a.area);
+const SCRIPT = AREAS.filter((a) => a.changelog && !a.changelog.diff);
+const SCRIPT_AREAS = SCRIPT.map((a) => a.area);
+const DATASET_KEYS = Object.fromEntries(SCRIPT.map((a) => [a.area, a.changelog.datasetKeys()]));
 const LIVE_TOTAL = CHANGELOG.length;
 const perArea = (area) => CHANGELOG.filter((e) => e.area === area).length;
 const VEHICLES = perArea('vehicles');
 /** Entries listEntries keeps for ?since= — mirrors the protocol rule (verified or taking effect after the day). */
 const sinceCount = (since) => CHANGELOG.filter((e) => e.verifiedDate > since || (e.effectiveFrom && e.effectiveFrom > since)).length;
+const ENTRY_KEYS = ['area', 'key', 'label', 'from', 'to', 'effectiveFrom', 'source', 'verifiedDate', 'note'];
 
-test('live changelog: the dataset-script areas\' entries are in the dataset-script shape; every other entry belongs to a diff area', () => {
+test('live changelog: each script area\'s first-derivation entries are present in the dataset shape; every entry belongs to a changelog area', () => {
   assert.ok(LIVE_TOTAL > 0);
-  assert.deepEqual(SCRIPT_AREAS, ['vehicles', 'software-eol', 'calendar']);
-  for (const e of CHANGELOG) assert.ok([...FIGURE_AREAS, ...SCRIPT_AREAS].includes(e.area), `${e.area} is a changelog area`);
-  const DATASETS = CHANGELOG.filter((e) => !FIGURE_AREAS.includes(e.area));
-  const keys = DATASETS.map((e) => e.key).sort();
-  assert.deepEqual(keys, ['eu-safety-gate/dataset', 'fr-recalls/dataset', 'jp-recalls/dataset', ...EOL_PRODUCTS.map((p) => `${p}/dataset`), ...CAL_KEYS].sort());
-  for (const e of DATASETS) {
-    assert.deepEqual(Object.keys(e), ['area', 'key', 'label', 'from', 'to', 'effectiveFrom', 'source', 'verifiedDate', 'note'], e.key);
-    assert.equal(e.area, /\/dataset$/.test(e.key) && EOL_PRODUCTS.includes(e.key.split('/')[0]) ? 'software-eol' : CAL_KEYS.includes(e.key) ? 'calendar' : 'vehicles', e.key);
-    assert.equal(e.from, null);
-    assert.match(e.effectiveFrom, ISO); assert.match(e.verifiedDate, ISO);
-    assert.ok(e.effectiveFrom <= e.verifiedDate, `${e.key} effectiveFrom <= verifiedDate`);
-    assert.ok(e.verifiedDate >= COVERAGE_START);
-    assert.match(e.source, /^https:\/\//);
-    assert.ok(e.note.length > 40, `${e.key} note has provenance`);
+  assert.deepEqual([...FIGURE_AREAS, ...SCRIPT_AREAS].sort(), [...CHANGELOG_AREAS].sort(), 'every changelog area is a diff or a script area');
+  for (const e of CHANGELOG) assert.ok(CHANGELOG_AREAS.includes(e.area), `${e.area} is a changelog area`);
+  for (const a of SCRIPT) {
+    assert.match(a.changelog.script, /^scripts\/[\w-]+\.js$/, `${a.area} names its script`);
+    assert.ok(fs.existsSync(path.join(ROOT, a.changelog.script)), `${a.changelog.script} exists`);
+    const keys = DATASET_KEYS[a.area];
+    assert.ok(keys.length, `${a.area} datasetKeys() is not empty`);
+    for (const e of CHANGELOG.filter((x) => x.area === a.area)) assert.deepEqual(Object.keys(e), ENTRY_KEYS, `${a.area} ${e.key} key order`);
+    for (const key of keys) {
+      const hits = CHANGELOG.filter((e) => e.area === a.area && e.key === key);
+      assert.equal(hits.length, 1, `${a.area} ${key}: one first-derivation entry`);
+      const [e] = hits;
+      assert.equal(e.from, null);
+      assert.match(e.effectiveFrom, ISO); assert.match(e.verifiedDate, ISO);
+      assert.ok(e.effectiveFrom <= e.verifiedDate, `${e.key} effectiveFrom <= verifiedDate`);
+      assert.ok(e.verifiedDate >= COVERAGE_START);
+      assert.match(e.source, /^https:\/\//);
+      assert.ok(e.note.length > 40, `${e.key} note has provenance`);
+    }
   }
   const fr = CHANGELOG.find((e) => e.key === 'fr-recalls/dataset');
   assert.equal(fr.to, 'covered'); assert.equal(fr.verifiedDate, '2026-10-02'); assert.equal(fr.effectiveFrom, '2026-10-02');

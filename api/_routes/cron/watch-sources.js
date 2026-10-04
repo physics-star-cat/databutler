@@ -1,13 +1,15 @@
 /**
  * Weekly: has any source page changed since data/sources.json was written?
  * Never edits data — files a GitHub issue per changed URL (deduped) and one
- * combined issue for URLs it could not check. ?dry=1 reports without filing.
+ * combined issue for URLs it could not check. Pages recorded (or declared) as
+ * `unreachable` — 403 or CAPTCHA to a non-browser fetch — are skipped and listed
+ * under `skipped`, never filed as errors. ?dry=1 reports without filing.
  * Vercel cron sends Authorization: Bearer $CRON_SECRET.
  */
 const { sendJson } = require('../../_lib');
 const SEEN = require('../../../data/sources.json');
-const { checkSource, compareSource } = require('../../_sources');
-const { sourceUrls } = require('../../_areas');
+const { checkSource, compareSource, watchPlan } = require('../../_sources');
+const { sourceList } = require('../../_areas');
 const { planIssues, listOpenIssues, openIssue } = require('../../_github');
 
 module.exports = async (req, res) => {
@@ -16,7 +18,8 @@ module.exports = async (req, res) => {
   if (!secret || auth !== `Bearer ${secret}`) return sendJson(res, 401, { error: 'unauthorised' });
 
   const dry = new URL(req.url, 'https://databutler.dev').searchParams.get('dry') === '1';
-  const urls = sourceUrls(); // every area module's sources(), deduped
+  // every area module's sources(), deduped, minus the pages recorded/declared unreachable
+  const { check: urls, skipped } = watchPlan(sourceList(), SEEN);
   const seenByUrl = Object.fromEntries(SEEN.map((s) => [s.url, s]));
 
   const results = await Promise.all(urls.map(async (url) => {
@@ -48,6 +51,7 @@ module.exports = async (req, res) => {
     changed: results.filter((r) => r.status === 'changed'),
     unseen: results.filter((r) => r.status === 'new').map((r) => r.url),
     errors: results.filter((r) => r.status === 'error'),
+    skipped: skipped.map(({ url, area, reason }) => ({ url, area, unreachable: reason })),
     issuesPlanned: issues.map((i) => i.title),
     issuesFiled: filed,
     ...(filing ? { filingError: filing } : {}),

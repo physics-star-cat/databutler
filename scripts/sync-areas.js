@@ -9,7 +9,8 @@
  *   public/.well-known/changes.json areas[] (whole file rewritten; `updated` moves only when areas change)
  *   docs/CHANGES_PROTOCOL.md        the ```json discovery example = the file above
  *   README.md                       <!-- sync-areas:roadmap -->, <!-- sync-areas:catalogue -->
- *   docs/CURATION.md                <!-- sync-areas:calendar -->
+ *   docs/CURATION.md                <!-- sync-areas:calendar -->, <!-- sync-areas:unreachable --> (sources the
+ *                                   watcher cannot read: data/sources.json `unreachable` + module declarations)
  *   public/index.html               <!-- sync-areas:humans -->, <!-- sync-areas:agents -->
  *   scripts/verify-hub.sh           # sync-areas:checks start / end
  *   server-<key>.json               whole file (MCP registry manifest, one per focused server, from server.description)
@@ -22,7 +23,8 @@
  */
 const fs = require('node:fs');
 const path = require('node:path');
-const { AREAS, discovery, restRoutes, changelogAreas } = require('../api/_areas');
+const { AREAS, discovery, restRoutes, changelogAreas, sourceList } = require('../api/_areas');
+const { unreachableSources } = require('../api/_sources');
 const { SERVERS, ALL_TOOLS } = require('../api/_registry');
 const { DIRECT, HUB_TOOLS } = require('../api/_hub');
 const { joinList } = require('../api/_area_kit');
@@ -139,13 +141,19 @@ function manifest(key, s) {
 }
 
 const CALENDAR_TAIL = [
-  '| `data/sources.json` | After every data refresh (automatic via `scripts/changelog.js`) | `node scripts/sources.js` re-checks every source URL (gov.uk content API / page hash). |',
+  '| `data/sources.json` | After every data refresh (automatic via `scripts/changelog.js`) | `node scripts/sources.js` re-checks every source URL (gov.uk content API / page hash); a page it cannot fetch is recorded `unreachable` and listed under "Sources the watcher cannot read". |',
   '| `data/changelog.json` | With every data refresh | `node scripts/changelog.js` (areas with a `changelog.diff`) or the dataset\'s own script (`changelog.script`); fill in `note` lines. See "Changelog & source watcher" and docs/ADDING_AN_AREA.md. |',
 ];
 
 function curation(text) {
   const rows = ['| Dataset | Refresh trigger | How |', '|---|---|---|', ...AREAS.flatMap((a) => a.docs.curation), ...CALENDAR_TAIL];
-  return replaceBlock(text, 'docs/CURATION.md', 'calendar', rows.join('\n'));
+  const seen = JSON.parse(readOr('data/sources.json') || '[]');
+  const blocked = unreachableSources(sourceList(), seen);
+  const unreachable = blocked.length
+    ? ['| Area | Page | Why the watcher skips it |', '|---|---|---|', ...blocked.map((u) => `| ${u.area} | ${u.url} | ${String(u.reason).replace(/\|/g, '\\|')}${u.checkedAt ? ` (recorded ${u.checkedAt})` : ''} |`)]
+    : ['None — the watcher reads every source page.'];
+  const t = replaceBlock(text, 'docs/CURATION.md', 'calendar', rows.join('\n'));
+  return replaceBlock(t, 'docs/CURATION.md', 'unreachable', unreachable.join('\n'));
 }
 
 function indexHtml(text) {

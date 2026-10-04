@@ -94,7 +94,13 @@ module.exports = {
   freshness: { dataFile: 'data/calendar.json', cadenceDays: CADENCE_DAYS, data: DATA },
 
   // Entries are written by the snapshot script, not by scripts/changelog.js; the hand-verified input sits under data/calendar/.
-  changelog: { diff: null, script: 'scripts/calendar.js', files: ['data/calendar.json', 'data/calendar/'] },
+  // datasetKeys: the first derivation's one entry per country block — tests/changes-page.test.js checks them.
+  changelog: {
+    diff: null, script: 'scripts/calendar.js', files: ['data/calendar.json', 'data/calendar/'],
+    datasetKeys: () => [
+      ...Object.keys(DATA.holidays).map((c) => `${c}/holidays`), ...Object.keys(DATA.taxYears).map((c) => `${c}/tax-year`), ...Object.keys(DATA.dst).map((c) => `${c}/dst`),
+    ],
+  },
   discovery: {
     description: `Public holidays (UK, US federal, German Länder, France), tax-year starts/ends (nine countries) and daylight-saving switch dates for ${SPAN}: new years published, holidays added or moved, rule changes`,
     cadence: 'monthly',

@@ -209,7 +209,9 @@ module.exports = {
   ],
 
   // Entries are written by the dataset script, not by scripts/changelog.js.
-  changelog: { diff: null, script: 'scripts/vehicles.js', files: ['data/vehicles/'] },
+  // datasetKeys: the first-derivation entries in the changelog (uk-recalls predates the changelog's coverage start,
+  // so it has none) — tests/changes-page.test.js checks them.
+  changelog: { diff: null, script: 'scripts/vehicles.js', files: ['data/vehicles/'], datasetKeys: () => ['eu-safety-gate/dataset', 'fr-recalls/dataset', 'jp-recalls/dataset'] },
   discovery: {
     description: 'Official vehicle recall datasets: DVSA (UK), RappelConso (France) and MLIT (Japan) recalls and complaints; EU Safety Gate is a stub.',
     cadence: 'Monthly.',
