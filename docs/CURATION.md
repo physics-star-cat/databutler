@@ -26,6 +26,7 @@ The product is trust. A wrong number is worse than no number. Rules:
 | `data/us-rates.json` | Annual, calendar-driven (`cadenceDays: null`; `nextScheduledRefresh` set by hand to the IRS release window, 2026-11-01 for tax year 2027): the IRS tax-year inflation adjustments (Rev. Proc., mid/late October, announced on the newsroom page), the retirement-plan limits (Notice, early/mid November), SSA's COLA/wage-base Federal Register notice (late October/November), the HSA Rev. Proc. (May). The weekly watcher hashes the five pages in `sources()` (newsroom, Federal Register API, Tax Topic 751, COLA limits table, Pub 969). | Fetch the new Rev. Proc./Notice PDF from `/pub/irs-drop/`; for each figure move `value` into `previous` (with its source), write the new `value`, `effectiveFrom`, `source`, `quote`, `verifiedDate`; bump the file's `taxYear`, `taxYearRuns`, `verifiedDate` and set `nextScheduledRefresh` to the next release window; then `node scripts/changelog.js` (one `us-rates` entry per figure that moved, from → to; refreshes `data/sources.json`); fill each `note` with the Rev. Proc./Notice number. ssa.gov blocks curl — read the Federal Register notice instead. |
 | `data/de-rates.json` | Annual, calendar-driven (`cadenceDays: null`; `nextScheduledRefresh` set by hand, 2026-12-15 for 2027): the Sozialversicherungsrechengrößen-Verordnung in the BGBl (late November; the BMAS Verordnung page's "Umsetzungsstand" flips first), the durchschnittlicher Zusatzbeitragssatz in the Bundesanzeiger (by 1 November; BMG `/beitraege` table), any Steuergesetz rewriting § 32a/§ 32/§ 66 EStG (consolidated text on gesetze-im-internet.de within days), the Mindestlohnkommission decision (by 30 June of the year before). The weekly watcher hashes the twelve pages in `sources()`. | Open the BGBl PDF on recht.bund.de and the consolidated § pages; for each figure move `value` into `previous` (with its source and quote), write the new `value`, `effectiveFrom`, `source`, `quote`, `verifiedDate`; promote the already-fixed next-year figures (Mindestlohn, Geringfügigkeitsgrenze) and add the following year's if enacted; bump `taxYear`, `taxYearRuns`, `verifiedDate`, set `nextScheduledRefresh`; then `node scripts/changelog.js` (one `de-rates` entry per figure that moved; refreshes `data/sources.json`); fill each `note` with the Verordnung/Gesetz and BGBl citation. bundesfinanzministerium.de serves a CAPTCHA to curl — the statutes and BGBl are the primary sources anyway. |
 | `data/uk-vehicle-rules/<year>.json` | Every 1 April, calendar-driven (`cadenceDays: null`; `nextScheduledRefresh` set by hand to the next 1 April, 2027-04-01 for 2027-28): VED rates and the historic-vehicle exemption date are uprated by the Finance Act (announced at the Autumn Budget — HMRC tax information and impact notes on gov.uk on Budget day; the rate-tables page is rewritten shortly before 1 April). MOT maximum fees have not changed since 2010. The weekly watcher hashes the gov.uk pages in `sources()`. | Fetch gov.uk/vehicle-tax-rate-tables (all parts), gov.uk/getting-an-mot, gov.uk/historic-vehicles, gov.uk/vehicle-tax-direct-debit and gov.uk/vehicle-exempt-from-vehicle-tax (content API `https://www.gov.uk/api/content/<path>` gives every part as HTML); write a NEW `data/uk-vehicle-rules/<year>.json` (keep old years), moving each `value` into `previous` (with the National Archives capture URL of the outgoing page as previous.source), writing the new `value`, `quote`, `effectiveFrom` (1 April) and `verifiedDate`; bump `taxYear`, `taxYearRuns`, set `nextScheduledRefresh`; update the file the module requires; then `node scripts/changelog.js --only uk-vehicle-rules` (one entry per figure that moved, from → to, effectiveFrom 1 April; refreshes `data/sources.json`); review the pre-filled notes. |
+| `data/uk-exam-dates.json` | Annual, calendar-driven (`cadenceDays: null`; `nextScheduledRefresh` set by hand, 2027-01-15 first): JCQ publishes the following June series' key dates and the boards their final summer timetables between May and July (provisional for consultation in February), the November series in September; Ofqual/DfE announcements of reformed or newly accredited specifications land at any time. The weekly watcher hashes the JCQ key-dates and timetables pages and the four boards' timetable landing pages (jcq.org.uk answers 403 to non-browser user agents). | Open the JCQ key-dates PDF for the new series and each board's final timetable PDF (AQA dates-and-timetables, Pearson exam-timetables, OCR key-dates-and-timetables, WJEC key-dates-and-timetables) and fee/key-dates document; for each figure move `value` into `previous` (with its series, source, document and quote), write the new `value`, `effectiveFrom`, `series`, `status`, `source`, `document`, `quote`; add spec-change figures from the regulator/board announcement with `previous: { value: null }`; bump `verifiedDate`, set `nextScheduledRefresh`; then `node scripts/changelog.js --only uk-exam-dates` (one `uk-exam-dates` entry per date that moved; refreshes `data/sources.json`); check the pre-filled notes name the JCQ/board document. |
 | `data/sources.json` | After every data refresh (automatic via `scripts/changelog.js`) | `node scripts/sources.js` re-checks every source URL (gov.uk content API / page hash). |
 | `data/changelog.json` | With every data refresh | `node scripts/changelog.js` (areas with a `changelog.diff`) or the dataset's own script (`changelog.script`); fill in `note` lines. See "Changelog & source watcher" and docs/ADDING_AN_AREA.md. |
 <!-- sync-areas:calendar end -->
@@ -660,3 +661,218 @@ whatbreaks.uk or any third-party calculator.
 
 - No gov.uk tax information and impact note for the 2026-27 standard-rate uprating was found (search: "Vehicle Excise Duty rates … from 1 April 2026"); the rate-tables page is the only gov.uk statement of the 2026-27 figures. The 2025-11-26 expensive-car-supplement paper is the only Budget 2025 VED paper indexed.
 - `https://www.gov.uk/guidance/vehicle-tax-for-electric-zero-or-low-emission-vehicles` (a URL guessed from memory) is 404; not cited.
+## Verification log (uk-exam-dates, added 2026-10-04)
+Every date in `data/uk-exam-dates.json` was read on 2026-10-04 from the document
+named in its `source`; `quote` reproduces the timetable row or sentence (columns
+collapsed to three spaces), `document` names the PDF and its version, and
+`previous` is the summer-2026 equivalent read from the board's **own** 2026
+document, never inferred from the JCQ common slot. The 91 figures sit in four
+kinds — `results`, `timetable`, `deadlines`, `spec-changes` — served by
+`uk_exam_dates {kind, board?, qualification?}` and `GET /api/uk/exam-dates`.
+### Fetch behaviour of the sources
+| Host | 2026-10-04 | Used instead |
+|---|---|---|
+| `www.jcq.org.uk` (every page and PDF) | **HTTP 403** to curl with any user agent, including a Chrome string | a browser-class fetch read the PDFs; the key-dates landing page lists them. The watcher will log 403 for the two JCQ pages until it sends a browser user agent — treat "unchanged" there as "unreached" |
+| `qualifications.pearson.com` summer **2026** final timetables (`gcse-summer-2026-final.pdf`, `gce-summer-2026-final.pdf`) | **"Page not found"** HTML (the 2027 and November 2026 PDFs serve fine) | no `previous` on any Pearson 2027 paper date; Pearson's 2026 dates are not claimed |
+| `www.aqa.org.uk/exams-administration/dates-and-timetables/exam-timetables` | 404 (old path) | `/exams-administration/dates-and-timetables` (200) — "The timetables on this page are definitive." |
+| `www.sqa.org.uk/sqa/results.html`, `/sqa/117907.html` | 404 | `/sqa/41324.html` (results by text and email: "The next Results day is Tuesday 10 August 2027.") and `/files_ccc/your-results-2026.pdf` |
+| `www.ocr.org.uk`, `www.wjec.co.uk`, `www.eduqas.co.uk`, `www.aqa.org.uk/files/…`, `assets.publishing.service.gov.uk` | 200 | — |
+### results — JCQ key dates, boards' results pages, Qualifications Scotland
+- JCQ *Key dates in the examination cycle — June 2027 examination series*
+  (`…/2026/05/Key_Dates_June2027_FINAL.pdf`, ©JCQCIC 2026, p. 3): "11/08/2027
+  Restricted release of results to centres only — GCE, Extended Project";
+  "12/08/2027 Release of results to candidates — GCE, Extended Project";
+  "18/08/2027 Restricted release … GCSE, Level 1 & 2 Projects"; "19/08/2027
+  Release of results to candidates — GCSE, Level 1 & 2 Projects".
+- JCQ *June 2026* (`…/2025/09/Key_Dates_June2026_FINAL.pdf`, ©JCQCIC 2025):
+  "12/08/2026 Restricted release … GCE"; "13/08/2026 Release of results to
+  candidates GCE"; "19/08/2026 Restricted release … GCSE"; "20/08/2026 Release
+  of results to candidates GCSE" → the `previous` of the four summer figures.
+- JCQ *GCSE November 2026 series* (`…/2026/09/Key_Dates_Nov2026_UPDATED_SEP26.pdf`,
+  "Published on: 1 December 2025 / Revision one: 3 September 2026", p. 2):
+  "12/01/2027 Restricted release of results to centres only GCSE"; "13/01/2027
+  Release of results to candidates GCSE". The series covers "Cymraeg Language
+  and Literature, English Language, English Language and Literature,
+  Mathematics, Mathematics and Numeracy and Welsh Language" only.
+- AQA *Results days* page: "Results day for the November 2026 exam series is:
+  13 January 2027"; table rows "June 2027 — A-level, AS Level — 12 August 2027"
+  and "June 2027 — GCSE — 19 August 2027"; "From 8.00am on Thursday, you can
+  give students their results slips."
+- Pearson *Key dates 2026/2027* §1.7: "Jun–27 11/08/2027 12/08/2027 AS/A
+  level, AEA, …"; "Jun–27 18/08/2027 19/08/2027 GCSE, International GCSE, …";
+  "Nov–26 12/01/2027 13/01/2027 GCSE English Language and Mathematics".
+- Qualifications Scotland `/sqa/41324.html`: "The next Results day is Tuesday
+  10 August 2027."; *Your results 2026* PDF: "This is a guide for all learners
+  getting results on 4 August 2026." (→ `previous`). The 2027 timetable page
+  (`/sqa/1439.html`) also states "The 2027 National Qualifications exams will
+  start on Monday 26 April and finish on Thursday 3 June. Results day will be
+  Tuesday 10 August." — the exam window is **not served** (SQA beyond results
+  day is out of scope).
+### timetable — JCQ common window and the four boards' final timetables
+- JCQ June 2027 key dates: "10/05/2027 Date of first examination on common
+  timetable GCSE GCE"; "18/06/2027 Date of final examination on common
+  timetable GCSE"; "22/06/2027 … GCE"; "23/06/2027 Contingency day in the
+  event of national or significant local disruption to examinations in the
+  United Kingdom". June 2026: "07/05/2026 … first examination … GCSE";
+  "11/05/2026 … GCE"; "17/06/2026 … final … GCSE"; "23/06/2026 … GCE";
+  "24/06/2026 Contingency day". Kept as published: in 2026 GCSE and GCE had
+  different first days (7 and 11 May); in 2027 both open on 10 May, so the
+  single 2027 figure's `previous` is the GCSE date with the GCE date in its
+  quote. The JCQ *Commentary* on the June 2027 timetable lists the papers moved
+  after consultation (none of the papers held here).
+- **AQA** (`/exams-administration/dates-and-timetables`: "Confirmed exam
+  timetables — The timetables on this page are definitive."). *Exam timetable
+  May/June 2027 GCSE, AQA Certificates, ELC and Projects*, "Copyright © 2026 AQA
+  and its licensors. All rights reserved. Version 1.1": "8300/1F Written
+  (non-calculator) 1h 30m 14 May 2027 am"; "8300/2F Written (calculator) 1h 30m
+  27 May 2027 am"; "8300/3F … 14 June 2027 am"; "8700/1 Explorations in
+  creative reading and writing 1h 45m 24 May 2027 am"; "8700/2 Writers'
+  viewpoints and perspectives 1h 45m 08 June 2027 am"; 8464 Trilogy "B/1F …
+  11 May 2027 am", "C/1F … 17 May 2027 am", "P/1F … 25 May 2027 am", "B/2F …
+  10 June 2027 am", "C/2F … 15 June 2027 am", "P/2F … 18 June 2027 am".
+  *May/June 2027 AS, A-level …* Version 1.2: "7357/1 Paper 1 18 2h 26 May 2027
+  pm"; "7357/2 … 09 June 2027 pm"; "7357/3 … 16 June 2027 pm". `previous` from
+  the *May/June 2026* GCSE (Version 1.0) and A-level (Version 1.1) PDFs still on
+  aqa.org.uk: 8300 14 May / 03 June / 10 June 2026; 8700 21 May / 05 June 2026;
+  8464 12 May (pm) / 18 May / 02 June / 08 June / 12 June / 15 June 2026; 7357
+  03 / 11 / 18 June 2026. *November 2026* GCSE timetable: 8700/1 03 November,
+  8700/2 05 November, 8300 papers 04 / 06 / 09 November 2026.
+- **Pearson Edexcel** — *GCSE Summer 2027 Examination Timetable — FINAL*:
+  "Friday 14 May 1MA1 1F Mathematics Paper 1 (Non-Calculator) …"; "Thursday 27
+  May 1MA1 2F … Paper 2 (Calculator)"; "Monday 14 June 1MA1 3F … Paper 3
+  (Calculator)"; "Monday 24 May 1EN0 01 English Language Paper 1: Fiction and
+  Imaginative Writing"; "Tuesday 08 June 1EN0 02 … Paper 2: Non-Fiction and
+  Transactional Writing"; 1SC0 "Tuesday 11 May … Paper 1: Biology 1", "Monday
+  17 May … Paper 2: Chemistry 1", "Tuesday 25 May … Paper 3: Physics 1",
+  "Thursday 10 June … Paper 4: Biology 2", "Tuesday 15 June … Paper 5:
+  Chemistry 2", "Friday 18 June … Paper 6: Physics 2". *GCE Summer 2027 — FINAL*:
+  "Wednesday 26 May 9MA0 01 … Paper 1: Pure Mathematics 1 Afternoon 2h 00m";
+  "Wednesday 09 June 9MA0 02 … Paper 2: Pure Mathematics 2"; "Wednesday 16 June
+  9MA0 03 … Paper 3: Statistics & Mechanics". *GCSE November 2026 — FINAL*: 1EN0
+  01 Tuesday 03 November, 1MA1 1 Wednesday 04 November, 1EN0 02 Thursday 05
+  November, 1MA1 2 Friday 06 November, 1MA1 3 Monday 09 November 2026. **No
+  `previous`** — see fetch table.
+- **Cambridge OCR** — *GCSE and Cambridge Nationals Final Examination Timetable
+  June 2027* (© Cambridge OCR 2026; "The awarding bodies have designated the
+  morning and afternoon sessions of Wednesday 23 June 2027 as 'contingency
+  sessions'"): "J560/01 Paper 1 (Foundation – calculator) 1 h 30 min Fri 14 May
+  am"; "J560/02 Paper 2 (Foundation – non-calculator) … Thu 27 May am"; "J560/03
+  … Mon 14 June am" (Higher 04/05/06 same days); "J351/01 Communicating
+  information and ideas 2h Mon 24 May am"; "J351/02 Exploring effects and
+  impact 2h Tue 8 June am"; J250 "01 Paper 1 (Biology) (Foundation) … Tue 11 May
+  am", "03 (Chemistry) … Mon 17 May am", "05 (Physics) … Tue 25 May am", "02 …
+  Thu 10 June am", "04 … Tue 15 June am", "06 … Fri 18 June am" (Higher 07–12
+  same days). *AS and A Level … June 2027*: "H240/01 Pure mathematics 2h Wed 26
+  May pm"; "H240/02 Pure mathematics and statistics 2h Wed 9 June pm"; "H240/03
+  Pure mathematics and mechanics 2h Wed 16 June pm". `previous` from the *June
+  2026* PDFs: J560 Thu 14 May / Wed 3 June / Wed 10 June; J351 Thu 21 May am /
+  Fri 5 June am; J250 Tue 12 May pm / Mon 18 May am / Tue 2 June am / Mon 8 June
+  am / Fri 12 June am / Mon 15 June am; H240 Wed 3 June / Thu 11 June / Thu 18
+  June pm. Kept as published: OCR numbers tiers separately (Papers 1–3
+  Foundation, 4–6 Higher) and its Paper 1/4 is the **calculator** paper, Paper
+  2/5 non-calculator — the opposite order to AQA and Pearson. *November 2026*
+  GCSE: J351/01 Tue 3 Nov, J560/01 Wed 4 Nov, J351/02 Thu 5 Nov, J560/02 Fri 6
+  Nov, J560/03 Mon 9 Nov.
+- **WJEC / Eduqas** — *WJEC Wales and Eduqas Summer 2027 FINAL Examination
+  Timetable (version 2) — GCSE* ("Changes to the first published version are
+  highlighted in yellow"; contingency sessions Wednesday 23 June 2027): the
+  grid places "Mathematics (Eduqas) C300U10-1 Component 1 Foundation Tier 2h
+  15m" under **Friday 14 May**, "C300U20-1 Component 2" under **Thursday 27 May**,
+  "C700U10-1 English Language (Eduqas) Component 1 1h 45m" under **Monday 24
+  May** and "C700U20-1 … Component 2 2h" under **Tuesday 8 June**. *GCE AS/A
+  level — Final Version*: "1300U30-1 Mathematics (WALES) A2 Unit 3 2h 30m" under
+  **Tuesday 25 May**, "1300U40-1 … A2 Unit 4 1h 45m" under **Wednesday 9 June**.
+  `previous` from the *Summer 2026* GCSE and GCE (15.04.25) PDFs: C300U10-1
+  Thursday 14 May, C300U20-1 Wednesday 3 June, C700U10-1 Thursday 21 May,
+  C700U20-1 Friday 5 June, 1300U30-1 Wednesday 3 June, 1300U40-1 Thursday 11
+  June 2026. Kept as published: Eduqas Mathematics has **two** components, not
+  three; there is **no GCSE Combined Science** on the WJEC/Eduqas timetable
+  (Wales sits "Science (Double Award)" and, from 2027, "NEW The Sciences
+  (Double Award)") and **no Eduqas A level Mathematics** (the Wales 1300 units
+  are the only A level Mathematics). Legacy WJEC Mathematics 3300 units are
+  "RESIT ONLY" in 2027 and the "NEW Mathematics and Numeracy (Double Award)"
+  3320 units are examined for the first time. *November 2026* GCSE timetable:
+  C700U10-1 Tuesday 3, C300U10-1 Wednesday 4, C700U20-1 Thursday 5, C300U20-1
+  Friday 6 November 2026.
+### deadlines — JCQ entries deadline and each board's late-fee dates
+- JCQ June 2027: "21/02/2027 Deadline for entries GCSE GCE Entries" (June 2026:
+  "21/02/2026 Deadline for entries"); November 2026: "04/10/2026 Final date for
+  entries GCSE".
+- AQA *Exam series guide 2026/27 (version 1.1)*: columns "Entry closing date /
+  Late Entry fees payable after" and "Very late entry/amendment fees payable
+  after": "6A27 June 2027 series 6A 21 February 2027 … 20 November 2026 21 April
+  2027 12 August 2027"; "6G27 June 2027 series 6G 21 February 2027 … 21 April
+  2027 19 August 2027". *Entry fees and other charges — Summer 2027* (G02872_01,
+  Version 1.0 issued June 2026, p. 5): "Late entry fee — Charged for each entry
+  for a new student received after the entries deadline for each exam series.
+  This fee is 100 % of the original entry fee and is in addition to the entry
+  fee."; "Very late entry fee — Charged for each very late entry for a new
+  student received from the date specified for each exam series … This fee is
+  150 % of the original entry fee and in addition to the entry fee."
+- Pearson *Key dates 2026/2027* §1.1 (GCSE and AS/A level tables): "Jun–27 UK
+  Centres 20/11/2026 21/02/2027 22/02/2027 22/04/2027 22/04/2027" (basedata,
+  entry deadline, late fees from, amendment fees from, high late fees from);
+  "From the late fee date, the entry (subject or unit) fee is doubled. The entry
+  fee is trebled from the high late fee date." (same wording in *Fees for UK
+  centres 2026/27*, Version 1.0, August 2026, "Late Fees").
+- Cambridge OCR *General Qualifications Fees List 2026/27* (Version 1.00, 1 July
+  2026), p. 8: "June 2027 GCSE/Entry Level Certificate 21 February 2027 22
+  February 2027 22 April 2027 21 March 2027"; "June 2027 AS/A Level/Core
+  Maths/Extended Project/FSMQ 21 February 2027 22 February 2027 22 April 2027
+  21 April 2027"; "Late entry (Stage 1) fee — Charged after the entry deadline.
+  You pay the original entry fee and a late fee of the same amount."; "Very late
+  entry (Stage 2) fee — Charged after the late entry (Stage 1) deadline. You pay
+  the original entry fee and a very late fee of twice the original entry fee."
+- WJEC *General and Vocational Qualification Fees 2026/27* ("Effective period:
+  1 September 2026 to 31 August 2027"), §4.1 and table 4.1a: "GCSE May / June
+  2027 21 February 2027 18 March 2027 20 working days 19 March 2027 19 April
+  2027" (GCE identical); "The Late Fee is equivalent to 2 times the Entry Fee
+  for that qualification (or unit)."; "The Very Late Fee is equivalent to 2.5
+  times the Entry Fee for that qualification (or unit)." Kept as published:
+  WJEC's amendment window to 18 March 2027 means its late fees start three and a
+  half weeks after the other boards'.
+### spec-changes — what is announced, and what is not
+- DfE *Government response to the Curriculum and Assessment Review* (gov.uk
+  publication of 5 November 2025, PDF dated November 2025): "publish a revised
+  national curriculum in 2027 for first teaching in 2028. We will also update
+  GCSEs, for first teaching from 2029 onwards"; "Our aim is that some are ready
+  for first teaching in 2029 and the rest for first teaching in 2030. … We will
+  also seek to update corresponding AS and A levels to be ready for first
+  teaching in 2031 and 2032". **No reformed specification or spec code exists.**
+- Ofqual *Decisions: proposed changes to the assessment of mathematics, physics
+  and combined science GCSEs* (page published 2 March 2026, decisions added 5
+  May 2026): "Ofqual has decided to implement the proposals set out in the
+  consultation document" for "GCSE mathematics, physics and combined science
+  exams being taken from 2028 onwards for the lifetime of the current
+  qualifications, including any resit opportunities"; boards must "publish the
+  formulae and equations sheets … by 1 September the year before each exam
+  series". AQA news (1 September 2026) confirms the 2027 sheets "are the same
+  ones which were used in 2026".
+- AQA news (9 October 2025): "our new AS and A-level Business specification
+  (7137, 7138) has been accredited by Ofqual. For first teaching in September
+  2026, first AS exams in 2027 and A-level exams in 2028."
+- Pearson subject update (22 June 2026), Edexcel AS and A level History
+  amendments: "Both specifications are for first teaching September 2026, and
+  for first assessment June 2027 (AS level) and June 2028 (A level)."
+- Cambridge OCR subject update (29 April 2026): "our new A Level Psychology
+  (H569) qualification is now accredited for first teaching in September 2027 …
+  This new specification will be first examined in June 2029".
+- Qualifications Wales (28 June 2023): "26 new Made-for-Wales GCSEs from
+  September 2025 … introduced for first teaching from September 2025 … with the
+  first new GCSEs being awarded in 2027" (WJEC *GCSE Mathematics and Numeracy
+  (Double Award)* page: "Teaching: Sept 2025", code 3320QD).
+- Ofqual press release (13 November 2025), BSL GCSE: "Ofqual has today set out
+  the rules for the assessment of a groundbreaking new GCSE in British Sign
+  Language (BSL) … it would be for any interested exam boards to develop their
+  specific offers, which would then go through Ofqual's accreditation process."
+  **No accredited BSL specification or first-teaching date is published** by
+  the regulator or on any board page read; served as such, not as a date.
+- Not announced on any official page read on 2026-10-04 and therefore absent:
+  new GCSE specifications for England (all current GCSE codes run through at
+  least summer 2030), a summer 2028 timetable (provisional expected February
+  2027), November 2027 key dates.
+Watcher: six pages (`sources()` in `api/_areas/uk-exam-dates.js`) — the JCQ
+key-dates and timetables landing pages (the series PDFs hang off them) and the
+four boards' timetable landing pages. jcq.org.uk answers 403 to the watcher's
+user agent today, so its two rows will read as fetch errors until that changes;
+the four board pages return 200.

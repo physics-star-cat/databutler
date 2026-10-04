@@ -1,0 +1,9 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.physics-star-cat/databutler-uk-exam-dates",
+  "description": "UK exam calendar facts verified against JCQ and the exam boards' own documents: GCSE and A-level results days, the summer 2027 exam timetable (JCQ window and the dates of GCSE Maths, English Language, Combined Science and A-level Maths papers at AQA, Pearson Edexcel, Cambridge OCR and WJEC/Eduqas), entry deadlines with each board's late-fee dates, Scotland's results day, and announced specification changes — each date with its source document, the quoted timetable row, verification date and the summer 2026 equivalent.",
+  "repository": { "url": "https://github.com/physics-star-cat/databutler", "source": "github" },
+  "version": "1.0.0",
+  "websiteUrl": "https://databutler.dev/api",
+  "remotes": [{ "type": "streamable-http", "url": "https://databutler.dev/api/mcp/uk-exam-dates" }]
+}

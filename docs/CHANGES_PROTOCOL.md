@@ -119,6 +119,11 @@ Data Butler's discovery document:
       "name": "uk-vehicle-rules",
       "description": "UK vehicle tax (VED) and MOT rules verified against gov.uk: first-year rates by CO2 band, the standard rate, the expensive car supplement, 2001–2017 bands, pre-2001 engine-size rates, electric-vehicle rules since April 2025, historic-vehicle exemptions, MOT due dates, maximum fees, early renewal, retests, exemptions and penalties.",
       "cadence": "Every 1 April (VED rates and the historic-vehicle exemption date move with the Finance Act) and after each Budget; MOT fees and rules when DVSA changes them; every source page re-fetched weekly."
+    },
+    {
+      "name": "uk-exam-dates",
+      "description": "UK exam calendar facts verified against JCQ and the boards' own documents: GCSE and A-level results days, the summer exam timetable (JCQ window, contingency day, dates of the most-asked papers at AQA, Pearson Edexcel, Cambridge OCR, WJEC/Eduqas), entry deadlines and late-fee dates, Scotland's results day, and announced specification changes with first-teaching and first-exam years.",
+      "cadence": "Annual, calendar-driven: when JCQ and the boards publish the following summer's final timetables (early in the calendar year) and the results days; the weekly watcher hashes the JCQ and board timetable pages"
     }
   ],
   "endpoints": {

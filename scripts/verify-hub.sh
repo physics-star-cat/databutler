@@ -24,7 +24,7 @@ check rest-changes "$(curl -sS "$BASE/api/changes?since=2026-06-01&area=uk-rates
 # sync-areas:checks start
 check tools/list "$(rpc '{"jsonrpc":"2.0","id":2,"method":"tools/list"}')" \
   "[t['name'] for t in d['result']['tools']]==['uk_rates_lookup','exam_topic_paper','domain_provenance','package_provenance','take_home_pay','what_changed_since','coverage','catalogue','call']"
-check catalogue "$(inner "$(tool catalogue '{}')")" "d['count']==28"
+check catalogue "$(inner "$(tool catalogue '{}')")" "d['count']==29"
 # uk-rates
 check rates "$(inner "$(tool uk_rates_lookup '{"category":"income-tax"}')")" \
   "d['freshness']['staleness'] in ('fresh','due','overdue') and d['cite']['url']=='https://databutler.dev/r/uk/rates?category=income-tax'"
@@ -103,7 +103,14 @@ check call-uk-vehicle-rules-standard "$(inner "$(tool call '{"tool":"uk_vehicle_
 check call-uk-vehicle-rules-nearmiss "$(inner "$(tool call '{"tool":"uk_vehicle_rules_lookup","arguments":{"category":"mot-fees"}}')")" \
   "(d.get('covered')==False and 'mot' in d['nearest']) or d.get('category')=='mot'"
 check rest-uk-vehicle-rules-mot "$(curl -sS "$BASE/api/uk/vehicle-rules?category=mot")" "d['category']=='mot' and any(f['key']=='max-fee-car' and f['value']==54.85 for f in d['figures']) and 'freshness' in d and d['cite']['url']=='https://databutler.dev/r/uk/vehicle-rules?category=mot'"
-for name in uk-rates uk-exams provenance stats vehicles tax software-eol policy-rates us-rates de-rates uk-vehicle-rules; do
+# uk-exam-dates
+check uk-exam-dates-listing "$(inner "$(tool call '{"tool":"uk_exam_dates","arguments":{}}')")" \
+  "'kinds' in d and 'boards' in d and 'freshness' in d"
+check uk-exam-dates-results-jcq "$(inner "$(tool call '{"tool":"uk_exam_dates","arguments":{"kind":"results","board":"jcq","qualification":"gcse"}}')")" \
+  "d['kind']=='results' and any(f['key']=='jcq-gcse-results-day' and f['value']=='2027-08-19' for f in d['figures']) and d['cite']['url'].startswith('https://databutler.dev/r/uk/exam-dates?')"
+check uk-exam-dates-rest-listing "$(curl -sS "$BASE/api/uk/exam-dates")" "'kinds' in d and 'cite' in d"
+check uk-exam-dates-rest-nearmiss "$(curl -sS "$BASE/api/uk/exam-dates?kind=timetable&board=cie")" "d['covered']==False and 'nearest' in d"
+for name in uk-rates uk-exams provenance stats vehicles tax software-eol policy-rates us-rates de-rates uk-vehicle-rules uk-exam-dates; do
   check "legacy $name tools/list" "$(curl -sS -X POST "$BASE/api/mcp/$name" -H 'Content-Type: application/json' -d '{"jsonrpc":"2.0","id":2,"method":"tools/list"}')" "len(d['result']['tools'])>0"
 done
 # sync-areas:checks end

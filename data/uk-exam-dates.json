@@ -1,0 +1,1998 @@
+{
+  "area": "uk-exam-dates",
+  "jurisdiction": "England, Wales and Northern Ireland (JCQ awarding bodies AQA, Pearson Edexcel, Cambridge OCR, WJEC/Eduqas) for timetables and deadlines; Scotland (Qualifications Scotland, formerly SQA) for the results day only. CCEA (Northern Ireland) timetables and deadlines are not covered.",
+  "verifiedDate": "2026-10-04",
+  "nextScheduledRefresh": "2027-01-15",
+  "refreshRule": "Calendar-driven (cadenceDays null). Re-verify (a) when JCQ publishes the June 2028 key dates and the boards their final summer 2028 timetables (provisional for consultation in February, final in early May — AQA, Pearson, OCR and WJEC all published summer 2027 finals by July 2026), (b) when the November 2027 GCSE series key dates appear (September), (c) on any Ofqual/DfE announcement of a reformed GCSE or A level specification or accreditation, and (d) on 2027-01-15 regardless, when this file flips to due.",
+  "verificationMethod": "Every date was read on verifiedDate from the document named in its source: the JCQ key-dates PDFs (June 2027, June 2026, November 2026) and timetable commentary, each board's own final timetable PDF (summer 2027, summer 2026 where still online, November 2026), each board's 2026/27 fees or key-dates document, the Qualifications Scotland results pages, and the DfE/Ofqual/board announcement pages for specification changes. `quote` reproduces the timetable row or sentence (columns collapsed to three spaces); `document` names the PDF and version. `previous` is the summer-2026 equivalent read from the board's own 2026 document — absent where that document is no longer served (Pearson's summer 2026 PDFs returned \"Page not found\" on 2026-10-04) or where there is no equivalent (November series). Pearson paper dates for 2027 therefore carry no `previous`. jcq.org.uk returns HTTP 403 to non-browser user agents; its PDFs were read through a browser-class fetch. Figures are read from the page, never from memory.",
+  "licence": "The dates are facts; each is quoted in one line with attribution from documents that remain their publishers' copyright and are not reproduced further: \"©JCQCIC 2026\" (JCQ key-dates PDFs), \"Copyright © 2026 AQA and its licensors. All rights reserved.\" (AQA timetables and fees), \"© Pearson 2026\" (Pearson key dates and fees), \"© Cambridge OCR 2026\" (OCR timetables), \"© WJEC CBAC Ltd\" (WJEC/Eduqas timetables and fees), Qualifications Scotland pages; gov.uk pages (DfE, Ofqual) are Crown copyright under the Open Government Licence v3.0.",
+  "sources": [
+    {
+      "id": "jcqKey27",
+      "title": "JCQ, Key dates in the examination cycle — June 2027 examination series (©JCQCIC 2026), p. 3",
+      "url": "https://www.jcq.org.uk/wp-content/uploads/sites/2/2026/05/Key_Dates_June2027_FINAL.pdf",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "jcqKey26",
+      "title": "JCQ, Key dates in the examination cycle — June 2026 examination series (©JCQCIC 2025), p. 3",
+      "url": "https://www.jcq.org.uk/wp-content/uploads/sites/2/2025/09/Key_Dates_June2026_FINAL.pdf",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "jcqKeyNov26",
+      "title": "JCQ, Key dates in the examination cycle — GCSE November 2026 series (revision one, 3 September 2026), p. 2",
+      "url": "https://www.jcq.org.uk/wp-content/uploads/sites/2/2026/09/Key_Dates_Nov2026_UPDATED_SEP26.pdf",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "jcqCommentary27",
+      "title": "JCQ, June 2027 examination timetable — commentary on the consultation",
+      "url": "https://www.jcq.org.uk/wp-content/uploads/sites/2/2026/05/Commentary-June-2027-timetable.pdf",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "jcqKeyPage",
+      "title": "JCQ, Key dates (exams office)",
+      "url": "https://www.jcq.org.uk/exams-office/key-dates/",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "sqaResults",
+      "title": "Qualifications Scotland, My Qualifications Scotland — get results by text and email",
+      "url": "https://www.sqa.org.uk/sqa/41324.html",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "sqaResults26",
+      "title": "Qualifications Scotland, Your results 2026 — what you need to know (PDF)",
+      "url": "https://www.sqa.org.uk/files_ccc/your-results-2026.pdf",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "aqaResults",
+      "title": "AQA, Results days (exams administration)",
+      "url": "https://www.aqa.org.uk/exams-administration/results-days",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "aqaDates",
+      "title": "AQA, Dates and timetables (\"The timetables on this page are definitive.\")",
+      "url": "https://www.aqa.org.uk/exams-administration/dates-and-timetables",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "aqaGcse27",
+      "title": "AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.1)",
+      "url": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8572d66498f4d624b9c6ecb4abf5f0a01aff69f3.pdf",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "aqaGcse26",
+      "title": "AQA, Exam timetable May/June 2026 — GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0)",
+      "url": "https://www.aqa.org.uk/files/be923e70-c72d-4c0d-a4e7-6ebef3a27d4d/c5e9f9bae7272b1b48a42130fc04d77f6dd0d5b5.pdf",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "aqaAl27",
+      "title": "AQA, Exam timetable May/June 2027 — AS, A-level, Applied General, Level 3 Certificates and Level 3 Extended Project (Version 1.2)",
+      "url": "https://www.aqa.org.uk/files/f8837da9-1846-4e7f-89a3-fb265c42f2e5/0ada6c345d4c272c8a4a42e48a5986983bfb0d56.pdf",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "aqaAl26",
+      "title": "AQA, Exam timetable May/June 2026 — A-level, AS, Level 3 certificates, and Applied General (Version 1.1)",
+      "url": "https://www.aqa.org.uk/files/5b9d7155-3fe3-4e50-b5c4-adede4e6bf75/257b60f8ef35628cc00883e943924e44dbb88915.pdf",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "aqaNov26",
+      "title": "AQA, Exam timetable November 2026 — GCSE and Level 3 Extended Project",
+      "url": "https://www.aqa.org.uk/files/cec4fc90-997e-4da1-b3c2-e217c0e58fdb/7f9db72615b207c4a899032ba0c5c37e166fd5f8.pdf",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "aqaGuide",
+      "title": "AQA, Exam series guide 2026/27 (version 1.1)",
+      "url": "https://www.aqa.org.uk/files/250c3739-8bd0-4cef-ba84-eb952633ae5a/f324cc38590d0d66ffae6da72da013c16ed3afb2.pdf",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "aqaFees27",
+      "title": "AQA, Entry fees and other charges for the UK and International Centres — Summer 2027 (G02872_01, Version 1.0 issued June 2026), p. 5",
+      "url": "https://www.aqa.org.uk/files/797f1c1d-ed93-438d-a7ea-c603c77b9c5b/ed8355aa1f88ca678add4a0b0da34841a216bd21.pdf",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "peTimetables",
+      "title": "Pearson Edexcel, Exam timetables (UK centres)",
+      "url": "https://qualifications.pearson.com/en/support/support-topics/exams/exam-timetables.html",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "peGcse27",
+      "title": "Pearson Edexcel GCSE, Summer 2027 Examination Timetable — FINAL",
+      "url": "https://qualifications.pearson.com/content/dam/pdf/Support/Examination-timetables-for-UK-Edexcel-GCSE/gcse-summer-2027final.pdf",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "peGce27",
+      "title": "Pearson Edexcel GCE, Summer 2027 Examination Timetable — FINAL",
+      "url": "https://qualifications.pearson.com/content/dam/pdf/Support/Examination-timetables/gce-summer-2027-final.pdf",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "peNov26",
+      "title": "Pearson Edexcel GCSE, November 2026 Examination Timetable — FINAL",
+      "url": "https://qualifications.pearson.com/content/dam/pdf/Support/Examination-timetables-for-UK-Edexcel-GCSE/gcse-nov2026-final.pdf",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "peKey",
+      "title": "Pearson Qualifications Information Manual 2026/2027 — 1 Key dates (§1.1 entry deadlines, §1.7 results dates)",
+      "url": "https://qualifications.pearson.com/content/dam/pdf/Support/Information-manual/1-key-dates-2026-2027.pdf",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "peFees",
+      "title": "Pearson Edexcel Qualifications: fees for UK centres 2026/27 (Version 1.0, August 2026), \"Late Fees\"",
+      "url": "https://qualifications.pearson.com/content/dam/pdf/Support/Fees-for-academic-and-vocational-qualifications/uk-general-qualification-fees-2026-27.pdf",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "ocrDates",
+      "title": "Cambridge OCR, Key dates and timetables",
+      "url": "https://www.ocr.org.uk/administration/key-dates-and-timetables/",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "ocrGcse27",
+      "title": "Cambridge OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2027 (© Cambridge OCR 2026)",
+      "url": "https://www.ocr.org.uk/Images/758618-june-2027-final-exam-timetable-gcse-and-cambridge-nationals.pdf",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "ocrGcse26",
+      "title": "OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2026",
+      "url": "https://www.ocr.org.uk/Images/735057-june-2026-final-exam-timetable-gcse-and-cambridge-nationals.pdf",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "ocrAl27",
+      "title": "Cambridge OCR, AS and A Level, FSMQ and Level 3 Certificate Core Maths — Final Examination Timetable June 2027",
+      "url": "https://www.ocr.org.uk/Images/758622-june-2027-final-exam-timetable-as-a-level-core-maths-and-fsmq.pdf",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "ocrAl26",
+      "title": "OCR, AS and A Level, FSMQ and Level 3 Certificate Core Maths — Final Examination Timetable June 2026",
+      "url": "https://www.ocr.org.uk/Images/735056-june-2026-final-exam-timetable-as-a-level-core-maths-and-fsmq.pdf",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "ocrNov26",
+      "title": "Cambridge OCR, November 2026 final exam timetable — GCSE",
+      "url": "https://www.ocr.org.uk/Images/748823-november-2026-final-exam-timetable-gcse.pdf",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "ocrFees",
+      "title": "Cambridge OCR General Qualifications Fees List 2026/27 (Version 1.00, 1 July 2026), p. 8 \"Late entry fees\"",
+      "url": "https://www.ocr.org.uk/Images/760411-qualification-fees-general-qualifications-2026-27.pdf",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "wjecDates",
+      "title": "WJEC, Key dates and timetables",
+      "url": "https://www.wjec.co.uk/home/administration/key-dates-and-timetables/",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "wjecGcse27",
+      "title": "WJEC Wales and Eduqas Summer 2027 FINAL Examination Timetable (version 2) — GCSE",
+      "url": "https://www.wjec.co.uk/media/1awnxucv/summer-2027-wales-and-eduqas-gcse-final-version-080726.pdf",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "wjecGcse26",
+      "title": "WJEC Wales and Eduqas Summer 2026 FINAL Examination Timetable — GCSE",
+      "url": "https://www.wjec.co.uk/media/jtjdlgms/summer-2026-wales-and-eduqas-gcse.pdf",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "wjecAl27",
+      "title": "WJEC Wales and Eduqas Summer 2027 FINAL Examination Timetable — GCE AS/A level",
+      "url": "https://www.wjec.co.uk/media/nwjexxw0/summer-2027-wales-and-eduqas-asplusa-level-final-version.pdf",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "wjecAl26",
+      "title": "WJEC Wales and Eduqas Summer 2026 FINAL Examination Timetable (15.04.25) — GCE AS/A level",
+      "url": "https://www.wjec.co.uk/media/fpmjzpsv/gce-as-and-a-level-june-2026-examination-timetable.pdf",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "wjecNov26",
+      "title": "WJEC + Eduqas November 2026 GCSE FINAL Examination Timetable",
+      "url": "https://www.wjec.co.uk/media/sqmjzw1v/november-2026-wjec-plus-eduqas-gcse-final-examination-timetable-260626.pdf",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "wjecFees",
+      "title": "WJEC, General and Vocational Qualification Fees 2026/27 (effective 1 September 2026 to 31 August 2027), §4.1 and table 4.1a",
+      "url": "https://www.wjec.co.uk/media/e33dglyk/wjec-entry-fees-2026-27-all-series-english-08.pdf",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "dfeCar",
+      "title": "DfE, Curriculum and Assessment Review Final Report: government response (published 5 November 2025; PDF \"Government response to the Curriculum and Assessment Review\", November 2025)",
+      "url": "https://www.gov.uk/government/publications/curriculum-and-assessment-review-final-report-government-response",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "ofqualSheets",
+      "title": "Ofqual, Decisions: proposed changes to the assessment of mathematics, physics and combined science GCSEs (consultation published 2 March 2026, decisions added 5 May 2026)",
+      "url": "https://www.gov.uk/government/consultations/proposed-changes-to-the-assessment-of-mathematics-physics-and-combined-science-gcses/outcome/decisions-proposed-changes-to-the-assessment-of-mathematics-physics-and-combined-science-gcses",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "aqaSheets",
+      "title": "AQA news, GCSE Maths and GCSE Sciences formulae and equation sheets for 2027 and 2028 onwards (published 1 September 2026)",
+      "url": "https://www.aqa.org.uk/news/gcse-maths-sciences-formulae-equation-sheets-2027-28",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "aqaBusiness",
+      "title": "AQA news, AS and A-level Business: our new accredited specification (published 9 October 2025)",
+      "url": "https://www.aqa.org.uk/news/as-a-level-business-accredited-teaching-from-2026",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "peHistory",
+      "title": "Pearson Edexcel subject update, Edexcel AS and A level History specification amendments (published 22 June 2026)",
+      "url": "https://qualifications.pearson.com/en/subjects/history.updates.html?article=%2Fcontent%2Fdemo%2Fen%2Fnews-policy%2Fsubject-updates%2Fhistory%2Fedexcel-as-and-a-level-history-specification-amendments",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "ocrPsych",
+      "title": "Cambridge OCR subject update, A Level Psychology update (29 April 2026)",
+      "url": "https://www.ocr.org.uk/administration/support-and-tools/subject-updates/alevel-psychology-update-757969/",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "qwGcses",
+      "title": "Qualifications Wales, Learners in Wales to study new Made-for-Wales GCSEs from 2025 (28 June 2023)",
+      "url": "https://qualifications.wales/news-views/learners-in-wales-to-study-new-made-for-wales-gcses-from-2025/",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "ofqualBsl",
+      "title": "Ofqual press release, Ofqual announces rules for unique British Sign Language GCSE (13 November 2025)",
+      "url": "https://www.gov.uk/government/news/ofqual-announces-rules-for-unique-british-sign-language-gcse",
+      "fetched": "2026-10-04"
+    }
+  ],
+  "boards": {
+    "jcq": "Joint Council for Qualifications — common timetable, entry deadline and results days shared by AQA, Pearson Edexcel, Cambridge OCR, WJEC/Eduqas and CCEA",
+    "aqa": "AQA",
+    "pearson": "Pearson Edexcel (aliases: edexcel)",
+    "ocr": "Cambridge OCR (aliases: cambridge)",
+    "wjec-eduqas": "WJEC (Wales) and Eduqas (England) — one timetable (aliases: wjec, eduqas)",
+    "sqa": "Qualifications Scotland, formerly SQA — results day only",
+    "ofqual": "Ofqual (regulator, England) — specification rules and decisions",
+    "dfe": "Department for Education (England) — qualification reform timetable"
+  },
+  "categories": {
+    "results": {
+      "title": "Results days — summer 2027 (A-level 12 August, GCSE 19 August), November 2026 GCSE resits (13 January 2027), Scotland (10 August 2027), with the summer 2026 dates as previous",
+      "source": "https://www.jcq.org.uk/wp-content/uploads/sites/2/2026/05/Key_Dates_June2027_FINAL.pdf",
+      "note": "Results reach centres under restricted release the day before (from 00:01) and candidates from 08:00 on the results day. The JCQ dates apply to every JCQ board; AQA and Pearson restate them on their own pages (included for board-filtered queries). Scotland publishes one results day for all National Qualifications.",
+      "figures": [
+        {
+          "key": "jcq-a-level-results-day",
+          "label": "A-level (GCE) results day — release of results to candidates",
+          "board": "jcq",
+          "qualification": "a-level",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-08-12",
+          "unit": "date",
+          "effectiveFrom": "2027-08-12",
+          "source": "https://www.jcq.org.uk/wp-content/uploads/sites/2/2026/05/Key_Dates_June2027_FINAL.pdf",
+          "document": "JCQ, Key dates in the examination cycle — June 2027 examination series (©JCQCIC 2026), p. 3",
+          "quote": "12/08/2027   Release of results to candidates   GCE, Extended Project   Results",
+          "previous": {
+            "value": "2026-08-13",
+            "series": "summer-2026",
+            "source": "https://www.jcq.org.uk/wp-content/uploads/sites/2/2025/09/Key_Dates_June2026_FINAL.pdf",
+            "document": "JCQ, Key dates in the examination cycle — June 2026 examination series (©JCQCIC 2025), p. 3",
+            "quote": "13/08/2026   Release of results to candidates   GCE   Results"
+          }
+        },
+        {
+          "key": "jcq-a-level-restricted-release",
+          "label": "A-level (GCE) restricted release of results to centres only",
+          "board": "jcq",
+          "qualification": "a-level",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-08-11",
+          "unit": "date",
+          "effectiveFrom": "2027-08-11",
+          "source": "https://www.jcq.org.uk/wp-content/uploads/sites/2/2026/05/Key_Dates_June2027_FINAL.pdf",
+          "document": "JCQ, Key dates in the examination cycle — June 2027 examination series (©JCQCIC 2026), p. 3",
+          "quote": "11/08/2027   Restricted release of results to centres only   GCE, Extended Project   Results",
+          "previous": {
+            "value": "2026-08-12",
+            "series": "summer-2026",
+            "source": "https://www.jcq.org.uk/wp-content/uploads/sites/2/2025/09/Key_Dates_June2026_FINAL.pdf",
+            "document": "JCQ, Key dates in the examination cycle — June 2026 examination series (©JCQCIC 2025), p. 3",
+            "quote": "12/08/2026   Restricted release of results to centres only   GCE   Results"
+          }
+        },
+        {
+          "key": "jcq-gcse-results-day",
+          "label": "GCSE results day — release of results to candidates",
+          "board": "jcq",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-08-19",
+          "unit": "date",
+          "effectiveFrom": "2027-08-19",
+          "source": "https://www.jcq.org.uk/wp-content/uploads/sites/2/2026/05/Key_Dates_June2027_FINAL.pdf",
+          "document": "JCQ, Key dates in the examination cycle — June 2027 examination series (©JCQCIC 2026), p. 3",
+          "quote": "19/08/2027   Release of results to candidates   GCSE, Level 1 & 2 Projects   Results",
+          "previous": {
+            "value": "2026-08-20",
+            "series": "summer-2026",
+            "source": "https://www.jcq.org.uk/wp-content/uploads/sites/2/2025/09/Key_Dates_June2026_FINAL.pdf",
+            "document": "JCQ, Key dates in the examination cycle — June 2026 examination series (©JCQCIC 2025), p. 3",
+            "quote": "20/08/2026   Release of results to candidates   GCSE   Results"
+          }
+        },
+        {
+          "key": "jcq-gcse-restricted-release",
+          "label": "GCSE restricted release of results to centres only",
+          "board": "jcq",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-08-18",
+          "unit": "date",
+          "effectiveFrom": "2027-08-18",
+          "source": "https://www.jcq.org.uk/wp-content/uploads/sites/2/2026/05/Key_Dates_June2027_FINAL.pdf",
+          "document": "JCQ, Key dates in the examination cycle — June 2027 examination series (©JCQCIC 2026), p. 3",
+          "quote": "18/08/2027   Restricted release of results to centres only   GCSE, Level 1 & 2 Projects   Results",
+          "previous": {
+            "value": "2026-08-19",
+            "series": "summer-2026",
+            "source": "https://www.jcq.org.uk/wp-content/uploads/sites/2/2025/09/Key_Dates_June2026_FINAL.pdf",
+            "document": "JCQ, Key dates in the examination cycle — June 2026 examination series (©JCQCIC 2025), p. 3",
+            "quote": "19/08/2026   Restricted release of results to centres only   GCSE   Results"
+          }
+        },
+        {
+          "key": "jcq-gcse-november-2026-results-day",
+          "label": "GCSE November 2026 series (English Language and Mathematics resits) — release of results to candidates",
+          "board": "jcq",
+          "qualification": "gcse",
+          "series": "november-2026",
+          "status": "final",
+          "value": "2027-01-13",
+          "unit": "date",
+          "effectiveFrom": "2027-01-13",
+          "source": "https://www.jcq.org.uk/wp-content/uploads/sites/2/2026/09/Key_Dates_Nov2026_UPDATED_SEP26.pdf",
+          "document": "JCQ, Key dates in the examination cycle — GCSE November 2026 series (revision one, 3 September 2026), p. 2",
+          "quote": "13/01/2027   Release of results to candidates   GCSE   Results",
+          "note": "Restricted release to centres only: 12/01/2027. The November series covers GCSE English Language, English Language and Literature, Mathematics, Mathematics and Numeracy, Cymraeg and Welsh Language only."
+        },
+        {
+          "key": "aqa-a-level-results-day",
+          "label": "AQA — A-level and AS results day, June 2027 series",
+          "board": "aqa",
+          "qualification": "a-level",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-08-12",
+          "unit": "date",
+          "effectiveFrom": "2027-08-12",
+          "source": "https://www.aqa.org.uk/exams-administration/results-days",
+          "document": "AQA, Results days (exams administration)",
+          "quote": "June 2027   A-level, AS Level   12 August 2027"
+        },
+        {
+          "key": "aqa-gcse-results-day",
+          "label": "AQA — GCSE results day, June 2027 series",
+          "board": "aqa",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-08-19",
+          "unit": "date",
+          "effectiveFrom": "2027-08-19",
+          "source": "https://www.aqa.org.uk/exams-administration/results-days",
+          "document": "AQA, Results days (exams administration)",
+          "quote": "June 2027   GCSE   19 August 2027"
+        },
+        {
+          "key": "aqa-gcse-november-2026-results-day",
+          "label": "AQA — GCSE results day, November 2026 series",
+          "board": "aqa",
+          "qualification": "gcse",
+          "series": "november-2026",
+          "status": "final",
+          "value": "2027-01-13",
+          "unit": "date",
+          "effectiveFrom": "2027-01-13",
+          "source": "https://www.aqa.org.uk/exams-administration/results-days",
+          "document": "AQA, Results days (exams administration)",
+          "quote": "Results day for the November 2026 exam series is: 13 January 2027"
+        },
+        {
+          "key": "pearson-a-level-results-day",
+          "label": "Pearson Edexcel — AS/A level results released to candidates, June 2027 series",
+          "board": "pearson",
+          "qualification": "a-level",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-08-12",
+          "unit": "date",
+          "effectiveFrom": "2027-08-12",
+          "source": "https://qualifications.pearson.com/content/dam/pdf/Support/Information-manual/1-key-dates-2026-2027.pdf",
+          "document": "Pearson Qualifications Information Manual 2026/2027 — 1 Key dates (§1.1 entry deadlines, §1.7 results dates)",
+          "quote": "Jun–27   11/08/2027   12/08/2027   AS/A level, AEA, Edexcel Award Level 3, EPQ and Mathematics in Context, International A Level"
+        },
+        {
+          "key": "pearson-gcse-results-day",
+          "label": "Pearson Edexcel — GCSE results released to candidates, June 2027 series",
+          "board": "pearson",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-08-19",
+          "unit": "date",
+          "effectiveFrom": "2027-08-19",
+          "source": "https://qualifications.pearson.com/content/dam/pdf/Support/Information-manual/1-key-dates-2026-2027.pdf",
+          "document": "Pearson Qualifications Information Manual 2026/2027 — 1 Key dates (§1.1 entry deadlines, §1.7 results dates)",
+          "quote": "Jun–27   18/08/2027   19/08/2027   GCSE, International GCSE, Project Level 1 and 2, Edexcel Award Level 1 and 2, and ELC(A), iPrimary, iLowerSecondary, Level 2 Extended Mathematics Certificate"
+        },
+        {
+          "key": "pearson-gcse-november-2026-results-day",
+          "label": "Pearson Edexcel — GCSE English Language and Mathematics results, November 2026 series",
+          "board": "pearson",
+          "qualification": "gcse",
+          "series": "november-2026",
+          "status": "final",
+          "value": "2027-01-13",
+          "unit": "date",
+          "effectiveFrom": "2027-01-13",
+          "source": "https://qualifications.pearson.com/content/dam/pdf/Support/Information-manual/1-key-dates-2026-2027.pdf",
+          "document": "Pearson Qualifications Information Manual 2026/2027 — 1 Key dates (§1.1 entry deadlines, §1.7 results dates)",
+          "quote": "Nov–26   12/01/2027   13/01/2027   GCSE English Language and Mathematics"
+        },
+        {
+          "key": "sqa-results-day",
+          "label": "Scotland (Qualifications Scotland / SQA) — National Qualifications results day",
+          "board": "sqa",
+          "qualification": "scottish-national-qualifications",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-08-10",
+          "unit": "date",
+          "effectiveFrom": "2027-08-10",
+          "source": "https://www.sqa.org.uk/sqa/41324.html",
+          "document": "Qualifications Scotland, My Qualifications Scotland — get results by text and email",
+          "quote": "The next Results day is Tuesday 10 August 2027.",
+          "previous": {
+            "value": "2026-08-04",
+            "series": "summer-2026",
+            "source": "https://www.sqa.org.uk/files_ccc/your-results-2026.pdf",
+            "document": "Qualifications Scotland, Your results 2026 — what you need to know (PDF)",
+            "quote": "This is a guide for all learners getting results on 4 August 2026."
+          }
+        }
+      ]
+    },
+    "timetable": {
+      "title": "Summer 2027 exam timetable — JCQ common window (10 May – 22 June 2027, contingency 23 June) and, per board, the dates of GCSE Maths, English Language and Combined Science papers and A-level Maths; all four boards' timetables are FINAL",
+      "source": "https://www.jcq.org.uk/wp-content/uploads/sites/2/2026/05/Key_Dates_June2027_FINAL.pdf",
+      "note": "Status on 2026-10-04: AQA (\"The timetables on this page are definitive\", GCSE v1.1, A-level v1.2), Pearson Edexcel (\"Summer 2027 Examination Timetable - FINAL\"), Cambridge OCR (\"Final Examination Timetable June 2027\") and WJEC/Eduqas (\"FINAL Examination Timetable (version 2)\") have all published final summer 2027 timetables; no board is still provisional. Exams sit in JCQ common slots, so the same paper falls on the same day at every board. Sessions start 09:00 (am) or 13:30 (pm). WJEC/Eduqas timetables no GCSE Combined Science (Eduqas offers separate sciences; Wales sits Science (Double Award) and, from 2027, The Sciences (Double Award)) and no Eduqas A level Mathematics.",
+      "figures": [
+        {
+          "key": "jcq-first-exam",
+          "label": "First examination on the JCQ common timetable (GCSE and GCE)",
+          "board": "jcq",
+          "qualification": "gcse-and-a-level",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-05-10",
+          "unit": "date",
+          "effectiveFrom": "2027-05-10",
+          "source": "https://www.jcq.org.uk/wp-content/uploads/sites/2/2026/05/Key_Dates_June2027_FINAL.pdf",
+          "document": "JCQ, Key dates in the examination cycle — June 2027 examination series (©JCQCIC 2026), p. 3",
+          "quote": "10/05/2027   Date of first examination on common timetable   GCSE GCE   Exam time",
+          "note": "In 2026 the first GCSE exam (7 May) preceded the first GCE exam (11 May); in 2027 both series open on 10 May.",
+          "previous": {
+            "value": "2026-05-07",
+            "series": "summer-2026",
+            "source": "https://www.jcq.org.uk/wp-content/uploads/sites/2/2025/09/Key_Dates_June2026_FINAL.pdf",
+            "document": "JCQ, Key dates in the examination cycle — June 2026 examination series (©JCQCIC 2025), p. 3",
+            "quote": "07/05/2026   Date of first examination on common timetable   GCSE   Exam time (GCE: 11/05/2026)"
+          }
+        },
+        {
+          "key": "jcq-last-gcse-exam",
+          "label": "Final GCSE examination on the JCQ common timetable",
+          "board": "jcq",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-06-18",
+          "unit": "date",
+          "effectiveFrom": "2027-06-18",
+          "source": "https://www.jcq.org.uk/wp-content/uploads/sites/2/2026/05/Key_Dates_June2027_FINAL.pdf",
+          "document": "JCQ, Key dates in the examination cycle — June 2027 examination series (©JCQCIC 2026), p. 3",
+          "quote": "18/06/2027   Date of final examination on common timetable   GCSE   Exam time",
+          "previous": {
+            "value": "2026-06-17",
+            "series": "summer-2026",
+            "source": "https://www.jcq.org.uk/wp-content/uploads/sites/2/2025/09/Key_Dates_June2026_FINAL.pdf",
+            "document": "JCQ, Key dates in the examination cycle — June 2026 examination series (©JCQCIC 2025), p. 3",
+            "quote": "17/06/2026   Date of final examination on common timetable   GCSE   Exam time"
+          }
+        },
+        {
+          "key": "jcq-last-a-level-exam",
+          "label": "Final GCE (AS/A-level) examination on the JCQ common timetable",
+          "board": "jcq",
+          "qualification": "a-level",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-06-22",
+          "unit": "date",
+          "effectiveFrom": "2027-06-22",
+          "source": "https://www.jcq.org.uk/wp-content/uploads/sites/2/2026/05/Key_Dates_June2027_FINAL.pdf",
+          "document": "JCQ, Key dates in the examination cycle — June 2027 examination series (©JCQCIC 2026), p. 3",
+          "quote": "22/06/2027   Date of final examination on common timetable   GCE   Exam time",
+          "previous": {
+            "value": "2026-06-23",
+            "series": "summer-2026",
+            "source": "https://www.jcq.org.uk/wp-content/uploads/sites/2/2025/09/Key_Dates_June2026_FINAL.pdf",
+            "document": "JCQ, Key dates in the examination cycle — June 2026 examination series (©JCQCIC 2025), p. 3",
+            "quote": "23/06/2026   Date of final examination on common timetable   GCE   Exam time"
+          }
+        },
+        {
+          "key": "jcq-contingency-day",
+          "label": "Contingency day (candidates must remain available)",
+          "board": "jcq",
+          "qualification": "gcse-and-a-level",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-06-23",
+          "unit": "date",
+          "effectiveFrom": "2027-06-23",
+          "source": "https://www.jcq.org.uk/wp-content/uploads/sites/2/2026/05/Key_Dates_June2027_FINAL.pdf",
+          "document": "JCQ, Key dates in the examination cycle — June 2027 examination series (©JCQCIC 2026), p. 3",
+          "quote": "23/06/2027   Contingency day in the event of national or significant local disruption to examinations in the United Kingdom   GCSE GCE   Exam time",
+          "note": "The board timetables designate the morning and afternoon sessions of Wednesday 23 June 2027 as contingency sessions.",
+          "previous": {
+            "value": "2026-06-24",
+            "series": "summer-2026",
+            "source": "https://www.jcq.org.uk/wp-content/uploads/sites/2/2025/09/Key_Dates_June2026_FINAL.pdf",
+            "document": "JCQ, Key dates in the examination cycle — June 2026 examination series (©JCQCIC 2025), p. 3",
+            "quote": "24/06/2026   Contingency day in the event of national or significant local disruption to examinations in the United Kingdom   GCSE GCE   Exam time"
+          }
+        },
+        {
+          "key": "jcq-november-2026-first-exam",
+          "label": "First GCSE examination, November 2026 series",
+          "board": "jcq",
+          "qualification": "gcse",
+          "series": "november-2026",
+          "status": "final",
+          "value": "2026-11-02",
+          "unit": "date",
+          "effectiveFrom": "2026-11-02",
+          "source": "https://www.jcq.org.uk/wp-content/uploads/sites/2/2026/09/Key_Dates_Nov2026_UPDATED_SEP26.pdf",
+          "document": "JCQ, Key dates in the examination cycle — GCSE November 2026 series (revision one, 3 September 2026), p. 2",
+          "quote": "02/11/2026   Date of first examination on common timetable   GCSE   Exam time"
+        },
+        {
+          "key": "jcq-november-2026-last-exam",
+          "label": "Final GCSE examination, November 2026 series",
+          "board": "jcq",
+          "qualification": "gcse",
+          "series": "november-2026",
+          "status": "final",
+          "value": "2026-11-11",
+          "unit": "date",
+          "effectiveFrom": "2026-11-11",
+          "source": "https://www.jcq.org.uk/wp-content/uploads/sites/2/2026/09/Key_Dates_Nov2026_UPDATED_SEP26.pdf",
+          "document": "JCQ, Key dates in the examination cycle — GCSE November 2026 series (revision one, 3 September 2026), p. 2",
+          "quote": "11/11/2026   Date of final examination on common timetable   GCSE   Exam time"
+        },
+        {
+          "key": "aqa-gcse-maths-paper-1",
+          "label": "AQA GCSE Mathematics 8300 Paper 1 (non-calculator), F and H",
+          "board": "aqa",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-05-14",
+          "unit": "date",
+          "effectiveFrom": "2027-05-14",
+          "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8572d66498f4d624b9c6ecb4abf5f0a01aff69f3.pdf",
+          "document": "AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.1)",
+          "quote": "8300/1F   Written (non-calculator)   1h 30m   14 May 2027   am",
+          "previous": {
+            "value": "2026-05-14",
+            "series": "summer-2026",
+            "source": "https://www.aqa.org.uk/files/be923e70-c72d-4c0d-a4e7-6ebef3a27d4d/c5e9f9bae7272b1b48a42130fc04d77f6dd0d5b5.pdf",
+            "document": "AQA, Exam timetable May/June 2026 — GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0)",
+            "quote": "8300/1F   Written (non-calculator)   1h 30m   14 May 2026   am"
+          }
+        },
+        {
+          "key": "aqa-gcse-maths-paper-2",
+          "label": "AQA GCSE Mathematics 8300 Paper 2 (calculator), F and H",
+          "board": "aqa",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-05-27",
+          "unit": "date",
+          "effectiveFrom": "2027-05-27",
+          "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8572d66498f4d624b9c6ecb4abf5f0a01aff69f3.pdf",
+          "document": "AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.1)",
+          "quote": "8300/2F   Written (calculator)   1h 30m   27 May 2027   am",
+          "previous": {
+            "value": "2026-06-03",
+            "series": "summer-2026",
+            "source": "https://www.aqa.org.uk/files/be923e70-c72d-4c0d-a4e7-6ebef3a27d4d/c5e9f9bae7272b1b48a42130fc04d77f6dd0d5b5.pdf",
+            "document": "AQA, Exam timetable May/June 2026 — GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0)",
+            "quote": "8300/2F   Written (calculator)   1h 30m   03 June 2026   am"
+          }
+        },
+        {
+          "key": "aqa-gcse-maths-paper-3",
+          "label": "AQA GCSE Mathematics 8300 Paper 3 (calculator), F and H",
+          "board": "aqa",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-06-14",
+          "unit": "date",
+          "effectiveFrom": "2027-06-14",
+          "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8572d66498f4d624b9c6ecb4abf5f0a01aff69f3.pdf",
+          "document": "AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.1)",
+          "quote": "8300/3F   Written (calculator)   1h 30m   14 June 2027   am",
+          "previous": {
+            "value": "2026-06-10",
+            "series": "summer-2026",
+            "source": "https://www.aqa.org.uk/files/be923e70-c72d-4c0d-a4e7-6ebef3a27d4d/c5e9f9bae7272b1b48a42130fc04d77f6dd0d5b5.pdf",
+            "document": "AQA, Exam timetable May/June 2026 — GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0)",
+            "quote": "8300/3F   Written (calculator)   1h 30m   10 June 2026   am"
+          }
+        },
+        {
+          "key": "aqa-gcse-english-language-paper-1",
+          "label": "AQA GCSE English Language 8700 Paper 1",
+          "board": "aqa",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-05-24",
+          "unit": "date",
+          "effectiveFrom": "2027-05-24",
+          "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8572d66498f4d624b9c6ecb4abf5f0a01aff69f3.pdf",
+          "document": "AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.1)",
+          "quote": "8700/1   Explorations in creative reading and writing   1h 45m   24 May 2027   am",
+          "previous": {
+            "value": "2026-05-21",
+            "series": "summer-2026",
+            "source": "https://www.aqa.org.uk/files/be923e70-c72d-4c0d-a4e7-6ebef3a27d4d/c5e9f9bae7272b1b48a42130fc04d77f6dd0d5b5.pdf",
+            "document": "AQA, Exam timetable May/June 2026 — GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0)",
+            "quote": "8700/1   Explorations in creative reading and writing   1h 45m   21 May 2026   am"
+          }
+        },
+        {
+          "key": "aqa-gcse-english-language-paper-2",
+          "label": "AQA GCSE English Language 8700 Paper 2",
+          "board": "aqa",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-06-08",
+          "unit": "date",
+          "effectiveFrom": "2027-06-08",
+          "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8572d66498f4d624b9c6ecb4abf5f0a01aff69f3.pdf",
+          "document": "AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.1)",
+          "quote": "8700/2   Writers' viewpoints and perspectives   1h 45m   08 June 2027   am",
+          "previous": {
+            "value": "2026-06-05",
+            "series": "summer-2026",
+            "source": "https://www.aqa.org.uk/files/be923e70-c72d-4c0d-a4e7-6ebef3a27d4d/c5e9f9bae7272b1b48a42130fc04d77f6dd0d5b5.pdf",
+            "document": "AQA, Exam timetable May/June 2026 — GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0)",
+            "quote": "8700/2   Writers' viewpoints and perspectives   1h 45m   05 June 2026   am"
+          }
+        },
+        {
+          "key": "aqa-gcse-combined-science-biology-paper-1",
+          "label": "AQA GCSE Combined Science: Trilogy 8464 Biology Paper 1",
+          "board": "aqa",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-05-11",
+          "unit": "date",
+          "effectiveFrom": "2027-05-11",
+          "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8572d66498f4d624b9c6ecb4abf5f0a01aff69f3.pdf",
+          "document": "AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.1)",
+          "quote": "8464/B/1F   Paper 1: Biology   1h 15m   11 May 2027   am",
+          "previous": {
+            "value": "2026-05-12",
+            "series": "summer-2026",
+            "source": "https://www.aqa.org.uk/files/be923e70-c72d-4c0d-a4e7-6ebef3a27d4d/c5e9f9bae7272b1b48a42130fc04d77f6dd0d5b5.pdf",
+            "document": "AQA, Exam timetable May/June 2026 — GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0)",
+            "quote": "8464/B/1F   Paper 1: Biology   1h 15m   12 May 2026   pm"
+          }
+        },
+        {
+          "key": "aqa-gcse-combined-science-chemistry-paper-1",
+          "label": "AQA GCSE Combined Science: Trilogy 8464 Chemistry Paper 1",
+          "board": "aqa",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-05-17",
+          "unit": "date",
+          "effectiveFrom": "2027-05-17",
+          "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8572d66498f4d624b9c6ecb4abf5f0a01aff69f3.pdf",
+          "document": "AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.1)",
+          "quote": "8464/C/1F   Paper 1: Chemistry   1h 15m   17 May 2027   am",
+          "previous": {
+            "value": "2026-05-18",
+            "series": "summer-2026",
+            "source": "https://www.aqa.org.uk/files/be923e70-c72d-4c0d-a4e7-6ebef3a27d4d/c5e9f9bae7272b1b48a42130fc04d77f6dd0d5b5.pdf",
+            "document": "AQA, Exam timetable May/June 2026 — GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0)",
+            "quote": "8464/C/1F   Paper 1: Chemistry   1h 15m   18 May 2026   am"
+          }
+        },
+        {
+          "key": "aqa-gcse-combined-science-physics-paper-1",
+          "label": "AQA GCSE Combined Science: Trilogy 8464 Physics Paper 1",
+          "board": "aqa",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-05-25",
+          "unit": "date",
+          "effectiveFrom": "2027-05-25",
+          "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8572d66498f4d624b9c6ecb4abf5f0a01aff69f3.pdf",
+          "document": "AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.1)",
+          "quote": "8464/P/1F   Paper 1: Physics   1h 15m   25 May 2027   am",
+          "previous": {
+            "value": "2026-06-02",
+            "series": "summer-2026",
+            "source": "https://www.aqa.org.uk/files/be923e70-c72d-4c0d-a4e7-6ebef3a27d4d/c5e9f9bae7272b1b48a42130fc04d77f6dd0d5b5.pdf",
+            "document": "AQA, Exam timetable May/June 2026 — GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0)",
+            "quote": "8464/P/1F   Paper 1: Physics   1h 15m   02 June 2026   am"
+          }
+        },
+        {
+          "key": "aqa-gcse-combined-science-biology-paper-2",
+          "label": "AQA GCSE Combined Science: Trilogy 8464 Biology Paper 2",
+          "board": "aqa",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-06-10",
+          "unit": "date",
+          "effectiveFrom": "2027-06-10",
+          "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8572d66498f4d624b9c6ecb4abf5f0a01aff69f3.pdf",
+          "document": "AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.1)",
+          "quote": "8464/B/2F   Paper 2: Biology   1h 15m   10 June 2027   am",
+          "previous": {
+            "value": "2026-06-08",
+            "series": "summer-2026",
+            "source": "https://www.aqa.org.uk/files/be923e70-c72d-4c0d-a4e7-6ebef3a27d4d/c5e9f9bae7272b1b48a42130fc04d77f6dd0d5b5.pdf",
+            "document": "AQA, Exam timetable May/June 2026 — GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0)",
+            "quote": "8464/B/2F   Paper 2: Biology   1h 15m   08 June 2026   am"
+          }
+        },
+        {
+          "key": "aqa-gcse-combined-science-chemistry-paper-2",
+          "label": "AQA GCSE Combined Science: Trilogy 8464 Chemistry Paper 2",
+          "board": "aqa",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-06-15",
+          "unit": "date",
+          "effectiveFrom": "2027-06-15",
+          "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8572d66498f4d624b9c6ecb4abf5f0a01aff69f3.pdf",
+          "document": "AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.1)",
+          "quote": "8464/C/2F   Paper 2: Chemistry   1h 15m   15 June 2027   am",
+          "previous": {
+            "value": "2026-06-12",
+            "series": "summer-2026",
+            "source": "https://www.aqa.org.uk/files/be923e70-c72d-4c0d-a4e7-6ebef3a27d4d/c5e9f9bae7272b1b48a42130fc04d77f6dd0d5b5.pdf",
+            "document": "AQA, Exam timetable May/June 2026 — GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0)",
+            "quote": "8464/C/2F   Paper 2: Chemistry   1h 15m   12 June 2026   am"
+          }
+        },
+        {
+          "key": "aqa-gcse-combined-science-physics-paper-2",
+          "label": "AQA GCSE Combined Science: Trilogy 8464 Physics Paper 2",
+          "board": "aqa",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-06-18",
+          "unit": "date",
+          "effectiveFrom": "2027-06-18",
+          "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8572d66498f4d624b9c6ecb4abf5f0a01aff69f3.pdf",
+          "document": "AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.1)",
+          "quote": "8464/P/2F   Paper 2: Physics   1h 15m   18 June 2027   am",
+          "previous": {
+            "value": "2026-06-15",
+            "series": "summer-2026",
+            "source": "https://www.aqa.org.uk/files/be923e70-c72d-4c0d-a4e7-6ebef3a27d4d/c5e9f9bae7272b1b48a42130fc04d77f6dd0d5b5.pdf",
+            "document": "AQA, Exam timetable May/June 2026 — GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0)",
+            "quote": "8464/P/2F   Paper 2: Physics   1h 15m   15 June 2026   am"
+          }
+        },
+        {
+          "key": "aqa-a-level-maths-paper-1",
+          "label": "AQA A-level Mathematics 7357 Paper 1",
+          "board": "aqa",
+          "qualification": "a-level",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-05-26",
+          "unit": "date",
+          "effectiveFrom": "2027-05-26",
+          "source": "https://www.aqa.org.uk/files/f8837da9-1846-4e7f-89a3-fb265c42f2e5/0ada6c345d4c272c8a4a42e48a5986983bfb0d56.pdf",
+          "document": "AQA, Exam timetable May/June 2027 — AS, A-level, Applied General, Level 3 Certificates and Level 3 Extended Project (Version 1.2)",
+          "quote": "7357/1   Paper 1   18   2h   26 May 2027   pm",
+          "previous": {
+            "value": "2026-06-03",
+            "series": "summer-2026",
+            "source": "https://www.aqa.org.uk/files/5b9d7155-3fe3-4e50-b5c4-adede4e6bf75/257b60f8ef35628cc00883e943924e44dbb88915.pdf",
+            "document": "AQA, Exam timetable May/June 2026 — A-level, AS, Level 3 certificates, and Applied General (Version 1.1)",
+            "quote": "7357/1   Paper 1   18   2h   03 June 2026   pm"
+          }
+        },
+        {
+          "key": "aqa-a-level-maths-paper-2",
+          "label": "AQA A-level Mathematics 7357 Paper 2",
+          "board": "aqa",
+          "qualification": "a-level",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-06-09",
+          "unit": "date",
+          "effectiveFrom": "2027-06-09",
+          "source": "https://www.aqa.org.uk/files/f8837da9-1846-4e7f-89a3-fb265c42f2e5/0ada6c345d4c272c8a4a42e48a5986983bfb0d56.pdf",
+          "document": "AQA, Exam timetable May/June 2027 — AS, A-level, Applied General, Level 3 Certificates and Level 3 Extended Project (Version 1.2)",
+          "quote": "7357/2   Paper 2   18   2h   09 June 2027   pm",
+          "previous": {
+            "value": "2026-06-11",
+            "series": "summer-2026",
+            "source": "https://www.aqa.org.uk/files/5b9d7155-3fe3-4e50-b5c4-adede4e6bf75/257b60f8ef35628cc00883e943924e44dbb88915.pdf",
+            "document": "AQA, Exam timetable May/June 2026 — A-level, AS, Level 3 certificates, and Applied General (Version 1.1)",
+            "quote": "7357/2   Paper 2   18   2h   11 June 2026   pm"
+          }
+        },
+        {
+          "key": "aqa-a-level-maths-paper-3",
+          "label": "AQA A-level Mathematics 7357 Paper 3",
+          "board": "aqa",
+          "qualification": "a-level",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-06-16",
+          "unit": "date",
+          "effectiveFrom": "2027-06-16",
+          "source": "https://www.aqa.org.uk/files/f8837da9-1846-4e7f-89a3-fb265c42f2e5/0ada6c345d4c272c8a4a42e48a5986983bfb0d56.pdf",
+          "document": "AQA, Exam timetable May/June 2027 — AS, A-level, Applied General, Level 3 Certificates and Level 3 Extended Project (Version 1.2)",
+          "quote": "7357/3   Paper 3   18   2h   16 June 2027   pm",
+          "previous": {
+            "value": "2026-06-18",
+            "series": "summer-2026",
+            "source": "https://www.aqa.org.uk/files/5b9d7155-3fe3-4e50-b5c4-adede4e6bf75/257b60f8ef35628cc00883e943924e44dbb88915.pdf",
+            "document": "AQA, Exam timetable May/June 2026 — A-level, AS, Level 3 certificates, and Applied General (Version 1.1)",
+            "quote": "7357/3   Paper 3   18   2h   18 June 2026   pm"
+          }
+        },
+        {
+          "key": "aqa-gcse-november-2026-maths-paper-1",
+          "label": "AQA GCSE Mathematics 8300 Paper 1 (non-calculator), November 2026 series",
+          "board": "aqa",
+          "qualification": "gcse",
+          "series": "november-2026",
+          "status": "final",
+          "value": "2026-11-04",
+          "unit": "date",
+          "effectiveFrom": "2026-11-04",
+          "source": "https://www.aqa.org.uk/files/cec4fc90-997e-4da1-b3c2-e217c0e58fdb/7f9db72615b207c4a899032ba0c5c37e166fd5f8.pdf",
+          "document": "AQA, Exam timetable November 2026 — GCSE and Level 3 Extended Project",
+          "quote": "8300/1F and H   Mathematics Paper 1 (non-calculator) … Wednesday 04 November 2026 (common timetable slot; Paper 2 Friday 06 November, Paper 3 Monday 09 November 2026)",
+          "note": "English Language 8700/1 Tuesday 03 November 2026 am and 8700/2 Thursday 05 November 2026 am (same document)."
+        },
+        {
+          "key": "pearson-gcse-maths-paper-1",
+          "label": "Pearson Edexcel GCSE Mathematics 1MA1 Paper 1 (non-calculator), F and H",
+          "board": "pearson",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-05-14",
+          "unit": "date",
+          "effectiveFrom": "2027-05-14",
+          "source": "https://qualifications.pearson.com/content/dam/pdf/Support/Examination-timetables-for-UK-Edexcel-GCSE/gcse-summer-2027final.pdf",
+          "document": "Pearson Edexcel GCSE, Summer 2027 Examination Timetable — FINAL",
+          "quote": "Friday 14 May   1MA1 1F   Mathematics   Paper 1 (Non-Calculator) Foundation Tier   Morning   1h 30m"
+        },
+        {
+          "key": "pearson-gcse-maths-paper-2",
+          "label": "Pearson Edexcel GCSE Mathematics 1MA1 Paper 2 (calculator), F and H",
+          "board": "pearson",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-05-27",
+          "unit": "date",
+          "effectiveFrom": "2027-05-27",
+          "source": "https://qualifications.pearson.com/content/dam/pdf/Support/Examination-timetables-for-UK-Edexcel-GCSE/gcse-summer-2027final.pdf",
+          "document": "Pearson Edexcel GCSE, Summer 2027 Examination Timetable — FINAL",
+          "quote": "Thursday 27 May   1MA1 2F   Mathematics   Paper 2 (Calculator) Foundation Tier   Morning   1h 30m"
+        },
+        {
+          "key": "pearson-gcse-maths-paper-3",
+          "label": "Pearson Edexcel GCSE Mathematics 1MA1 Paper 3 (calculator), F and H",
+          "board": "pearson",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-06-14",
+          "unit": "date",
+          "effectiveFrom": "2027-06-14",
+          "source": "https://qualifications.pearson.com/content/dam/pdf/Support/Examination-timetables-for-UK-Edexcel-GCSE/gcse-summer-2027final.pdf",
+          "document": "Pearson Edexcel GCSE, Summer 2027 Examination Timetable — FINAL",
+          "quote": "Monday 14 June   1MA1 3F   Mathematics   Paper 3 (Calculator) Foundation Tier   Morning   1h 30m"
+        },
+        {
+          "key": "pearson-gcse-english-language-paper-1",
+          "label": "Pearson Edexcel GCSE English Language 1EN0 Paper 1",
+          "board": "pearson",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-05-24",
+          "unit": "date",
+          "effectiveFrom": "2027-05-24",
+          "source": "https://qualifications.pearson.com/content/dam/pdf/Support/Examination-timetables-for-UK-Edexcel-GCSE/gcse-summer-2027final.pdf",
+          "document": "Pearson Edexcel GCSE, Summer 2027 Examination Timetable — FINAL",
+          "quote": "Monday 24 May   1EN0 01   English Language   Paper 1: Fiction and Imaginative Writing   Morning   1h 45m"
+        },
+        {
+          "key": "pearson-gcse-english-language-paper-2",
+          "label": "Pearson Edexcel GCSE English Language 1EN0 Paper 2",
+          "board": "pearson",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-06-08",
+          "unit": "date",
+          "effectiveFrom": "2027-06-08",
+          "source": "https://qualifications.pearson.com/content/dam/pdf/Support/Examination-timetables-for-UK-Edexcel-GCSE/gcse-summer-2027final.pdf",
+          "document": "Pearson Edexcel GCSE, Summer 2027 Examination Timetable — FINAL",
+          "quote": "Tuesday 08 June   1EN0 02   English Language   Paper 2: Non-Fiction and Transactional Writing   Morning   2h 05m"
+        },
+        {
+          "key": "pearson-gcse-combined-science-paper-1",
+          "label": "Pearson Edexcel GCSE Combined Science 1SC0 Paper 1: Biology 1",
+          "board": "pearson",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-05-11",
+          "unit": "date",
+          "effectiveFrom": "2027-05-11",
+          "source": "https://qualifications.pearson.com/content/dam/pdf/Support/Examination-timetables-for-UK-Edexcel-GCSE/gcse-summer-2027final.pdf",
+          "document": "Pearson Edexcel GCSE, Summer 2027 Examination Timetable — FINAL",
+          "quote": "Tuesday 11 May   1SC0 1BF   Combined Science   Paper 1: Biology 1 Foundation Tier   Morning   1h 10m"
+        },
+        {
+          "key": "pearson-gcse-combined-science-paper-2",
+          "label": "Pearson Edexcel GCSE Combined Science 1SC0 Paper 2: Chemistry 1",
+          "board": "pearson",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-05-17",
+          "unit": "date",
+          "effectiveFrom": "2027-05-17",
+          "source": "https://qualifications.pearson.com/content/dam/pdf/Support/Examination-timetables-for-UK-Edexcel-GCSE/gcse-summer-2027final.pdf",
+          "document": "Pearson Edexcel GCSE, Summer 2027 Examination Timetable — FINAL",
+          "quote": "Monday 17 May   1SC0 1CF   Combined Science   Paper 2: Chemistry 1 Foundation Tier   Morning   1h 10m"
+        },
+        {
+          "key": "pearson-gcse-combined-science-paper-3",
+          "label": "Pearson Edexcel GCSE Combined Science 1SC0 Paper 3: Physics 1",
+          "board": "pearson",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-05-25",
+          "unit": "date",
+          "effectiveFrom": "2027-05-25",
+          "source": "https://qualifications.pearson.com/content/dam/pdf/Support/Examination-timetables-for-UK-Edexcel-GCSE/gcse-summer-2027final.pdf",
+          "document": "Pearson Edexcel GCSE, Summer 2027 Examination Timetable — FINAL",
+          "quote": "Tuesday 25 May   1SC0 1PF   Combined Science   Paper 3: Physics 1 Foundation Tier   Morning   1h 10m"
+        },
+        {
+          "key": "pearson-gcse-combined-science-paper-4",
+          "label": "Pearson Edexcel GCSE Combined Science 1SC0 Paper 4: Biology 2",
+          "board": "pearson",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-06-10",
+          "unit": "date",
+          "effectiveFrom": "2027-06-10",
+          "source": "https://qualifications.pearson.com/content/dam/pdf/Support/Examination-timetables-for-UK-Edexcel-GCSE/gcse-summer-2027final.pdf",
+          "document": "Pearson Edexcel GCSE, Summer 2027 Examination Timetable — FINAL",
+          "quote": "Thursday 10 June   1SC0 2BF   Combined Science   Paper 4: Biology 2 Foundation Tier   Morning   1h 10m"
+        },
+        {
+          "key": "pearson-gcse-combined-science-paper-5",
+          "label": "Pearson Edexcel GCSE Combined Science 1SC0 Paper 5: Chemistry 2",
+          "board": "pearson",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-06-15",
+          "unit": "date",
+          "effectiveFrom": "2027-06-15",
+          "source": "https://qualifications.pearson.com/content/dam/pdf/Support/Examination-timetables-for-UK-Edexcel-GCSE/gcse-summer-2027final.pdf",
+          "document": "Pearson Edexcel GCSE, Summer 2027 Examination Timetable — FINAL",
+          "quote": "Tuesday 15 June   1SC0 2CF   Combined Science   Paper 5: Chemistry 2 Foundation Tier   Morning   1h 10m"
+        },
+        {
+          "key": "pearson-gcse-combined-science-paper-6",
+          "label": "Pearson Edexcel GCSE Combined Science 1SC0 Paper 6: Physics 2",
+          "board": "pearson",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-06-18",
+          "unit": "date",
+          "effectiveFrom": "2027-06-18",
+          "source": "https://qualifications.pearson.com/content/dam/pdf/Support/Examination-timetables-for-UK-Edexcel-GCSE/gcse-summer-2027final.pdf",
+          "document": "Pearson Edexcel GCSE, Summer 2027 Examination Timetable — FINAL",
+          "quote": "Friday 18 June   1SC0 2PF   Combined Science   Paper 6: Physics 2 Foundation Tier   Morning   1h 10m"
+        },
+        {
+          "key": "pearson-a-level-maths-paper-1",
+          "label": "Pearson Edexcel A level Mathematics 9MA0 Paper 1: Pure Mathematics 1",
+          "board": "pearson",
+          "qualification": "a-level",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-05-26",
+          "unit": "date",
+          "effectiveFrom": "2027-05-26",
+          "source": "https://qualifications.pearson.com/content/dam/pdf/Support/Examination-timetables/gce-summer-2027-final.pdf",
+          "document": "Pearson Edexcel GCE, Summer 2027 Examination Timetable — FINAL",
+          "quote": "Wednesday 26 May   9MA0 01   Mathematics   Paper 1: Pure Mathematics 1   Afternoon   2h 00m"
+        },
+        {
+          "key": "pearson-a-level-maths-paper-2",
+          "label": "Pearson Edexcel A level Mathematics 9MA0 Paper 2: Pure Mathematics 2",
+          "board": "pearson",
+          "qualification": "a-level",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-06-09",
+          "unit": "date",
+          "effectiveFrom": "2027-06-09",
+          "source": "https://qualifications.pearson.com/content/dam/pdf/Support/Examination-timetables/gce-summer-2027-final.pdf",
+          "document": "Pearson Edexcel GCE, Summer 2027 Examination Timetable — FINAL",
+          "quote": "Wednesday 09 June   9MA0 02   Mathematics   Paper 2: Pure Mathematics 2   Afternoon   2h 00m"
+        },
+        {
+          "key": "pearson-a-level-maths-paper-3",
+          "label": "Pearson Edexcel A level Mathematics 9MA0 Paper 3: Statistics & Mechanics",
+          "board": "pearson",
+          "qualification": "a-level",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-06-16",
+          "unit": "date",
+          "effectiveFrom": "2027-06-16",
+          "source": "https://qualifications.pearson.com/content/dam/pdf/Support/Examination-timetables/gce-summer-2027-final.pdf",
+          "document": "Pearson Edexcel GCE, Summer 2027 Examination Timetable — FINAL",
+          "quote": "Wednesday 16 June   9MA0 03   Mathematics   Paper 3: Statistics & Mechanics   Afternoon   2h 00m"
+        },
+        {
+          "key": "pearson-gcse-november-2026-maths-paper-1",
+          "label": "Pearson Edexcel GCSE Mathematics 1MA1 Paper 1 (non-calculator), November 2026 series",
+          "board": "pearson",
+          "qualification": "gcse",
+          "series": "november-2026",
+          "status": "final",
+          "value": "2026-11-04",
+          "unit": "date",
+          "effectiveFrom": "2026-11-04",
+          "source": "https://qualifications.pearson.com/content/dam/pdf/Support/Examination-timetables-for-UK-Edexcel-GCSE/gcse-nov2026-final.pdf",
+          "document": "Pearson Edexcel GCSE, November 2026 Examination Timetable — FINAL",
+          "quote": "Wednesday 04 November   1MA1 1F   Mathematics   Paper 1 (Non-Calculator) Foundation Tier   Morning   1h 30m",
+          "note": "Paper 2 Friday 06 November, Paper 3 Monday 09 November 2026; English Language 1EN0 01 Tuesday 03 November and 1EN0 02 Thursday 05 November 2026 (same document)."
+        },
+        {
+          "key": "ocr-gcse-maths-paper-1",
+          "label": "OCR GCSE Mathematics J560 Paper 1 / Paper 4 (calculator; Foundation / Higher)",
+          "board": "ocr",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-05-14",
+          "unit": "date",
+          "effectiveFrom": "2027-05-14",
+          "source": "https://www.ocr.org.uk/Images/758618-june-2027-final-exam-timetable-gcse-and-cambridge-nationals.pdf",
+          "document": "Cambridge OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2027 (© Cambridge OCR 2026)",
+          "quote": "J560/01   Paper 1 (Foundation – calculator)   1 h 30 min   Fri   14 May am",
+          "note": "OCR numbers its tiers separately: Papers 1–3 Foundation, Papers 4–6 Higher; Paper 1/4 and 3/6 are calculator papers, Paper 2/5 is non-calculator.",
+          "previous": {
+            "value": "2026-05-14",
+            "series": "summer-2026",
+            "source": "https://www.ocr.org.uk/Images/735057-june-2026-final-exam-timetable-gcse-and-cambridge-nationals.pdf",
+            "document": "OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2026",
+            "quote": "J560/01   Paper 1 (Foundation – calculator)   1 h 30 min   Thu   14 May"
+          }
+        },
+        {
+          "key": "ocr-gcse-maths-paper-2",
+          "label": "OCR GCSE Mathematics J560 Paper 2 / Paper 5 (non-calculator; Foundation / Higher)",
+          "board": "ocr",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-05-27",
+          "unit": "date",
+          "effectiveFrom": "2027-05-27",
+          "source": "https://www.ocr.org.uk/Images/758618-june-2027-final-exam-timetable-gcse-and-cambridge-nationals.pdf",
+          "document": "Cambridge OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2027 (© Cambridge OCR 2026)",
+          "quote": "J560/02   Paper 2 (Foundation – non-calculator)   1 h 30 min   Thu   27 May am",
+          "previous": {
+            "value": "2026-06-03",
+            "series": "summer-2026",
+            "source": "https://www.ocr.org.uk/Images/735057-june-2026-final-exam-timetable-gcse-and-cambridge-nationals.pdf",
+            "document": "OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2026",
+            "quote": "J560/02   Paper 2 (Foundation – non-calculator)   1 h 30 min   Wed   3 June"
+          }
+        },
+        {
+          "key": "ocr-gcse-maths-paper-3",
+          "label": "OCR GCSE Mathematics J560 Paper 3 / Paper 6 (calculator; Foundation / Higher)",
+          "board": "ocr",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-06-14",
+          "unit": "date",
+          "effectiveFrom": "2027-06-14",
+          "source": "https://www.ocr.org.uk/Images/758618-june-2027-final-exam-timetable-gcse-and-cambridge-nationals.pdf",
+          "document": "Cambridge OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2027 (© Cambridge OCR 2026)",
+          "quote": "J560/03   Paper 3 (Foundation – calculator)   1 h 30 min   Mon   14 June am",
+          "previous": {
+            "value": "2026-06-10",
+            "series": "summer-2026",
+            "source": "https://www.ocr.org.uk/Images/735057-june-2026-final-exam-timetable-gcse-and-cambridge-nationals.pdf",
+            "document": "OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2026",
+            "quote": "J560/03   Paper 3 (Foundation – calculator)   1 h 30 min   Wed   10 June"
+          }
+        },
+        {
+          "key": "ocr-gcse-english-language-paper-1",
+          "label": "OCR GCSE English Language J351 Component 01",
+          "board": "ocr",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-05-24",
+          "unit": "date",
+          "effectiveFrom": "2027-05-24",
+          "source": "https://www.ocr.org.uk/Images/758618-june-2027-final-exam-timetable-gcse-and-cambridge-nationals.pdf",
+          "document": "Cambridge OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2027 (© Cambridge OCR 2026)",
+          "quote": "J351/01   Communicating information and ideas   2h   Mon   24 May am",
+          "previous": {
+            "value": "2026-05-21",
+            "series": "summer-2026",
+            "source": "https://www.ocr.org.uk/Images/735057-june-2026-final-exam-timetable-gcse-and-cambridge-nationals.pdf",
+            "document": "OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2026",
+            "quote": "J351/01   Communicating information and ideas   2h   Thu   21 May am"
+          }
+        },
+        {
+          "key": "ocr-gcse-english-language-paper-2",
+          "label": "OCR GCSE English Language J351 Component 02",
+          "board": "ocr",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-06-08",
+          "unit": "date",
+          "effectiveFrom": "2027-06-08",
+          "source": "https://www.ocr.org.uk/Images/758618-june-2027-final-exam-timetable-gcse-and-cambridge-nationals.pdf",
+          "document": "Cambridge OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2027 (© Cambridge OCR 2026)",
+          "quote": "J351/02   Exploring effects and impact   2h   Tue   8 June am",
+          "previous": {
+            "value": "2026-06-05",
+            "series": "summer-2026",
+            "source": "https://www.ocr.org.uk/Images/735057-june-2026-final-exam-timetable-gcse-and-cambridge-nationals.pdf",
+            "document": "OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2026",
+            "quote": "J351/02   Exploring effects and impact   2h   Fri   5 June am"
+          }
+        },
+        {
+          "key": "ocr-gcse-combined-science-biology-paper-1",
+          "label": "OCR GCSE Combined Science A (Gateway) J250 Paper 1 / 7 (Biology; Foundation / Higher)",
+          "board": "ocr",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-05-11",
+          "unit": "date",
+          "effectiveFrom": "2027-05-11",
+          "source": "https://www.ocr.org.uk/Images/758618-june-2027-final-exam-timetable-gcse-and-cambridge-nationals.pdf",
+          "document": "Cambridge OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2027 (© Cambridge OCR 2026)",
+          "quote": "J250/01   Paper 1 (Biology) (Foundation)   1 h 10 min   Tue   11 May am",
+          "previous": {
+            "value": "2026-05-12",
+            "series": "summer-2026",
+            "source": "https://www.ocr.org.uk/Images/735057-june-2026-final-exam-timetable-gcse-and-cambridge-nationals.pdf",
+            "document": "OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2026",
+            "quote": "J250/01   Paper 1 (Biology) (Foundation)   1 h 10 min   Tue   12 May pm"
+          }
+        },
+        {
+          "key": "ocr-gcse-combined-science-chemistry-paper-1",
+          "label": "OCR GCSE Combined Science A (Gateway) J250 Paper 3 / 9 (Chemistry; Foundation / Higher)",
+          "board": "ocr",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-05-17",
+          "unit": "date",
+          "effectiveFrom": "2027-05-17",
+          "source": "https://www.ocr.org.uk/Images/758618-june-2027-final-exam-timetable-gcse-and-cambridge-nationals.pdf",
+          "document": "Cambridge OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2027 (© Cambridge OCR 2026)",
+          "quote": "J250/03   Paper 3 (Chemistry) (Foundation)   1 h 10 min   Mon   17 May am",
+          "previous": {
+            "value": "2026-05-18",
+            "series": "summer-2026",
+            "source": "https://www.ocr.org.uk/Images/735057-june-2026-final-exam-timetable-gcse-and-cambridge-nationals.pdf",
+            "document": "OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2026",
+            "quote": "J250/03   Paper 3 (Chemistry) (Foundation)   1 h 10 min   Mon   18 May am"
+          }
+        },
+        {
+          "key": "ocr-gcse-combined-science-physics-paper-1",
+          "label": "OCR GCSE Combined Science A (Gateway) J250 Paper 5 / 11 (Physics; Foundation / Higher)",
+          "board": "ocr",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-05-25",
+          "unit": "date",
+          "effectiveFrom": "2027-05-25",
+          "source": "https://www.ocr.org.uk/Images/758618-june-2027-final-exam-timetable-gcse-and-cambridge-nationals.pdf",
+          "document": "Cambridge OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2027 (© Cambridge OCR 2026)",
+          "quote": "J250/05   Paper 5 (Physics) (Foundation)   1 h 10 min   Tue   25 May am",
+          "previous": {
+            "value": "2026-06-02",
+            "series": "summer-2026",
+            "source": "https://www.ocr.org.uk/Images/735057-june-2026-final-exam-timetable-gcse-and-cambridge-nationals.pdf",
+            "document": "OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2026",
+            "quote": "J250/05   Paper 5 (Physics) (Foundation)   1 h 10 min   Tue   2 June am"
+          }
+        },
+        {
+          "key": "ocr-gcse-combined-science-biology-paper-2",
+          "label": "OCR GCSE Combined Science A (Gateway) J250 Paper 2 / 8 (Biology; Foundation / Higher)",
+          "board": "ocr",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-06-10",
+          "unit": "date",
+          "effectiveFrom": "2027-06-10",
+          "source": "https://www.ocr.org.uk/Images/758618-june-2027-final-exam-timetable-gcse-and-cambridge-nationals.pdf",
+          "document": "Cambridge OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2027 (© Cambridge OCR 2026)",
+          "quote": "J250/02   Paper 2 (Biology) (Foundation)   1 h 10 min   Thu   10 June am",
+          "previous": {
+            "value": "2026-06-08",
+            "series": "summer-2026",
+            "source": "https://www.ocr.org.uk/Images/735057-june-2026-final-exam-timetable-gcse-and-cambridge-nationals.pdf",
+            "document": "OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2026",
+            "quote": "J250/02   Paper 2 (Biology) (Foundation)   1 h 10 min   Mon   8 June am"
+          }
+        },
+        {
+          "key": "ocr-gcse-combined-science-chemistry-paper-2",
+          "label": "OCR GCSE Combined Science A (Gateway) J250 Paper 4 / 10 (Chemistry; Foundation / Higher)",
+          "board": "ocr",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-06-15",
+          "unit": "date",
+          "effectiveFrom": "2027-06-15",
+          "source": "https://www.ocr.org.uk/Images/758618-june-2027-final-exam-timetable-gcse-and-cambridge-nationals.pdf",
+          "document": "Cambridge OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2027 (© Cambridge OCR 2026)",
+          "quote": "J250/04   Paper 4 (Chemistry) (Foundation)   1 h 10 min   Tue   15 June am",
+          "previous": {
+            "value": "2026-06-12",
+            "series": "summer-2026",
+            "source": "https://www.ocr.org.uk/Images/735057-june-2026-final-exam-timetable-gcse-and-cambridge-nationals.pdf",
+            "document": "OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2026",
+            "quote": "J250/04   Paper 4 (Chemistry) (Foundation)   1 h 10 min   Fri   12 June am"
+          }
+        },
+        {
+          "key": "ocr-gcse-combined-science-physics-paper-2",
+          "label": "OCR GCSE Combined Science A (Gateway) J250 Paper 6 / 12 (Physics; Foundation / Higher)",
+          "board": "ocr",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-06-18",
+          "unit": "date",
+          "effectiveFrom": "2027-06-18",
+          "source": "https://www.ocr.org.uk/Images/758618-june-2027-final-exam-timetable-gcse-and-cambridge-nationals.pdf",
+          "document": "Cambridge OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2027 (© Cambridge OCR 2026)",
+          "quote": "J250/06   Paper 6 (Physics) (Foundation)   1 h 10 min   Fri   18 June am",
+          "previous": {
+            "value": "2026-06-15",
+            "series": "summer-2026",
+            "source": "https://www.ocr.org.uk/Images/735057-june-2026-final-exam-timetable-gcse-and-cambridge-nationals.pdf",
+            "document": "OCR, GCSE and Cambridge Nationals — Final Examination Timetable June 2026",
+            "quote": "J250/06   Paper 6 (Physics) (Foundation)   1 h 10 min   Mon   15 June am"
+          }
+        },
+        {
+          "key": "ocr-a-level-maths-paper-1",
+          "label": "OCR A Level Mathematics A H240/01 Pure mathematics",
+          "board": "ocr",
+          "qualification": "a-level",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-05-26",
+          "unit": "date",
+          "effectiveFrom": "2027-05-26",
+          "source": "https://www.ocr.org.uk/Images/758622-june-2027-final-exam-timetable-as-a-level-core-maths-and-fsmq.pdf",
+          "document": "Cambridge OCR, AS and A Level, FSMQ and Level 3 Certificate Core Maths — Final Examination Timetable June 2027",
+          "quote": "H240/01   Pure mathematics   2h   Wed   26 May pm",
+          "previous": {
+            "value": "2026-06-03",
+            "series": "summer-2026",
+            "source": "https://www.ocr.org.uk/Images/735056-june-2026-final-exam-timetable-as-a-level-core-maths-and-fsmq.pdf",
+            "document": "OCR, AS and A Level, FSMQ and Level 3 Certificate Core Maths — Final Examination Timetable June 2026",
+            "quote": "H240/01   Pure mathematics   2h   Wed   3 June pm"
+          }
+        },
+        {
+          "key": "ocr-a-level-maths-paper-2",
+          "label": "OCR A Level Mathematics A H240/02 Pure mathematics and statistics",
+          "board": "ocr",
+          "qualification": "a-level",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-06-09",
+          "unit": "date",
+          "effectiveFrom": "2027-06-09",
+          "source": "https://www.ocr.org.uk/Images/758622-june-2027-final-exam-timetable-as-a-level-core-maths-and-fsmq.pdf",
+          "document": "Cambridge OCR, AS and A Level, FSMQ and Level 3 Certificate Core Maths — Final Examination Timetable June 2027",
+          "quote": "H240/02   Pure mathematics and statistics   2h   Wed   9 June pm",
+          "previous": {
+            "value": "2026-06-11",
+            "series": "summer-2026",
+            "source": "https://www.ocr.org.uk/Images/735056-june-2026-final-exam-timetable-as-a-level-core-maths-and-fsmq.pdf",
+            "document": "OCR, AS and A Level, FSMQ and Level 3 Certificate Core Maths — Final Examination Timetable June 2026",
+            "quote": "H240/02   Pure mathematics and statistics   2h   Thu   11 June pm"
+          }
+        },
+        {
+          "key": "ocr-a-level-maths-paper-3",
+          "label": "OCR A Level Mathematics A H240/03 Pure mathematics and mechanics",
+          "board": "ocr",
+          "qualification": "a-level",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-06-16",
+          "unit": "date",
+          "effectiveFrom": "2027-06-16",
+          "source": "https://www.ocr.org.uk/Images/758622-june-2027-final-exam-timetable-as-a-level-core-maths-and-fsmq.pdf",
+          "document": "Cambridge OCR, AS and A Level, FSMQ and Level 3 Certificate Core Maths — Final Examination Timetable June 2027",
+          "quote": "H240/03   Pure mathematics and mechanics   2h   Wed   16 June pm",
+          "previous": {
+            "value": "2026-06-18",
+            "series": "summer-2026",
+            "source": "https://www.ocr.org.uk/Images/735056-june-2026-final-exam-timetable-as-a-level-core-maths-and-fsmq.pdf",
+            "document": "OCR, AS and A Level, FSMQ and Level 3 Certificate Core Maths — Final Examination Timetable June 2026",
+            "quote": "H240/03   Pure mathematics and mechanics   2h   Thu   18 June pm"
+          }
+        },
+        {
+          "key": "ocr-gcse-november-2026-maths-paper-1",
+          "label": "OCR GCSE Mathematics J560 Paper 1 / 4 (calculator), November 2026 series",
+          "board": "ocr",
+          "qualification": "gcse",
+          "series": "november-2026",
+          "status": "final",
+          "value": "2026-11-04",
+          "unit": "date",
+          "effectiveFrom": "2026-11-04",
+          "source": "https://www.ocr.org.uk/Images/748823-november-2026-final-exam-timetable-gcse.pdf",
+          "document": "Cambridge OCR, November 2026 final exam timetable — GCSE",
+          "quote": "J560/01   Paper 1 (Foundation – calculator)   1 h 30 min   Wed   4 Nov am",
+          "note": "Paper 2/5 Fri 6 Nov, Paper 3/6 Mon 9 Nov; English Language J351/01 Tue 3 Nov am, J351/02 Thu 5 Nov am (same document)."
+        },
+        {
+          "key": "wjec-eduqas-gcse-maths-component-1",
+          "label": "Eduqas GCSE Mathematics C300 Component 1 (Foundation C300U10-1 / Higher C300UA0-1)",
+          "board": "wjec-eduqas",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-05-14",
+          "unit": "date",
+          "effectiveFrom": "2027-05-14",
+          "source": "https://www.wjec.co.uk/media/1awnxucv/summer-2027-wales-and-eduqas-gcse-final-version-080726.pdf",
+          "document": "WJEC Wales and Eduqas Summer 2027 FINAL Examination Timetable (version 2) — GCSE",
+          "quote": "Mathematics (Eduqas)   C300U10-1   Component 1 Foundation Tier   2h 15m — Friday 14 May",
+          "previous": {
+            "value": "2026-05-14",
+            "series": "summer-2026",
+            "source": "https://www.wjec.co.uk/media/jtjdlgms/summer-2026-wales-and-eduqas-gcse.pdf",
+            "document": "WJEC Wales and Eduqas Summer 2026 FINAL Examination Timetable — GCSE",
+            "quote": "Mathematics (Eduqas)   C300U10-1   Component 1 Foundation Tier   2h 15m — Thursday 14 May"
+          }
+        },
+        {
+          "key": "wjec-eduqas-gcse-maths-component-2",
+          "label": "Eduqas GCSE Mathematics C300 Component 2 (Foundation C300U20-1 / Higher C300UB0-1)",
+          "board": "wjec-eduqas",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-05-27",
+          "unit": "date",
+          "effectiveFrom": "2027-05-27",
+          "source": "https://www.wjec.co.uk/media/1awnxucv/summer-2027-wales-and-eduqas-gcse-final-version-080726.pdf",
+          "document": "WJEC Wales and Eduqas Summer 2027 FINAL Examination Timetable (version 2) — GCSE",
+          "quote": "Mathematics (Eduqas)   C300U20-1   Component 2 Foundation Tier   2h 15m — Thursday 27 May",
+          "note": "Eduqas Mathematics has two components, not three; in Wales the legacy WJEC Mathematics 3300 units are \"RESIT ONLY\" in 2027 and the new Mathematics and Numeracy (Double Award) 3320 units are examined for the first time.",
+          "previous": {
+            "value": "2026-06-03",
+            "series": "summer-2026",
+            "source": "https://www.wjec.co.uk/media/jtjdlgms/summer-2026-wales-and-eduqas-gcse.pdf",
+            "document": "WJEC Wales and Eduqas Summer 2026 FINAL Examination Timetable — GCSE",
+            "quote": "Mathematics (Eduqas)   C300U20-1   Component 2 Foundation Tier   2h 15m — Wednesday 3 June"
+          }
+        },
+        {
+          "key": "wjec-eduqas-gcse-english-language-component-1",
+          "label": "Eduqas GCSE English Language C700U10-1 Component 1",
+          "board": "wjec-eduqas",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-05-24",
+          "unit": "date",
+          "effectiveFrom": "2027-05-24",
+          "source": "https://www.wjec.co.uk/media/1awnxucv/summer-2027-wales-and-eduqas-gcse-final-version-080726.pdf",
+          "document": "WJEC Wales and Eduqas Summer 2027 FINAL Examination Timetable (version 2) — GCSE",
+          "quote": "C700U10-1   English Language (Eduqas) Component 1   1h 45m — Monday 24 May",
+          "previous": {
+            "value": "2026-05-21",
+            "series": "summer-2026",
+            "source": "https://www.wjec.co.uk/media/jtjdlgms/summer-2026-wales-and-eduqas-gcse.pdf",
+            "document": "WJEC Wales and Eduqas Summer 2026 FINAL Examination Timetable — GCSE",
+            "quote": "C700U10-1   English Language (Eduqas) Component 1   1h 45m — Thursday 21 May"
+          }
+        },
+        {
+          "key": "wjec-eduqas-gcse-english-language-component-2",
+          "label": "Eduqas GCSE English Language C700U20-1 Component 2",
+          "board": "wjec-eduqas",
+          "qualification": "gcse",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-06-08",
+          "unit": "date",
+          "effectiveFrom": "2027-06-08",
+          "source": "https://www.wjec.co.uk/media/1awnxucv/summer-2027-wales-and-eduqas-gcse-final-version-080726.pdf",
+          "document": "WJEC Wales and Eduqas Summer 2027 FINAL Examination Timetable (version 2) — GCSE",
+          "quote": "C700U20-1   English Language (Eduqas) Component 2   2h — Tuesday 8 June",
+          "previous": {
+            "value": "2026-06-05",
+            "series": "summer-2026",
+            "source": "https://www.wjec.co.uk/media/jtjdlgms/summer-2026-wales-and-eduqas-gcse.pdf",
+            "document": "WJEC Wales and Eduqas Summer 2026 FINAL Examination Timetable — GCSE",
+            "quote": "C700U20-1   English Language (Eduqas) Component 2   2h — Friday 5 June"
+          }
+        },
+        {
+          "key": "wjec-a-level-maths-unit-3",
+          "label": "WJEC (Wales) GCE A level Mathematics 1300U30-1 A2 Unit 3",
+          "board": "wjec-eduqas",
+          "qualification": "a-level",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-05-25",
+          "unit": "date",
+          "effectiveFrom": "2027-05-25",
+          "source": "https://www.wjec.co.uk/media/nwjexxw0/summer-2027-wales-and-eduqas-asplusa-level-final-version.pdf",
+          "document": "WJEC Wales and Eduqas Summer 2027 FINAL Examination Timetable — GCE AS/A level",
+          "quote": "1300U30-1   Mathematics (WALES) A2 Unit 3   2h 30m — Tuesday 25 May",
+          "note": "Eduqas offers no A level Mathematics for England; the WJEC Wales qualification is the only A level Mathematics on this timetable.",
+          "previous": {
+            "value": "2026-06-03",
+            "series": "summer-2026",
+            "source": "https://www.wjec.co.uk/media/fpmjzpsv/gce-as-and-a-level-june-2026-examination-timetable.pdf",
+            "document": "WJEC Wales and Eduqas Summer 2026 FINAL Examination Timetable (15.04.25) — GCE AS/A level",
+            "quote": "1300U30-1   Mathematics (WALES) A2 Unit 3   2h 30m — Wednesday 3 June"
+          }
+        },
+        {
+          "key": "wjec-a-level-maths-unit-4",
+          "label": "WJEC (Wales) GCE A level Mathematics 1300U40-1 A2 Unit 4",
+          "board": "wjec-eduqas",
+          "qualification": "a-level",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-06-09",
+          "unit": "date",
+          "effectiveFrom": "2027-06-09",
+          "source": "https://www.wjec.co.uk/media/nwjexxw0/summer-2027-wales-and-eduqas-asplusa-level-final-version.pdf",
+          "document": "WJEC Wales and Eduqas Summer 2027 FINAL Examination Timetable — GCE AS/A level",
+          "quote": "1300U40-1   Mathematics (WALES) A2 Unit 4   1h 45m — Wednesday 9 June",
+          "previous": {
+            "value": "2026-06-11",
+            "series": "summer-2026",
+            "source": "https://www.wjec.co.uk/media/fpmjzpsv/gce-as-and-a-level-june-2026-examination-timetable.pdf",
+            "document": "WJEC Wales and Eduqas Summer 2026 FINAL Examination Timetable (15.04.25) — GCE AS/A level",
+            "quote": "1300U40-1   Mathematics (WALES) A2 Unit 4   1h 45m — Thursday 11 June"
+          }
+        },
+        {
+          "key": "wjec-eduqas-gcse-november-2026-maths-component-1",
+          "label": "Eduqas GCSE Mathematics C300U10-1 Component 1, November 2026 series",
+          "board": "wjec-eduqas",
+          "qualification": "gcse",
+          "series": "november-2026",
+          "status": "final",
+          "value": "2026-11-04",
+          "unit": "date",
+          "effectiveFrom": "2026-11-04",
+          "source": "https://www.wjec.co.uk/media/sqmjzw1v/november-2026-wjec-plus-eduqas-gcse-final-examination-timetable-260626.pdf",
+          "document": "WJEC + Eduqas November 2026 GCSE FINAL Examination Timetable",
+          "quote": "Mathematics (Eduqas)   C300U10-1   2h 15m (Wednesday 4 November 2026 session; English Language (Eduqas) C700U10-1 Tuesday 3 November, C700U20-1 Thursday 5 November, C300U20-1 Friday 6 November 2026)"
+        }
+      ]
+    },
+    "deadlines": {
+      "title": "Entry deadlines for summer 2027 (JCQ 21 February 2027) and November 2026 (4 October 2026), and each board's dates and multipliers for late and very late entry fees",
+      "source": "https://www.jcq.org.uk/wp-content/uploads/sites/2/2026/05/Key_Dates_June2027_FINAL.pdf",
+      "note": "The entry deadline is common (21 February 2027). Late-fee dates and multipliers are each board's own: AQA 100 % after 21 Feb / 150 % after 21 Apr 2027; Pearson doubled from 22 Feb / trebled from 22 Apr 2027; OCR +100 % from 22 Feb / +200 % from 22 Apr 2027; WJEC 2× from 19 Mar / 2.5× from 19 Apr 2027 (amendment window to 18 Mar). Fee amounts per subject are in the boards' fee lists (not held here).",
+      "figures": [
+        {
+          "key": "jcq-entries-deadline",
+          "label": "JCQ deadline for entries, June 2027 series (GCSE and GCE)",
+          "board": "jcq",
+          "qualification": "gcse-and-a-level",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-02-21",
+          "unit": "date",
+          "effectiveFrom": "2027-02-21",
+          "source": "https://www.jcq.org.uk/wp-content/uploads/sites/2/2026/05/Key_Dates_June2027_FINAL.pdf",
+          "document": "JCQ, Key dates in the examination cycle — June 2027 examination series (©JCQCIC 2026), p. 3",
+          "quote": "21/02/2027   Deadline for entries   GCSE GCE   Entries",
+          "previous": {
+            "value": "2026-02-21",
+            "series": "summer-2026",
+            "source": "https://www.jcq.org.uk/wp-content/uploads/sites/2/2025/09/Key_Dates_June2026_FINAL.pdf",
+            "document": "JCQ, Key dates in the examination cycle — June 2026 examination series (©JCQCIC 2025), p. 3",
+            "quote": "21/02/2026   Deadline for entries   GCSE GCE   Entries"
+          }
+        },
+        {
+          "key": "jcq-november-2026-entries-deadline",
+          "label": "JCQ final date for entries, GCSE November 2026 series",
+          "board": "jcq",
+          "qualification": "gcse",
+          "series": "november-2026",
+          "status": "final",
+          "value": "2026-10-04",
+          "unit": "date",
+          "effectiveFrom": "2026-10-04",
+          "source": "https://www.jcq.org.uk/wp-content/uploads/sites/2/2026/09/Key_Dates_Nov2026_UPDATED_SEP26.pdf",
+          "document": "JCQ, Key dates in the examination cycle — GCSE November 2026 series (revision one, 3 September 2026), p. 2",
+          "quote": "04/10/2026   Final date for entries   GCSE   Entries"
+        },
+        {
+          "key": "aqa-entries-deadline",
+          "label": "AQA entry closing date, June 2027 series (6A27 AS/A-level, 6G27 GCSE)",
+          "board": "aqa",
+          "qualification": "gcse-and-a-level",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-02-21",
+          "unit": "date",
+          "effectiveFrom": "2027-02-21",
+          "source": "https://www.aqa.org.uk/files/250c3739-8bd0-4cef-ba84-eb952633ae5a/f324cc38590d0d66ffae6da72da013c16ed3afb2.pdf",
+          "document": "AQA, Exam series guide 2026/27 (version 1.1)",
+          "quote": "6G27   June 2027 series 6G   21 February 2027 … 20 November 2026   21 April 2027   19 August 2027"
+        },
+        {
+          "key": "aqa-late-entry-fee-from",
+          "label": "AQA late entry fee (100 % of the entry fee, in addition) — payable for entries received after",
+          "board": "aqa",
+          "qualification": "gcse-and-a-level",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-02-21",
+          "unit": "date",
+          "effectiveFrom": "2027-02-21",
+          "source": "https://www.aqa.org.uk/files/797f1c1d-ed93-438d-a7ea-c603c77b9c5b/ed8355aa1f88ca678add4a0b0da34841a216bd21.pdf",
+          "document": "AQA, Entry fees and other charges for the UK and International Centres — Summer 2027 (G02872_01, Version 1.0 issued June 2026), p. 5",
+          "quote": "Late entry fee — Charged for each entry for a new student received after the entries deadline for each exam series. This fee is 100 % of the original entry fee and is in addition to the entry fee.",
+          "fee": "100 % of the original entry fee, in addition to the entry fee"
+        },
+        {
+          "key": "aqa-very-late-entry-fee-from",
+          "label": "AQA very late entry fee (150 % of the entry fee, in addition) — payable for entries received after",
+          "board": "aqa",
+          "qualification": "gcse-and-a-level",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-04-21",
+          "unit": "date",
+          "effectiveFrom": "2027-04-21",
+          "source": "https://www.aqa.org.uk/files/250c3739-8bd0-4cef-ba84-eb952633ae5a/f324cc38590d0d66ffae6da72da013c16ed3afb2.pdf",
+          "document": "AQA, Exam series guide 2026/27 (version 1.1)",
+          "quote": "Very late entry/amendment fees payable after … 6A27 June 2027 series 6A … 21 April 2027; 6G27 June 2027 series 6G … 21 April 2027",
+          "fee": "150 % of the original entry fee, in addition to the entry fee",
+          "note": "Fee level from Entry fees and other charges — Summer 2027 (G02872_01): \"This fee is 150 % of the original entry fee and in addition to the entry fee.\""
+        },
+        {
+          "key": "pearson-entries-deadline",
+          "label": "Pearson Edexcel entry deadline, June 2027 UK centres (GCSE and GCE)",
+          "board": "pearson",
+          "qualification": "gcse-and-a-level",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-02-21",
+          "unit": "date",
+          "effectiveFrom": "2027-02-21",
+          "source": "https://qualifications.pearson.com/content/dam/pdf/Support/Information-manual/1-key-dates-2026-2027.pdf",
+          "document": "Pearson Qualifications Information Manual 2026/2027 — 1 Key dates (§1.1 entry deadlines, §1.7 results dates)",
+          "quote": "Jun–27 UK Centres   20/11/2026   21/02/2027   22/02/2027   22/04/2027   22/04/2027"
+        },
+        {
+          "key": "pearson-late-fee-from",
+          "label": "Pearson Edexcel late fees charged from (entry fee doubled)",
+          "board": "pearson",
+          "qualification": "gcse-and-a-level",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-02-22",
+          "unit": "date",
+          "effectiveFrom": "2027-02-22",
+          "source": "https://qualifications.pearson.com/content/dam/pdf/Support/Information-manual/1-key-dates-2026-2027.pdf",
+          "document": "Pearson Qualifications Information Manual 2026/2027 — 1 Key dates (§1.1 entry deadlines, §1.7 results dates)",
+          "quote": "After the entry deadline, late fees will be incurred. From the late fee date, the entry (subject or unit) fee is doubled.",
+          "fee": "entry (subject or unit) fee doubled"
+        },
+        {
+          "key": "pearson-high-late-fee-from",
+          "label": "Pearson Edexcel high late fees charged from (entry fee trebled)",
+          "board": "pearson",
+          "qualification": "gcse-and-a-level",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-04-22",
+          "unit": "date",
+          "effectiveFrom": "2027-04-22",
+          "source": "https://qualifications.pearson.com/content/dam/pdf/Support/Information-manual/1-key-dates-2026-2027.pdf",
+          "document": "Pearson Qualifications Information Manual 2026/2027 — 1 Key dates (§1.1 entry deadlines, §1.7 results dates)",
+          "quote": "The entry fee is trebled from the high late fee date. … Jun–27 UK Centres … High late fees charged from 22/04/2027",
+          "fee": "entry fee trebled"
+        },
+        {
+          "key": "ocr-entries-deadline",
+          "label": "Cambridge OCR entry deadline, June 2027 (GCSE/Entry Level; AS/A Level/Core Maths/Extended Project/FSMQ)",
+          "board": "ocr",
+          "qualification": "gcse-and-a-level",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-02-21",
+          "unit": "date",
+          "effectiveFrom": "2027-02-21",
+          "source": "https://www.ocr.org.uk/Images/760411-qualification-fees-general-qualifications-2026-27.pdf",
+          "document": "Cambridge OCR General Qualifications Fees List 2026/27 (Version 1.00, 1 July 2026), p. 8 \"Late entry fees\"",
+          "quote": "June 2027 GCSE/Entry Level Certificate   21 February 2027   22 February 2027   22 April 2027   21 March 2027"
+        },
+        {
+          "key": "ocr-late-entry-fee-from",
+          "label": "Cambridge OCR Stage 1 late entry fees apply from (late fee equal to the entry fee)",
+          "board": "ocr",
+          "qualification": "gcse-and-a-level",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-02-22",
+          "unit": "date",
+          "effectiveFrom": "2027-02-22",
+          "source": "https://www.ocr.org.uk/Images/760411-qualification-fees-general-qualifications-2026-27.pdf",
+          "document": "Cambridge OCR General Qualifications Fees List 2026/27 (Version 1.00, 1 July 2026), p. 8 \"Late entry fees\"",
+          "quote": "Late entry (Stage 1) fee — Charged after the entry deadline. You pay the original entry fee and a late fee of the same amount.",
+          "fee": "original entry fee plus a late fee of the same amount"
+        },
+        {
+          "key": "ocr-very-late-entry-fee-from",
+          "label": "Cambridge OCR Stage 2 very late entry fees apply from (very late fee twice the entry fee)",
+          "board": "ocr",
+          "qualification": "gcse-and-a-level",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-04-22",
+          "unit": "date",
+          "effectiveFrom": "2027-04-22",
+          "source": "https://www.ocr.org.uk/Images/760411-qualification-fees-general-qualifications-2026-27.pdf",
+          "document": "Cambridge OCR General Qualifications Fees List 2026/27 (Version 1.00, 1 July 2026), p. 8 \"Late entry fees\"",
+          "quote": "Very late entry (Stage 2) fee — Charged after the late entry (Stage 1) deadline. You pay the original entry fee and a very late fee of twice the original entry fee.",
+          "fee": "original entry fee plus a very late fee of twice the original entry fee"
+        },
+        {
+          "key": "wjec-entries-deadline",
+          "label": "WJEC / Eduqas entry deadline, May/June 2027 (GCSE and GCE)",
+          "board": "wjec-eduqas",
+          "qualification": "gcse-and-a-level",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-02-21",
+          "unit": "date",
+          "effectiveFrom": "2027-02-21",
+          "source": "https://www.wjec.co.uk/media/e33dglyk/wjec-entry-fees-2026-27-all-series-english-08.pdf",
+          "document": "WJEC, General and Vocational Qualification Fees 2026/27 (effective 1 September 2026 to 31 August 2027), §4.1 and table 4.1a",
+          "quote": "GCSE   May / June 2027   21 February 2027   18 March 2027   20 working days   19 March 2027   19 April 2027"
+        },
+        {
+          "key": "wjec-late-fee-from",
+          "label": "WJEC / Eduqas late fee date (late fee 2 × the entry fee)",
+          "board": "wjec-eduqas",
+          "qualification": "gcse-and-a-level",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-03-19",
+          "unit": "date",
+          "effectiveFrom": "2027-03-19",
+          "source": "https://www.wjec.co.uk/media/e33dglyk/wjec-entry-fees-2026-27-all-series-english-08.pdf",
+          "document": "WJEC, General and Vocational Qualification Fees 2026/27 (effective 1 September 2026 to 31 August 2027), §4.1 and table 4.1a",
+          "quote": "Late Fee Date — The date from which all entries and amendments will incur a Late Fee charge. The Late Fee is equivalent to 2 times the Entry Fee for that qualification (or unit).",
+          "fee": "2 times the Entry Fee for that qualification (or unit)",
+          "note": "WJEC has an amendment window to 18 March 2027 before late fees start, unlike the other three boards (22 February 2027)."
+        },
+        {
+          "key": "wjec-very-late-fee-from",
+          "label": "WJEC / Eduqas very late fee date (very late fee 2.5 × the entry fee)",
+          "board": "wjec-eduqas",
+          "qualification": "gcse-and-a-level",
+          "series": "summer-2027",
+          "status": "final",
+          "value": "2027-04-19",
+          "unit": "date",
+          "effectiveFrom": "2027-04-19",
+          "source": "https://www.wjec.co.uk/media/e33dglyk/wjec-entry-fees-2026-27-all-series-english-08.pdf",
+          "document": "WJEC, General and Vocational Qualification Fees 2026/27 (effective 1 September 2026 to 31 August 2027), §4.1 and table 4.1a",
+          "quote": "Very Late Fee Date — The date from which all entries and amendments will incur a Very Late Fee charge. The Very Late Fee is equivalent to 2.5 times the Entry Fee for that qualification (or unit).",
+          "fee": "2.5 times the Entry Fee for that qualification (or unit)"
+        }
+      ]
+    },
+    "spec-changes": {
+      "title": "Specification changes announced — first-teaching and first-exam years for new or revised GCSE/A-level specifications, the DfE reform timetable and Ofqual decisions",
+      "source": "https://www.gov.uk/government/publications/curriculum-and-assessment-review-final-report-government-response",
+      "note": "Status on 2026-10-04: no reformed (post-Curriculum-and-Assessment-Review) GCSE or A level specification exists yet; the DfE timetable is first teaching 2029/2030 (GCSE) and 2031/2032 (A level). The board-level changes listed are the accredited or announced new/amended specifications found on the boards' own update pages: AQA A-level Business (teaching from September 2026), Pearson A level History amendments (September 2026), OCR A Level Psychology H569 (September 2027), and Wales' Made-for-Wales GCSEs (first awards 2027). GCSE BSL has Ofqual rules but no accredited specification. Items absent here were not found on an official page, not ruled out.",
+      "figures": [
+        {
+          "key": "dfe-reformed-gcses-a-levels",
+          "label": "England — reformed GCSEs and A levels following the Curriculum and Assessment Review (DfE)",
+          "board": "dfe",
+          "qualification": "gcse-and-a-level",
+          "series": null,
+          "status": "announced",
+          "value": {
+            "nationalCurriculumPublished": "2027 (aim: by spring 2027)",
+            "nationalCurriculumFirstTeaching": "2028-09",
+            "gcseFirstTeaching": [
+              "2029",
+              "2030"
+            ],
+            "asALevelFirstTeaching": [
+              "2031",
+              "2032"
+            ]
+          },
+          "unit": "first-teaching / first-assessment years",
+          "announced": "2025-11-05",
+          "effectiveFrom": "2025-11-05",
+          "source": "https://www.gov.uk/government/publications/curriculum-and-assessment-review-final-report-government-response",
+          "document": "DfE, Curriculum and Assessment Review Final Report: government response (published 5 November 2025; PDF \"Government response to the Curriculum and Assessment Review\", November 2025)",
+          "quote": "Our aim is that some are ready for first teaching in 2029 and the rest for first teaching in 2030. … We will also seek to update corresponding AS and A levels to be ready for first teaching in 2031 and 2032, as the cohort progresses to 16 - 19.",
+          "previous": {
+            "value": null,
+            "note": "first appearance: no earlier announcement is recorded"
+          },
+          "note": "No reformed GCSE or A level specification or spec code exists yet; current specifications continue for every exam series through at least summer 2030 (GCSE) and 2032 (A level), plus resits."
+        },
+        {
+          "key": "ofqual-formulae-sheets-2028-onwards",
+          "label": "England — formulae and equation sheets in GCSE mathematics, physics and combined science made permanent for the current specifications (Ofqual decision)",
+          "board": "ofqual",
+          "qualification": "gcse",
+          "series": null,
+          "status": "announced",
+          "value": {
+            "appliesTo": "GCSE mathematics, physics and combined science exams from 2028 onwards, for the lifetime of the current qualifications including resits",
+            "sheetsPublishedBy": "1 September of the year before each exam series"
+          },
+          "unit": "first-teaching / first-assessment years",
+          "announced": "2026-05-05",
+          "effectiveFrom": "2026-05-05",
+          "source": "https://www.gov.uk/government/consultations/proposed-changes-to-the-assessment-of-mathematics-physics-and-combined-science-gcses/outcome/decisions-proposed-changes-to-the-assessment-of-mathematics-physics-and-combined-science-gcses",
+          "document": "Ofqual, Decisions: proposed changes to the assessment of mathematics, physics and combined science GCSEs (consultation published 2 March 2026, decisions added 5 May 2026)",
+          "quote": "Ofqual has decided to implement the proposals set out in the consultation document. … GCSE mathematics, physics and combined science exams being taken from 2028 onwards for the lifetime of the current qualifications, including any resit opportunities.",
+          "previous": {
+            "value": null,
+            "note": "first appearance: no earlier announcement is recorded"
+          },
+          "note": "Exams in 2025, 2026 and 2027 already carry the sheets under the earlier DfE/Ofqual decision (AQA, 1 September 2026: \"the full equations and formulae sheets will be provided for these subjects for exams in 2027 and will be included as an insert with every question paper\")."
+        },
+        {
+          "key": "aqa-a-level-business-7137-7138",
+          "label": "AQA AS and A-level Business — new specification 7137 (AS) / 7138 (A-level)",
+          "board": "aqa",
+          "qualification": "a-level",
+          "series": null,
+          "status": "announced",
+          "value": {
+            "specCodes": [
+              "7137",
+              "7138"
+            ],
+            "firstTeaching": "2026-09",
+            "firstAsExams": "2027",
+            "firstALevelExams": "2028",
+            "replaces": [
+              "7131",
+              "7132"
+            ]
+          },
+          "unit": "first-teaching / first-assessment years",
+          "announced": "2025-10-09",
+          "effectiveFrom": "2025-10-09",
+          "source": "https://www.aqa.org.uk/news/as-a-level-business-accredited-teaching-from-2026",
+          "document": "AQA news, AS and A-level Business: our new accredited specification (published 9 October 2025)",
+          "quote": "our new AS and A-level Business specification (7137, 7138) has been accredited by Ofqual. For first teaching in September 2026, first AS exams in 2027 and A-level exams in 2028.",
+          "previous": {
+            "value": null,
+            "note": "first appearance: no earlier announcement is recorded"
+          }
+        },
+        {
+          "key": "pearson-a-level-history-amendments",
+          "label": "Pearson Edexcel AS and A level History — amended specifications",
+          "board": "pearson",
+          "qualification": "a-level",
+          "series": null,
+          "status": "announced",
+          "value": {
+            "firstTeaching": "2026-09",
+            "firstAssessmentAS": "2027-06",
+            "firstAssessmentALevel": "2028-06"
+          },
+          "unit": "first-teaching / first-assessment years",
+          "announced": "2026-06-22",
+          "effectiveFrom": "2026-06-22",
+          "source": "https://qualifications.pearson.com/en/subjects/history.updates.html?article=%2Fcontent%2Fdemo%2Fen%2Fnews-policy%2Fsubject-updates%2Fhistory%2Fedexcel-as-and-a-level-history-specification-amendments",
+          "document": "Pearson Edexcel subject update, Edexcel AS and A level History specification amendments (published 22 June 2026)",
+          "quote": "Both specifications are for first teaching September 2026, and for first assessment June 2027 (AS level) and June 2028 (A level).",
+          "previous": {
+            "value": null,
+            "note": "first appearance: no earlier announcement is recorded"
+          }
+        },
+        {
+          "key": "ocr-a-level-psychology-h569",
+          "label": "Cambridge OCR A Level Psychology — new specification H569",
+          "board": "ocr",
+          "qualification": "a-level",
+          "series": null,
+          "status": "announced",
+          "value": {
+            "specCode": "H569",
+            "firstTeaching": "2027-09",
+            "firstExams": "2029-06"
+          },
+          "unit": "first-teaching / first-assessment years",
+          "announced": "2026-04-29",
+          "effectiveFrom": "2026-04-29",
+          "source": "https://www.ocr.org.uk/administration/support-and-tools/subject-updates/alevel-psychology-update-757969/",
+          "document": "Cambridge OCR subject update, A Level Psychology update (29 April 2026)",
+          "quote": "our new A Level Psychology (H569) qualification is now accredited for first teaching in September 2027 … This new specification will be first examined in June 2029",
+          "previous": {
+            "value": null,
+            "note": "first appearance: no earlier announcement is recorded"
+          }
+        },
+        {
+          "key": "wales-made-for-wales-gcses",
+          "label": "Wales — 26 new Made-for-Wales GCSEs (WJEC), including Mathematics and Numeracy (Double Award) 3320QD and The Sciences (Double Award)",
+          "board": "wjec-eduqas",
+          "qualification": "gcse",
+          "series": null,
+          "status": "announced",
+          "value": {
+            "count": 26,
+            "firstTeaching": "2025-09",
+            "firstAwards": "2027"
+          },
+          "unit": "first-teaching / first-assessment years",
+          "announced": "2023-06-28",
+          "effectiveFrom": "2023-06-28",
+          "source": "https://qualifications.wales/news-views/learners-in-wales-to-study-new-made-for-wales-gcses-from-2025/",
+          "document": "Qualifications Wales, Learners in Wales to study new Made-for-Wales GCSEs from 2025 (28 June 2023)",
+          "quote": "The qualifications will be introduced for first teaching from September 2025 … with the first new GCSEs being awarded in 2027",
+          "previous": {
+            "value": null,
+            "note": "first appearance: no earlier announcement is recorded"
+          },
+          "note": "Summer 2027 is the first exam series for these units (the WJEC summer 2027 GCSE timetable marks them \"NEW\" and the legacy 3300 Mathematics units \"RESIT ONLY\"). Wales only; Eduqas specifications for England are unchanged."
+        },
+        {
+          "key": "ofqual-british-sign-language-gcse",
+          "label": "England — GCSE British Sign Language: Ofqual rules confirmed, no accredited specification yet",
+          "board": "ofqual",
+          "qualification": "gcse",
+          "series": null,
+          "status": "announced",
+          "value": {
+            "rulesConfirmed": "2025-11-13",
+            "accreditedSpecification": null,
+            "firstTeaching": null,
+            "firstExams": null
+          },
+          "unit": "first-teaching / first-assessment years",
+          "announced": "2025-11-13",
+          "effectiveFrom": "2025-11-13",
+          "source": "https://www.gov.uk/government/news/ofqual-announces-rules-for-unique-british-sign-language-gcse",
+          "document": "Ofqual press release, Ofqual announces rules for unique British Sign Language GCSE (13 November 2025)",
+          "quote": "Ofqual has today set out the rules for the assessment of a groundbreaking new GCSE in British Sign Language (BSL). … From this point, it would be for any interested exam boards to develop their specific offers, which would then go through Ofqual's accreditation process.",
+          "previous": {
+            "value": null,
+            "note": "first appearance: no earlier announcement is recorded"
+          },
+          "note": "As of 2026-10-04 no board page read for this file announces an accredited BSL GCSE specification or a first-teaching date; a first-teaching year stated anywhere else is not from the regulator."
+        }
+      ]
+    }
+  }
+}
