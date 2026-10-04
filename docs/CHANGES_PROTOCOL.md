@@ -129,6 +129,11 @@ Data Butler's discovery document:
       "name": "calendar",
       "description": "Public holidays (UK, US federal, German Länder, France), tax-year starts/ends (nine countries) and daylight-saving switch dates for 2026–2028: new years published, holidays added or moved, rule changes",
       "cadence": "monthly"
+    },
+    {
+      "name": "uk-gov-process",
+      "description": "UK government service facts verified against gov.uk: passport fees (UK and overseas), driving licence renewal and provisional licences, change of address, vehicle tax and SORN, voter registration, birth and death registration, Blue Badge, Self Assessment deadlines and Making Tax Digital, National Insurance numbers, Universal Credit, EU Settlement Scheme, eVisa and ETA — fees, processing times, eligibility, start URLs and dated changes.",
+      "cadence": "Re-verified against the gov.uk pages every 30 days and on fee-change days (Home Office fees usually move in April); every source page re-fetched weekly through the gov.uk content API."
     }
   ],
   "endpoints": {

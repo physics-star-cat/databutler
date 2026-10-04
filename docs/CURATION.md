@@ -28,6 +28,7 @@ The product is trust. A wrong number is worse than no number. Rules:
 | `data/uk-vehicle-rules/<year>.json` | Every 1 April, calendar-driven (`cadenceDays: null`; `nextScheduledRefresh` set by hand to the next 1 April, 2027-04-01 for 2027-28): VED rates and the historic-vehicle exemption date are uprated by the Finance Act (announced at the Autumn Budget — HMRC tax information and impact notes on gov.uk on Budget day; the rate-tables page is rewritten shortly before 1 April). MOT maximum fees have not changed since 2010. The weekly watcher hashes the gov.uk pages in `sources()`. | Fetch gov.uk/vehicle-tax-rate-tables (all parts), gov.uk/getting-an-mot, gov.uk/historic-vehicles, gov.uk/vehicle-tax-direct-debit and gov.uk/vehicle-exempt-from-vehicle-tax (content API `https://www.gov.uk/api/content/<path>` gives every part as HTML); write a NEW `data/uk-vehicle-rules/<year>.json` (keep old years), moving each `value` into `previous` (with the National Archives capture URL of the outgoing page as previous.source), writing the new `value`, `quote`, `effectiveFrom` (1 April) and `verifiedDate`; bump `taxYear`, `taxYearRuns`, set `nextScheduledRefresh`; update the file the module requires; then `node scripts/changelog.js --only uk-vehicle-rules` (one entry per figure that moved, from → to, effectiveFrom 1 April; refreshes `data/sources.json`); review the pre-filled notes. |
 | `data/uk-exam-dates.json` | Annual, calendar-driven (`cadenceDays: null`; `nextScheduledRefresh` set by hand, 2027-01-15 first): JCQ publishes the following June series' key dates and the boards their final summer timetables between May and July (provisional for consultation in February), the November series in September; Ofqual/DfE announcements of reformed or newly accredited specifications land at any time. The weekly watcher hashes the JCQ key-dates and timetables pages and the four boards' timetable landing pages (jcq.org.uk answers 403 to non-browser user agents). | Open the JCQ key-dates PDF for the new series and each board's final timetable PDF (AQA dates-and-timetables, Pearson exam-timetables, OCR key-dates-and-timetables, WJEC key-dates-and-timetables) and fee/key-dates document; for each figure move `value` into `previous` (with its series, source, document and quote), write the new `value`, `effectiveFrom`, `series`, `status`, `source`, `document`, `quote`; add spec-change figures from the regulator/board announcement with `previous: { value: null }`; bump `verifiedDate`, set `nextScheduledRefresh`; then `node scripts/changelog.js --only uk-exam-dates` (one `uk-exam-dates` entry per date that moved; refreshes `data/sources.json`); check the pre-filled notes name the JCQ/board document. |
 | `data/calendar.json` | Monthly (freshness says `due` from 35 days after the fetch); and when a government publishes the next year's list (gov.uk and OPM publish ~2 years ahead, calendrier.api.gouv.fr 5 years) | `node scripts/calendar.js` — fetches gov.uk `bank-holidays.json`, OPM's federal-holidays page and `calendrier.api.gouv.fr` (UA names databutler.dev, 500 ms apart), merges `data/calendar/manual.json` (German Länder rules, tax-year and DST rules — edit that file against the official pages, bump its `verifiedDate`, keep every `quote`/`verification`), computes rule-based dates and stops if a hand-copied official date disagrees, bumps `verifiedDate`/`nextScheduledRefresh` (+35 days), appends `calendar` changelog entries (`<cc>/holidays/<year>` for a new year, `<cc>/holidays/<region>/<year>/<key>` for an added/removed/moved day, `<cc>/tax-year/<part>`, `<cc>/dst/<year>` for rule changes). Fill the blank notes, commit `data/` together. To widen the window add the year to `manual.json` `years`. `CAL_DIR=path` builds from saved copies. Re-try the `nonOfficial` entries (HB, MV, SH, TH holidays; fr and br DST; br personal tax year) each refresh. |
+| `data/uk-gov-process.json` | Every 30 days (`nextScheduledRefresh` = verifiedDate + 30), and on Home Office / DVLA / DWP fee-change days (passport and ETA fees moved on 8 April 2026; benefits uprate each April). The weekly watcher reads each service's gov.uk page through the content API. | For each service fetch `https://www.gov.uk/api/content/<path>` for its `source` and `alsoRead` pages; compare every figure's `quote` against the page; for a changed value move the old value into `previous` (source = the National Archives capture of the outgoing page, or the announcement/SI) and set `effectiveFrom` to the change date; add a dated line to the service's `changes`; update `pageUpdatedAt`; bump `verifiedDate`; then `node scripts/changelog.js --only uk-gov-process` (stamps `nextScheduledRefresh`, appends one entry per figure that moved, re-hashes this area's sources) and review the notes. |
 | `data/sources.json` | After every data refresh (automatic via `scripts/changelog.js`) | `node scripts/sources.js` re-checks every source URL (gov.uk content API / page hash); a page it cannot fetch is recorded `unreachable` and listed under "Sources the watcher cannot read". |
 | `data/changelog.json` | With every data refresh | `node scripts/changelog.js` (areas with a `changelog.diff`) or the dataset's own script (`changelog.script`); fill in `note` lines. See "Changelog & source watcher" and docs/ADDING_AN_AREA.md. |
 <!-- sync-areas:calendar end -->
@@ -1040,3 +1041,106 @@ served data and is listed under "Not re-verified" below — seven entries.
   calendrier.api.gouv.fr (5 years ahead) publish further: gov.uk stops at 2028
   and the German/DST rules were only cross-checked that far — widen by adding
   the year to `manual.json` `years` and re-running.
+
+## Verification log (uk-gov-process, added 2026-10-04)
+
+Fetch notes: every service page was fetched 2026-10-04 through the gov.uk
+content API (`https://www.gov.uk/api/content/<path>`, UA naming databutler.dev);
+all returned 200. Each category's `pageUpdatedAt` is the API `updated_at` date
+(the `public_updated_at` "last major change" on mainstream guides is years old —
+e.g. /passport-fees 2015-01-12 — even though the fees changed in April 2026, so
+it is not a change signal). **Mainstream guides (`guide`, `answer`,
+`transaction`) publish no `change_history`**; only detailed guides, news and
+publications do. So dated changes come from: the Home Office news stories
+(`/government/news/new-fees-for-passport-applications` 18 March 2026,
+`/government/news/changes-to-passport-application-fees` "came into force on 10
+April 2025", the ETA rollout/enforcement stories of 27 November 2024, 5 March
+2025, 24 November 2025 and 24 February 2026, the eVisa grace-period story of 27
+February 2025), the `change_history` of
+`/guidance/check-when-you-can-get-an-electronic-travel-authorisation-eta` and
+`/guidance/universal-credit-if-you-have-children` ("The 2-child limit ended on 6
+April 2026"), the Home Office fees tables (`/government/publications/visa-regulations-revised-table`
+attachments for 9 April 2025 "Electronic travel authorisation (ETA) | £10 | £16"
+and 8 April 2026 "electronic travel authorisation (ETA) | £16 | £20"), and the
+statutory instruments: SI 2026/311 (Immigration, Nationality and Passports
+(Fees) (Amendment) Regulations 2026; Part 3 in force 8 April 2026; Schedule 8
+"The fifth entry £94.50 £102 … The seventh entry £108 £116.50 The eighth entry
+£120.50 £130") and SI 2026/148 (Social Security Benefits Up-rating Order 2026,
+art. 1(3)(n): Universal Credit amounts from "the first day of the first
+assessment period to commence … on or after 6th April 2026"). Previous values
+are also confirmed on National Archives captures of the same pages, fetched with
+the `id_` modifier (`…/ukgwa/<timestamp>id_/https://www.gov.uk/<path>`):
+passport-fees 20260227170031 ("£94.50 £107"), get-a-child-passport
+20260227163858 ("£61.50" / "£74"), eta 20260227163904 ("An ETA costs £16"),
+universal-credit 20260227160542 ("£400.14", "£292.81 per child"); the 30
+September 2024 captures of renew-driving-licence, apply-first-provisional-driving-licence,
+apply-blue-badge and register-birth show the same fees as today (£14/£21.50/£17,
+£34/£43, £10/£20, £12.50), so those figures carry no `previous`. Licence: the
+gov.uk footer, "All content is available under the Open Government Licence
+v3.0, except where otherwise stated". Nothing was written from memory.
+
+Kept as published / odd:
+- HM Passport Office "about our services" (`/government/organisations/hm-passport-office/about/about-our-services`)
+  still says a paper form "costs an extra £16.00" (last changed 2022-10-20); the
+  fees pages now give £115.50 − £102 = £13.50. The area quotes the fees pages and
+  uses that page only for "You’ll usually get your passport within 3 weeks."
+- Overseas passport fees have no gov.uk guide page (`/overseas-passports` is a
+  start page only); the figures come from the 18 March 2026 news story and are
+  confirmed in force by SI 2026/311 Schedule 8.
+- `/register-a-death` is a smart answer whose content API body is empty; the
+  category's source is `/after-a-death` (part "Register the death": "within 5
+  days (8 days in Scotland) of getting the confirmation"), with death certificate
+  fees from `/order-copy-birth-death-marriage-certificate` ("Certificates cost
+  £12.50").
+- `/guidance/online-immigration-status-evisa` now redirects to `/evisa`
+  (redirect published 2026-01-20); `/evisa` is the source.
+- `/register-to-vote` says England and Northern Ireland "You must be aged 16 or
+  over to register" and Scotland and Wales "14 or over".
+
+### Services and the sentence each figure was read from
+
+- passport-renewal-adult — /renew-adult-passport: "It costs £102 to renew or
+  replace your passport if you apply online or £115.50 if you fill in a paper
+  form."; /passport-fees: "Adult (16 and over) 54-page frequent traveller
+  passport | £116 | £129.50"; /get-a-passport-urgently: "It costs £239.50 (or
+  £253.50 …)", "£192 for an adult passport"; /apply-first-adult-passport: "An
+  adult passport is valid for 10 years."
+- passport-child — /get-a-child-passport: "It costs £66.50 to apply online and
+  £80 to apply with a paper form from the Post Office. A child passport is valid
+  for 5 years."
+- driving-licence-renewal — /renew-driving-licence: "It costs £14 when you apply
+  online.", "the £21.50 fee", "a cheque or postal order for £17", "You must renew
+  a photocard licence every 10 years"; /renew-driving-licence-at-70: "Once you
+  reach 70, you must renew every 3 years."
+- provisional-licence — /apply-first-provisional-driving-licence: "It costs £34
+  when you apply online.", "a cheque or postal order for £43", "be at least 15
+  years and 9 months old".
+- change-address — /change-address-driving-licence: "It does not cost anything to
+  change your address with DVLA.", "fined up to £1,000"; /change-address-v5c:
+  "It’s usually free to update it.", "you’ll have to pay £25 to get a
+  replacement".
+- vehicle-tax-sorn — /vehicle-tax and /make-a-sorn: "You must tax your vehicle
+  even if you do not have to pay anything", "You’ll get a refund for any full
+  months of remaining tax.", "a new log book costs £25".
+- register-to-vote, register-birth ("within 42 days", "Both kinds cost £12.50"),
+  register-death, blue-badge ("costs up to £10 in England and £20 in Scotland.
+  It’s free in Wales.", "within 12 weeks").
+- self-assessment — /register-for-self-assessment: "by 5 October 2026";
+  /self-assessment-tax-returns (parts deadlines, penalties, who-must-send-a-tax-return):
+  "by 11:59pm on 31 October 2026", "by 11:59pm on 31 January 2027", "by 11:59pm
+  on 30 December 2026", "an initial £100 penalty", "earned more than £1,000";
+  Making Tax Digital guidance: "£50,000 … from 6 April 2026", "£30,000 … from 6
+  April 2027", "£20,000 … from 6 April 2028".
+- national-insurance-number — "It can take up to 4 weeks to get your National
+  Insurance number after you’ve proved your identity."
+- universal-credit — "have £16,000 or less", "within 28 days of creating your
+  account", "around 5 weeks", "£424.90", "£338.58", "£666.97", "£303.94 a month
+  for each child".
+- eu-settlement-scheme — "It’s free to apply", "extended by 5 years", "30 months
+  (2.5 years) in the last 5 years".
+- evisa — /evisa: "eVisas have replaced physical immigration documents.", "You
+  do not need to pay"; /biometric-residence-permits: "All BRPs have now expired",
+  "24 months after the expiry date printed on the card, or until 31 December
+  2026".
+- eta — /eta: "An ETA costs £20.", "An ETA lasts for 2 years or until your
+  passport expires", "within a day, but it can take up to 3 working days".

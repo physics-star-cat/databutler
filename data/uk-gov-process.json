@@ -1,0 +1,1409 @@
+{
+  "area": "uk-gov-process",
+  "jurisdiction": "United Kingdom (services marked GB or England and Wales where the page says so)",
+  "currency": "GBP",
+  "verifiedDate": "2026-10-04",
+  "nextScheduledRefresh": "2026-11-03",
+  "licence": "All content is available under the Open Government Licence v3.0, except where otherwise stated (gov.uk footer); legislation.gov.uk content under the Open Government Licence v3.0.",
+  "method": "Each category read from the gov.uk content API (https://www.gov.uk/api/content/<path>) on verifiedDate; pageUpdatedAt is the API updated_at date. Mainstream gov.uk guides publish no change notes, so previous values come from the National Archives capture of the same page, the Home Office announcement or the statutory instrument named in previous.title.",
+  "categories": {
+    "passport-renewal-adult": {
+      "title": "Renew, replace or apply for an adult British passport (16 and over), UK and overseas fees",
+      "source": "https://www.gov.uk/renew-adult-passport",
+      "contentApi": "https://www.gov.uk/api/content/renew-adult-passport",
+      "startUrl": "https://www.passport.service.gov.uk/filter",
+      "pageUpdatedAt": "2026-09-09",
+      "figures": [
+        {
+          "key": "fee-online-uk",
+          "label": "Adult standard 34-page passport, online from the UK (renew, replace or first)",
+          "value": 102,
+          "unit": "GBP",
+          "quote": "It costs £102 to renew or replace your passport if you apply online or £115.50 if you fill in a paper form.",
+          "effectiveFrom": "2026-04-08",
+          "previous": {
+            "value": 94.5,
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20260227170031/https://www.gov.uk/passport-fees",
+            "title": "gov.uk/passport-fees, National Archives capture 27 February 2026"
+          }
+        },
+        {
+          "key": "fee-paper-uk",
+          "label": "Adult standard 34-page passport, paper form from the UK",
+          "value": 115.5,
+          "unit": "GBP",
+          "quote": "It costs £102 to renew or replace your passport if you apply online or £115.50 if you fill in a paper form.",
+          "effectiveFrom": "2026-04-08",
+          "previous": {
+            "value": 107,
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20260227170031/https://www.gov.uk/passport-fees",
+            "title": "gov.uk/passport-fees, National Archives capture 27 February 2026"
+          }
+        },
+        {
+          "key": "fee-online-uk-54-page",
+          "label": "Adult 54-page frequent traveller passport, online from the UK",
+          "value": 116,
+          "unit": "GBP",
+          "source": "https://www.gov.uk/passport-fees",
+          "quote": "Adult (16 and over) 54-page frequent traveller passport | £116 | £129.50",
+          "effectiveFrom": "2026-04-08",
+          "previous": {
+            "value": 107.5,
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20260227170031/https://www.gov.uk/passport-fees",
+            "title": "gov.uk/passport-fees, National Archives capture 27 February 2026"
+          }
+        },
+        {
+          "key": "fee-online-overseas",
+          "label": "Adult standard passport, online application from overseas",
+          "value": 116.5,
+          "unit": "GBP",
+          "source": "https://www.gov.uk/government/news/new-fees-for-passport-applications",
+          "quote": "the fee for a standard online application when applying from overseas for a UK passport will rise from £108 to £116.50 for adults and £70 to £75.50 for children",
+          "effectiveFrom": "2026-04-08",
+          "previous": {
+            "value": 108,
+            "source": "https://www.gov.uk/government/news/new-fees-for-passport-applications",
+            "title": "Home Office news story 18 March 2026; in force 8 April 2026 by SI 2026/311 Schedule 8 (\"The seventh entry £108 £116.50\")"
+          }
+        },
+        {
+          "key": "fee-paper-overseas",
+          "label": "Adult standard passport, paper application from overseas",
+          "value": 130,
+          "unit": "GBP",
+          "source": "https://www.gov.uk/government/news/new-fees-for-passport-applications",
+          "quote": "overseas standard paper applications will increase from £120.50 to £130 for adults and £82.50 to £89 for children",
+          "effectiveFrom": "2026-04-08",
+          "previous": {
+            "value": 120.5,
+            "source": "https://www.gov.uk/government/news/new-fees-for-passport-applications",
+            "title": "Home Office news story 18 March 2026; SI 2026/311 Schedule 8 (\"The eighth entry £120.50 £130\")"
+          }
+        },
+        {
+          "key": "fee-1-day-premium",
+          "label": "Urgent 1 day Premium service (adult renewal only)",
+          "value": 239.5,
+          "unit": "GBP",
+          "source": "https://www.gov.uk/get-a-passport-urgently",
+          "quote": "It costs £239.50 (or £253.50 for a 54-page frequent traveller passport).",
+          "effectiveFrom": "2026-04-08",
+          "previous": {
+            "value": 222,
+            "source": "https://www.gov.uk/government/news/new-fees-for-passport-applications",
+            "title": "Home Office news story 18 March 2026 (\"will rise from £222 to £239.50\")"
+          }
+        },
+        {
+          "key": "fee-1-week-fast-track",
+          "label": "Urgent 1 week Fast Track service, adult",
+          "value": 192,
+          "unit": "GBP",
+          "source": "https://www.gov.uk/get-a-passport-urgently",
+          "quote": "It costs: £192 for an adult passport (or £206 for a 54-page frequent traveller passport)"
+        },
+        {
+          "key": "fee-born-before-1929",
+          "label": "Passport for people born on or before 2 September 1929",
+          "value": "free",
+          "unit": "statement",
+          "source": "https://www.gov.uk/passport-fees",
+          "quote": "Passport for people born on or before 2 September 1929 | Free | Free"
+        },
+        {
+          "key": "processing-time-uk",
+          "label": "Standard processing time in the UK",
+          "value": "usually within 3 weeks",
+          "unit": "statement",
+          "source": "https://www.gov.uk/government/organisations/hm-passport-office/about/about-our-services",
+          "quote": "You’ll usually get your passport within 3 weeks."
+        },
+        {
+          "key": "validity",
+          "label": "Adult passport validity",
+          "value": 10,
+          "unit": "years",
+          "source": "https://www.gov.uk/apply-first-adult-passport",
+          "quote": "An adult passport is valid for 10 years."
+        },
+        {
+          "key": "age",
+          "label": "Who counts as an adult applicant",
+          "value": "aged 16 or over (or turning 16 in the next 3 weeks)",
+          "unit": "statement",
+          "quote": "You must be aged 16 or over (or turning 16 in the next 3 weeks) to get an adult passport."
+        },
+        {
+          "key": "renewal-documents",
+          "label": "Documents to renew",
+          "value": "your old passport; any valid passports from a different country (colour photocopy of every page or the physical passport)",
+          "unit": "statement",
+          "quote": "To renew your passport you’ll need: your old passport; any valid passports you have from a different country - send either a colour photocopy of every page (including blank ones) or the physical passport"
+        },
+        {
+          "key": "online-needs",
+          "label": "Online application needs",
+          "value": "a digital photo, a credit or debit card, your passport",
+          "unit": "statement",
+          "quote": "Use this service to renew your passport online. It costs £102. You’ll need: a digital photo; a credit or debit card; your passport"
+        },
+        {
+          "key": "first-passport-countersignatory",
+          "label": "First adult passport: identity confirmation",
+          "value": "someone who can confirm your identity (a countersignatory); you may be asked to attend an interview",
+          "unit": "statement",
+          "source": "https://www.gov.uk/apply-first-adult-passport",
+          "quote": "someone who can confirm your identity (a ‘countersignatory’) ... After you apply, you may be asked to attend an interview."
+        }
+      ],
+      "alsoRead": [
+        "https://www.gov.uk/passport-fees",
+        "https://www.gov.uk/apply-first-adult-passport",
+        "https://www.gov.uk/overseas-passports",
+        "https://www.gov.uk/get-a-passport-urgently"
+      ],
+      "changes": [
+        {
+          "date": "2026-04-08",
+          "change": "Passport fees rose: UK online adult £94.50 → £102, paper £107 → £115.50; overseas online adult £108 → £116.50, paper £120.50 → £130; 1 day Premium £222 → £239.50.",
+          "source": "https://www.gov.uk/government/news/new-fees-for-passport-applications",
+          "legislation": "https://www.legislation.gov.uk/uksi/2026/311/made"
+        },
+        {
+          "date": "2025-04-10",
+          "change": "Passport fees rose: UK online adult £88.50 → £94.50, paper £100 → £107; overseas online adult £101 → £108.",
+          "source": "https://www.gov.uk/government/news/changes-to-passport-application-fees",
+          "quote": "The passport fee increases came into force on 10 April 2025."
+        }
+      ]
+    },
+    "passport-child": {
+      "title": "Get a passport for a child (under 16)",
+      "source": "https://www.gov.uk/get-a-child-passport",
+      "contentApi": "https://www.gov.uk/api/content/get-a-child-passport",
+      "startUrl": "https://www.passport.service.gov.uk/filter",
+      "pageUpdatedAt": "2026-09-09",
+      "figures": [
+        {
+          "key": "fee-online-uk",
+          "label": "Child passport, online from the UK",
+          "value": 66.5,
+          "unit": "GBP",
+          "quote": "It costs £66.50 to apply online and £80 to apply with a paper form from the Post Office.",
+          "effectiveFrom": "2026-04-08",
+          "previous": {
+            "value": 61.5,
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20260227163858/https://www.gov.uk/get-a-child-passport",
+            "title": "gov.uk/get-a-child-passport, National Archives capture 27 February 2026"
+          }
+        },
+        {
+          "key": "fee-paper-uk",
+          "label": "Child passport, paper form from the UK",
+          "value": 80,
+          "unit": "GBP",
+          "quote": "It costs £66.50 to apply online and £80 to apply with a paper form from the Post Office.",
+          "effectiveFrom": "2026-04-08",
+          "previous": {
+            "value": 74,
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20260227163858/https://www.gov.uk/get-a-child-passport",
+            "title": "gov.uk/get-a-child-passport, National Archives capture 27 February 2026"
+          }
+        },
+        {
+          "key": "fee-online-overseas",
+          "label": "Child passport, online application from overseas",
+          "value": 75.5,
+          "unit": "GBP",
+          "source": "https://www.gov.uk/government/news/new-fees-for-passport-applications",
+          "quote": "the fee for a standard online application when applying from overseas for a UK passport will rise from £108 to £116.50 for adults and £70 to £75.50 for children",
+          "effectiveFrom": "2026-04-08",
+          "previous": {
+            "value": 70,
+            "source": "https://www.gov.uk/government/news/new-fees-for-passport-applications",
+            "title": "Home Office news story 18 March 2026; SI 2026/311 Schedule 8 (\"The third entry £70 £75.50\")"
+          }
+        },
+        {
+          "key": "fee-paper-overseas",
+          "label": "Child passport, paper application from overseas",
+          "value": 89,
+          "unit": "GBP",
+          "source": "https://www.gov.uk/government/news/new-fees-for-passport-applications",
+          "quote": "overseas standard paper applications will increase from £120.50 to £130 for adults and £82.50 to £89 for children",
+          "effectiveFrom": "2026-04-08",
+          "previous": {
+            "value": 82.5,
+            "source": "https://www.gov.uk/government/news/new-fees-for-passport-applications",
+            "title": "Home Office news story 18 March 2026; SI 2026/311 Schedule 8 (\"The fourth entry £82.50 £89\")"
+          }
+        },
+        {
+          "key": "fee-1-week-fast-track",
+          "label": "Urgent 1 week Fast Track service, child",
+          "value": 156.5,
+          "unit": "GBP",
+          "source": "https://www.gov.uk/get-a-passport-urgently",
+          "quote": "£156.50 for a child passport (or £170.50 for a 54-page frequent traveller passport)"
+        },
+        {
+          "key": "validity",
+          "label": "Child passport validity",
+          "value": 5,
+          "unit": "years",
+          "quote": "A child passport is valid for 5 years."
+        },
+        {
+          "key": "who-applies",
+          "label": "Who applies",
+          "value": "someone with parental responsibility; both parents’ details are needed; a child aged 12 to 15 signs too",
+          "unit": "statement",
+          "quote": "Someone with parental responsibility for the child must apply for the passport. You need to give both parents’ details when you apply."
+        },
+        {
+          "key": "first-documents-post",
+          "label": "First child passport by post: documents",
+          "value": "2 new photos; full birth or adoption certificate; proof of British nationality; any valid foreign passports; any court orders",
+          "unit": "statement",
+          "quote": "the child’s full birth or adoption certificate (the one with parent’s details on it); proof that your child has British nationality (for example a British registration certificate, parent’s passport details or parent’s birth certificates)"
+        },
+        {
+          "key": "identity-confirmation",
+          "label": "Identity confirmation",
+          "value": "first passport: always; renewal: if the child is under 12 (online: confirmed online by email, no signed photo)",
+          "unit": "statement",
+          "quote": "If your child is under 12, you’ll need to ask someone to confirm their identity after you’ve submitted the application."
+        },
+        {
+          "key": "processing-time-uk",
+          "label": "Standard processing time in the UK",
+          "value": "usually within 3 weeks",
+          "unit": "statement",
+          "source": "https://www.gov.uk/government/organisations/hm-passport-office/about/about-our-services",
+          "quote": "You’ll usually get your passport within 3 weeks."
+        }
+      ],
+      "changes": [
+        {
+          "date": "2026-04-08",
+          "change": "Child passport fees rose: UK online £61.50 → £66.50, paper £74 → £80; overseas online £70 → £75.50, paper £82.50 → £89.",
+          "source": "https://www.gov.uk/government/news/new-fees-for-passport-applications",
+          "legislation": "https://www.legislation.gov.uk/uksi/2026/311/made"
+        },
+        {
+          "date": "2025-04-10",
+          "change": "Child passport fees rose: UK online £57.50 → £61.50, paper £69 → £74.",
+          "source": "https://www.gov.uk/government/news/changes-to-passport-application-fees"
+        }
+      ]
+    },
+    "driving-licence-renewal": {
+      "title": "Renew a GB photocard driving licence (10-year renewal, and at 70 or over)",
+      "source": "https://www.gov.uk/renew-driving-licence",
+      "contentApi": "https://www.gov.uk/api/content/renew-driving-licence",
+      "startUrl": "https://apply-for-driving-licence.service.gov.uk/service-start?start=TYR&locale=en",
+      "pageUpdatedAt": "2026-09-25",
+      "figures": [
+        {
+          "key": "fee-online",
+          "label": "Renewal online",
+          "value": 14,
+          "unit": "GBP",
+          "quote": "It costs £14 when you apply online."
+        },
+        {
+          "key": "fee-post-office",
+          "label": "Renewal at a Post Office",
+          "value": 21.5,
+          "unit": "GBP",
+          "quote": "your photocard licence if you have it; the £21.50 fee"
+        },
+        {
+          "key": "fee-post",
+          "label": "Renewal by post (D1 pack)",
+          "value": 17,
+          "unit": "GBP",
+          "quote": "a cheque or postal order for £17, payable to DVLA (no fee is needed if you have a medical short period licence or you’re aged 70 or over)"
+        },
+        {
+          "key": "photocard-interval",
+          "label": "Photocard renewal interval",
+          "value": 10,
+          "unit": "years",
+          "quote": "You must renew a photocard licence every 10 years - you’ll receive a reminder before your current licence ends."
+        },
+        {
+          "key": "time-online",
+          "label": "Delivery time, online",
+          "value": "within a week",
+          "unit": "statement",
+          "quote": "Your driving licence should arrive within a week if you apply online."
+        },
+        {
+          "key": "time-post",
+          "label": "Delivery time, Post Office or post",
+          "value": "within 3 weeks",
+          "unit": "statement",
+          "quote": "Your driving licence should arrive within 3 weeks. It might take longer if your medical or personal details need to be checked."
+        },
+        {
+          "key": "eligibility",
+          "label": "Eligibility",
+          "value": "resident of Great Britain and not disqualified (Northern Ireland has a different service)",
+          "unit": "statement",
+          "quote": "be a resident of Great Britain (there’s a different service in Northern Ireland); not be disqualified from driving"
+        },
+        {
+          "key": "valid-from",
+          "label": "New licence valid from",
+          "value": "the date the application is approved, not the old expiry date",
+          "unit": "statement",
+          "quote": "Your new licence will be valid from the date your application is approved, not from the expiry date of your current licence."
+        },
+        {
+          "key": "age-70-fee",
+          "label": "Renewal at 70 or over",
+          "value": "free",
+          "unit": "statement",
+          "source": "https://www.gov.uk/renew-driving-licence-at-70",
+          "quote": "Renew your driving licence online with DVLA for free if you’re 70 or over - or will be 70 in the next 90 days."
+        },
+        {
+          "key": "age-70-interval",
+          "label": "Renewal interval from age 70",
+          "value": 3,
+          "unit": "years",
+          "source": "https://www.gov.uk/renew-driving-licence-at-70",
+          "quote": "Once you reach 70, you must renew every 3 years."
+        },
+        {
+          "key": "age-70-post-time",
+          "label": "Age 70 renewal by post (D46P), delivery",
+          "value": "in 3 weeks",
+          "unit": "statement",
+          "source": "https://www.gov.uk/renew-driving-licence-at-70",
+          "quote": "Your driving licence should arrive in 3 weeks."
+        }
+      ],
+      "scope": "Great Britain (DVLA); Northern Ireland renews through nidirect.",
+      "alsoRead": [
+        "https://www.gov.uk/renew-driving-licence-at-70",
+        "https://www.gov.uk/driving-licence-fees"
+      ],
+      "changes": []
+    },
+    "provisional-licence": {
+      "title": "Apply for a first provisional driving licence (GB)",
+      "source": "https://www.gov.uk/apply-first-provisional-driving-licence",
+      "contentApi": "https://www.gov.uk/api/content/apply-first-provisional-driving-licence",
+      "startUrl": "https://apply-for-driving-licence.service.gov.uk/service-start?start=DFP&locale=en",
+      "pageUpdatedAt": "2026-09-25",
+      "figures": [
+        {
+          "key": "fee-online",
+          "label": "First provisional licence online",
+          "value": 34,
+          "unit": "GBP",
+          "quote": "It costs £34 when you apply online."
+        },
+        {
+          "key": "fee-post",
+          "label": "First provisional licence by post (form D1)",
+          "value": 43,
+          "unit": "GBP",
+          "quote": "Send your application to the address on the form, along with a cheque or postal order for £43."
+        },
+        {
+          "key": "minimum-age",
+          "label": "Minimum age to apply",
+          "value": "15 years and 9 months",
+          "unit": "statement",
+          "quote": "be at least 15 years and 9 months old"
+        },
+        {
+          "key": "eyesight",
+          "label": "Eyesight requirement",
+          "value": "read a number plate from 20 metres away",
+          "unit": "statement",
+          "quote": "be able to read a number plate from 20 metres away"
+        },
+        {
+          "key": "residence",
+          "label": "Residence requirement",
+          "value": "permission to live in Great Britain for at least 185 days",
+          "unit": "statement",
+          "quote": "have been given permission to live in Great Britain (England, Scotland and Wales) for at least 185 days"
+        },
+        {
+          "key": "time-online",
+          "label": "Delivery time, online",
+          "value": "within one week",
+          "unit": "statement",
+          "quote": "Your licence should arrive within one week if you apply online."
+        }
+      ],
+      "scope": "Great Britain (DVLA).",
+      "changes": []
+    },
+    "change-address": {
+      "title": "Change your address on a driving licence and vehicle log book (V5C)",
+      "source": "https://www.gov.uk/change-address-driving-licence",
+      "contentApi": "https://www.gov.uk/api/content/change-address-driving-licence",
+      "startUrl": "https://apply-for-driving-licence.service.gov.uk/service-start?start=REP&locale=en",
+      "pageUpdatedAt": "2026-09-25",
+      "figures": [
+        {
+          "key": "licence-fee",
+          "label": "Change address on a driving licence",
+          "value": "free",
+          "unit": "statement",
+          "quote": "It does not cost anything to change your address with DVLA."
+        },
+        {
+          "key": "licence-photo-fee",
+          "label": "Change photo at the same time (online)",
+          "value": 14,
+          "unit": "GBP",
+          "quote": "If you want to change your photo at the same time: It costs £14."
+        },
+        {
+          "key": "licence-time-online",
+          "label": "Licence delivery, online",
+          "value": "within a week",
+          "unit": "statement",
+          "quote": "Your licence should arrive within a week if you apply online."
+        },
+        {
+          "key": "licence-time-post",
+          "label": "Licence delivery, by post",
+          "value": "usually within 3 weeks",
+          "unit": "statement",
+          "quote": "Your driving licence will usually arrive within 3 weeks."
+        },
+        {
+          "key": "fine",
+          "label": "Fine for not telling DVLA",
+          "value": 1000,
+          "unit": "GBP (up to)",
+          "quote": "You can be fined up to £1,000 if you do not tell DVLA when your address changes."
+        },
+        {
+          "key": "v5c-fee",
+          "label": "Change address on the V5C log book",
+          "value": "usually free",
+          "unit": "statement",
+          "source": "https://www.gov.uk/change-address-v5c",
+          "quote": "You must update your vehicle log book (V5C) if you change your address. It’s usually free to update it."
+        },
+        {
+          "key": "v5c-start-url",
+          "label": "V5C change-of-address online service",
+          "value": "http://change-address-v5c.service.gov.uk/",
+          "unit": "url",
+          "source": "https://www.gov.uk/change-address-v5c",
+          "quote": "Use this service to change the address in your log book to a new UK address."
+        },
+        {
+          "key": "v5c-hours",
+          "label": "V5C online service hours",
+          "value": "Monday to Friday 7am to 9pm; Saturday and Sunday 7am to 8pm",
+          "unit": "statement",
+          "source": "https://www.gov.uk/change-address-v5c",
+          "quote": "Monday to Friday, 7am to 9pm; Saturday and Sunday, 7am to 8pm"
+        },
+        {
+          "key": "v5c-needs",
+          "label": "V5C online: what you need",
+          "value": "the registration number, the log book reference number, a UK address; tax first if due in the next 4 weeks",
+          "unit": "statement",
+          "source": "https://www.gov.uk/change-address-v5c",
+          "quote": "the registration number of your vehicle; your log book reference number; a UK address; to check if your vehicle needs taxing in the next 4 weeks"
+        },
+        {
+          "key": "v5c-arrival",
+          "label": "New log book arrival",
+          "value": "contact DVLA after 4 weeks; £25 replacement fee if not notified within 6 weeks",
+          "unit": "statement",
+          "source": "https://www.gov.uk/change-address-v5c",
+          "quote": "If you have not received your log book after 6 weeks and you have not notified DVLA, you’ll have to pay £25 to get a replacement."
+        }
+      ],
+      "scope": "Great Britain (DVLA); name and address together is by post only.",
+      "alsoRead": [
+        "https://www.gov.uk/change-address-v5c"
+      ],
+      "changes": []
+    },
+    "vehicle-tax-sorn": {
+      "title": "Tax a vehicle, or register it as off the road (SORN)",
+      "source": "https://www.gov.uk/vehicle-tax",
+      "contentApi": "https://www.gov.uk/api/content/vehicle-tax",
+      "startUrl": "https://vehicletax.service.gov.uk/",
+      "pageUpdatedAt": "2026-09-09",
+      "figures": [
+        {
+          "key": "reference-needed",
+          "label": "Reference number to tax",
+          "value": "a vehicle tax reminder or ‘last chance’ letter, the V5C log book (in your name), or the green ‘new keeper’ slip",
+          "unit": "statement",
+          "quote": "a recent vehicle tax reminder or ‘last chance’ warning letter from DVLA; your vehicle log book (V5C) - it must be in your name; the green ‘new keeper’ slip from a log book if you’ve just bought it"
+        },
+        {
+          "key": "exempt-must-tax",
+          "label": "Exempt vehicles",
+          "value": "must still be taxed (at £0)",
+          "unit": "statement",
+          "quote": "You must tax your vehicle even if you do not have to pay anything because it’s exempt from vehicle tax."
+        },
+        {
+          "key": "phone",
+          "label": "Phone service",
+          "value": "0300 123 4321, 24-hour; no Direct Debit by phone",
+          "unit": "statement",
+          "quote": "Telephone: 0300 123 4321 24-hour service ... You cannot pay by Direct Debit over the phone."
+        },
+        {
+          "key": "mot-update-lag",
+          "label": "MOT record lag",
+          "value": "up to 2 days after a pass",
+          "unit": "statement",
+          "quote": "It can take up to 2 days for MOT information to be updated, so you might not be able to tax your vehicle immediately after it passes its test."
+        },
+        {
+          "key": "sorn-start-url",
+          "label": "SORN online service",
+          "value": "https://www.sorn.service.gov.uk",
+          "unit": "url",
+          "source": "https://www.gov.uk/make-a-sorn",
+          "quote": "Register that your vehicle is off the road"
+        },
+        {
+          "key": "sorn-refund",
+          "label": "Refund on SORN",
+          "value": "full months of remaining tax",
+          "unit": "statement",
+          "source": "https://www.gov.uk/make-a-sorn",
+          "quote": "You’ll get a refund for any full months of remaining tax."
+        },
+        {
+          "key": "sorn-start",
+          "label": "When a SORN starts",
+          "value": "immediately, or the 1st of next month if applied in the month tax expires",
+          "unit": "statement",
+          "source": "https://www.gov.uk/make-a-sorn",
+          "quote": "Your SORN will start on the first day of the next month if you apply in the month your vehicle tax is due to expire."
+        },
+        {
+          "key": "sorn-reference",
+          "label": "SORN reference numbers",
+          "value": "11-digit V5C number or 16-digit tax reminder reference",
+          "unit": "statement",
+          "source": "https://www.gov.uk/make-a-sorn",
+          "quote": "11-digit number in your vehicle log book (V5C); 16-digit reference number on your vehicle tax reminder"
+        },
+        {
+          "key": "replacement-v5c",
+          "label": "New log book (V62) if none",
+          "value": 25,
+          "unit": "GBP",
+          "source": "https://www.gov.uk/make-a-sorn",
+          "quote": "Fill in and send an application for a log book (V62) and V890 form to DVLA - a new log book costs £25."
+        }
+      ],
+      "scope": "UK (DVLA); tax rates are in uk_vehicle_rules_lookup.",
+      "alsoRead": [
+        "https://www.gov.uk/make-a-sorn"
+      ],
+      "changes": []
+    },
+    "register-to-vote": {
+      "title": "Register to vote",
+      "source": "https://www.gov.uk/register-to-vote",
+      "contentApi": "https://www.gov.uk/api/content/register-to-vote",
+      "startUrl": "https://www.registertovote.service.gov.uk/register-to-vote/start",
+      "pageUpdatedAt": "2026-10-01",
+      "figures": [
+        {
+          "key": "time",
+          "label": "Time to register online",
+          "value": "about 5 minutes",
+          "unit": "statement",
+          "quote": "It usually takes about 5 minutes."
+        },
+        {
+          "key": "once",
+          "label": "How often",
+          "value": "once; again after a change of name, address or nationality",
+          "unit": "statement",
+          "quote": "You normally only need to register once - not for every election."
+        },
+        {
+          "key": "age-england-ni",
+          "label": "Minimum age to register, England and Northern Ireland",
+          "value": 16,
+          "unit": "years",
+          "quote": "If you live in England or Northern Ireland You must be aged 16 or over to register."
+        },
+        {
+          "key": "age-scotland-wales",
+          "label": "Minimum age to register, Scotland and Wales",
+          "value": 14,
+          "unit": "years",
+          "quote": "If you live in Scotland or Wales You must be aged 14 or over to register."
+        },
+        {
+          "key": "ni-number",
+          "label": "National Insurance number",
+          "value": "asked for, but not required",
+          "unit": "statement",
+          "quote": "You’ll be asked for your National Insurance number (but you can still register if you do not have one)."
+        },
+        {
+          "key": "overseas-renewal",
+          "label": "Overseas voter registration renewal",
+          "value": 3,
+          "unit": "years",
+          "quote": "You’ll need to renew your registration to vote from abroad every 3 years."
+        }
+      ],
+      "changes": []
+    },
+    "register-birth": {
+      "title": "Register a birth (England and Wales)",
+      "source": "https://www.gov.uk/register-birth",
+      "contentApi": "https://www.gov.uk/api/content/register-birth",
+      "startUrl": null,
+      "pageUpdatedAt": "2026-09-09",
+      "figures": [
+        {
+          "key": "deadline",
+          "label": "Registration deadline",
+          "value": 42,
+          "unit": "days",
+          "quote": "All births in England, Wales and Northern Ireland must be registered within 42 days of the child being born."
+        },
+        {
+          "key": "where",
+          "label": "Where",
+          "value": "the local register office for the area of the birth, or the hospital before the mother leaves",
+          "unit": "statement",
+          "quote": "You should do this at the local register office for the area where the baby was born or at the hospital before the mother leaves."
+        },
+        {
+          "key": "certificate-fee",
+          "label": "Birth certificate (short or full)",
+          "value": 12.5,
+          "unit": "GBP",
+          "quote": "Once you have registered the birth, you’ll be able to buy a short or full certificate for your baby. Both kinds cost £12.50."
+        },
+        {
+          "key": "id-to-take",
+          "label": "What to take",
+          "value": "at least one form of identification; the red book may be asked for",
+          "unit": "statement",
+          "quote": "You should take at least one form of identification when you go to the register office."
+        }
+      ],
+      "scope": "England and Wales (Northern Ireland shares the 42-day deadline; Scotland differs).",
+      "changes": []
+    },
+    "register-death": {
+      "title": "Register a death (England and Wales)",
+      "source": "https://www.gov.uk/after-a-death",
+      "contentApi": "https://www.gov.uk/api/content/after-a-death",
+      "startUrl": "https://www.gov.uk/register-offices",
+      "pageUpdatedAt": "2026-10-01",
+      "figures": [
+        {
+          "key": "deadline",
+          "label": "Registration deadline",
+          "value": 5,
+          "unit": "days",
+          "quote": "Register the death within 5 days (8 days in Scotland) of getting the confirmation. This includes weekends and bank holidays."
+        },
+        {
+          "key": "medical-examiner",
+          "label": "Before registering",
+          "value": "wait for the medical examiner’s office to confirm the death can be registered",
+          "unit": "statement",
+          "quote": "You must wait for the medical examiner’s office to confirm you can register the death."
+        },
+        {
+          "key": "green-form",
+          "label": "Document issued",
+          "value": "certificate for burial or cremation (‘the green form’)",
+          "unit": "statement",
+          "quote": "You’ll get a certificate for burial or cremation (often called ‘the green form’)."
+        },
+        {
+          "key": "certificate-fee",
+          "label": "Death certificate copy (GRO)",
+          "value": 12.5,
+          "unit": "GBP",
+          "source": "https://www.gov.uk/order-copy-birth-death-marriage-certificate",
+          "quote": "Certificates cost £12.50 and are sent 4 days after you apply."
+        },
+        {
+          "key": "certificate-priority",
+          "label": "Priority certificate (GRO)",
+          "value": 38.5,
+          "unit": "GBP",
+          "source": "https://www.gov.uk/order-copy-birth-death-marriage-certificate",
+          "quote": "If you need the certificate sooner, you can use the priority service for £38.50."
+        }
+      ],
+      "scope": "England and Wales (Scotland: 8 days).",
+      "alsoRead": [
+        "https://www.gov.uk/register-a-death",
+        "https://www.gov.uk/order-copy-birth-death-marriage-certificate"
+      ],
+      "changes": []
+    },
+    "blue-badge": {
+      "title": "Apply for or renew a Blue Badge",
+      "source": "https://www.gov.uk/apply-blue-badge",
+      "contentApi": "https://www.gov.uk/api/content/apply-blue-badge",
+      "startUrl": "https://apply-blue-badge.service.gov.uk/applicant",
+      "pageUpdatedAt": "2026-10-01",
+      "figures": [
+        {
+          "key": "fee-england",
+          "label": "Fee, England",
+          "value": 10,
+          "unit": "GBP (up to)",
+          "quote": "A Blue Badge costs up to £10 in England and £20 in Scotland. It’s free in Wales."
+        },
+        {
+          "key": "fee-scotland",
+          "label": "Fee, Scotland",
+          "value": 20,
+          "unit": "GBP",
+          "quote": "A Blue Badge costs up to £10 in England and £20 in Scotland. It’s free in Wales."
+        },
+        {
+          "key": "fee-wales",
+          "label": "Fee, Wales",
+          "value": "free",
+          "unit": "statement",
+          "quote": "It’s free in Wales."
+        },
+        {
+          "key": "duration",
+          "label": "How long a badge lasts",
+          "value": "usually up to 3 years",
+          "unit": "statement",
+          "quote": "They usually last up to 3 years."
+        },
+        {
+          "key": "decision-time",
+          "label": "Decision time",
+          "value": "usually within 12 weeks (by the local council)",
+          "unit": "statement",
+          "quote": "How you pay depends on your local council. They’ll usually make a decision within 12 weeks."
+        },
+        {
+          "key": "documents",
+          "label": "What you need",
+          "value": "a digital head-and-shoulders photo; proof of identity, address and benefits; NI number if you have one",
+          "unit": "statement",
+          "quote": "proof of identity (such as a birth certificate, passport or driving licence); proof of address (such as a Council Tax bill or government letter); proof of benefits (if you get any)"
+        }
+      ],
+      "scope": "England, Scotland and Wales (Northern Ireland differs); councils decide.",
+      "changes": []
+    },
+    "self-assessment": {
+      "title": "Register for Self Assessment and its deadlines (2025-26 return)",
+      "source": "https://www.gov.uk/register-for-self-assessment",
+      "contentApi": "https://www.gov.uk/api/content/register-for-self-assessment",
+      "startUrl": "https://account.hmrc.gov.uk/self-assessment/registration",
+      "pageUpdatedAt": "2026-10-01",
+      "figures": [
+        {
+          "key": "register-by",
+          "label": "Register by (new to Self Assessment for 2025-26)",
+          "value": "2026-10-05",
+          "unit": "date",
+          "quote": "You must tell HM Revenue and Customs (HMRC) by 5 October 2026 if you need to complete a tax return for the previous tax year"
+        },
+        {
+          "key": "paper-deadline",
+          "label": "Paper return deadline (2025-26)",
+          "value": "2026-10-31",
+          "unit": "date",
+          "source": "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+          "quote": "HMRC must receive your paper tax return by 11:59pm on 31 October 2026"
+        },
+        {
+          "key": "online-deadline",
+          "label": "Online return deadline (2025-26)",
+          "value": "2027-01-31",
+          "unit": "date",
+          "source": "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+          "quote": "You must submit your online tax return by 11:59pm on 31 January 2027"
+        },
+        {
+          "key": "payment-deadline",
+          "label": "Payment deadline (2025-26)",
+          "value": "2027-01-31",
+          "unit": "date",
+          "source": "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+          "quote": "You need to pay your Self Assessment tax by 11:59pm on 31 January 2027"
+        },
+        {
+          "key": "tax-code-deadline",
+          "label": "Online deadline to pay through your tax code",
+          "value": "2026-12-30",
+          "unit": "date",
+          "source": "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+          "quote": "If you want to pay your Self Assessment bill through your tax code, you must submit it by 11:59pm on 30 December 2026."
+        },
+        {
+          "key": "late-filing-penalty",
+          "label": "Initial late filing penalty",
+          "value": 100,
+          "unit": "GBP",
+          "source": "https://www.gov.uk/self-assessment-tax-returns/penalties",
+          "quote": "an initial £100 penalty"
+        },
+        {
+          "key": "sole-trader-threshold",
+          "label": "Sole trader income that requires a return",
+          "value": 1000,
+          "unit": "GBP (more than)",
+          "source": "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+          "quote": "you were self-employed as a ‘sole trader’ and earned more than £1,000 (before taking off anything you can claim tax relief on)"
+        },
+        {
+          "key": "mtd-income-tax-start",
+          "label": "Making Tax Digital for Income Tax: first mandated from",
+          "value": "2026-04-06",
+          "unit": "date",
+          "source": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+          "quote": "£50,000 for the 2024 to 2025 tax year, you should’ve started using Making Tax Digital for Income Tax from 6 April 2026"
+        },
+        {
+          "key": "mtd-thresholds",
+          "label": "Making Tax Digital for Income Tax qualifying-income thresholds",
+          "value": "£50,000 (from 6 April 2026), £30,000 (from 6 April 2027), £20,000 (from 6 April 2028)",
+          "unit": "statement",
+          "source": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+          "quote": "£30,000 for the 2025 to 2026 tax year, you will need to use it from 6 April 2027; £20,000 for the 2026 to 2027 tax year, you will need to use it from 6 April 2028"
+        }
+      ],
+      "scope": "UK Self Assessment for the 2025-26 tax year (6 April 2025 to 5 April 2026); dates roll forward each year.",
+      "alsoRead": [
+        "https://www.gov.uk/self-assessment-tax-returns",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "changes": [
+        {
+          "date": "2026-04-06",
+          "change": "Making Tax Digital for Income Tax became mandatory for sole traders and landlords with qualifying income over £50,000 (2024-25); £30,000 from 6 April 2027, £20,000 from 6 April 2028. A Self Assessment return is still filed for the year before starting.",
+          "source": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+        }
+      ]
+    },
+    "national-insurance-number": {
+      "title": "Apply for a National Insurance number",
+      "source": "https://www.gov.uk/apply-national-insurance-number",
+      "contentApi": "https://www.gov.uk/api/content/apply-national-insurance-number",
+      "startUrl": "https://www.apply-national-insurance-number.service.gov.uk/work",
+      "pageUpdatedAt": "2026-09-30",
+      "figures": [
+        {
+          "key": "how",
+          "label": "How to apply",
+          "value": "online only, proving your identity",
+          "unit": "statement",
+          "quote": "To get a National Insurance number you need to apply online. You’ll need to prove your identity when you apply."
+        },
+        {
+          "key": "eligibility",
+          "label": "Who can apply",
+          "value": "live in the UK, have the right to work, and be working, looking for work or have a job offer",
+          "unit": "statement",
+          "quote": "live in the UK; have the right to work in the UK; are working, looking for work or have an offer to start work"
+        },
+        {
+          "key": "processing-time",
+          "label": "Time to get the number",
+          "value": "up to 4 weeks after proving identity",
+          "unit": "statement",
+          "quote": "It can take up to 4 weeks to get your National Insurance number after you’ve proved your identity."
+        },
+        {
+          "key": "documents",
+          "label": "Documents",
+          "value": "a passport from any country, or an EU/Norway/Liechtenstein/Switzerland national identity card; a photo of yourself holding your passport",
+          "unit": "statement",
+          "quote": "a passport from any country; a national identity card from an EU country or from Norway, Liechtenstein or Switzerland"
+        },
+        {
+          "key": "start-work-before",
+          "label": "Starting work",
+          "value": "allowed before the number arrives, with proof of right to work",
+          "unit": "statement",
+          "quote": "You can start work before you receive your National Insurance number if you can prove you have the right to work in the UK."
+        },
+        {
+          "key": "under-16-automatic",
+          "label": "UK residents with a Child Benefit claim",
+          "value": "sent automatically in the 3 months before the 16th birthday",
+          "unit": "statement",
+          "quote": "You’ll normally be sent a National Insurance number in the 3 months before your 16th birthday"
+        },
+        {
+          "key": "helpline",
+          "label": "Application helpline (England, Scotland and Wales)",
+          "value": "0800 141 2079",
+          "unit": "statement",
+          "quote": "National Insurance number application helpline (England, Scotland and Wales) Telephone: 0800 141 2079"
+        }
+      ],
+      "changes": []
+    },
+    "universal-credit": {
+      "title": "Universal Credit: eligibility, how to claim, first payment and standard allowance (2026-27)",
+      "source": "https://www.gov.uk/universal-credit",
+      "contentApi": "https://www.gov.uk/api/content/universal-credit",
+      "startUrl": "https://www.universal-credit.service.gov.uk/postcode-checker",
+      "pageUpdatedAt": "2026-09-25",
+      "figures": [
+        {
+          "key": "eligibility",
+          "label": "Basic eligibility",
+          "value": "live in the UK; 18 or over (some exceptions at 16-17); under State Pension age; £16,000 or less in money, savings and investments",
+          "unit": "statement",
+          "quote": "live in the UK; be aged 18 or over (there are some exceptions if you’re 16 to 17); be under State Pension age; have £16,000 or less in money, savings and investments"
+        },
+        {
+          "key": "capital-limit",
+          "label": "Savings limit",
+          "value": 16000,
+          "unit": "GBP",
+          "quote": "have £16,000 or less in money, savings and investments"
+        },
+        {
+          "key": "claim-window",
+          "label": "Time to complete the online claim",
+          "value": 28,
+          "unit": "days",
+          "quote": "You must complete your claim within 28 days of creating your account or you will have to start again."
+        },
+        {
+          "key": "first-payment",
+          "label": "First payment",
+          "value": "around 5 weeks (an advance is available)",
+          "unit": "statement",
+          "quote": "It usually takes around 5 weeks to get your first payment."
+        },
+        {
+          "key": "payment-frequency",
+          "label": "Payment frequency",
+          "value": "monthly, 7 days after each assessment period (Scotland: once or twice a month)",
+          "unit": "statement",
+          "quote": "You’ll usually get your Universal Credit payment 7 days after each monthly assessment period ends."
+        },
+        {
+          "key": "couples",
+          "label": "Couples",
+          "value": "joint claim; both create accounts",
+          "unit": "statement",
+          "quote": "If you live with your partner, you will both need to create accounts. You’ll link them together when you claim."
+        },
+        {
+          "key": "standard-allowance-single-25-plus",
+          "label": "Standard allowance, single 25 or over (monthly)",
+          "value": 424.9,
+          "unit": "GBP/month",
+          "quote": "If you’re single and 25 or over | £424.90",
+          "effectiveFrom": "2026-04-06",
+          "previous": {
+            "value": 400.14,
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20260227160542/https://www.gov.uk/universal-credit",
+            "title": "gov.uk/universal-credit, National Archives capture 27 February 2026 (2025-26 rate); 2026-27 rates apply from the first assessment period starting on or after 6 April 2026 (SI 2026/148 art. 1(3)(n))"
+          }
+        },
+        {
+          "key": "standard-allowance-single-under-25",
+          "label": "Standard allowance, single under 25 (monthly)",
+          "value": 338.58,
+          "unit": "GBP/month",
+          "quote": "If you’re single and under 25 | £338.58",
+          "effectiveFrom": "2026-04-06",
+          "previous": {
+            "value": 316.98,
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20260227160542/https://www.gov.uk/universal-credit",
+            "title": "gov.uk/universal-credit, National Archives capture 27 February 2026"
+          }
+        },
+        {
+          "key": "standard-allowance-couple-25-plus",
+          "label": "Standard allowance, couple either 25 or over (monthly, both)",
+          "value": 666.97,
+          "unit": "GBP/month",
+          "quote": "If you live with your partner and either of you are 25 or over | £666.97 (for you both)",
+          "effectiveFrom": "2026-04-06",
+          "previous": {
+            "value": 628.1,
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20260227160542/https://www.gov.uk/universal-credit",
+            "title": "gov.uk/universal-credit, National Archives capture 27 February 2026"
+          }
+        },
+        {
+          "key": "child-element",
+          "label": "Child amount, each child (monthly)",
+          "value": 303.94,
+          "unit": "GBP/month",
+          "quote": "You’ll get £303.94 a month for each child that lives with you.",
+          "effectiveFrom": "2026-04-06",
+          "previous": {
+            "value": 292.81,
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20260227160542/https://www.gov.uk/universal-credit",
+            "title": "gov.uk/universal-credit, National Archives capture 27 February 2026"
+          }
+        },
+        {
+          "key": "two-child-limit",
+          "label": "Children the child amount is paid for",
+          "value": "every child (the 2-child limit ended on 6 April 2026)",
+          "unit": "statement",
+          "source": "https://www.gov.uk/guidance/universal-credit-if-you-have-children",
+          "quote": "The 2-child limit ended on 6 April 2026",
+          "effectiveFrom": "2026-04-06",
+          "previous": {
+            "value": "first and second child only, unless an exception applied",
+            "source": "https://www.gov.uk/guidance/universal-credit-if-you-have-children",
+            "title": "Before 6 April 2026, the extra amount for children only applied to your first and second child, unless an exception applied."
+          }
+        }
+      ],
+      "scope": "Great Britain (Northern Ireland via nidirect); rates for 2026-27.",
+      "alsoRead": [
+        "https://www.gov.uk/guidance/universal-credit-if-you-have-children",
+        "https://www.gov.uk/government/publications/benefit-and-pension-rates-2026-to-2027/proposed-benefit-and-pension-rates-2026-to-2027"
+      ],
+      "changes": [
+        {
+          "date": "2026-04-06",
+          "change": "Two-child limit ended: the child amount is paid for every child; increased payments from May or June 2026 depending on the assessment period.",
+          "source": "https://www.gov.uk/guidance/universal-credit-if-you-have-children"
+        },
+        {
+          "date": "2026-04-06",
+          "change": "2026-27 uprating: single 25+ standard allowance £400.14 → £424.90 a month; child amount £292.81 → £303.94.",
+          "source": "https://www.gov.uk/government/publications/benefit-and-pension-rates-2026-to-2027/proposed-benefit-and-pension-rates-2026-to-2027",
+          "legislation": "https://www.legislation.gov.uk/uksi/2026/148/made"
+        }
+      ]
+    },
+    "eu-settlement-scheme": {
+      "title": "EU Settlement Scheme: settled and pre-settled status",
+      "source": "https://www.gov.uk/settled-status-eu-citizens-families",
+      "contentApi": "https://www.gov.uk/api/content/settled-status-eu-citizens-families",
+      "startUrl": "https://apply-to-visit-or-stay-in-the-uk.homeoffice.gov.uk/euss",
+      "pageUpdatedAt": "2026-09-18",
+      "figures": [
+        {
+          "key": "fee",
+          "label": "Fee",
+          "value": "free",
+          "unit": "statement",
+          "quote": "It’s free to apply to the EU Settlement Scheme."
+        },
+        {
+          "key": "deadline",
+          "label": "Deadline for most people",
+          "value": "2021-06-30",
+          "unit": "date",
+          "quote": "The deadline for most people to apply to the EU Settlement Scheme was 30 June 2021."
+        },
+        {
+          "key": "settled-residence",
+          "label": "Residence for settled status",
+          "value": "5 years in a row",
+          "unit": "statement",
+          "quote": "You’ll usually be eligible for settled status once you’ve lived in the UK for 5 years in a row."
+        },
+        {
+          "key": "pre-settled-extension",
+          "label": "Pre-settled status extension",
+          "value": "5 years, automatically, just before expiry",
+          "unit": "statement",
+          "quote": "Your pre-settled status will be extended by 5 years just before it’s due to expire."
+        },
+        {
+          "key": "automatic-conversion",
+          "label": "Conversion to settled status",
+          "value": "may be automatic; you can also apply as soon as eligible",
+          "unit": "statement",
+          "quote": "After your pre-settled status has been extended, it may be automatically converted to settled status."
+        },
+        {
+          "key": "absence-rule",
+          "label": "Absences allowed for conversion",
+          "value": "not more than 30 months in the last 5 years, or 6 months in any 12-month period",
+          "unit": "statement",
+          "quote": "You may be eligible to convert to settled status as long as you’ve not been outside the UK, the Channel Islands or the Isle of Man for more than either: 30 months (2.5 years) in the last 5 years; 6 months in any 12-month period within any 5-year period"
+        },
+        {
+          "key": "citizenship",
+          "label": "British citizenship after settled status",
+          "value": "usually after 12 months",
+          "unit": "statement",
+          "quote": "You can usually apply for British citizenship once you’ve had settled status for 12 months."
+        },
+        {
+          "key": "joining-family-protection",
+          "label": "Joining family member automatic protection",
+          "value": 90,
+          "unit": "days",
+          "quote": "If you are a joining family member, your rights will automatically be protected for 90 days from the date of your arrival in the UK."
+        }
+      ],
+      "scope": "EU, EEA and Swiss citizens and family members; status is held as an eVisa.",
+      "changes": []
+    },
+    "evisa": {
+      "title": "eVisas: access your online immigration status (the BRP to eVisa change)",
+      "source": "https://www.gov.uk/evisa",
+      "contentApi": "https://www.gov.uk/api/content/evisa",
+      "startUrl": "https://apply-to-visit-or-stay-in-the-uk.homeoffice.gov.uk/sort/start/sar_in_uk",
+      "pageUpdatedAt": "2026-09-18",
+      "figures": [
+        {
+          "key": "what",
+          "label": "What an eVisa is",
+          "value": "a digital record of identity, immigration status and its conditions; it has replaced physical immigration documents",
+          "unit": "statement",
+          "quote": "eVisas have replaced physical immigration documents."
+        },
+        {
+          "key": "fee",
+          "label": "Cost of a UKVI account or eVisa access",
+          "value": "free",
+          "unit": "statement",
+          "quote": "You do not need to pay to set up a UKVI account or access your eVisa."
+        },
+        {
+          "key": "account-needs",
+          "label": "To create a UKVI account",
+          "value": "a phone number and email; a valid passport with the visa application number or BRP number, or the expired BRP; a smartphone app to confirm identity",
+          "unit": "statement",
+          "quote": "You’ll also need one of the following, if you have them: a valid passport and your visa application number ... a valid passport and your BRP number ... your expired BRP"
+        },
+        {
+          "key": "brp-status",
+          "label": "Biometric residence permits",
+          "value": "all BRPs have expired and have been replaced by eVisas",
+          "unit": "statement",
+          "source": "https://www.gov.uk/biometric-residence-permits",
+          "quote": "All BRPs have now expired and have been replaced by eVisas."
+        },
+        {
+          "key": "expired-brp-use-until",
+          "label": "Expired BRP usable (to sign in, create an account or extend) until",
+          "value": "24 months after the printed expiry date or 31 December 2026, whichever comes first",
+          "unit": "statement",
+          "source": "https://www.gov.uk/biometric-residence-permits",
+          "quote": "You might be able to use your expired BRP for 24 months after the expiry date printed on the card, or until 31 December 2026 - whichever comes first."
+        },
+        {
+          "key": "expired-brp-travel",
+          "label": "Expired BRP accepted for travel to the UK",
+          "value": "no longer, since 2 June 2025",
+          "unit": "statement",
+          "source": "https://www.gov.uk/government/news/millions-have-now-taken-action-to-access-their-evisa",
+          "quote": "From the 2 June 2025, expired BRPs and EUSS BRCs will no longer be acceptable evidence of immigration status when travelling to the UK.",
+          "effectiveFrom": "2025-06-02",
+          "previous": {
+            "value": "expired BRPs/BRCs (expired on or after 31 December 2024) accepted for travel up to and including 1 June 2025",
+            "source": "https://www.gov.uk/government/news/millions-have-now-taken-action-to-access-their-evisa",
+            "title": "Home Office news story 27 February 2025 (grace period extended from 31 March 2025 to 1 June 2025)"
+          }
+        },
+        {
+          "key": "lost-brp-fine",
+          "label": "Fine for not reporting a lost or stolen BRP",
+          "value": 1000,
+          "unit": "GBP (up to)",
+          "source": "https://www.gov.uk/biometric-residence-permits",
+          "quote": "You can be fined up to £1,000 and made to leave the UK if you do not report a lost or stolen BRP."
+        },
+        {
+          "key": "travel",
+          "label": "Travelling with an eVisa",
+          "value": "add your passport or travel document details to the UKVI account",
+          "unit": "statement",
+          "quote": "You can travel with your eVisa after you add your passport or travel document details."
+        }
+      ],
+      "scope": "UK immigration status holders (any visa, settlement, EUSS).",
+      "alsoRead": [
+        "https://www.gov.uk/biometric-residence-permits"
+      ],
+      "changes": [
+        {
+          "date": "2025-06-02",
+          "change": "Expired BRPs and EUSS BRCs stopped being accepted as evidence of status for travel to the UK (grace period ended 1 June 2025).",
+          "source": "https://www.gov.uk/government/news/millions-have-now-taken-action-to-access-their-evisa"
+        },
+        {
+          "date": "2025-07-15",
+          "change": "gov.uk/evisa published as the main eVisa guide (the /guidance/online-immigration-status-evisa guide now redirects to it, redirect dated 2026-01-20).",
+          "source": "https://www.gov.uk/evisa"
+        }
+      ]
+    },
+    "eta": {
+      "title": "Electronic travel authorisation (ETA) to visit the UK",
+      "source": "https://www.gov.uk/eta",
+      "contentApi": "https://www.gov.uk/api/content/eta",
+      "startUrl": "https://apply-for-an-eta.homeoffice.gov.uk/apply/electronic-travel-authorisation",
+      "pageUpdatedAt": "2026-09-18",
+      "figures": [
+        {
+          "key": "fee",
+          "label": "ETA fee",
+          "value": 20,
+          "unit": "GBP",
+          "quote": "An ETA costs £20.",
+          "effectiveFrom": "2026-04-08",
+          "previous": {
+            "value": 16,
+            "source": "https://www.gov.uk/government/publications/visa-regulations-revised-table/home-office-immigration-and-nationality-fees-8-april-2026",
+            "title": "Home Office immigration and nationality fees, 8 April 2026: \"electronic travel authorisation (ETA) | £16 | £20 | £4\"; gov.uk/eta showed £16 in the National Archives capture of 27 February 2026"
+          }
+        },
+        {
+          "key": "validity",
+          "label": "How long an ETA lasts",
+          "value": "2 years or until the passport expires, whichever is sooner; multiple journeys",
+          "unit": "statement",
+          "quote": "An ETA lasts for 2 years or until your passport expires, whichever is sooner. You can travel to the UK as many times as you want while you have an ETA."
+        },
+        {
+          "key": "max-stay",
+          "label": "Maximum stay per visit",
+          "value": 6,
+          "unit": "months",
+          "quote": "An electronic travel authorisation (ETA) lets you travel to the UK, Jersey, Guernsey or the Isle of Man for up to 6 months."
+        },
+        {
+          "key": "decision-time",
+          "label": "Decision time",
+          "value": "usually within a day; up to 3 working days",
+          "unit": "statement",
+          "quote": "You’ll usually get a decision by email within a day, but it can take up to 3 working days."
+        },
+        {
+          "key": "who-needs",
+          "label": "Who needs one",
+          "value": "visitors who do not need a visa (e.g. Europe, USA, Australia, Canada); every traveller including babies; not British or Irish citizens",
+          "unit": "statement",
+          "quote": "You usually need an ETA rather than a visa if you’re from Europe, the USA, Australia, Canada or certain other countries."
+        },
+        {
+          "key": "refund",
+          "label": "Refunds",
+          "value": "none after applying",
+          "unit": "statement",
+          "quote": "It costs £20 to apply online or through the UK ETA app. You cannot get a refund after you apply."
+        },
+        {
+          "key": "rollout-non-european",
+          "label": "Required for eligible non-European visitors from",
+          "value": "2025-01-08",
+          "unit": "date",
+          "source": "https://www.gov.uk/government/news/uk-opens-pre-travel-requirement-to-non-europeans",
+          "quote": "From today all eligible non-European visitors can apply for an ETA and will need one to travel to the UK from 8 January 2025."
+        },
+        {
+          "key": "rollout-european",
+          "label": "Required for eligible European visitors from",
+          "value": "2025-04-02",
+          "unit": "date",
+          "source": "https://www.gov.uk/government/news/uk-to-extend-electronic-travel-to-european-visitors",
+          "quote": "From today, eligible Europeans can apply for an ETA and will need one to travel to the UK from Wednesday 2 April 2025."
+        },
+        {
+          "key": "enforced-from",
+          "label": "Enforced (carriers refuse boarding without an ETA or eVisa) from",
+          "value": "2026-02-25",
+          "unit": "date",
+          "source": "https://www.gov.uk/government/news/uk-enforces-digital-permission-to-travel",
+          "quote": "From today (25 February), it will be mandatory for visitors to the UK to have obtained digital permission to travel."
+        },
+        {
+          "key": "crown-dependencies",
+          "label": "Also covers Jersey, Guernsey and the Isle of Man",
+          "value": "yes, since 9 April 2026",
+          "unit": "statement",
+          "source": "https://www.gov.uk/guidance/check-when-you-can-get-an-electronic-travel-authorisation-eta",
+          "quote": "An ETA can now be used to travel to Jersey, Guernsey and the Isle of Man, as well as the UK.",
+          "effectiveFrom": "2026-04-09"
+        }
+      ],
+      "scope": "Visitors who do not need a visa; the nationality list is on the check-when-you-can-get-an-ETA guidance.",
+      "alsoRead": [
+        "https://www.gov.uk/guidance/check-when-you-can-get-an-electronic-travel-authorisation-eta",
+        "https://www.gov.uk/government/publications/visa-regulations-revised-table/home-office-immigration-and-nationality-fees-8-april-2026"
+      ],
+      "changes": [
+        {
+          "date": "2026-04-08",
+          "change": "ETA fee £16 → £20.",
+          "source": "https://www.gov.uk/government/publications/visa-regulations-revised-table/home-office-immigration-and-nationality-fees-8-april-2026"
+        },
+        {
+          "date": "2026-02-25",
+          "change": "ETA enforced: airlines refuse boarding to non-visa nationals without an ETA, eVisa or other valid documentation.",
+          "source": "https://www.gov.uk/government/news/uk-enforces-digital-permission-to-travel"
+        },
+        {
+          "date": "2026-04-09",
+          "change": "ETA valid for Jersey, Guernsey and the Isle of Man as well as the UK.",
+          "source": "https://www.gov.uk/guidance/check-when-you-can-get-an-electronic-travel-authorisation-eta"
+        },
+        {
+          "date": "2026-03-05",
+          "change": "Nationals of Nicaragua and St Lucia can no longer get an ETA (visa needed).",
+          "source": "https://www.gov.uk/guidance/check-when-you-can-get-an-electronic-travel-authorisation-eta"
+        },
+        {
+          "date": "2025-12-09",
+          "change": "Nauruan nationals can no longer get an ETA.",
+          "source": "https://www.gov.uk/guidance/check-when-you-can-get-an-electronic-travel-authorisation-eta"
+        },
+        {
+          "date": "2025-10-14",
+          "change": "Botswana removed from the ETA list.",
+          "source": "https://www.gov.uk/guidance/check-when-you-can-get-an-electronic-travel-authorisation-eta"
+        },
+        {
+          "date": "2025-04-09",
+          "change": "ETA fee £10 → £16.",
+          "source": "https://www.gov.uk/government/publications/visa-regulations-revised-table/home-office-immigration-and-nationality-fees-9-april-2025"
+        },
+        {
+          "date": "2025-04-02",
+          "change": "ETA required for eligible Europeans (applications opened 5 March 2025).",
+          "source": "https://www.gov.uk/government/news/uk-to-extend-electronic-travel-to-european-visitors"
+        },
+        {
+          "date": "2025-03-12",
+          "change": "Trinidad and Tobago nationals can no longer get an ETA.",
+          "source": "https://www.gov.uk/guidance/check-when-you-can-get-an-electronic-travel-authorisation-eta"
+        },
+        {
+          "date": "2025-01-08",
+          "change": "ETA required for all eligible non-European visitors (USA, Canada, Australia and others).",
+          "source": "https://www.gov.uk/government/news/uk-opens-pre-travel-requirement-to-non-europeans"
+        }
+      ]
+    }
+  }
+}
