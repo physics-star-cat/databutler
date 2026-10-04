@@ -1,0 +1,93 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "databutler",
+  "version": "1.0.0",
+  "description": "Verified reference data for AI assistants: UK, US and German tax figures, take-home pay, exam specs and dates, policy rates, vehicle recalls and rules, software end-of-life, public holidays, and what changed since a date. Every answer carries its official source and verification date.",
+  "author": { "name": "physics-star-cat", "url": "https://databutler.dev" },
+  "homepage": "https://databutler.dev",
+  "repository": "https://github.com/physics-star-cat/databutler",
+  "license": "MIT",
+  "keywords": ["tax", "reference data", "exams", "recalls", "holidays", "citations"],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Data Butler",
+        "shortDescription": "Facts with sources and dates",
+        "longDescription": "Data Butler gives ChatGPT verified reference data for the facts language models most often get wrong because they change after training: UK, US and German tax rates and thresholds; take-home pay for nine countries; which GCSE paper a topic is on, exam dates and results days; central-bank policy rates; UK MOT failure data and official vehicle recalls (UK, France, Japan, EU); UK vehicle tax and MOT rules; software end-of-life dates; public holidays, tax years and daylight-saving dates; and domain and package provenance signals. Every answer names its official source, the date it was verified and whether it is due for a refresh, plus a link a person can open to check it.\n\nIt also answers what changed since a date, so an assistant can learn which official figures moved after its training cutoff.\n\nData Butler is read-only: it never acts on your behalf, holds no account data and needs no sign-in. Figures are reference data, not financial, legal or professional advice.",
+        "developerName": "physics-star-cat",
+        "category": "Research",
+        "capabilities": ["Look up tax rates and thresholds", "Calculate take-home pay", "Find exam papers and dates", "Check vehicle recalls", "Check software support status", "Find public holidays", "List what changed since a date"],
+        "websiteURL": "https://databutler.dev",
+        "supportURL": "https://github.com/physics-star-cat/databutler/issues",
+        "privacyPolicyURL": "https://databutler.dev/privacy",
+        "termsOfServiceURL": "https://databutler.dev/terms",
+        "defaultPrompt": [
+          "What is the UK personal allowance this tax year, and where is it from?",
+          "Is electricity on paper 1 or paper 2 for AQA GCSE physics?",
+          "Which UK tax thresholds changed after June 2026?"
+        ],
+        "brandColor": "#1F6F3F",
+        "brandColorDark": "#7EE787",
+        "composerIcon": "./assets/icon.png",
+        "logo": "./assets/icon.png"
+      },
+      "onboardingSkill": "./skills/get-started/SKILL.md",
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Current UK rate with its source",
+              "prompt": "What is the UK personal allowance and higher-rate threshold for 2026-27?",
+              "tools_triggered": "uk_rates_lookup",
+              "expected_behavior": "Gives the 2026-27 personal allowance and higher-rate threshold with the gov.uk source URL and the verified date."
+            },
+            {
+              "description": "Exam topic to paper",
+              "prompt": "Is electricity on paper 1 or paper 2 for AQA GCSE physics?",
+              "tools_triggered": "exam_topic_paper",
+              "expected_behavior": "Says Paper 1, names the AQA specification code 8463 and links the official specification."
+            },
+            {
+              "description": "Take-home pay calculation",
+              "prompt": "What is my take-home pay on a 50,000 salary in the UK?",
+              "tools_triggered": "take_home_pay",
+              "expected_behavior": "Returns annual and monthly net pay with income tax and National Insurance broken out, the tax year and the assumptions used."
+            },
+            {
+              "description": "What changed since a date",
+              "prompt": "Which official figures tracked by Data Butler changed since 1 June 2026?",
+              "tools_triggered": "what_changed_since",
+              "expected_behavior": "Lists changes with from and to values, effective dates and official sources."
+            },
+            {
+              "description": "Package provenance as a signal",
+              "prompt": "Is the npm package expresss a typosquat of express?",
+              "tools_triggered": "package_provenance",
+              "expected_behavior": "Reports the typosquat resemblance and publication facts as signals, without declaring the package safe or malicious."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Personal financial advice",
+              "prompt": "Should I put my savings into an ISA or pay off my mortgage?"
+            },
+            {
+              "description": "Uncovered country",
+              "prompt": "What is the income tax rate in Japan?"
+            },
+            {
+              "description": "Action request",
+              "prompt": "File my self assessment tax return for me."
+            }
+          ]
+        },
+        "demo_recording_url": "REPLACE_WITH_VIDEO_URL",
+        "commerce": false,
+        "commerce_description": "Data Butler is free and does not sell products or process payments."
+      },
+      "publication": {
+        "release_notes": "Initial release: Data Butler front door with 31 tools across UK, US and German rates, exams, provenance, statistics, vehicles, policy rates, software end-of-life and calendar facts."
+      }
+    }
+  }
+}
