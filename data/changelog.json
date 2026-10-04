@@ -948,5 +948,621 @@
     "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
     "verifiedDate": "2026-10-03",
     "note": "Rev. Proc. 2025-32 § 3.01 TABLE 4 (Married filing separately), tax year 2026: as the Single schedule up to $256,225, then 35 % to $384,350 (2025: $375,800, Rev. Proc. 2024-40 TABLE 4); rates unchanged. Announced in IR-2025-103."
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "ved-first-year/co2-1-to-50g-km",
+    "label": "First-year rate, 1 to 50g/km",
+    "from": {
+      "petrolRde2DieselAlternativeZeroEmission": 110,
+      "otherDiesel": 130
+    },
+    "to": {
+      "petrolRde2DieselAlternativeZeroEmission": 115,
+      "otherDiesel": 135
+    },
+    "unit": "GBP for the first 12 months (first vehicle licence)",
+    "band": "1 to 50g/km",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/vehicle-tax-rate-tables",
+    "verifiedDate": "2026-10-04",
+    "note": "First-year rate, 1 to 50g/km: £110 → £115 (petrol, RDE2 diesel, alternative fuel and zero emission) and £130 → £135 (all other diesel) from 2026-04-01 (gov.uk/vehicle-tax-rate-tables row: 1 to 50g/km | £115 | £135)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "ved-first-year/co2-51-to-75g-km",
+    "label": "First-year rate, 51 to 75g/km",
+    "from": {
+      "petrolRde2DieselAlternativeZeroEmission": 130,
+      "otherDiesel": 270
+    },
+    "to": {
+      "petrolRde2DieselAlternativeZeroEmission": 135,
+      "otherDiesel": 280
+    },
+    "unit": "GBP for the first 12 months (first vehicle licence)",
+    "band": "51 to 75g/km",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/vehicle-tax-rate-tables",
+    "verifiedDate": "2026-10-04",
+    "note": "First-year rate, 51 to 75g/km: £130 → £135 (petrol, RDE2 diesel, alternative fuel and zero emission) and £270 → £280 (all other diesel) from 2026-04-01 (gov.uk/vehicle-tax-rate-tables row: 51 to 75g/km | £135 | £280)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "ved-first-year/co2-76-to-90g-km",
+    "label": "First-year rate, 76 to 90g/km",
+    "from": {
+      "petrolRde2DieselAlternativeZeroEmission": 270,
+      "otherDiesel": 350
+    },
+    "to": {
+      "petrolRde2DieselAlternativeZeroEmission": 280,
+      "otherDiesel": 365
+    },
+    "unit": "GBP for the first 12 months (first vehicle licence)",
+    "band": "76 to 90g/km",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/vehicle-tax-rate-tables",
+    "verifiedDate": "2026-10-04",
+    "note": "First-year rate, 76 to 90g/km: £270 → £280 (petrol, RDE2 diesel, alternative fuel and zero emission) and £350 → £365 (all other diesel) from 2026-04-01 (gov.uk/vehicle-tax-rate-tables row: 76 to 90g/km | £280 | £365)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "ved-first-year/co2-91-to-100g-km",
+    "label": "First-year rate, 91 to 100g/km",
+    "from": {
+      "petrolRde2DieselAlternativeZeroEmission": 350,
+      "otherDiesel": 390
+    },
+    "to": {
+      "petrolRde2DieselAlternativeZeroEmission": 365,
+      "otherDiesel": 405
+    },
+    "unit": "GBP for the first 12 months (first vehicle licence)",
+    "band": "91 to 100g/km",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/vehicle-tax-rate-tables",
+    "verifiedDate": "2026-10-04",
+    "note": "First-year rate, 91 to 100g/km: £350 → £365 (petrol, RDE2 diesel, alternative fuel and zero emission) and £390 → £405 (all other diesel) from 2026-04-01 (gov.uk/vehicle-tax-rate-tables row: 91 to 100g/km | £365 | £405)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "ved-first-year/co2-101-to-110g-km",
+    "label": "First-year rate, 101 to 110g/km",
+    "from": {
+      "petrolRde2DieselAlternativeZeroEmission": 390,
+      "otherDiesel": 440
+    },
+    "to": {
+      "petrolRde2DieselAlternativeZeroEmission": 405,
+      "otherDiesel": 455
+    },
+    "unit": "GBP for the first 12 months (first vehicle licence)",
+    "band": "101 to 110g/km",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/vehicle-tax-rate-tables",
+    "verifiedDate": "2026-10-04",
+    "note": "First-year rate, 101 to 110g/km: £390 → £405 (petrol, RDE2 diesel, alternative fuel and zero emission) and £440 → £455 (all other diesel) from 2026-04-01 (gov.uk/vehicle-tax-rate-tables row: 101 to 110g/km | £405 | £455)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "ved-first-year/co2-111-to-130g-km",
+    "label": "First-year rate, 111 to 130g/km",
+    "from": {
+      "petrolRde2DieselAlternativeZeroEmission": 440,
+      "otherDiesel": 540
+    },
+    "to": {
+      "petrolRde2DieselAlternativeZeroEmission": 455,
+      "otherDiesel": 560
+    },
+    "unit": "GBP for the first 12 months (first vehicle licence)",
+    "band": "111 to 130g/km",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/vehicle-tax-rate-tables",
+    "verifiedDate": "2026-10-04",
+    "note": "First-year rate, 111 to 130g/km: £440 → £455 (petrol, RDE2 diesel, alternative fuel and zero emission) and £540 → £560 (all other diesel) from 2026-04-01 (gov.uk/vehicle-tax-rate-tables row: 111 to 130g/km | £455 | £560)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "ved-first-year/co2-131-to-150g-km",
+    "label": "First-year rate, 131 to 150g/km",
+    "from": {
+      "petrolRde2DieselAlternativeZeroEmission": 540,
+      "otherDiesel": 1360
+    },
+    "to": {
+      "petrolRde2DieselAlternativeZeroEmission": 560,
+      "otherDiesel": 1410
+    },
+    "unit": "GBP for the first 12 months (first vehicle licence)",
+    "band": "131 to 150g/km",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/vehicle-tax-rate-tables",
+    "verifiedDate": "2026-10-04",
+    "note": "First-year rate, 131 to 150g/km: £540 → £560 (petrol, RDE2 diesel, alternative fuel and zero emission) and £1,360 → £1,410 (all other diesel) from 2026-04-01 (gov.uk/vehicle-tax-rate-tables row: 131 to 150g/km | £560 | £1,410)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "ved-first-year/co2-151-to-170g-km",
+    "label": "First-year rate, 151 to 170g/km",
+    "from": {
+      "petrolRde2DieselAlternativeZeroEmission": 1360,
+      "otherDiesel": 2190
+    },
+    "to": {
+      "petrolRde2DieselAlternativeZeroEmission": 1410,
+      "otherDiesel": 2270
+    },
+    "unit": "GBP for the first 12 months (first vehicle licence)",
+    "band": "151 to 170g/km",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/vehicle-tax-rate-tables",
+    "verifiedDate": "2026-10-04",
+    "note": "First-year rate, 151 to 170g/km: £1,360 → £1,410 (petrol, RDE2 diesel, alternative fuel and zero emission) and £2,190 → £2,270 (all other diesel) from 2026-04-01 (gov.uk/vehicle-tax-rate-tables row: 151 to 170g/km | £1,410 | £2,270)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "ved-first-year/co2-171-to-190g-km",
+    "label": "First-year rate, 171 to 190g/km",
+    "from": {
+      "petrolRde2DieselAlternativeZeroEmission": 2190,
+      "otherDiesel": 3300
+    },
+    "to": {
+      "petrolRde2DieselAlternativeZeroEmission": 2270,
+      "otherDiesel": 3420
+    },
+    "unit": "GBP for the first 12 months (first vehicle licence)",
+    "band": "171 to 190g/km",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/vehicle-tax-rate-tables",
+    "verifiedDate": "2026-10-04",
+    "note": "First-year rate, 171 to 190g/km: £2,190 → £2,270 (petrol, RDE2 diesel, alternative fuel and zero emission) and £3,300 → £3,420 (all other diesel) from 2026-04-01 (gov.uk/vehicle-tax-rate-tables row: 171 to 190g/km | £2,270 | £3,420)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "ved-first-year/co2-191-to-225g-km",
+    "label": "First-year rate, 191 to 225g/km",
+    "from": {
+      "petrolRde2DieselAlternativeZeroEmission": 3300,
+      "otherDiesel": 4680
+    },
+    "to": {
+      "petrolRde2DieselAlternativeZeroEmission": 3420,
+      "otherDiesel": 4850
+    },
+    "unit": "GBP for the first 12 months (first vehicle licence)",
+    "band": "191 to 225g/km",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/vehicle-tax-rate-tables",
+    "verifiedDate": "2026-10-04",
+    "note": "First-year rate, 191 to 225g/km: £3,300 → £3,420 (petrol, RDE2 diesel, alternative fuel and zero emission) and £4,680 → £4,850 (all other diesel) from 2026-04-01 (gov.uk/vehicle-tax-rate-tables row: 191 to 225g/km | £3,420 | £4,850)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "ved-first-year/co2-226-to-255g-km",
+    "label": "First-year rate, 226 to 255g/km",
+    "from": {
+      "petrolRde2DieselAlternativeZeroEmission": 4680,
+      "otherDiesel": 5490
+    },
+    "to": {
+      "petrolRde2DieselAlternativeZeroEmission": 4850,
+      "otherDiesel": 5690
+    },
+    "unit": "GBP for the first 12 months (first vehicle licence)",
+    "band": "226 to 255g/km",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/vehicle-tax-rate-tables",
+    "verifiedDate": "2026-10-04",
+    "note": "First-year rate, 226 to 255g/km: £4,680 → £4,850 (petrol, RDE2 diesel, alternative fuel and zero emission) and £5,490 → £5,690 (all other diesel) from 2026-04-01 (gov.uk/vehicle-tax-rate-tables row: 226 to 255g/km | £4,850 | £5,690)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "ved-first-year/co2-over-255g-km",
+    "label": "First-year rate, Over 255g/km",
+    "from": {
+      "petrolRde2DieselAlternativeZeroEmission": 5490,
+      "otherDiesel": 5490
+    },
+    "to": {
+      "petrolRde2DieselAlternativeZeroEmission": 5690,
+      "otherDiesel": 5690
+    },
+    "unit": "GBP for the first 12 months (first vehicle licence)",
+    "band": "Over 255g/km",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/vehicle-tax-rate-tables",
+    "verifiedDate": "2026-10-04",
+    "note": "First-year rate, Over 255g/km: £5,490 → £5,690 (petrol, RDE2 diesel, alternative fuel and zero emission) and £5,490 → £5,690 (all other diesel) from 2026-04-01 (gov.uk/vehicle-tax-rate-tables row: Over 255g/km | £5,690 | £5,690)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "ved-standard/standard-rate-12-month",
+    "label": "Standard rate, single 12 month payment",
+    "from": 195,
+    "to": 200,
+    "unit": "GBP/year",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/vehicle-tax-rate-tables",
+    "verifiedDate": "2026-10-04",
+    "note": "Standard rate, single 12 month payment: 195 → 200 from 2026-04-01 (Rates for second tax payment onwards … Petrol or diesel, Electric & Alternative Fuel | Single 12 month payment | £200)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "ved-standard/standard-rate-12-month-direct-debit",
+    "label": "Standard rate, single 12 month payment by Direct Debit",
+    "from": 195,
+    "to": 200,
+    "unit": "GBP/year",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/vehicle-tax-rate-tables",
+    "verifiedDate": "2026-10-04",
+    "note": "Standard rate, single 12 month payment by Direct Debit: 195 → 200 from 2026-04-01 (Single 12 month payment by Direct Debit | £200)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "ved-standard/standard-rate-12-monthly-direct-debit-total",
+    "label": "Standard rate, total of 12 monthly payments by Direct Debit",
+    "from": 204.75,
+    "to": 210,
+    "unit": "GBP/year",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/vehicle-tax-rate-tables",
+    "verifiedDate": "2026-10-04",
+    "note": "Standard rate, total of 12 monthly payments by Direct Debit: 204.75 → 210 from 2026-04-01 (Total of 12 monthly payments by Direct Debit | £210)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "ved-standard/standard-rate-6-month",
+    "label": "Standard rate, single 6 month payment",
+    "from": 107.25,
+    "to": 110,
+    "unit": "GBP per 6 months",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/vehicle-tax-rate-tables",
+    "verifiedDate": "2026-10-04",
+    "note": "Standard rate, single 6 month payment: 107.25 → 110 from 2026-04-01 (Single 6 month payment | £110)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "ved-standard/standard-rate-6-month-direct-debit",
+    "label": "Standard rate, single 6 month payment by Direct Debit",
+    "from": 102.38,
+    "to": 105,
+    "unit": "GBP per 6 months",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/vehicle-tax-rate-tables",
+    "verifiedDate": "2026-10-04",
+    "note": "Standard rate, single 6 month payment by Direct Debit: 102.38 → 105 from 2026-04-01 (Single 6 month payment by Direct Debit | £105)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "ved-expensive-car/list-price-threshold-zero-emission",
+    "label": "List price threshold for zero-emission (electric) cars and motorhomes registered on or after 1 April 2025",
+    "from": 40000,
+    "to": 50000,
+    "unit": "GBP list price",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/government/publications/vehicle-excise-duty-for-expensive-car-supplement-threshold-increase-for-zero-emission-vehicles/increase-in-the-vehicle-excise-duty-expensive-car-supplement-threshold-for-zero-emission-cars",
+    "verifiedDate": "2026-10-04",
+    "note": "List price threshold for zero-emission (electric) cars and motorhomes registered on or after 1 April 2025: 40000 → 50000 from 2026-04-01 (this measure increases the VED (Vehicle Excise Duty) Expensive Car Supplement (ECS) threshold for zero-emission cars, from its current level of £40,000 to £50,000. … The change will have effect from 1 April 2026.)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "ved-expensive-car/annual-supplement",
+    "label": "Expensive car supplement, annual amount on top of the standard rate",
+    "from": 425,
+    "to": 440,
+    "unit": "GBP/year",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/vehicle-tax-rate-tables",
+    "verifiedDate": "2026-10-04",
+    "note": "Expensive car supplement, annual amount on top of the standard rate: 425 → 440 from 2026-04-01 (You have to pay an extra £440 a year if you have any of the following: a car or motorhome with a list price of more than £40,000; an electric car or motorhome with a list price of more than £50,000)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "ved-expensive-car/standard-plus-supplement-12-month",
+    "label": "Standard rate plus supplement, single 12 month payment",
+    "from": 620,
+    "to": 640,
+    "unit": "GBP/year",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/vehicle-tax-rate-tables",
+    "verifiedDate": "2026-10-04",
+    "note": "Standard rate plus supplement, single 12 month payment: 620 → 640 from 2026-04-01 (Petrol or diesel, Electric & Alternative Fuel | Single 12 month payment | £640)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "ved-expensive-car/standard-plus-supplement-12-monthly-direct-debit-total",
+    "label": "Standard rate plus supplement, total of 12 monthly payments by Direct Debit",
+    "from": 651,
+    "to": 672,
+    "unit": "GBP/year",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/vehicle-tax-rate-tables",
+    "verifiedDate": "2026-10-04",
+    "note": "Standard rate plus supplement, total of 12 monthly payments by Direct Debit: 651 → 672 from 2026-04-01 (Total of 12 monthly payments by Direct Debit | £672)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "ved-expensive-car/standard-plus-supplement-6-month",
+    "label": "Standard rate plus supplement, single 6 month payment",
+    "from": 341,
+    "to": 352,
+    "unit": "GBP per 6 months",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/vehicle-tax-rate-tables",
+    "verifiedDate": "2026-10-04",
+    "note": "Standard rate plus supplement, single 6 month payment: 341 → 352 from 2026-04-01 (Single 6 month payment | £352)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "ved-expensive-car/standard-plus-supplement-6-month-direct-debit",
+    "label": "Standard rate plus supplement, single 6 month payment by Direct Debit",
+    "from": 325.5,
+    "to": 336,
+    "unit": "GBP per 6 months",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/vehicle-tax-rate-tables",
+    "verifiedDate": "2026-10-04",
+    "note": "Standard rate plus supplement, single 6 month payment by Direct Debit: 325.5 → 336 from 2026-04-01 (Single 6 month payment by Direct Debit | £336)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "ved-2001-2017/band-d",
+    "label": "Band D: 121 to 130g/km",
+    "from": 165,
+    "to": 170,
+    "unit": "GBP, single 12 month payment",
+    "band": "D: 121 to 130g/km",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-registered-on-or-after-1-march-2001",
+    "verifiedDate": "2026-10-04",
+    "note": "Band D: 121 to 130g/km: 165 → 170 from 2026-04-01 (D: 121 to 130g/km | £170 | £170 | …)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "ved-2001-2017/band-e",
+    "label": "Band E: 131 to 140g/km",
+    "from": 195,
+    "to": 200,
+    "unit": "GBP, single 12 month payment",
+    "band": "E: 131 to 140g/km",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-registered-on-or-after-1-march-2001",
+    "verifiedDate": "2026-10-04",
+    "note": "Band E: 131 to 140g/km: 195 → 200 from 2026-04-01 (E: 131 to 140g/km | £200 | £200 | …)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "ved-2001-2017/band-f",
+    "label": "Band F: 141 to 150g/km",
+    "from": 215,
+    "to": 225,
+    "unit": "GBP, single 12 month payment",
+    "band": "F: 141 to 150g/km",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-registered-on-or-after-1-march-2001",
+    "verifiedDate": "2026-10-04",
+    "note": "Band F: 141 to 150g/km: 215 → 225 from 2026-04-01 (F: 141 to 150g/km | £225 | £225 | …)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "ved-2001-2017/band-g",
+    "label": "Band G: 151 to 165g/km",
+    "from": 265,
+    "to": 275,
+    "unit": "GBP, single 12 month payment",
+    "band": "G: 151 to 165g/km",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-registered-on-or-after-1-march-2001",
+    "verifiedDate": "2026-10-04",
+    "note": "Band G: 151 to 165g/km: 265 → 275 from 2026-04-01 (G: 151 to 165g/km | £275 | £275 | …)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "ved-2001-2017/band-h",
+    "label": "Band H: 166 to 175g/km",
+    "from": 315,
+    "to": 325,
+    "unit": "GBP, single 12 month payment",
+    "band": "H: 166 to 175g/km",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-registered-on-or-after-1-march-2001",
+    "verifiedDate": "2026-10-04",
+    "note": "Band H: 166 to 175g/km: 315 → 325 from 2026-04-01 (H: 166 to 175g/km | £325 | £325 | …)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "ved-2001-2017/band-i",
+    "label": "Band I: 176 to 185g/km",
+    "from": 345,
+    "to": 360,
+    "unit": "GBP, single 12 month payment",
+    "band": "I: 176 to 185g/km",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-registered-on-or-after-1-march-2001",
+    "verifiedDate": "2026-10-04",
+    "note": "Band I: 176 to 185g/km: 345 → 360 from 2026-04-01 (I: 176 to 185g/km | £360 | £360 | …)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "ved-2001-2017/band-j",
+    "label": "Band J: 186 to 200g/km",
+    "from": 395,
+    "to": 410,
+    "unit": "GBP, single 12 month payment",
+    "band": "J: 186 to 200g/km",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-registered-on-or-after-1-march-2001",
+    "verifiedDate": "2026-10-04",
+    "note": "Band J: 186 to 200g/km: 395 → 410 from 2026-04-01 (J: 186 to 200g/km | £410 | £410 | …)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "ved-2001-2017/band-k",
+    "label": "Band K: 201 to 225g/km",
+    "from": 430,
+    "to": 445,
+    "unit": "GBP, single 12 month payment",
+    "band": "K: 201 to 225g/km",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-registered-on-or-after-1-march-2001",
+    "verifiedDate": "2026-10-04",
+    "note": "Band K: 201 to 225g/km: 430 → 445 from 2026-04-01 (K*: 201 to 225g/km | £445 | £445 | …)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "ved-2001-2017/band-l",
+    "label": "Band L: 226 to 255g/km",
+    "from": 735,
+    "to": 760,
+    "unit": "GBP, single 12 month payment",
+    "band": "L: 226 to 255g/km",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-registered-on-or-after-1-march-2001",
+    "verifiedDate": "2026-10-04",
+    "note": "Band L: 226 to 255g/km: 735 → 760 from 2026-04-01 (L: 226 to 255g/km | £760 | £760 | …)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "ved-2001-2017/band-m",
+    "label": "Band M: Over 255g/km",
+    "from": 760,
+    "to": 790,
+    "unit": "GBP, single 12 month payment",
+    "band": "M: Over 255g/km",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-registered-on-or-after-1-march-2001",
+    "verifiedDate": "2026-10-04",
+    "note": "Band M: Over 255g/km: 760 → 790 from 2026-04-01 (M: Over 255g/km | £790 | £790 | …)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "ved-pre-2001/engine-not-over-1549cc",
+    "label": "Engine not over 1549cc",
+    "from": 220,
+    "to": 230,
+    "unit": "GBP, single 12 month payment",
+    "band": "Not over 1549cc",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-and-light-goods-vehicles-registered-before-1-march-2001",
+    "verifiedDate": "2026-10-04",
+    "note": "Engine not over 1549cc: 220 → 230 from 2026-04-01 (Not over 1549 | £230 | £230 | £241.50 | £126.50 | £120.75)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "ved-pre-2001/engine-over-1549cc",
+    "label": "Engine over 1549cc",
+    "from": 360,
+    "to": 375,
+    "unit": "GBP, single 12 month payment",
+    "band": "Over 1549cc",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-and-light-goods-vehicles-registered-before-1-march-2001",
+    "verifiedDate": "2026-10-04",
+    "note": "Engine over 1549cc: 360 → 375 from 2026-04-01 (Over 1549 | £375 | £375 | £393.75 | £206.25 | £196.88)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "ved-electric/standard-rate",
+    "label": "Standard rate from the second year, zero-emission car",
+    "from": 195,
+    "to": 200,
+    "unit": "GBP/year",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/vehicle-tax-rate-tables",
+    "verifiedDate": "2026-10-04",
+    "note": "Standard rate from the second year, zero-emission car: 195 → 200 from 2026-04-01 (Petrol or diesel, Electric & Alternative Fuel | Single 12 month payment | £200)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "ved-electric/expensive-car-supplement-threshold",
+    "label": "Expensive car supplement list price threshold for zero-emission cars (registered on or after 1 April 2025)",
+    "from": 40000,
+    "to": 50000,
+    "unit": "GBP list price",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/vehicle-tax-rate-tables",
+    "verifiedDate": "2026-10-04",
+    "note": "Expensive car supplement list price threshold for zero-emission cars (registered on or after 1 April 2025): 40000 → 50000 from 2026-04-01 (an electric car or motorhome with a list price of more than £50,000 … This also applies to electric vehicles registered between 1 April 2025 and 31 March 2026.)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "ved-electric/expensive-car-supplement-amount",
+    "label": "Expensive car supplement, annual amount (zero-emission car over the threshold)",
+    "from": 425,
+    "to": 440,
+    "unit": "GBP/year for 5 years from the second time taxed",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/vehicle-tax-rate-tables",
+    "verifiedDate": "2026-10-04",
+    "note": "Expensive car supplement, annual amount (zero-emission car over the threshold): 425 → 440 from 2026-04-01 (You have to pay an extra £440 a year if you have any of the following: … an electric car or motorhome with a list price of more than £50,000)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "historic/tax-exemption-built-before",
+    "label": "Vehicle tax exemption: built before",
+    "from": "1985-01-01",
+    "to": "1986-01-01",
+    "unit": "date (build date)",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/historic-vehicles/vehicles-exempt-from-vehicle-tax",
+    "verifiedDate": "2026-10-04",
+    "note": "Vehicle tax exemption: built before: 1985-01-01 → 1986-01-01 from 2026-04-01 (You can apply to stop paying for vehicle tax from 1 April 2026 if your vehicle was built before 1 January 1986. You must tax your vehicle even if you do not have to pay.)",
+    "taxYear": "2026-27"
+  },
+  {
+    "area": "uk-vehicle-rules",
+    "key": "historic/tax-exemption-registered-before",
+    "label": "Vehicle tax exemption when the build date is unknown: first registered before",
+    "from": "1985-01-08",
+    "to": "1986-01-08",
+    "unit": "date (first registration)",
+    "effectiveFrom": "2026-04-01",
+    "source": "https://www.gov.uk/historic-vehicles/vehicles-exempt-from-vehicle-tax",
+    "verifiedDate": "2026-10-04",
+    "note": "Vehicle tax exemption when the build date is unknown: first registered before: 1985-01-08 → 1986-01-08 from 2026-04-01 (If you do not know when your vehicle was built, but it was first registered before 8 January 1986, you can still apply to stop paying vehicle tax.)",
+    "taxYear": "2026-27"
   }
 ]

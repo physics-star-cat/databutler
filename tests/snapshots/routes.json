@@ -14,6 +14,7 @@
     "mcp/tax",
     "mcp/uk-exams",
     "mcp/uk-rates",
+    "mcp/uk-vehicle-rules",
     "mcp/us-rates",
     "mcp/vehicles",
     "policy-rates",
@@ -29,6 +30,7 @@
     "uk/exams/specs",
     "uk/exams/topic",
     "uk/rates",
+    "uk/vehicle-rules",
     "us/rates",
     "vehicles/eu/safety-gate",
     "vehicles/fr/recalls",
@@ -56,6 +58,7 @@
     "uk/exams/specs",
     "uk/exams/topic",
     "uk/rates",
+    "uk/vehicle-rules",
     "us/rates",
     "vehicles/eu/safety-gate",
     "vehicles/fr/recalls",
@@ -253,6 +256,12 @@
     },
     "de_rates_lookup": {
       "path": "de/rates",
+      "queryKeys": [
+        "category"
+      ]
+    },
+    "uk_vehicle_rules_lookup": {
+      "path": "uk/vehicle-rules",
       "queryKeys": [
         "category"
       ]

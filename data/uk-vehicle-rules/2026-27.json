@@ -1,0 +1,1265 @@
+{
+  "area": "uk-vehicle-rules",
+  "taxYear": "2026-27",
+  "taxYearRuns": "1 April 2026 to 31 March 2027 — VED rates change on 1 April (Finance Act uprating); the historic-vehicle tax exemption date also rolls forward each 1 April. MOT fees and rules are not tied to the tax year.",
+  "jurisdiction": "United Kingdom for vehicle tax (VED, administered by DVLA). MOT figures are Great Britain (England, Scotland, Wales): Northern Ireland runs its own MOT scheme (DVA) with different rules, fees and processes.",
+  "currency": "GBP",
+  "verifiedDate": "2026-10-04",
+  "nextScheduledRefresh": "2027-04-01",
+  "refreshRule": "Calendar-driven (cadenceDays: null). VED rates and the historic-vehicle build-date cutoff change on 1 April each year (Finance Act, announced at the preceding Autumn Budget — the HMRC tax information and impact notes appear on gov.uk on Budget day, the rate-tables page is rewritten shortly before 1 April). MOT maximum fees have been unchanged since 2010; the MOT guide is re-checked when the weekly watcher reports a change. nextScheduledRefresh is set by hand to the next 1 April; a Budget announcement in between is a reason to add the following year's file early.",
+  "verificationMethod": "Every figure was read on verifiedDate from the gov.uk page named in its `source` (the guide pages and the HMRC policy paper were fetched with curl, User-Agent databutler-curation/1.0, both as HTML and through the gov.uk content API https://www.gov.uk/api/content/<path>; all returned HTTP 200 on 2026-10-04; content-API `updated_at` 2026-09-09 for vehicle-tax-rate-tables, getting-an-mot and historic-vehicles). `quote` reproduces the table row or sentence the value was taken from, columns separated by \" | \". `previous` (2025-26) values were read from the UK Government Web Archive (National Archives) captures of the same gov.uk pages named in previous.source, taken 30 May – 4 June 2025, i.e. while the 2025-26 rates were in force; they were not written from memory. Where the live page or the archive capture carries no comparable earlier figure, `previous` is omitted.",
+  "licence": "gov.uk footer on every page cited: \"All content is available under the Open Government Licence v3.0, except where otherwise stated\" (https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/). National Archives web-archive captures of gov.uk pages are reproduced under the same licence.",
+  "sources": [
+    {
+      "id": "rate-tables",
+      "title": "Vehicle tax rates (gov.uk guide, parts: cars registered on or after 1 April 2017; 1 March 2001–31 March 2017; before 1 March 2001; motorhomes; other vehicle tax rates)",
+      "url": "https://www.gov.uk/vehicle-tax-rate-tables",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "rate-tables-2025",
+      "title": "Vehicle tax rates as served for 2025-26 — UK Government Web Archive capture 30 May 2025",
+      "url": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530154440/https://www.gov.uk/vehicle-tax-rate-tables",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "ecs-zev",
+      "title": "Increase in the Vehicle Excise Duty Expensive Car Supplement threshold for zero emission cars (HMRC policy paper, 26 November 2025)",
+      "url": "https://www.gov.uk/government/publications/vehicle-excise-duty-for-expensive-car-supplement-threshold-increase-for-zero-emission-vehicles/increase-in-the-vehicle-excise-duty-expensive-car-supplement-threshold-for-zero-emission-cars",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "direct-debit",
+      "title": "Pay vehicle tax by Direct Debit (gov.uk guide)",
+      "url": "https://www.gov.uk/vehicle-tax-direct-debit",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "exempt",
+      "title": "Vehicles exempt from vehicle tax (gov.uk)",
+      "url": "https://www.gov.uk/vehicle-exempt-from-vehicle-tax",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "getting-an-mot",
+      "title": "Getting an MOT (gov.uk guide, parts: when to get an MOT; MOT costs; MOT test result; retest after a repair; vehicles that do not need an MOT)",
+      "url": "https://www.gov.uk/getting-an-mot",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "mot-fees-2025",
+      "title": "MOT costs as served in 2025 — UK Government Web Archive capture 4 June 2025",
+      "url": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250604102229/https://www.gov.uk/getting-an-mot/mot-test-fees",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "historic",
+      "title": "Historic (classic) vehicles: MOT and vehicle tax (gov.uk guide)",
+      "url": "https://www.gov.uk/historic-vehicles",
+      "fetched": "2026-10-04"
+    },
+    {
+      "id": "historic-2025",
+      "title": "Historic (classic) vehicles as served for 2025-26 — UK Government Web Archive capture 30 May 2025",
+      "url": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530154919/https://www.gov.uk/historic-vehicles",
+      "fetched": "2026-10-04"
+    }
+  ],
+  "categories": {
+    "ved-first-year": {
+      "title": "VED first-year rates (cars registered on or after 1 April 2017), by CO2 band",
+      "source": "https://www.gov.uk/vehicle-tax-rate-tables",
+      "notes": "Paid once, when the car is first registered, and covers 12 months (\"first vehicle licence\"). Two columns on the page: \"Diesel cars (TC49) that meet the RDE2 standard, petrol cars (TC48), Alternative fuel and zero emission cars\" and \"All other diesel cars (TC49)\" — a diesel that does not meet the Real Driving Emissions 2 standard pays one band higher. The page: \"This also applies to some motorhomes.\" From the second year the standard rate (ved-standard) applies.",
+      "figures": [
+        {
+          "key": "co2-0g-km",
+          "label": "First-year rate, 0g/km",
+          "band": "0g/km",
+          "value": {
+            "petrolRde2DieselAlternativeZeroEmission": 10,
+            "otherDiesel": 10
+          },
+          "unit": "GBP for the first 12 months (first vehicle licence)",
+          "quote": "0g/km | £10 | £10",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": {
+              "petrolRde2DieselAlternativeZeroEmission": 10,
+              "otherDiesel": 10
+            },
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530154440/https://www.gov.uk/vehicle-tax-rate-tables",
+            "quote": "0g/km | £10 | £10"
+          }
+        },
+        {
+          "key": "co2-1-to-50g-km",
+          "label": "First-year rate, 1 to 50g/km",
+          "band": "1 to 50g/km",
+          "value": {
+            "petrolRde2DieselAlternativeZeroEmission": 115,
+            "otherDiesel": 135
+          },
+          "unit": "GBP for the first 12 months (first vehicle licence)",
+          "quote": "1 to 50g/km | £115 | £135",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": {
+              "petrolRde2DieselAlternativeZeroEmission": 110,
+              "otherDiesel": 130
+            },
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530154440/https://www.gov.uk/vehicle-tax-rate-tables",
+            "quote": "1 to 50g/km | £110 | £130"
+          }
+        },
+        {
+          "key": "co2-51-to-75g-km",
+          "label": "First-year rate, 51 to 75g/km",
+          "band": "51 to 75g/km",
+          "value": {
+            "petrolRde2DieselAlternativeZeroEmission": 135,
+            "otherDiesel": 280
+          },
+          "unit": "GBP for the first 12 months (first vehicle licence)",
+          "quote": "51 to 75g/km | £135 | £280",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": {
+              "petrolRde2DieselAlternativeZeroEmission": 130,
+              "otherDiesel": 270
+            },
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530154440/https://www.gov.uk/vehicle-tax-rate-tables",
+            "quote": "51 to 75g/km | £130 | £270"
+          }
+        },
+        {
+          "key": "co2-76-to-90g-km",
+          "label": "First-year rate, 76 to 90g/km",
+          "band": "76 to 90g/km",
+          "value": {
+            "petrolRde2DieselAlternativeZeroEmission": 280,
+            "otherDiesel": 365
+          },
+          "unit": "GBP for the first 12 months (first vehicle licence)",
+          "quote": "76 to 90g/km | £280 | £365",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": {
+              "petrolRde2DieselAlternativeZeroEmission": 270,
+              "otherDiesel": 350
+            },
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530154440/https://www.gov.uk/vehicle-tax-rate-tables",
+            "quote": "76 to 90g/km | £270 | £350"
+          }
+        },
+        {
+          "key": "co2-91-to-100g-km",
+          "label": "First-year rate, 91 to 100g/km",
+          "band": "91 to 100g/km",
+          "value": {
+            "petrolRde2DieselAlternativeZeroEmission": 365,
+            "otherDiesel": 405
+          },
+          "unit": "GBP for the first 12 months (first vehicle licence)",
+          "quote": "91 to 100g/km | £365 | £405",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": {
+              "petrolRde2DieselAlternativeZeroEmission": 350,
+              "otherDiesel": 390
+            },
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530154440/https://www.gov.uk/vehicle-tax-rate-tables",
+            "quote": "91 to 100g/km | £350 | £390"
+          }
+        },
+        {
+          "key": "co2-101-to-110g-km",
+          "label": "First-year rate, 101 to 110g/km",
+          "band": "101 to 110g/km",
+          "value": {
+            "petrolRde2DieselAlternativeZeroEmission": 405,
+            "otherDiesel": 455
+          },
+          "unit": "GBP for the first 12 months (first vehicle licence)",
+          "quote": "101 to 110g/km | £405 | £455",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": {
+              "petrolRde2DieselAlternativeZeroEmission": 390,
+              "otherDiesel": 440
+            },
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530154440/https://www.gov.uk/vehicle-tax-rate-tables",
+            "quote": "101 to 110g/km | £390 | £440"
+          }
+        },
+        {
+          "key": "co2-111-to-130g-km",
+          "label": "First-year rate, 111 to 130g/km",
+          "band": "111 to 130g/km",
+          "value": {
+            "petrolRde2DieselAlternativeZeroEmission": 455,
+            "otherDiesel": 560
+          },
+          "unit": "GBP for the first 12 months (first vehicle licence)",
+          "quote": "111 to 130g/km | £455 | £560",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": {
+              "petrolRde2DieselAlternativeZeroEmission": 440,
+              "otherDiesel": 540
+            },
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530154440/https://www.gov.uk/vehicle-tax-rate-tables",
+            "quote": "111 to 130g/km | £440 | £540"
+          }
+        },
+        {
+          "key": "co2-131-to-150g-km",
+          "label": "First-year rate, 131 to 150g/km",
+          "band": "131 to 150g/km",
+          "value": {
+            "petrolRde2DieselAlternativeZeroEmission": 560,
+            "otherDiesel": 1410
+          },
+          "unit": "GBP for the first 12 months (first vehicle licence)",
+          "quote": "131 to 150g/km | £560 | £1,410",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": {
+              "petrolRde2DieselAlternativeZeroEmission": 540,
+              "otherDiesel": 1360
+            },
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530154440/https://www.gov.uk/vehicle-tax-rate-tables",
+            "quote": "131 to 150g/km | £540 | £1,360"
+          }
+        },
+        {
+          "key": "co2-151-to-170g-km",
+          "label": "First-year rate, 151 to 170g/km",
+          "band": "151 to 170g/km",
+          "value": {
+            "petrolRde2DieselAlternativeZeroEmission": 1410,
+            "otherDiesel": 2270
+          },
+          "unit": "GBP for the first 12 months (first vehicle licence)",
+          "quote": "151 to 170g/km | £1,410 | £2,270",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": {
+              "petrolRde2DieselAlternativeZeroEmission": 1360,
+              "otherDiesel": 2190
+            },
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530154440/https://www.gov.uk/vehicle-tax-rate-tables",
+            "quote": "151 to 170g/km | £1,360 | £2,190"
+          }
+        },
+        {
+          "key": "co2-171-to-190g-km",
+          "label": "First-year rate, 171 to 190g/km",
+          "band": "171 to 190g/km",
+          "value": {
+            "petrolRde2DieselAlternativeZeroEmission": 2270,
+            "otherDiesel": 3420
+          },
+          "unit": "GBP for the first 12 months (first vehicle licence)",
+          "quote": "171 to 190g/km | £2,270 | £3,420",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": {
+              "petrolRde2DieselAlternativeZeroEmission": 2190,
+              "otherDiesel": 3300
+            },
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530154440/https://www.gov.uk/vehicle-tax-rate-tables",
+            "quote": "171 to 190g/km | £2,190 | £3,300"
+          }
+        },
+        {
+          "key": "co2-191-to-225g-km",
+          "label": "First-year rate, 191 to 225g/km",
+          "band": "191 to 225g/km",
+          "value": {
+            "petrolRde2DieselAlternativeZeroEmission": 3420,
+            "otherDiesel": 4850
+          },
+          "unit": "GBP for the first 12 months (first vehicle licence)",
+          "quote": "191 to 225g/km | £3,420 | £4,850",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": {
+              "petrolRde2DieselAlternativeZeroEmission": 3300,
+              "otherDiesel": 4680
+            },
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530154440/https://www.gov.uk/vehicle-tax-rate-tables",
+            "quote": "191 to 225g/km | £3,300 | £4,680"
+          }
+        },
+        {
+          "key": "co2-226-to-255g-km",
+          "label": "First-year rate, 226 to 255g/km",
+          "band": "226 to 255g/km",
+          "value": {
+            "petrolRde2DieselAlternativeZeroEmission": 4850,
+            "otherDiesel": 5690
+          },
+          "unit": "GBP for the first 12 months (first vehicle licence)",
+          "quote": "226 to 255g/km | £4,850 | £5,690",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": {
+              "petrolRde2DieselAlternativeZeroEmission": 4680,
+              "otherDiesel": 5490
+            },
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530154440/https://www.gov.uk/vehicle-tax-rate-tables",
+            "quote": "226 to 255g/km | £4,680 | £5,490"
+          }
+        },
+        {
+          "key": "co2-over-255g-km",
+          "label": "First-year rate, Over 255g/km",
+          "band": "Over 255g/km",
+          "value": {
+            "petrolRde2DieselAlternativeZeroEmission": 5690,
+            "otherDiesel": 5690
+          },
+          "unit": "GBP for the first 12 months (first vehicle licence)",
+          "quote": "Over 255g/km | £5,690 | £5,690",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": {
+              "petrolRde2DieselAlternativeZeroEmission": 5490,
+              "otherDiesel": 5490
+            },
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530154440/https://www.gov.uk/vehicle-tax-rate-tables",
+            "quote": "Over 255g/km | £5,490 | £5,490"
+          }
+        }
+      ]
+    },
+    "ved-standard": {
+      "title": "VED standard rate from the second year (cars registered on or after 1 April 2017) and Direct Debit surcharges",
+      "source": "https://www.gov.uk/vehicle-tax-rate-tables",
+      "notes": "One flat rate for \"Petrol or diesel, Electric & Alternative Fuel\" from the second tax payment onwards. Paying by Direct Debit monthly or 6-monthly carries a 5% surcharge; a single 6-month payment is 55% of the annual rate (the 12 monthly instalments and the 6-month Direct Debit total 105%). \"Alternative fuel vehicles include hybrids, bioethanol and liquid petroleum gas.\"",
+      "figures": [
+        {
+          "key": "standard-rate-12-month",
+          "label": "Standard rate, single 12 month payment",
+          "value": 200,
+          "unit": "GBP/year",
+          "quote": "Rates for second tax payment onwards … Petrol or diesel, Electric & Alternative Fuel | Single 12 month payment | £200",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": 195,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530154440/https://www.gov.uk/vehicle-tax-rate-tables",
+            "quote": "Petrol or diesel, Electric & Alternative Fuel | £195 | £195 | £204.75 | £107.25 | £102.38"
+          }
+        },
+        {
+          "key": "standard-rate-12-month-direct-debit",
+          "label": "Standard rate, single 12 month payment by Direct Debit",
+          "value": 200,
+          "unit": "GBP/year",
+          "quote": "Single 12 month payment by Direct Debit | £200",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": 195,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530154440/https://www.gov.uk/vehicle-tax-rate-tables"
+          }
+        },
+        {
+          "key": "standard-rate-12-monthly-direct-debit-total",
+          "label": "Standard rate, total of 12 monthly payments by Direct Debit",
+          "value": 210,
+          "unit": "GBP/year",
+          "quote": "Total of 12 monthly payments by Direct Debit | £210",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": 204.75,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530154440/https://www.gov.uk/vehicle-tax-rate-tables"
+          }
+        },
+        {
+          "key": "standard-rate-6-month",
+          "label": "Standard rate, single 6 month payment",
+          "value": 110,
+          "unit": "GBP per 6 months",
+          "quote": "Single 6 month payment | £110",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": 107.25,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530154440/https://www.gov.uk/vehicle-tax-rate-tables"
+          }
+        },
+        {
+          "key": "standard-rate-6-month-direct-debit",
+          "label": "Standard rate, single 6 month payment by Direct Debit",
+          "value": 105,
+          "unit": "GBP per 6 months",
+          "quote": "Single 6 month payment by Direct Debit | £105",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": 102.38,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530154440/https://www.gov.uk/vehicle-tax-rate-tables"
+          }
+        },
+        {
+          "key": "direct-debit-surcharge",
+          "label": "Direct Debit surcharge for monthly or 6-monthly payment",
+          "value": 5,
+          "unit": "% of the annual rate",
+          "source": "https://www.gov.uk/vehicle-tax-direct-debit",
+          "quote": "There’s a 5% surcharge if you pay: monthly; every 6 months. There’s no surcharge if you pay yearly.",
+          "previous": {
+            "value": 5,
+            "taxYear": "2025-26",
+            "source": "https://www.gov.uk/vehicle-tax-direct-debit"
+          }
+        },
+        {
+          "key": "first-registration-covers",
+          "label": "First tax payment covers",
+          "value": 12,
+          "unit": "months",
+          "quote": "You need to pay tax when the vehicle is first registered, this covers the vehicle for 12 months. You’ll then pay vehicle tax every 6 or 12 months at a different rate."
+        }
+      ]
+    },
+    "ved-expensive-car": {
+      "title": "VED expensive car supplement (list price over £40,000; over £50,000 for zero-emission cars from 1 April 2026)",
+      "source": "https://www.gov.uk/vehicle-tax-rate-tables",
+      "notes": "An additional annual amount on top of the standard rate, charged for five years from the second time the vehicle is taxed, for cars and motorhomes registered on or after 1 April 2017 whose list price (published price before first registration, before discounts) exceeds the threshold. From 1 April 2026 the threshold for zero-emission cars is £50,000 (HMRC policy paper, Budget 2025); it stays £40,000 for all other cars. Zero-emission vehicles registered before 1 April 2025 do not pay it at all.",
+      "figures": [
+        {
+          "key": "list-price-threshold",
+          "label": "List price threshold (petrol, diesel, hybrid and other non-zero-emission cars and motorhomes)",
+          "value": 40000,
+          "unit": "GBP list price",
+          "quote": "You have to pay an extra £440 a year if you have any of the following: a car or motorhome with a list price of more than £40,000",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": 40000,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530154440/https://www.gov.uk/vehicle-tax-rate-tables",
+            "quote": "You have to pay an extra £425 a year if you have a car or motorhome with a list price of more than £40,000."
+          }
+        },
+        {
+          "key": "list-price-threshold-zero-emission",
+          "label": "List price threshold for zero-emission (electric) cars and motorhomes registered on or after 1 April 2025",
+          "value": 50000,
+          "unit": "GBP list price",
+          "source": "https://www.gov.uk/government/publications/vehicle-excise-duty-for-expensive-car-supplement-threshold-increase-for-zero-emission-vehicles/increase-in-the-vehicle-excise-duty-expensive-car-supplement-threshold-for-zero-emission-cars",
+          "quote": "this measure increases the VED (Vehicle Excise Duty) Expensive Car Supplement (ECS) threshold for zero-emission cars, from its current level of £40,000 to £50,000. … The change will have effect from 1 April 2026.",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": 40000,
+            "taxYear": "2025-26",
+            "source": "https://www.gov.uk/government/publications/vehicle-excise-duty-for-expensive-car-supplement-threshold-increase-for-zero-emission-vehicles/increase-in-the-vehicle-excise-duty-expensive-car-supplement-threshold-for-zero-emission-cars",
+            "quote": "from its current level of £40,000 to £50,000"
+          }
+        },
+        {
+          "key": "annual-supplement",
+          "label": "Expensive car supplement, annual amount on top of the standard rate",
+          "value": 440,
+          "unit": "GBP/year",
+          "quote": "You have to pay an extra £440 a year if you have any of the following: a car or motorhome with a list price of more than £40,000; an electric car or motorhome with a list price of more than £50,000",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": 425,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530154440/https://www.gov.uk/vehicle-tax-rate-tables",
+            "quote": "You have to pay an extra £425 a year if you have a car or motorhome with a list price of more than £40,000."
+          }
+        },
+        {
+          "key": "years-applied",
+          "label": "Years the supplement is paid for",
+          "value": 5,
+          "unit": "years, from the second time the vehicle is taxed",
+          "quote": "You only have to pay this rate for 5 years (from the second time the vehicle is taxed).",
+          "previous": {
+            "value": 5,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530154440/https://www.gov.uk/vehicle-tax-rate-tables",
+            "quote": "You only have to pay this rate for 5 years (from the second time the vehicle is taxed)."
+          }
+        },
+        {
+          "key": "standard-plus-supplement-12-month",
+          "label": "Standard rate plus supplement, single 12 month payment",
+          "value": 640,
+          "unit": "GBP/year",
+          "quote": "Petrol or diesel, Electric & Alternative Fuel | Single 12 month payment | £640",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": 620,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530154440/https://www.gov.uk/vehicle-tax-rate-tables",
+            "quote": "Petrol or diesel, Electric & Alternative Fuel | £620 | £620 | £651 | £341 | £325.50"
+          }
+        },
+        {
+          "key": "standard-plus-supplement-12-monthly-direct-debit-total",
+          "label": "Standard rate plus supplement, total of 12 monthly payments by Direct Debit",
+          "value": 672,
+          "unit": "GBP/year",
+          "quote": "Total of 12 monthly payments by Direct Debit | £672",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": 651,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530154440/https://www.gov.uk/vehicle-tax-rate-tables"
+          }
+        },
+        {
+          "key": "standard-plus-supplement-6-month",
+          "label": "Standard rate plus supplement, single 6 month payment",
+          "value": 352,
+          "unit": "GBP per 6 months",
+          "quote": "Single 6 month payment | £352",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": 341,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530154440/https://www.gov.uk/vehicle-tax-rate-tables"
+          }
+        },
+        {
+          "key": "standard-plus-supplement-6-month-direct-debit",
+          "label": "Standard rate plus supplement, single 6 month payment by Direct Debit",
+          "value": 336,
+          "unit": "GBP per 6 months",
+          "quote": "Single 6 month payment by Direct Debit | £336",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": 325.5,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530154440/https://www.gov.uk/vehicle-tax-rate-tables"
+          }
+        },
+        {
+          "key": "zero-emission-registered-before-2025-04-01-exempt",
+          "label": "Zero-emission vehicles registered before 1 April 2025",
+          "value": "exempt from the supplement",
+          "quote": "You do not have to pay this if both of the following apply: you have a zero emission vehicle; the vehicle was registered before 1 April 2025"
+        },
+        {
+          "key": "list-price-definition",
+          "label": "List price",
+          "value": "the published price of the vehicle before it is registered for the first time, before any discounts",
+          "quote": "The list price is the published price of the vehicle before it’s registered for the first time. It’s the price before any discounts are applied."
+        }
+      ]
+    },
+    "ved-2001-2017": {
+      "title": "VED for cars registered 1 March 2001 – 31 March 2017, by band (A–M)",
+      "source": "https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-registered-on-or-after-1-march-2001",
+      "notes": "Table \"Petrol car (TC48), diesel car (TC49), alternative fuel (59) and zero emission cars\" on the page; value is the single 12 month payment. The page also lists 12 month by Direct Debit (same), total of 12 monthly instalments by Direct Debit (+5%), single 6 month (55%) and 6 month by Direct Debit (52.5%); bands A–C have no 6-month option (\"N/A\"). Footnote on band K: \"*Includes cars with a CO2 figure over 225g/km but were registered before 23 March 2006.\"",
+      "figures": [
+        {
+          "key": "band-a",
+          "label": "Band A: Up to 100g/km",
+          "band": "A: Up to 100g/km",
+          "value": 20,
+          "unit": "GBP, single 12 month payment",
+          "quote": "A: Up to 100g/km | £20 | £20 | …",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": 20,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530180821/https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-registered-on-or-after-1-march-2001",
+            "quote": "A: Up to 100g/km | £20 | £20 | …"
+          }
+        },
+        {
+          "key": "band-b",
+          "label": "Band B: 101 to 110g/km",
+          "band": "B: 101 to 110g/km",
+          "value": 20,
+          "unit": "GBP, single 12 month payment",
+          "quote": "B: 101 to 110g/km | £20 | £20 | …",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": 20,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530180821/https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-registered-on-or-after-1-march-2001",
+            "quote": "B: 101 to 110g/km | £20 | £20 | …"
+          }
+        },
+        {
+          "key": "band-c",
+          "label": "Band C: 111 to 120g/km",
+          "band": "C: 111 to 120g/km",
+          "value": 35,
+          "unit": "GBP, single 12 month payment",
+          "quote": "C: 111 to 120g/km | £35 | £35 | …",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": 35,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530180821/https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-registered-on-or-after-1-march-2001",
+            "quote": "C: 111 to 120g/km | £35 | £35 | …"
+          }
+        },
+        {
+          "key": "band-d",
+          "label": "Band D: 121 to 130g/km",
+          "band": "D: 121 to 130g/km",
+          "value": 170,
+          "unit": "GBP, single 12 month payment",
+          "quote": "D: 121 to 130g/km | £170 | £170 | …",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": 165,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530180821/https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-registered-on-or-after-1-march-2001",
+            "quote": "D: 121 to 130g/km | £165 | £165 | …"
+          }
+        },
+        {
+          "key": "band-e",
+          "label": "Band E: 131 to 140g/km",
+          "band": "E: 131 to 140g/km",
+          "value": 200,
+          "unit": "GBP, single 12 month payment",
+          "quote": "E: 131 to 140g/km | £200 | £200 | …",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": 195,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530180821/https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-registered-on-or-after-1-march-2001",
+            "quote": "E: 131 to 140g/km | £195 | £195 | …"
+          }
+        },
+        {
+          "key": "band-f",
+          "label": "Band F: 141 to 150g/km",
+          "band": "F: 141 to 150g/km",
+          "value": 225,
+          "unit": "GBP, single 12 month payment",
+          "quote": "F: 141 to 150g/km | £225 | £225 | …",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": 215,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530180821/https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-registered-on-or-after-1-march-2001",
+            "quote": "F: 141 to 150g/km | £215 | £215 | …"
+          }
+        },
+        {
+          "key": "band-g",
+          "label": "Band G: 151 to 165g/km",
+          "band": "G: 151 to 165g/km",
+          "value": 275,
+          "unit": "GBP, single 12 month payment",
+          "quote": "G: 151 to 165g/km | £275 | £275 | …",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": 265,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530180821/https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-registered-on-or-after-1-march-2001",
+            "quote": "G: 151 to 165g/km | £265 | £265 | …"
+          }
+        },
+        {
+          "key": "band-h",
+          "label": "Band H: 166 to 175g/km",
+          "band": "H: 166 to 175g/km",
+          "value": 325,
+          "unit": "GBP, single 12 month payment",
+          "quote": "H: 166 to 175g/km | £325 | £325 | …",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": 315,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530180821/https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-registered-on-or-after-1-march-2001",
+            "quote": "H: 166 to 175g/km | £315 | £315 | …"
+          }
+        },
+        {
+          "key": "band-i",
+          "label": "Band I: 176 to 185g/km",
+          "band": "I: 176 to 185g/km",
+          "value": 360,
+          "unit": "GBP, single 12 month payment",
+          "quote": "I: 176 to 185g/km | £360 | £360 | …",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": 345,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530180821/https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-registered-on-or-after-1-march-2001",
+            "quote": "I: 176 to 185g/km | £345 | £345 | …"
+          }
+        },
+        {
+          "key": "band-j",
+          "label": "Band J: 186 to 200g/km",
+          "band": "J: 186 to 200g/km",
+          "value": 410,
+          "unit": "GBP, single 12 month payment",
+          "quote": "J: 186 to 200g/km | £410 | £410 | …",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": 395,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530180821/https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-registered-on-or-after-1-march-2001",
+            "quote": "J: 186 to 200g/km | £395 | £395 | …"
+          }
+        },
+        {
+          "key": "band-k",
+          "label": "Band K: 201 to 225g/km",
+          "band": "K: 201 to 225g/km",
+          "value": 445,
+          "unit": "GBP, single 12 month payment",
+          "quote": "K*: 201 to 225g/km | £445 | £445 | …",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": 430,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530180821/https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-registered-on-or-after-1-march-2001",
+            "quote": "K*: 201 to 225g/km | £430 | £430 | …"
+          }
+        },
+        {
+          "key": "band-l",
+          "label": "Band L: 226 to 255g/km",
+          "band": "L: 226 to 255g/km",
+          "value": 760,
+          "unit": "GBP, single 12 month payment",
+          "quote": "L: 226 to 255g/km | £760 | £760 | …",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": 735,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530180821/https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-registered-on-or-after-1-march-2001",
+            "quote": "L: 226 to 255g/km | £735 | £735 | …"
+          }
+        },
+        {
+          "key": "band-m",
+          "label": "Band M: Over 255g/km",
+          "band": "M: Over 255g/km",
+          "value": 790,
+          "unit": "GBP, single 12 month payment",
+          "quote": "M: Over 255g/km | £790 | £790 | …",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": 760,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530180821/https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-registered-on-or-after-1-march-2001",
+            "quote": "M: Over 255g/km | £760 | £760 | …"
+          }
+        }
+      ]
+    },
+    "ved-pre-2001": {
+      "title": "VED for cars and light goods vehicles registered before 1 March 2001, by engine size",
+      "source": "https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-and-light-goods-vehicles-registered-before-1-march-2001",
+      "notes": "Private or light goods (TC11); \"The rate of vehicle tax is based on engine size.\" Value is the single 12 month payment; the page also gives 12 monthly instalments by Direct Debit (£241.50 / £393.75), single 6 month (£126.50 / £206.25) and 6 month by Direct Debit (£120.75 / £196.88).",
+      "figures": [
+        {
+          "key": "engine-not-over-1549cc",
+          "label": "Engine not over 1549cc",
+          "band": "Not over 1549cc",
+          "value": 230,
+          "unit": "GBP, single 12 month payment",
+          "quote": "Not over 1549 | £230 | £230 | £241.50 | £126.50 | £120.75",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": 220,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530180547/https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-and-light-goods-vehicles-registered-before-1-march-2001",
+            "quote": "Not over 1549 | £220 | £220 | £231 | £121 | £115.50"
+          }
+        },
+        {
+          "key": "engine-over-1549cc",
+          "label": "Engine over 1549cc",
+          "band": "Over 1549cc",
+          "value": 375,
+          "unit": "GBP, single 12 month payment",
+          "quote": "Over 1549 | £375 | £375 | £393.75 | £206.25 | £196.88",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": 360,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530180547/https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-and-light-goods-vehicles-registered-before-1-march-2001",
+            "quote": "Over 1549 | £360 | £360 | £378 | £198 | £189"
+          }
+        }
+      ]
+    },
+    "ved-electric": {
+      "title": "VED for electric (zero-emission) cars — taxable since 1 April 2025",
+      "source": "https://www.gov.uk/vehicle-exempt-from-vehicle-tax",
+      "notes": "Electric cars, vans, motorcycles and tricycles have paid vehicle tax since 1 April 2025. A zero-emission car registered on or after 1 April 2017 pays the 0g/km first-year rate when first registered, then the standard rate; the expensive car supplement applies to zero-emission cars registered on or after 1 April 2025 whose list price exceeds £50,000 (threshold raised from £40,000 on 1 April 2026). Zero-emission cars registered 1 March 2001 – 31 March 2017 pay band A (ved-2001-2017). Hybrids are \"alternative fuel\", not zero-emission, and have always paid.",
+      "figures": [
+        {
+          "key": "taxable-from",
+          "label": "Electric cars, vans, motorcycles and tricycles pay vehicle tax from",
+          "value": "2025-04-01",
+          "unit": "date",
+          "quote": "From 1 April 2025, if you have an electric car, van, motorcycle or tricycle, you’ll need to pay vehicle tax. Only heavy goods vehicles that weigh over 3,500kg will still be exempt."
+        },
+        {
+          "key": "first-year-rate",
+          "label": "First-year rate, zero-emission car (0g/km) registered on or after 1 April 2017",
+          "value": 10,
+          "unit": "GBP for the first 12 months",
+          "source": "https://www.gov.uk/vehicle-tax-rate-tables",
+          "quote": "0g/km | £10 | £10",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": 10,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530154440/https://www.gov.uk/vehicle-tax-rate-tables",
+            "quote": "0g/km | £10 | £10"
+          }
+        },
+        {
+          "key": "standard-rate",
+          "label": "Standard rate from the second year, zero-emission car",
+          "value": 200,
+          "unit": "GBP/year",
+          "source": "https://www.gov.uk/vehicle-tax-rate-tables",
+          "quote": "Petrol or diesel, Electric & Alternative Fuel | Single 12 month payment | £200",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": 195,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530154440/https://www.gov.uk/vehicle-tax-rate-tables",
+            "quote": "Petrol or diesel, Electric & Alternative Fuel | £195 | £195 | £204.75 | £107.25 | £102.38"
+          }
+        },
+        {
+          "key": "expensive-car-supplement-threshold",
+          "label": "Expensive car supplement list price threshold for zero-emission cars (registered on or after 1 April 2025)",
+          "value": 50000,
+          "unit": "GBP list price",
+          "source": "https://www.gov.uk/vehicle-tax-rate-tables",
+          "quote": "an electric car or motorhome with a list price of more than £50,000 … This also applies to electric vehicles registered between 1 April 2025 and 31 March 2026.",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": 40000,
+            "taxYear": "2025-26",
+            "source": "https://www.gov.uk/government/publications/vehicle-excise-duty-for-expensive-car-supplement-threshold-increase-for-zero-emission-vehicles/increase-in-the-vehicle-excise-duty-expensive-car-supplement-threshold-for-zero-emission-cars",
+            "quote": "from its current level of £40,000 to £50,000"
+          }
+        },
+        {
+          "key": "expensive-car-supplement-amount",
+          "label": "Expensive car supplement, annual amount (zero-emission car over the threshold)",
+          "value": 440,
+          "unit": "GBP/year for 5 years from the second time taxed",
+          "source": "https://www.gov.uk/vehicle-tax-rate-tables",
+          "quote": "You have to pay an extra £440 a year if you have any of the following: … an electric car or motorhome with a list price of more than £50,000",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": 425,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530154440/https://www.gov.uk/vehicle-tax-rate-tables",
+            "quote": "You have to pay an extra £425 a year"
+          }
+        },
+        {
+          "key": "registered-before-2025-04-01-no-supplement",
+          "label": "Zero-emission vehicles registered before 1 April 2025",
+          "value": "no expensive car supplement",
+          "source": "https://www.gov.uk/vehicle-tax-rate-tables",
+          "quote": "You do not have to pay this if both of the following apply: you have a zero emission vehicle; the vehicle was registered before 1 April 2025"
+        },
+        {
+          "key": "hybrids",
+          "label": "Hybrid electric vehicles",
+          "value": "pay vehicle tax (alternative fuel, not zero-emission)",
+          "quote": "You must pay vehicle tax if your vehicle is hybrid electric."
+        },
+        {
+          "key": "exempt-electric-hgv",
+          "label": "Electric vehicles still exempt",
+          "value": "heavy goods vehicles over 3,500kg only",
+          "quote": "Only heavy goods vehicles that weigh over 3,500kg will still be exempt."
+        }
+      ]
+    },
+    "historic": {
+      "title": "Historic (classic) vehicles — 40-year rolling MOT exemption and vehicle tax exemption date",
+      "source": "https://www.gov.uk/historic-vehicles",
+      "notes": "The vehicle-tax cutoff rolls forward one year each 1 April: for 2026-27 a vehicle built before 1 January 1986 (or, build date unknown, first registered before 8 January 1986) can be put in the historic tax class; the keeper must apply (Post Office, V5C) and must still tax the vehicle each year at £0. MOT exemption needs no application but is lost if \"substantial changes\" have been made. Not exempt from tax if used for hire or reward or commercially.",
+      "figures": [
+        {
+          "key": "tax-exemption-built-before",
+          "label": "Vehicle tax exemption: built before",
+          "value": "1986-01-01",
+          "unit": "date (build date)",
+          "source": "https://www.gov.uk/historic-vehicles/vehicles-exempt-from-vehicle-tax",
+          "quote": "You can apply to stop paying for vehicle tax from 1 April 2026 if your vehicle was built before 1 January 1986. You must tax your vehicle even if you do not have to pay.",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": "1985-01-01",
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530154919/https://www.gov.uk/historic-vehicles",
+            "quote": "If your vehicle was built before 1 January 1985, you can stop paying vehicle tax from 1 April 2025."
+          }
+        },
+        {
+          "key": "tax-exemption-registered-before",
+          "label": "Vehicle tax exemption when the build date is unknown: first registered before",
+          "value": "1986-01-08",
+          "unit": "date (first registration)",
+          "source": "https://www.gov.uk/historic-vehicles/vehicles-exempt-from-vehicle-tax",
+          "quote": "If you do not know when your vehicle was built, but it was first registered before 8 January 1986, you can still apply to stop paying vehicle tax.",
+          "effectiveFrom": "2026-04-01",
+          "previous": {
+            "value": "1985-01-08",
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530154919/https://www.gov.uk/historic-vehicles",
+            "quote": "If you do not know when your vehicle was built, but it was registered before 8 January 1985, you do not need to pay vehicle tax from 1 April 2025."
+          }
+        },
+        {
+          "key": "mot-exemption-age",
+          "label": "MOT exemption: vehicle built or first registered more than",
+          "value": 40,
+          "unit": "years ago (rolling), with no substantial changes",
+          "quote": "You do not need to get an MOT if: the vehicle was built or first registered more than 40 years ago; no ‘substantial changes’ have been made to the vehicle - for example, replacing the chassis, body, axles or engine to change the way the vehicle works",
+          "previous": {
+            "value": 40,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250530154919/https://www.gov.uk/historic-vehicles",
+            "quote": "the vehicle was built or first registered more than 40 years ago; no ‘substantial changes’ have been made to the vehicle in the last 30 years"
+          }
+        },
+        {
+          "key": "tax-exemption-application",
+          "label": "How the tax exemption is claimed",
+          "value": "apply at a Post Office that deals with vehicle tax (historic tax class); the vehicle must still be taxed every year at no charge",
+          "quote": "You must apply for a vehicle tax exemption to stop paying vehicle tax. This is sometimes called putting a vehicle into the ‘historic tax class’. You do not have to apply to stop getting an MOT for your vehicle each year. However, you must still keep it in a roadworthy condition."
+        },
+        {
+          "key": "not-exempt-if",
+          "label": "Not exempt from vehicle tax if",
+          "value": "used for hire or reward, or commercially for a trade or business",
+          "source": "https://www.gov.uk/historic-vehicles/vehicles-exempt-from-vehicle-tax",
+          "quote": "Your vehicle will not be exempt from vehicle tax if: it’s used for hire or reward (for example, it’s used as a taxi for paying customers); it’s used commercially for a trade or business"
+        }
+      ]
+    },
+    "mot": {
+      "title": "MOT: when it is due, maximum fees, early renewal, retests and exemptions (Great Britain)",
+      "source": "https://www.gov.uk/getting-an-mot/mot-test-fees",
+      "notes": "Maximum fees are set in regulations and have not changed since 2010 (the 2025 archive capture shows the same figures); there is no VAT on the fee. A car's first MOT is due on the third anniversary of registration, then annually. The page says an MOT can be taken up to a month minus a day early and keep the same renewal date — not ten months. Northern Ireland has different rules (not covered).",
+      "figures": [
+        {
+          "key": "first-mot-age-car",
+          "label": "First MOT due (cars, class 4)",
+          "value": 3,
+          "unit": "years from first registration, then annually",
+          "source": "https://www.gov.uk/getting-an-mot/when-to-get-an-mot",
+          "quote": "You must get an MOT for your vehicle by either: the third anniversary of its registration; the anniversary of its last MOT, if it’s over 3 years old",
+          "previous": {
+            "value": 3,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250604102229/https://www.gov.uk/getting-an-mot/mot-test-fees",
+            "quote": "Cars (up to 8 passenger seats) | 4 | 3 | £54.85"
+          }
+        },
+        {
+          "key": "validity",
+          "label": "An MOT lasts",
+          "value": 12,
+          "unit": "months",
+          "source": "https://www.gov.uk/getting-an-mot/when-to-get-an-mot",
+          "quote": "An MOT lasts for a year."
+        },
+        {
+          "key": "max-fee-car",
+          "label": "Maximum fee, car (class 4, up to 8 passenger seats)",
+          "value": 54.85,
+          "unit": "GBP, no VAT",
+          "quote": "Cars (up to 8 passenger seats) | 4 | 3 | £54.85 — The maximum fee for a car is £54.85 and £29.65 for a standard motorcycle. You do not pay VAT on the fee.",
+          "previous": {
+            "value": 54.85,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250604102229/https://www.gov.uk/getting-an-mot/mot-test-fees",
+            "quote": "Cars (up to 8 passenger seats) | 4 | 3 | £54.85"
+          }
+        },
+        {
+          "key": "max-fee-motorcycle",
+          "label": "Maximum fee, motorcycle (class 1 up to 200cc and class 2 over 200cc)",
+          "value": 29.65,
+          "unit": "GBP, no VAT",
+          "quote": "Motorcycle (engine size up to 200cc) | 1 | 3 | £29.65; Motorcycle (engine size over 200cc) | 2 | 3 | £29.65",
+          "previous": {
+            "value": 29.65,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250604102229/https://www.gov.uk/getting-an-mot/mot-test-fees",
+            "quote": "Motorcycle (engine size up to 200cc) | 1 | 3 | £29.65"
+          }
+        },
+        {
+          "key": "max-fee-motorcycle-sidecar",
+          "label": "Maximum fee, motorcycle with sidecar (class 1 and 2)",
+          "value": 37.8,
+          "unit": "GBP, no VAT",
+          "quote": "Motorcycle with sidecar (engine size up to 200cc) | 1 | 3 | £37.80; Motorcycle with sidecar (engine size over 200cc) | 2 | 3 | £37.80",
+          "previous": {
+            "value": 37.8,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250604102229/https://www.gov.uk/getting-an-mot/mot-test-fees"
+          }
+        },
+        {
+          "key": "max-fee-three-wheeler-up-to-450kg",
+          "label": "Maximum fee, 3-wheeled vehicle up to 450kg unladen (class 3)",
+          "value": 37.8,
+          "unit": "GBP, no VAT",
+          "quote": "3-wheeled vehicles (up to 450kg unladen weight) | 3 | 3 | £37.80",
+          "previous": {
+            "value": 37.8,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250604102229/https://www.gov.uk/getting-an-mot/mot-test-fees"
+          }
+        },
+        {
+          "key": "max-fee-motor-caravan",
+          "label": "Maximum fee, motor caravan, dual purpose vehicle, quad, 3-wheeler over 450kg, taxi, goods vehicle up to 3,000kg (class 4)",
+          "value": 54.85,
+          "unit": "GBP, no VAT",
+          "quote": "Motor caravans | 4 | 3 | £54.85; Quads … | 4 | 3 | £54.85; Dual purpose vehicles | 4 | 3 | £54.85; Ambulances and taxis | 4 | 1 | £54.85; Goods vehicles (up to 3,000kg design gross weight) | 4 | 3 | £54.85",
+          "previous": {
+            "value": 54.85,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250604102229/https://www.gov.uk/getting-an-mot/mot-test-fees"
+          }
+        },
+        {
+          "key": "max-fee-class-4-9-12-seats",
+          "label": "Maximum fee, private passenger vehicles and ambulances, 9 to 12 passenger seats (class 4; first MOT at 1 year)",
+          "value": 57.3,
+          "unit": "GBP, no VAT",
+          "quote": "Private passenger vehicles and ambulances (9 to 12 passenger seats) | 4 | 1 | £57.30",
+          "previous": {
+            "value": 57.3,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250604102229/https://www.gov.uk/getting-an-mot/mot-test-fees"
+          }
+        },
+        {
+          "key": "max-fee-class-4a",
+          "label": "Maximum fee, class 4 vehicles (9 to 12 passenger seats) with a seat belt installation check (class 4a)",
+          "value": 64,
+          "unit": "GBP, no VAT",
+          "quote": "Class 4 vehicles (9 to 12 passenger seats) with a seat belt installation check | 4a | n/a | £64",
+          "previous": {
+            "value": 64,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250604102229/https://www.gov.uk/getting-an-mot/mot-test-fees"
+          }
+        },
+        {
+          "key": "max-fee-class-5-13-16-seats",
+          "label": "Maximum fee, private passenger vehicles and ambulances, 13 to 16 passenger seats (class 5; first MOT at 1 year)",
+          "value": 59.55,
+          "unit": "GBP, no VAT",
+          "quote": "Private passenger vehicles and ambulances (13 to 16 passenger seats) | 5 | 1 | £59.55",
+          "previous": {
+            "value": 59.55,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250604102229/https://www.gov.uk/getting-an-mot/mot-test-fees"
+          }
+        },
+        {
+          "key": "max-fee-class-5-over-16-seats",
+          "label": "Maximum fee, private passenger vehicles, ambulances and playbuses, more than 16 passenger seats (class 5; first MOT at 1 year)",
+          "value": 80.65,
+          "unit": "GBP, no VAT",
+          "quote": "Private passenger vehicles and ambulances (more than 16 passenger seats) | 5 | 1 | £80.65; Playbuses | 5 | 1 | £80.65",
+          "previous": {
+            "value": 80.65,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250604102229/https://www.gov.uk/getting-an-mot/mot-test-fees"
+          }
+        },
+        {
+          "key": "max-fee-class-5a-13-16-seats",
+          "label": "Maximum fee, class 5 vehicles (13 to 16 passenger seats) with a seatbelt installation check (class 5a)",
+          "value": 80.5,
+          "unit": "GBP, no VAT",
+          "quote": "Class 5 vehicles (13 to 16 passenger seats) with a seatbelt installation check | 5a | n/a | £80.50",
+          "previous": {
+            "value": 80.5,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250604102229/https://www.gov.uk/getting-an-mot/mot-test-fees"
+          }
+        },
+        {
+          "key": "max-fee-class-5a-over-16-seats",
+          "label": "Maximum fee, class 5 vehicles (more than 16 passenger seats) with a seatbelt installation check (class 5a)",
+          "value": 124.5,
+          "unit": "GBP, no VAT",
+          "quote": "Class 5 vehicles (more than 16 passenger seats) with a seatbelt installation check | 5a | n/a | £124.50",
+          "previous": {
+            "value": 124.5,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250604102229/https://www.gov.uk/getting-an-mot/mot-test-fees"
+          }
+        },
+        {
+          "key": "max-fee-class-7-goods",
+          "label": "Maximum fee, petrol, diesel and hybrid goods vehicles over 3,000kg up to 3,500kg design gross weight (class 7)",
+          "value": 58.6,
+          "unit": "GBP, no VAT",
+          "quote": "Petrol, diesel and hybrid goods vehicles (over 3,000kg up to 3,500kg design gross weight) | 7 | 3 | £58.60",
+          "previous": {
+            "value": 58.6,
+            "taxYear": "2025-26",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20250604102229/https://www.gov.uk/getting-an-mot/mot-test-fees",
+            "quote": "Goods vehicles (over 3,000kg up to 3,500kg design gross weight) | 7 | 3 | £58.60"
+          }
+        },
+        {
+          "key": "max-fee-class-7-zero-emission-goods",
+          "label": "Maximum fee, zero emission goods vehicles between 3,501kg and 4,250kg design gross weight (class 7) — row new to the 2026 table",
+          "value": 58.6,
+          "unit": "GBP, no VAT",
+          "quote": "Zero emission goods vehicles (between 3,501kg and 4,250kg design gross weight) | 7 | 3 | £58.60"
+        },
+        {
+          "key": "vat-on-fee",
+          "label": "VAT on the MOT fee",
+          "value": "none",
+          "quote": "You do not pay VAT on the fee."
+        },
+        {
+          "key": "early-renewal-keeping-expiry",
+          "label": "Earliest MOT that keeps the same renewal date",
+          "value": "up to a month (minus a day) before it runs out",
+          "source": "https://www.gov.uk/getting-an-mot/when-to-get-an-mot",
+          "quote": "You can get an MOT up to a month (minus a day) before it runs out and keep the same renewal date. … Example: If your MOT runs out on 15 May, the earliest you can get an MOT to keep the same renewal date for next year is 16 April."
+        },
+        {
+          "key": "early-renewal-earlier",
+          "label": "An MOT taken earlier than that",
+          "value": "allowed, but the new expiry becomes one year minus a day from the pass date",
+          "source": "https://www.gov.uk/getting-an-mot/when-to-get-an-mot",
+          "quote": "You can get an MOT earlier, but the renewal date for the following year will change to one year (minus a day) from the date the vehicle last passed its MOT."
+        },
+        {
+          "key": "retest-free-left-at-centre",
+          "label": "Partial retest, vehicle left at the test centre for repair",
+          "value": "free if retested within 10 working days",
+          "source": "https://www.gov.uk/getting-an-mot/retests",
+          "quote": "You only need a partial retest if you leave the vehicle at the test centre for repair and it’s retested within 10 working days. There’s no fee for this."
+        },
+        {
+          "key": "retest-free-next-working-day",
+          "label": "Partial retest, vehicle taken away and returned to the same centre by the end of the next working day",
+          "value": "free for the listed items (e.g. lamps, mirrors, wipers, wheels and tyres, seatbelts, horn, registration plates)",
+          "source": "https://www.gov.uk/getting-an-mot/retests",
+          "quote": "You will not have to pay again if you take it back to the same test centre before the end of the next working day for a partial retest on one or more of these items: …"
+        },
+        {
+          "key": "retest-within-10-working-days",
+          "label": "Partial retest, vehicle taken away and returned within 10 working days",
+          "value": "partial retest; a partial retest fee can be charged",
+          "source": "https://www.gov.uk/getting-an-mot/retests",
+          "quote": "You’ll only need a partial retest if you take the vehicle from the test centre for repairs and take it back within 10 working days. You can be charged a partial retest fee for this. In all other cases, you’ll need to get a full retest and pay the full MOT test fee again."
+        },
+        {
+          "key": "driving-after-fail",
+          "label": "Driving a vehicle that has failed",
+          "value": "allowed only while the current MOT is still valid and no dangerous defect was listed",
+          "source": "https://www.gov.uk/getting-an-mot/after-the-test",
+          "quote": "You can take your vehicle away if: your current MOT is still valid; no ‘dangerous’ problems were listed in the MOT. Otherwise, you’ll need to get it repaired before you can drive."
+        },
+        {
+          "key": "exempt-vehicles",
+          "label": "Vehicles that do not need an MOT",
+          "value": "goods vehicles powered by electricity and registered before 1 March 2015; tractors; some historic vehicles (40-year rule); lorries, buses and trailers have the annual vehicle test instead",
+          "source": "https://www.gov.uk/getting-an-mot/vehicles-exempt-from-mot",
+          "quote": "Other vehicles that do not need an MOT include: goods vehicles powered by electricity and registered before 1 March 2015; tractors; some historic (‘classic’) vehicles"
+        },
+        {
+          "key": "electric-cars-need-mot",
+          "label": "Electric cars",
+          "value": "need an MOT like any other car (the electric exemption covers only goods vehicles registered before 1 March 2015)",
+          "source": "https://www.gov.uk/getting-an-mot/vehicles-exempt-from-mot",
+          "quote": "goods vehicles powered by electricity and registered before 1 March 2015"
+        },
+        {
+          "key": "appeal-deadline-fail",
+          "label": "Appeal a failed MOT to DVSA within",
+          "value": 14,
+          "unit": "working days of the test",
+          "source": "https://www.gov.uk/getting-an-mot/problems-with-your-test-result",
+          "quote": "Fill in the complaint form and send it to DVSA within 14 working days of the test."
+        }
+      ]
+    },
+    "penalties": {
+      "title": "Penalties: no MOT, dangerous vehicle, untaxed vehicle",
+      "source": "https://www.gov.uk/getting-an-mot/when-to-get-an-mot",
+      "notes": "Maximum fines as stated on the gov.uk guides. The untaxed-vehicle figure is the DVLA out-of-court penalty quoted on the Direct Debit and historic-vehicle pages; court prosecution can cost more.",
+      "figures": [
+        {
+          "key": "no-mot-fine",
+          "label": "Driving without a valid MOT, maximum fine",
+          "value": 1000,
+          "unit": "GBP",
+          "quote": "You can be fined up to £1,000 for driving a vehicle without a valid MOT."
+        },
+        {
+          "key": "dangerous-failed-mot-fine",
+          "label": "Driving a vehicle that failed its MOT with a dangerous defect",
+          "value": 2500,
+          "unit": "GBP maximum fine, plus a possible driving ban and 3 penalty points",
+          "source": "https://www.gov.uk/getting-an-mot/after-the-test",
+          "quote": "You can be fined up to £2,500, be banned from driving and get 3 penalty points for driving a vehicle that has failed its MOT because of a ‘dangerous’ problem."
+        },
+        {
+          "key": "dangerous-condition-fine",
+          "label": "Using a vehicle in a dangerous condition (including MOT-exempt historic vehicles)",
+          "value": 2500,
+          "unit": "GBP maximum fine, plus 3 penalty points",
+          "source": "https://www.gov.uk/historic-vehicles",
+          "quote": "You can be fined up to £2,500 and get 3 penalty points for using a vehicle in a dangerous condition."
+        },
+        {
+          "key": "untaxed-vehicle-fine",
+          "label": "Not taxing a vehicle (or not declaring it off the road, SORN)",
+          "value": 80,
+          "unit": "GBP DVLA penalty, plus the tax for the untaxed period",
+          "source": "https://www.gov.uk/vehicle-tax-direct-debit/payment-fails",
+          "quote": "You’ll be fined £80 if you do not tax your vehicle or tell DVLA that it’s off the road. You’ll also have to pay for the time it was not taxed. If you do not pay your fine on time your vehicle could be clamped or crushed, or your details passed to a debt collection agency."
+        },
+        {
+          "key": "historic-late-renewal-fine",
+          "label": "Historic vehicle not re-taxed on time (even at £0)",
+          "value": 80,
+          "unit": "GBP",
+          "source": "https://www.gov.uk/historic-vehicles/renewing-vehicle-tax-historic-vehicle",
+          "quote": "It’s illegal to drive your vehicle if you have not taxed it. You can be fined £80 if you do not tax your vehicle on time."
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.physics-star-cat/databutler-uk-vehicle-rules",
+  "description": "UK vehicle tax (VED) rates and MOT rules for the current tax year — first-year CO2 bands, standard rate, expensive car supplement, 2001–2017 bands, pre-2001 engine-size rates, electric-vehicle rules, historic-vehicle exemptions, MOT due dates, maximum fees, retests and penalties — verified against gov.uk with the source URL, the quoted line and the previous year's value on every figure.",
+  "repository": { "url": "https://github.com/physics-star-cat/databutler", "source": "github" },
+  "version": "1.0.0",
+  "websiteUrl": "https://databutler.dev/api",
+  "remotes": [{ "type": "streamable-http", "url": "https://databutler.dev/api/mcp/uk-vehicle-rules" }]
+}

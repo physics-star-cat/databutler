@@ -485,12 +485,12 @@
       "officialSource": "https://ec.europa.eu/safety-gate-alerts/screen/webReport",
       "hint": "For now: fr_recalls_for_model / fr_recalls_search — RappelConso republishes the Safety Gate automobile alerts that concern France (fiche links ending /rapex), so most EU-wide vehicle recalls appear there in French.",
       "freshness": {
-        "verifiedDate": "2026-10-03",
+        "verifiedDate": "2026-10-04",
         "nextScheduledRefresh": null
       },
       "cite": {
         "url": "https://databutler.dev/r/vehicles/eu/safety-gate",
-        "text": "databutler.dev, computed live 2026-10-03"
+        "text": "databutler.dev, computed live 2026-10-04"
       }
     }
   },
@@ -592,6 +592,40 @@
       "cite": {
         "url": "https://databutler.dev/r/de/rates",
         "text": "databutler.dev, verified 2026-10-03"
+      }
+    }
+  },
+  "/api/uk/vehicle-rules": {
+    "status": 200,
+    "body": {
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate.",
+      "area": "uk-vehicle-rules",
+      "taxYear": "2026-27",
+      "taxYearRuns": "1 April 2026 to 31 March 2027 — VED rates change on 1 April (Finance Act uprating); the historic-vehicle tax exemption date also rolls forward each 1 April. MOT fees and rules are not tied to the tax year.",
+      "jurisdiction": "United Kingdom for vehicle tax (VED, administered by DVLA). MOT figures are Great Britain (England, Scotland, Wales): Northern Ireland runs its own MOT scheme (DVA) with different rules, fees and processes.",
+      "currency": "GBP",
+      "verifiedDate": "2026-10-04",
+      "categories": {
+        "ved-first-year": "VED first-year rates (cars registered on or after 1 April 2017), by CO2 band",
+        "ved-standard": "VED standard rate from the second year (cars registered on or after 1 April 2017) and Direct Debit surcharges",
+        "ved-expensive-car": "VED expensive car supplement (list price over £40,000; over £50,000 for zero-emission cars from 1 April 2026)",
+        "ved-2001-2017": "VED for cars registered 1 March 2001 – 31 March 2017, by band (A–M)",
+        "ved-pre-2001": "VED for cars and light goods vehicles registered before 1 March 2001, by engine size",
+        "ved-electric": "VED for electric (zero-emission) cars — taxable since 1 April 2025",
+        "historic": "Historic (classic) vehicles — 40-year rolling MOT exemption and vehicle tax exemption date",
+        "mot": "MOT: when it is due, maximum fees, early renewal, retests and exemptions (Great Britain)",
+        "penalties": "Penalties: no MOT, dangerous vehicle, untaxed vehicle"
+      },
+      "usage": "pass category=<key> for figures",
+      "freshness": {
+        "verifiedDate": "2026-10-04",
+        "nextScheduledRefresh": "2027-04-01"
+      },
+      "cite": {
+        "url": "https://databutler.dev/r/uk/vehicle-rules",
+        "text": "databutler.dev, verified 2026-10-04"
       }
     }
   },
@@ -759,12 +793,12 @@
       "mean": 0,
       "variance": 1,
       "freshness": {
-        "verifiedDate": "2026-10-03",
+        "verifiedDate": "2026-10-04",
         "nextScheduledRefresh": null
       },
       "cite": {
         "url": "https://databutler.dev/r/stats?op=distribution&dist=normal&at=1.96",
-        "text": "databutler.dev, computed live 2026-10-03"
+        "text": "databutler.dev, computed live 2026-10-04"
       }
     }
   },
@@ -2524,7 +2558,7 @@
       "releaseDate": "2022-04-19",
       "supported": false,
       "eol": "2025-04-30",
-      "daysSinceEol": 521,
+      "daysSinceEol": 522,
       "activeSupportEnds": "2023-10-18",
       "inActiveSupport": false,
       "lts": true,
@@ -2554,8 +2588,8 @@
         "latestReleaseDate": "2026-09-08",
         "activeSupportEnds": "2026-10-20"
       },
-      "recommendation": "Node.js 18 reached end of life on 2025-04-30, 521 days before 2026-10-03; no further security fixes are published for it. The newest supported LTS cycle is Node.js 24 (latest 24.21.0, supported until 2028-04-30).",
-      "asOf": "2026-10-03",
+      "recommendation": "Node.js 18 reached end of life on 2025-04-30, 522 days before 2026-10-04; no further security fixes are published for it. The newest supported LTS cycle is Node.js 24 (latest 24.21.0, supported until 2028-04-30).",
+      "asOf": "2026-10-04",
       "source": "https://endoflife.date/nodejs",
       "verifiedDate": "2026-10-03",
       "definitions": {
@@ -2695,7 +2729,7 @@
         "name": "Data Butler",
         "url": "https://databutler.dev/"
       },
-      "generated": "2026-10-03",
+      "generated": "2026-10-04",
       "since": "2026-06-01",
       "area": "uk-rates",
       "coverageStart": "2026-08-31",
@@ -2706,17 +2740,18 @@
         "software-eol",
         "policy-rates",
         "us-rates",
-        "de-rates"
+        "de-rates",
+        "uk-vehicle-rules"
       ],
       "count": 0,
       "entries": [],
       "freshness": {
-        "verifiedDate": "2026-10-03",
+        "verifiedDate": "2026-10-04",
         "nextScheduledRefresh": null
       },
       "cite": {
         "url": "https://databutler.dev/r/changes?since=2026-06-01&area=uk-rates",
-        "text": "databutler.dev, computed live 2026-10-03"
+        "text": "databutler.dev, computed live 2026-10-04"
       }
     }
   }
