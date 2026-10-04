@@ -62,3 +62,10 @@ README rows, index.html, verify-hub.sh) derives from the module. Contract and he
 - **Live tests** go in `verify`, offline tests in `tests/<area>.test.js`; a test may not
   reach the network. Count-pinning tests derive from `api/_areas.js` and the data files, so
   adding an area touches none of them; the snapshot is the one deliberate guard (step 7).
+
+## When the area is live (after the push and `bash scripts/verify-hub.sh`)
+
+1. `scripts/publish-registry.sh --check` → publish the new `server-<key>.json` with
+   `scripts/publish-registry.sh` (needs `mcp-publisher login github` once). PulseMCP ingests from there.
+2. Resubmit the sitemap to Google (`searchconsole` API) and Bing (`webmon/bing_feeds.py`): the
+   area's `/changes?area=` view is new. Nothing to tell the Claude directory unless a front-door tool changed.
