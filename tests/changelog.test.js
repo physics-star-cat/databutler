@@ -27,6 +27,28 @@ test('diffRates with no previous file records every figure as new', () => {
   assert.equal(diffRates(null, rp).length, 3);
 });
 
+test('diffRates: a new figure with previous.value records previous → value, equal records nothing; figure source and effectiveFrom win', () => {
+  const next = JSON.parse(JSON.stringify(rp));
+  next.categories['child-benefit'] = { title: 'Child Benefit', source: 'https://www.gov.uk/child-benefit',
+    figures: [
+      { label: 'Eldest or only child', value: 27.05, unit: 'GBP/week', previous: { value: 26.05, source: 'https://webarchive.nationalarchives.gov.uk/x' } },
+      { label: 'Threshold', value: 60000, unit: 'GBP/year', previous: { value: 60000 } },
+      { label: 'Rule', value: 'r', unit: 'rule', previous: { source: 'https://x' } },
+      { label: 'Wage', value: 12.71, unit: 'GBP/hour', from: '2026-04-01', source: 'https://www.gov.uk/national-minimum-wage-rates' },
+    ] };
+  const d = diffRates(rp, next);
+  assert.deepEqual(d.map((e) => [e.key, e.from, e.to, e.effectiveFrom, e.source]), [
+    ['child-benefit/eldest-or-only-child', 26.05, 27.05, '2026-04-06', 'https://www.gov.uk/child-benefit'],
+    ['child-benefit/rule', null, 'r', '2026-04-06', 'https://www.gov.uk/child-benefit'],
+    ['child-benefit/wage', null, 12.71, '2026-04-01', 'https://www.gov.uk/national-minimum-wage-rates'],
+  ]);
+  // an existing figure diffs against the committed value, never its previous block
+  const moved = JSON.parse(JSON.stringify(next));
+  moved.categories['child-benefit'].figures[0].value = 28;
+  const e = diffRates(next, moved);
+  assert.deepEqual(e.map((x) => [x.key, x.from, x.to]), [['child-benefit/eldest-or-only-child', 27.05, 28]]);
+});
+
 test('diffExams: topic moves, duration change, added spec', () => {
   const d = diffExams(ep, en);
   const keys = d.map((e) => e.key).sort();
