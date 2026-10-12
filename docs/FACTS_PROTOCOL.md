@@ -297,30 +297,95 @@ Front-door placement (Data Butler): `get_fact` and `resolve_fact` join the hub t
 ```json
 {
   "protocol": "verified-facts/0.2",
-  "publisher": { "name": "Data Butler", "url": "https://databutler.dev/" },
+  "publisher": {
+    "name": "Data Butler",
+    "url": "https://databutler.dev/"
+  },
   "conformance": "L3",
-  "updated": "2026-10-20",
+  "updated": "2026-10-12",
   "facts": {
-    "count": 503,
+    "count": 496,
     "get": "https://databutler.dev/f/{key}",
     "batch": "https://databutler.dev/f?keys={keys}",
     "resolve": "https://databutler.dev/f/resolve?q={q}",
     "index": "https://databutler.dev/f",
     "filtering": "server",
-    "examples": ["uk/income-tax/personal-allowance", "us/social-security/wage-base", "de/income-tax/grundfreibetrag", "uk/bank-rate"]
+    "examples": [
+      "uk/income-tax/personal-allowance",
+      "us/social-security/wage-base",
+      "de/income-tax/grundfreibetrag",
+      "uk/bank-rate"
+    ]
   },
   "namespaces": [
-    { "name": "uk", "description": "UK tax-year rates and thresholds, vehicle tax and MOT rules, government service fees, exam dates, Bank of England Bank Rate", "count": 406, "cadence": "…", "authorities": ["www.gov.uk", "www.bankofengland.co.uk", "www.jcq.org.uk", "…"] },
-    { "name": "us", "description": "…", "count": 45, "cadence": "…", "authorities": ["www.irs.gov", "www.ssa.gov", "www.federalreserve.gov"] },
-    { "name": "de", "description": "…", "count": 44, "cadence": "…", "authorities": ["www.gesetze-im-internet.de", "www.bundesgesundheitsministerium.de", "…"] },
-    { "name": "eu", "description": "ECB key interest rates", "count": 3, "cadence": "…", "authorities": ["www.ecb.europa.eu"] }
+    {
+      "name": "uk",
+      "description": "UK tax/NI thresholds, Bank of England Bank Rate, UK car tax (VED) and MOT rules, UK exam dates and UK government service steps, fees and processing times",
+      "count": 404,
+      "cadence": "uk-rates: Every 6 April (new tax year) and after each Budget or Autumn Statement; minimum wage on 1 April; every source page re-fetched weekly. policy-rates: After each scheduled decision (eight a year per bank); re-verified within 45 days of verifiedDate; every source page re-fetched weekly. uk-vehicle-rules: Every 1 April (VED rates and the historic-vehicle exemption date move with the Finance Act) and after each Budget; MOT fees and rules when DVSA changes them; every source page re-fetched weekly. uk-exam-dates: Annual, calendar-driven: when JCQ and the boards publish the following summer's final timetables (early in the calendar year) and the results days; the weekly watcher hashes the JCQ and board timetable pages uk-gov-process: Re-verified against the gov.uk pages every 30 days and on fee-change days (Home Office fees usually move in April); every source page re-fetched weekly through the gov.uk content API.",
+      "authorities": [
+        "qualifications.pearson.com",
+        "qualifications.wales",
+        "webarchive.nationalarchives.gov.uk",
+        "www.aqa.org.uk",
+        "www.bankofengland.co.uk",
+        "www.gov.uk",
+        "www.jcq.org.uk",
+        "www.ocr.org.uk",
+        "www.sqa.org.uk",
+        "www.wjec.co.uk"
+      ]
+    },
+    {
+      "name": "us",
+      "description": "Federal Reserve federal funds target range and US federal tax thresholds",
+      "count": 45,
+      "cadence": "policy-rates: After each scheduled decision (eight a year per bank); re-verified within 45 days of verifiedDate; every source page re-fetched weekly. us-rates: Annual: after the IRS tax-year inflation adjustments (October), the retirement-plan limits (November) and the SSA Federal Register notice (October/November); every source page re-fetched weekly.",
+      "authorities": [
+        "www.federalregister.gov",
+        "www.federalreserve.gov",
+        "www.irs.gov"
+      ]
+    },
+    {
+      "name": "de",
+      "description": "German tax and social-insurance thresholds",
+      "count": 44,
+      "cadence": "de-rates: Annual: after the Sozialversicherungsrechengrößen-Verordnung and the Zusatzbeitrag announcement (November), and any Steuergesetz changing § 32a EStG for the next Veranlagungszeitraum; every source page re-fetched weekly.",
+      "authorities": [
+        "www.bmas.de",
+        "www.bundesanzeiger.de",
+        "www.bundesgesundheitsministerium.de",
+        "www.deutsche-rentenversicherung.de",
+        "www.gesetze-im-internet.de",
+        "www.minijob-zentrale.de",
+        "www.recht.bund.de"
+      ]
+    },
+    {
+      "name": "eu",
+      "description": "ECB key interest rates",
+      "count": 3,
+      "cadence": "policy-rates: After each scheduled decision (eight a year per bank); re-verified within 45 days of verifiedDate; every source page re-fetched weekly.",
+      "authorities": [
+        "www.ecb.europa.eu"
+      ]
+    }
   ],
   "hash": "sha256/jcs",
   "signature": "EdDSA/jws-detached",
   "keys": "https://databutler.dev/.well-known/jwks.json",
   "changes": "https://databutler.dev/.well-known/changes.json",
   "openapi": "https://databutler.dev/openapi.json",
-  "mcp": { "url": "https://databutler.dev/api/mcp/facts", "tools": ["get_fact", "resolve_fact", "what_changed_since"], "serverCard": "https://databutler.dev/api/mcp/facts/server-card" },
+  "mcp": {
+    "url": "https://databutler.dev/api/mcp/facts",
+    "tools": [
+      "get_fact",
+      "resolve_fact",
+      "what_changed_since"
+    ],
+    "serverCard": "https://databutler.dev/api/mcp/facts/server-card"
+  },
   "schema": "https://databutler.dev/schema/fact.v0.json",
   "specification": "https://databutler.dev/protocol/facts",
   "licence": "Free to reuse with attribution to databutler.dev; each figure belongs to its official source and stays under that source's terms (gov.uk: Open Government Licence v3.0).",

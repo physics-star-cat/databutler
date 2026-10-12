@@ -77,7 +77,7 @@ Data Butler's discovery document:
     "name": "Data Butler",
     "url": "https://databutler.dev/"
   },
-  "updated": "2026-10-04",
+  "updated": "2026-10-12",
   "coverageStart": "2026-08-31",
   "areas": [
     {
@@ -149,7 +149,8 @@ Data Butler's discovery document:
   "schema": "https://databutler.dev/schema/changes.v0.json",
   "specification": "https://databutler.dev/protocol",
   "licence": "Free to reuse with attribution to databutler.dev. Each entry's underlying fact belongs to the linked official source and stays under that source's terms (for gov.uk, the Open Government Licence v3.0).",
-  "contact": "https://github.com/physics-star-cat/databutler/issues"
+  "contact": "https://github.com/physics-star-cat/databutler/issues",
+  "facts": "https://databutler.dev/.well-known/facts.json"
 }
 ```
 

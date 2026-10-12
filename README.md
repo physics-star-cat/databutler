@@ -109,6 +109,7 @@ lifebynumbers.net (the Flask/Lambda salary calculators behind `take_home_pay`).
 | `/api/mcp/uk-exam-dates` | `uk_exam_dates` {kind: results\|timetable\|deadlines\|spec-changes, board?, qualification?} — results days (A-level 12 Aug, GCSE 19 Aug 2027; Nov 2026 resits 13 Jan 2027; Scotland 10 Aug 2027), JCQ common window and contingency day, GCSE Maths/English Language/Combined Science and A-level Maths paper dates per board, entry deadline 21 Feb 2027 and each board's late/very-late fee dates and multipliers, spec changes (DfE reform timetable, Ofqual decisions, new AQA/Pearson/OCR/WJEC specs) | `data/uk-exam-dates.json` (91 figures), read from the JCQ key-dates PDFs, each board's final timetable and fee documents, Qualifications Scotland and gov.uk; refreshed when the next summer's finals publish |
 | `/api/mcp/calendar` | `calendar_facts` {country, kind: holidays\|tax-year\|dst, year?, region?} — holidays by region (UK nations, US federal with OPM observed dates, German Länder incl. partial/Gemeinde-scoped days, French metropole/Alsace-Moselle), tax-year periods with the statute quoted, DST rule + transitions; `next_holiday` {country, from?, region?} — the next public holiday after a date. Country names, Land names and kind synonyms resolve; unknowns answer covered:false + nearest | `data/calendar.json` (98 KB compact, 2026/2027/2028): gov.uk `bank-holidays.json` (OGL v3), OPM federal holiday tables (US Government work), `calendrier.api.gouv.fr` (Licence Ouverte 2.0), merged with `data/calendar/manual.json` (German Länder rules, tax years, DST rules — each with the official page and sentence quoted; `nonOfficial: true` where a page could not be re-fetched); regenerate with `node scripts/calendar.js` (appends `calendar` changelog entries) |
 | `/api/mcp/uk-gov-process` | `uk_gov_process` {service ∈ passport-renewal-adult, passport-child, driving-licence-renewal, provisional-licence, change-address, vehicle-tax-sorn, register-to-vote, register-birth, register-death, blue-badge, self-assessment, national-insurance-number, universal-credit, eu-settlement-scheme, evisa, eta; aliases e.g. passport, brp, sorn} | `data/uk-gov-process.json`: every figure read from the gov.uk content API with the quoted sentence and source URL; per service the start URL, page update date and dated changes since 2025; previous values from National Archives captures, Home Office announcements and SI 2026/311 / SI 2026/148. Re-verified every 30 days (docs/CURATION.md) |
+| `/api/mcp/facts` | `get_fact`, `resolve_fact`, `what_changed_since` — Verified Facts (verified-facts/0.2): one official figure by key, signed | 496 facts from the 7 facts areas (`facts` blocks); also `GET /f/<key>` |
 | `/api/mcp` (front door) | the five high-frequency tools above (`uk_rates_lookup`, `exam_topic_paper`, `domain_provenance`, `package_provenance`, `take_home_pay`) + `what_changed_since`, `get_fact`, `resolve_fact`, `coverage`, `catalogue`, `call` | — |
 
 REST mirrors: `/api/uk/rates`, `/api/uk/exams/topic`, `/api/uk/exams/specs`, `/api/uk/exams/papers`, `/api/provenance/domain`, `/api/provenance/package`, `/api/stats`, `/api/vehicles/uk/mot`, `/api/vehicles/uk/search`, `/api/vehicles/uk/recalls`, `/api/vehicles/uk/recalls-search`, `/api/vehicles/fr/recalls`, `/api/vehicles/fr/search`, `/api/vehicles/jp/recalls`, `/api/vehicles/jp/complaints`, `/api/vehicles/eu/safety-gate`, `/api/tax/take-home`, `/api/software-eol/status`, `/api/software-eol/timeline`, `/api/policy-rates`, `/api/us/rates`, `/api/de/rates`, `/api/uk/vehicle-rules`, `/api/uk/exam-dates`, `/api/calendar`, `/api/calendar/next`, `/api/uk/gov-process`.
@@ -168,6 +169,25 @@ Handlers: `api/_routes/changes-page.js`, `api/_routes/changes-feed.js`
 `api/_changes_render.js`; `api/_changelog.js` exposes `listEntries` and
 `entryId`. How entries get written: `docs/CURATION.md` → "How to add a
 changelog entry when a dataset is refreshed".
+
+### Verified Facts (v0.2)
+
+The facts layer of the same protocol: one short key per official figure, one compact, dated, sourced,
+signed answer back — `docs/FACTS_PROTOCOL.md`, served at `/protocol/facts`. Data Butler serves it at
+conformance level **L3** (server-filtered, signed), all through `api/router.js` (no new functions):
+
+| Artefact | Where |
+|---|---|
+| Get / batch / index / resolve | `GET /f/<key>?max_age=30d` (json · `?format=txt` · `?format=html`, indexable with JSON-LD `Claim`), `GET /f?keys=` / `POST /f`, `GET /f` (Dataset JSON-LD on `?format=html`), `GET /f/resolve?q=` — `api/_routes/f.js`, renderers `api/_facts_render.js` |
+| The index | `api/_facts.js` — built at cold start from the area modules' `facts` blocks (`api/_areas/README.md`), so it cannot disagree with the data |
+| MCP | `POST /api/mcp/facts` (`get_fact`, `resolve_fact`, `what_changed_since`; `server-facts.json`); `get_fact` and `resolve_fact` also at the front door |
+| Discovery | `public/.well-known/facts.json`, `public/openapi.json`, `public/.well-known/ai-catalog.json` + `/api/mcp/<server>/server-card` (all generated by `scripts/sync-areas.js`); two lines in `llms.txt`; every fact page in the sitemap |
+| Schemas | `public/schema/fact.v0.json` (record + `$defs` miss/batch/index/resolve), `public/schema/well-known-facts.v0.json`; the v0.1 schemas gained the optional §12 fields |
+| Hash + signature | `api/_jcs.js` (RFC 8785), `api/_facts_sign.js` (claim hash, attestation, detached EdDSA JWS, verifier) |
+| Keys and signer | `public/.well-known/jwks.json`; `scripts/facts-keygen.js`, `scripts/sign-facts.js` → `data/facts-signatures.json` (build time; the private key never reaches Vercel — docs/CURATION.md "Signing and key rotation") |
+| Verifier | `node scripts/verify-fact.js <url or file>` |
+| Static generator (L1, sister sites) | `node scripts/facts-static.js` |
+| Conformance checker | `node scripts/facts-check.js https://<site>` (spec §11) |
 
 ## Iron rules (learned the hard way)
 

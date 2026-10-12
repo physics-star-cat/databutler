@@ -36,13 +36,19 @@ verify-hub.sh) derives from the module. Contract and helpers: `api/_areas/README
    and re-runs (a plain re-run appends nothing spurious but keeps old notes). An unfetchable page is
    recorded `unreachable` in `data/sources.json`; the Monday cron skips it, coverage and CURATION list it.
    Never run it bare on a new area: that re-hashes every area's pages.
+5b. **Facts (optional).** To publish the figures as Verified Facts, replace `facts: null` with
+   `facts: { namespace: 'uk' }` (`prefix` for a sub-tree, `key` matching your `changelog.diff` key,
+   `period`/`effectiveFrom` when the file's `taxYear` is not the period, a few reviewed `aliases` and
+   resolve `synonyms`; contract in `api/_areas/README.md`). Every figure then answers at
+   `/f/<namespace>/<category>/<figure>` and in `get_fact`; run `node scripts/sign-facts.js` (the key is in
+   `~/.config/databutler/`, docs/CURATION.md "Signing and key rotation") — an unsigned fact fails the tests.
 6. **Sync + tests.** `node scripts/sync-areas.js`, `node --test tests/*.test.js`,
    `node scripts/sync-areas.js --check` (exit 0).
 7. **Snapshot refresh (deliberate).** `UPDATE_SNAPSHOTS=1 node --test tests/snapshot.test.js`; read
    `git diff tests/snapshots/` — only your area should appear. Run dates are normalised to placeholders, so
    it never goes red on another day; prove it: `FAKE_NOW=<tomorrow> NODE_OPTIONS="--require
    ./tests/fake-clock.js" node --test tests/*.test.js`.
-8. **Commit** the four files + `data/changelog.json` + `data/sources.json` + generated files together.
+8. **Commit** the four files + `data/changelog.json` + `data/sources.json` (+ `data/facts-signatures.json`) + generated files together.
    **After deploy:** `bash scripts/verify-hub.sh` runs your `verify` live.
 
 ## Script-driven areas (data fetched by `scripts/<area>.js`)

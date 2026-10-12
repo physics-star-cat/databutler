@@ -95,7 +95,8 @@ test('schemas: draft 2020-12, $id = served URL, entry requires exactly the nine 
   for (const [s, id] of [[DOC_SCHEMA, SCHEMA_URL], [WK_SCHEMA, 'https://databutler.dev/schema/well-known-changes.v0.json']]) {
     assert.equal(s.$schema, 'https://json-schema.org/draft/2020-12/schema');
     assert.equal(s.$id, id);
-    assert.equal(s.properties.protocol.const, PROTOCOL);
+    // verified-facts/0.2 §12: the changes layer accepts 0.1 and 0.2 (additive optional fields); Data Butler still emits 0.1
+    assert.deepEqual(s.properties.protocol.enum, [PROTOCOL, 'verified-changes/0.2']);
     assert.match(s.description, /databutler\.dev\/protocol/);
   }
   assert.deepEqual(DOC_SCHEMA.required, ['protocol', 'publisher', 'generated', 'entries']);

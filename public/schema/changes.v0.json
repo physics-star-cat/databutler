@@ -6,7 +6,8 @@
   "type": "object",
   "required": ["protocol", "publisher", "generated", "entries"],
   "properties": {
-    "protocol": { "const": "verified-changes/0.1", "description": "Protocol name and version." },
+    "protocol": { "enum": ["verified-changes/0.1", "verified-changes/0.2"], "description": "Protocol name and version; 0.2 adds only the optional fields of https://databutler.dev/protocol/facts §12." },
+    "status": { "type": "string", "description": "Optional publisher status, e.g. \"no changes recorded yet\", \"paused\" (0.2)." },
     "schema": { "type": "string", "format": "uri", "description": "URL of the JSON Schema this document validates against (this file)." },
     "publisher": { "$ref": "#/$defs/publisher" },
     "generated": { "type": "string", "format": "date", "description": "The day this document was produced." },
@@ -40,7 +41,17 @@
         "source": { "type": "string", "format": "uri", "description": "The official page the change was verified against." },
         "verifiedDate": { "type": "string", "format": "date", "description": "The day the publisher fetched the source and confirmed the value." },
         "note": { "type": "string", "description": "Maintainer context (which Budget, which spec update); may be empty." },
-        "unit": { "type": ["string", "null"], "description": "Unit of from/to when numeric, e.g. GBP/year, %." }
+        "unit": { "type": ["string", "null"], "description": "Unit of from/to when numeric, e.g. GBP/year, %." },
+        "factKey": { "type": "string", "description": "The Verified Facts key of the fact this entry changed (verified-facts/0.2), for get_fact." },
+        "sourceType": { "enum": ["authority", "methodology", "derived"], "description": "0.2, optional; default authority. methodology/derived entries point source at the publisher's method page." },
+        "method": { "type": "string", "description": "0.2, optional: method URL or one line, for methodology/derived entries." },
+        "seq": { "type": "integer", "minimum": 0, "description": "0.2, optional: identity becomes area + key + verifiedDate + seq (absent = 0)." },
+        "dateBasis": { "enum": ["verified", "commit", "source"], "description": "0.2, optional: what verifiedDate means (default verified)." },
+        "snapshot": { "type": "string", "format": "date", "description": "0.2, optional: the dataset release or download day." },
+        "sourceFile": { "type": "string", "format": "uri", "description": "0.2, optional: the file's own URL when source is an official catalogue page." },
+        "bundle": { "type": "boolean", "description": "0.2, optional: a first-coverage entry standing for a whole dataset." },
+        "heldCount": { "type": "integer", "minimum": 0, "description": "0.2, optional." },
+        "sourceCount": { "type": "integer", "minimum": 0, "description": "0.2, optional." }
       }
     }
   }

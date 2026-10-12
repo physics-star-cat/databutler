@@ -1,0 +1,313 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Data Butler — Verified Facts and Verified Changes",
+    "version": "0.2.0",
+    "summary": "Official figures by key, each with its source, verified date, hash and signature; and what changed since a date.",
+    "description": "The current value of one official figure by key — a tax threshold, rate, allowance, fee, deadline, limit or policy rate — with the date it was verified, the official source URL, the period it applies to and a signature. Keys are `<country>/<topic>/<fact>`, e.g. `uk/income-tax/personal-allowance`, `uk/national-insurance/primary-threshold`, `us/social-security/wage-base`, `de/income-tax/grundfreibetrag`, `uk/bank-rate`, `eu/ecb/deposit-facility`, `uk/gov/passport-renewal-adult/fee-online-uk`. A loose key is resolved when unambiguous; otherwise the answer lists candidate keys. `max_age` (e.g. `30d`) marks the answer `stale` when the verification is older than that. Several keys separated by commas return a batch. Covers UK, US and German rates and thresholds, UK vehicle tax and MOT rules, UK government service fees, UK exam dates and central-bank policy rates; `coverage` lists the rest.\n\nSpecification: https://databutler.dev/protocol/facts. No authentication.",
+    "license": {
+      "name": "Free to reuse with attribution to databutler.dev; each figure stays under its official source's terms",
+      "url": "https://databutler.dev/terms"
+    },
+    "contact": {
+      "url": "https://github.com/physics-star-cat/databutler/issues"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://databutler.dev"
+    }
+  ],
+  "x-verified-facts": "0.2",
+  "paths": {
+    "/f/{key}": {
+      "get": {
+        "operationId": "getFact",
+        "summary": "Get a verified fact",
+        "description": "The current value of one official figure by key — a tax threshold, rate, allowance, fee, deadline, limit or policy rate — with the date it was verified, the official source URL, the period it applies to and a signature. Keys are `<country>/<topic>/<fact>`, e.g. `uk/income-tax/personal-allowance`, `uk/national-insurance/primary-threshold`, `us/social-security/wage-base`, `de/income-tax/grundfreibetrag`, `uk/bank-rate`, `eu/ecb/deposit-facility`, `uk/gov/passport-renewal-adult/fee-online-uk`. A loose key is resolved when unambiguous; otherwise the answer lists candidate keys. `max_age` (e.g. `30d`) marks the answer `stale` when the verification is older than that. Several keys separated by commas return a batch. Covers UK, US and German rates and thresholds, UK vehicle tax and MOT rules, UK government service fees, UK exam dates and central-bank policy rates; `coverage` lists the rest.",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "required": true,
+            "description": "one key, or several separated by commas (max 50), e.g. uk/income-tax/personal-allowance",
+            "schema": {
+              "type": "string"
+            },
+            "allowReserved": true,
+            "example": "uk/income-tax/personal-allowance"
+          },
+          {
+            "name": "max_age",
+            "in": "query",
+            "required": false,
+            "description": "optional freshness bar: 30d, 12w, 6m, 1y or ISO 8601 (P30D)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "as_of",
+            "in": "query",
+            "required": false,
+            "description": "optional YYYY-MM-DD: the value in force that day",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "period",
+            "in": "query",
+            "required": false,
+            "description": "optional period label instead of as_of, e.g. 2025-26",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "required": false,
+            "description": "json (default) | txt (one line) | html (the indexable page)",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "json",
+                "txt",
+                "html"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The fact record (spec §4); a period not held answers covered:false with periodsHeld",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "https://databutler.dev/schema/fact.v0.json"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad max_age, as_of or format",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "https://databutler.dev/schema/fact.v0.json#/$defs/miss"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown key: candidates and the index URL (spec §5.4); not cached",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "https://databutler.dev/schema/fact.v0.json#/$defs/miss"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/f": {
+      "get": {
+        "operationId": "getFacts",
+        "summary": "Get several verified facts",
+        "description": "A batch of up to 50 keys, results in request order; a miss inside the batch does not fail it (spec §7). Without keys, the index of every key (spec §5.5). POST /f with {\"keys\": [...]} is the same batch.",
+        "parameters": [
+          {
+            "name": "keys",
+            "in": "query",
+            "required": false,
+            "description": "comma-separated keys (max 50); omit for the index",
+            "schema": {
+              "type": "string"
+            },
+            "example": "uk/income-tax/personal-allowance,us/social-security/wage-base"
+          },
+          {
+            "name": "max_age",
+            "in": "query",
+            "required": false,
+            "description": "optional freshness bar: 30d, 12w, 6m, 1y or ISO 8601 (P30D)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "as_of",
+            "in": "query",
+            "required": false,
+            "description": "optional YYYY-MM-DD: the value in force that day",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "period",
+            "in": "query",
+            "required": false,
+            "description": "optional period label instead of as_of, e.g. 2025-26",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "namespace",
+            "in": "query",
+            "required": false,
+            "description": "index only: one namespace (uk, us, de, eu)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A batch (with keys) or the index (without)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "https://databutler.dev/schema/fact.v0.json#/$defs/batch"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Too many keys or a bad option",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "https://databutler.dev/schema/fact.v0.json#/$defs/miss"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/f/resolve": {
+      "get": {
+        "operationId": "resolveFact",
+        "summary": "Find the key for a fact",
+        "description": "Ranked canonical fact keys for a plain-language question or a guessed key — \"NI primary threshold\", \"ECB deposit rate\", \"passport renewal fee\" — each with label, unit, period and verification date, and the full record of the top match when it is unambiguous. The keys feed `get_fact`. Filter by `namespace` (`uk`, `us`, `de`, `eu`).",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "description": "question or guessed key",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "namespace",
+            "in": "query",
+            "required": false,
+            "description": "optional jurisdiction filter",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "de",
+                "eu",
+                "uk",
+                "us"
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "description": "default 5",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ranked candidates, with best when unambiguous (spec §6)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "https://databutler.dev/schema/fact.v0.json#/$defs/resolve"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/changes": {
+      "get": {
+        "operationId": "whatChangedSince",
+        "summary": "What changed since",
+        "description": "What has changed in Data Butler's verified datasets since a date — pass your training-cutoff date to learn which UK tax/NI/benefit thresholds, exam-spec facts, official vehicle datasets (UK DVSA, French RappelConso and Japanese MLIT recalls), software end-of-life dates (Node.js, Python, Ubuntu, Debian, Android, iOS, macOS, Windows, Java, Go, Ruby, PHP, PostgreSQL, React — cycles that reached end of life or whose dates moved), central-bank policy rates (Bank of England, Fed, ECB), US federal tax thresholds (IRS inflation adjustments, Social Security wage base, retirement and HSA limits), German tax and social-insurance thresholds (Grundfreibetrag, Beitragsbemessungsgrenzen, Zusatzbeitrag, Mindestlohn, Kindergeld), UK vehicle tax (VED) rates and MOT rules, UK exam dates (results days, summer timetable paper dates, entry deadlines and late-fee dates, announced specification changes), calendar facts (public holidays for the UK, US, Germany and France; tax-year and daylight-saving rules for nine countries — new years published, holidays added or moved) and UK government service fees and rules (passports, ETA, Universal Credit, eVisa) changed after your knowledge ends. Each entry: from → to, effectiveFrom, official source, verifiedDate, and a maintainer note (e.g. which Budget). Areas: uk-rates, uk-exams, vehicles, software-eol, policy-rates, us-rates, de-rates, uk-vehicle-rules, uk-exam-dates, calendar, uk-gov-process, or all. Coverage starts 2026-08-31. The same changelog is published for humans at https://databutler.dev/changes, with feeds at https://databutler.dev/changes.rss and https://databutler.dev/changes.atom. Output is a Verified Changes protocol document (verified-changes/0.1, spec https://databutler.dev/protocol); an entry whose figure is a Verified Fact carries factKey for get_fact.",
+        "parameters": [
+          {
+            "name": "since",
+            "in": "query",
+            "required": true,
+            "description": "ISO date YYYY-MM-DD, e.g. your training cutoff",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "area",
+            "in": "query",
+            "required": false,
+            "description": "default all",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "uk-rates",
+                "uk-exams",
+                "vehicles",
+                "software-eol",
+                "policy-rates",
+                "us-rates",
+                "de-rates",
+                "uk-vehicle-rules",
+                "uk-exam-dates",
+                "calendar",
+                "uk-gov-process",
+                "all"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A Verified Changes document (verified-changes/0.1); entries carry factKey",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "https://databutler.dev/schema/changes.v0.json"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

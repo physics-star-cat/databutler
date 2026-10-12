@@ -6,7 +6,11 @@
   "type": "object",
   "required": ["protocol", "publisher", "areas", "endpoints", "schema"],
   "properties": {
-    "protocol": { "const": "verified-changes/0.1" },
+    "protocol": { "enum": ["verified-changes/0.1", "verified-changes/0.2"] },
+    "facts": { "type": "string", "format": "uri", "description": "0.2, optional: the publisher's /.well-known/facts.json (verified-facts/0.2)." },
+    "filtering": { "enum": ["server", "client"], "description": "0.2, optional: client means the JSON endpoint ignores ?since= and ?area= and consumers filter (default server)." },
+    "sinceHint": { "type": "string", "format": "date", "description": "0.2, optional: the recommended first since (normally coverageStart − 1 day); since is strictly after." },
+    "status": { "type": "string", "description": "0.2, optional publisher status." },
     "publisher": {
       "type": "object",
       "required": ["name", "url"],
@@ -19,14 +23,15 @@
     "coverageStart": { "type": "string", "format": "date", "description": "Changes before this day are not itemised." },
     "areas": {
       "type": "array",
-      "minItems": 1,
+      "minItems": 0,
       "items": {
         "type": "object",
         "required": ["name", "description", "cadence"],
         "properties": {
           "name": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "description": "The value entries carry in their area field." },
           "description": { "type": "string", "minLength": 1, "description": "What facts the area covers." },
-          "cadence": { "type": "string", "minLength": 1, "description": "How often the sources are re-checked, in plain words." }
+          "cadence": { "type": "string", "minLength": 1, "description": "How often the sources are re-checked, in plain words." },
+          "cadenceType": { "enum": ["scheduled", "on-change", "best-effort"], "description": "0.2, optional." }
         }
       }
     },

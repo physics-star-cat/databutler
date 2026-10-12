@@ -2,7 +2,7 @@
  * Hand-rolled Markdown → HTML for the docs served as pages (/protocol). Pure,
  * no dependencies, and deliberately small: ATX headings (with id anchors),
  * paragraphs, unordered and ordered lists (one level), fenced code blocks,
- * horizontal rules, and inline code, bold and links. Anything else is text.
+ * pipe tables (header row + |---| separator; `\|` escapes a pipe), horizontal rules, and inline code, bold and links. Anything else is text.
  * Everything is HTML-escaped first; links are only emitted for http(s),
  * site-relative and fragment targets.
  */
@@ -24,16 +24,31 @@ const plain = (text) => String(text).replace(/`([^`]+)`/g, '$1').replace(/\*\*([
 function renderMarkdown(md) {
   const out = [];
   const lines = String(md).replace(/\r\n?/g, '\n').split('\n');
-  let para = [], list = null, code = null;
+  let para = [], list = null, code = null, table = null;
+  const cells = (l) => l.replace(/^\|/, '').replace(/\|$/, '').split(/(?<!\\)\|/).map((c) => c.trim().replace(/\\\|/g, '|'));
+  const flushTable = () => {
+    if (!table) return;
+    out.push(`<table><thead><tr>${table.head.map((c) => `<th>${inline(c)}</th>`).join('')}</tr></thead><tbody>${table.rows.map((r) => `<tr>${r.map((c) => `<td>${inline(c)}</td>`).join('')}</tr>`).join('')}</tbody></table>`);
+    table = null;
+  };
   const flushPara = () => { if (para.length) { out.push(`<p>${inline(para.join(' '))}</p>`); para = []; } };
   const flushList = () => { if (list) { out.push(`<${list.tag}>${list.items.map((i) => `<li>${inline(i)}</li>`).join('')}</${list.tag}>`); list = null; } };
-  for (const raw of lines) {
+  for (let i = 0; i < lines.length; i++) {
+    const raw = lines[i];
     if (code) {
       if (/^```/.test(raw)) { out.push(`<pre><code${code.lang ? ` class="language-${esc(code.lang)}"` : ''}>${esc(code.lines.join('\n'))}</code></pre>`); code = null; } else code.lines.push(raw);
       continue;
     }
     const line = raw.replace(/\s+$/, '');
     let m;
+    if (table && /^\|/.test(line)) { table.rows.push(cells(line)); continue; }
+    flushTable();
+    if (/^\|/.test(line) && /^\|(\s*:?-{3,}:?\s*\|)+$/.test(String(lines[i + 1] || '').replace(/\s+$/, ''))) {
+      flushPara(); flushList();
+      table = { head: cells(line), rows: [] };
+      i += 1; // the |---| separator
+      continue;
+    }
     if ((m = /^```\s*([\w-]*)/.exec(line))) { flushPara(); flushList(); code = { lang: m[1], lines: [] }; continue; }
     if (line === '') { flushPara(); flushList(); continue; }
     if ((m = /^(#{1,6})\s+(.+?)\s*#*$/.exec(line))) { flushPara(); flushList(); const n = m[1].length; out.push(`<h${n} id="${slug(plain(m[2]))}">${inline(m[2])}</h${n}>`); continue; }
@@ -45,7 +60,7 @@ function renderMarkdown(md) {
     para.push(line.trim());
   }
   if (code) out.push(`<pre><code>${esc(code.lines.join('\n'))}</code></pre>`);
-  flushPara(); flushList();
+  flushPara(); flushList(); flushTable();
   return out.join('\n');
 }
 

@@ -1,0 +1,122 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "Data Butler",
+    "identifier": "databutler.dev",
+    "documentationUrl": "https://databutler.dev/api"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:databutler.dev:mcp:databutler",
+      "displayName": "Data Butler",
+      "type": "application/mcp-server-card+json",
+      "url": "https://databutler.dev/api/mcp/server-card",
+      "description": "Verified facts for AI agents: rates, exams, recalls, holidays, and what changed since your cutoff."
+    },
+    {
+      "identifier": "urn:air:databutler.dev:mcp:databutler-facts",
+      "displayName": "Verified Facts",
+      "type": "application/mcp-server-card+json",
+      "url": "https://databutler.dev/api/mcp/facts/server-card",
+      "description": "Official thresholds, rates and fees by key, with source, verified date and signature."
+    },
+    {
+      "identifier": "urn:air:databutler.dev:mcp:databutler-uk-rates",
+      "displayName": "databutler-uk-rates",
+      "type": "application/mcp-server-card+json",
+      "url": "https://databutler.dev/api/mcp/uk-rates/server-card",
+      "description": "Current UK tax-year rates and thresholds, verified against gov.uk with source URLs and dates."
+    },
+    {
+      "identifier": "urn:air:databutler.dev:mcp:databutler-uk-exams",
+      "displayName": "databutler-uk-exams",
+      "type": "application/mcp-server-card+json",
+      "url": "https://databutler.dev/api/mcp/uk-exams/server-card",
+      "description": "UK exam-board spec data: which paper is a topic on, spec structures, past-paper links. Verified."
+    },
+    {
+      "identifier": "urn:air:databutler.dev:mcp:databutler-provenance",
+      "displayName": "databutler-provenance",
+      "type": "application/mcp-server-card+json",
+      "url": "https://databutler.dev/api/mcp/provenance/server-card",
+      "description": "Live trust signals for domains & packages: age, registrar, typosquat resemblance."
+    },
+    {
+      "identifier": "urn:air:databutler.dev:mcp:databutler-stats",
+      "displayName": "databutler-stats",
+      "type": "application/mcp-server-card+json",
+      "url": "https://databutler.dev/api/mcp/stats/server-card",
+      "description": "Exact statistics & probability: distributions, hypothesis tests, CIs, Bayesian updates, regression."
+    },
+    {
+      "identifier": "urn:air:databutler.dev:mcp:databutler-vehicles",
+      "displayName": "databutler-vehicles",
+      "type": "application/mcp-server-card+json",
+      "url": "https://databutler.dev/api/mcp/vehicles/server-card",
+      "description": "UK MOT failure data and official UK, French, Japanese and EU vehicle recalls."
+    },
+    {
+      "identifier": "urn:air:databutler.dev:mcp:databutler-tax",
+      "displayName": "databutler-tax",
+      "type": "application/mcp-server-card+json",
+      "url": "https://databutler.dev/api/mcp/tax/server-card",
+      "description": "Take-home pay after tax and social contributions for nine countries, with tax year."
+    },
+    {
+      "identifier": "urn:air:databutler.dev:mcp:databutler-software-eol",
+      "displayName": "databutler-software-eol",
+      "type": "application/mcp-server-card+json",
+      "url": "https://databutler.dev/api/mcp/software-eol/server-card",
+      "description": "Is this version still supported? End-of-life dates for 14 runtimes and operating systems."
+    },
+    {
+      "identifier": "urn:air:databutler.dev:mcp:databutler-policy-rates",
+      "displayName": "databutler-policy-rates",
+      "type": "application/mcp-server-card+json",
+      "url": "https://databutler.dev/api/mcp/policy-rates/server-card",
+      "description": "Bank of England, Fed and ECB policy rates, read from the banks' own pages, with dates."
+    },
+    {
+      "identifier": "urn:air:databutler.dev:mcp:databutler-us-rates",
+      "displayName": "databutler-us-rates",
+      "type": "application/mcp-server-card+json",
+      "url": "https://databutler.dev/api/mcp/us-rates/server-card",
+      "description": "US federal 2026 tax brackets, standard deductions, payroll and retirement limits, sourced."
+    },
+    {
+      "identifier": "urn:air:databutler.dev:mcp:databutler-de-rates",
+      "displayName": "databutler-de-rates",
+      "type": "application/mcp-server-card+json",
+      "url": "https://databutler.dev/api/mcp/de-rates/server-card",
+      "description": "German 2026 tax and social-insurance thresholds, minimum wage and allowances, sourced."
+    },
+    {
+      "identifier": "urn:air:databutler.dev:mcp:databutler-uk-vehicle-rules",
+      "displayName": "databutler-uk-vehicle-rules",
+      "type": "application/mcp-server-card+json",
+      "url": "https://databutler.dev/api/mcp/uk-vehicle-rules/server-card",
+      "description": "UK vehicle tax (VED) bands, expensive-car supplement, EV rules and MOT fees, sourced."
+    },
+    {
+      "identifier": "urn:air:databutler.dev:mcp:databutler-uk-exam-dates",
+      "displayName": "databutler-uk-exam-dates",
+      "type": "application/mcp-server-card+json",
+      "url": "https://databutler.dev/api/mcp/uk-exam-dates/server-card",
+      "description": "UK GCSE and A-level exam dates, results days, entry deadlines and spec changes."
+    },
+    {
+      "identifier": "urn:air:databutler.dev:mcp:databutler-calendar",
+      "displayName": "databutler-calendar",
+      "type": "application/mcp-server-card+json",
+      "url": "https://databutler.dev/api/mcp/calendar/server-card",
+      "description": "Public holidays (UK, US, DE, FR), tax-year dates and DST switches for 2026-2028."
+    },
+    {
+      "identifier": "urn:air:databutler.dev:mcp:databutler-uk-gov-process",
+      "displayName": "databutler-uk-gov-process",
+      "type": "application/mcp-server-card+json",
+      "url": "https://databutler.dev/api/mcp/uk-gov-process/server-card",
+      "description": "UK government service fees, steps, processing times and recent changes, read from gov.uk."
+    }
+  ]
+}
