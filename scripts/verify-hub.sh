@@ -154,6 +154,6 @@ check facts-well-known "$(curl -sS "$BASE/.well-known/facts.json")" "d['protocol
 check facts-jwks "$(curl -sS "$BASE/.well-known/jwks.json")" "len(d['keys'])>=1 and all(k['crv']=='Ed25519' and 'd' not in k for k in d['keys'])"
 check facts-server-card "$(curl -sS "$FACTS/server-card")" "d['name']=='io.github.physics-star-cat/databutler-facts'"
 check facts-openapi "$(curl -sS "$BASE/openapi.json")" "d['x-verified-facts']=='0.2'"
-if node "$(dirname "$0")/verify-fact.js" "$BASE/f/uk/income-tax/personal-allowance" > /dev/null; then echo "PASS verify-fact"; else echo "FAIL verify-fact"; FAILED=1; fi
+if node "$(dirname "$0")/verify-fact.js" "$BASE/f/uk/income-tax/personal-allowance" --jwks "$BASE/.well-known/jwks.json" > /dev/null; then echo "PASS verify-fact"; else echo "FAIL verify-fact"; FAILED=1; fi
 
 [ "$FAILED" = 0 ] && echo "ALL PASS" || { echo "SOME FAILED"; exit 1; }
