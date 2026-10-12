@@ -269,6 +269,10 @@ module.exports = {
     }),
   },
 
+  // Verified Facts: null, or { namespace: 'uk' } to publish every figure at /f/<namespace>/<category>/<figure>
+  // (api/_areas/README.md "facts"; then node scripts/sign-facts.js — an unsigned fact fails tests/facts-sign.test.js).
+  facts: null,
+
   verify: [
     { label: ${js(`${slug}-listing`)}, kind: 'tool', tool: TOOL, args: {}, assert: "'categories' in d and 'freshness' in d" },
     ${requiredParam

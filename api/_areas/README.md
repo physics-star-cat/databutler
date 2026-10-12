@@ -16,7 +16,7 @@ registry manifests.
 Start a new one with `node scripts/new-area.js <slug> --title "…"`
 (docs/ADDING_AN_AREA.md). Shared helpers live in `api/_area_kit.js` —
 `categoriesLookup`, `categorySources`, `areaHeader`, `diffCategories`, `noteTemplate`,
-`figureKey`, `mergeEntries`, `plusDays`, `slug`, `same` — and a module must never require `_registry`, `_hub`,
+`figureKey`, `mergeEntries`, `plusDays`, `slug`, `same`, `factsFromCategories`, `factKey` — and a module must never require `_registry`, `_hub`,
 `_changelog`, `_coverage`, `_freshness`, `_envelope`, `_rest` or `_areas` (they
 require this directory — a cycle).
 
@@ -105,6 +105,27 @@ module.exports = {
       mcp: 'Remote MCP server — tool policy_rate (…).',
     }),
   },
+
+  facts: null                    // publishes no Verified Facts (docs/FACTS_PROTOCOL.md)
+    | {                          // every figure becomes GET /f/<namespace>[/<prefix>]/<category>/<figure key> (api/_facts.js)
+        namespace: 'uk',         // ISO 3166-1 alpha-2 lowercase (`uk`, not `gb`), `eu`, a subdivision (`uk-sct`), or a 3+ letter slug
+        prefix: 'gov',           // optional segment between namespace and category (uk-gov-process: 'gov'; uk-exam-dates: 'exams')
+        key: (f) => f.key,       // optional: the figure's id (default figureKey) — must match changelog.diff's key, so the
+                                 // fact key is the changelog key with the namespace in front (factKeyFor round-trips; tested)
+        period: (data, f) => data.taxYear,              // optional period label (default data.taxYear ?? null)
+        previousPeriod: (data, f, prev) => prev.taxYear,// optional (default prev.taxYear ?? prev.series ?? null)
+        effectiveFrom: (data, f) => f.effectiveFrom,     // optional (default f.effectiveFrom || f.from || null) — never verifiedDate
+        effectiveTo: (data, f) => null,                  // optional (default null: current)
+        periodStart: (period) => '2026-04-06',           // optional: first day of a period label; dates the previous record
+        scope: (data, cat, f) => cat.scope,              // optional one-liner (default the category's `scope` string)
+        aliases: { 'uk/national-insurance/primary-threshold': 'uk/national-insurance/primary-threshold-employee-pays-above-this' },
+                                 // optional, reviewed; listed on the record. gb/… and `<area>:<changelog key>` are added automatically
+        synonyms: { ni: 'national-insurance' },         // optional, for /f/resolve (a query word or phrase → key words)
+        list: () => [{ record, previous, changelogKey, topic }],  // optional: areas without the categories shape build their own
+                                 // entries (policy-rates; then `namespace` may be an array); factsFromCategories(data, opts) is the kit's
+      },
+  // A figure's previous block with a value, a source and a period label (or start date) is served as its own period
+  // (?period=2025-26, ?as_of=2026-03-01). Every served record must be signed: node scripts/sign-facts.js.
 
   verify: [                      // scripts/verify-hub.sh checks (python expression over d, no " $ ` \)
     { label: 'call-policy-boe', kind: 'tool', tool: 'policy_rate', args: { bank: 'boe' }, assert: "d['bank']=='boe'" },

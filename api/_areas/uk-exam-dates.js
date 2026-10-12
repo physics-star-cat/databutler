@@ -263,6 +263,17 @@ module.exports = {
     }),
   },
 
+  // Verified Facts: /f/uk/exams/<kind>/<key>; the period is the exam series (summer-2027, november-2026),
+  // and the previous block's series (summer-2026) is served as its own period. api/_areas/README.md "facts".
+  facts: {
+    namespace: 'uk',
+    prefix: 'exams',
+    key: (f) => f.key,
+    period: (d, f) => f.series || null,
+    previousPeriod: (d, f, p) => p.series || null,
+    effectiveFrom: (d, f) => f.effectiveFrom || null,
+  },
+
   verify: [
     { label: 'uk-exam-dates-listing', kind: 'tool', tool: TOOL, args: {}, assert: "'kinds' in d and 'boards' in d and 'freshness' in d" },
     { label: 'uk-exam-dates-results-jcq', kind: 'tool', tool: TOOL, args: { kind: 'results', board: 'jcq', qualification: 'gcse' }, assert: "d['kind']=='results' and any(f['key']=='jcq-gcse-results-day' and f['value']=='2027-08-19' for f in d['figures']) and d['cite']['url'].startswith('https://databutler.dev/r/uk/exam-dates?')" },

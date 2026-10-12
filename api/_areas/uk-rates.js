@@ -12,6 +12,8 @@ const taxYearStart = (taxYear) => `${String(taxYear).slice(0, 4)}-04-06`;
 const effectiveFrom = (f, taxYear) => f.effectiveFrom || f.from || taxYearStart(taxYear);
 /** A figure's comparable prior value (`previous.value`), or undefined when it carries none. */
 const NOTE = noteTemplate('{label}: {from} → {to} {unit} from {effectiveFrom} — "{document}" (was: {previousDocument})', { key: (f) => slug(f.label) });
+/** The minimum-wage table's prior-year row is a figure of its own; it carries no date of this tax year. */
+const PRIOR_YEAR_FIGURE = (f) => /^previous year\b/i.test(f.label);
 const previousValue = (f) => (f.previous && typeof f.previous === 'object' && f.previous.value !== undefined && f.previous.value !== null ? f.previous.value : undefined);
 
 /**
@@ -187,6 +189,23 @@ module.exports = {
       },
       coverage: { rates: `tax year ${RATES.taxYear}` },
     }),
+  },
+
+  // Verified Facts: /f/uk/<category>/<slug(label)> — the changelog key with `uk/` in front (api/_areas/README.md "facts").
+  facts: {
+    namespace: 'uk',
+    key: (f) => slug(f.label),
+    // A figure that is itself last year's rate ("Previous year 21+ …") is not dated by this file's tax year.
+    period: (d, f) => (PRIOR_YEAR_FIGURE(f) ? null : d.taxYear),
+    effectiveFrom: (d, f) => (PRIOR_YEAR_FIGURE(f) ? null : effectiveFrom(f, d.taxYear)),
+    periodStart: taxYearStart,
+    // Reviewed short forms for the keys whose labels carry a parenthetical.
+    aliases: {
+      'uk/national-insurance/primary-threshold': 'uk/national-insurance/primary-threshold-employee-pays-above-this',
+      'uk/national-insurance/secondary-threshold': 'uk/national-insurance/secondary-threshold-employer-pays-above-this',
+      'uk/minimum-wage/national-living-wage': 'uk/minimum-wage/21-and-over-national-living-wage',
+    },
+    synonyms: { ni: 'national-insurance', pa: 'personal-allowance', nlw: 'national-living-wage', nmw: 'minimum-wage', cgt: 'capital-gains', sdlt: 'stamp-duty', ssp: 'statutory-sick-pay', smp: 'statutory-parental-pay' },
   },
 
   verify: [

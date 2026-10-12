@@ -168,6 +168,8 @@ module.exports = {
     }),
   },
 
+  facts: null, // publishes no Verified Facts (/f/<key>); see api/_areas/README.md "facts"
+
   verify: [
     { label: 'call-calendar-uk-2027', kind: 'tool', tool: 'calendar_facts', args: { country: 'uk', kind: 'holidays', year: 2027 }, assert: "d['region']=='england-and-wales' and d['count']==8 and d['holidays'][1]['date']=='2027-03-26' and d['freshness']['staleness'] in ('fresh','due','overdue') and d['cite']['url']=='https://databutler.dev/r/calendar?country=uk&kind=holidays&year=2027'" },
     { label: 'call-next-holiday-by', kind: 'tool', tool: 'next_holiday', args: { country: 'de', from: '2026-12-27', region: 'BY' }, assert: "d['next']['date']=='2027-01-01' and d['following'][0]['key']=='heilige-drei-koenige' and d['region']=='BY'" },

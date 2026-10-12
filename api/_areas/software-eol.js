@@ -139,6 +139,8 @@ module.exports = {
     }),
   },
 
+  facts: null, // publishes no Verified Facts (/f/<key>); see api/_areas/README.md "facts"
+
   verify: [
     { label: 'call-support-status', kind: 'tool', tool: 'support_status', args: { product: 'nodejs', version: '18.19.0' }, assert: "d['cycle']=='18' and d['supported']==False and d['eol']=='2025-04-30' and d['upstreamProvenance']['attribution']=='endoflife.date' and d['freshness']['staleness'] in ('fresh','due','overdue') and d['cite']['url']=='https://databutler.dev/r/software-eol/status?product=nodejs&version=18.19.0'" },
     { label: 'rest-software-eol-timeline', kind: 'rest', path: 'software-eol/timeline', query: 'product=python', assert: "d['product']=='python' and d['cycleCount']>10 and 'freshness' in d" },

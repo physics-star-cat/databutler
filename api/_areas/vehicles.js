@@ -327,6 +327,8 @@ module.exports = {
     }),
   },
 
+  facts: null, // publishes no Verified Facts (/f/<key>); see api/_areas/README.md "facts"
+
   verify: [
     { label: 'call-fr-recalls', kind: 'tool', tool: 'fr_recalls_for_model', args: { brand: 'peugeot', model: '208' }, assert: "d['count']>0 and d['recalls'][0]['link'].startswith('https://rappel.conso.gouv.fr/') and d['freshness']['verifiedDate']" },
     { label: 'call-uk-recalls', kind: 'tool', tool: 'uk_recalls_for_model', args: { make: 'Vauxhall', model: 'Corsa' }, assert: "d['count']>0 and d['recalls'][0]['link'].startswith('https://www.check-vehicle-recalls.service.gov.uk/') and d['freshness']['verifiedDate']" },

@@ -19,6 +19,31 @@ function fail(file, msg) {
   throw new Error(`api/_areas/${file}: ${msg} (contract: api/_areas/README.md)`);
 }
 
+const NAMESPACE = /^[a-z]{2}(-[a-z0-9]{1,3})?$|^[a-z]{3,}[a-z0-9-]*$/;
+const FACT_FUNCTIONS = ['key', 'period', 'previousPeriod', 'effectiveFrom', 'effectiveTo', 'periodStart', 'scope', 'list'];
+
+/** The optional Verified Facts block (api/_areas/README.md "facts"): null, or { namespace, … } over the categories shape or list(). */
+function validateFacts(m, file) {
+  if (!('facts' in m)) fail(file, 'facts is required: null, or { namespace, … } to publish the figures at /f/<namespace>/<category>/<figure>');
+  const f = m.facts;
+  if (f === null) return;
+  if (!f || typeof f !== 'object') fail(file, 'facts must be an object or null');
+  const namespaces = Array.isArray(f.namespace) ? f.namespace : [f.namespace];
+  if (!namespaces.length || namespaces.some((n) => typeof n !== 'string' || !NAMESPACE.test(n))) fail(file, 'facts.namespace must be an ISO 3166 code (uk, us, de, eu, uk-sct) or a declared slug of 3+ letters');
+  if (Array.isArray(f.namespace) && typeof f.list !== 'function') fail(file, 'several facts namespaces need facts.list()');
+  if (f.prefix !== undefined && (typeof f.prefix !== 'string' || !SLUG.test(f.prefix))) fail(file, 'facts.prefix must be a lowercase slug');
+  for (const k of FACT_FUNCTIONS) if (f[k] !== undefined && typeof f[k] !== 'function') fail(file, `facts.${k} must be a function`);
+  for (const k of ['aliases', 'synonyms']) {
+    if (f[k] === undefined) continue;
+    if (!f[k] || typeof f[k] !== 'object' || Array.isArray(f[k])) fail(file, `facts.${k} must be an object of string → string`);
+    for (const [a, b] of Object.entries(f[k])) if (typeof b !== 'string' || !a) fail(file, `facts.${k}["${a}"] must be a string`);
+  }
+  if (typeof f.list !== 'function') {
+    const d = m.freshness && m.freshness !== 'live' && !Array.isArray(m.freshness) ? m.freshness.data : null;
+    if (!d || !d.categories) fail(file, 'facts over the kit need a single dataset with categories — or a facts.list() building the entries');
+  }
+}
+
 function validate(m, file) {
   const expectArea = file.replace(/\.js$/, '');
   if (!m || typeof m !== 'object') fail(file, 'must export one object');
@@ -82,6 +107,7 @@ function validate(m, file) {
   if (!d.llms || !Array.isArray(d.llms.rest) || (m.server && typeof d.llms.server !== 'string')) fail(file, 'docs.llms { rest: [], server } required');
   if (!Array.isArray(d.curation)) fail(file, 'docs.curation (refresh-calendar rows, may be []) required');
   if (typeof d.api !== 'function') fail(file, 'docs.api() → { endpoints, coverage?, mcp? } required');
+  validateFacts(m, file);
   if (!Array.isArray(m.verify)) fail(file, 'verify must be an array');
   for (const v of m.verify) {
     if (!v.label || !v.assert || !['tool', 'rest'].includes(v.kind)) fail(file, 'each verify check needs label, kind (tool|rest), assert');
@@ -212,9 +238,12 @@ function frontDoorTools() {
   return AREAS.flatMap((a) => (a.server ? a.server.tools.filter((t) => t.frontDoor).map((t) => t.name) : []));
 }
 
+/** Areas that publish Verified Facts (a non-null `facts` block), in area order. */
+const factAreas = () => AREAS.filter((a) => a.facts);
+
 /** hub.<kind> phrase per area that has one, in area order. */
 const hubPhrases = (kind, filter = () => true) => AREAS.filter((a) => filter(a) && a.hub && a.hub[kind]).map((a) => a.hub[kind]);
 
 module.exports = {
-  AREAS, UNAVAILABLE, loadAreas, BY_KEY, servers, datasets, changelogAreas, discovery, restRoutes, citeRoutes, sourceList, sourceUrls, frontDoorTools, hubPhrases, DIR,
+  AREAS, UNAVAILABLE, loadAreas, BY_KEY, servers, datasets, changelogAreas, discovery, restRoutes, citeRoutes, sourceList, sourceUrls, frontDoorTools, hubPhrases, factAreas, DIR,
 };

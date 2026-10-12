@@ -228,7 +228,90 @@ function noteTemplate(template = '{label}: {from} → {to} ({document})', { key 
   };
 }
 
+/* ---------------- Verified Facts (docs/FACTS_PROTOCOL.md) ---------------- */
+
+/** The key grammar of spec §3.1: two to six lowercase segments; digits and dots allowed after the first. */
+const FACT_KEY = /^[a-z][a-z0-9-]*(\/[a-z0-9][a-z0-9.-]*){1,5}$/;
+
+/** A fact key from its parts: `<namespace>[/<prefix>]/<category>/<figure>`. */
+const factKey = (namespace, prefix, cat, figure) => [namespace, prefix, cat, figure].filter(Boolean).join('/');
+
+/**
+ * The fact entries of a categories-shaped file — one per figure — for an area's `facts` block
+ * (api/_areas/README.md). Each entry is { record, previous, changelogKey, topic }:
+ *   record        the current value: key, label, value, unit, period, effectiveFrom, effectiveTo, source,
+ *                 sourceType?, quote?, verifiedDate, nextScheduledRefresh, previous?, scope?, withdrawn?
+ *   previous      the prior period as a record of its own (null unless the figure's previous block has a
+ *                 value, a source and a period label or start date) — served by ?period= / ?as_of=
+ *   changelogKey  `<cat>/<figureKey>` — the v0.1 changelog entry key, so the fact key is the entry key
+ *                 with the namespace (and prefix) in front: identical identity by construction
+ *   topic         the category title (resolve searches it)
+ * Options (all optional except namespace):
+ *   namespace, prefix                 key segments before the category
+ *   key(f)                            the figure's id in its category (default figureKey)
+ *   period(data, f)                   period label (default data.taxYear ?? null)
+ *   previousPeriod(data, f, prev)     the previous block's period label (default prev.taxYear ?? prev.series ?? null)
+ *   effectiveFrom(data, f)            first day the value applies (default f.effectiveFrom || f.from || null)
+ *   effectiveTo(data, f)              last day (default null: current)
+ *   periodStart(period)               the first day of a period label; when the current value starts on its
+ *                                     period's first day, the previous value is dated from its period's first day
+ *   scope(data, cat, f)               one line of applicability (default the category's `scope` string)
+ */
+function factsFromCategories(data, opts = {}) {
+  const {
+    namespace, prefix, key = figureKey,
+    period = (d) => (d.taxYear === undefined ? null : d.taxYear),
+    previousPeriod = (d, f, p) => p.taxYear ?? p.series ?? null,
+    effectiveFrom = (d, f) => f.effectiveFrom || f.from || null,
+    effectiveTo = () => null,
+    periodStart = null,
+    scope = (d, c) => (typeof c.scope === 'string' ? c.scope : null),
+  } = opts;
+  const out = [];
+  for (const [cat, c] of Object.entries(data.categories || {})) {
+    for (const f of c.figures || []) {
+      const fk = key(f);
+      const sc = scope(data, c, f);
+      const record = {
+        key: factKey(namespace, prefix, cat, fk),
+        label: f.label,
+        value: f.withdrawn ? null : f.value,
+        unit: f.unit ?? null,
+        period: period(data, f),
+        effectiveFrom: effectiveFrom(data, f),
+        effectiveTo: effectiveTo(data, f),
+        source: f.source || c.source,
+        ...(f.sourceType ? { sourceType: f.sourceType } : {}),
+        ...(f.quote ? { quote: f.quote } : {}),
+        verifiedDate: f.verifiedDate || data.verifiedDate,
+        nextScheduledRefresh: data.nextScheduledRefresh ?? null,
+        ...(sc ? { scope: sc } : {}),
+        ...(f.withdrawn ? { withdrawn: f.withdrawn, ...(f.supersededBy ? { supersededBy: f.supersededBy } : {}) } : {}),
+      };
+      let previous = null;
+      const p = f.previous;
+      if (p && typeof p === 'object' && p.value !== undefined && p.value !== null) {
+        const pPeriod = previousPeriod(data, f, p);
+        const pFrom = p.effectiveFrom
+          || (periodStart && pPeriod && record.period && record.effectiveFrom && record.effectiveFrom === periodStart(record.period) ? periodStart(pPeriod) : null);
+        record.previous = { value: p.value, period: pPeriod, ...(pFrom ? { effectiveFrom: pFrom } : {}), ...(p.source ? { source: p.source } : {}) };
+        if (p.source && (pPeriod || pFrom)) {
+          previous = {
+            key: record.key, label: record.label, value: p.value, unit: record.unit, period: pPeriod,
+            effectiveFrom: pFrom, effectiveTo: record.effectiveFrom ? plusDays(record.effectiveFrom, -1) : null,
+            source: p.source, ...(p.quote ? { quote: p.quote } : {}),
+            verifiedDate: record.verifiedDate, nextScheduledRefresh: record.nextScheduledRefresh, ...(sc ? { scope: sc } : {}),
+          };
+        }
+      }
+      out.push({ record, previous, changelogKey: `${cat}/${fk}`, topic: c.title || cat });
+    }
+  }
+  return out;
+}
+
 module.exports = {
   BASE, joinList, plusDays, qs, coerceNumeric, slug, same, figureKey, entryId, mergeEntries,
   diffCategories, areaHeader, categoriesLookup, categorySources, findFigure, noteTemplate,
+  FACT_KEY, factKey, factsFromCategories,
 };

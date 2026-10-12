@@ -186,6 +186,16 @@ module.exports = {
     }),
   },
 
+  // Verified Facts: /f/de/<category>/<key> (api/_areas/README.md "facts").
+  facts: {
+    namespace: 'de',
+    key: (f) => f.key || slug(f.label),
+    period: taxYearOf,
+    effectiveFrom: (n, f) => f.effectiveFrom || `${n.taxYear}-01-01`,
+    periodStart: (y) => `${String(y).slice(0, 4)}-01-01`,
+    synonyms: { bbg: 'social-insurance', 'minijob-grenze': 'geringfuegigkeitsgrenze-2026' },
+  },
+
   verify: [
     { label: 'de-rates-listing', kind: 'tool', tool: TOOL, args: {}, assert: `'categories' in d and 'freshness' in d and d['taxYear']=='${TAX_YEAR}' and 'social-insurance' in d['categories']` },
     { label: 'call-de-rates-income-tax', kind: 'tool', tool: TOOL, args: { category: 'income-tax' }, assert: "d['category']=='income-tax' and d['source'].startswith('https://www.gesetze-im-internet.de/') and all(f['term'] for f in d['figures']) and d['freshness']['staleness'] in ('fresh','due','overdue') and d['cite']['url']=='https://databutler.dev/r/de/rates?category=income-tax'" },

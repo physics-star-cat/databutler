@@ -193,6 +193,8 @@ module.exports = {
     }),
   },
 
+  facts: null, // publishes no Verified Facts (/f/<key>); see api/_areas/README.md "facts"
+
   verify: [
     { label: 'call-stats', kind: 'tool', tool: 'distribution', args: { dist: 'normal', at: 1.96 }, assert: "abs(d['cdf']-0.975)<0.001 and d['cite']['url'].startswith('https://databutler.dev/r/stats?op=distribution')" },
   ],

@@ -16,6 +16,11 @@ function freshnessFor(dataset, now = new Date()) {
   }
   const d = DATASETS[dataset];
   if (!d) return null;
+  return freshnessOf(d, now);
+}
+
+/** The freshness block for one parsed dataset ({ verifiedDate, nextScheduledRefresh }). */
+function freshnessOf(d, now = new Date()) {
   const { verifiedDate, nextScheduledRefresh } = d;
   const next = new Date(`${nextScheduledRefresh}T00:00:00Z`);
   const daysPast = Math.floor((now - next) / 86400000);
@@ -23,4 +28,4 @@ function freshnessFor(dataset, now = new Date()) {
   return { verifiedDate, nextScheduledRefresh, staleness };
 }
 
-module.exports = { freshnessFor, DUE_WINDOW_DAYS, DATASETS };
+module.exports = { freshnessFor, freshnessOf, DUE_WINDOW_DAYS, DATASETS };

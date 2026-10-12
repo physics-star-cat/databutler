@@ -207,6 +207,19 @@ module.exports = {
     }),
   },
 
+  // Verified Facts: /f/uk/gov/<service>/<figure>; every service alias above also works as a key segment
+  // (uk/gov/passport/fee-online-uk → uk/gov/passport-renewal-adult/fee-online-uk). api/_areas/README.md "facts".
+  facts: {
+    namespace: 'uk',
+    prefix: 'gov',
+    key: KEY,
+    period: () => null,
+    effectiveFrom: (n, f) => f.effectiveFrom || null,
+    aliases: Object.fromEntries(Object.entries(ALIASES).flatMap(([alias, service]) => (DATA.categories[service].figures || [])
+      .map((f) => [`uk/gov/${alias}/${KEY(f)}`, `uk/gov/${service}/${KEY(f)}`]))),
+    synonyms: { passport: 'passport-renewal-adult', uc: 'universal-credit', sorn: 'vehicle-tax-sorn' },
+  },
+
   verify: [
     { label: 'uk-gov-process-listing', kind: 'tool', tool: TOOL, args: {}, assert: "'passport-renewal-adult' in d['categories'] and 'aliases' in d and 'freshness' in d" },
     { label: 'uk-gov-process-rest-listing', kind: 'rest', path: REST_PATH, query: '', assert: "'categories' in d and 'cite' in d" },

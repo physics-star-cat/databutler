@@ -31,6 +31,17 @@ const WELL_KNOWN_URL = `${PROTOCOL_BASE}/.well-known/changes.json`;
 const PROTOCOL_URL = `${PROTOCOL_BASE}/protocol`;
 const PUBLISHER = { name: 'Data Butler', url: `${PROTOCOL_BASE}/` };
 
+/**
+ * The Verified Facts protocol (docs/FACTS_PROTOCOL.md, served at /protocol/facts): the facts layer
+ * of this protocol. The changes document above keeps its own identifier; facts records name this one.
+ */
+const FACTS_PROTOCOL = 'verified-facts/0.2';
+const FACT_SCHEMA_URL = `${PROTOCOL_BASE}/schema/fact.v0.json`;
+const FACTS_WELL_KNOWN_URL = `${PROTOCOL_BASE}/.well-known/facts.json`;
+const FACTS_SPEC_URL = `${PROTOCOL_BASE}/protocol/facts`;
+const FACTS_INDEX_URL = `${PROTOCOL_BASE}/f`;
+const JWKS_URL = `${PROTOCOL_BASE}/.well-known/jwks.json`;
+
 /** The area's diff(prev, next), or null when its entries come from a script. */
 function diffFor(area) {
   const a = BY_KEY[area];
@@ -114,4 +125,5 @@ function changesSince({ since, area = 'all' } = {}, entries = CHANGELOG, now = n
 module.exports = {
   changesSince, listEntries, entryId, ChangelogFilterError, diffFor, mergeEntries,
   COVERAGE_START, CHANGELOG_AREAS, PROTOCOL, SCHEMA_URL, WELL_KNOWN_URL, PROTOCOL_URL, PUBLISHER,
+  FACTS_PROTOCOL, FACT_SCHEMA_URL, FACTS_WELL_KNOWN_URL, FACTS_SPEC_URL, FACTS_INDEX_URL, JWKS_URL,
 };

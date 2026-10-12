@@ -183,6 +183,15 @@ module.exports = {
     }),
   },
 
+  // Verified Facts: /f/uk/<category>/<key> (api/_areas/README.md "facts").
+  facts: {
+    namespace: 'uk',
+    key: (f) => f.key,
+    effectiveFrom: (n, f) => f.effectiveFrom || vedYearStart(n.taxYear),
+    periodStart: vedYearStart,
+    synonyms: { ved: 'ved-standard', 'road-tax': 'ved-standard', 'car-tax': 'ved-standard' },
+  },
+
   verify: [
     { label: 'uk-vehicle-rules-listing', kind: 'tool', tool: 'uk_vehicle_rules_lookup', args: {}, assert: "'categories' in d and 'ved-first-year' in d['categories'] and 'freshness' in d" },
     { label: 'uk-vehicle-rules-rest-listing', kind: 'rest', path: 'uk/vehicle-rules', query: '', assert: "'categories' in d and 'cite' in d" },

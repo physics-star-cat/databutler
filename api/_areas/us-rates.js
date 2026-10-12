@@ -199,6 +199,16 @@ module.exports = {
     }),
   },
 
+  // Verified Facts: /f/us/<category>/<key> (api/_areas/README.md "facts").
+  facts: {
+    namespace: 'us',
+    key: (f) => f.key || slug(f.label),
+    period: taxYearOf,
+    effectiveFrom: (n, f) => f.effectiveFrom || `${n.taxYear}-01-01`,
+    periodStart: (y) => `${String(y).slice(0, 4)}-01-01`,
+    synonyms: { ss: 'social-security', '401k': '401k-elective-deferral' },
+  },
+
   verify: [
     { label: 'us-rates-listing', kind: 'tool', tool: TOOL, args: {}, assert: `'categories' in d and 'freshness' in d and d['taxYear']=='${TAX_YEAR}' and 'income-tax' in d['categories']` },
     { label: 'call-us-rates-income-tax', kind: 'tool', tool: TOOL, args: { category: 'income-tax' }, assert: "d['category']=='income-tax' and d['source'].startswith('https://www.irs.gov/') and len(d['figures'])>=10 and d['freshness']['staleness'] in ('fresh','due','overdue') and d['cite']['url']=='https://databutler.dev/r/us/rates?category=income-tax'" },

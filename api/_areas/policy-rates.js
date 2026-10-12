@@ -6,7 +6,7 @@
  * run `node scripts/changelog.js`, fill in the notes.
  */
 const { policyRate, policyRatesCoverage, POLICY, BANKS } = require('../_policy_rates');
-const { BASE, same } = require('../_area_kit');
+const { BASE, same, plusDays } = require('../_area_kit');
 
 const AREA = 'policy-rates';
 const REFRESH_DAYS = 45; // re-verified within 45 days of verifiedDate (docs/CURATION.md)
@@ -56,6 +56,44 @@ function diffPolicyRates(prev, next) {
     }
   }
   return out;
+}
+
+/** Fact key per bank figure: the changelog key is `<bank>/<figure key>`; the fact key names the jurisdiction. */
+const FACT_KEYS = {
+  boe: { 'bank-rate': 'uk/bank-rate' },
+  fed: { 'target-range-lower': 'us/fed-funds/lower', 'target-range-upper': 'us/fed-funds/upper' },
+  ecb: { 'deposit-facility': 'eu/ecb/deposit-facility', 'main-refinancing': 'eu/ecb/main-refinancing', 'marginal-lending': 'eu/ecb/marginal-lending' },
+};
+
+/**
+ * The six policy-rate facts. The current level comes from the bank's `source` page; the previous level, served
+ * as its own dated record (effectiveFrom → the day before the current level took effect), was checked against
+ * the bank's history table (`historySource`, else the same page) — data/policy-rates.json verificationMethod.
+ */
+function factEntries() {
+  return BANKS.flatMap((bank) => {
+    const b = POLICY.banks[bank];
+    const before = new Map(((b.previous && b.previous.figures) || []).map((f) => [f.key, f]));
+    return b.figures.map((f) => {
+      const key = FACT_KEYS[bank][f.key];
+      if (!key) throw new Error(`api/_areas/policy-rates.js: no fact key for ${bank}/${f.key} — add it to FACT_KEYS`);
+      const base = { key, label: `${b.name}: ${f.label}`, unit: '% per annum', period: null };
+      const verifiedDate = b.verifiedDate || POLICY.verifiedDate;
+      const was = before.get(f.key);
+      const historySource = b.historySource || b.source;
+      const record = {
+        ...base, value: f.value, effectiveFrom: b.effectiveFrom || null, effectiveTo: null, source: b.source,
+        verifiedDate, nextScheduledRefresh: POLICY.nextScheduledRefresh,
+        ...(was ? { previous: { value: was.value, period: null, effectiveFrom: b.previous.effectiveFrom, source: historySource } } : {}),
+        scope: `${b.jurisdiction}; ${b.rateName}, set by the ${b.committee}`,
+      };
+      const previous = was && b.previous.effectiveFrom ? {
+        ...base, value: was.value, effectiveFrom: b.previous.effectiveFrom, effectiveTo: b.effectiveFrom ? plusDays(b.effectiveFrom, -1) : null,
+        source: historySource, verifiedDate, nextScheduledRefresh: POLICY.nextScheduledRefresh, scope: record.scope,
+      } : null;
+      return { record, previous, changelogKey: `${bank}/${f.key}`, topic: `${b.name} ${b.rateName}` };
+    });
+  });
 }
 
 module.exports = {
@@ -164,6 +202,13 @@ module.exports = {
       },
       mcp: 'Remote MCP server — tool policy_rate (Bank of England, Fed, ECB; committed data verified against the banks\' own pages).',
     }),
+  },
+
+  // Verified Facts: one key per figure, namespaced by the bank's jurisdiction (api/_areas/README.md "facts").
+  facts: {
+    namespace: ['uk', 'us', 'eu'],
+    list: factEntries,
+    synonyms: { 'base rate': 'bank-rate', 'interest rate': 'bank-rate', fomc: 'fed-funds', 'federal funds': 'fed-funds', 'fed rate': 'fed-funds', refi: 'main-refinancing', 'deposit rate': 'deposit-facility' },
   },
 
   verify: [

@@ -123,6 +123,8 @@ module.exports = {
     }),
   },
 
+  facts: null, // publishes no Verified Facts (/f/<key>); see api/_areas/README.md "facts"
+
   verify: [
     { label: 'domain', kind: 'tool', tool: 'domain_provenance', args: { domain: 'databutler.dev' }, assert: "d['freshness']['staleness']=='live' and 'cite' in d" },
     { label: 'package', kind: 'tool', tool: 'package_provenance', args: { ecosystem: 'npm', name: 'express' }, assert: "d['freshness']['staleness']=='live'" },

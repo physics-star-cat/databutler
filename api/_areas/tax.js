@@ -130,6 +130,8 @@ module.exports = {
     }),
   },
 
+  facts: null, // publishes no Verified Facts (/f/<key>); see api/_areas/README.md "facts"
+
   verify: [
     { label: 'take-home-uk', kind: 'tool', tool: 'take_home_pay', args: { country: 'uk', gross: 50000 }, assert: "(d['currency']=='GBP' and d['taxYear'] and d['net']['annual']<50000 and d['upstreamProvenance']['attribution']=='lifebynumbers.net' and d['cite']['url'].startswith('https://databutler.dev/r/tax/take-home?country=uk')) or d.get('error')=='upstream unavailable'" },
     { label: 'take-home-es', kind: 'tool', tool: 'take_home_pay', args: { country: 'es', gross: 40000 }, assert: "d['covered']==False and 'lifebynumbers.net/es/' in d['source']" },

@@ -225,6 +225,8 @@ module.exports = {
     }),
   },
 
+  facts: null, // publishes no Verified Facts (/f/<key>); see api/_areas/README.md "facts"
+
   verify: [
     { label: 'topic', kind: 'tool', tool: 'exam_topic_paper', args: { topic: 'electricity', board: 'aqa', subject: 'physics' }, assert: "d['results'][0]['paper']==1 and d['cite']['url'].startswith('https://databutler.dev/r/uk/exams/topic?')" },
     { label: 'coverage', kind: 'tool', tool: 'coverage', args: { area: 'uk-exams' }, assert: "'aqa' in d['boards']" },
