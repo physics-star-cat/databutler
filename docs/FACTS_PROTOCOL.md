@@ -1,6 +1,6 @@
 # Verified Facts protocol, v0.2
 
-One short key for one official figure; one compact, dated, sourced, signed answer back. Identifier: `verified-facts/0.2`. It is the facts layer of the Verified Changes protocol (`verified-changes/0.1`, `docs/CHANGES_PROTOCOL.md`) and leaves that layer's wire format unchanged. Reference implementation: Data Butler (https://databutler.dev). Served indexable at `/protocol/facts` (`?format=md` for this file). Status: draft for implementation on branch `feat/facts-protocol-v02`; nothing in this document is live yet.
+One short key for one official figure; one compact, dated, sourced, signed answer back. Identifier: `verified-facts/0.2`. It is the facts layer of the Verified Changes protocol (`verified-changes/0.1`, `docs/CHANGES_PROTOCOL.md`) and leaves that layer's wire format unchanged. Reference implementation: Data Butler (https://databutler.dev). Served indexable at `/protocol/facts` (`?format=md` for this file). Status: live on databutler.dev since 2026-10-12 (L3: signed with key `db-2026-10`).
 
 ```
 $ curl -s https://databutler.dev/f/uk/income-tax/personal-allowance?max_age=30d
