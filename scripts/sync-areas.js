@@ -142,6 +142,7 @@ function manifest(key, s) {
 
 const CALENDAR_TAIL = [
   '| `data/sources.json` | After every data refresh (automatic via `scripts/changelog.js`) | `node scripts/sources.js` re-checks every source URL (gov.uk content API / page hash); a page it cannot fetch is recorded `unreachable` and listed under "Sources the watcher cannot read". |',
+  '| `data/facts-signatures.json` | After every data change to a facts area, before commit | `node scripts/sign-facts.js` with the key in `~/.config/databutler/` (never on Vercel); `tests/facts-sign.test.js` fails while a served fact is unsigned. See "Signing and key rotation". |',
   '| `data/changelog.json` | With every data refresh | `node scripts/changelog.js` (areas with a `changelog.diff`) or the dataset\'s own script (`changelog.script`); fill in `note` lines. See "Changelog & source watcher" and docs/ADDING_AN_AREA.md. |',
 ];
 

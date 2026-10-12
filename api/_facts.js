@@ -13,10 +13,17 @@
  */
 const { AREAS } = require('./_areas');
 const { FACT_KEY, factsFromCategories, BASE: PROTOCOL_BASE } = require('./_area_kit');
-const { hashOf } = require('./_facts_sign');
+const { hashOf, attestationOf, attestationHash, fromB64url } = require('./_facts_sign');
 const { levenshtein } = require('./_text');
 const { freshnessOf } = require('./_freshness');
-const { FACTS_PROTOCOL, PUBLISHER, FACTS_INDEX_URL } = require('./_changelog');
+const { FACTS_PROTOCOL, PUBLISHER, FACTS_INDEX_URL, JWKS_URL } = require('./_changelog');
+
+/**
+ * Build-time signatures (scripts/sign-facts.js): { kid, signedAt, count, signatures: { <attestation hash>: <jws> } }.
+ * Required statically so Vercel's tracer ships it; absent until the first signing run.
+ */
+let SIGNATURES = { signatures: {} };
+try { SIGNATURES = require('../data/facts-signatures.json'); } catch { /* unsigned: tests/facts-sign.test.js fails until signed */ }
 
 const BATCH_LIMIT = 50;
 const DAY_MS = 86400000;
@@ -81,7 +88,7 @@ function finish(r, aliases) {
   return Object.freeze(out);
 }
 
-function makeFacts(areas = AREAS) {
+function makeFacts(areas = AREAS, { signatures = SIGNATURES } = {}) {
   const entries = [];
   const META = new Map();
   for (const a of areas.filter((x) => x.facts)) {
@@ -391,14 +398,27 @@ function makeFacts(areas = AREAS) {
     return out;
   }
 
-  /* ---------------- signatures (spec §8) — attached in Task 6 ---------------- */
+  /* ---------------- signatures (spec §8.3) ---------------- */
 
-  function signatureOf() { return null; }
+  const SIGNED = new WeakMap();
+  /** The precomputed signature object for a stored record, or null when the signatures file has none. */
+  function signatureOf(r) {
+    if (SIGNED.has(r)) return SIGNED.get(r);
+    const jws = (signatures.signatures || {})[attestationHash(attestationOf(r))];
+    let sig = null;
+    if (jws) {
+      let kid = signatures.kid;
+      try { kid = JSON.parse(fromB64url(jws.split('.')[0]).toString('utf8')).kid || kid; } catch { /* header unreadable: the verifier reports it */ }
+      sig = { alg: 'EdDSA', kid, jws, keys: JWKS_URL };
+    }
+    SIGNED.set(r, sig);
+    return sig;
+  }
 
   return {
     INDEX, PERIODS, ALIASES, META, FACT_COUNT: INDEX.size, RESERVED, BATCH_LIMIT,
     factKeyFor, changelogKeyFor, aliasesOf, listFacts, namespaceOf, indexUrl: FACTS_INDEX_URL,
-    getFact, getFacts, resolveFact, statusFor, selectPeriod, periodsOf, parseMaxAge, normaliseKey, present,
+    getFact, getFacts, resolveFact, statusFor, selectPeriod, periodsOf, parseMaxAge, normaliseKey, present, signatureOf,
   };
 }
 

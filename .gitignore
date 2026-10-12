@@ -4,3 +4,7 @@ node_modules/
 .worktrees/
 .superpowers/
 dist/
+
+# Verified Facts signing keys live in ~/.config/databutler/ — never in the repo (docs/CURATION.md)
+*.pem
+*.jwk

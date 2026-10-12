@@ -44,6 +44,8 @@ jobs:
         run: node scripts/sync-areas.js
 
       - name: Test (snapshots refreshed; the PR diff is the review)
+        env:
+          FACTS_SIGNATURES_OPTIONAL: '1' # the bot has no signing key; a human signs before merge
         run: |
           UPDATE_SNAPSHOTS=1 node --test tests/snapshot.test.js > /dev/null || true
           node --test tests/*.test.js
@@ -61,6 +63,8 @@ jobs:
           git add -A
           git commit -m "data: monthly refresh $(date -u +%Y-%m-%d) (software-eol, calendar, UK recalls)"
           git push origin "$branch"
+          signing=""
+          node scripts/sign-facts.js --check > /dev/null 2>&1 || signing=" NEEDS SIGNING: some Verified Facts records changed — run node scripts/sign-facts.js on this branch before merging."
           gh pr create --base master --head "$branch" \
             --title "Monthly dataset refresh $(date -u +%Y-%m-%d)" \
-            --body "Automated run of scripts/software-eol.js, scripts/calendar.js and scripts/vehicles.js uk. Tests passed in CI. Review the data/changelog.json additions (fill any blank notes), then merge to deploy."
+            --body "Automated run of scripts/software-eol.js, scripts/calendar.js and scripts/vehicles.js uk. Tests passed in CI. Review the data/changelog.json additions (fill any blank notes), then merge to deploy.${signing}"

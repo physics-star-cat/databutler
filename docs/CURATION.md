@@ -30,6 +30,7 @@ The product is trust. A wrong number is worse than no number. Rules:
 | `data/calendar.json` | Monthly (freshness says `due` from 35 days after the fetch); and when a government publishes the next year's list (gov.uk and OPM publish ~2 years ahead, calendrier.api.gouv.fr 5 years) | `node scripts/calendar.js` — fetches gov.uk `bank-holidays.json`, OPM's federal-holidays page and `calendrier.api.gouv.fr` (UA names databutler.dev, 500 ms apart), merges `data/calendar/manual.json` (German Länder rules, tax-year and DST rules — edit that file against the official pages, bump its `verifiedDate`, keep every `quote`/`verification`), computes rule-based dates and stops if a hand-copied official date disagrees, bumps `verifiedDate`/`nextScheduledRefresh` (+35 days), appends `calendar` changelog entries (`<cc>/holidays/<year>` for a new year, `<cc>/holidays/<region>/<year>/<key>` for an added/removed/moved day, `<cc>/tax-year/<part>`, `<cc>/dst/<year>` for rule changes). Fill the blank notes, commit `data/` together. To widen the window add the year to `manual.json` `years`. `CAL_DIR=path` builds from saved copies. Re-try the `nonOfficial` entries (HB, MV, SH, TH holidays; fr and br DST; br personal tax year) each refresh. |
 | `data/uk-gov-process.json` | Every 30 days (`nextScheduledRefresh` = verifiedDate + 30), and on Home Office / DVLA / DWP fee-change days (passport and ETA fees moved on 8 April 2026; benefits uprate each April). The weekly watcher reads each service's gov.uk page through the content API. | For each service fetch `https://www.gov.uk/api/content/<path>` for its `source` and `alsoRead` pages; compare every figure's `quote` against the page; for a changed value move the old value into `previous` (source = the National Archives capture of the outgoing page, or the announcement/SI) and set `effectiveFrom` to the change date; add a dated line to the service's `changes`; update `pageUpdatedAt`; bump `verifiedDate`; then `node scripts/changelog.js --only uk-gov-process` (stamps `nextScheduledRefresh`, appends one entry per figure that moved, re-hashes this area's sources) and review the notes. |
 | `data/sources.json` | After every data refresh (automatic via `scripts/changelog.js`) | `node scripts/sources.js` re-checks every source URL (gov.uk content API / page hash); a page it cannot fetch is recorded `unreachable` and listed under "Sources the watcher cannot read". |
+| `data/facts-signatures.json` | After every data change to a facts area, before commit | `node scripts/sign-facts.js` with the key in `~/.config/databutler/` (never on Vercel); `tests/facts-sign.test.js` fails while a served fact is unsigned. See "Signing and key rotation". |
 | `data/changelog.json` | With every data refresh | `node scripts/changelog.js` (areas with a `changelog.diff`) or the dataset's own script (`changelog.script`); fill in `note` lines. See "Changelog & source watcher" and docs/ADDING_AN_AREA.md. |
 <!-- sync-areas:calendar end -->
 
@@ -255,13 +256,52 @@ Per change (target: under 10 minutes):
    entries with `note: ""`, then refreshes `data/sources.json` so the watcher
    goes quiet.
 4. Fill in each `note` ("Autumn Budget 2026", "AQA spec update for first
-   teaching 2027"). Commit `data/` together. Push deploys.
+   teaching 2027").
+5. `node scripts/sign-facts.js` — re-signs the Verified Facts records the
+   edit changed (see "Signing and key rotation"). Commit `data/` together
+   (including `data/facts-signatures.json`). Push deploys.
 
 If the watcher fires but nothing material changed (typo fix on gov.uk), run
 `node scripts/sources.js` and commit — no changelog entry.
 
 Rules: the watcher never edits data; the script never invents an entry; a
 `from`/`to` pair always comes from two committed versions of a data file.
+
+## Signing and key rotation (Verified Facts, added 2026-10-12)
+
+Every record served at `/f/<key>` (and `get_fact`) carries a detached Ed25519
+JWS over its attestation (docs/FACTS_PROTOCOL.md §8). Signing happens **here,
+at curation time, never on Vercel**: the signature attests that the maintainer
+read `source` on `verifiedDate`.
+
+- **Where the key lives.** `~/.config/databutler/facts-ed25519.jwk` on the
+  maintainer's machine (directory 0700, file 0600). Never committed (`*.jwk`
+  and `*.pem` are gitignored), never printed, never in an environment variable
+  on Vercel. The public half is in `public/.well-known/jwks.json`.
+- **When to sign.** After every data change to a facts area, before commit:
+  `node scripts/sign-facts.js` (re-signs, sorted and byte-stable; prints how
+  many signatures were added and dropped). `scripts/changelog.js` prints the
+  reminder. `tests/facts-sign.test.js` fails while any served record is
+  unsigned or any signature is an orphan, so an unsigned data change cannot be
+  merged. `node scripts/sign-facts.js --check` is the same check.
+- **Verify.** `node scripts/verify-fact.js https://databutler.dev/f/uk/income-tax/personal-allowance`
+  (or a saved JSON file with `--jwks public/.well-known/jwks.json`): hash, key,
+  signature, verifiedDate — exit 0 when all pass.
+- **Rotation** (yearly, or on any doubt): `node scripts/facts-keygen.js --kid db-YYYY-MM --out ~/.config/databutler/facts-db-YYYY-MM.jwk`
+  publishes the new public key with `validFrom` = today + 7 days; deploy; on
+  or after `validFrom` run `FACTS_SIGNING_KEY=~/.config/databutler/facts-db-YYYY-MM.jwk node scripts/sign-facts.js`
+  and commit; then `node scripts/facts-keygen.js --retire <old kid>`. Retired
+  keys stay in the set for at least two years so old citations still verify.
+- **Revocation** (key exposed): `node scripts/facts-keygen.js --revoke <kid> --date <day of exposure>`,
+  generate and sign with a new key at once (pass `--valid-from` today), deploy.
+  Signatures whose `verifiedDate` is after the revocation day stop verifying.
+- **The monthly refresh PR** (`.github/workflows/refresh-datasets.yml`) runs
+  the tests with `FACTS_SIGNATURES_OPTIONAL=1` — the bot has no key. Its
+  datasets (software-eol, calendar, UK recalls) publish no facts today; if a
+  facts area is ever added to it, the PR body says "needs signing" and a human
+  runs `node scripts/sign-facts.js` on the branch before merging.
+
+Key on file: `db-2026-10` (valid from 2026-10-12).
 
 ## Where the changelog is served
 

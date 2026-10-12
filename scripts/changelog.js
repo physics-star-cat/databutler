@@ -202,6 +202,7 @@ async function main() {
   fs.writeFileSync(clPath, JSON.stringify(merged, null, 2) + '\n');
   for (const e of added) console.log(`  + ${e.area} ${e.key}: ${JSON.stringify(e.from)} → ${JSON.stringify(e.to)}${e.note ? `  note: ${e.note}` : ''}`);
   console.log(`\n${added.length} new entr${added.length === 1 ? 'y' : 'ies'} appended to data/changelog.json.`);
+  if (added.length) console.log('Verified Facts: run `node scripts/sign-facts.js` before committing — every served fact must be signed (docs/CURATION.md "Signing and key rotation").');
   if (added.length) console.log(prefilled ? `${prefilled} note(s) pre-filled from the module's changelog.note — review each, then commit data/ together.` : 'Fill in each "note" (e.g. "Autumn Budget 2026"), then commit data/ together.');
   const fetching = !flag('--no-fetch');
   if (fetching && ONLY) {
