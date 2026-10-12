@@ -301,6 +301,13 @@ read `source` on `verifiedDate`.
   facts area is ever added to it, the PR body says "needs signing" and a human
   runs `node scripts/sign-facts.js` on the branch before merging.
 
+- **Conformance self-check.** The Monday watcher (`api/_routes/cron/watch-sources.js`) also runs
+  `scripts/facts-check.js` against https://databutler.dev (offline items skipped, 25 sampled keys) and
+  files one issue, "Verified Facts conformance check failed", while it fails — treat it as an incident.
+  By hand: `node scripts/facts-check.js https://databutler.dev` (all 18 items of spec §11; `--offline`
+  skips the source fetches). Sister sites at L1: `node scripts/facts-static.js facts-source.json --out public`
+  then the same checker with `--level L1`.
+
 Key on file: `db-2026-10` (valid from 2026-10-12).
 
 ## Where the changelog is served

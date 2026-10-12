@@ -28,3 +28,14 @@ test('planIssues does not let a prefix-URL open issue suppress a change on a dif
   assert.equal(plan.length, 1);
   assert.equal(plan[0].title, 'source changed: /vat-rates (2026-11-27)');
 });
+
+test('planFactsIssue: one deduped issue while the facts self-check fails; none when it passes', () => {
+  const { planFactsIssue, FACTS_TITLE } = require('../api/_github');
+  const failing = { ok: false, declared: 'L3', reached: 'L2', results: [{ item: 15, level: 'L3', ok: false, detail: '3 unsigned' }] };
+  const [issue] = planFactsIssue(failing, []);
+  assert.equal(issue.title, FACTS_TITLE);
+  assert.match(issue.body, /item 15 \(L3\): 3 unsigned/);
+  assert.match(issue.body, /sign-facts\.js/);
+  assert.deepEqual(planFactsIssue(failing, [{ title: FACTS_TITLE }]), []);
+  assert.deepEqual(planFactsIssue({ ok: true, results: [] }, []), []);
+});

@@ -30,6 +30,23 @@ function planIssues(results, openIssues, today = new Date().toISOString().slice(
   return issues;
 }
 
+const FACTS_TITLE = 'Verified Facts conformance check failed';
+
+/**
+ * The Monday self-check (scripts/facts-check.js against https://databutler.dev): one issue while it fails, deduped by
+ * title; nothing when it passes. A failure is an incident (spec §11 item 18).
+ */
+function planFactsIssue(report, openIssues) {
+  if (!report || report.ok || openIssues.some((i) => i.title === FACTS_TITLE)) return [];
+  const failed = report.results.filter((r) => !r.ok);
+  return [{
+    title: FACTS_TITLE,
+    labels: [LABEL],
+    body: `Declared ${report.declared || '?'}, reached ${report.reached || 'none'}.\n\n${failed.map((r) => `- item ${r.item} (${r.level}): ${r.detail}`).join('\n')}\n\n` +
+      'Reproduce: `node scripts/facts-check.js https://databutler.dev --offline`. Unsigned data? `node scripts/sign-facts.js` (docs/CURATION.md "Signing and key rotation").',
+  }];
+}
+
 async function gh(path, opts = {}) {
   const token = process.env.GITHUB_TOKEN;
   if (!token) throw new Error('GITHUB_TOKEN not set');
@@ -47,4 +64,4 @@ async function gh(path, opts = {}) {
 const listOpenIssues = () => gh(`/issues?state=open&labels=${LABEL}&per_page=100`);
 const openIssue = (issue) => gh('/issues', { method: 'POST', body: JSON.stringify(issue) });
 
-module.exports = { planIssues, listOpenIssues, openIssue, LABEL, ERR_TITLE, REPO };
+module.exports = { planFactsIssue, FACTS_TITLE, planIssues, listOpenIssues, openIssue, LABEL, ERR_TITLE, REPO };

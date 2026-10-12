@@ -4,13 +4,18 @@
  * combined issue for URLs it could not check. Pages recorded (or declared) as
  * `unreachable` — 403 or CAPTCHA to a non-browser fetch — are skipped and listed
  * under `skipped`, never filed as errors. ?dry=1 reports without filing.
+ * Then it runs the Verified Facts conformance checker against the live site (scripts/facts-check.js, offline
+ * items skipped, 25 sampled keys) and files one issue while that fails (spec §11 item 18).
  * Vercel cron sends Authorization: Bearer $CRON_SECRET.
  */
 const { sendJson } = require('../../_lib');
 const SEEN = require('../../../data/sources.json');
 const { checkSource, compareSource, watchPlan } = require('../../_sources');
 const { sourceList } = require('../../_areas');
-const { planIssues, listOpenIssues, openIssue } = require('../../_github');
+const { planIssues, planFactsIssue, listOpenIssues, openIssue } = require('../../_github');
+const { checkSite } = require('../../../scripts/facts-check');
+
+const SITE = 'https://databutler.dev';
 
 module.exports = async (req, res) => {
   const secret = process.env.CRON_SECRET;
@@ -31,12 +36,20 @@ module.exports = async (req, res) => {
     }
   }));
 
+  let facts;
+  try {
+    const report = await checkSite(SITE, { offline: true, sample: 25 });
+    facts = { declared: report.declared, reached: report.reached, ok: report.ok, failed: report.results.filter((r) => !r.ok) };
+  } catch (e) {
+    facts = { ok: false, declared: null, reached: null, failed: [{ item: 0, level: '-', ok: false, detail: `checker crashed: ${e.message}` }] };
+  }
+
   let issues = [];
   const filed = [];
   let filing = null;
   try {
     const open = dry ? [] : await listOpenIssues();
-    issues = planIssues(results, open);
+    issues = [...planIssues(results, open), ...planFactsIssue({ ...facts, results: facts.failed }, open)];
     if (!dry) for (const issue of issues) {
       await openIssue(issue);
       filed.push(issue.title);
@@ -52,6 +65,7 @@ module.exports = async (req, res) => {
     unseen: results.filter((r) => r.status === 'new').map((r) => r.url),
     errors: results.filter((r) => r.status === 'error'),
     skipped: skipped.map(({ url, area, reason }) => ({ url, area, unreachable: reason })),
+    factsCheck: facts,
     issuesPlanned: issues.map((i) => i.title),
     issuesFiled: filed,
     ...(filing ? { filingError: filing } : {}),

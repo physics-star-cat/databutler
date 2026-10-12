@@ -1,0 +1,17 @@
+{
+  "publisher": { "name": "Example Car Site", "url": "https://cars.example.org/" },
+  "namespaces": [
+    { "name": "uk", "description": "UK MOT rules (fixture)", "cadence": "every 1 April", "authorities": ["www.gov.uk"] }
+  ],
+  "licence": "Fixture data for tests/facts-static.test.js — not a publication.",
+  "contact": "https://cars.example.org/contact",
+  "changes": "https://cars.example.org/.well-known/changes.json",
+  "facts": [
+    { "key": "uk/mot/first-mot-age-car", "label": "First MOT due (cars)", "value": 3, "unit": "years from registration", "period": null,
+      "effectiveFrom": null, "effectiveTo": null, "source": "https://www.gov.uk/getting-an-mot", "verifiedDate": "2026-10-04",
+      "quote": "You must get an MOT for your vehicle by either the third anniversary of its registration …", "aliases": ["uk/mot/first-mot"] },
+    { "key": "uk/mot/max-fee-car", "label": "Maximum MOT fee (car, class 4)", "value": 54.85, "unit": "GBP", "period": "2026-27",
+      "effectiveFrom": "2026-04-01", "effectiveTo": null, "source": "https://www.gov.uk/getting-an-mot", "verifiedDate": "2026-10-02",
+      "previous": { "value": 54.85, "period": "2025-26" } }
+  ]
+}

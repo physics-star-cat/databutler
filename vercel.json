@@ -101,7 +101,7 @@
   "functions": {
     "api/router.js": {
       "maxDuration": 60,
-      "includeFiles": "{docs/CHANGES_PROTOCOL.md,docs/FACTS_PROTOCOL.md,api/_areas/**,data/**}"
+      "includeFiles": "{docs/CHANGES_PROTOCOL.md,docs/FACTS_PROTOCOL.md,public/schema/**,api/_areas/**,data/**}"
     }
   }
 }
