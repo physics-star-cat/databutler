@@ -33,4 +33,18 @@ async function callTool(handler, name, args = {}) {
   return { isError, data: safeParse(text), text };
 }
 
-module.exports = { invoke, rpc, callTool };
+/* vercel.json rewrites, applied as Vercel would (tests/protocol.test.js, tests/facts-http.test.js). */
+const VERCEL = JSON.parse(require('node:fs').readFileSync(require('node:path').join(__dirname, '..', 'vercel.json'), 'utf8'));
+/** A vercel.json rewrite source as the anchored regex Vercel applies. */
+const sourceRe = (source) => new RegExp(`^${source.replace(/\(\.[*+]\)/g, (g) => (g === '(.*)' ? '\u0001' : '\u0002')).replace(/[.]/g, '\\.').replace(/\u0001/g, '(.*)').replace(/\u0002/g, '(.+)')}$`);
+/** First rewrite whose source matches the path, with $1 etc. substituted in its destination — what Vercel would dispatch. */
+function rewriteFor(p) {
+  for (const r of VERCEL.rewrites) {
+    const m = sourceRe(r.source).exec(p);
+    if (m) return { ...r, destination: r.destination.replace(/\$(\d)/g, (_, i) => m[Number(i)]) };
+  }
+  return undefined;
+}
+const routeOf = (destination) => new URL(destination, 'https://databutler.dev').searchParams.get('route');
+
+module.exports = { invoke, rpc, callTool, rewriteFor, routeOf, VERCEL };

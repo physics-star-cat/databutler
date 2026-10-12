@@ -28,3 +28,11 @@ test('live tools get the short window', () => {
   const { cacheHeaders } = require('../api/_rest');
   assert.match(cacheHeaders({ openWorld: true })['Cache-Control'], /s-maxage=300/);
 });
+
+test('a fact record caches 1 h at the edge; a fact miss is never cached', async () => {
+  const hit = await get('/api/router?route=f&key=uk/income-tax/personal-allowance');
+  assert.match(hit.headers['Cache-Control'], /s-maxage=3600/);
+  const miss = await get('/api/router?route=f&key=zz/no/such-fact');
+  assert.equal(miss.status, 404);
+  assert.equal(miss.headers['Cache-Control'], 'no-store');
+});

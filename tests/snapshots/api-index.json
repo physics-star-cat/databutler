@@ -48,6 +48,10 @@
       "description": "Protocol discovery document: areas tracked, cadence, endpoints (json/html/rss/atom/mcp), schema URL, licence, contact.",
       "example": "https://databutler.dev/.well-known/changes.json"
     },
+    "GET /.well-known/facts.json": {
+      "description": "Verified Facts discovery document: namespaces, endpoints, key examples, conformance level, keys (JWKS), OpenAPI and MCP.",
+      "example": "https://databutler.dev/.well-known/facts.json"
+    },
     "GET /api/calendar": {
       "description": "Calendar facts for 2026–2028, verified 2026-10-04: kind=holidays — public holidays by region for uk, us, de, fr from gov.uk, OPM, the German Länder and calendrier.api.gouv.fr; kind=tax-year — start/end and periods for uk, us, au, in, ca, de, fr, br, pl with the statute quoted; kind=dst — daylight-saving rule and switch dates for uk, de, fr, us, au, br. Empty query lists coverage; unknown country/region/year answers covered:false with nearest.",
       "example": "https://databutler.dev/api/calendar?country=uk&kind=holidays&year=2027&region=scotland",
@@ -279,9 +283,40 @@
       "description": "RSS 2.0 feed of the changelog (?area= optional). guid = permalink on /changes, link = official source, pubDate = verifiedDate.",
       "example": "https://databutler.dev/changes.rss"
     },
+    "GET /f": {
+      "description": "The fact index: every key with label, unit, period, verifiedDate and hash (?namespace=uk|us|de|eu; ?format=html for the page with schema.org Dataset). ?keys=k1,k2 (or POST /f {\"keys\": [...]}) is a batch of up to 50.",
+      "example": "https://databutler.dev/f?keys=uk/income-tax/personal-allowance,us/social-security/wage-base"
+    },
+    "GET /f/resolve": {
+      "description": "Ranked canonical fact keys for a question or a guessed key, with the full record of an unambiguous top match.",
+      "example": "https://databutler.dev/f/resolve?q=NI%20primary%20threshold",
+      "params": {
+        "limit": "1–20 (default 5)",
+        "namespace": "optional: uk | us | de | eu",
+        "q": "question or loose key"
+      }
+    },
+    "GET /f/{key}": {
+      "description": "Verified Facts (verified-facts/0.2): one official figure by key — value, unit, period, effectiveFrom, official source, quote, verifiedDate, status against ?max_age=, a SHA-256 claim hash and an Ed25519 signature. Keys are <country>/<topic>/<fact>; a loose key resolves when unambiguous, otherwise 404 with candidates. ?format=txt (one line) | html (indexable page) | json; ?as_of=YYYY-MM-DD or ?period=2025-26 for a prior value held.",
+      "example": "https://databutler.dev/f/uk/income-tax/personal-allowance?max_age=30d",
+      "params": {
+        "as_of": "optional YYYY-MM-DD",
+        "format": "json (default) | txt | html",
+        "max_age": "optional: 30d | 12w | 6m | 1y | P30D",
+        "period": "optional period label, e.g. 2025-26"
+      }
+    },
+    "GET /openapi.json": {
+      "description": "OpenAPI 3.1 for the facts and changes endpoints (getFact, getFacts, resolveFact, whatChangedSince) — for LangChain / LlamaIndex OpenAPI tool loaders.",
+      "example": "https://databutler.dev/openapi.json"
+    },
     "GET /protocol": {
       "description": "The Verified Changes protocol v0.1 specification — the open convention /api/changes, /changes, the feeds and what_changed_since follow, so any site can publish dated, sourced from/to entries and any assistant can consume them. Indexable HTML; ?format=md returns the markdown.",
       "example": "https://databutler.dev/protocol"
+    },
+    "GET /protocol/facts": {
+      "description": "The Verified Facts protocol v0.2 specification (indexable HTML; ?format=md returns the markdown).",
+      "example": "https://databutler.dev/protocol/facts"
     },
     "GET /r/<route>?…": {
       "description": "Citation permalinks (human-readable answer + official source + verified date). Every API/MCP result includes one as cite.url.",
@@ -301,6 +336,7 @@
     },
     "POST /api/mcp/calendar": "Remote MCP server — tools calendar_facts, next_holiday (public holidays, tax years and daylight saving from the official lists and statutes, monthly snapshot).",
     "POST /api/mcp/de-rates": "Remote MCP server — tool de_rates_lookup (German tax and social-insurance figures, Veranlagungszeitraum 2026; committed data read from the statutes and the Bundesgesetzblatt).",
+    "POST /api/mcp/facts": "Remote MCP server databutler-facts — three tools: get_fact, resolve_fact, what_changed_since.",
     "POST /api/mcp/policy-rates": "Remote MCP server — tool policy_rate (Bank of England, Fed, ECB; committed data verified against the banks' own pages).",
     "POST /api/mcp/provenance": "Remote MCP server — tools domain_provenance, package_provenance.",
     "POST /api/mcp/software-eol": "Remote MCP server — tools support_status, support_timeline (monthly snapshot of endoflife.date open data for 14 runtimes, operating systems, PostgreSQL and React).",

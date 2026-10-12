@@ -13,6 +13,26 @@
   ],
   "rewrites": [
     {
+      "source": "/f",
+      "destination": "/api/router?route=f"
+    },
+    {
+      "source": "/f/(.*)",
+      "destination": "/api/router?route=f&key=$1"
+    },
+    {
+      "source": "/facts",
+      "destination": "/api/router?route=f"
+    },
+    {
+      "source": "/protocol/facts",
+      "destination": "/api/router?route=protocol&doc=facts"
+    },
+    {
+      "source": "/api/mcp/(.+)/server-card",
+      "destination": "/api/router?route=server-card&server=$1"
+    },
+    {
       "source": "/r/(.*)",
       "destination": "/api/router?route=r&path=$1"
     },
@@ -46,7 +66,7 @@
   "functions": {
     "api/router.js": {
       "maxDuration": 60,
-      "includeFiles": "{docs/CHANGES_PROTOCOL.md,api/_areas/**,data/**}"
+      "includeFiles": "{docs/CHANGES_PROTOCOL.md,docs/FACTS_PROTOCOL.md,api/_areas/**,data/**}"
     }
   }
 }

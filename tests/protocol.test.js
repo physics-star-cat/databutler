@@ -3,7 +3,7 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const { invoke, callTool } = require('./helpers');
+const { invoke, callTool, rewriteFor, routeOf } = require('./helpers');
 const { validate, assertValid } = require('../api/_schema_check');
 const { changesSince, CHANGELOG_AREAS, COVERAGE_START, PROTOCOL, SCHEMA_URL, WELL_KNOWN_URL, PROTOCOL_URL, PUBLISHER } = require('../api/_changelog');
 const { whatChangedSince, FRONT_DOOR_TOOLS } = require('../api/_hub');
@@ -30,17 +30,6 @@ const VERCEL = readJson('vercel.json');
 const ENTRY_FIELDS = ['area', 'key', 'label', 'from', 'to', 'effectiveFrom', 'source', 'verifiedDate', 'note'];
 const GOOD_ENTRY = CHANGELOG.find((e) => e.key === 'fr-recalls/dataset');
 
-/** A vercel.json rewrite source as the anchored regex Vercel applies. */
-const sourceRe = (source) => new RegExp(`^${source.replace(/\(\.[*+]\)/g, (g) => (g === '(.*)' ? '\u0001' : '\u0002')).replace(/[.]/g, '\\.').replace(/\u0001/g, '(.*)').replace(/\u0002/g, '(.+)')}$`);
-/** First rewrite whose source matches the path, with $1 etc. substituted in its destination — what Vercel would dispatch. */
-function rewriteFor(p) {
-  for (const r of VERCEL.rewrites) {
-    const m = sourceRe(r.source).exec(p);
-    if (m) return { ...r, destination: r.destination.replace(/\$(\d)/g, (_, i) => m[Number(i)]) };
-  }
-  return undefined;
-}
-const routeOf = (destination) => new URL(destination, 'https://databutler.dev').searchParams.get('route');
 
 /* ---------------- validator ---------------- */
 
