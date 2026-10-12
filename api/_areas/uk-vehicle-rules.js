@@ -189,7 +189,7 @@ module.exports = {
     key: (f) => f.key,
     effectiveFrom: (n, f) => f.effectiveFrom || vedYearStart(n.taxYear),
     periodStart: vedYearStart,
-    synonyms: { ved: 'ved-standard', 'road-tax': 'ved-standard', 'car-tax': 'ved-standard' },
+    synonyms: { ved: 'ved-standard', 'road-tax': 'ved-standard', 'car-tax': 'ved-standard', 'zero emission': '0g-km', 'zero-emission': '0g-km' },
   },
 
   verify: [

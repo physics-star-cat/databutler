@@ -14,6 +14,7 @@
 const { AREAS } = require('./_areas');
 const { FACT_KEY, factsFromCategories, BASE: PROTOCOL_BASE } = require('./_area_kit');
 const { hashOf } = require('./_facts_sign');
+const { levenshtein } = require('./_text');
 const { freshnessOf } = require('./_freshness');
 const { FACTS_PROTOCOL, PUBLISHER, FACTS_INDEX_URL } = require('./_changelog');
 
@@ -45,6 +46,23 @@ const HEAD = ['label', 'value', 'unit', 'period', 'effectiveFrom', 'effectiveTo'
 const TAIL = ['previous', 'scope', 'withdrawn', 'supersededBy'];
 
 const namespaceOf = (key) => String(key).split('/')[0];
+
+/* resolve's tokeniser (spec §6.2): lowercase, split on anything but letters, digits and dots, light stemming. */
+const HARD_STOP = new Set(['the', 'what', 'whats', 'is', 'are', 'was', 'a', 'an', 'of', 'for', 'in', 'on', 'to', 'and', 'or', 'how', 'much', 'many', 'does', 'do', 'my', 'i', 'me', 'please', 'tell', 'by', 'at', 'with', 'this', 'that', 'it']);
+const STOP = new Set([...HARD_STOP, 'current', 'currently', 'now', 'today', 'latest', 'value', 'rate']);
+/** Jurisdiction words → namespace (they filter candidates and are not matched as words). */
+const JURISDICTION = {
+  uk: 'uk', gb: 'uk', british: 'uk', britain: 'uk', hmrc: 'uk', 'gov.uk': 'uk', england: 'uk', dvla: 'uk',
+  us: 'us', usa: 'us', american: 'us', america: 'us', irs: 'us', federal: 'us', ssa: 'us',
+  de: 'de', german: 'de', germany: 'de', deutschland: 'de', bund: 'de',
+  eu: 'eu', ecb: 'eu', euro: 'eu', eurozone: 'eu', european: 'eu',
+};
+const stem = (t) => (t.length > 4 && /(x|ss|sh|ch)es$/.test(t) ? t.slice(0, -2) : t.length > 3 && /[^s]s$/.test(t) ? t.slice(0, -1) : t);
+function tokens(text, { keepStop = false, stop = STOP } = {}) {
+  const out = String(text ?? '').toLowerCase().split(/[^\p{L}\p{N}.]+/u).map((t) => t.replace(/^\.+|\.+$/g, '')).filter(Boolean)
+    .map((t) => (t.includes('.') && !/^\d+(\.\d+)+$/.test(t) && t !== 'gov.uk' ? t.split('.') : [t])).flat().filter(Boolean).map(stem);
+  return keepStop ? out : out.filter((t) => !stop.has(t) && !JURISDICTION[t]);
+}
 
 /** The dataset an area's facts are dated by: { key, data } (the area's single dataset). */
 function datasetOf(a) {
@@ -216,8 +234,8 @@ function makeFacts(areas = AREAS) {
     let canonical = INDEX.has(req) ? req : ALIASES.get(req);
     let resolved = null;
     if (!canonical) {
-      const r = resolveFact(req.replace(/[/_]+/g, ' '), { limit: 5, keyLike: req }, now);
-      if (!r.auto) return miss(req, r.candidates);
+      const r = resolveFact(req.replace(/[/_:]+/g, ' '), { limit: 5, keyLike: req }, now);
+      if (!r.auto) return miss(req, r.candidates || []);
       canonical = r.auto.key;
       resolved = { score: r.auto.score, matched: r.auto.matched };
     }
@@ -251,10 +269,126 @@ function makeFacts(areas = AREAS) {
     };
   }
 
-  /* ---------------- resolve (spec §6) — Task 4 ---------------- */
+  /* ---------------- resolve (spec §6) ---------------- */
 
-  function resolveFact(q, opts = {}) {
-    return { protocol: FACTS_PROTOCOL, query: q, candidates: [], auto: null };
+  // Query-side synonyms from every area (word or phrase → key words); each is an alternative, never a replacement.
+  const SYNONYMS = new Map();
+  for (const a of areas.filter((x) => x.facts)) {
+    for (const [from, to] of Object.entries(a.facts.synonyms || {})) {
+      const k = from.toLowerCase().trim();
+      SYNONYMS.set(k, [...new Set([...(SYNONYMS.get(k) || []), to.toLowerCase()])]);
+    }
+  }
+  const PHRASES = [...SYNONYMS.keys()].filter((k) => /[\s-]/.test(k)).sort((x, y) => y.length - x.length || x.localeCompare(y));
+
+  // Search surface per record, precomputed at cold start: key, label, topic, period and curated alias tokens.
+  const SURFACE = new Map();
+  for (const [key, r] of INDEX) {
+    const m = META.get(key);
+    // The surface keeps soft stop words ("rate" alone can match); names (precision) drop them.
+    const t = (x) => tokens(x, { stop: HARD_STOP });
+    const fields = {
+      key: t(key), label: t(r.label), topic: t(m.topic), period: t(r.period === null ? '' : String(r.period)),
+      alias: (r.aliases || []).flatMap((a) => t(a)),
+    };
+    const names = [tokens(key.split('/').pop()), tokens(r.label), ...(r.aliases || []).map((a) => tokens(a.split('/').pop()))].map((t) => new Set(t)).filter((n) => n.size);
+    SURFACE.set(key, { fields, all: new Set(Object.values(fields).flat()), keyTokens: new Set(fields.key), names });
+  }
+
+  /** Query → { namespaces, units } where each unit is a query word or synonym concept with its alternatives (token lists). */
+  function parseQuery(q) {
+    let text = ` ${String(q).toLowerCase().replace(/[’']s\b/g, '')} `;
+    const units = [];
+    for (const phrase of PHRASES) {
+      const re = new RegExp(`(^|[^\\p{L}\\p{N}])${phrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/[\s-]+/g, '[\\s-]+')}(?=$|[^\\p{L}\\p{N}])`, 'u');
+      if (re.test(text)) {
+        text = text.replace(re, '$1 ');
+        units.push({ word: phrase, synonym: true, alts: [tokens(phrase), ...SYNONYMS.get(phrase).map(tokens)].filter((t) => t.length) });
+      }
+    }
+    const raw = tokens(text, { keepStop: true });
+    const namespaces = new Set(raw.map((t) => JURISDICTION[t]).filter(Boolean));
+    let words = raw.filter((t) => !JURISDICTION[t] && !STOP.has(t));
+    if (!words.length && !units.length) words = raw.filter((t) => !JURISDICTION[t] && !HARD_STOP.has(t)); // "rate" alone stays
+    for (const w of [...new Set(words)]) {
+      const syn = SYNONYMS.get(w);
+      units.push(syn ? { word: w, synonym: true, alts: [[w], ...syn.map(tokens)].filter((t) => t.length) } : { word: w, alts: [[w]] });
+    }
+    return { namespaces, units };
+  }
+
+  /** Spec §6.2 scoring of one record against a parsed query; null when nothing matches. */
+  function scoreRecord(key, parsed) {
+    const S = SURFACE.get(key);
+    if (!parsed.units.length) return null;
+    const matched = new Set();
+    const hit = new Set(); // surface tokens the query reached
+    let weight = 0, exactUnits = 0, keyHits = 0;
+    for (const u of parsed.units) {
+      const ok = u.alts.filter((alt) => alt.every((t) => S.all.has(t))).sort((x, y) => y.length - x.length)[0];
+      if (ok) {
+        weight += 1; exactUnits += 1;
+        ok.forEach((t) => hit.add(t));
+        if (ok.every((t) => S.keyTokens.has(t))) keyHits += 1;
+        if (u.synonym && ok.join(' ') !== u.word) matched.add(`synonym:${u.word}`);
+        for (const [field, toks] of Object.entries(S.fields)) if (ok.every((t) => toks.includes(t))) { matched.add(field); break; }
+        continue;
+      }
+      const w = u.alts[0].length === 1 ? u.alts[0][0] : null;
+      const near = w && w.length >= 4 ? [...S.all].find((t) => t.length >= 4 && Math.abs(t.length - w.length) <= 2 && levenshtein(w, t) <= (w.length >= 5 ? 2 : 1)) : null;
+      if (near) { weight += 0.4; hit.add(near); matched.add(`fuzzy:${w}→${near}`); }
+    }
+    if (!weight) return null;
+    const coverage = weight / parsed.units.length;
+    const precision = Math.max(0, ...S.names.map((n) => [...n].filter((t) => hit.has(t)).length / n.size));
+    const keyFraction = keyHits / parsed.units.length;
+    const parts = hit.size;
+    let score = exactUnits === parsed.units.length
+      ? 0.39 + 0.5 * precision * precision + 0.01 * keyFraction
+      : 0.74 * coverage * (0.4 + 0.6 * precision) + 0.01 * keyFraction;
+    // One content word cannot carry a confident answer on its own ("rate", "threshold"): cap below the §6.3 bar.
+    if (parts < 2) score = Math.min(score, 0.79);
+    return { score: Math.round(score * 1000) / 1000, matched: [...matched] };
+  }
+
+  /** Ranked candidates (score desc, then key) for a question or loose key; exact key 1.0, alias 0.95, key suffix 0.9. */
+  function rank(q, { namespace, keyLike } = {}) {
+    const asKey = normaliseKey(keyLike || q);
+    if (INDEX.has(asKey)) return [{ key: asKey, score: 1, matched: ['key'] }];
+    if (ALIASES.has(asKey)) return [{ key: ALIASES.get(asKey), score: 0.95, matched: ['alias'] }];
+    const parsed = parseQuery(q);
+    const ns = namespace ? new Set([String(namespace).toLowerCase().trim()]) : parsed.namespaces;
+    const suffix = asKey.includes('/') ? `/${asKey}` : null;
+    const out = [];
+    for (const key of INDEX.keys()) {
+      if (ns.size && !ns.has(namespaceOf(key))) continue;
+      if (suffix && key.endsWith(suffix)) { out.push({ key, score: 0.9, matched: ['key-suffix'] }); continue; }
+      const s = scoreRecord(key, parsed);
+      if (s) out.push({ key, ...s });
+    }
+    return out.sort((x, y) => y.score - x.score || x.key.localeCompare(y.key));
+  }
+
+  /** The §6.3 rule: exactly one candidate ≥ 0.8 and the runner-up at least 0.2 lower. */
+  const confident = (list) => (list.length && list[0].score >= 0.8 && (list.length === 1 || list[1].score <= list[0].score - 0.2) ? list[0] : null);
+
+  /** resolve (spec §6.2): ranked canonical keys for a question or a guessed key, with the full record of an unambiguous top match. */
+  function resolveFact(q, opts = {}, now = new Date()) {
+    const query = String(q ?? '').trim();
+    if (!query) return { protocol: FACTS_PROTOCOL, covered: false, error: 'q is required', example: 'NI primary threshold' };
+    const n = Number(opts.limit);
+    const limit = Number.isInteger(n) && n >= 1 ? Math.min(n, 20) : 5;
+    const ranked = rank(query, opts);
+    const top = confident(ranked);
+    const candidates = ranked.slice(0, limit).map((c) => {
+      const r = INDEX.get(c.key);
+      return { key: c.key, label: r.label, unit: r.unit, period: r.period, verifiedDate: r.verifiedDate, score: c.score, matched: c.matched };
+    });
+    const out = { protocol: FACTS_PROTOCOL, query, ...(opts.namespace ? { namespace: String(opts.namespace).toLowerCase().trim() } : {}), candidates };
+    if (top) out.best = present(INDEX.get(top.key), { requestedKey: top.key, maxAgeDays: null, now, isCurrent: true });
+    out.hint = top ? 'best is the unambiguous top candidate; get takes its key' : 'no unambiguous match — best is present only when the top candidate is; pick a key and call get';
+    Object.defineProperty(out, 'auto', { value: top, enumerable: false });
+    return out;
   }
 
   /* ---------------- signatures (spec §8) — attached in Task 6 ---------------- */
@@ -270,4 +404,4 @@ function makeFacts(areas = AREAS) {
 
 const DEFAULT = makeFacts(AREAS);
 
-module.exports = { ...DEFAULT, makeFacts, datasetOf, namespaceOf, parseMaxAge, RESERVED, BATCH_LIMIT };
+module.exports = { ...DEFAULT, makeFacts, datasetOf, namespaceOf, parseMaxAge, tokens, RESERVED, BATCH_LIMIT };
