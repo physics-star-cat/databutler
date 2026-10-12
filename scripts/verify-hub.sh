@@ -23,7 +23,7 @@ check rest-changes "$(curl -sS "$BASE/api/changes?since=2026-06-01&area=uk-rates
 
 # sync-areas:checks start
 check tools/list "$(rpc '{"jsonrpc":"2.0","id":2,"method":"tools/list"}')" \
-  "[t['name'] for t in d['result']['tools']]==['uk_rates_lookup','exam_topic_paper','domain_provenance','package_provenance','take_home_pay','what_changed_since','coverage','catalogue','call']"
+  "[t['name'] for t in d['result']['tools']]==['uk_rates_lookup','exam_topic_paper','domain_provenance','package_provenance','take_home_pay','what_changed_since','get_fact','resolve_fact','coverage','catalogue','call']"
 check catalogue "$(inner "$(tool catalogue '{}')")" "d['count']==32"
 # uk-rates
 check rates "$(inner "$(tool uk_rates_lookup '{"category":"income-tax"}')")" \

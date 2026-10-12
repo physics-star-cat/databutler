@@ -3068,7 +3068,8 @@
           "effectiveFrom": "2026-04-06",
           "source": "https://www.gov.uk/state-pension/how-much-you-get",
           "verifiedDate": "2026-10-04",
-          "note": "Full basic State Pension: 176.45 → 184.9 GBP/week from 2026-04-06 — \"The full basic State Pension is £184.90 per week.\" (was: DWP Benefit and pension rates 2026 to 2027, column \"Rates 2025/26\")"
+          "note": "Full basic State Pension: 176.45 → 184.9 GBP/week from 2026-04-06 — \"The full basic State Pension is £184.90 per week.\" (was: DWP Benefit and pension rates 2026 to 2027, column \"Rates 2025/26\")",
+          "factKey": "uk/state-pension/full-basic-state-pension"
         },
         {
           "area": "uk-rates",
@@ -3081,7 +3082,8 @@
           "effectiveFrom": "2026-04-06",
           "source": "https://www.gov.uk/government/publications/benefit-and-pension-rates-2026-to-2027/proposed-benefit-and-pension-rates-2026-to-2027",
           "verifiedDate": "2026-10-04",
-          "note": "Basic State Pension, Category B (lower) — spouse or civil partner’s insurance: 105.7 → 110.75 GBP/week from 2026-04-06 — \"Category B (lower) basic pension - spouse or civil partner’s insurance | 105.70 | 110.75\" (was: DWP Benefit and pension rates 2026 to 2027, column \"Rates 2025/26\")"
+          "note": "Basic State Pension, Category B (lower) — spouse or civil partner’s insurance: 105.7 → 110.75 GBP/week from 2026-04-06 — \"Category B (lower) basic pension - spouse or civil partner’s insurance | 105.70 | 110.75\" (was: DWP Benefit and pension rates 2026 to 2027, column \"Rates 2025/26\")",
+          "factKey": "uk/state-pension/basic-state-pension-category-b-lower-spouse-or-civil-partner-s-insurance"
         },
         {
           "area": "uk-rates",
@@ -3094,7 +3096,8 @@
           "effectiveFrom": "2026-04-06",
           "source": "https://www.gov.uk/government/news/over-12-million-pensioners-to-receive-575-state-pension-boost",
           "verifiedDate": "2026-10-04",
-          "note": "Triple-lock uprating applied in April 2026: none → 4.8 % from 2026-04-06 — \"The full rate of the new State Pension will increase by 4.8% in line with the increase in average earnings from £230.25 to £241.30 a week. The full basic State Pension will increase from £176.45 to £184.90 a week.\""
+          "note": "Triple-lock uprating applied in April 2026: none → 4.8 % from 2026-04-06 — \"The full rate of the new State Pension will increase by 4.8% in line with the increase in average earnings from £230.25 to £241.30 a week. The full basic State Pension will increase from £176.45 to £184.90 a week.\"",
+          "factKey": "uk/state-pension/triple-lock-uprating-applied-in-april-2026"
         },
         {
           "area": "uk-rates",
@@ -3107,7 +3110,8 @@
           "effectiveFrom": "2026-04-06",
           "source": "https://www.gov.uk/capital-gains-tax/rates",
           "verifiedDate": "2026-10-04",
-          "note": "Business Asset Disposal Relief rate: 14 → 18 % from 2026-04-06 — \"From 6 April 2026 you’ll pay 18% if you’re a sole trader, partnership or trustee and your gains qualify for Business Asset Disposal Relief.\" (was: Capital Gains Tax rates — UK Government Web Archive capture 30 June 2025)"
+          "note": "Business Asset Disposal Relief rate: 14 → 18 % from 2026-04-06 — \"From 6 April 2026 you’ll pay 18% if you’re a sole trader, partnership or trustee and your gains qualify for Business Asset Disposal Relief.\" (was: Capital Gains Tax rates — UK Government Web Archive capture 30 June 2025)",
+          "factKey": "uk/capital-gains/business-asset-disposal-relief-rate"
         },
         {
           "area": "uk-rates",
@@ -3120,7 +3124,8 @@
           "effectiveFrom": "2026-04-06",
           "source": "https://www.gov.uk/capital-gains-tax/rates",
           "verifiedDate": "2026-10-04",
-          "note": "Carried interest: 32% Capital Gains Tax → not subject to Capital Gains Tax from 6 April 2026 — charged to Income Tax and National Insurance instead rule from 2026-04-06 — \"You do not pay Capital Gains Tax on certain assets, including any gains you make from: … carried interest (from 6 April 2026). You’ll pay Income Tax and National Insurance contributions on carried interest you receive from 6 April 2026 instead.\" (was: Capital Gains Tax rates — UK Government Web Archive capture 30 June 2025)"
+          "note": "Carried interest: 32% Capital Gains Tax → not subject to Capital Gains Tax from 6 April 2026 — charged to Income Tax and National Insurance instead rule from 2026-04-06 — \"You do not pay Capital Gains Tax on certain assets, including any gains you make from: … carried interest (from 6 April 2026). You’ll pay Income Tax and National Insurance contributions on carried interest you receive from 6 April 2026 instead.\" (was: Capital Gains Tax rates — UK Government Web Archive capture 30 June 2025)",
+          "factKey": "uk/capital-gains/carried-interest"
         },
         {
           "area": "uk-rates",
@@ -3133,7 +3138,8 @@
           "effectiveFrom": "2026-04-06",
           "source": "https://www.gov.uk/tax-on-dividends",
           "verifiedDate": "2026-10-04",
-          "note": "Dividend basic rate: 8.75 → 10.75 % from 2026-04-06 — \"This table shows the rates from 6 April 2026 to 5 April 2027. | Basic rate | 10.75%\" (was: HMRC Income Tax rates and allowances for current and previous tax years, column \"2025 to 2026\")"
+          "note": "Dividend basic rate: 8.75 → 10.75 % from 2026-04-06 — \"This table shows the rates from 6 April 2026 to 5 April 2027. | Basic rate | 10.75%\" (was: HMRC Income Tax rates and allowances for current and previous tax years, column \"2025 to 2026\")",
+          "factKey": "uk/dividends/dividend-basic-rate"
         },
         {
           "area": "uk-rates",
@@ -3146,7 +3152,8 @@
           "effectiveFrom": "2026-04-06",
           "source": "https://www.gov.uk/tax-on-dividends",
           "verifiedDate": "2026-10-04",
-          "note": "Dividend higher rate: 33.75 → 35.75 % from 2026-04-06 — \"Higher rate | 35.75%\" (was: HMRC Income Tax rates and allowances for current and previous tax years, column \"2025 to 2026\")"
+          "note": "Dividend higher rate: 33.75 → 35.75 % from 2026-04-06 — \"Higher rate | 35.75%\" (was: HMRC Income Tax rates and allowances for current and previous tax years, column \"2025 to 2026\")",
+          "factKey": "uk/dividends/dividend-higher-rate"
         },
         {
           "area": "uk-rates",
@@ -3159,7 +3166,8 @@
           "effectiveFrom": "2026-04-06",
           "source": "https://www.gov.uk/statutory-sick-pay/what-youll-get",
           "verifiedDate": "2026-10-04",
-          "note": "SSP weekly rate: 118.75 → 123.25 GBP/week from 2026-04-06 — \"If you’re eligible, you can get £123.25 a week Statutory Sick Pay (SSP) or 80% of your normal weekly earnings - whichever is lower. It’s paid for up to 28 weeks.\" (was: DWP Benefit and pension rates 2026 to 2027, column \"Rates 2025/26\")"
+          "note": "SSP weekly rate: 118.75 → 123.25 GBP/week from 2026-04-06 — \"If you’re eligible, you can get £123.25 a week Statutory Sick Pay (SSP) or 80% of your normal weekly earnings - whichever is lower. It’s paid for up to 28 weeks.\" (was: DWP Benefit and pension rates 2026 to 2027, column \"Rates 2025/26\")",
+          "factKey": "uk/statutory-sick-pay/ssp-weekly-rate"
         },
         {
           "area": "uk-rates",
@@ -3172,7 +3180,8 @@
           "effectiveFrom": "2026-04-06",
           "source": "https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027",
           "verifiedDate": "2026-10-04",
-          "note": "SSP amount rule: flat £118.75 a week; employee had to earn an average of at least £125 a week → the lower of £123.25 a week or 80% of normal weekly earnings rule from 2026-04-06 — \"The weekly rate of Statutory Sick Pay (SSP) for 2026 to 2027 is £123.25 or 80% of the employee’s average weekly earnings, whichever is lower.\" (was: Statutory Sick Pay — UK Government Web Archive capture 3 July 2025)"
+          "note": "SSP amount rule: flat £118.75 a week; employee had to earn an average of at least £125 a week → the lower of £123.25 a week or 80% of normal weekly earnings rule from 2026-04-06 — \"The weekly rate of Statutory Sick Pay (SSP) for 2026 to 2027 is £123.25 or 80% of the employee’s average weekly earnings, whichever is lower.\" (was: Statutory Sick Pay — UK Government Web Archive capture 3 July 2025)",
+          "factKey": "uk/statutory-sick-pay/ssp-amount-rule"
         },
         {
           "area": "uk-rates",
@@ -3185,7 +3194,8 @@
           "effectiveFrom": "2026-04-06",
           "source": "https://www.gov.uk/statutory-sick-pay/what-youll-get",
           "verifiedDate": "2026-10-04",
-          "note": "SSP paid from: fourth qualifying day (first 3 days unpaid) → first day of sickness rule from 2026-04-06 — \"You’ll be paid SSP for all the full days you’re off sick that you normally would have worked. (Employer guide: SSP is paid “for each day they’re off work from the first day of illness”.)\" (was: Statutory Sick Pay — UK Government Web Archive capture 3 July 2025)"
+          "note": "SSP paid from: fourth qualifying day (first 3 days unpaid) → first day of sickness rule from 2026-04-06 — \"You’ll be paid SSP for all the full days you’re off sick that you normally would have worked. (Employer guide: SSP is paid “for each day they’re off work from the first day of illness”.)\" (was: Statutory Sick Pay — UK Government Web Archive capture 3 July 2025)",
+          "factKey": "uk/statutory-sick-pay/ssp-paid-from"
         },
         {
           "area": "uk-rates",
@@ -3198,7 +3208,8 @@
           "effectiveFrom": "2026-04-05",
           "source": "https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027",
           "verifiedDate": "2026-10-04",
-          "note": "Statutory Maternity Pay — next 33 weeks: 187.18 → 194.32 GBP/week from 2026-04-05 — \"SMP — weekly rate for remaining weeks | £194.32 or 90% of the employee’s average weekly earnings, whichever is lower. (Maternity pay guide: “£194.32 or 90% of your average weekly earnings (whichever is lower) for the next 33 weeks”.) The Statutory Maternity Pay (SMP) rate applies from 5 April 2026. All other rates apply from 6 April 2026.\" (was: DWP Benefit and pension rates 2026 to 2027, column \"Rates 2025/26\")"
+          "note": "Statutory Maternity Pay — next 33 weeks: 187.18 → 194.32 GBP/week from 2026-04-05 — \"SMP — weekly rate for remaining weeks | £194.32 or 90% of the employee’s average weekly earnings, whichever is lower. (Maternity pay guide: “£194.32 or 90% of your average weekly earnings (whichever is lower) for the next 33 weeks”.) The Statutory Maternity Pay (SMP) rate applies from 5 April 2026. All other rates apply from 6 April 2026.\" (was: DWP Benefit and pension rates 2026 to 2027, column \"Rates 2025/26\")",
+          "factKey": "uk/statutory-parental-pay/statutory-maternity-pay-next-33-weeks"
         },
         {
           "area": "uk-rates",
@@ -3211,7 +3222,8 @@
           "effectiveFrom": "2026-04-06",
           "source": "https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027",
           "verifiedDate": "2026-10-04",
-          "note": "Statutory Paternity Pay: 187.18 → 194.32 GBP/week from 2026-04-06 — \"Statutory Paternity Pay (SPP) — weekly rate | £194.32 or 90% of the employee’s average weekly earnings, whichever is lower\" (was: DWP Benefit and pension rates 2026 to 2027, column \"Rates 2025/26\")"
+          "note": "Statutory Paternity Pay: 187.18 → 194.32 GBP/week from 2026-04-06 — \"Statutory Paternity Pay (SPP) — weekly rate | £194.32 or 90% of the employee’s average weekly earnings, whichever is lower\" (was: DWP Benefit and pension rates 2026 to 2027, column \"Rates 2025/26\")",
+          "factKey": "uk/statutory-parental-pay/statutory-paternity-pay"
         },
         {
           "area": "uk-rates",
@@ -3224,7 +3236,8 @@
           "effectiveFrom": "2026-04-06",
           "source": "https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027",
           "verifiedDate": "2026-10-04",
-          "note": "Statutory Adoption Pay — after first 6 weeks: 187.18 → 194.32 GBP/week from 2026-04-06 — \"SAP — weekly rate for remaining weeks | £194.32 or 90% of the employee’s average weekly earnings, whichever is lower\" (was: DWP Benefit and pension rates 2026 to 2027, column \"Rates 2025/26\")"
+          "note": "Statutory Adoption Pay — after first 6 weeks: 187.18 → 194.32 GBP/week from 2026-04-06 — \"SAP — weekly rate for remaining weeks | £194.32 or 90% of the employee’s average weekly earnings, whichever is lower\" (was: DWP Benefit and pension rates 2026 to 2027, column \"Rates 2025/26\")",
+          "factKey": "uk/statutory-parental-pay/statutory-adoption-pay-after-first-6-weeks"
         },
         {
           "area": "uk-rates",
@@ -3237,7 +3250,8 @@
           "effectiveFrom": "2026-04-06",
           "source": "https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027",
           "verifiedDate": "2026-10-04",
-          "note": "Statutory Shared Parental Pay: 187.18 → 194.32 GBP/week from 2026-04-06 — \"Statutory Shared Parental Pay (ShPP) — weekly rate | £194.32 or 90% of the employee’s average weekly earnings, whichever is lower\" (was: DWP Benefit and pension rates 2026 to 2027, column \"Rates 2025/26\")"
+          "note": "Statutory Shared Parental Pay: 187.18 → 194.32 GBP/week from 2026-04-06 — \"Statutory Shared Parental Pay (ShPP) — weekly rate | £194.32 or 90% of the employee’s average weekly earnings, whichever is lower\" (was: DWP Benefit and pension rates 2026 to 2027, column \"Rates 2025/26\")",
+          "factKey": "uk/statutory-parental-pay/statutory-shared-parental-pay"
         },
         {
           "area": "uk-rates",
@@ -3250,7 +3264,8 @@
           "effectiveFrom": "2026-04-06",
           "source": "https://www.gov.uk/government/publications/benefit-and-pension-rates-2026-to-2027/proposed-benefit-and-pension-rates-2026-to-2027",
           "verifiedDate": "2026-10-04",
-          "note": "Earnings threshold to qualify: 125 → 129 GBP/week from 2026-04-06 — \"earn on average at least £129 a week (maternity pay guide, eligibility); Statutory Maternity Pay | Earnings threshold | 125.00 | 129.00\" (was: DWP Benefit and pension rates 2026 to 2027, column \"Rates 2025/26\")"
+          "note": "Earnings threshold to qualify: 125 → 129 GBP/week from 2026-04-06 — \"earn on average at least £129 a week (maternity pay guide, eligibility); Statutory Maternity Pay | Earnings threshold | 125.00 | 129.00\" (was: DWP Benefit and pension rates 2026 to 2027, column \"Rates 2025/26\")",
+          "factKey": "uk/statutory-parental-pay/earnings-threshold-to-qualify"
         },
         {
           "area": "uk-rates",
@@ -3263,7 +3278,8 @@
           "effectiveFrom": "2026-04-06",
           "source": "https://www.gov.uk/child-benefit/what-youll-get",
           "verifiedDate": "2026-10-04",
-          "note": "Eldest or only child: 26.05 → 27.05 GBP/week from 2026-04-06 — \"Eldest or only child | £27.05\" (was: Child Benefit — UK Government Web Archive capture 2 July 2025)"
+          "note": "Eldest or only child: 26.05 → 27.05 GBP/week from 2026-04-06 — \"Eldest or only child | £27.05\" (was: Child Benefit — UK Government Web Archive capture 2 July 2025)",
+          "factKey": "uk/child-benefit/eldest-or-only-child"
         },
         {
           "area": "uk-rates",
@@ -3276,7 +3292,8 @@
           "effectiveFrom": "2026-04-06",
           "source": "https://www.gov.uk/child-benefit/what-youll-get",
           "verifiedDate": "2026-10-04",
-          "note": "Additional children (each): 17.25 → 17.9 GBP/week from 2026-04-06 — \"Additional children | £17.90 per child\" (was: Child Benefit — UK Government Web Archive capture 2 July 2025)"
+          "note": "Additional children (each): 17.25 → 17.9 GBP/week from 2026-04-06 — \"Additional children | £17.90 per child\" (was: Child Benefit — UK Government Web Archive capture 2 July 2025)",
+          "factKey": "uk/child-benefit/additional-children-each"
         }
       ],
       "freshness": {

@@ -40,7 +40,7 @@ module.exports = {
       freshness: 'policy-rates', // a dataset key below, or 'live'
       cite: (args) => ({ path: 'policy-rates', query: { bank: args.bank } }),  // → https://databutler.dev/r/<path>?…
       openWorld: true,           // optional: fetches live external data → annotations.openWorldHint
-      frontDoor: true,           // optional: listed directly at POST /api/mcp — at most 5 direct + 4 hub tools = 9 listed
+      frontDoor: true,           // optional: listed directly at POST /api/mcp — at most 5 direct + 6 hub tools = 11 listed
     }],
   },
 
@@ -148,8 +148,8 @@ is present and typed as shown; tool names, REST paths and `order` are unique
 across areas; a changelog area has `discovery`; a committed data file is under
 1 MB unless the dataset says `large: '…'`; tool descriptions are plain
 statements (no "use this", "always", "never", "call this", "do not") for every
-area added after the kit; the front door lists **at most 5 direct tools + the 4
-hub tools = 9**; every server's `server-<key>.json` matches its module;
+area added after the kit; the front door lists **at most 5 direct tools + the 6
+hub tools = 11**; every server's `server-<key>.json` matches its module;
 `node scripts/sync-areas.js --check` passes.
 
 ## The categories → figures data shape and the kit's helpers

@@ -109,7 +109,7 @@ const REST_HAPPY = [
 
 test('snapshot: tools/list and initialize for every MCP server, byte for byte', async () => {
   const out = {};
-  for (const key of [...Object.keys(SERVERS).map((k) => `mcp/${k}`), 'mcp']) {
+  for (const key of [...Object.keys(SERVERS).map((k) => `mcp/${k}`), 'mcp/facts', 'mcp']) {
     const h = router.ROUTES[key];
     const init = await rpc(h, 'initialize', INIT);
     const list = await rpc(h, 'tools/list');

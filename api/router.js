@@ -28,8 +28,13 @@ const ROUTES = {
   'protocol': require('./_routes/protocol'),
   'r': require('./_routes/r'),
   'f': require('./_routes/f'),
+  'mcp/facts': require('./_routes/mcp-facts'),
+  'server-card': require('./_routes/server-card'),
   'cron/watch-sources': require('./_routes/cron/watch-sources'),
 };
+
+// mcp/facts is the Verified Facts server (registered before the area servers); an area may not take its key.
+if (SERVERS.facts) throw new Error('api/_areas: server key "facts" is reserved for the Verified Facts server (api/_routes/mcp-facts.js)');
 
 for (const [key, server] of Object.entries(SERVERS)) ROUTES[`mcp/${key}`] = makeMcpHandler(server);
 for (const r of restRoutes()) {

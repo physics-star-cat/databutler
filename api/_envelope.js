@@ -30,10 +30,12 @@ function queryString(query = {}) {
 
 function citeFor(tool, args, freshness, result) {
   if (typeof tool.cite !== 'function') return null;
-  const target = tool.cite(args || {});
+  const target = tool.cite(args || {}, result);
   if (!target) return null;
   const qs = queryString(target.query);
-  const url = `${BASE}/r/${target.path}${qs ? `?${qs}` : ''}`;
+  // Verified Facts pages (/f, /f/<key>) are their own permalinks; everything else cites the /r answer page.
+  const page = target.path === 'f' || String(target.path).startsWith('f/') ? target.path : `r/${target.path}`;
+  const url = `${BASE}/${page}${qs ? `?${qs}` : ''}`;
   let text = 'databutler.dev';
   if (freshness) text += freshness.staleness === 'live' ? `, computed live ${freshness.verifiedDate}` : `, verified ${freshness.verifiedDate}`;
   const source = findSource(result);
@@ -44,7 +46,8 @@ function citeFor(tool, args, freshness, result) {
 function withEnvelope(tool, args, result) {
   const base = result && typeof result === 'object' && !Array.isArray(result) ? result : { result };
   try {
-    const freshness = freshnessFor(tool.freshness);
+    // freshness is a dataset key, 'live', or (Verified Facts tools) a function of the call → one of those
+    const freshness = freshnessFor(typeof tool.freshness === 'function' ? tool.freshness(args || {}, base) : tool.freshness);
     const cite = citeFor(tool, args, freshness, base);
     return { ...ATTRIBUTION, ...base, ...(freshness ? { freshness } : {}), ...(cite ? { cite } : {}) };
   } catch {

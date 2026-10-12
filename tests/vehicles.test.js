@@ -255,7 +255,7 @@ test('/api/mcp/vehicles lists the 9 tools; results carry the envelope with datas
 
 test('front door: vehicles tools are behind call (not listed), reachable, and catalogued', async () => {
   const list = await rpc(frontDoor, 'tools/list');
-  assert.equal(list.body.result.tools.length, 9);
+  assert.equal(list.body.result.tools.length, 11);
   assert.ok(!list.body.result.tools.some((t) => t.name.startsWith('fr_') || t.name.startsWith('jp_') || t.name.startsWith('uk_mot')));
   const m = mockFetch(() => jsonResponse(200, { count: 1, vehicles: [{ id: 5, make: 'Volkswagen', model: 'GOLF Mk7' }], attribution: 'whatbreaks.uk', link: 'https://whatbreaks.uk/', docs: 'https://whatbreaks.uk/api' }));
   try {

@@ -71,11 +71,11 @@ test('house rule: tool descriptions are plain statements (no imperatives) for ev
   }
 });
 
-test('front door DIRECT = the tools flagged frontDoor, in area order; house rule: at most 5 direct + 4 hub tools = 9 listed', () => {
+test('front door DIRECT = the tools flagged frontDoor, in area order; house rule: at most 5 direct + 6 hub tools = 11 listed', () => {
   assert.deepEqual(DIRECT, frontDoorTools());
   assert.ok(DIRECT.length <= 5, 'the front door stays small — promote deliberately (docs/ADDING_AN_AREA.md)');
-  assert.equal(HUB_TOOLS.length, 4);
-  assert.ok(DIRECT.length + HUB_TOOLS.length <= 9);
+  assert.equal(HUB_TOOLS.length, 6);
+  assert.ok(DIRECT.length + HUB_TOOLS.length <= 11);
 });
 
 test('every focused server has a registry manifest server-<key>.json generated from server.description (sync-areas writes it)', () => {

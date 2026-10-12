@@ -16,7 +16,9 @@ test('router: every hand-written handler and every area-derived route is reachab
       if (fs.statSync(p).isDirectory()) walk(p); else if (f.endsWith('.js')) files.push(p);
     }
   })(path.join(__dirname, '../api/_routes'));
-  const handWritten = files.map((f) => path.relative(path.join(__dirname, '../api/_routes'), f).replace(/\.js$/, ''));
+  // a hand-written handler is routed under its file name, except the Verified Facts server (mcp-facts.js → mcp/facts)
+  const ROUTE_NAME = { 'mcp-facts': 'mcp/facts' };
+  const handWritten = files.map((f) => path.relative(path.join(__dirname, '../api/_routes'), f).replace(/\.js$/, '')).map((n) => ROUTE_NAME[n] || n);
   const { SERVERS } = require('../api/_registry');
   const { restRoutes } = require('../api/_areas');
   const derived = [...Object.keys(SERVERS).map((k) => `mcp/${k}`), ...restRoutes().map((r) => r.path)];

@@ -58,7 +58,7 @@ Add the script to `.github/workflows/refresh-datasets.yml` for the monthly PR.
 
 - **Plain-statement tool descriptions** — no "use this", "always", "never", "call this", "do not".
 - **Freshness:** `due` from `nextScheduledRefresh`, `overdue` 14 days later; state it in `discovery.cadence`.
-- **Front door:** at most 5 direct tools (`frontDoor: true`) + 4 hub tools = 9 listed.
+- **Front door:** at most 5 direct tools (`frontDoor: true`) + 6 hub tools (what_changed_since, get_fact, resolve_fact, coverage, catalogue, call) = 11 listed.
 - **Cite path:** every `cite()` path is a REST mirror (or a `cite` override). **Data file < 1 MB**
   (else `large: 'reason'`). **URLs are forever:** paths, tool names, slugs never change once deployed.
 - **Tests stay offline** (`verify` is the live check); count-pinning tests derive from the modules.

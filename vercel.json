@@ -29,6 +29,10 @@
       "destination": "/api/router?route=protocol&doc=facts"
     },
     {
+      "source": "/api/mcp/server-card",
+      "destination": "/api/router?route=server-card&server=databutler"
+    },
+    {
       "source": "/api/mcp/(.+)/server-card",
       "destination": "/api/router?route=server-card&server=$1"
     },

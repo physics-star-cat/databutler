@@ -176,9 +176,9 @@ test('unknown bank → covered:false with nearest keys, coverage and notCovered 
 
 /* ---------------- front door ---------------- */
 
-test('front door: policy_rate stays behind call (the 9 listed tools are unchanged), is catalogued, and the descriptions name it', async () => {
+test('front door: policy_rate stays behind call (the 11 listed tools are unchanged), is catalogued, and the descriptions name it', async () => {
   const list = await rpc(frontDoor, 'tools/list');
-  assert.equal(list.body.result.tools.length, 9);
+  assert.equal(list.body.result.tools.length, 11);
   assert.ok(!list.body.result.tools.some((t) => t.name === 'policy_rate'));
   const via = await callTool(frontDoor, 'call', { tool: 'policy_rate', arguments: { bank: 'fed' } });
   assert.equal(via.isError, false);

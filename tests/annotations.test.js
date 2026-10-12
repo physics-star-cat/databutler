@@ -15,6 +15,8 @@ async function listedTools() {
     const r = await rpc(require('../api/router').ROUTES[`mcp/${key}`], 'tools/list');
     out.push(...r.body.result.tools.map((t) => ({ ...t, _server: key })));
   }
+  const fs = await rpc(require('../api/router').ROUTES['mcp/facts'], 'tools/list');
+  out.push(...fs.body.result.tools.map((t) => ({ ...t, _server: 'facts' })));
   const fd = await rpc(frontDoor, 'tools/list');
   out.push(...fd.body.result.tools.map((t) => ({ ...t, _server: 'front-door' })));
   return out;

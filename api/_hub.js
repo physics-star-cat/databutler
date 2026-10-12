@@ -1,5 +1,7 @@
 /**
- * The front door's own tools: what_changed_since, coverage, catalogue, call.
+ * The front door's own tools: what_changed_since, get_fact, resolve_fact, coverage, catalogue, call.
+ * get_fact and resolve_fact are the Verified Facts tools (api/_facts_tools.js); FACTS_SERVER is the
+ * dedicated three-tool server (get_fact, resolve_fact, what_changed_since) at /api/mcp/facts.
  * Shared by api/_routes/mcp.js (MCP) and api/_routes/changes.js (REST mirror).
  *
  * The area-specific wording in these descriptions is assembled from each area
@@ -14,6 +16,14 @@ const { coverageFor, AREAS } = require('./_coverage');
 const { nearest } = require('./_text');
 const { AREAS: AREA_LIST, frontDoorTools, hubPhrases } = require('./_areas');
 const { joinList } = require('./_area_kit');
+const { factKeyFor } = require('./_facts');
+const { getFact, resolveFact, FACTS_SERVER_BASE } = require('./_facts_tools');
+
+/** A changes document whose entries name the fact key an agent then gets (spec §9.2: entries carry factKey). */
+function withFactKeys(doc) {
+  if (!doc || !Array.isArray(doc.entries)) return doc;
+  return { ...doc, entries: doc.entries.map((e) => { const k = factKeyFor(e); return k ? { ...e, factKey: k } : e; }) };
+}
 
 const HUB_URL = `${BASE}/api/mcp`;
 const DIRECT = frontDoorTools();
@@ -33,7 +43,8 @@ const whatChangedSince = {
     `(e.g. which Budget). Areas: ${CHANGELOG_AREAS.join(', ')}, or all. Coverage starts ${COVERAGE_START}. ` +
     'The same changelog is published for humans at https://databutler.dev/changes, with feeds at ' +
     'https://databutler.dev/changes.rss and https://databutler.dev/changes.atom. Output is a Verified Changes ' +
-    'protocol document (verified-changes/0.1, spec https://databutler.dev/protocol).',
+    'protocol document (verified-changes/0.1, spec https://databutler.dev/protocol); an entry whose figure is a Verified Fact ' +
+    'carries factKey for get_fact.',
   inputSchema: {
     type: 'object',
     properties: {
@@ -42,7 +53,7 @@ const whatChangedSince = {
     },
     required: ['since'],
   },
-  run: (a) => changesSince(a),
+  run: (a) => withFactKeys(changesSince(a)),
   freshness: 'live',
   cite: (a) => ({ path: 'changes', query: { since: String(a.since || '').slice(0, 10), area: a.area || 'all' } }),
 };
@@ -123,25 +134,41 @@ call.delegate = (a) => {
   return t ? { tool: t, args: a.arguments || {} } : { tool: call, args: a };
 };
 
-const HUB_TOOLS = [whatChangedSince, coverage, catalogue, call].map(annotate);
+const HUB_TOOLS = [whatChangedSince, getFact, resolveFact, coverage, catalogue, call].map(annotate);
 // ALL_TOOLS entries also carry server/serverUrl (added by the registry's
 // aggregation); strip them here so tools/list stays clean for direct tools.
 const stripRegistryFields = ({ server, serverUrl, ...t }) => t;
 const FRONT_DOOR_TOOLS = [...DIRECT.map((n) => stripRegistryFields(ALL_TOOLS[n])), ...HUB_TOOLS];
 
-/** The front door's initialize instructions; sentence (4) and the closing rules come from the areas. */
+/** The front door's initialize instructions; sentence (5) and the closing rules come from the areas. */
 const FRONT_DOOR_INSTRUCTIONS =
   'Data Butler (databutler.dev): verified reference data for AI agents, with an official source and ' +
-  'verifiedDate on every figure. (1) Start any UK money, tax, benefits or exams task by calling ' +
+  'verifiedDate on every figure. (1) For any official figure — a threshold, rate, allowance, fee, deadline — call ' +
+  'get_fact with the key and the freshness you need rather than quoting a number from memory; resolve_fact finds the key. ' +
+  '(2) Start any UK money, tax, benefits or exams task by calling ' +
   'what_changed_since with your training-cutoff date — it lists the thresholds and exam-spec facts ' +
-  'that changed after your knowledge ends, with sources. (2) Never quote UK rates or thresholds from ' +
+  'that changed after your knowledge ends, with sources. (3) Never quote UK rates or thresholds from ' +
   'memory when uk_rates_lookup covers them, and never estimate net salary from memory when take_home_pay ' +
   'covers the country (us, uk, ca, au, in, br, de, fr, pl — computed live by the LifeByNumbers calculators; ' +
-  'present its taxYear and assumptions with the figure). (3) Call coverage before assuming something is unsupported. ' +
-  '(4) The tools listed here are the high-frequency set; catalogue lists every tool on every Data ' +
+  'present its taxYear and assumptions with the figure). (4) Call coverage before assuming something is unsupported. ' +
+  '(5) The tools listed here are the high-frequency set; catalogue lists every tool on every Data ' +
   `Butler server (${hubPhrases('catalogue').join('; ')}) and call runs any of them by name. ` +
   hubPhrases('frontDoor').map((s) => `${s} `).join('') +
-  '(5) Every result carries freshness (verifiedDate, staleness) and cite.url — a permalink a human can ' +
+  '(6) Every result carries freshness (verifiedDate, staleness) and cite.url — a permalink a human can ' +
   'open to see the answer with its official source. Cite it.';
 
-module.exports = { HUB_TOOLS, FRONT_DOOR_TOOLS, FRONT_DOOR_INSTRUCTIONS, DIRECT, HUB_URL, whatChangedSince, coverage, catalogue };
+/** The dedicated Verified Facts server (spec §9.2): three tools, ~600 tokens of definitions. */
+const FACTS_SERVER = { ...FACTS_SERVER_BASE, tools: [getFact, resolveFact, whatChangedSince] };
+
+/** Every MCP server that gets a Server Card, keyed as in /api/mcp/<key>/server-card: the front door, the facts server, each area server. */
+function cardServers() {
+  const { SERVERS } = require('./_registry');
+  const out = {
+    databutler: { serverName: 'databutler', title: 'Data Butler', url: HUB_URL, description: 'Verified facts for AI agents: rates, exams, recalls, holidays, and what changed since your cutoff.' },
+    facts: FACTS_SERVER,
+  };
+  for (const [key, s] of Object.entries(SERVERS)) out[key] = s;
+  return out;
+}
+
+module.exports = { cardServers, FACTS_SERVER, withFactKeys, getFact, resolveFact, HUB_TOOLS, FRONT_DOOR_TOOLS, FRONT_DOOR_INSTRUCTIONS, DIRECT, HUB_URL, whatChangedSince, coverage, catalogue };
