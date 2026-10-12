@@ -139,4 +139,21 @@ if grep -qi 'x-robots-tag: noindex' <<<"$R" && grep -q 'income-tax-rates' <<<"$R
 CODE="$(curl -s -o /dev/null -w '%{http_code}' "$BASE/api/cron/watch-sources")"
 if [ "$CODE" = "401" ]; then echo "PASS cron unauth"; else echo "FAIL cron unauth ($CODE)"; FAILED=1; fi
 
+# Verified Facts (docs/FACTS_PROTOCOL.md) — hand-written, outside the sync-areas block
+FACTS="$BASE/api/mcp/facts"
+check f-get "$(curl -sS "$BASE/f/uk/income-tax/personal-allowance?max_age=400d")" \
+  "d['status']=='fresh' and d['hash'].startswith('sha256:') and 'jws' in d['signature'] and d['value']==12570"
+check f-miss "$(curl -sS "$BASE/f/zz/no/such-fact")" "d['error']=='unknown key' and isinstance(d['candidates'],list)"
+TXT="$(curl -sS "$BASE/f/uk/income-tax/personal-allowance?format=txt")"
+if [[ "$TXT" =~ ^[0-9] ]]; then echo "PASS f-txt"; else echo "FAIL f-txt"; echo "$TXT" | head -c 300; echo; FAILED=1; fi
+check f-resolve "$(curl -sS "$BASE/f/resolve?q=ECB%20deposit%20rate")" "d['candidates'][0]['key']=='eu/ecb/deposit-facility' and d['best']['key']=='eu/ecb/deposit-facility'"
+check f-batch "$(curl -sS "$BASE/f?keys=uk/bank-rate,us/social-security/wage-base,zz/missing/key")" "d['count']==3 and d['results'][2]['covered']==False"
+check facts-mcp-list "$(curl -sS -X POST "$FACTS" -H 'Content-Type: application/json' -d '{"jsonrpc":"2.0","id":2,"method":"tools/list"}')" \
+  "[t['name'] for t in d['result']['tools']]==['get_fact','resolve_fact','what_changed_since']"
+check facts-well-known "$(curl -sS "$BASE/.well-known/facts.json")" "d['protocol']=='verified-facts/0.2' and d['conformance']=='L3'"
+check facts-jwks "$(curl -sS "$BASE/.well-known/jwks.json")" "len(d['keys'])>=1 and all(k['crv']=='Ed25519' and 'd' not in k for k in d['keys'])"
+check facts-server-card "$(curl -sS "$FACTS/server-card")" "d['name']=='io.github.physics-star-cat/databutler-facts'"
+check facts-openapi "$(curl -sS "$BASE/openapi.json")" "d['x-verified-facts']=='0.2'"
+if node "$(dirname "$0")/verify-fact.js" "$BASE/f/uk/income-tax/personal-allowance" > /dev/null; then echo "PASS verify-fact"; else echo "FAIL verify-fact"; FAILED=1; fi
+
 [ "$FAILED" = 0 ] && echo "ALL PASS" || { echo "SOME FAILED"; exit 1; }

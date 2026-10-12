@@ -176,6 +176,8 @@ The facts layer of the same protocol: one short key per official figure, one com
 signed answer back — `docs/FACTS_PROTOCOL.md`, served at `/protocol/facts`. Data Butler serves it at
 conformance level **L3** (server-filtered, signed), all through `api/router.js` (no new functions):
 
+**Status:** built 2026-10-12 on `feat/facts-protocol-v02` (496 keys, key `db-2026-10`); not yet deployed or listed in any registry.
+
 | Artefact | Where |
 |---|---|
 | Get / batch / index / resolve | `GET /f/<key>?max_age=30d` (json · `?format=txt` · `?format=html`, indexable with JSON-LD `Claim`), `GET /f?keys=` / `POST /f`, `GET /f` (Dataset JSON-LD on `?format=html`), `GET /f/resolve?q=` — `api/_routes/f.js`, renderers `api/_facts_render.js` |

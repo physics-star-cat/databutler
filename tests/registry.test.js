@@ -37,3 +37,11 @@ test('registry: per-vertical servers list the same tool names as before, no extr
     }
   }
 });
+
+test('registry: the Verified Facts server (outside SERVERS) lists exactly its three tools, with clean defs', async () => {
+  const { FACTS_SERVER } = require('../api/_hub');
+  const r = await rpc(require('../api/router').ROUTES['mcp/facts'], 'tools/list');
+  assert.deepEqual(r.body.result.tools.map((t) => t.name), FACTS_SERVER.tools.map((t) => t.name));
+  for (const t of r.body.result.tools) assert.deepEqual(Object.keys(t).sort(), ['annotations', 'description', 'inputSchema', 'name', 'title'], `${t.name} leaks keys`);
+  assert.ok(!require('../api/_registry').SERVERS.facts, 'facts is not an area server');
+});
