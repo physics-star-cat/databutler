@@ -11,7 +11,7 @@
  * Records cache an hour at the edge (status is a function of the day); misses are no-store.
  */
 const { CORS, handleOptions } = require('../_lib');
-const { trackEvent } = require('../_track');
+const { trackEvent, trackFacts } = require('../_track');
 const F = require('../_facts');
 const R = require('../_facts_render');
 const { FACTS_PROTOCOL, PUBLISHER } = require('../_changelog');
@@ -107,7 +107,9 @@ module.exports = async (req, res) => {
     try { body = await readBody(req); } catch { return send(res, 400, { protocol: FACTS_PROTOCOL, covered: false, error: 'body must be JSON: { "keys": [...], "max_age": "30d" }' }); }
     await trackEvent('agent_api_f_batch', req);
     const keys = Array.isArray(body.keys) ? body.keys : typeof body.keys === 'string' ? body.keys.split(',') : [];
-    return sendBatch(res, F.getFacts(keys, { max_age: body.max_age, as_of: body.as_of, period: body.period }), format === 'txt' ? 'txt' : 'json');
+    const batch = F.getFacts(keys, { max_age: body.max_age, as_of: body.as_of, period: body.period });
+    await trackFacts(req, 'rest', 'get', batch);
+    return sendBatch(res, batch, format === 'txt' ? 'txt' : 'json');
   }
   if (req.method !== 'GET' && req.method !== 'HEAD') {
     return send(res, 405, { protocol: FACTS_PROTOCOL, error: 'GET /f/{key}, GET /f?keys=, POST /f {keys}' }, { headers: { Allow: 'GET, POST, OPTIONS' } });
@@ -115,7 +117,9 @@ module.exports = async (req, res) => {
 
   if (!key && q.keys !== undefined) {
     await trackEvent('agent_api_f_batch', req);
-    return sendBatch(res, F.getFacts(q.keys, opts), format === 'txt' ? 'txt' : 'json');
+    const batch = F.getFacts(q.keys, opts);
+    await trackFacts(req, 'rest', 'get', batch);
+    return sendBatch(res, batch, format === 'txt' ? 'txt' : 'json');
   }
   if (!key || key === 'index') {
     await trackEvent('agent_api_f_index', req);
@@ -125,10 +129,12 @@ module.exports = async (req, res) => {
   if (key === 'resolve') {
     await trackEvent('agent_api_f_resolve', req);
     const r = F.resolveFact(q.q, { namespace: q.namespace, limit: q.limit });
+    await trackFacts(req, 'rest', 'resolve', r);
     return send(res, r.covered === false ? 400 : 200, r, { cache: r.covered === false ? 'no-store' : CACHE });
   }
   await trackEvent(format === 'html' ? 'fact_page_view' : 'agent_api_f_get', req);
   const r = F.getFact(key, opts);
+  await trackFacts(req, format === 'html' ? 'page' : 'rest', 'get', r);
   if (r.results) return sendBatch(res, r, format === 'txt' ? 'txt' : 'json'); // /f/k1,k2
   return sendRecord(req, res, r, format);
 };

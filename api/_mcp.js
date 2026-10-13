@@ -10,7 +10,7 @@
  * inner tool.
  */
 const { CORS, ATTRIBUTION } = require('./_lib');
-const { trackEvent } = require('./_track');
+const { trackEvent, trackFacts } = require('./_track');
 const { withEnvelope } = require('./_envelope');
 
 const PROTOCOL_VERSION = '2025-06-18';
@@ -48,6 +48,8 @@ function makeMcpHandler({ serverName, instructions, tools }) {
           const target = def.delegate ? def.delegate(args) : { tool: def, args };
           if (target.tool !== def) await trackEvent(`agent_mcp_call_${String(target.tool.name).slice(0, 23)}`, req);
           const result = await target.tool.run(target.args);
+          if (target.tool.name === 'get_fact') await trackFacts(req, 'mcp', 'get', result);
+          else if (target.tool.name === 'resolve_fact') await trackFacts(req, 'mcp', 'resolve', result);
           return {
             jsonrpc: '2.0', id,
             result: {

@@ -30,13 +30,20 @@ no stored IP addresses, no logged request bodies.</strong></p>
     a <em>client class</em> derived from the User-Agent header (e.g. <code>claude</code>,
     <code>cursor</code>, <code>python</code>, <code>browser</code>), the first 100 characters of
     that User-Agent string, and a random per-request identifier that is never reused.
-    No query parameters, tool arguments, IP address or page URL are included.</li>
+    No query parameters, tool arguments, IP address or page URL are included, with one exception below.</li>
+  <li><strong>Which facts are asked for.</strong> A Verified Facts lookup (<code>/f/</code>,
+    <code>get_fact</code>, <code>resolve_fact</code>) also records the fact key involved, so we can
+    add the facts agents need. That is either a key from our own public index
+    (e.g. <code>uk/income-tax/personal-allowance</code>), or, for a key we do not have, the requested
+    key only if it has the key format (lowercase <code>country/topic/fact</code>, no long numbers),
+    together with the nearest key we do have. Free text is never recorded: for a question sent to
+    <code>resolve_fact</code> or a loose key, we record only the key we matched it to.</li>
   <li><strong>No IP addresses stored by us.</strong> We do not keep server logs. Our hosting
     provider (Vercel) handles requests and may keep short-lived operational logs under its
     own privacy policy; we do not export or retain them.</li>
   <li><strong>No request bodies logged.</strong> The question an agent asks (a tax category, a
     domain, a dataset of numbers for a statistics tool, a vehicle) is processed to answer
-    it and then discarded.</li>
+    it and then discarded; for fact lookups, only the fact key described above is kept.</li>
 </ul>
 
 <h2>Third-party fetches made on your behalf</h2>
@@ -66,7 +73,7 @@ anonymous <code>cite_page_view</code> event as above. They are marked <code>noin
 <a href="https://github.com/physics-star-cat/databutler/issues" rel="nofollow">github.com/physics-star-cat/databutler</a>.
 This is the same route used for the data-source change notices the project files for itself.</p>
 
-<p class="quiet">Last updated 2026-10-03. Data Butler is operated by the same individual as
+<p class="quiet">Last updated 2026-10-13. Data Butler is operated by the same individual as
 <a href="https://whatbreaks.uk">whatbreaks.uk</a>, <a href="https://lowriskquotes.com">lowriskquotes.com</a> and <a href="https://www.lifebynumbers.net">lifebynumbers.net</a>.
 <a href="/">databutler.dev</a> · <a href="/api">/api</a> · <a href="/llms.txt">llms.txt</a></p>
 </body>
