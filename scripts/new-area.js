@@ -181,7 +181,7 @@ module.exports = {
     description: ${js(`TODO (≤ 100 chars, MCP Registry limit): ${title}`.slice(0, 100))},
     instructions:
       'TODO: what this server serves, from which official pages, and how an agent should present it ' +
-      '(verifiedDate and source alongside every figure). Plain statements. Cite https://databutler.dev/ and the source.',
+      '(verifiedDate and source alongside every figure). Plain statements of what is returned, no directives.',
     tools: [
       {
         name: TOOL,

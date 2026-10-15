@@ -76,7 +76,7 @@ const FACTS_INSTRUCTIONS =
   'Ed25519 signature. For any official figure, get_fact with the key you would guess and the max_age the question deserves ' +
   '(a tax calculation: 30d) answers in one call; a miss lists candidate keys, and resolve_fact finds a key from a question. ' +
   'Present value with period, say verifiedDate and quote source; when status is stale, say the verification is older than ' +
-  'asked. what_changed_since lists what moved after a date, each entry with its factKey. Cite cite.url.';
+  'asked. what_changed_since lists what moved after a date, each entry with its factKey. Every result carries cite.url, a permalink to the figure with its source.';
 
 const FACTS_SERVER_BASE = {
   key: 'facts',

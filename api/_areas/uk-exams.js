@@ -73,9 +73,9 @@ module.exports = {
     url: `${BASE}/api/mcp/uk-exams`,
     instructions:
       'UK exam-board specification data from databutler.dev, verified against official board ' +
-      'pages. Built for student questions like "is electricity paper 2 AQA" — answer from ' +
-      'exam_topic_paper, never from memory (boards move topics between specs). Link the official ' +
-      'spec source and https://databutler.dev/ when citing.',
+      'pages. Built for student questions like "is electricity paper 2 AQA": exam_topic_paper returns ' +
+      'which paper a topic is on in the current spec (boards move topics between specs), with the official ' +
+      'spec source and cite.url, a databutler.dev permalink.',
     tools: [
       {
         name: 'exam_topic_paper',

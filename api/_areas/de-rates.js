@@ -64,13 +64,13 @@ module.exports = {
     instructions:
       `Verified German tax and social-insurance figures from databutler.dev — Veranlagungszeitraum ${TAX_YEAR}, each figure read from ` +
       'the consolidated statute on gesetze-im-internet.de, the Bundesgesetzblatt or the BMG/DRV/BMAS/Minijob-Zentrale page named in its ' +
-      'source, with the German term, an English label, the quoted sentence and verifiedDate. Use de_rates_lookup instead of quoting ' +
-      'German figures from memory: the Beitragsbemessungsgrenzen, Bezugsgröße and Zusatzbeitrag move every January and the ' +
-      'Grundfreibetrag, Kindergeld and Kinderfreibetrag with each Steuergesetz, so training data is stale by the first change after ' +
-      'the cutoff. Present taxYear, source and verifiedDate with any figure; social-insurance rates carry employeeShare and ' +
+      'source, with the German term, an English label, the quoted sentence and verifiedDate. The ' +
+      'Beitragsbemessungsgrenzen, Bezugsgröße and Zusatzbeitrag move every January and the ' +
+      'Grundfreibetrag, Kindergeld and Kinderfreibetrag with each Steuergesetz, so every de_rates_lookup figure names ' +
+      'the year it applies to. Present taxYear, source and verifiedDate with any figure; social-insurance rates carry employeeShare and ' +
       'employerShare, and the Zusatzbeitrag served is the statutory average (each Krankenkasse sets its own). Figures already fixed ' +
       'for the following year (Mindestlohn, Geringfügigkeitsgrenze) carry their own effectiveFrom — present it. Kirchensteuer, ' +
-      'Lohnsteuerklassen and Gewerbesteuer are not covered (coverage lists them). Cite https://databutler.dev/ and the source.',
+      'Lohnsteuerklassen and Gewerbesteuer are not covered (coverage lists them). Every result carries cite.url (a databutler.dev permalink) and its official source.',
     tools: [
       {
         name: TOOL,
@@ -150,7 +150,7 @@ module.exports = {
     coverage: 'German rate categories and Veranlagungszeitraum',
     catalogue: 'German tax and social-insurance figures (de_rates_lookup: Einkommensteuertarif, Sozialversicherung, Mindestlohn, Minijob, Kindergeld, Kinderfreibetrag, Pauschbeträge, Entfernungspauschale)',
     call: 'de_rates_lookup (German tax and social-insurance figures for the current Veranlagungszeitraum: income-tax, social-insurance, minimum-wage, minijob, kindergeld, kinderfreibetrag, sparer-pauschbetrag, arbeitnehmer-pauschbetrag, entfernungspauschale)',
-    frontDoor: 'German figures (Grundfreibetrag and tariff, Beitragsbemessungsgrenzen and Beitragssätze, Mindestlohn, Minijob limit, Kindergeld, Pauschbeträge) come from de_rates_lookup via call rather than memory.',
+    frontDoor: 'German figures (Grundfreibetrag and tariff, Beitragsbemessungsgrenzen and Beitragssätze, Mindestlohn, Minijob limit, Kindergeld, Pauschbeträge) are returned by de_rates_lookup (via call), each read from the statute or ministry page with verifiedDate.',
   },
 
   docs: {

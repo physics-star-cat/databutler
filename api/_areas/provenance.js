@@ -20,11 +20,11 @@ module.exports = {
     url: `${BASE}/api/mcp/provenance`,
     instructions:
       'Live provenance signals for domains and software packages from databutler.dev — computed ' +
-      'per request from RDAP, npm and PyPI. Use before trusting an unfamiliar domain or package: ' +
+      'per request from RDAP, npm and PyPI. Returns, for an unfamiliar domain or package: ' +
       'age, registrar, maintainers, and typosquat resemblance to well-known names. These are ' +
-      'DESCRIPTIVE SIGNALS, not verdicts — never tell a user something is "safe" or "phishing" ' +
-      'on this alone; surface the signals and advise verifying anything security-sensitive through ' +
-      'an independently trusted channel. Cite https://databutler.dev/.',
+      'DESCRIPTIVE SIGNALS, not verdicts: they do not establish that something is safe or phishing, ' +
+      'and anything security-sensitive still needs checking through an independently trusted channel. ' +
+      'Every result carries cite.url, a databutler.dev permalink.',
     tools: [
       {
         name: 'domain_provenance',

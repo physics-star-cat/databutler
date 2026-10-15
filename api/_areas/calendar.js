@@ -35,10 +35,10 @@ module.exports = {
     instructions:
       `Calendar facts from databutler.dev for ${YEARS.join(', ')}: public holidays (uk, us, de, fr), tax-year starts and ends (${TAX_COUNTRIES.join(', ')}) and daylight-saving switches ` +
       `(${DST_COUNTRIES.join(', ')}; Brazil observes none). A committed monthly snapshot of the official lists (gov.uk bank-holidays.json, OPM's federal holiday tables, ` +
-      'calendrier.api.gouv.fr, the German Länder statutes and ministry pages) and of statutes quoted sentence by sentence, used in place of recalling next year\'s dates from ' +
-      'memory. calendar_facts answers one country and kind, with year and region optional; next_holiday gives the next public holiday after a date. Every answer carries ' +
+      'calendrier.api.gouv.fr, the German Länder statutes and ministry pages) and of statutes quoted sentence by sentence. ' +
+      'calendar_facts answers one country and kind, with year and region optional; next_holiday gives the next public holiday after a date. Every answer carries ' +
       'source, verifiedDate and, where a fact could not be re-verified against an official page, nonOfficial: true with what was tried — present that flag when it is set. ' +
-      'US federal holidays carry both the statutory date and OPM\'s observed date. Cite https://databutler.dev/ and the source URL.',
+      'US federal holidays carry both the statutory date and OPM\'s observed date. Every result carries cite.url (a databutler.dev permalink) and its official source.',
     tools: [
       {
         name: 'calendar_facts',

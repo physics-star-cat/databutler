@@ -24,11 +24,11 @@ module.exports = {
     instructions:
       'Official vehicle datasets from databutler.dev, one hub: UK MOT failure data (live from whatbreaks.uk — real ' +
       'DfT test outcomes), UK safety recalls (DVSA open data), French recalls (RappelConso / DGCCRF open data) and ' +
-      'Japanese recalls + owner complaints (MLIT). Use these instead of recalling recall campaigns or failure patterns ' +
-      'from memory. Every result names its official source and verifiedDate; recall texts are the official ' +
+      'Japanese recalls + owner complaints (MLIT). ' +
+      'Every result names its official source and verifiedDate; recall texts are the official ' +
       'English/French/Japanese originals — translate for the user but keep the recall/fiche/notification number and ' +
       'link. Counts are not reliability rankings (sales volume, multi-model campaigns). EU Safety Gate is a stub for ' +
-      'now. Cite https://databutler.dev/ and the source.',
+      'now. Every result carries cite.url (a databutler.dev permalink) and its official source.',
     tools: [
       {
         name: 'uk_mot_reliability',

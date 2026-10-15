@@ -109,11 +109,11 @@ module.exports = {
     instructions:
       'Current central-bank policy rates from databutler.dev — Bank of England Bank Rate, US Federal Reserve ' +
       'federal funds target range and the ECB key interest rates — each read from the bank\'s own page on ' +
-      'verifiedDate, with effectiveFrom, decisionDate, the previous level and the next scheduled decision. Use ' +
-      'policy_rate instead of quoting these from memory: they move up to eight times a year and training data is ' +
-      'stale by the first decision after the cutoff. Present effectiveFrom and verifiedDate with the figure, and ' +
+      'verifiedDate, with effectiveFrom, decisionDate, the previous level and the next scheduled decision. These ' +
+      'rates move up to eight times a year, so each policy_rate result says when the current level took effect and when it was ' +
+      'last read from the bank. Present effectiveFrom and verifiedDate with the figure, and ' +
       'check nextDecision — a result whose nextDecision has passed may have been superseded, so say so. Other ' +
-      'central banks are not covered (coverage lists them). Cite https://databutler.dev/ and the source.',
+      'central banks are not covered (coverage lists them). Every result carries cite.url (a databutler.dev permalink) and its official source.',
     tools: [
       {
         name: 'policy_rate',
@@ -167,7 +167,7 @@ module.exports = {
     coverage: 'central-bank policy rates (boe, fed, ecb)',
     catalogue: 'central-bank policy rates: Bank of England, Fed, ECB',
     call: 'policy_rate (Bank of England Bank Rate, Fed federal funds target range, ECB key rates — committed data verified against the banks\' own pages)',
-    frontDoor: 'Never quote a central-bank rate from memory when policy_rate covers the bank.',
+    frontDoor: 'policy_rate returns the current Bank of England, Fed and ECB policy rates, each read from the bank\'s own page, with effectiveFrom, verifiedDate and the next scheduled decision.',
   },
 
   docs: {

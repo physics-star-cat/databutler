@@ -23,11 +23,11 @@ module.exports = {
     instructions:
       'Software support lifecycles from databutler.dev: is this version still supported, and until when — for ' +
       EOL.PRODUCT_IDS.join(', ') + '. A committed monthly snapshot of endoflife.date open data (MIT), with the snapshot date on every ' +
-      'answer, used in place of recalling end-of-life dates from memory, which drift every few months. support_status resolves a ' +
+      'answer (vendors move end-of-life dates every few months). support_status resolves a ' +
       'version string to its release cycle and states supported true/false with the eol date and days remaining or elapsed; ' +
       'support_timeline lists every cycle. Dates are as endoflife.date publishes them from vendor lifecycle pages; the ' +
-      'recommendation is a plain statement, not advice about any one deployment. Cite https://databutler.dev/ and the ' +
-      'endoflife.date product page in source.',
+      'recommendation is a plain statement, not advice about any one deployment. Every result carries cite.url (a databutler.dev ' +
+      'permalink) and the endoflife.date product page in source.',
     tools: [
       {
         name: 'support_status',

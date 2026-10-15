@@ -11,7 +11,7 @@ test('/privacy states the data practices plainly and is dated', () => {
   for (const phrase of [
     /no accounts/i, /no cookies/i, /Measurement Protocol/, /event name/i, /User-Agent/, /client class/i,
     /no stored IP/i, /no logged request bodies/i, /rdap\.org/, /registry\.npmjs\.org/, /pypi\.org/, /gov\.uk/, /whatbreaks\.uk/, /lifebynumbers\.net/,
-    /github\.com\/physics-star-cat\/databutler\/issues/, /Last updated 2026-10-03/,
+    /github\.com\/physics-star-cat\/databutler\/issues/, /Last updated 2026-10-13/,
   ]) assert.match(html, phrase, String(phrase));
   assert.match(html, /<title>Privacy — Data Butler<\/title>/);
   assert.match(html, /<link rel="icon" href="\/favicon\.ico"/);

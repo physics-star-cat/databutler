@@ -95,7 +95,8 @@ test('front door lists the direct tools + what_changed_since, get_fact, resolve_
   assert.deepEqual(names, [...frontDoorTools(), 'what_changed_since', 'get_fact', 'resolve_fact', 'coverage', 'catalogue', 'call']);
   assert.ok(names.length <= 11);
   const init = await rpc(frontDoor, 'initialize', { protocolVersion: '2025-06-18', capabilities: {}, clientInfo: { name: 't', version: '0' } });
-  assert.match(init.body.result.instructions, /every figure\. \(1\) For any official figure — [^(]*get_fact/);
+  assert.match(init.body.result.instructions, /get_fact returns one figure by key/);
+  assert.doesNotMatch(init.body.result.instructions, /from memory|never quote|cite it/i);
   const direct = await callTool(frontDoor, 'get_fact', { key: 'uk/bank-rate' });
   assert.equal(direct.data.key, 'uk/bank-rate');
   const viaCall = await callTool(frontDoor, 'call', { tool: 'get_fact', arguments: { key: 'uk/bank-rate' } });

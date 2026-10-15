@@ -142,10 +142,10 @@ module.exports = {
     instructions:
       'UK exam dates from databutler.dev — results days, the summer exam timetable, entry deadlines and announced specification changes for GCSE and A-level ' +
       `(${BOARD_LIST}; Scotland's results day), each read from the JCQ key-dates PDF, the board's own final timetable or fee document, or the regulator's ` +
-      'announcement page named in its source, with the quoted row and verifiedDate. uk_exam_dates answers these in place of recalling dates from memory, which ' +
-      'are wrong every summer because the calendar moves: kind=results|timetable|deadlines|spec-changes, optional board and qualification. The timetable ' +
+      'announcement page named in its source, with the quoted row and verifiedDate. uk_exam_dates returns the current series\' dates (the calendar ' +
+      'moves every year): kind=results|timetable|deadlines|spec-changes, optional board and qualification. The timetable ' +
       'figures carry status (final) and, where the board still serves its 2026 document, the summer-2026 date as previous. Present the date with its ' +
-      'board, document and verifiedDate; the JCQ dates apply to every JCQ board. Cite https://databutler.dev/ and the source document.',
+      'board, document and verifiedDate; the JCQ dates apply to every JCQ board. Every result carries cite.url (a databutler.dev permalink) and its official source.',
     tools: [
       {
         name: TOOL,

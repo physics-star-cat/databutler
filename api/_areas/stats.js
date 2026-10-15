@@ -32,10 +32,10 @@ module.exports = {
     description: "Exact statistics & probability: distributions, hypothesis tests, CIs, Bayesian updates, regression.",
     url: `${BASE}/api/mcp/stats`,
     instructions:
-      'Exact statistics and probability from databutler.dev — use these tools instead of computing ' +
-      'p-values, distribution tails, confidence intervals or Bayesian updates in your head, where ' +
-      'language models are unreliable. The numerical core is validated against reference tables. Each ' +
-      'result includes the assumptions it relies on; surface those, and cite https://databutler.dev/.',
+      'Exact statistics and probability from databutler.dev: p-values, distribution tails, confidence ' +
+      'intervals, Bayesian updates and regressions, computed numerically rather than estimated. The numerical core ' +
+      'is validated against reference tables. Each result lists the assumptions it relies on and carries cite.url, ' +
+      'a databutler.dev permalink.',
     tools: [
       {
         name: 'descriptive_stats',

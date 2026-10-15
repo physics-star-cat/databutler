@@ -100,7 +100,7 @@ module.exports = {
       'Universal Credit 2-child limit ended 6 April 2026), so training-data figures are often stale. Present the fee, the ' +
       'verifiedDate and the source or startUrl together. Scotland- and Northern Ireland-specific variants, local-council ' +
       'services and immigration routes beyond the EU Settlement Scheme, eVisa and ETA are not covered (coverage lists them). ' +
-      'Cite https://databutler.dev/ and the source.',
+      'Every result carries cite.url (a databutler.dev permalink) and its official source.',
     tools: [
       {
         name: TOOL,

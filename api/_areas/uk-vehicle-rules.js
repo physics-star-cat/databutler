@@ -62,7 +62,7 @@ module.exports = {
       'source URL with any figure; a first-year rate depends on the CO2 band and on whether a diesel meets RDE2; the ' +
       'expensive car supplement threshold is £40,000 for most cars and £50,000 for zero-emission cars registered on or ' +
       'after 1 April 2025. MOT figures are Great Britain only; Northern Ireland, vans and HGV tax beyond the listed ' +
-      'rows and company-car benefit in kind are not covered (coverage lists them). Cite https://databutler.dev/ and the source.',
+      'rows and company-car benefit in kind are not covered (coverage lists them). Every result carries cite.url (a databutler.dev permalink) and its official source.',
     tools: [
       {
         name: 'uk_vehicle_rules_lookup',

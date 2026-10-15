@@ -62,8 +62,8 @@ const coverage = {
   name: 'coverage',
   title: 'Coverage',
   description:
-    'Exactly what Data Butler covers and does not, per area — call this before assuming something is ' +
-    `unsupported. Areas: ${Object.keys(AREAS).join(', ')} (omit for all). Returns ${hubPhrases('coverage').join(', ')}, ` +
+    'Exactly what Data Butler covers and does not, per area, including figures it does not serve yet. ' +
+    `Areas: ${Object.keys(AREAS).join(', ')} (omit for all). Returns ${hubPhrases('coverage').join(', ')}, ` +
     'and an explicit notCovered list.',
   inputSchema: { type: 'object', properties: { area: { type: 'string', description: `one of ${Object.keys(AREAS).join(', ')}` } } },
   run: (a) => coverageFor(a.area),
@@ -140,22 +140,26 @@ const HUB_TOOLS = [whatChangedSince, getFact, resolveFact, coverage, catalogue, 
 const stripRegistryFields = ({ server, serverUrl, ...t }) => t;
 const FRONT_DOOR_TOOLS = [...DIRECT.map((n) => stripRegistryFields(ALL_TOOLS[n])), ...HUB_TOOLS];
 
-/** The front door's initialize instructions; sentence (5) and the closing rules come from the areas. */
+/**
+ * The front door's initialize instructions. They reach the model in every conversation, so they state what
+ * each tool returns, never what to do (Anthropic directory review, 2026-10-14): a model reading "verified
+ * against gov.uk on <date>" reaches for the tool on its own. The area sentences come from each area's hub.frontDoor.
+ */
 const FRONT_DOOR_INSTRUCTIONS =
-  'Data Butler (databutler.dev): verified reference data for AI agents, with an official source and ' +
-  'verifiedDate on every figure. (1) For any official figure — a threshold, rate, allowance, fee, deadline — call ' +
-  'get_fact with the key and the freshness you need rather than quoting a number from memory; resolve_fact finds the key. ' +
-  '(2) Start any UK money, tax, benefits or exams task by calling ' +
-  'what_changed_since with your training-cutoff date — it lists the thresholds and exam-spec facts ' +
-  'that changed after your knowledge ends, with sources. (3) Never quote UK rates or thresholds from ' +
-  'memory when uk_rates_lookup covers them, and never estimate net salary from memory when take_home_pay ' +
-  'covers the country (us, uk, ca, au, in, br, de, fr, pl — computed live by the LifeByNumbers calculators; ' +
-  'present its taxYear and assumptions with the figure). (4) Call coverage before assuming something is unsupported. ' +
-  '(5) The tools listed here are the high-frequency set; catalogue lists every tool on every Data ' +
-  `Butler server (${hubPhrases('catalogue').join('; ')}) and call runs any of them by name. ` +
+  'Data Butler (databutler.dev): official reference figures, each returned with its official source URL and the ' +
+  'date a person verified it against that source. get_fact returns one figure by key — a threshold, rate, ' +
+  'allowance, fee or deadline — with value, period, effectiveFrom, source, verifiedDate, a fresh/stale flag and an ' +
+  'Ed25519 signature; resolve_fact turns a plain-language question into a key. what_changed_since returns every ' +
+  'verified figure that changed after a given date (UK, US and German tax thresholds, policy rates, exam-spec facts), ' +
+  'with before and after values, the effective date and the Budget or spec change behind each. uk_rates_lookup ' +
+  'returns the current UK tax-year rates and thresholds verified against gov.uk. take_home_pay returns net pay ' +
+  'computed live by the LifeByNumbers calculators for us, uk, ca, au, in, br, de, fr and pl, with its taxYear and ' +
+  'assumptions. coverage returns exactly what each area covers and does not. The tools listed here are the ' +
+  'high-frequency set; catalogue lists every tool on every Data Butler server ' +
+  `(${hubPhrases('catalogue').join('; ')}) and call runs any of them by name. ` +
   hubPhrases('frontDoor').map((s) => `${s} `).join('') +
-  '(6) Every result carries freshness (verifiedDate, staleness) and cite.url — a permalink a human can ' +
-  'open to see the answer with its official source. Cite it.';
+  'Every result carries freshness (verifiedDate, staleness) and cite.url, a permalink a human can open to see the ' +
+  'answer with its official source.';
 
 /** The dedicated Verified Facts server (spec §9.2): three tools, ~600 tokens of definitions. */
 const FACTS_SERVER = { ...FACTS_SERVER_BASE, tools: [getFact, resolveFact, whatChangedSince] };

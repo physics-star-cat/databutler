@@ -78,11 +78,11 @@ module.exports = {
     instructions:
       `Verified US federal rates and thresholds from databutler.dev — tax year ${TAX_YEAR}, each figure read from the IRS revenue ` +
       'procedure, IRS notice, SSA Federal Register notice or irs.gov page named in its source, with the quoted sentence or table row ' +
-      'and verifiedDate. Use us_rates_lookup instead of quoting US federal figures from memory: the IRS re-indexes most of them every ' +
-      'October and November, so training data is stale by the first release after the cutoff. Present taxYear, source and verifiedDate ' +
+      'and verifiedDate. The IRS re-indexes most of these figures every ' +
+      'October and November; us_rates_lookup returns the current tax year\'s values with the release each was read from. Present taxYear, source and verifiedDate ' +
       'with any figure; rate schedules are bracket rows (over, notOver, rate, taxAtLowerBound) exactly as the Rev. Proc. prints them, ' +
       'and each figure\'s previous block holds the prior-year value. Federal only — state income taxes, AMT, EITC and capital-gains ' +
-      'brackets are not covered (coverage lists them). Cite https://databutler.dev/ and the source.',
+      'brackets are not covered (coverage lists them). Every result carries cite.url (a databutler.dev permalink) and its official source.',
     tools: [
       {
         name: TOOL,
@@ -164,7 +164,7 @@ module.exports = {
     coverage: 'US federal rate categories and tax year',
     catalogue: 'US federal rates and thresholds (us_rates_lookup: income tax, Social Security, Medicare, retirement, HSA, estate and gift)',
     call: 'us_rates_lookup (US federal rates and thresholds for the current tax year: income-tax, social-security, medicare, retirement, hsa, estate-gift)',
-    frontDoor: 'US federal figures (IRS brackets and standard deduction, Social Security wage base, 401(k)/IRA/HSA limits, estate and gift exclusions) come from us_rates_lookup via call rather than memory.',
+    frontDoor: 'US federal figures (IRS brackets and standard deduction, Social Security wage base, 401(k)/IRA/HSA limits, estate and gift exclusions) are returned by us_rates_lookup (via call), each read from the IRS or SSA release with verifiedDate.',
   },
 
   docs: {

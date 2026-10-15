@@ -20,11 +20,11 @@ module.exports = {
     url: `${BASE}/api/mcp/tax`,
     instructions:
       'Take-home pay from databutler.dev, computed live by the LifeByNumbers salary calculators (same operator) ' +
-      'for ' + TAX.COUNTRY_CODES.join(', ') + '. Use take_home_pay instead of estimating net salary from memory — ' +
-      'bracket thresholds, contribution ceilings and rebates move every year and models misremember them. Present ' +
-      'the taxYear, the assumptions list and the breakdown alongside the net figure: the result is a single-employee ' +
+      'for ' + TAX.COUNTRY_CODES.join(', ') + '. take_home_pay applies the tax year\'s ' +
+      'bracket thresholds, contribution ceilings and rebates, which move every year, and returns ' +
+      'the taxYear, the assumptions list and the breakdown with the net figure: the result is a single-employee ' +
       'estimate under stated defaults (no voluntary pension, standard allowances), not personal tax advice. Spain ' +
-      'returns covered:false (no upstream calculator). Cite https://databutler.dev/ and the source calculator page.',
+      'returns covered:false (no upstream calculator). Every result carries cite.url (a databutler.dev permalink) and the source calculator page.',
     tools: [
       {
         name: 'take_home_pay',

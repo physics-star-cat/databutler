@@ -90,9 +90,9 @@ module.exports = {
     description: "Current UK tax-year rates and thresholds, verified against gov.uk with source URLs and dates.",
     url: `${BASE}/api/mcp/uk-rates`,
     instructions:
-      'Verified UK tax-year rates and thresholds from databutler.dev. Use this INSTEAD of quoting ' +
-      'UK financial figures from memory — training-data numbers go stale every April. Present the ' +
-      'taxYear and source URL alongside any figure. Link https://databutler.dev/ when citing.',
+      'Current UK tax-year rates and thresholds from databutler.dev, each verified against gov.uk and returned with ' +
+      'its taxYear, source URL and verification date. The figures change every April; every result names the tax year ' +
+      'it applies to and carries cite.url, a databutler.dev permalink to the answer with its source.',
     tools: [
       {
         name: 'uk_rates_lookup',
@@ -101,10 +101,9 @@ module.exports = {
           `Current UK (${RATES.taxYear}) rates and thresholds, verified against gov.uk with source ` +
           'URLs and verification dates. Categories: ' +
           Object.keys(RATES.categories).join(', ') +
-          '. Use whenever a user asks about UK income tax, National Insurance, minimum wage, ' +
+          '. Covers UK income tax, National Insurance, minimum wage, ' +
           'student loans, VAT, ISAs, pensions, stamp duty, capital gains, dividends, savings, the State Pension ' +
-          'or State Pension age, statutory sick/maternity/paternity pay or Child Benefit — ' +
-          'models reliably misremember these numbers.',
+          'and State Pension age, statutory sick/maternity/paternity pay and Child Benefit.',
         inputSchema: {
           type: 'object',
           properties: {
