@@ -8,11 +8,13 @@
     "cron/watch-sources",
     "de/rates",
     "f",
+    "jp/living-costs",
     "jp/vehicle-costs",
     "mcp",
     "mcp/calendar",
     "mcp/de-rates",
     "mcp/facts",
+    "mcp/jp-living-costs",
     "mcp/jp-vehicle-costs",
     "mcp/policy-rates",
     "mcp/provenance",
@@ -61,6 +63,7 @@
     "changes",
     "coverage",
     "de/rates",
+    "jp/living-costs",
     "jp/vehicle-costs",
     "policy-rates",
     "provenance/domain",
@@ -316,6 +319,12 @@
     },
     "jp_vehicle_costs_lookup": {
       "path": "jp/vehicle-costs",
+      "queryKeys": [
+        "category"
+      ]
+    },
+    "jp_living_costs_lookup": {
+      "path": "jp/living-costs",
       "queryKeys": [
         "category"
       ]

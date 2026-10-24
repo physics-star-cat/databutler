@@ -139,6 +139,11 @@ Data Butler's discovery document:
       "name": "jp-vehicle-costs",
       "description": "Japan vehicle statutory costs verified against MLIT, FSA, NALTEC, 総務省, Tokyo and Kōtō City pages: 自動車重量税 at 車検 (eco/standard/13-year/18-year, per 0.5 t and kei), エコカー減税 bands, 自賠責保険 rates before and from 2026-11-01, 継続検査 fees from 2026-04-01, 自動車税 by displacement and 軽自動車税.",
       "cadence": "Re-verified against the official pages every 35 days and on the known change dates (自賠責 2026-11-01, car taxes each 1 April, weight-tax eco bands 2027-05-01); every source page re-fetched weekly."
+    },
+    {
+      "name": "jp-living-costs",
+      "description": "Japan daily-life official figures verified against MHLW, NTA, 総務省, 内閣府, こども家庭庁, 日本年金機構 and 協会けんぽ pages: 地域別最低賃金 FY2026 by prefecture with effective dates, 協会けんぽ health insurance rates by prefecture, 介護 and 子ども・子育て支援金 rates, 厚生年金 and 国民年金, 雇用保険料率, 児童手当, 出産育児一時金, 高額療養費, the 2027 holidays, 消費税, 基礎控除, 給与所得控除 and 住民税 均等割.",
+      "cadence": "Re-verified against the official pages every 35 days and on the known change dates (prefecture minimum wages 2026-10-01 to 2026-12-02 and each autumn, deductions 2026-12-01, insurance and pension rates each March/April, 高額療養費 2027-08-01, the 2028 holidays in February 2027); every source page re-fetched weekly."
     }
   ],
   "endpoints": {

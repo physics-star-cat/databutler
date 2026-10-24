@@ -10,6 +10,7 @@
       "AQA GCSE Combined Science: Trilogy (8464)",
       "AQA GCSE Mathematics (8300)"
     ],
+    "jpLivingCosts": "9 categories, 135 figures, verified 2026-10-24",
     "jpVehicleCosts": "6 categories, 58 figures, verified 2026-10-24",
     "policyRates": {
       "boe": "Bank of England Bank Rate: 3.75% from 2025-12-18, verified 2026-10-03, next decision 2026-11-05",
@@ -76,7 +77,7 @@
       "description": "What changed in the verified datasets since a date (REST mirror of what_changed_since). format=html|rss|atom serves the /changes page or feeds instead of JSON.",
       "example": "https://databutler.dev/api/changes?since=2026-06-01",
       "params": {
-        "area": "uk-rates | uk-exams | vehicles | software-eol | policy-rates | us-rates | de-rates | uk-vehicle-rules | uk-exam-dates | calendar | uk-gov-process | jp-vehicle-costs | all",
+        "area": "uk-rates | uk-exams | vehicles | software-eol | policy-rates | us-rates | de-rates | uk-vehicle-rules | uk-exam-dates | calendar | uk-gov-process | jp-vehicle-costs | jp-living-costs | all",
         "format": "json (default) | html | rss | atom",
         "since": "YYYY-MM-DD"
       }
@@ -86,6 +87,13 @@
       "example": "https://databutler.dev/api/de/rates?category=social-insurance",
       "params": {
         "category": "one of income-tax, social-insurance, minimum-wage, minijob, kindergeld, kinderfreibetrag, sparer-pauschbetrag, arbeitnehmer-pauschbetrag, entfernungspauschale (omit to list)"
+      }
+    },
+    "GET /api/jp/living-costs": {
+      "description": "Japan daily-life official figures, verified 2026-10-24 against the official pages: 地域別最低賃金 FY2026 by prefecture (with each 発効日 and the FY2025 amount), 協会けんぽ health insurance rates by prefecture, 介護 and 子ども・子育て支援金 rates, 厚生年金 / 国民年金, 雇用保険料率, 児童手当, 出産育児一時金, 高額療養費, 2027 national holidays, 消費税, 基礎控除 / 給与所得控除 and 住民税 均等割 — each figure with the Japanese term, quoted row, source URL and effectiveFrom.",
+      "example": "https://databutler.dev/api/jp/living-costs?category=minimum-wage",
+      "params": {
+        "category": "one of minimum-wage, health-insurance, pension, employment-insurance, benefits, holidays, consumption-tax, income-tax, resident-tax (omit to list)"
       }
     },
     "GET /api/jp/vehicle-costs": {
@@ -276,10 +284,10 @@
       }
     },
     "GET /changes": {
-      "description": "The changelog as a page: every verified change to UK tax/NI thresholds, exam specs, official vehicle datasets, software end-of-life dates, central-bank policy rates, US federal tax thresholds, German tax and social-insurance thresholds, UK car tax (VED) and MOT rules, UK exam dates, public holidays, tax-year and daylight-saving dates, UK government service steps, fees and processing times and Japanese car inspection (車検) statutory costs and car taxes, newest first by month — area, from → to, effectiveFrom, official source, maintainer note, verifiedDate. Indexable, cached 1 h at the edge.",
+      "description": "The changelog as a page: every verified change to UK tax/NI thresholds, exam specs, official vehicle datasets, software end-of-life dates, central-bank policy rates, US federal tax thresholds, German tax and social-insurance thresholds, UK car tax (VED) and MOT rules, UK exam dates, public holidays, tax-year and daylight-saving dates, UK government service steps, fees and processing times, Japanese car inspection (車検) statutory costs and car taxes and Japanese minimum wages, social-insurance rates, pensions, benefits, holidays and tax thresholds, newest first by month — area, from → to, effectiveFrom, official source, maintainer note, verifiedDate. Indexable, cached 1 h at the edge.",
       "example": "https://databutler.dev/changes?area=vehicles",
       "params": {
-        "area": "optional: uk-rates | uk-exams | vehicles | software-eol | policy-rates | us-rates | de-rates | uk-vehicle-rules | uk-exam-dates | calendar | uk-gov-process | jp-vehicle-costs",
+        "area": "optional: uk-rates | uk-exams | vehicles | software-eol | policy-rates | us-rates | de-rates | uk-vehicle-rules | uk-exam-dates | calendar | uk-gov-process | jp-vehicle-costs | jp-living-costs",
         "since": "optional YYYY-MM-DD"
       }
     },
@@ -345,6 +353,7 @@
     "POST /api/mcp/calendar": "Remote MCP server — tools calendar_facts, next_holiday (public holidays, tax years and daylight saving from the official lists and statutes, monthly snapshot).",
     "POST /api/mcp/de-rates": "Remote MCP server — tool de_rates_lookup (German tax and social-insurance figures, Veranlagungszeitraum 2026; committed data read from the statutes and the Bundesgesetzblatt).",
     "POST /api/mcp/facts": "Remote MCP server databutler-facts — three tools: get_fact, resolve_fact, what_changed_since.",
+    "POST /api/mcp/jp-living-costs": "Remote MCP server — tool jp_living_costs_lookup.",
     "POST /api/mcp/jp-vehicle-costs": "Remote MCP server — tool jp_vehicle_costs_lookup.",
     "POST /api/mcp/policy-rates": "Remote MCP server — tool policy_rate (Bank of England, Fed, ECB; committed data verified against the banks' own pages).",
     "POST /api/mcp/provenance": "Remote MCP server — tools domain_provenance, package_provenance.",

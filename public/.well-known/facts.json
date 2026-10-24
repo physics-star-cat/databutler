@@ -7,7 +7,7 @@
   "conformance": "L3",
   "updated": "2026-10-24",
   "facts": {
-    "count": 554,
+    "count": 689,
     "get": "https://databutler.dev/f/{key}",
     "batch": "https://databutler.dev/f?keys={keys}",
     "resolve": "https://databutler.dev/f/resolve?q={q}",
@@ -76,16 +76,22 @@
     },
     {
       "name": "jp",
-      "description": "Japanese car inspection (車検) statutory costs and car taxes",
-      "count": 58,
-      "cadence": "jp-vehicle-costs: Re-verified against the official pages every 35 days and on the known change dates (自賠責 2026-11-01, car taxes each 1 April, weight-tax eco bands 2027-05-01); every source page re-fetched weekly.",
+      "description": "Japanese car inspection (車検) statutory costs and car taxes and Japanese minimum wages, social-insurance rates, pensions, benefits, holidays and tax thresholds",
+      "count": 193,
+      "cadence": "jp-vehicle-costs: Re-verified against the official pages every 35 days and on the known change dates (自賠責 2026-11-01, car taxes each 1 April, weight-tax eco bands 2027-05-01); every source page re-fetched weekly. jp-living-costs: Re-verified against the official pages every 35 days and on the known change dates (prefecture minimum wages 2026-10-01 to 2026-12-02 and each autumn, deductions 2026-12-01, insurance and pension rates each March/April, 高額療養費 2027-08-01, the 2028 holidays in February 2027); every source page re-fetched weekly.",
       "authorities": [
+        "www.cfa.go.jp",
         "www.city.koto.lg.jp",
         "www.fsa.go.jp",
+        "www.kyoukaikenpo.or.jp",
+        "www.mhlw.go.jp",
         "www.mlit.go.jp",
         "www.naltec.go.jp",
+        "www.nenkin.go.jp",
+        "www.nta.go.jp",
         "www.soumu.go.jp",
-        "www.tax.metro.tokyo.lg.jp"
+        "www.tax.metro.tokyo.lg.jp",
+        "www8.cao.go.jp"
       ]
     }
   ],

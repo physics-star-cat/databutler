@@ -940,6 +940,38 @@
       }
     }
   },
+  "/api/jp/living-costs": {
+    "status": 200,
+    "body": {
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate.",
+      "area": "jp-living-costs",
+      "jurisdiction": "Japan — national figures (最低賃金 by prefecture, 社会保険料率, 年金, 雇用保険, 児童手当, 出産育児一時金, 高額療養費, 国民の祝日, 消費税, 所得税 控除, 住民税 均等割 standard rate). Health insurance rates are those of 全国健康保険協会（協会けんぽ） only.",
+      "currency": "JPY",
+      "verifiedDate": "2026-10-24",
+      "categories": {
+        "minimum-wage": "地域別最低賃金 (regional minimum wage), FY2026 (令和8年度) revision — hourly, by prefecture",
+        "health-insurance": "協会けんぽ (Japan Health Insurance Association) contribution rates, FY2026 (令和8年度) — by prefecture, plus 介護 and 子ども・子育て支援金",
+        "pension": "年金 (public pensions) — 厚生年金保険料率, 国民年金保険料 (FY2026 and FY2027), 老齢基礎年金 満額 (FY2026)",
+        "employment-insurance": "雇用保険料率 (employment insurance contribution rates), FY2026 (令和8年度: 2026-04-01 – 2027-03-31)",
+        "benefits": "給付 (benefits) — 児童手当, 出産育児一時金, 高額療養費 (under 70, current and the August 2026 / August 2027 revisions)",
+        "holidays": "国民の祝日 (national public holidays) — 2027, from the Cabinet Office CSV",
+        "consumption-tax": "消費税 (consumption tax) rates — standard 10% and reduced 8%, national and local portions",
+        "income-tax": "所得税 (national income tax) — 基礎控除 and 給与所得控除, 2025 to 2028 and after",
+        "resident-tax": "個人住民税 均等割 (resident tax per-capita levy) and 森林環境税, standard rates"
+      },
+      "usage": "pass category=<key> for figures",
+      "freshness": {
+        "verifiedDate": "2026-10-24",
+        "nextScheduledRefresh": "2026-11-28"
+      },
+      "cite": {
+        "url": "https://databutler.dev/r/jp/living-costs",
+        "text": "databutler.dev, verified 2026-10-24"
+      }
+    }
+  },
   "/api/uk/rates?category=vat": {
     "status": 200,
     "body": {
@@ -3083,7 +3115,8 @@
         "uk-exam-dates",
         "calendar",
         "uk-gov-process",
-        "jp-vehicle-costs"
+        "jp-vehicle-costs",
+        "jp-living-costs"
       ],
       "count": 17,
       "entries": [

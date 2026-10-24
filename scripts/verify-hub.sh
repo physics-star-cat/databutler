@@ -24,7 +24,7 @@ check rest-changes "$(curl -sS "$BASE/api/changes?since=2026-06-01&area=uk-rates
 # sync-areas:checks start
 check tools/list "$(rpc '{"jsonrpc":"2.0","id":2,"method":"tools/list"}')" \
   "[t['name'] for t in d['result']['tools']]==['uk_rates_lookup','exam_topic_paper','domain_provenance','package_provenance','take_home_pay','what_changed_since','get_fact','resolve_fact','coverage','catalogue','call']"
-check catalogue "$(inner "$(tool catalogue '{}')")" "d['count']==33"
+check catalogue "$(inner "$(tool catalogue '{}')")" "d['count']==34"
 # uk-rates
 check rates "$(inner "$(tool uk_rates_lookup '{"category":"income-tax"}')")" \
   "d['freshness']['staleness'] in ('fresh','due','overdue') and d['cite']['url']=='https://databutler.dev/r/uk/rates?category=income-tax'"
@@ -138,7 +138,16 @@ check call-jp-vehicle-costs-weight-tax "$(inner "$(tool call '{"tool":"jp_vehicl
 check rest-jp-vehicle-costs-cali "$(curl -sS "$BASE/api/jp/vehicle-costs?category=cali")" "d['category']=='cali' and any(f['key']=='passenger-24m' and f['value']==17650 for f in d['figures']) and any(f['key']=='passenger-24m-from-2026-11' and f['value']==18560 for f in d['figures'])"
 check call-jp-vehicle-costs-nearmiss "$(inner "$(tool call '{"tool":"jp_vehicle_costs_lookup","arguments":{"category":"jibaiseki"}}')")" \
   "d.get('covered')==False and len(d['nearest'])>0"
-for name in uk-rates uk-exams provenance stats vehicles tax software-eol policy-rates us-rates de-rates uk-vehicle-rules uk-exam-dates calendar uk-gov-process jp-vehicle-costs; do
+# jp-living-costs
+check jp-living-costs-listing "$(inner "$(tool call '{"tool":"jp_living_costs_lookup","arguments":{}}')")" \
+  "'categories' in d and 'minimum-wage' in d['categories'] and 'freshness' in d"
+check jp-living-costs-rest-listing "$(curl -sS "$BASE/api/jp/living-costs")" "'categories' in d and 'cite' in d"
+check call-jp-living-costs-minimum-wage "$(inner "$(tool call '{"tool":"jp_living_costs_lookup","arguments":{"category":"minimum-wage"}}')")" \
+  "d['category']=='minimum-wage' and any(f['key']=='tokyo' and f['value']==1280 and f['effectiveFrom']=='2026-10-01' for f in d['figures']) and d['source'].startswith('https://www.mhlw.go.jp/') and d['freshness']['staleness'] in ('fresh','due','overdue') and d['cite']['url']=='https://databutler.dev/r/jp/living-costs?category=minimum-wage'"
+check rest-jp-living-costs-health-insurance "$(curl -sS "$BASE/api/jp/living-costs?category=health-insurance")" "d['category']=='health-insurance' and any(f['key']=='tokyo' and f['value']==9.85 for f in d['figures']) and any(f['key']=='child-rearing-levy' and f['value']==0.23 for f in d['figures'])"
+check call-jp-living-costs-nearmiss "$(inner "$(tool call '{"tool":"jp_living_costs_lookup","arguments":{"category":"saiteichingin"}}')")" \
+  "d.get('covered')==False and len(d['nearest'])>0"
+for name in uk-rates uk-exams provenance stats vehicles tax software-eol policy-rates us-rates de-rates uk-vehicle-rules uk-exam-dates calendar uk-gov-process jp-vehicle-costs jp-living-costs; do
   check "legacy $name tools/list" "$(curl -sS -X POST "$BASE/api/mcp/$name" -H 'Content-Type: application/json' -d '{"jsonrpc":"2.0","id":2,"method":"tools/list"}')" "len(d['result']['tools'])>0"
 done
 # sync-areas:checks end

@@ -834,5 +834,131 @@
     "bodyHash": "8177511cb28e762e",
     "via": "html",
     "checkedAt": "2026-10-24"
+  },
+  {
+    "url": "https://www.mhlw.go.jp/content/11200000/001753404.pdf",
+    "updatedAt": null,
+    "bodyHash": "3c7ef17956d2e72b",
+    "via": "html",
+    "checkedAt": "2026-10-24"
+  },
+  {
+    "url": "https://www.kyoukaikenpo.or.jp/about/business/insurance_rate/rate_prefectures/r08/",
+    "updatedAt": null,
+    "bodyHash": "d42962ca1d5ee02f",
+    "via": "html",
+    "checkedAt": "2026-10-24"
+  },
+  {
+    "url": "https://www.kyoukaikenpo.or.jp/about/business/insurance_rate/002/",
+    "updatedAt": null,
+    "bodyHash": "ef5731393cf8af44",
+    "via": "html",
+    "checkedAt": "2026-10-24"
+  },
+  {
+    "url": "https://www.kyoukaikenpo.or.jp/about/business/insurance_rate/003/",
+    "updatedAt": null,
+    "bodyHash": "7b4fcbd7d96280cb",
+    "via": "html",
+    "checkedAt": "2026-10-24"
+  },
+  {
+    "url": "https://www.nenkin.go.jp/service/kounen/hokenryo/ryogaku/ryogakuhyo/index.html",
+    "updatedAt": null,
+    "bodyHash": "f2340e66128876c1",
+    "via": "html",
+    "checkedAt": "2026-10-24"
+  },
+  {
+    "url": "https://www.nenkin.go.jp/service/kokunen/hokenryo/hokenryo.html",
+    "updatedAt": null,
+    "bodyHash": "3a229bd80da8842e",
+    "via": "html",
+    "checkedAt": "2026-10-24"
+  },
+  {
+    "url": "https://www.mhlw.go.jp/content/12600000/001672868.pdf",
+    "updatedAt": null,
+    "bodyHash": "6d1540c94098dffa",
+    "via": "html",
+    "checkedAt": "2026-10-24"
+  },
+  {
+    "url": "https://www.mhlw.go.jp/stf/newpage_71570.html",
+    "updatedAt": null,
+    "bodyHash": "54fdcfef3b55992b",
+    "via": "html",
+    "checkedAt": "2026-10-24"
+  },
+  {
+    "url": "https://www.mhlw.go.jp/content/001692566.pdf",
+    "updatedAt": null,
+    "bodyHash": "008c4bd336c72e1c",
+    "via": "html",
+    "checkedAt": "2026-10-24"
+  },
+  {
+    "url": "https://www.cfa.go.jp/policies/kokoseido/jidouteate/annai",
+    "updatedAt": null,
+    "bodyHash": "f79fcb090746f586",
+    "via": "html",
+    "checkedAt": "2026-10-24"
+  },
+  {
+    "url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/kenkou_iryou/iryouhoken/shussan/index.html",
+    "updatedAt": null,
+    "bodyHash": "66d8507b6c4bc93a",
+    "via": "html",
+    "checkedAt": "2026-10-24"
+  },
+  {
+    "url": "https://www.mhlw.go.jp/content/000333280.pdf",
+    "updatedAt": null,
+    "bodyHash": "33ffdfb2aa1ec3f2",
+    "via": "html",
+    "checkedAt": "2026-10-24"
+  },
+  {
+    "url": "https://www.mhlw.go.jp/content/001726232.pdf",
+    "updatedAt": null,
+    "bodyHash": "324fcdd535ebf547",
+    "via": "html",
+    "checkedAt": "2026-10-24"
+  },
+  {
+    "url": "https://www8.cao.go.jp/chosei/shukujitsu/syukujitsu.csv",
+    "updatedAt": null,
+    "bodyHash": "7f1eadaa10f8a2b5",
+    "via": "html",
+    "checkedAt": "2026-10-24"
+  },
+  {
+    "url": "https://www.nta.go.jp/taxes/shiraberu/taxanswer/shohi/6303.htm",
+    "updatedAt": null,
+    "bodyHash": "9a6a5f02d8507ffe",
+    "via": "html",
+    "checkedAt": "2026-10-24"
+  },
+  {
+    "url": "https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1199.htm",
+    "updatedAt": null,
+    "bodyHash": "f39e41b00ce8854d",
+    "via": "html",
+    "checkedAt": "2026-10-24"
+  },
+  {
+    "url": "https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1410.htm",
+    "updatedAt": null,
+    "bodyHash": "84aaa87f336926b9",
+    "via": "html",
+    "checkedAt": "2026-10-24"
+  },
+  {
+    "url": "https://www.soumu.go.jp/main_sosiki/jichi_zeisei/czaisei/czaisei_seido/150790_06.html",
+    "updatedAt": null,
+    "bodyHash": "b7d228df7f5f6d38",
+    "via": "html",
+    "checkedAt": "2026-10-24"
   }
 ]

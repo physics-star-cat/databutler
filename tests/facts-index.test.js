@@ -58,7 +58,7 @@ test('counts per area equal the figures in each data file (derived, not typed); 
     assert.equal(byArea[a.area], n, a.area);
   }
   for (const a of AREAS) if (!a.facts) assert.equal(byArea[a.area], undefined, a.area);
-  assert.deepEqual(factAreas().map((a) => a.area).sort(), ['de-rates', 'jp-vehicle-costs', 'policy-rates', 'uk-exam-dates', 'uk-gov-process', 'uk-rates', 'uk-vehicle-rules', 'us-rates']);
+  assert.deepEqual(factAreas().map((a) => a.area).sort(), ['de-rates', 'jp-living-costs', 'jp-vehicle-costs', 'policy-rates', 'uk-exam-dates', 'uk-gov-process', 'uk-rates', 'uk-vehicle-rules', 'us-rates']);
 });
 
 test('policy-rates contributes exactly six keys, one per bank figure', () => {

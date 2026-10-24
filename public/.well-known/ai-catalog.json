@@ -124,6 +124,13 @@
       "type": "application/mcp-server-card+json",
       "url": "https://databutler.dev/api/mcp/jp-vehicle-costs/server-card",
       "description": "Japan 車検 statutory costs: weight tax, 自賠責, inspection fees, 自動車税 and 軽自動車税, sourced."
+    },
+    {
+      "identifier": "urn:air:databutler.dev:mcp:databutler-jp-living-costs",
+      "displayName": "databutler-jp-living-costs",
+      "type": "application/mcp-server-card+json",
+      "url": "https://databutler.dev/api/mcp/jp-living-costs/server-card",
+      "description": "Japan minimum wage by prefecture, 協会けんぽ rates, pensions, benefits, holidays, tax figures, sourced."
     }
   ]
 }

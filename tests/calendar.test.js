@@ -303,7 +303,8 @@ test('registry: calendar server lists both tools, read-only, not open-world, pla
   const fd = await rpc(frontDoor, 'tools/list');
   assert.ok(!fd.body.result.tools.some((t) => t.name === 'calendar_facts'), 'behind call, not listed at the front door');
   const cat = await callTool(frontDoor, 'catalogue', { query: 'holiday' });
-  assert.deepEqual(cat.data.tools.map((t) => t.name).sort(), ['calendar_facts', 'next_holiday']);
+  // jp_living_costs_lookup also matches: it serves Japan's national holidays (category holidays).
+  assert.deepEqual(cat.data.tools.map((t) => t.name).sort(), ['calendar_facts', 'jp_living_costs_lookup', 'next_holiday']);
 });
 
 test('MCP: tools/call direct and via the front door carry freshness and a cite permalink with the query', async () => {

@@ -30,6 +30,7 @@ The product is trust. A wrong number is worse than no number. Rules:
 | `data/calendar.json` | Monthly (freshness says `due` from 35 days after the fetch); and when a government publishes the next year's list (gov.uk and OPM publish ~2 years ahead, calendrier.api.gouv.fr 5 years) | `node scripts/calendar.js` — fetches gov.uk `bank-holidays.json`, OPM's federal-holidays page and `calendrier.api.gouv.fr` (UA names databutler.dev, 500 ms apart), merges `data/calendar/manual.json` (German Länder rules, tax-year and DST rules — edit that file against the official pages, bump its `verifiedDate`, keep every `quote`/`verification`), computes rule-based dates and stops if a hand-copied official date disagrees, bumps `verifiedDate`/`nextScheduledRefresh` (+35 days), appends `calendar` changelog entries (`<cc>/holidays/<year>` for a new year, `<cc>/holidays/<region>/<year>/<key>` for an added/removed/moved day, `<cc>/tax-year/<part>`, `<cc>/dst/<year>` for rule changes). Fill the blank notes, commit `data/` together. To widen the window add the year to `manual.json` `years`. `CAL_DIR=path` builds from saved copies. Re-try the `nonOfficial` entries (HB, MV, SH, TH holidays; fr and br DST; br personal tax year) each refresh. |
 | `data/uk-gov-process.json` | Every 30 days (`nextScheduledRefresh` = verifiedDate + 30), and on Home Office / DVLA / DWP fee-change days (passport and ETA fees moved on 8 April 2026; benefits uprate each April). The weekly watcher reads each service's gov.uk page through the content API. | For each service fetch `https://www.gov.uk/api/content/<path>` for its `source` and `alsoRead` pages; compare every figure's `quote` against the page; for a changed value move the old value into `previous` (source = the National Archives capture of the outgoing page, or the announcement/SI) and set `effectiveFrom` to the change date; add a dated line to the service's `changes`; update `pageUpdatedAt`; bump `verifiedDate`; then `node scripts/changelog.js --only uk-gov-process` (stamps `nextScheduledRefresh`, appends one entry per figure that moved, re-hashes this area's sources) and review the notes. |
 | `data/jp-vehicle-costs.json` | Every 35 days (`nextScheduledRefresh` = verifiedDate + 35), and on the change dates: 自賠責 2026-11-01 (re-check whether an official page now prints the revised 25/37-month rates), 自動車税/軽自動車税 each 1 April (税制改正大綱 in December), weight-tax eco bands 2027-05-01 and the table's end 2028-04-30, 検査手数料 when NALTEC announces a change. The weekly watcher hashes every source page. | Re-fetch every `source` (PDFs: `pdftotext -layout`); compare each figure's `quote` with the page; for a changed value move the old one into `previous` (`value`, `source`, `title`), write the new `value`, `quote`, `effectiveFrom` (and `effectiveTo` on the figure it replaces); once 2026-11-01 has passed the -from-2026-11 keys are current and the old-table keys keep `effectiveTo` 2026-10-31; bump `verifiedDate`; `node scripts/changelog.js --only jp-vehicle-costs` (stamps `nextScheduledRefresh`, appends one entry per figure that moved, re-hashes this area's sources); review the notes; `node scripts/sign-facts.js`. |
+| `data/jp-living-costs.json` | Every 35 days (`nextScheduledRefresh` = verifiedDate + 35), and on the change dates: each autumn's 地域別最低賃金 (答申 in August, 発効 October–December; MHLW 全国一覧 PDF), 協会けんぽ rates, 介護保険料率 and 子ども・子育て支援金率 each March, 雇用保険料率, 国民年金保険料 and 年金額 each April (announced January–March), 高額療養費 2027-08-01, the 2026 deductions from 2026-12-01 and each December's 税制改正大綱, the 2028 holidays (内閣府, February 2027), and the 1% food consumption-tax rate once its bill passes. The weekly watcher hashes every source page. | Re-fetch every `source` (PDFs: `pdftotext -layout`; the 祝日 CSV is Shift_JIS); compare each figure's `quote` with the page; for a changed value move the old one into `previous` (`value`, `period`, `source`, `title`) and write the new `value`, `quote`, `effectiveFrom`, `period`; for a new fiscal year's minimum wages update all 47 prefectures with their new 発効日; bump `verifiedDate`; `node scripts/changelog.js --only jp-living-costs` (stamps `nextScheduledRefresh`, appends one entry per figure that moved, re-hashes this area's sources); review the notes; `node scripts/sign-facts.js`. |
 | `data/sources.json` | After every data refresh (automatic via `scripts/changelog.js`) | `node scripts/sources.js` re-checks every source URL (gov.uk content API / page hash); a page it cannot fetch is recorded `unreachable` and listed under "Sources the watcher cannot read". |
 | `data/facts-signatures.json` | After every data change to a facts area, before commit | `node scripts/sign-facts.js` with the key in `~/.config/databutler/` (never on Vercel); `tests/facts-sign.test.js` fails while a served fact is unsigned. See "Signing and key rotation". |
 | `data/changelog.json` | With every data refresh | `node scripts/changelog.js` (areas with a `changelog.diff`) or the dataset's own script (`changelog.script`); fill in `note` lines. See "Changelog & source watcher" and docs/ADDING_AN_AREA.md. |
@@ -1327,3 +1328,98 @@ is corroboration only — the kei fees cite NALTEC's fee list, which prints the
   の車両番号の指定を受けた場合は令和8年度分 … 四輪以上 乗用 自家用 2,700円". The
   総務省 PDF is the 平成28年度 overview; its standard rates are still those Kōtō
   City levies.
+
+## Verification log (jp-living-costs, added 2026-10-24)
+
+Fetch notes: every source was fetched 2026-10-24 with curl (browser
+User-Agent, at least 1.2 s between requests); all returned HTTP 200, none was
+blocked. PDFs were read with `pdftotext -layout`, HTML pages as text, the
+内閣府 CSV decoded from Shift_JIS. The minimum-wage PDF, the 協会けんぽ table and
+the holiday CSV were parsed programmatically; the other figures were typed from
+the page text and each carries the quoted row as `quote`. Nothing was written
+from memory.
+
+Licences: mhlw.go.jp (`/chosakuken/index.html`), nta.go.jp (`/chuijiko/copy.htm`),
+soumu.go.jp (`/menu_kyotsuu/policy/tyosaku.html`), cao.go.jp (`/notice/rule.html`,
+covering the www8 祝日 CSV) and cfa.go.jp (`/copyright-policy`) — Public Data
+License 1.0: "「公共データ利用規約（第1.0版）」（PDL1.0）に準拠した利用条件の下で、
+利用することができます". Attribution is the `source` URL on every figure; the
+values are reformatted into JSON (編集・加工). nenkin.go.jp
+(`/info/aboutweb/aboutsite.html`): "原則リンクフリー、転載フリーです" — a statutory
+body, not PDL. kyoukaikenpo.or.jp (`/disclosure/website/`): "出所を明示することにより、
+引用、転載、複製を行うことができます" and "無断で改変を行うことはできません" — its
+rates are reproduced unaltered, with the page named; `employee_share` (rate ÷ 2)
+is not published as a figure because it is derived, not read.
+
+- minimum-wage — https://www.mhlw.go.jp/content/11200000/001753404.pdf
+  「令和8年度 地域別最低賃金 全国一覧」, one row per prefecture, e.g. "東 京 1,280
+  （ 1,226 ) 54 4.4% 令和8年10月1日", "大 阪 1,231 （ 1,177 ) 54 4.6% 令和8年10月1日",
+  "沖 縄 1,086 （ 1,023 ) 63 6.2% 令和8年12月2日", "全国加重平均 1,177 （ 1,121 ) 56
+  5.0%"; "括弧内の数字は改定前の地域別最低賃金額" — the parenthesised amount is
+  `previous` (period 2025). Each prefecture's 発効日 is its `effectiveFrom`
+  (2026-10-01 for 15 prefectures, latest 沖縄 2026-12-02); the national average
+  carries 2026-10-01, the first 発効日. Kept as published: the PDF header still
+  says 「答申された改定額」 while the MHLW page calls them the 令和８年度 amounts and
+  発効日; and the page's second link (「平成14年度から令和８年度までの地域別最低賃金
+  改定状況」, `001753406.pdf`) serves the same bytes as the first, so no earlier
+  history is included. The separate 発効日一覧 is not a figure (each prefecture
+  carries its own date).
+- health-insurance — https://www.kyoukaikenpo.or.jp/about/business/insurance_rate/rate_prefectures/r08/
+  「令和8年度都道府県単位保険料率」, one row per prefecture "<県> <令和7年度>% ↓|→
+  <令和8年度>%", e.g. "東京 9.91% ↓ 9.85%", "新潟 9.55% ↓ 9.21%", "佐賀 10.78% ↓
+  10.55%"; 40 cut, 7 unchanged (青森 秋田 山形 栃木 神奈川 島根 沖縄), none raised.
+  Applies from 令和8年3月分（4月納付分）(任意継続・日雇特例: 4月分) — `effectiveFrom`
+  2026-03-01. The old `/g7/cat330/…` URLs answer 404 after a site restructure.
+  long-term-care — https://www.kyoukaikenpo.or.jp/about/business/insurance_rate/002/
+  "令和8年3月分（4月30日納付期限分）から 1.62％" (令和7年度 1.59%). child-rearing-levy —
+  https://www.kyoukaikenpo.or.jp/about/business/insurance_rate/003/ "令和8年4月分
+  （5月納付分）から 0.23％" — new in 2026 and collected on top of the prefecture rate.
+- pension — https://www.nenkin.go.jp/service/kounen/hokenryo/ryogaku/ryogakuhyo/index.html
+  "平成29年9月を最後に引上げが終了し、厚生年金保険料率は18.3％で固定";
+  https://www.nenkin.go.jp/service/kokunen/hokenryo/hokenryo.html "国民年金保険料の
+  金額は、1カ月あたり17,920円です（令和8年度）"; FY2027 from
+  https://www.mhlw.go.jp/content/12600000/001672868.pdf "実際の保険料額 17,920 円
+  18,290 円（＋410 円）（＋370 円）" (nenkin.go.jp does not list FY2027 yet);
+  https://www.mhlw.go.jp/stf/newpage_71570.html "昭和31年４月１日以前生まれの者は
+  70,408円、昭和31年４月２日以降生まれの者は70,608円" (老齢基礎年金 満額, 月額); the
+  FY2025 69,308 円 from the same MHLW PDF's 年金額の例 table. Keys are romanised
+  (kosei-nenkin, kokumin-nenkin, kiso-nenkin) so a bare "pension" query still
+  ranks the UK State Pension first.
+- employment-insurance — https://www.mhlw.go.jp/content/001692566.pdf
+  「令和８（2026）年度 雇用保険料率のご案内」: "一般の事業 5/1,000 8.5/1,000 5/1,000
+  3.5/1,000 13.5/1,000", "農林水産・清酒製造の事業 6/1,000 9.5/1,000 … 15.5/1,000",
+  "建設の事業 6/1,000 10.5/1,000 6/1,000 4.5/1,000 16.5/1,000"; the leaflet prints the
+  （令和７年度） row under each (5.5/9/14.5, 6.5/10/16.5, 6.5/11/17.5) — `previous`.
+- benefits — https://www.cfa.go.jp/policies/kokoseido/jidouteate/annai "3歳未満
+  15,000円（第3子以降は30,000円）／3歳以上 高校生年代まで 10,000円" (from 令和6年10月分,
+  no income limit); https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/kenkou_iryou/iryouhoken/shussan/index.html
+  "お子さん１人につき原則50万円"; 高額療養費 (70歳未満) from
+  https://www.mhlw.go.jp/content/000333280.pdf (平成30年8月～令和8年7月: "ア 252,600円
+  ＋(医療費－842,000)×１% … エ 57,600円 オ 住民税非課税者 35,400円") and
+  https://www.mhlw.go.jp/content/001726232.pdf (令和8年8月～: "270,300 ＋（医療費－
+  901,000）× 1％ ＜140,100＞ 1,680,000 … 住民税非課税 36,900"; 令和9年8月～: 13 bands,
+  top "127万円以上 342,000 ＋（医療費－1,140,000）× 1％"). The 70歳以上 tables are
+  in the PDF but not published here.
+- holidays — https://www8.cao.go.jp/chosei/shukujitsu/syukujitsu.csv
+  "2027/1/1,元日 … 2027/3/22,休日 … 2027/11/23,勤労感謝の日": 16 祝日 and one 休日
+  (3/22, 春分の日 on Sunday 3/21). The 2028 list is due February 2027.
+- consumption-tax — https://www.nta.go.jp/taxes/shiraberu/taxanswer/shohi/6303.htm
+  (令和8年4月1日現在法令等) "標準税率 消費税率 7.8パーセント 地方消費税率 2.2パーセント
+  合計 10パーセント", "軽減税率 消費税率 6.24パーセント 地方消費税率 1.76パーセント 合計
+  8パーセント". **Omitted:** the 1% (国・地方合計) rate on 飲食料品 for 2027-04-01 –
+  2029-03-31 announced on the NTA 消費税率引下げ特設サイト (leaflet
+  `0026008-127_leaflet.pdf`): it is the 大綱 (閣議決定 2026-09-15) and applies only
+  "法案が国会に提出され、審議を経た上で可決・成立した場合" — add it once the bill
+  passes.
+- income-tax — https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1199.htm
+  (基礎控除, four columns 令和6年分以前 / 令和7年分 / 令和8年分・令和9年分 / 令和10年分以後:
+  "132万円以下 48万円 95万円 104万円 99万円", "655万円超2,350万円以下 48万円 58万円
+  62万円"); https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1410.htm
+  (給与所得控除: 令和8年分・令和9年分 "2,200,000円まで 740,000円" … "8,500,001円以上
+  1,950,000円（上限）"; 令和7年分 "1,900,000円まで 650,000円"). The 令和8年分 rules take
+  effect 2026-12-01 (令和8年度税制改正) and apply to the whole 2026 tax year, so
+  `effectiveFrom` is 2026-01-01 and every label says "in force from 2026-12-01".
+  The special 給与所得 table for 収入 69.1万～220万円 (注2) is not published.
+- resident-tax — https://www.soumu.go.jp/main_sosiki/jichi_zeisei/czaisei/czaisei_seido/150790_06.html
+  "税額は4,000円（道府県民税が1,000円、市町村民税が3,000円）… 森林環境税（国税）が
+  1,000円徴収".
