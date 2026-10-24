@@ -198,7 +198,8 @@ test('GET /api/changes: a Verified Changes document inside the unchanged envelop
   assert.equal(b.attribution, 'databutler.dev');
   assert.equal(b.freshness.staleness, 'live');
   assert.equal(b.cite.url, 'https://databutler.dev/r/changes?since=2026-06-01&area=vehicles');
-  assert.equal(b.count, 3); assert.equal(b.entries.length, 3);
+  const expected = CHANGELOG.filter((e) => e.area === 'vehicles' && e.effectiveFrom >= '2026-06-01').length;
+  assert.equal(b.count, expected); assert.equal(b.entries.length, expected);
   assert.deepEqual(b.areasCovered, CHANGELOG_AREAS);
   // protocol keys come first in the document, before the query echo
   const keys = Object.keys(b);

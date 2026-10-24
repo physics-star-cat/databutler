@@ -136,10 +136,22 @@ test('live data: the dataset entries match what the data files say', () => {
   const fr = CHANGELOG.find((e) => e.key === 'fr-recalls/dataset');
   assert.equal(fr.source, FR.source); assert.equal(fr.effectiveFrom, FR.verifiedDate);
   assert.match(fr.note, new RegExp(FR.count.toLocaleString('en-GB')));
+  // The dataset entry describes the first derivation; after a refresh the newest metric-move entries
+  // carry the current counts (scripts/vehicles.js appends them), so check whichever applies.
   const jp = CHANGELOG.find((e) => e.key === 'jp-recalls/dataset');
-  assert.equal(jp.source, JP.source); assert.equal(jp.effectiveFrom, JP.verifiedDate);
-  assert.match(jp.note, new RegExp(String(JP.counts.recallFilings)));
-  assert.match(jp.note, new RegExp(JP.counts.complaints.toLocaleString('en-GB')));
+  assert.equal(jp.source, JP.source);
+  const latest = (k) => CHANGELOG.filter((e) => e.key === k).sort((a, b) => a.effectiveFrom.localeCompare(b.effectiveFrom)).at(-1);
+  const filings = latest('jp-recalls/recall-filings');
+  const complaints = latest('jp-recalls/complaints');
+  if (filings || complaints) {
+    assert.equal(filings.to, JP.counts.recallFilings); assert.equal(filings.effectiveFrom, JP.verifiedDate);
+    assert.equal(complaints.to, JP.counts.complaints); assert.equal(complaints.effectiveFrom, JP.verifiedDate);
+    assert.ok(filings.note && complaints.note, 'refresh entries need a reviewed note');
+  } else {
+    assert.equal(jp.effectiveFrom, JP.verifiedDate);
+    assert.match(jp.note, new RegExp(String(JP.counts.recallFilings)));
+    assert.match(jp.note, new RegExp(JP.counts.complaints.toLocaleString('en-GB')));
+  }
   const EOL = require('../data/software-eol.json');
   for (const p of Object.values(EOL.products)) {
     const e = CHANGELOG.find((x) => x.key === `${p.id}/dataset`);

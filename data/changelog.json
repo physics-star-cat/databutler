@@ -3162,5 +3162,27 @@
     "source": "https://www.naltec.go.jp/business/inspection/hbh5ss0000000ngo-att/gtg5d20000000cre.pdf",
     "verifiedDate": "2026-10-24",
     "note": "Continuing inspection with a designated-garage certificate, online (OSS) filing, kei car: 1600 → 1850 JPY from 2026-04-01 (https://www.naltec.go.jp/business/inspection/hbh5ss0000000ngo-att/gtg5d20000000cre.pdf)"
+  },
+  {
+    "area": "vehicles",
+    "key": "jp-recalls/recall-filings",
+    "label": "MLIT recall filings matched to covered models",
+    "from": 919,
+    "to": 2826,
+    "effectiveFrom": "2026-10-24",
+    "source": "https://renrakuda.mlit.go.jp/",
+    "verifiedDate": "2026-10-24",
+    "note": "Refresh from the shaken-data MLIT pipeline of 2026-10-24: coverage grew from 75 to 264 models (182 Japanese-maker models, plus Lexus and 14 import brands combined from MLIT's grade-level names), and recall matching now reads every typeList block of a filing (it had read only the first, undercounting filings that list many vehicle types). MLIT's portal data runs to filings of 2026-08-27."
+  },
+  {
+    "area": "vehicles",
+    "key": "jp-recalls/complaints",
+    "label": "MLIT owner complaints across covered models",
+    "from": 19659,
+    "to": 40870,
+    "effectiveFrom": "2026-10-24",
+    "source": "https://renrakuda.mlit.go.jp/",
+    "verifiedDate": "2026-10-24",
+    "note": "Same refresh (2026-10-24): complaints for 264 models from 23 makers; the increase is new coverage (107 more Japanese-maker models, Lexus and 14 import brands), not a change in MLIT's counting."
   }
 ]

@@ -2792,23 +2792,23 @@
         "mlitName": "Ｎ－ＢＯＸ"
       },
       "complaints": {
-        "total": 914,
+        "total": 922,
         "sampledForBreakdown": 500,
         "byDevice": [
           {
             "device": "エンジン",
-            "count": 188,
-            "share": 37.6
+            "count": 185,
+            "share": 37
           },
           {
             "device": "保安灯火",
-            "count": 133,
-            "share": 26.6
+            "count": 137,
+            "share": 27.4
           },
           {
             "device": "動力伝達",
-            "count": 40,
-            "share": 8
+            "count": 38,
+            "share": 7.6
           },
           {
             "device": "制動装置",
@@ -2832,18 +2832,18 @@
           },
           {
             "device": "その他",
-            "count": 17,
-            "share": 3.4
+            "count": 18,
+            "share": 3.6
           },
           {
             "device": "電気装置",
-            "count": 8,
-            "share": 1.6
+            "count": 9,
+            "share": 1.8
           },
           {
             "device": "走行装置",
-            "count": 6,
-            "share": 1.2
+            "count": 5,
+            "share": 1
           },
           {
             "device": "かじ取り",
@@ -2863,18 +2863,18 @@
         ]
       },
       "recallFilings": 13,
-      "verifiedDate": "2026-08-30",
+      "verifiedDate": "2026-10-24",
       "source": "https://renrakuda.mlit.go.jp/",
       "sourceName": "国土交通省 自動車のリコール・不具合情報 (MLIT, Japan — recall filings and owner defect reports)",
       "licence": "MLIT terms (政府標準利用規約-compliant): reuse with source attribution",
       "attributionNote": "出典：国土交通省「自動車のリコール・不具合情報」. Official filings and owner-submitted reports; a complaint is a report, not a verified defect, and counts are not normalised by sales volume.",
       "freshness": {
-        "verifiedDate": "2026-08-30",
-        "nextScheduledRefresh": "2026-09-30"
+        "verifiedDate": "2026-10-24",
+        "nextScheduledRefresh": "2026-11-24"
       },
       "cite": {
         "url": "https://databutler.dev/r/vehicles/jp/complaints?make=honda&model=n-box",
-        "text": "databutler.dev, verified 2026-08-30 against https://renrakuda.mlit.go.jp/"
+        "text": "databutler.dev, verified 2026-10-24 against https://renrakuda.mlit.go.jp/"
       }
     }
   },

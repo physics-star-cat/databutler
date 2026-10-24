@@ -11,7 +11,7 @@ test('coverage: all areas, each with a notCovered list', () => {
   assert.deepEqual(Object.keys(all['policy-rates'].banks), ['boe', 'fed', 'ecb']);
   assert.equal(all.tax.countries.es.computed, false);
   assert.equal(all.vehicles.frRecalls.fiches, 1663);
-  assert.equal(all.vehicles.jpRecalls.models, 75);
+  assert.equal(all.vehicles.jpRecalls.models, require('../data/vehicles/jp-recalls.json').counts.models);
   for (const a of all.areas) assert.ok(Array.isArray(all[a].notCovered), a);
   assert.ok(all['uk-rates'].categories.includes('income-tax'));
   assert.deepEqual(all['uk-exams'].boards, { aqa: { gcse: ['Physics', 'Biology', 'Chemistry', 'Combined Science: Trilogy', 'Mathematics'] } });

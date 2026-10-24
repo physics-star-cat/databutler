@@ -153,7 +153,7 @@ module.exports = {
         title: 'Japanese recalls for a model',
         description:
           `Official Japanese recall filings (国土交通省 MLIT; ${V.JP.counts.recallFilings} filings matched to ` +
-          `${V.JP.counts.models} popular JDM models) for a make and model: notification number, date, defective device, ` +
+          `${V.JP.counts.models} models sold in Japan, incl. Lexus and imports) for a make and model: notification number, date, defective device, ` +
           'affected vehicles, situation and remedy (Japanese originals) and the official filing PDF. Accepts English ' +
           '(Toyota Prius, Honda N-BOX) or Japanese (トヨタ プリウス) names.',
         inputSchema: {
@@ -205,7 +205,7 @@ module.exports = {
   freshness: [
     { key: 'uk-recalls', dataFile: 'data/vehicles/uk-recalls.json', cadenceDays: null, data: V.UK, large: 'DVSA bulk CSV derivation, ten calendar years of recalls (≈2.6 MB)' },
     { key: 'fr-recalls', dataFile: 'data/vehicles/fr-recalls.json', cadenceDays: null, data: V.FR, large: 'RappelConso automobile fiches since 2018 (≈1.1 MB)' },
-    { key: 'jp-recalls', dataFile: 'data/vehicles/jp-recalls.json', cadenceDays: null, data: V.JP },
+    { key: 'jp-recalls', dataFile: 'data/vehicles/jp-recalls.json', cadenceDays: null, data: V.JP, large: 'MLIT recall filings + owner complaint summaries for 264 models from 23 makers incl. Lexus and imports (≈2.3 MB)' },
   ],
 
   // Entries are written by the dataset script, not by scripts/changelog.js.
@@ -248,7 +248,7 @@ module.exports = {
         '- `GET https://databutler.dev/api/vehicles/uk/mot?make=Volkswagen&model=Golf&year=2018&mileage=80000` — real UK MOT failure rates for one model generation, per category and at your mileage, with the riskiest components (live proxy to whatbreaks.uk; DfT anonymised MOT results). `GET /api/vehicles/uk/search?q=golf` checks coverage (530 generations).',
         '- `GET https://databutler.dev/api/vehicles/uk/recalls?make=vauxhall&model=corsa` — official UK vehicle safety recalls (DVSA open data, Open Government Licence; 4,876 recalls launched since 2016): recall number, launch date, concern, defect and remedy text, build-date range, vehicles affected, GOV.UK recall-checker link. `GET /api/vehicles/uk/recalls-search?text=airbag%20takata&since=2025-01-01` searches all served recalls.',
         '- `GET https://databutler.dev/api/vehicles/fr/recalls?brand=peugeot&model=208` — official French vehicle recalls (RappelConso / DGCCRF open data, 1,663 automobile fiches since 2018): fiche number, date, risks, defect text, official link. `GET /api/vehicles/fr/search?text=airbag%20takata&since=2026-01-01` searches all fiches.',
-        '- `GET https://databutler.dev/api/vehicles/jp/recalls?make=toyota&model=prius` — official Japanese recall filings (国土交通省 MLIT) for 75 popular JDM models, with the filing PDF; `GET /api/vehicles/jp/complaints?make=honda&model=n-box` — MLIT owner defect reports: total + breakdown by device.',
+        `- \`GET https://databutler.dev/api/vehicles/jp/recalls?make=toyota&model=prius\` — official Japanese recall filings (国土交通省 MLIT) for ${V.JP.counts.models} models sold in Japan (Japanese makers, Lexus and imports), with the filing PDF; \`GET /api/vehicles/jp/complaints?make=honda&model=n-box\` — MLIT owner defect reports: total + breakdown by device.`,
       ],
       server: '- `POST https://databutler.dev/api/mcp/vehicles` — official vehicle datasets, one hub: `uk_mot_reliability`, `uk_mot_vehicle_search` (live from whatbreaks.uk — real DfT MOT outcomes), `uk_recalls_for_model`, `uk_recalls_search` (DVSA), `fr_recalls_for_model`, `fr_recalls_search` (RappelConso), `jp_recalls_for_model`, `jp_complaints_summary` (MLIT), `eu_safety_gate_recalls` (stub). Recall texts are the official English/French/Japanese originals — translate for the user, keep the recall/fiche/notification number and link.',
     },
@@ -299,7 +299,7 @@ module.exports = {
         },
         'GET /api/vehicles/jp/recalls': {
           description:
-            `Official Japanese recall filings (国土交通省 MLIT; ${V.JP.counts.recallFilings} filings across ${V.JP.counts.models} popular JDM models): ` +
+            `Official Japanese recall filings (国土交通省 MLIT; ${V.JP.counts.recallFilings} filings across ${V.JP.counts.models} models sold in Japan, incl. Lexus and imports): ` +
             'notification number, date, device, affected vehicles, situation/remedy, official PDF. English or Japanese names.',
           params: { make: 'e.g. toyota', model: 'e.g. prius, N-BOX' },
           example: 'https://databutler.dev/api/vehicles/jp/recalls?make=toyota&model=prius',
