@@ -205,7 +205,7 @@ module.exports = {
   freshness: [
     { key: 'uk-recalls', dataFile: 'data/vehicles/uk-recalls.json', cadenceDays: null, data: V.UK, large: 'DVSA bulk CSV derivation, ten calendar years of recalls (≈2.6 MB)' },
     { key: 'fr-recalls', dataFile: 'data/vehicles/fr-recalls.json', cadenceDays: null, data: V.FR, large: 'RappelConso automobile fiches since 2018 (≈1.1 MB)' },
-    { key: 'jp-recalls', dataFile: 'data/vehicles/jp-recalls.json', cadenceDays: null, data: V.JP, large: 'MLIT recall filings + owner complaint summaries for 264 models from 23 makers incl. Lexus and imports (≈2.3 MB)' },
+    { key: 'jp-recalls', dataFile: 'data/vehicles/jp-recalls.json', cadenceDays: null, data: V.JP, large: 'MLIT recall filings + owner complaint summaries for 311 models incl. Lexus, imports and motorcycles (≈2.6 MB)' },
   ],
 
   // Entries are written by the dataset script, not by scripts/changelog.js.

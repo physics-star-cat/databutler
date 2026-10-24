@@ -3168,22 +3168,22 @@
     "key": "jp-recalls/recall-filings",
     "label": "MLIT recall filings matched to covered models",
     "from": 919,
-    "to": 2826,
+    "to": 3269,
     "effectiveFrom": "2026-10-24",
     "source": "https://renrakuda.mlit.go.jp/",
     "verifiedDate": "2026-10-24",
-    "note": "Refresh from the shaken-data MLIT pipeline of 2026-10-24: coverage grew from 75 to 264 models (182 Japanese-maker models, plus Lexus and 14 import brands combined from MLIT's grade-level names), and recall matching now reads every typeList block of a filing (it had read only the first, undercounting filings that list many vehicle types). MLIT's portal data runs to filings of 2026-08-27."
+    "note": "Refresh from the shaken-data MLIT pipeline of 2026-10-24: coverage grew from 75 to 311 models (Japanese makers, Lexus, 14 import brands and 47 motorcycle families, combined from MLIT's grade-level names), and recall matching now reads every typeList block of a filing (it had read only the first, undercounting filings that list many vehicle types). MLIT's portal data runs to filings of 2026-08-27."
   },
   {
     "area": "vehicles",
     "key": "jp-recalls/complaints",
     "label": "MLIT owner complaints across covered models",
     "from": 19659,
-    "to": 40870,
+    "to": 39770,
     "effectiveFrom": "2026-10-24",
     "source": "https://renrakuda.mlit.go.jp/",
     "verifiedDate": "2026-10-24",
-    "note": "Same refresh (2026-10-24): complaints for 264 models from 23 makers; the increase is new coverage (107 more Japanese-maker models, Lexus and 14 import brands), not a change in MLIT's counting."
+    "note": "Same refresh (2026-10-24): complaints for 311 models. MLIT's complaint search matches names by substring, so earlier per-model totals double-counted sibling models (e.g. カローラ included カローラフィールダー); complaints are now counted by exact model name with reviewed same-model spellings merged, so the change mixes new coverage (up) and that correction (down)."
   },
   {
     "area": "jp-living-costs",

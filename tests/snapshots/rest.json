@@ -2821,51 +2821,51 @@
         "model": "N-BOX",
         "makeEn": "Honda",
         "modelEn": "N-BOX",
-        "mlitName": "Ｎ－ＢＯＸ"
+        "mlitName": "N-BOX ほか12表記"
       },
       "complaints": {
-        "total": 922,
+        "total": 967,
         "sampledForBreakdown": 500,
         "byDevice": [
           {
             "device": "エンジン",
-            "count": 185,
-            "share": 37
+            "count": 180,
+            "share": 36
           },
           {
             "device": "保安灯火",
-            "count": 137,
-            "share": 27.4
+            "count": 155,
+            "share": 31
           },
           {
             "device": "動力伝達",
-            "count": 38,
-            "share": 7.6
+            "count": 36,
+            "share": 7.2
           },
           {
             "device": "制動装置",
-            "count": 35,
-            "share": 7
+            "count": 32,
+            "share": 6.4
           },
           {
             "device": "車枠・車体",
-            "count": 24,
-            "share": 4.8
+            "count": 22,
+            "share": 4.4
           },
           {
             "device": "燃料装置",
-            "count": 21,
-            "share": 4.2
-          },
-          {
-            "device": "乗車装置",
             "count": 20,
             "share": 4
           },
           {
-            "device": "その他",
+            "device": "乗車装置",
             "count": 18,
             "share": 3.6
+          },
+          {
+            "device": "その他",
+            "count": 17,
+            "share": 3.4
           },
           {
             "device": "電気装置",
@@ -2874,8 +2874,8 @@
           },
           {
             "device": "走行装置",
-            "count": 5,
-            "share": 1
+            "count": 4,
+            "share": 0.8
           },
           {
             "device": "かじ取り",
@@ -2884,8 +2884,8 @@
           },
           {
             "device": "排ｶﾞｽ･騒音",
-            "count": 3,
-            "share": 0.6
+            "count": 2,
+            "share": 0.4
           },
           {
             "device": "緩衝装置",
@@ -2894,7 +2894,7 @@
           }
         ]
       },
-      "recallFilings": 13,
+      "recallFilings": 18,
       "verifiedDate": "2026-10-24",
       "source": "https://renrakuda.mlit.go.jp/",
       "sourceName": "国土交通省 自動車のリコール・不具合情報 (MLIT, Japan — recall filings and owner defect reports)",
