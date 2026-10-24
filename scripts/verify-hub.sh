@@ -24,7 +24,7 @@ check rest-changes "$(curl -sS "$BASE/api/changes?since=2026-06-01&area=uk-rates
 # sync-areas:checks start
 check tools/list "$(rpc '{"jsonrpc":"2.0","id":2,"method":"tools/list"}')" \
   "[t['name'] for t in d['result']['tools']]==['uk_rates_lookup','exam_topic_paper','domain_provenance','package_provenance','take_home_pay','what_changed_since','get_fact','resolve_fact','coverage','catalogue','call']"
-check catalogue "$(inner "$(tool catalogue '{}')")" "d['count']==32"
+check catalogue "$(inner "$(tool catalogue '{}')")" "d['count']==33"
 # uk-rates
 check rates "$(inner "$(tool uk_rates_lookup '{"category":"income-tax"}')")" \
   "d['freshness']['staleness'] in ('fresh','due','overdue') and d['cite']['url']=='https://databutler.dev/r/uk/rates?category=income-tax'"
@@ -129,7 +129,16 @@ check call-uk-gov-process-passport "$(inner "$(tool call '{"tool":"uk_gov_proces
 check rest-uk-gov-process-eta "$(curl -sS "$BASE/api/uk/gov-process?service=eta")" "d['service']=='eta' and any(f['key']=='fee' and f['value']==20 for f in d['figures']) and 'freshness' in d"
 check call-uk-gov-process-nearmiss "$(inner "$(tool call '{"tool":"uk_gov_process","arguments":{"service":"zzz-passprt"}}')")" \
   "d.get('covered')==False and len(d['nearest'])>0"
-for name in uk-rates uk-exams provenance stats vehicles tax software-eol policy-rates us-rates de-rates uk-vehicle-rules uk-exam-dates calendar uk-gov-process; do
+# jp-vehicle-costs
+check jp-vehicle-costs-listing "$(inner "$(tool call '{"tool":"jp_vehicle_costs_lookup","arguments":{}}')")" \
+  "'categories' in d and 'cali' in d['categories'] and 'freshness' in d"
+check jp-vehicle-costs-rest-listing "$(curl -sS "$BASE/api/jp/vehicle-costs")" "'categories' in d and 'cite' in d"
+check call-jp-vehicle-costs-weight-tax "$(inner "$(tool call '{"tool":"jp_vehicle_costs_lookup","arguments":{"category":"weight-tax"}}')")" \
+  "d['category']=='weight-tax' and any(f['key']=='passenger-standard-per-0.5t-2y' and f['value']==8200 for f in d['figures']) and d['source'].startswith('https://www.mlit.go.jp/') and d['freshness']['staleness'] in ('fresh','due','overdue') and d['cite']['url']=='https://databutler.dev/r/jp/vehicle-costs?category=weight-tax'"
+check rest-jp-vehicle-costs-cali "$(curl -sS "$BASE/api/jp/vehicle-costs?category=cali")" "d['category']=='cali' and any(f['key']=='passenger-24m' and f['value']==17650 for f in d['figures']) and any(f['key']=='passenger-24m-from-2026-11' and f['value']==18560 for f in d['figures'])"
+check call-jp-vehicle-costs-nearmiss "$(inner "$(tool call '{"tool":"jp_vehicle_costs_lookup","arguments":{"category":"jibaiseki"}}')")" \
+  "d.get('covered')==False and len(d['nearest'])>0"
+for name in uk-rates uk-exams provenance stats vehicles tax software-eol policy-rates us-rates de-rates uk-vehicle-rules uk-exam-dates calendar uk-gov-process jp-vehicle-costs; do
   check "legacy $name tools/list" "$(curl -sS -X POST "$BASE/api/mcp/$name" -H 'Content-Type: application/json' -d '{"jsonrpc":"2.0","id":2,"method":"tools/list"}')" "len(d['result']['tools'])>0"
 done
 # sync-areas:checks end

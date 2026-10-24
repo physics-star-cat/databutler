@@ -29,6 +29,7 @@ The product is trust. A wrong number is worse than no number. Rules:
 | `data/uk-exam-dates.json` | Annual, calendar-driven (`cadenceDays: null`; `nextScheduledRefresh` set by hand, 2027-01-15 first): JCQ publishes the following June series' key dates and the boards their final summer timetables between May and July (provisional for consultation in February), the November series in September; Ofqual/DfE announcements of reformed or newly accredited specifications land at any time. The weekly watcher hashes the JCQ key-dates and timetables pages and the four boards' timetable landing pages (jcq.org.uk answers 403 to non-browser user agents). | Open the JCQ key-dates PDF for the new series and each board's final timetable PDF (AQA dates-and-timetables, Pearson exam-timetables, OCR key-dates-and-timetables, WJEC key-dates-and-timetables) and fee/key-dates document; for each figure move `value` into `previous` (with its series, source, document and quote), write the new `value`, `effectiveFrom`, `series`, `status`, `source`, `document`, `quote`; add spec-change figures from the regulator/board announcement with `previous: { value: null }`; bump `verifiedDate`, set `nextScheduledRefresh`; then `node scripts/changelog.js --only uk-exam-dates` (one `uk-exam-dates` entry per date that moved; refreshes `data/sources.json`); check the pre-filled notes name the JCQ/board document. |
 | `data/calendar.json` | Monthly (freshness says `due` from 35 days after the fetch); and when a government publishes the next year's list (gov.uk and OPM publish ~2 years ahead, calendrier.api.gouv.fr 5 years) | `node scripts/calendar.js` — fetches gov.uk `bank-holidays.json`, OPM's federal-holidays page and `calendrier.api.gouv.fr` (UA names databutler.dev, 500 ms apart), merges `data/calendar/manual.json` (German Länder rules, tax-year and DST rules — edit that file against the official pages, bump its `verifiedDate`, keep every `quote`/`verification`), computes rule-based dates and stops if a hand-copied official date disagrees, bumps `verifiedDate`/`nextScheduledRefresh` (+35 days), appends `calendar` changelog entries (`<cc>/holidays/<year>` for a new year, `<cc>/holidays/<region>/<year>/<key>` for an added/removed/moved day, `<cc>/tax-year/<part>`, `<cc>/dst/<year>` for rule changes). Fill the blank notes, commit `data/` together. To widen the window add the year to `manual.json` `years`. `CAL_DIR=path` builds from saved copies. Re-try the `nonOfficial` entries (HB, MV, SH, TH holidays; fr and br DST; br personal tax year) each refresh. |
 | `data/uk-gov-process.json` | Every 30 days (`nextScheduledRefresh` = verifiedDate + 30), and on Home Office / DVLA / DWP fee-change days (passport and ETA fees moved on 8 April 2026; benefits uprate each April). The weekly watcher reads each service's gov.uk page through the content API. | For each service fetch `https://www.gov.uk/api/content/<path>` for its `source` and `alsoRead` pages; compare every figure's `quote` against the page; for a changed value move the old value into `previous` (source = the National Archives capture of the outgoing page, or the announcement/SI) and set `effectiveFrom` to the change date; add a dated line to the service's `changes`; update `pageUpdatedAt`; bump `verifiedDate`; then `node scripts/changelog.js --only uk-gov-process` (stamps `nextScheduledRefresh`, appends one entry per figure that moved, re-hashes this area's sources) and review the notes. |
+| `data/jp-vehicle-costs.json` | Every 35 days (`nextScheduledRefresh` = verifiedDate + 35), and on the change dates: 自賠責 2026-11-01 (re-check whether an official page now prints the revised 25/37-month rates), 自動車税/軽自動車税 each 1 April (税制改正大綱 in December), weight-tax eco bands 2027-05-01 and the table's end 2028-04-30, 検査手数料 when NALTEC announces a change. The weekly watcher hashes every source page. | Re-fetch every `source` (PDFs: `pdftotext -layout`); compare each figure's `quote` with the page; for a changed value move the old one into `previous` (`value`, `source`, `title`), write the new `value`, `quote`, `effectiveFrom` (and `effectiveTo` on the figure it replaces); once 2026-11-01 has passed the -from-2026-11 keys are current and the old-table keys keep `effectiveTo` 2026-10-31; bump `verifiedDate`; `node scripts/changelog.js --only jp-vehicle-costs` (stamps `nextScheduledRefresh`, appends one entry per figure that moved, re-hashes this area's sources); review the notes; `node scripts/sign-facts.js`. |
 | `data/sources.json` | After every data refresh (automatic via `scripts/changelog.js`) | `node scripts/sources.js` re-checks every source URL (gov.uk content API / page hash); a page it cannot fetch is recorded `unreachable` and listed under "Sources the watcher cannot read". |
 | `data/facts-signatures.json` | After every data change to a facts area, before commit | `node scripts/sign-facts.js` with the key in `~/.config/databutler/` (never on Vercel); `tests/facts-sign.test.js` fails while a served fact is unsigned. See "Signing and key rotation". |
 | `data/changelog.json` | With every data refresh | `node scripts/changelog.js` (areas with a `changelog.diff`) or the dataset's own script (`changelog.script`); fill in `note` lines. See "Changelog & source watcher" and docs/ADDING_AN_AREA.md. |
@@ -1242,3 +1243,87 @@ Kept as published / odd:
   2026".
 - eta — /eta: "An ETA costs £20.", "An ETA lasts for 2 years or until your
   passport expires", "within a day, but it can take up to 3 working days".
+
+## Verification log (jp-vehicle-costs, added 2026-10-24)
+
+Fetch notes: every source was fetched 2026-10-24 with curl (browser
+User-Agent); all returned HTTP 200. PDFs were read with `pdftotext -layout`,
+HTML pages as text. The figure list is the VERIFIED entries of
+`car_websites/shaken-data/data/jp-costs/figures.json` (verified the same day for
+shakendata.com); every value below was re-read from its source page today and
+cross-checked against that file (47 directly comparable values, 0 differences).
+Rule figures (age counting, eco-rate rule, surcharge rules, green reductions)
+are restated from the quoted sentence. Nothing was written from memory.
+
+Licences: mlit.go.jp (`/link.html`), fsa.go.jp (`/rules/index.html`) and
+soumu.go.jp (`/menu_kyotsuu/policy/tyosaku.html`) — "権利表記の記載がない限り
+「公共データ利用規約（第1.0版）」（PDL1.0）に準拠した利用条件の下で、利用すること
+ができます". naltec.go.jp (`/policy/`), tax.metro.tokyo.lg.jp (`/policy`) and
+city.koto.lg.jp (`/011501/8787.html`) reserve copyright but allow quotation
+(引用) under the Copyright Act; only the statutory amount and the row it sits in
+are quoted. keikenkyo.or.jp (`/attribute/policy.html`) forbids reproduction
+without permission, so its 継続検査 page (same kei fees, 2,500 / 2,100 / 1,850)
+is corroboration only — the kei fees cite NALTEC's fee list, which prints the
+軽自動車 rows.
+
+- weight-tax — https://www.mlit.go.jp/jidosha/content/001884517.pdf
+  "2026年5月1日からの自動車重量税の税額表 … １．乗用車 2年自家用 エコカー（本則税率）
+  右以外 13年経過 18年経過: 0.5ﾄﾝ以下 5,000 8,200 11,400 12,600 / ～１ 10,000 16,400
+  22,800 25,200 / … / ～３ 30,000 49,200 68,400 75,600"; 1年自家用 2,500 4,100 5,700
+  6,300; "５．検査対象軽自動車（二輪を除く） 2年自家用 免税 5,000 6,600 8,200 8,800".
+  Age rules from the same PDF's "経過年数の考え方": 12年10ヶ月 (登録自動車, 租税特別
+  措置法 第九十条の十一の二・三) and "13年を経過した年の11月以後" (軽, 施行令 第五十一条
+  の三). The table carries no end date of its own; 2028-04-30 is the flowchart's
+  "2026年５月1日から2028年４月30日まで".
+- weight-tax-eco — https://www.mlit.go.jp/jidosha/content/001884912.pdf
+  "〔適用期間〕 ･令和８年５月1日～令和10年４月30日"; bands ① 令和８年５月１日～令和９年
+  ４月30日 80/95/達成/105/125% = 25%軽減/50%軽減/75%軽減/免税/免税※１; ② 令和９年５月
+  １日～令和10年４月30日 80% = 軽減なし・本則税率, 85% 25%軽減 …; "※１ 初回継続検査時等
+  も免税。（車検証の有効期間が満了する日から起算して15日を経過する日までに…）".
+- cali (current) — https://www.mlit.go.jp/jidosha/jibaiseki/common/data/ryouritsuhyo.pdf
+  "自動車損害賠償責任保険基準料率 ２０２３年１月１８日届出 損害保険料率算出機構",
+  "（1）離島以外の地域（沖縄県を除く。）に適用する基準料率": 自家用乗用自動車 12か月
+  11,500 (その７), 24か月 17,650 and 25か月 18,160 (その５), 36か月 23,690 (その４),
+  37か月 24,190 (その３); 軽自動車 検査対象車 11,440 / 17,540 / 18,040 / 23,520 /
+  24,010. Applies-from date from
+  https://www.mlit.go.jp/jidosha/jibaiseki/other_info/data/index.html: "（※１）令和5年
+  4月1日以降に保険期間の始期を有する保険契約に適用されます。" Kept as published: the
+  MLIT 加入 page (`/about/policyholder/`) lists the same 12/24/36 amounts as
+  "令和6年4月以降始期の契約" (the April 2024 filing only added 特定小型原付).
+- cali (from 2026-11-01) — https://www.fsa.go.jp/singi/singi_zidousya/siryou/20260430/01_153.pdf
+  "① 改定の実施日 2026年11月１日"; "５．保険期間別改定基準料率表（１２・２４・３６か月
+  契約）… 自家用乗用自動車 11,500 12,250 750 6.5 17,650 18,560 910 5.2 23,690 24,690
+  1,000 4.2"; "検査対象車 11,440 12,300 860 7.5 17,540 18,660 1,120 6.4 23,520 24,830
+  1,310 5.6". **Omitted:** the revised 25- and 37-month rates — the FSA document
+  prints 12/24/36 months only and the 損害保険料率算出機構 table was not reachable
+  (giroj.or.jp answered 503 when shaken-data was researched); they stay UNVERIFIED.
+- inspection-fee — https://www.naltec.go.jp/business/inspection/hbh5ss0000000ngo-att/gtg5d20000000cre.pdf
+  "令和８年４月１日以降の自動車検査手続きに関する手数料一覧" 継続検査: 持込検査 普通
+  ６００円 ２，０００円 ２，６００円, 小型 ６００円 １，９００円 ２，５００円, 軽
+  ２，１００円 ４００円 ２，５００円; 保安基準適合証の提出 普通/小型/軽 １，７００円
+  ４００円 ２，１００円; 継続検査（OSS） 保安基準適合証 普通/小型/軽 １，４５０円
+  ４００円 １，８５０円. Previous amounts from
+  https://www.naltec.go.jp/business/inspection/hbh5ss0000000ngo-att/i5ss5i0000000cv4.pdf
+  (現行 → 令和８年４月以降): 持込 普通 2,300 → 2,600, 小型 2,200 → 2,500, 軽 2,200 → 2,500;
+  適合証 窓口 1,800 → 2,100; OSS 1,600 → 1,850. 400 yen 技術情報管理手数料:
+  https://www.naltec.go.jp/business/inspection/fee.html "令和3年10月1日より … 技術情報
+  管理手数料が追加（1台あたり一律400円）".
+- auto-tax — https://www.tax.metro.tokyo.lg.jp/kazei/car_shubetsu.html "７ 税率（年額）"
+  自家用 令和元年10月1日以後初回新規登録 / 令和元年9月30日以前: 1リットル以下 25,000 /
+  29,500 … 1.5リットル超～2リットル以下 36,000 / 39,500 … 6リットル超 110,000 /
+  111,000; "２ 環境負荷の大きい自動車に対する重課 … ディーゼル自動車…11年を超えるもの
+  ・ガソリン自動車・ＬＰＧ自動車…13年を超えるもの 重課率 概ね15％". Surcharge table:
+  https://www.tax.metro.tokyo.lg.jp/documents/d/tax/zikayou201909_green_h "１カ年分"
+  33,900 … 127,600. Green reduction: https://www.mlit.go.jp/jidosha/content/001993314.pdf
+  "令和８年４月１日～令和10年３月31日 … 概ね75％軽減". Rename:
+  https://www.mlit.go.jp/jidosha/content/001993968.pdf "環境性能割は、令和８年３月 31 日
+  をもって廃止する。…現行の自動車税種別割を自動車税とし…". Kept as published: the
+  page's EV row (25,000 / 29,500) is not a figure in figures.json and is not published.
+- kei-tax — https://www.soumu.go.jp/main_content/000404244.pdf "乗 用のもの 10,800円
+  (7,200円)", "（※1） 平成27年3月31日以前に初めて車両番号の指定を受けた軽四輪等について
+  は、Ｈ27.3.31までの税率を適用"; https://www.city.koto.lg.jp/060501/kurashi/zekin/kejidosha/5112.html
+  "四輪以上（660cc以下） 乗用 自家用 7,200円 10,800円 12,900円", "13年経過した車両につ
+  いては、14年経過した月の属する年度から、3.重課税率が適用", 軽課 "令和7年度中 … に最初
+  の車両番号の指定を受けた場合は令和8年度分 … 四輪以上 乗用 自家用 2,700円". The
+  総務省 PDF is the 平成28年度 overview; its standard rates are still those Kōtō
+  City levies.

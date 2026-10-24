@@ -227,6 +227,7 @@
               "enum": [
                 "de",
                 "eu",
+                "jp",
                 "uk",
                 "us"
               ]
@@ -260,7 +261,7 @@
       "get": {
         "operationId": "whatChangedSince",
         "summary": "What changed since",
-        "description": "What has changed in Data Butler's verified datasets since a date — pass your training-cutoff date to learn which UK tax/NI/benefit thresholds, exam-spec facts, official vehicle datasets (UK DVSA, French RappelConso and Japanese MLIT recalls), software end-of-life dates (Node.js, Python, Ubuntu, Debian, Android, iOS, macOS, Windows, Java, Go, Ruby, PHP, PostgreSQL, React — cycles that reached end of life or whose dates moved), central-bank policy rates (Bank of England, Fed, ECB), US federal tax thresholds (IRS inflation adjustments, Social Security wage base, retirement and HSA limits), German tax and social-insurance thresholds (Grundfreibetrag, Beitragsbemessungsgrenzen, Zusatzbeitrag, Mindestlohn, Kindergeld), UK vehicle tax (VED) rates and MOT rules, UK exam dates (results days, summer timetable paper dates, entry deadlines and late-fee dates, announced specification changes), calendar facts (public holidays for the UK, US, Germany and France; tax-year and daylight-saving rules for nine countries — new years published, holidays added or moved) and UK government service fees and rules (passports, ETA, Universal Credit, eVisa) changed after your knowledge ends. Each entry: from → to, effectiveFrom, official source, verifiedDate, and a maintainer note (e.g. which Budget). Areas: uk-rates, uk-exams, vehicles, software-eol, policy-rates, us-rates, de-rates, uk-vehicle-rules, uk-exam-dates, calendar, uk-gov-process, or all. Coverage starts 2026-08-31. The same changelog is published for humans at https://databutler.dev/changes, with feeds at https://databutler.dev/changes.rss and https://databutler.dev/changes.atom. Output is a Verified Changes protocol document (verified-changes/0.1, spec https://databutler.dev/protocol); an entry whose figure is a Verified Fact carries factKey for get_fact.",
+        "description": "What has changed in Data Butler's verified datasets since a date — pass your training-cutoff date to learn which UK tax/NI/benefit thresholds, exam-spec facts, official vehicle datasets (UK DVSA, French RappelConso and Japanese MLIT recalls), software end-of-life dates (Node.js, Python, Ubuntu, Debian, Android, iOS, macOS, Windows, Java, Go, Ruby, PHP, PostgreSQL, React — cycles that reached end of life or whose dates moved), central-bank policy rates (Bank of England, Fed, ECB), US federal tax thresholds (IRS inflation adjustments, Social Security wage base, retirement and HSA limits), German tax and social-insurance thresholds (Grundfreibetrag, Beitragsbemessungsgrenzen, Zusatzbeitrag, Mindestlohn, Kindergeld), UK vehicle tax (VED) rates and MOT rules, UK exam dates (results days, summer timetable paper dates, entry deadlines and late-fee dates, announced specification changes), calendar facts (public holidays for the UK, US, Germany and France; tax-year and daylight-saving rules for nine countries — new years published, holidays added or moved), UK government service fees and rules (passports, ETA, Universal Credit, eVisa) and Japanese vehicle statutory costs (車検 inspection fees, 自賠責 insurance rates) changed after your knowledge ends. Each entry: from → to, effectiveFrom, official source, verifiedDate, and a maintainer note (e.g. which Budget). Areas: uk-rates, uk-exams, vehicles, software-eol, policy-rates, us-rates, de-rates, uk-vehicle-rules, uk-exam-dates, calendar, uk-gov-process, jp-vehicle-costs, or all. Coverage starts 2026-08-31. The same changelog is published for humans at https://databutler.dev/changes, with feeds at https://databutler.dev/changes.rss and https://databutler.dev/changes.atom. Output is a Verified Changes protocol document (verified-changes/0.1, spec https://databutler.dev/protocol); an entry whose figure is a Verified Fact carries factKey for get_fact.",
         "parameters": [
           {
             "name": "since",
@@ -290,6 +291,7 @@
                 "uk-exam-dates",
                 "calendar",
                 "uk-gov-process",
+                "jp-vehicle-costs",
                 "all"
               ]
             }

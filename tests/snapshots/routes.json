@@ -8,10 +8,12 @@
     "cron/watch-sources",
     "de/rates",
     "f",
+    "jp/vehicle-costs",
     "mcp",
     "mcp/calendar",
     "mcp/de-rates",
     "mcp/facts",
+    "mcp/jp-vehicle-costs",
     "mcp/policy-rates",
     "mcp/provenance",
     "mcp/software-eol",
@@ -59,6 +61,7 @@
     "changes",
     "coverage",
     "de/rates",
+    "jp/vehicle-costs",
     "policy-rates",
     "provenance/domain",
     "provenance/package",
@@ -309,6 +312,12 @@
       "path": "uk/gov-process",
       "queryKeys": [
         "service"
+      ]
+    },
+    "jp_vehicle_costs_lookup": {
+      "path": "jp/vehicle-costs",
+      "queryKeys": [
+        "category"
       ]
     }
   }

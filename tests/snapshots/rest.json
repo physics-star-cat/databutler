@@ -911,6 +911,35 @@
       }
     }
   },
+  "/api/jp/vehicle-costs": {
+    "status": 200,
+    "body": {
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate.",
+      "area": "jp-vehicle-costs",
+      "jurisdiction": "Japan — national statutory amounts (自動車重量税, 自賠責保険 基準料率, 検査手数料) and the standard rates (標準税率) of the prefectural 自動車税 and municipal 軽自動車税, as published by Tokyo Metropolitan Government and Kōtō City (both levy the standard rate). 自賠責 figures are for 離島以外の地域（沖縄県を除く）.",
+      "currency": "JPY",
+      "verifiedDate": "2026-10-24",
+      "categories": {
+        "weight-tax": "自動車重量税 (vehicle weight tax) at 車検 — continuing inspection, private (自家用) cars, table in force 2026-05-01 to 2028-04-30",
+        "weight-tax-eco": "エコカー減税 (自動車重量税) — new-registration reductions and the first-inspection exemption, 2026-05-01 to 2028-04-30",
+        "cali": "自賠責保険 (compulsory automobile liability insurance) — 基準料率 by policy length, private passenger cars and kei cars",
+        "inspection-fee": "検査手数料 (statutory inspection fees) for a continuing inspection (継続検査), from 2026-04-01",
+        "auto-tax": "自動車税 (annual automobile tax, prefectural) — private passenger cars, standard rates by engine displacement",
+        "kei-tax": "軽自動車税 (annual light-vehicle tax, municipal) — private kei passenger cars"
+      },
+      "usage": "pass category=<key> for figures",
+      "freshness": {
+        "verifiedDate": "2026-10-24",
+        "nextScheduledRefresh": "2026-11-28"
+      },
+      "cite": {
+        "url": "https://databutler.dev/r/jp/vehicle-costs",
+        "text": "databutler.dev, verified 2026-10-24"
+      }
+    }
+  },
   "/api/uk/rates?category=vat": {
     "status": 200,
     "body": {
@@ -3053,7 +3082,8 @@
         "uk-vehicle-rules",
         "uk-exam-dates",
         "calendar",
-        "uk-gov-process"
+        "uk-gov-process",
+        "jp-vehicle-costs"
       ],
       "count": 17,
       "entries": [

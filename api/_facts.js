@@ -63,6 +63,7 @@ const JURISDICTION = {
   us: 'us', usa: 'us', american: 'us', america: 'us', irs: 'us', federal: 'us', ssa: 'us',
   de: 'de', german: 'de', germany: 'de', deutschland: 'de', bund: 'de',
   eu: 'eu', ecb: 'eu', euro: 'eu', eurozone: 'eu', european: 'eu',
+  jp: 'jp', japan: 'jp', japanese: 'jp', '日本': 'jp',
 };
 const stem = (t) => (t.length > 4 && /(x|ss|sh|ch)es$/.test(t) ? t.slice(0, -2) : t.length > 3 && /[^s]s$/.test(t) ? t.slice(0, -1) : t);
 function tokens(text, { keepStop = false, stop = STOP } = {}) {

@@ -117,6 +117,13 @@
       "type": "application/mcp-server-card+json",
       "url": "https://databutler.dev/api/mcp/uk-gov-process/server-card",
       "description": "UK government service fees, steps, processing times and recent changes, read from gov.uk."
+    },
+    {
+      "identifier": "urn:air:databutler.dev:mcp:databutler-jp-vehicle-costs",
+      "displayName": "databutler-jp-vehicle-costs",
+      "type": "application/mcp-server-card+json",
+      "url": "https://databutler.dev/api/mcp/jp-vehicle-costs/server-card",
+      "description": "Japan 車検 statutory costs: weight tax, 自賠責, inspection fees, 自動車税 and 軽自動車税, sourced."
     }
   ]
 }

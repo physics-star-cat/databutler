@@ -77,7 +77,7 @@ Data Butler's discovery document:
     "name": "Data Butler",
     "url": "https://databutler.dev/"
   },
-  "updated": "2026-10-12",
+  "updated": "2026-10-24",
   "coverageStart": "2026-08-31",
   "areas": [
     {
@@ -134,6 +134,11 @@ Data Butler's discovery document:
       "name": "uk-gov-process",
       "description": "UK government service facts verified against gov.uk: passport fees (UK and overseas), driving licence renewal and provisional licences, change of address, vehicle tax and SORN, voter registration, birth and death registration, Blue Badge, Self Assessment deadlines and Making Tax Digital, National Insurance numbers, Universal Credit, EU Settlement Scheme, eVisa and ETA — fees, processing times, eligibility, start URLs and dated changes.",
       "cadence": "Re-verified against the gov.uk pages every 30 days and on fee-change days (Home Office fees usually move in April); every source page re-fetched weekly through the gov.uk content API."
+    },
+    {
+      "name": "jp-vehicle-costs",
+      "description": "Japan vehicle statutory costs verified against MLIT, FSA, NALTEC, 総務省, Tokyo and Kōtō City pages: 自動車重量税 at 車検 (eco/standard/13-year/18-year, per 0.5 t and kei), エコカー減税 bands, 自賠責保険 rates before and from 2026-11-01, 継続検査 fees from 2026-04-01, 自動車税 by displacement and 軽自動車税.",
+      "cadence": "Re-verified against the official pages every 35 days and on the known change dates (自賠責 2026-11-01, car taxes each 1 April, weight-tax eco bands 2027-05-01); every source page re-fetched weekly."
     }
   ],
   "endpoints": {
