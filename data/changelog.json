@@ -3168,22 +3168,22 @@
     "key": "jp-recalls/recall-filings",
     "label": "MLIT recall filings matched to covered models",
     "from": 919,
-    "to": 3269,
+    "to": 3283,
     "effectiveFrom": "2026-10-24",
     "source": "https://renrakuda.mlit.go.jp/",
     "verifiedDate": "2026-10-24",
-    "note": "Refresh from the shaken-data MLIT pipeline of 2026-10-24: coverage grew from 75 to 311 models (Japanese makers, Lexus, 14 import brands and 47 motorcycle families, combined from MLIT's grade-level names), and recall matching now reads every typeList block of a filing (it had read only the first, undercounting filings that list many vehicle types). MLIT's portal data runs to filings of 2026-08-27."
+    "note": "Refresh from the shaken-data MLIT pipeline of 2026-10-24: coverage grew from 75 to 313 models (Japanese makers, Lexus, 14 import brands and 47 motorcycle families, combined from MLIT's grade-level names), and recall matching now reads every typeList block of a filing (it had read only the first, undercounting filings that list many vehicle types). MLIT's portal data runs to filings of 2026-08-27."
   },
   {
     "area": "vehicles",
     "key": "jp-recalls/complaints",
     "label": "MLIT owner complaints across covered models",
     "from": 19659,
-    "to": 39770,
+    "to": 39954,
     "effectiveFrom": "2026-10-24",
     "source": "https://renrakuda.mlit.go.jp/",
     "verifiedDate": "2026-10-24",
-    "note": "Same refresh (2026-10-24): complaints for 311 models. MLIT's complaint search matches names by substring, so earlier per-model totals double-counted sibling models (e.g. カローラ included カローラフィールダー); complaints are now counted by exact model name with reviewed same-model spellings merged, so the change mixes new coverage (up) and that correction (down)."
+    "note": "Same refresh (2026-10-24): complaints for 313 models. MLIT's complaint search matches names by substring, so earlier per-model totals double-counted sibling models (e.g. カローラ included カローラフィールダー); complaints are now counted by exact model name with reviewed same-model spellings merged, so the change mixes new coverage (up) and that correction (down)."
   },
   {
     "area": "jp-living-costs",

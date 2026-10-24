@@ -660,7 +660,7 @@
       {
         "name": "jp_recalls_for_model",
         "title": "Japanese recalls for a model",
-        "description": "Official Japanese recall filings (国土交通省 MLIT; 3269 filings matched to 311 models sold in Japan, incl. Lexus and imports) for a make and model: notification number, date, defective device, affected vehicles, situation and remedy (Japanese originals) and the official filing PDF. Accepts English (Toyota Prius, Honda N-BOX) or Japanese (トヨタ プリウス) names.",
+        "description": "Official Japanese recall filings (国土交通省 MLIT; 3283 filings matched to 313 models sold in Japan, incl. Lexus and imports) for a make and model: notification number, date, defective device, affected vehicles, situation and remedy (Japanese originals) and the official filing PDF. Accepts English (Toyota Prius, Honda N-BOX) or Japanese (トヨタ プリウス) names.",
         "inputSchema": {
           "type": "object",
           "properties": {
@@ -689,7 +689,7 @@
       {
         "name": "jp_complaints_summary",
         "title": "Japanese owner complaints summary",
-        "description": "Owner defect reports filed with MLIT's 不具合情報ホットライン (39770 across 311 models): total reports for a model and the breakdown by defective device (brakes, lights, engine, body…) from the newest sample. Reports are unverified owner submissions — compare shapes, not raw counts. Accepts English or Japanese names.",
+        "description": "Owner defect reports filed with MLIT's 不具合情報ホットライン (39954 across 313 models): total reports for a model and the breakdown by defective device (brakes, lights, engine, body…) from the newest sample. Reports are unverified owner submissions — compare shapes, not raw counts. Accepts English or Japanese names.",
         "inputSchema": {
           "type": "object",
           "properties": {

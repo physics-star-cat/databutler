@@ -38,7 +38,7 @@
     "vehicles": {
       "euSafetyGate": "stub",
       "frRecalls": "1663 RappelConso automobile fiches, verified 2026-10-02",
-      "jpRecalls": "3269 MLIT filings + 39770 owner complaints across 311 models, verified 2026-10-24",
+      "jpRecalls": "3283 MLIT filings + 39954 owner complaints across 313 models, verified 2026-10-24",
       "ukMot": "530 UK model generations (live proxy to whatbreaks.uk)",
       "ukRecalls": "4876 DVSA safety recalls launched since 2016-01-01, verified 2026-10-03"
     }
@@ -234,7 +234,7 @@
       }
     },
     "GET /api/vehicles/jp/complaints": {
-      "description": "MLIT owner defect reports (39770 across 311 models): total per model + breakdown by defective device.",
+      "description": "MLIT owner defect reports (39954 across 313 models): total per model + breakdown by defective device.",
       "example": "https://databutler.dev/api/vehicles/jp/complaints?make=honda&model=n-box",
       "params": {
         "make": "e.g. honda",
@@ -242,7 +242,7 @@
       }
     },
     "GET /api/vehicles/jp/recalls": {
-      "description": "Official Japanese recall filings (国土交通省 MLIT; 3269 filings across 311 models sold in Japan, incl. Lexus and imports): notification number, date, device, affected vehicles, situation/remedy, official PDF. English or Japanese names.",
+      "description": "Official Japanese recall filings (国土交通省 MLIT; 3283 filings across 313 models sold in Japan, incl. Lexus and imports): notification number, date, device, affected vehicles, situation/remedy, official PDF. English or Japanese names.",
       "example": "https://databutler.dev/api/vehicles/jp/recalls?make=toyota&model=prius",
       "params": {
         "make": "e.g. toyota",
