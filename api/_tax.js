@@ -69,7 +69,7 @@ const US_FILING = ['single', 'married_joint', 'head_of_household'];
  */
 const COUNTRIES = {
   uk: {
-    name: 'United Kingdom', currency: 'GBP', calculatorId: 'uk-salary', period: 'annual', taxYear: '2025/26',
+    name: 'United Kingdom', currency: 'GBP', calculatorId: 'uk-salary', period: 'annual', taxYear: '2026/27',
     page: `${SITE}/uk/calculators/uk-salary`,
     input: (gross, a) => ({ grossSalary: gross, taxRegion: a.region === 'scotland' ? 'scotland' : 'england', studentLoan: 'none', pensionPercent: 0, pensionType: 'standard', taxCode: '1257L' }),
     net: 'annualTakeHome',
@@ -82,7 +82,7 @@ const COUNTRIES = {
     extra: (r) => ({ marginalRate: r.marginalRate, employerPensionContribution: r.employerPensionContribution }),
     assumptions: (a) => [
       `tax region: ${a.region === 'scotland' ? 'Scotland (Scottish income tax bands)' : 'England, Wales or Northern Ireland'}`,
-      'tax code 1257L (standard Personal Allowance £12,570); no student loan; no pension contributions (set region only — other options exist on the calculator page)',
+      'tax code 1257L (standard Personal Allowance £12,570, tapered by £1 per £2 above £100,000); no student loan; no pension contributions (set region only — other options exist on the calculator page)',
     ],
   },
   us: {
@@ -171,7 +171,7 @@ const COUNTRIES = {
     ],
   },
   pl: {
-    name: 'Poland', currency: 'PLN', calculatorId: 'pl-salary', period: 'monthly', taxYear: '2024/2025',
+    name: 'Poland', currency: 'PLN', calculatorId: 'pl-salary', period: 'monthly', taxYear: '2026',
     page: `${SITE}/pl/calculators/pl-salary`,
     input: (gross) => ({ monthlySalary: gross, includePpk: false, ppkRate: 0.02, youthRelief: false }),
     net: 'wynagrodzeniNetto',
@@ -186,11 +186,11 @@ const COUNTRIES = {
     extra: (r) => ({ pitRate: r.stawkaPit, taxFreeAmount: r.kwotaWolna, employerCostMonthly: r.kosztPracodawcy }),
     assumptions: () => [
       'umowa o pracę (employment contract), over 26 (no youth relief), 12%/32% PIT with 30,000 PLN tax-free amount; no PPK',
-      'rates as implemented upstream for 2024/2025 (the ZUS annual cap 234,720 PLN is the 2024 figure); the monthly 30% ZUS cap is not applied',
+      '2026 rules: koszty uzyskania przychodu 250 PLN/month; ZUS annual cap 282,600 PLN applied as an annual average (not month by month)',
     ],
   },
   fr: {
-    name: 'France', currency: 'EUR', calculatorId: 'fr-salary', period: 'monthly', taxYear: '2024',
+    name: 'France', currency: 'EUR', calculatorId: 'fr-salary', period: 'monthly', taxYear: '2026',
     page: `${SITE}/fr/calculators/fr-salary`,
     input: (gross) => ({ monthlySalary: gross, taxParts: 1, includeMutuelle: false, mutuelleAmount: 0 }),
     net: 'salaireNet',
@@ -207,7 +207,7 @@ const COUNTRIES = {
     extra: (r) => ({ taxableNetMonthly: r.revenuNetImposable, employerCostMonthly: r.coutEmployeur }),
     assumptions: () => [
       'single person, 1 part fiscale (quotient familial), cadre/non-cadre average employee contribution rates; no mutuelle',
-      '2024 income-tax brackets and 2024 social-security ceiling (3,864 €/month) as implemented upstream',
+      '2026 income-tax brackets with the 10% déduction forfaitaire, and the 2026 social-security ceiling (PMSS 4,005 €/month); décote and plafonnement du quotient familial not modelled',
     ],
   },
   de: {

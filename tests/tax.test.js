@@ -64,7 +64,7 @@ test('every country entry names a currency, tax year and calculator page; only S
 
 /* ---------------- happy paths ---------------- */
 
-test('UK: posts {calculatorId, input} to the Lambda, returns annual+monthly figures, typed breakdown, tax year 2025/26', async () => {
+test('UK: posts {calculatorId, input} to the Lambda, returns annual+monthly figures, typed breakdown, tax year 2026/27', async () => {
   const m = mockFetch(() => jsonResponse(200, UK_50K));
   try {
     const out = await T.takeHomePay({ country: 'uk', gross: 50000 });
@@ -78,7 +78,7 @@ test('UK: posts {calculatorId, input} to the Lambda, returns annual+monthly figu
 
     assert.equal(out.country, 'uk');
     assert.equal(out.currency, 'GBP');
-    assert.equal(out.taxYear, '2025/26');
+    assert.equal(out.taxYear, '2026/27');
     assert.deepEqual(out.gross, { annual: 50000, monthly: 4166.67 });
     assert.deepEqual(out.net, { annual: 39519.6, monthly: 3293.3 });
     assert.deepEqual(out.totalDeductions, { annual: 10480.4, monthly: 873.37 });
@@ -307,7 +307,7 @@ test('coverage area "tax" lists all ten countries, flags Spain as not computed, 
   assert.deepEqual(Object.keys(cov.countries), T.COUNTRY_CODES);
   assert.equal(cov.countries.es.computed, false);
   assert.equal(cov.countries.uk.computed, true);
-  assert.equal(cov.countries.uk.taxYear, '2025/26');
+  assert.equal(cov.countries.uk.taxYear, '2026/27');
   assert.deepEqual(cov.options, { us: ['state', 'filingStatus'], ca: ['province'], uk: ['region'] });
   assert.ok(cov.notCovered.some((x) => /Spain/.test(x)));
 });
