@@ -22,8 +22,9 @@ const apiIndex = require('../../api/index');
 const TYPES = { '.html': 'text/html; charset=utf-8', '.json': 'application/json', '.txt': 'text/plain; charset=utf-8', '.xml': 'application/xml', '.png': 'image/png', '.ico': 'image/x-icon' };
 
 const sourceRe = (source) => new RegExp(`^${source.replace(/\(\.[*+]\)/g, (g) => (g === '(.*)' ? '\u0001' : '\u0002')).replace(/[.]/g, '\\.').replace(/\u0001/g, '(.*)').replace(/\u0002/g, '(.+)')}$`);
-function rewrite(p) {
+function rewrite(p, headers = {}) {
   for (const r of VERCEL.rewrites) {
+    if (!(r.has || []).every((h) => h.type === 'header' && new RegExp(`^${h.value}$`, 'i').test(String(headers[h.key.toLowerCase()] ?? '')))) continue;
     const m = sourceRe(r.source).exec(p);
     if (m) return r.destination.replace(/\$(\d)/g, (_, i) => m[Number(i)]);
   }
@@ -51,7 +52,7 @@ const server = http.createServer((req, res) => {
   const writeHead = res.writeHead.bind(res);
   res.writeHead = (code, hdrs = {}) => writeHead(code, { ...extra, ...hdrs });
   if (u.pathname === '/api' || u.pathname === '/api/') return apiIndex(req, res);
-  const dest = rewrite(u.pathname);
+  const dest = rewrite(u.pathname, req.headers);
   if (dest) {
     const d = new URL(dest, 'http://localhost');
     for (const [k, v] of u.searchParams) d.searchParams.set(k, v);

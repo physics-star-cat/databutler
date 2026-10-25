@@ -21,13 +21,18 @@ const FORMATS = ['json', 'txt', 'html'];
 const LINK = '</.well-known/facts.json>; rel="describedby"';
 const httpDate = (day) => new Date(`${day}T00:00:00Z`).toUTCString();
 
-/** ?format= wins; else Accept (text/html → html, text/plain → txt); else JSON. Unknown format → null. */
-function formatOf(format, accept) {
+/**
+ * ?format= wins; else Accept (text/html → html, text/plain → txt); else JSON. Unknown format → null.
+ * `neg` is set by the Accept-conditioned rewrites in vercel.json, so each format gets its own CDN
+ * cache key — Vercel's cache otherwise served whichever format was asked for first to everyone.
+ */
+function formatOf(format, accept, neg) {
   if (format !== undefined && format !== '') {
     const f = String(format).toLowerCase().trim();
     if (f === 'text') return 'txt';
     return FORMATS.includes(f) ? f : null;
   }
+  if (neg === 'html' || neg === 'txt') return neg;
   const a = String(accept || '').toLowerCase();
   if (a.includes('text/html')) return 'html';
   if (a.startsWith('text/plain')) return 'txt';
@@ -36,7 +41,7 @@ function formatOf(format, accept) {
 
 function send(res, status, body, { format = 'json', headers = {}, cache = 'no-store' } = {}) {
   const type = { json: 'application/json; charset=utf-8', txt: 'text/plain; charset=utf-8', html: 'text/html; charset=utf-8' }[format];
-  res.writeHead(status, { 'Content-Type': type, 'Cache-Control': cache, Link: LINK, ...CORS, ...headers });
+  res.writeHead(status, { 'Content-Type': type, 'Cache-Control': cache, Vary: 'Accept', Link: LINK, ...CORS, ...headers });
   res.end(format === 'json' ? JSON.stringify(body, null, 1) : body);
 }
 
@@ -58,7 +63,7 @@ function sendRecord(req, res, r, format) {
   const etag = `"${r.hash}"`;
   const headers = { ETag: etag, 'Last-Modified': httpDate(r.verifiedDate), 'X-Facts-Status': r.status };
   if (String(req.headers['if-none-match'] || '') === etag) {
-    res.writeHead(304, { 'Cache-Control': CACHE, ...headers, ...CORS });
+    res.writeHead(304, { 'Cache-Control': CACHE, Vary: 'Accept', ...headers, ...CORS });
     return res.end();
   }
   const body = format === 'txt' ? `${R.txt(r)}\n` : format === 'html' ? R.html(r) : r;
@@ -96,9 +101,11 @@ module.exports = async (req, res) => {
   const u = new URL(req.url, 'https://databutler.dev');
   const key = (u.searchParams.get('key') || '').replace(/^\/+|\/+$/g, '');
   u.searchParams.delete('key');
+  const neg = u.searchParams.get('neg');
+  u.searchParams.delete('neg');
   req.url = u.pathname + u.search;
   const q = Object.fromEntries(u.searchParams);
-  const format = formatOf(q.format, req.headers.accept);
+  const format = formatOf(q.format, req.headers.accept, neg);
   if (!format) return send(res, 400, { protocol: FACTS_PROTOCOL, covered: false, error: `format must be one of ${FORMATS.join(', ')} (got "${q.format}")` });
   const opts = { max_age: q.max_age, as_of: q.as_of, period: q.period };
 

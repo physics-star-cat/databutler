@@ -149,3 +149,22 @@ test('vercel rewrites dispatch /f, /f/<key>, /facts, /protocol/facts and server 
   assert.equal(routeOf(rewriteFor('/api/mcp/facts').destination), 'mcp/facts', 'the server itself still routes as mcp/facts');
   assert.match(VERCEL.functions['api/router.js'].includeFiles, /docs\/FACTS_PROTOCOL\.md/);
 });
+
+test('fact pages: HTML and text requests rewrite to their own CDN cache key; JSON keeps the plain one; Vary: Accept', async () => {
+  // Vercel cached whichever format was requested first and served it to everyone (2026-10-25: Googlebot got JSON).
+  const PA = 'uk/income-tax/personal-allowance';
+  const html = rewriteFor(`/f/${PA}`, { accept: 'text/html,application/xhtml+xml,*/*;q=0.8' });
+  const txt = rewriteFor(`/f/${PA}`, { accept: 'text/plain' });
+  const json = rewriteFor(`/f/${PA}`, { accept: 'application/json' });
+  const neg = (r) => new URL(r.destination, 'https://databutler.dev').searchParams.get('neg');
+  assert.equal(neg(html), 'html');
+  assert.equal(neg(txt), 'txt');
+  assert.equal(neg(json), null);
+  assert.equal(neg(rewriteFor('/f', { accept: 'text/html' })), 'html');
+  const router = require('../api/router');
+  const r = await invoke(router, undefined, { method: 'GET', url: `/api/router?route=f&key=${PA}&neg=html`, headers: { accept: 'application/json' } });
+  assert.match(String(r.headers['Content-Type']), /text\/html/);
+  assert.equal(r.headers.Vary, 'Accept');
+  const q = await invoke(router, undefined, { method: 'GET', url: `/api/router?route=f&key=${PA}&neg=html&format=json`, headers: {} });
+  assert.match(String(q.headers['Content-Type']), /application\/json/, '?format= still wins');
+});

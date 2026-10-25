@@ -45,6 +45,39 @@
   "rewrites": [
     {
       "source": "/f",
+      "has": [
+        {
+          "type": "header",
+          "key": "accept",
+          "value": ".*text/html.*"
+        }
+      ],
+      "destination": "/api/router?route=f&neg=html"
+    },
+    {
+      "source": "/f/(.*)",
+      "has": [
+        {
+          "type": "header",
+          "key": "accept",
+          "value": ".*text/html.*"
+        }
+      ],
+      "destination": "/api/router?route=f&key=$1&neg=html"
+    },
+    {
+      "source": "/f/(.*)",
+      "has": [
+        {
+          "type": "header",
+          "key": "accept",
+          "value": "text/plain.*"
+        }
+      ],
+      "destination": "/api/router?route=f&key=$1&neg=txt"
+    },
+    {
+      "source": "/f",
       "destination": "/api/router?route=f"
     },
     {

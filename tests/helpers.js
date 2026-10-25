@@ -37,9 +37,12 @@ async function callTool(handler, name, args = {}) {
 const VERCEL = JSON.parse(require('node:fs').readFileSync(require('node:path').join(__dirname, '..', 'vercel.json'), 'utf8'));
 /** A vercel.json rewrite source as the anchored regex Vercel applies. */
 const sourceRe = (source) => new RegExp(`^${source.replace(/\(\.[*+]\)/g, (g) => (g === '(.*)' ? '\u0001' : '\u0002')).replace(/[.]/g, '\\.').replace(/\u0001/g, '(.*)').replace(/\u0002/g, '(.+)')}$`);
-/** First rewrite whose source matches the path, with $1 etc. substituted in its destination — what Vercel would dispatch. */
-function rewriteFor(p) {
+/** Whether a rewrite's `has` header conditions hold for these (lower-cased) request headers. */
+const hasHolds = (r, headers = {}) => (r.has || []).every((h) => h.type === 'header' && new RegExp(`^${h.value}$`, 'i').test(String(headers[h.key.toLowerCase()] ?? '')));
+/** First rewrite whose source matches the path (and whose `has` holds), with $1 etc. substituted in its destination — what Vercel would dispatch. */
+function rewriteFor(p, headers = {}) {
   for (const r of VERCEL.rewrites) {
+    if (!hasHolds(r, headers)) continue;
     const m = sourceRe(r.source).exec(p);
     if (m) return { ...r, destination: r.destination.replace(/\$(\d)/g, (_, i) => m[Number(i)]) };
   }
@@ -68,18 +71,18 @@ function routerFetch(origin = 'https://databutler.dev') {
     if (u.pathname !== '/' && fs.existsSync(file) && fs.statSync(file).isFile()) {
       return wrap(200, { 'Content-Type': file.endsWith('.json') ? 'application/json' : 'text/plain' }, fs.readFileSync(file, 'utf8'));
     }
-    const rw = rewriteFor(u.pathname);
+    const headers = Object.fromEntries(Object.entries(init.headers || {}).map(([k, v]) => [k.toLowerCase(), v]));
+    const rw = rewriteFor(u.pathname, headers);
     let target = u.pathname + u.search;
     if (rw) {
       const d = new URL(rw.destination, origin);
       for (const [k, v] of u.searchParams) d.searchParams.set(k, v);
       target = d.pathname + d.search;
     }
-    const headers = Object.fromEntries(Object.entries(init.headers || {}).map(([k, v]) => [k.toLowerCase(), v]));
     const body = init.body === undefined ? undefined : (() => { try { return JSON.parse(init.body); } catch { return init.body; } })();
     const r = await invoke(router, body, { method: init.method || 'GET', url: target, headers });
     return wrap(r.status, r.headers, r.raw === null || r.raw === undefined ? '' : String(r.raw));
   };
 }
 
-module.exports = { invoke, rpc, callTool, rewriteFor, routeOf, VERCEL, routerFetch };
+module.exports = { invoke, rpc, callTool, rewriteFor, hasHolds, routeOf, VERCEL, routerFetch };
