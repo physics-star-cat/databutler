@@ -24,7 +24,7 @@
       "br": "BRL, tax year 2026 (live via lifebynumbers.net)",
       "ca": "CAD, tax year 2026 (live via lifebynumbers.net)",
       "de": "EUR, tax year 2026 (live via lifebynumbers.net)",
-      "es": "not computed upstream — covered:false",
+      "es": "EUR, tax year 2026 (live via lifebynumbers.net)",
       "fr": "EUR, tax year 2026 (live via lifebynumbers.net)",
       "in": "INR, tax year FY 2026-27 (live via lifebynumbers.net)",
       "pl": "PLN, tax year 2026 (live via lifebynumbers.net)",
@@ -141,7 +141,7 @@
       }
     },
     "GET /api/tax/take-home": {
-      "description": "Take-home pay after income tax and social contributions for uk, us, ca, au, in, br, pl, fr, de, es: gross, net and total deductions (annual + monthly), typed breakdown, effectiveRate, taxYear, currency, assumptions. Live proxy to the LifeByNumbers salary calculators (same operator). Spain (es) returns covered:false — no backend calculator.",
+      "description": "Take-home pay after income tax and social contributions for uk, us, ca, au, in, br, pl, fr, de, es: gross, net and total deductions (annual + monthly), typed breakdown, effectiveRate, taxYear, currency, assumptions. Live proxy to the LifeByNumbers salary calculators (same operator).",
       "example": "https://databutler.dev/api/tax/take-home?country=uk&gross=50000",
       "params": {
         "country": "uk | us | ca | au | in | br | pl | fr | de | es",
@@ -149,7 +149,7 @@
         "gross": "salary in local currency (annual unless period=monthly)",
         "period": "annual | monthly (optional)",
         "province": "Canada only, e.g. BC (default ON)",
-        "region": "UK only: england | scotland",
+        "region": "UK: england | scotland; Spain: madrid | cataluna",
         "state": "US only, e.g. TX (default CA)"
       }
     },

@@ -153,7 +153,7 @@ const FRONT_DOOR_INSTRUCTIONS =
   'verified figure that changed after a given date (UK, US and German tax thresholds, policy rates, exam-spec facts), ' +
   'with before and after values, the effective date and the Budget or spec change behind each. uk_rates_lookup ' +
   'returns the current UK tax-year rates and thresholds verified against gov.uk. take_home_pay returns net pay ' +
-  'computed live by the LifeByNumbers calculators for us, uk, ca, au, in, br, de, fr and pl, with its taxYear and ' +
+  'computed live by the LifeByNumbers calculators for us, uk, ca, au, in, br, de, fr, pl and es, with its taxYear and ' +
   'assumptions. coverage returns exactly what each area covers and does not. The tools listed here are the ' +
   'high-frequency set; catalogue lists every tool on every Data Butler server ' +
   `(${hubPhrases('catalogue').join('; ')}) and call runs any of them by name. ` +

@@ -1,7 +1,7 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.physics-star-cat/databutler-tax",
-  "description": "Take-home pay after tax and social contributions for nine countries, with tax year.",
+  "description": "Take-home pay after tax and social contributions for ten countries, with tax year.",
   "repository": { "url": "https://github.com/physics-star-cat/databutler", "source": "github" },
   "version": "1.0.0",
   "websiteUrl": "https://databutler.dev/api",

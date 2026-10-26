@@ -23,6 +23,11 @@ const jsonResponse = (status, body) => ({ ok: status >= 200 && status < 300, sta
 // Real Lambda responses captured 2026-10-03 (see api/_tax.js header for the contract).
 const UK_50K = { _cached: false, annualTakeHome: 39519.6, effectiveRate: 21.0, employerPensionContribution: 1500.0, incomeTax: 7486.0, marginalRate: 20, monthlyTakeHome: 3293.3, nationalInsurance: 2994.4, pensionContribution: 0.0, pro_rata_info: { multiplier: 1, unit: 'annual', value: 0 }, studentLoanRepayment: 0, weeklyTakeHome: 759.99 };
 const US_100K_TX_MJ = { _cached: false, contribution401k: 0.0, effectiveTaxRate: 15.3, federalTax: 7640.0, fica: 7650.0, grossAnnual: 100000, healthInsurance: 0, medicare: 1450.0, netAnnual: 84710.0, netBiweekly: 3258.08, netMonthly: 7059.17, socialSecurity: 6200.0, stateTax: 0.0, totalDeductions: 15290.0 };
+// es-salary and the all-province ca-salary are in the LifeByNumbers repo (flask-backend
+// calculate_es_salary / calculate_ca_salary, 2026-10-26) but not yet on the Lambda; these
+// are the backend's own outputs for the same inputs.
+const ES_35K_MADRID = { _cached: false, taxYear: 2026, region: 'madrid', regionName: 'Comunidad de Madrid', regionBasis: 'official 2026 (DLeg 1/2010 art. 1, unchanged since Ley 13/2023)', grossAnnual: 35000.0, grossMonthly: 2916.67, socialSecurityBase: 35000.0, socialSecurityDeduction: 2275.0, socialSecurityBreakdown: { contingenciasComunes: 1645.0, mei: 52.5, desempleo: 542.5, formacionProfesional: 35.0, solidaridad: 0.0 }, reduccionTrabajo: 0.0, otrosGastos: 2000.0, baseLiquidable: 30725.0, minimoPersonalFamiliar: 5550.0, minimoAutonomico: 5956.65, cuotaEstatal: 3164.25, cuotaAutonomica: 2733.42, cuotaIrpf: 5897.67, irpfMethod: 'annual-cuota', irpfDeduction: 5897.67, approxWithholdingRate: 16.85, totalDeductions: 8172.67, netAnnual: 26827.33, netMonthly: 2235.61, netPerPayment: 2235.61, numPayments: 12, effectiveTaxRate: 23.4 };
+const CA_80K_QC = { _cached: false, taxYear: 2026, province: 'QC', grossAnnual: 80000.0, taxableIncome: 79073.0, federalTax: 7674.84, quebecAbatement: 1516.59, provincialTax: 9377.84, provincialDetails: { basicPersonalAmount: 18952, workersDeduction: 1450.0, quebecTaxableIncome: 77623.0 }, pensionPlan: 'QPP', cpp: 4695.3, cpp2: 216.0, ei: 895.7, qpip: 344.0, rrsp: 0.0, totalDeductions: 22987.68, netAnnual: 57012.32, netMonthly: 4751.03, netBiweekly: 2192.78, effectiveTaxRate: 28.7 };
 const DE_4000 = { _cached: false, arbeitgeberSozialversicherung: 942.0, arbeitgeberkosten: 4942.0, arbeitgeberkostenJaehrlich: 59304.0, arbeitslosenversicherung: 52.0, beitragsbemessungsgrenzeKV: 5812.5, beitragsbemessungsgrenzeRV: 8450, bruttogehalt: 4000.0, bruttogehaltJaehrlich: 48000.0, effektiverSteuersatz: 27.8, grundfreibetrag: 12348, kirchensteuer: 0, krankenversicherung: 350.0, lohnsteuer: 242.17, nettolohn: 2887.83, nettolohnJaehrlich: 34654.0, pflegeversicherung: 96.0, rentenversicherung: 372.0, solidaritaetszuschlag: 0, sozialversicherung: 870.0, steuerklasse: 1, totalAbzuege: 1112.17 };
 
 /* ---------------- schema, annotations, registry ---------------- */
@@ -46,19 +51,16 @@ test('take_home_pay: registered on the tax server, open-world, read-only, ten-co
   assert.equal(init.body.result.serverInfo.name, 'databutler-tax');
 });
 
-test('every country entry names a currency, tax year and calculator page; only Spain lacks an upstream calculator', () => {
+test('every country entry names a currency, tax year, calculator page and upstream calculator', () => {
   for (const [code, c] of Object.entries(T.COUNTRIES)) {
     assert.match(c.currency, /^[A-Z]{3}$/, code);
     assert.ok(c.taxYear, code);
     assert.match(c.page, /^https:\/\/www\.lifebynumbers\.net\/[a-z]{2}\/calculators\/[a-z]{2}-salary$/, code);
-    if (code !== 'es') {
-      assert.equal(c.calculatorId, `${code}-salary`);
-      assert.ok(Array.isArray(c.lines) && c.lines.length >= 2, code);
-      assert.equal(typeof c.input, 'function');
-      assert.equal(typeof c.assumptions, 'function');
-    }
+    assert.equal(c.calculatorId, `${code}-salary`);
+    assert.ok(Array.isArray(c.lines) && c.lines.length >= 2, code);
+    assert.equal(typeof c.input, 'function');
+    assert.equal(typeof c.assumptions, 'function');
   }
-  assert.equal(T.COUNTRIES.es.calculatorId, null);
   assert.equal(T.TIMEOUT_MS, 8000);
 });
 
@@ -227,17 +229,43 @@ test('bad country, bad gross, bad period, bad state/province are near-misses tha
   } finally { m2.restore(); }
 });
 
-test('Spain: listed in the enum, answers covered:false with the calculator link, no network call', async () => {
-  const m = mockFetch(() => { throw new Error('should not be called'); });
+test('Spain: posts es-salary with the region (madrid default, aliases for Cataluña), tax year 2026, lines reconcile', async () => {
+  const m = mockFetch(() => jsonResponse(200, ES_35K_MADRID));
   try {
-    const out = await T.takeHomePay({ country: 'es', gross: 40000 });
-    assert.equal(out.covered, false);
-    assert.equal(out.country, 'es');
+    const out = await T.takeHomePay({ country: 'es', gross: 35000 });
+    assert.deepEqual(m.calls[0].body, { calculatorId: 'es-salary', input: { grossSalary: 35000, salaryFrequency: 'annual', numPayments: 12, region: 'madrid', contractType: 'indefinido', children: 0 } });
     assert.equal(out.currency, 'EUR');
-    assert.match(out.message, /client-side/);
-    assert.equal(out.source, 'https://www.lifebynumbers.net/es/calculators/es-salary');
-    assert.deepEqual(out.coverage, ['uk', 'us', 'ca', 'au', 'in', 'br', 'pl', 'fr', 'de']);
-    assert.equal(m.calls.length, 0);
+    assert.equal(out.taxYear, '2026');
+    assert.equal(out.net.annual, 26827.33);
+    assert.equal(out.totalDeductions.annual, 8172.67);
+    assert.deepEqual(out.breakdown.map((l) => [l.key, l.type, l.annual]), [
+      ['socialSecurityDeduction', 'social', 2275], ['cuotaEstatal', 'tax', 3164.25], ['cuotaAutonomica', 'tax', 2733.42],
+    ]);
+    assert.equal(out.breakdownNote, undefined, 'lines sum to gross − net');
+    assert.equal(out.details.region, 'Comunidad de Madrid');
+    assert.match(out.assumptions.join(' '), /Madrid 2026 scale/);
+    assert.match(out.assumptions.join(' '), /approximation of withholding/);
+
+    await T.takeHomePay({ country: 'es', gross: 35000, region: 'Catalunya' });
+    assert.equal(m.calls[1].body.input.region, 'cataluna');
+  } finally { m.restore(); }
+  const bad = await T.takeHomePay({ country: 'es', gross: 35000, region: 'andalucia' });
+  assert.equal(bad.covered, false);
+  assert.deepEqual(bad.coverage, T.ES_REGIONS);
+});
+
+test('Canada: Quebec returns QPP, QPIP and the federal abatement; the breakdown reconciles', async () => {
+  const m = mockFetch(() => jsonResponse(200, CA_80K_QC));
+  try {
+    const out = await T.takeHomePay({ country: 'ca', gross: 80000, province: 'qc' });
+    assert.deepEqual(m.calls[0].body, { calculatorId: 'ca-salary', input: { annualSalary: 80000, province: 'QC', rrspContribution: 0 } });
+    assert.equal(out.net.annual, 57012.32);
+    assert.equal(out.breakdown.find((l) => l.key === 'qpip').annual, 344);
+    assert.equal(out.breakdownNote, undefined, 'lines sum to gross − net');
+    assert.equal(out.details.pensionPlan, 'QPP');
+    assert.equal(out.details.quebecAbatement, 1516.59);
+    assert.match(out.assumptions.join(' '), /every province and territory/);
+    assert.doesNotMatch(out.assumptions.join(' '), /simplified rate|2025 maxima/);
   } finally { m.restore(); }
 });
 
@@ -300,14 +328,15 @@ test('/r/tax/take-home citation page renders the answer with the calculator link
   } finally { m.restore(); }
 });
 
-test('coverage area "tax" lists all ten countries, flags Spain as not computed, names the options', () => {
+test('coverage area "tax" lists all ten countries, all computed, names the options', () => {
   const cov = coverageFor('tax');
   assert.equal(cov.area, 'tax');
   assert.equal(cov.tool, 'take_home_pay');
   assert.deepEqual(Object.keys(cov.countries), T.COUNTRY_CODES);
-  assert.equal(cov.countries.es.computed, false);
-  assert.equal(cov.countries.uk.computed, true);
+  assert.ok(Object.values(cov.countries).every((c) => c.computed));
   assert.equal(cov.countries.uk.taxYear, '2026/27');
-  assert.deepEqual(cov.options, { us: ['state', 'filingStatus'], ca: ['province'], uk: ['region'] });
-  assert.ok(cov.notCovered.some((x) => /Spain/.test(x)));
+  assert.equal(cov.countries.es.taxYear, '2026');
+  assert.deepEqual(cov.options, { us: ['state', 'filingStatus'], ca: ['province'], uk: ['region'], es: ['region'] });
+  assert.ok(cov.notCovered.some((x) => /Madrid and Cataluña/.test(x)));
+  assert.ok(!cov.notCovered.some((x) => /simplified (flat )?rate/.test(x)));
 });

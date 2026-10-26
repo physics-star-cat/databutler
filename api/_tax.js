@@ -20,8 +20,10 @@
  *   us-salary  annualSalary (annual USD; alias grossIncome); filingStatus
  *              single|married_joint|head_of_household (single); state 2-letter (CA);
  *              k401Percent (0); healthInsurancePremium monthly (0)
- *   ca-salary  annualSalary (annual CAD); province 2-letter (ON); rrspContribution % (0)
- *              — note the web UI sends rrspPercent, which the backend ignores
+ *   ca-salary  annualSalary (annual CAD); province 2-letter (ON); rrspContribution % (0).
+ *              From 2026-10-26 every province/territory has its own 2026 brackets and
+ *              credits (CRA T4127); QC returns QPP in `cpp`, plus `qpip`,
+ *              `quebecAbatement` and pensionPlan:'QPP'
  *   au-salary  annualSalary (annual AUD); residencyStatus resident|non-resident (resident);
  *              hasHelpDebt bool (false) — the web UI sends hasHELP, which the backend ignores
  *   in-salary  annualSalary (annual INR); taxRegime new|old (new); basicPercent (50);
@@ -32,9 +34,12 @@
  *   fr-salary  monthlySalary (EUR); taxParts (1); includeMutuelle (true); mutuelleAmount (50)
  *   de-salary  monthlySalary (EUR); taxClass 1-6 (1); churchTax (false);
  *              state 'bavaria'|'other' (other); hasChildren (false)
- *   es-salary  DOES NOT EXIST upstream ("Unknown calculator: es-salary"): the Spain
- *              page computes IRPF client-side in SpainSalaryCalculator.tsx, so Spain
- *              is reported as covered:false here rather than reimplemented.
+ *   es-salary  grossSalary (EUR); salaryFrequency annual|monthly (annual); numPayments
+ *              12|14 (14); region madrid|cataluna (madrid); contractType
+ *              indefinido|temporal (indefinido); children, childrenUnder3 (0);
+ *              singleParent (false); irpfRate % override (0 = computed). Added to the
+ *              backend 2026-10-26 (before that the page computed it client-side);
+ *              returns socialSecurityDeduction, cuotaEstatal, cuotaAutonomica, netAnnual.
  *
  * Tax years are the ones hard-coded in app.py at verification time (see
  * COUNTRIES[].taxYear); the backend does not report them, so they must be
@@ -58,6 +63,9 @@ const DATA_ORIGIN =
 const US_STATES = 'AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY'.split(' ');
 const CA_PROVINCES = 'AB BC MB NB NL NS NT NU ON PE QC SK YT'.split(' ');
 const US_FILING = ['single', 'married_joint', 'head_of_household'];
+const UK_REGIONS = ['england', 'scotland', 'wales', 'northern-ireland'];
+const ES_REGIONS = ['madrid', 'cataluna'];
+const ES_REGION_ALIASES = { 'comunidad de madrid': 'madrid', 'cataluña': 'cataluna', catalunya: 'cataluna', catalonia: 'cataluna' };
 
 /**
  * One entry per supported country. `period` is the period the upstream
@@ -111,14 +119,16 @@ const COUNTRIES = {
     net: 'netAnnual',
     lines: [
       ['federalTax', 'Federal income tax', 'tax'],
-      ['provincialTax', 'Provincial income tax', 'tax'],
-      ['cpp', 'CPP contribution', 'social'],
+      ['provincialTax', 'Provincial/territorial income tax', 'tax'],
+      ['cpp', 'CPP contribution incl. CPP2 (QPP/QPP2 in Quebec)', 'social'],
       ['ei', 'EI premium', 'social'],
+      ['qpip', 'QPIP premium (Quebec only)', 'social'],
       ['rrsp', 'RRSP contribution', 'contribution'],
     ],
+    extra: (r) => ({ pensionPlan: r.pensionPlan, taxableIncome: r.taxableIncome, quebecAbatement: r.quebecAbatement, provincialDetails: r.provincialDetails }),
     assumptions: (a) => [
-      `province: ${a.province || 'ON (default when omitted)'} — Ontario uses full 2026 brackets with surtax, Ontario tax reduction and Health Premium; other provinces use a single simplified rate`,
-      'federal 2026 brackets and income-tested basic personal amount; CPP and EI use 2025 maxima; no RRSP contributions',
+      `province: ${a.province || 'ON (default when omitted)'} — 2026 provincial/territorial brackets, basic personal amount and CPP/EI credits for every province and territory (CRA T4127 Jan and Jul 2026, full-year values), with the Ontario surtax, tax reduction and Health Premium, BC tax reduction, Alberta supplemental credit and Yukon employment credit; Quebec tax at Revenu Québec 2026 rates with QPP, QPIP, 1.30% EI and the 16.5% federal abatement`,
+      'federal 2026 brackets, income-tested basic personal amount, CPP/EI and Canada employment credits; 2026 CPP/CPP2 and EI maxima; payroll (T4127) basis, so annual-return-only credits are not included; no RRSP contributions',
     ],
   },
   au: {
@@ -231,8 +241,20 @@ const COUNTRIES = {
     ],
   },
   es: {
-    name: 'Spain', currency: 'EUR', calculatorId: null, period: 'annual', taxYear: '2025',
+    name: 'Spain', currency: 'EUR', calculatorId: 'es-salary', period: 'annual', taxYear: '2026',
     page: `${SITE}/es/calculators/es-salary`,
+    input: (gross, a) => ({ grossSalary: gross, salaryFrequency: 'annual', numPayments: 12, region: a.region || 'madrid', contractType: 'indefinido', children: 0 }),
+    net: 'netAnnual',
+    lines: [
+      ['socialSecurityDeduction', 'Social Security (Seguridad Social, employee)', 'social'],
+      ['cuotaEstatal', 'Income tax, state share (IRPF estatal)', 'tax'],
+      ['cuotaAutonomica', 'Income tax, regional share (IRPF autonómico)', 'tax'],
+    ],
+    extra: (r) => ({ region: r.regionName, regionBasis: r.regionBasis, taxableBase: r.baseLiquidable, approxWithholdingRate: r.approxWithholdingRate }),
+    assumptions: (a) => [
+      `region: ${a.region || 'madrid (default when omitted)'} — IRPF state scale plus the ${a.region === 'cataluna' ? 'Cataluña scale (latest published, ejercicio 2025)' : 'Comunidad de Madrid 2026 scale and its own mínimos'}; other communities, País Vasco and Navarra not modelled`,
+      'single taxpayer, no children, indefinite contract, salary income only: 2026 Seguridad Social (6.50% employee rate with base máxima 5,101.20 €/month and solidaridad above it), gastos deducibles, art. 20 reduction and mínimo personal; IRPF is the annual cuota, an approximation of withholding; no regional deductions',
+    ],
   },
 };
 
@@ -298,8 +320,8 @@ async function takeHomePay(args = {}) {
   if (!c.calculatorId) {
     return {
       covered: false, country: code, countryName: c.name, currency: c.currency,
-      message: 'Spain is not computed by the LifeByNumbers backend: its salary page calculates IRPF client-side, so there is no verified upstream figure to proxy.',
-      hint: `open ${c.page} for the interactive Spain calculator, or use another country code`,
+      message: `${c.name} is not computed by the LifeByNumbers backend, so there is no verified upstream figure to proxy.`,
+      hint: `open ${c.page} for the interactive calculator, or use another country code`,
       coverage: COUNTRY_CODES.filter((k) => COUNTRIES[k].calculatorId),
       source: c.page, upstreamProvenance: provenance(c, null),
     };
@@ -326,10 +348,14 @@ function validateExtras(code, a) {
     if (a.province !== undefined && a.province !== null && a.province !== '' && !CA_PROVINCES.includes(String(a.province).toUpperCase())) return bad('province', a.province, CA_PROVINCES);
     if (a.province) a.province = String(a.province).toUpperCase();
   }
+  if (code === 'es' && a.region !== undefined && a.region !== null && a.region !== '') {
+    const r = ES_REGION_ALIASES[String(a.region).toLowerCase().trim()] || String(a.region).toLowerCase().trim();
+    if (!ES_REGIONS.includes(r)) return bad('region', a.region, ES_REGIONS);
+    a.region = r;
+  }
   if (code === 'uk' && a.region !== undefined && a.region !== null && a.region !== '') {
     const r = String(a.region).toLowerCase();
-    const allowed = ['england', 'scotland', 'wales', 'northern-ireland'];
-    if (!allowed.includes(r)) return bad('region', a.region, allowed);
+    if (!UK_REGIONS.includes(r)) return bad('region', a.region, UK_REGIONS);
     a.region = r;
   }
   return null;
@@ -378,4 +404,4 @@ function shape(c, code, res, { gross, period, annualGross, args }) {
   };
 }
 
-module.exports = { takeHomePay, COUNTRIES, COUNTRY_CODES, PERIODS, US_STATES, CA_PROVINCES, US_FILING, deps, UPSTREAM, SITE, UA, TIMEOUT_MS };
+module.exports = { takeHomePay, COUNTRIES, COUNTRY_CODES, PERIODS, US_STATES, CA_PROVINCES, US_FILING, UK_REGIONS, ES_REGIONS, deps, UPSTREAM, SITE, UA, TIMEOUT_MS };

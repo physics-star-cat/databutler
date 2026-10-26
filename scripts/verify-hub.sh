@@ -59,7 +59,7 @@ check rest-fr-recalls "$(curl -sS "$BASE/api/vehicles/fr/recalls?brand=peugeot&m
 check take-home-uk "$(inner "$(tool take_home_pay '{"country":"uk","gross":50000}')")" \
   "(d['currency']=='GBP' and d['taxYear'] and d['net']['annual']<50000 and d['upstreamProvenance']['attribution']=='lifebynumbers.net' and d['cite']['url'].startswith('https://databutler.dev/r/tax/take-home?country=uk')) or d.get('error')=='upstream unavailable'"
 check take-home-es "$(inner "$(tool take_home_pay '{"country":"es","gross":40000}')")" \
-  "d['covered']==False and 'lifebynumbers.net/es/' in d['source']"
+  "(d['currency']=='EUR' and d['taxYear']=='2026' and d['net']['annual']<40000) or d.get('error')=='upstream unavailable'"
 check take-home-bad "$(inner "$(tool take_home_pay '{"country":"zz","gross":1}')")" \
   "d['covered']==False and 'uk' in d['coverage']"
 check rest-take-home "$(curl -sS "$BASE/api/tax/take-home?country=de&gross=48000")" "'freshness' in d and (d.get('currency')=='EUR' or d.get('error')=='upstream unavailable')"

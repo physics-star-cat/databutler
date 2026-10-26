@@ -60,7 +60,7 @@
       "displayName": "databutler-tax",
       "type": "application/mcp-server-card+json",
       "url": "https://databutler.dev/api/mcp/tax/server-card",
-      "description": "Take-home pay after tax and social contributions for nine countries, with tax year."
+      "description": "Take-home pay after tax and social contributions for ten countries, with tax year."
     },
     {
       "identifier": "urn:air:databutler.dev:mcp:databutler-software-eol",
