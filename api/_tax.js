@@ -100,7 +100,7 @@ const COUNTRIES = {
     ],
     assumptions: (a) => [
       `filing status: ${a.filingStatus || 'single'}; standard deduction, no itemising`,
-      `state: ${a.state || 'CA (default when omitted)'} — state tax is a simplified flat rate on income after pre-tax deductions, no state standard deduction, no local/city tax`,
+      `state: ${a.state || 'CA (default when omitted)'} — state income tax from the 2026 state bracket schedule (state standard deduction, exemptions and credits as the state applies them; latest official figures where 2026 is unpublished, e.g. CA); no local/city tax (NYC, Yonkers, MD counties, PA/OH local), no state payroll levies such as CA SDI`,
       'no 401(k) or health-premium deductions',
     ],
   },
@@ -117,7 +117,7 @@ const COUNTRIES = {
       ['rrsp', 'RRSP contribution', 'contribution'],
     ],
     assumptions: (a) => [
-      `province: ${a.province || 'ON (default when omitted)'} — Ontario uses full 2026 brackets (no surtax); other provinces use a single simplified rate`,
+      `province: ${a.province || 'ON (default when omitted)'} — Ontario uses full 2026 brackets with surtax, Ontario tax reduction and Health Premium; other provinces use a single simplified rate`,
       'federal 2026 brackets and income-tested basic personal amount; CPP and EI use 2025 maxima; no RRSP contributions',
     ],
   },
