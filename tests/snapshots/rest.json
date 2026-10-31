@@ -3038,16 +3038,16 @@
       "source": "https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate",
       "decisionSource": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2025/december-2025",
       "historySource": "https://www.bankofengland.co.uk/boeapps/database/Bank-Rate.asp",
-      "verifiedDate": "2026-10-03",
+      "verifiedDate": "2026-10-31",
       "notes": "Bank Rate takes effect on the day the decision is published. The Bank Rate page also shows the current CPI inflation rate, which updates monthly, so a change on that page is not necessarily a Bank Rate change — the history table in historySource is the check.",
       "unit": "% per annum",
       "freshness": {
-        "verifiedDate": "2026-10-03",
-        "nextScheduledRefresh": "2026-11-17"
+        "verifiedDate": "2026-10-31",
+        "nextScheduledRefresh": "2026-12-15"
       },
       "cite": {
         "url": "https://databutler.dev/r/policy-rates?bank=boe",
-        "text": "databutler.dev, verified 2026-10-03 against https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate"
+        "text": "databutler.dev, verified 2026-10-31 against https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate"
       }
     }
   },
@@ -3078,12 +3078,12 @@
         "commercial lending, mortgage or savings rates"
       ],
       "freshness": {
-        "verifiedDate": "2026-10-03",
-        "nextScheduledRefresh": "2026-11-17"
+        "verifiedDate": "2026-10-31",
+        "nextScheduledRefresh": "2026-12-15"
       },
       "cite": {
         "url": "https://databutler.dev/r/policy-rates?bank=boj",
-        "text": "databutler.dev, verified 2026-10-03"
+        "text": "databutler.dev, verified 2026-10-31"
       }
     }
   },

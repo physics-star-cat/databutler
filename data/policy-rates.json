@@ -1,7 +1,7 @@
 {
   "dataset": "Central-bank policy rates — Bank of England (Bank Rate), US Federal Reserve (federal funds target range), European Central Bank (deposit facility, main refinancing operations, marginal lending facility)",
-  "verifiedDate": "2026-10-03",
-  "nextScheduledRefresh": "2026-11-17",
+  "verifiedDate": "2026-10-31",
+  "nextScheduledRefresh": "2026-12-15",
   "refreshRule": "Re-verified within 45 days of verifiedDate (nextScheduledRefresh = verifiedDate + 45 days, maintained by scripts/changelog.js) and after every scheduled decision; the weekly source watcher re-checks each bank's `source` page in between.",
   "verificationMethod": "Each bank's `source` page was fetched on verifiedDate (curl, User-Agent databutler-curation/1.0) and the current level read from it; the level, its effective date and the previous level were cross-checked against the bank's own history table (`historySource` / the same page) and the decision press release in `decisionSource`, which was also fetched. Next decision dates come from the banks' published calendars (`calendarSource`, or the Bank Rate page's 'Next due'). Figures are copied from the pages, never written from memory.",
   "unit": "% per annum",
@@ -34,7 +34,7 @@
       "source": "https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate",
       "decisionSource": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2025/december-2025",
       "historySource": "https://www.bankofengland.co.uk/boeapps/database/Bank-Rate.asp",
-      "verifiedDate": "2026-10-03",
+      "verifiedDate": "2026-10-31",
       "notes": "Bank Rate takes effect on the day the decision is published. The Bank Rate page also shows the current CPI inflation rate, which updates monthly, so a change on that page is not necessarily a Bank Rate change — the history table in historySource is the check."
     },
     "fed": {
@@ -57,19 +57,15 @@
         ],
         "effectiveFrom": "2025-12-11"
       },
-      "latestDecision": {
-        "date": "2026-09-16",
-        "outcome": "raised 25 basis points to 3.75–4.00%",
-        "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm"
-      },
-      "nextDecision": "2026-10-28",
-      "nextMeeting": "27–28 October 2026",
+      "latestDecision": { "date": "2026-10-28", "outcome": "held at 3.75–4.00%", "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm" },
+      "nextDecision": "2026-12-09",
+      "nextMeeting": "8–9 December 2026",
       "decisionsPerYear": 8,
       "source": "https://www.federalreserve.gov/monetarypolicy/openmarket.htm",
       "decisionSource": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
       "implementationNote": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a1.htm",
       "calendarSource": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
-      "verifiedDate": "2026-10-03",
+      "verifiedDate": "2026-10-31",
       "notes": "The Fed sets a range, not a single rate; the effective federal funds rate trades inside it. The open-market-operations table dates each level by its effective date, the day after the meeting ends. Interest on reserve balances, the discount rate and the ON RRP offering rate are not served."
     },
     "ecb": {
@@ -94,18 +90,14 @@
         ],
         "effectiveFrom": "2026-06-17"
       },
-      "latestDecision": {
-        "date": "2026-09-10",
-        "outcome": "all three key rates raised 25 basis points",
-        "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html"
-      },
-      "nextDecision": "2026-10-29",
-      "nextMeeting": "28–29 October 2026",
+      "latestDecision": { "date": "2026-10-29", "outcome": "all three key rates held", "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp261029~9a493adf17.en.html" },
+      "nextDecision": "2026-12-17",
+      "nextMeeting": "16–17 December 2026",
       "decisionsPerYear": 8,
       "source": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
       "decisionSource": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html",
       "calendarSource": "https://www.ecb.europa.eu/press/calendars/mgcgc/html/index.en.html",
-      "verifiedDate": "2026-10-03",
+      "verifiedDate": "2026-10-31",
       "notes": "ECB rate changes take effect on the Wednesday after the decision (start of the next reserve maintenance period), so effectiveFrom is later than decisionDate. The key-rates page dates each row 'with effect from'."
     }
   }

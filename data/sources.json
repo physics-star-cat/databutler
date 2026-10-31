@@ -198,23 +198,23 @@
   {
     "url": "https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate",
     "updatedAt": null,
-    "bodyHash": "b86dc2514273244f",
+    "bodyHash": "55e266940445ac4b",
     "via": "html",
-    "checkedAt": "2026-10-03"
+    "checkedAt": "2026-10-31"
   },
   {
     "url": "https://www.federalreserve.gov/monetarypolicy/openmarket.htm",
     "updatedAt": null,
     "bodyHash": "7cb6d6eb87b5cfef",
     "via": "html",
-    "checkedAt": "2026-10-03"
+    "checkedAt": "2026-10-31"
   },
   {
     "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
     "updatedAt": null,
     "bodyHash": "4b2d0042bf3a900d",
     "via": "html",
-    "checkedAt": "2026-10-03"
+    "checkedAt": "2026-10-31"
   },
   {
     "url": "https://www.irs.gov/newsroom/news-releases-for-current-month",

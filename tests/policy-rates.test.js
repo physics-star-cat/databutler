@@ -68,7 +68,7 @@ test('data: three banks, every figure with an official source, decision page and
   }
   assert.ok(figure('fed', 'target-range-lower') < figure('fed', 'target-range-upper'));
   assert.ok(figure('ecb', 'deposit-facility') < figure('ecb', 'main-refinancing') && figure('ecb', 'main-refinancing') < figure('ecb', 'marginal-lending'), 'ECB corridor');
-  // The levels read from the banks' pages on 2026-10-03 (docs/CURATION.md verification log) — update with the data file.
+  // The levels read from the banks' pages, last on 2026-10-31 (docs/CURATION.md verification log) — update with the data file.
   assert.equal(figure('boe', 'bank-rate'), 3.75);
   assert.deepEqual([figure('fed', 'target-range-lower'), figure('fed', 'target-range-upper')], [3.75, 4.0]);
   assert.deepEqual(['deposit-facility', 'main-refinancing', 'marginal-lending'].map((k) => figure('ecb', k)), [2.5, 2.65, 2.9]);
@@ -282,7 +282,7 @@ test('changelog: policy-rates is an area; six initial entries record each bank\'
     assert.equal(e.unit, '%');
     assert.equal(e.effectiveFrom, b.effectiveFrom); assert.equal(e.decisionDate, b.decisionDate);
     assert.equal(e.source, b.decisionSource, `${e.key} source is the decision page`);
-    assert.equal(e.verifiedDate, b.verifiedDate);
+    assert.ok(e.verifiedDate <= b.verifiedDate, `${e.key}: a held rate is re-verified without a new changelog entry`);
     assert.match(e.label, new RegExp(`^${b.name}: `));
     assert.ok(e.note.length > 40, `${e.key} note names the meeting`);
     assert.match(e.note, /(MPC|FOMC|Governing Council)/, e.key);
