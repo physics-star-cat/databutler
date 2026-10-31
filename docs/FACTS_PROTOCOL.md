@@ -1,11 +1,11 @@
-# Verified Facts protocol, v0.2
+# Verified Facts protocol, v0.3
 
-One short key for one official figure; one compact, dated, sourced, signed answer back. Identifier: `verified-facts/0.2`. It is the facts layer of the Verified Changes protocol (`verified-changes/0.1`, `docs/CHANGES_PROTOCOL.md`) and leaves that layer's wire format unchanged. Reference implementation: Data Butler (https://databutler.dev). Served indexable at `/protocol/facts` (`?format=md` for this file). Status: live on databutler.dev since 2026-10-12 (L3: signed with key `db-2026-10`).
+One short key for one official figure; one compact, dated, sourced, signed answer back. Identifier: `verified-facts/0.3`. v0.3 adds optional fields to the record and the index (expected-change awareness, the source check, a collection digest) and one transport URL (a page per fact); [what changed](#changes-in-v0-3) lists each. Records and documents that say `verified-facts/0.2` remain valid; consumers accept any `0.x`. It is the facts layer of the Verified Changes protocol (`verified-changes/0.1`, `docs/CHANGES_PROTOCOL.md`) and leaves that layer's wire format unchanged. Reference implementation: Data Butler (https://databutler.dev). Served indexable at `/protocol/facts` (`?format=md` for this file). Status: live on databutler.dev since 2026-10-12 (L3: signed with key `db-2026-10`); v0.3 drafted 2026-10-31. Publishing your own figures: [the recipe](https://databutler.dev/protocol/publish).
 
 ```
 $ curl -s https://databutler.dev/f/uk/income-tax/personal-allowance?max_age=30d
 {
-  "protocol": "verified-facts/0.2",
+  "protocol": "verified-facts/0.3",
   "key": "uk/income-tax/personal-allowance",
   "label": "Personal Allowance",
   "value": 12570,
@@ -16,6 +16,10 @@ $ curl -s https://databutler.dev/f/uk/income-tax/personal-allowance?max_age=30d
   "source": "https://www.gov.uk/income-tax-rates",
   "quote": "The standard Personal Allowance is £12,570, which is the amount of income you do not have to pay tax on.",
   "verifiedDate": "2026-10-04",
+  "nextScheduledRefresh": "2026-11-03",
+  "changeCadence": "annual",
+  "nextExpectedChange": "2027-04-06",
+  "sourceCheckedAt": "2026-10-12",
   "status": "fresh",
   "ageDays": 8,
   "maxAgeDays": 30,
@@ -23,7 +27,7 @@ $ curl -s https://databutler.dev/f/uk/income-tax/personal-allowance?max_age=30d
   "hash": "sha256:9f2c…",
   "signature": { "alg": "EdDSA", "kid": "db-2026-10", "jws": "eyJhbGciOiJFZERTQSIsImtpZCI6ImRiLTIwMjYtMTAifQ..k7Q…", "keys": "https://databutler.dev/.well-known/jwks.json" },
   "publisher": { "name": "Data Butler", "url": "https://databutler.dev/" },
-  "cite": { "url": "https://databutler.dev/f/uk/income-tax/personal-allowance", "text": "databutler.dev, verified 2026-10-04 against https://www.gov.uk/income-tax-rates" }
+  "cite": { "url": "https://databutler.dev/facts/uk/income-tax/personal-allowance", "text": "databutler.dev, verified 2026-10-04 against https://www.gov.uk/income-tax-rates" }
 }
 ```
 
@@ -42,7 +46,7 @@ Design rules carried from v0.1: plain JSON, no authentication, no registration, 
 | Layer | Identifier | Discovery document | Unit | Status |
 |---|---|---|---|---|
 | Changes (what moved) | `verified-changes/0.1` | `/.well-known/changes.json` | entry: `area/key`, from → to, effectiveFrom, source, verifiedDate | unchanged on the wire; §12 lists the optional fields v0.2 adds for the five adopters' feedback |
-| Facts (what is) | `verified-facts/0.2` | `/.well-known/facts.json` | fact record: `key`, value, period, effectiveFrom, source, verifiedDate, hash, signature | new |
+| Facts (what is) | `verified-facts/0.3` | `/.well-known/facts.json` | fact record: `key`, value, period, effectiveFrom, source, verifiedDate, hash, signature | new in 0.2; optional fields and the page URL added in 0.3 |
 
 Compatibility rules:
 
@@ -93,7 +97,7 @@ The object every transport returns. Fields are camelCase; all are required unles
 
 | Field | Type | Meaning |
 |---|---|---|
-| `protocol` | `"verified-facts/0.2"` | |
+| `protocol` | `"verified-facts/0.3"` | `"verified-facts/0.2"` is still valid; a consumer accepts any `0.x` |
 | `key` | string | canonical key (§3) |
 | `requestedKey` | string, optional | present when the request used an alias or was auto-resolved (§6.3) |
 | `aliases` | string[], optional | other keys that resolve here |
@@ -108,17 +112,21 @@ The object every transport returns. Fields are camelCase; all are required unles
 | `quote` | string, optional | the sentence or table row the value was read from |
 | `verifiedDate` | date | the day the publisher fetched `source` and read `value` |
 | `nextScheduledRefresh` | date \| null | when the publisher has committed to re-check |
-| `status` | `"fresh"` \| `"stale"` | against the caller's `max_age` (§5.3) |
+| `changeCadence` | `"scheduled"` \| `"annual"` \| `"irregular"` \| `"continuous"`, optional (0.3) | how the source changes the value: `scheduled` on a published decision calendar (policy rates); `annual` on a fixed day each year (tax-year thresholds, minimum wages); `irregular` when a statute or fee order changes it with no fixed date (legal ages, service fees); `continuous` when the source publishes a new value on a fixed frequency (a monthly index, a daily reference rate) |
+| `nextExpectedChange` | date \| null, optional (0.3) | the next day on which the source's own calendar allows the value to move: the next scheduled decision, the next 6 April, the next monthly release. `null` when the publisher cannot name one. It is read from the source's published calendar, never estimated |
+| `sourceCheckedAt` | date, optional (0.3) | the most recent day the publisher's automated check fetched `source` (or the source's own machine-readable form of the same page) successfully. It says the page was still there and was looked at; it does not say anyone re-read the value, which is what `verifiedDate` says. Absent when no automated check has run; a publisher never fills it with a date on which nothing was fetched |
+| `status` | `"fresh"` \| `"stale"` | against the caller's `max_age` and the publisher's own tests (§5.3) |
 | `ageDays` | integer | today − `verifiedDate` |
 | `maxAgeDays` | integer \| null | the `max_age` applied, `null` when the publisher's cadence was used |
+| `staleReason` | `"max-age"` \| `"expected-change-passed"` \| `"source-changed"` \| `"cadence-overdue"`, optional (0.3) | present only when `status` is `stale`; says which test failed (§5.3) |
 | `previous` | object, optional | `{ value, period, effectiveFrom?, source? }` — the comparable prior value when the publisher holds one |
 | `scope` | string, optional | one line of applicability ("England, Wales and Northern Ireland; Scottish rates differ") |
 | `hash` | string | `sha256:<hex>` over the claim (§8.2) |
 | `signature` | object, optional at L1–L2, required at L3 | `{ alg, kid, jws, keys }` (§8.3) |
 | `publisher` | `{ name, url }` | |
-| `freshness`, `cite`, `attribution` | v0.1 envelope, optional | kept so v0.1 consumers see the blocks they already read |
+| `freshness`, `cite`, `attribution` | v0.1 envelope, optional | kept so v0.1 consumers see the blocks they already read. From 0.3, `cite.url` is the fact's page, `/facts/{key}` (§9.1) |
 
-JSON Schema: `https://databutler.dev/schema/fact.v0.json` (draft 2020-12). Publishers may add fields; consumers ignore unknown ones. Compactness is a feature: the record above is ~900 bytes, because an agent pays for every byte in its context window and a bloated answer is one it stops calling.
+JSON Schema: `https://databutler.dev/schema/fact.v0.json` (draft 2020-12; its `protocol` is an enum of `verified-facts/0.2` and `verified-facts/0.3`). Publishers may add fields; consumers ignore unknown ones. Compactness is a feature: the record above is ~900 bytes, because an agent pays for every byte in its context window and a bloated answer is one it stops calling.
 
 ## 5. `get`
 
@@ -141,8 +149,12 @@ A publisher answers for the periods it has verified. Data Butler holds the curre
 
 `status` is computed on every answer:
 
-- `max_age` given: `ageDays ≤ maxAgeDays` → `fresh`, else `stale`.
-- `max_age` omitted: `fresh` unless the publisher's own freshness (v0.1 `staleness`) is `overdue`, in which case `stale`; `maxAgeDays` is `null`.
+- `max_age` given: `ageDays ≤ maxAgeDays` → `fresh`, else `stale` (`staleReason: "max-age"`).
+- `max_age` omitted: `fresh` unless the publisher's own freshness (v0.1 `staleness`) is `overdue`, in which case `stale` (`staleReason: "cadence-overdue"`); `maxAgeDays` is `null`.
+
+A third test applies whenever the record carries `nextExpectedChange`: if that date is today or earlier and `verifiedDate` is before it, the answer is `stale` with `staleReason: "expected-change-passed"`, whatever `max_age` was. The publisher has not looked since a day on which the value could have moved, and the agent must be told so even if the verification is recent by the calendar. When `max_age` is given and also fails, `staleReason` is `"max-age"`; the caller's own test is reported first. A stale answer is still an answer: the value is returned, and in the common case (a decision that held) it is still right.
+
+A fourth test applies when the publisher runs an automated check of its sources (v0.3, `sourceCheckedAt`): if that check found the `source` page's content changed on a day after `verifiedDate`, and nobody has re-verified the value since, the answer is `stale` with `staleReason: "source-changed"`, whatever `max_age` was. A changed page does not prove the figure moved (pages change around their numbers all the time), so the value is still returned; but the publisher's verification now predates the page it cites, and the agent is told. Re-verifying the value against the changed page clears it. When several tests fail, `staleReason` names the first in this order: `max-age`, `expected-change-passed`, `source-changed`, `cadence-overdue`.
 
 A stale answer is still returned, with its value: the publisher has no newer figure and the value may well still be right, but the agent is told, in a field it cannot miss, that the publisher's check is older than it asked for. The agent should say so to its user ("verified 2026-04-06, older than the 30 days you asked for") rather than present the figure as current. What the protocol forbids is returning an older verification as if it met the bar. HTTP status stays 200 for a stale answer (the request succeeded); L2 publishers also send `X-Facts-Status: stale` so a cache or proxy can see it without parsing the body.
 
@@ -156,7 +168,22 @@ A stale answer is still returned, with its value: the publisher has no newer fig
 
 ### 5.5 The index
 
-`GET /f` (no key) returns every key the publisher serves — `{ protocol, publisher, count, generated, facts: [ { key, label, unit, period, verifiedDate, hash, aliases? } ] }` — so a client that would rather not guess can load the whole namespace once (~500 keys is ~70 KB; publishers with more paginate by `?namespace=`). The index is also the L1 publisher's only catalogue, and the Dataset JSON-LD (§10.4) describes it.
+`GET /f` (no key) returns every key the publisher serves — `{ protocol, publisher, count, generated, digest, facts: [ { key, label, unit, period, verifiedDate, changeCadence?, nextExpectedChange?, sourceCheckedAt?, hash, aliases? } ] }` — so a client that would rather not guess can load the whole namespace once (~500 keys is ~70 KB; publishers with more paginate by `?namespace=`). The index is also the L1 publisher's only catalogue, and the Dataset JSON-LD (§10.4) describes it.
+
+Each index entry may carry `changeCadence` and `nextExpectedChange`, so a client can see in one read which facts are about to move.
+
+### 5.6 The digest (0.3)
+
+`digest` is a fingerprint of everything a publisher serves, so a consumer can learn in one small request whether anything moved:
+
+```
+pairs  = [ [key, hash], … ]  for every fact served, sorted by key (code-point order)
+digest = "sha256:" + hex(SHA-256(JCS(pairs)))
+```
+
+It appears as `facts.digest` in `facts.json`, as `digest` on each `namespaces[]` entry (over that namespace's facts only) and as `digest` on the index. A served index sends it as its `ETag` (`"sha256:…"`) and answers `If-None-Match` with `304 Not Modified`. Because each `hash` covers only the claim (§8.2), the digest moves when a value, unit, period, effective date or source moves, or a key is added or removed; it does not move when a re-verification confirms a value. That is the point: it answers "has any figure changed?", and `verifiedDate` on each record answers "how recently was it checked?".
+
+The cheap check, for a consumer that holds figures from a publisher: store the digest with the day it was read. Later, fetch `facts.json` and compare the stored digest with the live one. Equal: nothing moved; stop. Different: call `what_changed_since` (or the publisher's changes endpoint, `GET /api/changes?since=` on Data Butler) with the stored day, and fetch only the facts it names.
 
 ## 6. `resolve`
 
@@ -170,7 +197,7 @@ Every data API that has failed to be adopted by agents fails the same way: the a
 
 ```json
 {
-  "protocol": "verified-facts/0.2",
+  "protocol": "verified-facts/0.3",
   "query": "what is the NI primary threshold",
   "candidates": [
     { "key": "uk/national-insurance/primary-threshold", "label": "Primary Threshold (employee pays above this)", "unit": "GBP/week", "period": "2026-27", "verifiedDate": "2026-10-04", "score": 0.92, "matched": ["synonym:ni", "label"] },
@@ -225,6 +252,8 @@ header       = { "alg": "EdDSA", "kid": "<key id>" }
 signature.jws = BASE64URL(header) || ".." || BASE64URL(Ed25519-sign(signingInput))
 ```
 
+The attestation's `protocol` names the shape of the attestation, not the minor version of the record: it is `verified-facts/0.2` for records that say `verified-facts/0.2` or `verified-facts/0.3`, because v0.3 added only fields that are not attested (`changeCadence`, `nextExpectedChange`, `sourceCheckedAt`, `staleReason`). A signature made under 0.2 therefore verifies unchanged on the same record served as 0.3, and a verifier rebuilds the attestation with `protocol: "verified-facts/0.2"` for either. A later minor version that changes the attestation will say so here.
+
 The record carries `signature: { alg: "EdDSA", kid, jws, keys }` where `keys` is the JWK Set URL. The attestation is rebuilt by the verifier from the record's own fields, so no separate payload is transmitted — the record is the payload. A standard (base64url-encoded payload) detached JWS was chosen over RFC 7797 `b64: false` because every JWS library accepts the former by reinserting the payload between the two dots, and only some accept the latter.
 
 ### 8.4 Key publication and rotation
@@ -254,15 +283,19 @@ The same record over three transports; a publisher implements the first and may 
 |---|---|
 | `GET /f/{key}?max_age=&as_of=&period=` | the record, `application/json; charset=utf-8` |
 | `GET /f/{key}?format=txt` or `Accept: text/plain` | one line: `12570 GBP/year (2026-27, from 2026-04-06) verified 2026-10-04 fresh https://www.gov.uk/income-tax-rates` — for shells and for agents that only want the number |
-| `GET /f/{key}?format=html` or `Accept: text/html` | an **indexable** page: the record, its source link, its JSON, JSON-LD (§10.4). Unlike v0.1's `/r/` citation pages (noindex), fact pages are meant to be indexed: Bing/Copilot citations are the one discovery channel for which the reference implementation has hard evidence (tens of thousands of Copilot citations a month against hundreds of search clicks), and Copilot cites pages, not APIs |
+| `GET /facts/{key}` | (0.3) the fact's **page**: `text/html` to every caller, no negotiation, canonical to itself, carrying the same record as JSON-LD and a link to `/f/{key}`. This is the URL for sitemaps, citations (`cite.url`) and search engines; `/f/{key}` stays the machine URL and answers JSON unless asked for `text/html` or `text/plain` |
+| `GET /facts` | (0.3) the index page (§10.4), `text/html` to every caller, canonical to itself, every key linked to its `/facts/{key}` page |
+| `GET /f/{key}?format=html` or `Accept: text/html` | still served, with `<link rel="canonical">` pointing at `/facts/{key}`: an **indexable** page: the record, its source link, its JSON, JSON-LD (§10.4). Unlike v0.1's `/r/` citation pages (noindex), fact pages are meant to be indexed: Bing/Copilot citations are the one discovery channel for which the reference implementation has hard evidence (tens of thousands of Copilot citations a month against hundreds of search clicks), and Copilot cites pages, not APIs |
 | `GET /f?keys=…` / `POST /f` | batch (§7) |
-| `GET /f` | the index (§5.5) |
+| `GET /f` | the index (§5.5), with `digest` and `ETag: "<digest>"`; `If-None-Match` → `304` (§5.6) |
 | `GET /f/resolve?q=` | resolve (§6) |
 | `GET /openapi.json` | the OpenAPI document (§9.3) |
 
 Headers on a record: `ETag: "<hash>"`, `Last-Modified: <verifiedDate>`, `Cache-Control: public, max-age=0, s-maxage=3600, stale-while-revalidate=86400` (curated data moves at most daily; a stale `status` is a function of the day, so one hour is the most a cache may hold it), `X-Facts-Status`, `Link: </.well-known/facts.json>; rel="describedby"`, CORS `*`. Misses are `no-store`. Single-segment paths under `/f/` (`resolve`, `index`) are reserved: a key always has at least two segments.
 
-Why a path, not a query parameter: `/f/uk/income-tax/personal-allowance` is a URL a model can complete from the pattern after seeing one example, appears whole in logs, llms.txt and citations, and is cacheable by every CDN by default. `/f` rather than `/facts` because the brief is compactness and the examples get typed a lot; `/facts` is served as an alias.
+Why a path, not a query parameter: `/f/uk/income-tax/personal-allowance` is a URL a model can complete from the pattern after seeing one example, appears whole in logs, llms.txt and citations, and is cacheable by every CDN by default. `/f` rather than `/facts` for the machine URL because the brief is compactness and the examples get typed a lot.
+
+Why a second URL for the page (0.3): a URL that answers JSON or HTML depending on `Accept` is one a crawler may never see as a page — crawlers commonly send `Accept: */*`, which a negotiating server reads as "JSON". `/facts/{key}` never negotiates, so what a search engine fetches is what a person sees, and the page is the one URL a citation points at. `/facts` (no key) is the HTML index and `/facts/{key}` is the page; a request to either with `Accept: application/json` and no `text/html` is redirected (`302`, not cached) to the `/f` form.
 
 ### 9.2 MCP
 
@@ -272,7 +305,7 @@ Tool definitions are written for model tool-selection: the first sentence is the
 
 **`get_fact`** — title "Get a verified fact"
 
-> The current value of one official figure by key — a tax threshold, rate, allowance, fee, deadline, limit or policy rate — with the date it was verified, the official source URL, the period it applies to and a signature. Keys are `<country>/<topic>/<fact>`, e.g. `uk/income-tax/personal-allowance`, `uk/national-insurance/primary-threshold`, `us/social-security/wage-base`, `de/income-tax/grundfreibetrag`, `uk/bank-rate`, `eu/ecb/deposit-facility`, `uk/gov/passport-renewal-adult/fee-online-uk`. A loose key is resolved when unambiguous; otherwise the answer lists candidate keys. `max_age` (e.g. `30d`) marks the answer `stale` when the verification is older than that. Several keys separated by commas return a batch. Covers UK, US and German rates and thresholds, UK vehicle tax and MOT rules, UK government service fees, UK exam dates and central-bank policy rates; `coverage` lists the rest.
+> The current value of one official figure by key — a tax threshold, rate, allowance, fee, deadline, limit or policy rate — with the date it was verified, the official source URL, the period it applies to and a signature. Keys are `<country>/<topic>/<fact>`, e.g. `uk/income-tax/personal-allowance`, `uk/national-insurance/primary-threshold`, `us/social-security/wage-base`, `de/income-tax/grundfreibetrag`, `uk/bank-rate`, `eu/ecb/deposit-facility`, `uk/gov/passport-renewal-adult/fee-online-uk`. A loose key is resolved when unambiguous; otherwise the answer lists candidate keys. `max_age` (e.g. `30d`) marks the answer `stale` when the verification is older than that. `nextExpectedChange` is the next date the source's calendar allows the value to move; `status` is `stale` when that date has passed since verification. Several keys separated by commas return a batch. Covers UK, US and German rates and thresholds, UK vehicle tax and MOT rules, UK government service fees, UK exam dates and central-bank policy rates; `coverage` lists the rest.
 
 Input schema: `{ key: string (required; one key, or several separated by commas, max 50), max_age?: string, as_of?: date, period?: string }`.
 
@@ -288,7 +321,7 @@ Front-door placement (Data Butler): `get_fact` and `resolve_fact` join the hub t
 
 ### 9.3 OpenAPI
 
-`GET /openapi.json`: OpenAPI 3.1, one `servers[]` entry, four operations with `operationId`s `getFact`, `getFacts`, `resolveFact`, `whatChangedSince`, response schemas by `$ref` to the published JSON Schemas, and `x-verified-facts: "0.2"`. This is for the loaders that exist: LangChain's OpenAPI toolkit, LlamaIndex's `OpenAPIToolSpec`, and anything that turns a spec into function-calling tools. The OpenAI Agents SDK has no OpenAPI loader and connects to MCP instead, which is why §9.2 exists; the document is generated from the same tool definitions, so the two never drift.
+`GET /openapi.json`: OpenAPI 3.1, one `servers[]` entry, four operations with `operationId`s `getFact`, `getFacts`, `resolveFact`, `whatChangedSince`, response schemas by `$ref` to the published JSON Schemas, and `x-verified-facts: "0.3"`. This is for the loaders that exist: LangChain's OpenAPI toolkit, LlamaIndex's `OpenAPIToolSpec`, and anything that turns a spec into function-calling tools. The OpenAI Agents SDK has no OpenAPI loader and connects to MCP instead, which is why §9.2 exists; the document is generated from the same tool definitions, so the two never drift.
 
 ## 10. Discovery documents
 
@@ -425,7 +458,7 @@ Front-door placement (Data Butler): `get_fact` and `resolve_fact` join the hub t
 }
 ```
 
-Schema: `https://databutler.dev/schema/well-known-facts.v0.json`. `facts.get` is an RFC 6570 URI template so a static publisher can serve `…/f/{key}.json`. `filtering` is `server` or `client` (§12 item 1): a `client` publisher ignores `max_age`/`as_of` and the consumer computes `status` from `verifiedDate` itself. `authorities` lets a verifier check that every `source` sits on a declared official host.
+Schema: `https://databutler.dev/schema/well-known-facts.v0.json`. `facts.get` is an RFC 6570 URI template so a static publisher can serve `…/f/{key}.json`. `facts.page` (0.3, optional) is the RFC 6570 template of the fact's page (`https://databutler.dev/facts/{key}`), beside `facts.get`. `facts.digest` and `namespaces[].digest` (0.3) are the fingerprints of §5.6. `filtering` is `server` or `client` (§12 item 1): a `client` publisher ignores `max_age`/`as_of` and the consumer computes `status` from `verifiedDate` itself. `authorities` lets a verifier check that every `source` sits on a declared official host.
 
 ### 10.2 Relationship to `/.well-known/changes.json`
 
@@ -436,15 +469,15 @@ Unchanged, plus the optional `"facts": "<facts.json URL>"`. A consumer that star
 Evidence says llms.txt is published widely and fetched almost never by assistants (Ahrefs' May 2026 log study: 97% of files received zero requests; AI retrieval bots were 1.1% of what little traffic there was), so the protocol asks for exactly two lines and no more effort:
 
 ```
-- `GET https://databutler.dev/f/uk/income-tax/personal-allowance?max_age=30d` — one verified official figure by key (value, period, effectiveFrom, source, verifiedDate, signature). Pattern: /f/<country>/<topic>/<fact>; index at /f; /f/resolve?q= finds a key.
-- `GET https://databutler.dev/.well-known/facts.json` — Verified Facts protocol discovery (verified-facts/0.2): namespaces, endpoints, keys, OpenAPI, MCP.
+- `GET https://databutler.dev/f/uk/income-tax/personal-allowance?max_age=30d` — one verified official figure by key (value, period, effectiveFrom, source, verifiedDate, nextExpectedChange, signature). Pattern: /f/<country>/<topic>/<fact>; index at /f; /f/resolve?q= finds a key; the page for people is /facts/<country>/<topic>/<fact>.
+- `GET https://databutler.dev/.well-known/facts.json` — Verified Facts protocol discovery (verified-facts/0.3): namespaces, endpoints, keys, digest, OpenAPI, MCP.
 ```
 
 The first line is an example URL rather than a description because a model that has read one concrete URL can produce the next one.
 
 ### 10.4 Dataset JSON-LD
 
-The index page (`GET /f`, HTML) carries a schema.org `Dataset`: `name`, `description`, `url`, `license`, `dateModified` (newest `verifiedDate`), `creator`, `distribution: [{ "@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://databutler.dev/f" }]`, `isBasedOn` (the official source URLs), and `variableMeasured` as one `PropertyValue` per key (`name` = key, `value`, `unitText`). Google documents Dataset markup as feeding Dataset Search only, not rich results, and no evidence was found that AI answer products read it; it is included because it is generated for free from the index and costs nothing to maintain. Each fact page carries a schema.org `Claim` (`text`, `datePublished` = `verifiedDate`, `appearance` = the source page, `author` = publisher) — UNVERIFIED that any consumer reads `Claim`; it is optional at every level.
+The index page (`GET /facts`, and `GET /f` as HTML) carries a schema.org `Dataset`: `name`, `description`, `url`, `license`, `dateModified` (newest `verifiedDate`), `creator`, `distribution: [{ "@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://databutler.dev/f" }]`, `isBasedOn` (the official source URLs), and `variableMeasured` as one `PropertyValue` per key (`name` = key, `value`, `unitText`). Google documents Dataset markup as feeding Dataset Search only, not rich results, and no evidence was found that AI answer products read it; it is included because it is generated for free from the index and costs nothing to maintain. Each fact page carries a schema.org `Claim` (`text`, `datePublished` = `verifiedDate`, `appearance` = the source page, `author` = publisher) — UNVERIFIED that any consumer reads `Claim`; it is optional at every level.
 
 ### 10.5 MCP Server Card and AI Catalog
 
@@ -452,12 +485,12 @@ SEP-2127 (Final, Extensions Track, January 2026) defines a static **Server Card*
 
 ## 11. Conformance levels
 
-A publisher states its level in `facts.json`. Every item is checkable from outside with HTTP and the published schemas; `npx verified-facts check https://<site>` (see the adoption plan) runs them.
+A publisher states its level in `facts.json`. Every item is checkable from outside with HTTP and the published schemas; `npx verified-facts check https://<site>` runs them (the `verified-facts` package; [how to publish](https://databutler.dev/protocol/publish)). Items marked 0.3 apply to a `verified-facts/0.3` discovery document; a 0.2 document is checked without them.
 
 **L1 — static files, no server.** The level for a site built with Next.js, Hugo or plain HTML and deployed as files.
 
-1. `/.well-known/facts.json` validates against `well-known-facts.v0.json`, `protocol` = `verified-facts/0.2`, `facts.filtering` = `client`.
-2. `facts.index` returns the index (§5.5), one record per key, each with `hash`.
+1. `/.well-known/facts.json` validates against `well-known-facts.v0.json`, `protocol` = `verified-facts/0.2` or `verified-facts/0.3`, `facts.filtering` = `client`.
+2. `facts.index` returns the index (§5.5), one record per key, each with `hash`. (0.3) `facts.json` carries `facts.digest` and every `namespaces[].digest`, the index carries `digest`, and each equals the digest of §5.6 recomputed from the index entries.
 3. `facts.get` with every key in the index returns that record as `application/json`, with `hash` equal to the SHA-256 of the JCS claim.
 4. Every `source` is `https:`, on a host in the namespace's `authorities[]`, and fetches with 200.
 5. `/.well-known/changes.json` conforms to `verified-changes/0.1` and names `facts`.
@@ -470,7 +503,7 @@ A publisher states its level in `facts.json`. Every item is checkable from outsi
 9. `facts.resolve` exists, returns ranked candidates per §6.2, and `get` auto-resolves only under the §6.3 rule.
 10. Batch (§7) up to 50 keys; misses inside a batch do not fail the batch.
 11. A miss is `404` with `candidates` (HTTPS) / `covered: false` (MCP), `no-store`.
-12. `ETag` = hash, `Last-Modified` = `verifiedDate`, `text/plain` and `text/html` representations.
+12. `ETag` = hash, `Last-Modified` = `verifiedDate`, `text/plain` and `text/html` representations. (0.3) `/facts/{key}` (`facts.page`, when declared) serves the page to any `Accept`, canonical to itself; the index carries `ETag` equal to `"<digest>"` and answers `If-None-Match` with `304`.
 13. `openapi.json` is served and every operation in it routes.
 14. If `mcp` is declared: `tools/list` includes `get_fact`, `resolve_fact`, `what_changed_since` with read-only annotations, and a Server Card is served.
 
@@ -479,7 +512,7 @@ A publisher states its level in `facts.json`. Every item is checkable from outsi
 15. Every record carries `signature` that verifies per §8.5 against a key in `keys`.
 16. `keys` is a JWK Set with `validFrom` on every key and a published rotation and revocation policy (§8.4).
 17. Changelog entries carry `hash`; the changes document carries `chainHead`; the publisher states where its history is auditable.
-18. The publisher verifies its own live output on a schedule (Data Butler: the Monday watcher) and treats a failure as an incident.
+18. The publisher verifies its own live output on a schedule (Data Butler: the Monday watcher) and treats a failure as an incident. (0.3) The publisher's scheduled check lists every record whose `nextExpectedChange` has passed unverified and treats it as a refresh task.
 
 **For an assistant.** On a question about an official figure: `get_fact` (or `GET /f/<key>`) with the key you would guess and the `max_age` your user's question deserves (a tax calculation: `30d`; a general question: omit it). If the answer is a miss, take the top candidate if its score is high, or ask the user. Present `value` with `period`, say `verifiedDate` and quote `source`; if `status` is `stale`, say so. Do not call `resolve` first by habit — `get` resolves for you when it safely can.
 
@@ -521,7 +554,31 @@ Nobody found serves sourced, dated, signed administrative thresholds under guess
 
 ## 14. Versioning
 
-`verified-facts/<major>.<minor>`, same rules as v0.1. v0.2 is a draft: the shape is implemented by Data Butler first; v1.0 may tighten wording after a second publisher implements L2 or three publish L1. Comments: https://github.com/physics-star-cat/databutler/issues.
+`verified-facts/<major>.<minor>`, same rules as v0.1. v0.3 adds only optional fields and one URL, so every 0.2 document and record stays valid and every 0.2 signature still verifies. v0.2 and v0.3 are drafts: the shape is implemented by Data Butler first; v1.0 may tighten wording after a second publisher implements L2 or three publish L1. Comments: https://github.com/physics-star-cat/databutler/issues.
+
+## Changes in v0.3
+
+Drafted 2026-10-31. Everything is optional or additive; a 0.2 publisher stays conformant at its level without doing anything.
+
+| Change | Where | What |
+|---|---|---|
+| `protocol` | record, index, batch, resolve, miss, `facts.json` | `verified-facts/0.3`; the schemas accept `verified-facts/0.2` and `verified-facts/0.3` |
+| `changeCadence` | record, index entry (§4, §5.5) | `scheduled` \| `annual` \| `irregular` \| `continuous` |
+| `nextExpectedChange` | record, index entry (§4, §5.5) | the next day the source's own calendar allows the value to move, or `null`; never estimated |
+| `sourceCheckedAt` | record, index entry (§4) | the newest day the publisher's automated check fetched `source` successfully; absent when no check has run |
+| `staleReason` | record (§4, §5.3) | `max-age` \| `expected-change-passed` \| `source-changed` \| `cadence-overdue`, present only when `status` is `stale` |
+| Third and fourth freshness tests | §5.3 | an expected change that passed unverified, and a source page that changed after `verifiedDate`, make the answer `stale` whatever `max_age` was; the value is still returned |
+| `digest` | `facts.json` (`facts.digest`, `namespaces[].digest`), index (§5.6) | `sha256:` over the JCS form of the sorted `[key, hash]` pairs |
+| Index `ETag` | `GET /f` (§9.1) | `"<digest>"`; `If-None-Match` → `304` |
+| `GET /facts/{key}` | §9.1 | the fact's page, `text/html` to every caller, canonical to itself; `Accept: application/json` alone → `302` to `/f/{key}` |
+| `GET /facts` | §9.1 | the index page, `text/html` to every caller |
+| `cite.url` | record | `https://<publisher>/facts/{key}` |
+| `/f/{key}` as HTML | §9.1 | canonical to `/facts/{key}` |
+| `facts.page` | `facts.json` (§10.1) | RFC 6570 template of the page URL |
+| Attestation `protocol` | §8.3 | stays `verified-facts/0.2` for 0.3 records: no re-signing |
+| Conformance | §11 items 1, 2, 12, 18 | 0.2 or 0.3 accepted; the digest at L1; the page and the index `ETag` at L2; the expected-change refresh list at L3 |
+| `x-verified-facts` | `openapi.json` (§9.3) | `"0.3"` |
+| Publisher guide and list | — | <https://databutler.dev/protocol/publish>, <https://databutler.dev/facts/publishers>, badges at `/badge/facts-L1.svg`, `facts-L2.svg`, `facts-L3.svg`; the checker as `npx verified-facts check <site>` |
 
 ## References
 

@@ -292,6 +292,8 @@ Data Butler checks items 1, 3, 4, 6, 7 and 8 in its own test suite on every comm
 
 **For an assistant.** At the start of a session that touches a publisher's subject matter, fetch `/.well-known/changes.json` once, then call `endpoints.json` (or the MCP tool) once with `since` set to your training cutoff and no area filter. Treat each entry as superseding what you learned: quote `to`, say it applies from `effectiveFrom`, cite `source` or `cite.url`. An empty document means the facts you know for those areas were still current on their `verifiedDate`s; say that rather than hedging. Do not re-poll within a session; the cadence says how often anything can change.
 
+A publisher that also serves Verified Facts (`verified-facts/0.3`, [the facts layer](https://databutler.dev/protocol/facts)) gives a cheaper first step: compare the `facts.digest` stored from the last read of `/.well-known/facts.json` with the live one, and call this endpoint with the stored date only when they differ (facts spec §5.6). This document's wire format is unchanged by it.
+
 ## Versioning
 
 The identifier is `verified-changes/<major>.<minor>`. Within a major version publishers may add fields and consumers must ignore unknown ones; required fields, their types and the `since` semantics do not change. A minor bump adds optional fields or transports; a major bump may change required fields and ships a new schema URL (`changes.v1.json`). The discovery document names the version the publisher speaks. v0.x is a draft: the shape has served Data Butler since 2026-08-31, but v1.0 may tighten wording after other sites implement it. Comments and corrections: https://github.com/physics-star-cat/databutler/issues.
