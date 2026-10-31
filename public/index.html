@@ -51,6 +51,26 @@ Japanese 車検 statutory costs — 自動車重量税, 自賠責 (before and fr
 Japanese minimum wages by prefecture, 協会けんぽ health insurance rates, pensions, 雇用保険, 児童手当, 高額療養費, 2027 holidays, 消費税 and income-tax deductions, verified against MHLW, NTA and other official pages — is reached through the front door's <code>call</code>; <code>/api/mcp/uk-rates</code> also stays a server of its own.
 <!-- sync-areas:agents end --> Every answer carries a <code>cite.url</code> like
 <a href="/r/uk/rates?category=income-tax">/r/uk/rates?category=income-tax</a>.</p>
+<h2 id="how" style="font-size:1.1rem;margin-top:2rem">How a figure is verified</h2>
+<p>Every figure is one record at one URL. The record holds the <strong>value</strong>, the
+<strong>official page</strong> it was read from, and the <strong>date a person read it there</strong>.
+Nothing is copied from memory, a news story or another site.</p>
+<p>The record's <strong>hash</strong> is its fingerprint: SHA-256 over the record in canonical JSON, so
+the same record always gives the same hash and any edit changes it. The hash is also the page's
+<code>ETag</code>, so a client that already holds a figure asks "has this changed?" in one request and
+gets <code>304</code> when it has not. The whole collection has a <code>digest</code> in
+<a href="/.well-known/facts.json">/.well-known/facts.json</a>; store it, and re-read only when it moves.</p>
+<p>The <strong>signature</strong> is Ed25519 over the hash, made with Data Butler's published key
+(<a href="/.well-known/jwks.json">/.well-known/jwks.json</a>). It proves a record came from here and was
+not altered on the way, wherever it was cached or quoted.</p>
+<p><strong>Freshness</strong> is checked, not assumed. Every Monday a watcher re-fetches every official
+page. A figure whose page changed, whose scheduled change date has passed, or whose verification is
+older than you asked for (<code>?max_age=30d</code>) is marked <code>stale</code> with the reason, until a
+person re-verifies it against the live page. Corrections are appended to the record, never edited away.</p>
+<p>This is an open convention, <a href="/protocol/facts">Verified Facts v0.3</a>, and any site can
+publish figures the same way: a static JSON file is enough, signing is optional, and
+<code>npx verified-facts check your-site</code> says whether it conforms
+(<a href="/protocol/publish">how to publish</a> · <a href="/facts/publishers">who does</a>).</p>
 <p class="quiet">Try: <a href="/api/uk/exams/topic?board=aqa&subject=physics&level=gcse&topic=electricity">is electricity paper 2 AQA?</a>
  · <a href="/api/uk/rates?category=minimum-wage">current minimum wage</a></p>
 <p class="quiet">Free with attribution. Same operator as
