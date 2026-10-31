@@ -25,7 +25,8 @@ const rest = router.ROUTES['us/rates'];
 const get = (h, url) => invoke(h, undefined, { method: 'GET', url });
 const day = (iso) => new Date(`${iso}T12:00:00Z`);
 const ISO = /^\d{4}-\d{2}-\d{2}$/;
-const CATEGORIES = ['income-tax', 'social-security', 'medicare', 'retirement', 'hsa', 'estate-gift'];
+const CATEGORIES = ['income-tax', 'social-security', 'medicare', 'retirement', 'hsa', 'estate-gift', 'social-security-benefits', 'medicare-costs', 'capital-gains'];
+const OFFICIAL = /^https:\/\/www\.(irs\.gov|federalregister\.gov|ssa\.gov|cms\.gov|medicare\.gov|ecfr\.gov)\//;
 const ENTRY_FIELDS = ['area', 'key', 'label', 'from', 'to', 'effectiveFrom', 'source', 'verifiedDate', 'note'];
 const figure = (cat, key) => DATA.categories[cat].figures.find((f) => f.key === key);
 const value = (cat, key) => figure(cat, key).value;
@@ -46,17 +47,17 @@ test('data: tax year 2026, calendar-driven refresh, every figure keyed, sourced,
   assert.deepEqual(Object.keys(DATA.categories), CATEGORIES);
   for (const [k, c] of Object.entries(DATA.categories)) {
     assert.ok(c.title && c.scope, `${k} title + scope`);
-    assert.match(c.source, /^https:\/\/www\.(irs\.gov|federalregister\.gov)\//, `${k} source is an official page`);
+    assert.match(c.source, OFFICIAL, `${k} source is an official page`);
     assert.ok(Array.isArray(c.figures) && c.figures.length, `${k} figures`);
     assert.equal(new Set(c.figures.map((f) => f.key)).size, c.figures.length, `${k} figure keys unique`);
     for (const f of c.figures) {
       assert.match(f.key, /^[a-z0-9-]+$/, `${k} key`);
       assert.ok(f.label && f.value !== undefined && f.unit, `${k}/${f.key} label, value, unit`);
       assert.match(f.effectiveFrom, ISO, `${k}/${f.key} effectiveFrom`);
-      assert.match(f.source, /^https:\/\/www\.(irs\.gov|federalregister\.gov)\//, `${k}/${f.key} source`);
+      assert.match(f.source, OFFICIAL, `${k}/${f.key} source`);
       assert.ok(typeof f.quote === 'string' && f.quote.length > 20, `${k}/${f.key} quote (the verification evidence)`);
-      assert.equal(f.verifiedDate, DATA.verifiedDate, `${k}/${f.key} verifiedDate`);
-      if (f.previous) assert.ok(f.previous.taxYear === '2025' && (f.previous.value !== undefined || Array.isArray(f.previous.bracketUpperBounds)) && f.previous.source, `${k}/${f.key} previous`);
+      assert.ok(f.verifiedDate >= DATA.verifiedDate, `${k}/${f.key} verifiedDate: the file date is the oldest figure's`);
+      if (f.previous) assert.ok(['2025', '2026'].includes(f.previous.taxYear) && (f.previous.value !== undefined || Array.isArray(f.previous.bracketUpperBounds)) && f.previous.source, `${k}/${f.key} previous`);
     }
   }
   // Rate schedules: one figure per filing status, seven bracket rows each, 10 % → 37 %, with the 2025 upper bounds as previous.
@@ -84,6 +85,36 @@ test('data: tax year 2026, calendar-driven refresh, every figure keyed, sourced,
   assert.equal(value('estate-gift', 'basic-exclusion'), 15000000);
   assert.equal(value('estate-gift', 'annual-gift-exclusion'), 19000);
   assert.equal(figure('social-security', 'wage-base').previous.value, 176100);
+  // Added 2026-10-31, each read that day from the page named in its source.
+  const ssb = 'social-security-benefits';
+  assert.deepEqual(['bend-point-first', 'bend-point-second', 'bend-point-first-2027', 'bend-point-second-2027'].map((k) => value(ssb, k)), [1286, 7749, 1340, 8077]);
+  assert.deepEqual(['earnings-test-lower', 'earnings-test-higher', 'earnings-test-lower-2027', 'earnings-test-higher-2027'].map((k) => value(ssb, k)), [24480, 65160, 25560, 67920]);
+  assert.equal(value(ssb, 'max-benefit-at-fra-2027'), 4188);
+  assert.equal(value(ssb, 'cola-2027'), 3.6);
+  assert.equal(figure(ssb, 'cola-2027').effectiveFrom, '2026-12-01');
+  assert.equal(value('social-security', 'cola'), 2.8, 'the served key keeps meaning the December 2025 COLA');
+  assert.deepEqual(value(ssb, 'full-retirement-age-by-birth-year').at(-1), { born: '1960 and later', years: 67, months: 0 });
+  assert.equal(value(ssb, 'delayed-credit-annual'), 8);
+  assert.equal(value('medicare-costs', 'part-b-standard-premium'), 202.9);
+  assert.equal(value('medicare-costs', 'part-b-deductible'), 283);
+  assert.equal(value('medicare-costs', 'part-a-deductible'), 1736);
+  assert.equal(value('medicare-costs', 'part-d-out-of-pocket-limit'), 2100);
+  assert.equal(value('medicare-costs', 'irmaa-individual-return').length, 6);
+  assert.equal(value('medicare-costs', 'irmaa-joint-return').length, 6);
+  assert.deepEqual(value('medicare-costs', 'irmaa-joint-return').at(-1), { magiAtLeast: 750000, partBAdjustment: 487, partBTotalPremium: 689.9, partDAdjustment: 91 });
+  assert.deepEqual(value('medicare-costs', 'irmaa-married-separate').at(-1), { magiAtLeast: 391000, partBAdjustment: 487, partBTotalPremium: 689.9, partDAdjustment: 91 }, 'CMS $487.00; the SSA page prints $487.90 for this row');
+  assert.equal(value('capital-gains', 'zero-rate-max-married-joint'), 98900);
+  assert.equal(value('capital-gains', 'fifteen-rate-max-married-joint'), 613700);
+  assert.equal(value('capital-gains', 'niit-threshold-married-joint'), 250000);
+  assert.equal(value('retirement', 'qcd-limit'), 111000);
+  assert.equal(value('income-tax', 'senior-deduction'), 6000);
+  assert.equal(value('income-tax', 'senior-deduction-phase-out-rate'), 6);
+  const table = value('retirement', 'uniform-lifetime-table');
+  assert.equal(table.length, 49);
+  assert.deepEqual([72, 73, 75, 100].map((age) => table.find((r) => r.age === age).applicableDenominator), [27.4, 26.5, 24.6, 6.4]);
+  const y1959 = value('retirement', 'rmd-applicable-age-by-birth-year').find((r) => r.bornFrom === '1959-01-01');
+  assert.equal(y1959.applicableAge, null, 'reserved in the final regulations');
+  assert.equal(y1959.proposedApplicableAge, 73);
 });
 
 /* ---------------- registry, server, hub ---------------- */
@@ -101,7 +132,7 @@ test('server: lists the tool with clean MCP keys; registered on its own server, 
   assert.ok(!DIRECT.includes(TOOL), 'not on the front door — reachable through call');
   assert.doesNotMatch(t.description, /\b(use this|you should|always|never|call this|do not|use when|use whenever|use to)\b/i);
   for (const c of CATEGORIES) assert.ok(t.description.includes(c), `description names ${c}`);
-  assert.match(t.inputSchema.properties.category.description, /income-tax, social-security, medicare, retirement, hsa, estate-gift/);
+  assert.match(t.inputSchema.properties.category.description, /income-tax, social-security, medicare, retirement, hsa, estate-gift, social-security-benefits, medicare-costs, capital-gains/);
   assert.match(SERVERS[AREA].instructions, /us_rates_lookup/);
   const init = await rpc(server, 'initialize', { protocolVersion: '2025-06-18', capabilities: {}, clientInfo: { name: 't', version: '0' } });
   assert.equal(init.body.result.serverInfo.name, 'databutler-us-rates');
@@ -116,7 +147,7 @@ test('hub: what_changed_since, coverage, catalogue and call mention the area; co
   const cov = coverageFor(AREA);
   assert.deepEqual(cov.categories, CATEGORIES);
   assert.deepEqual(cov.taxYears, ['2026']);
-  assert.ok(cov.notCovered.some((s) => /state income tax/.test(s)) && cov.notCovered.some((s) => /AMT/.test(s)) && cov.notCovered.some((s) => /EITC/.test(s)) && cov.notCovered.some((s) => /capital-gains/.test(s)));
+  assert.ok(cov.notCovered.some((s) => /state income tax/.test(s)) && cov.notCovered.some((s) => /AMT/.test(s)) && cov.notCovered.some((s) => /EITC/.test(s)) && cov.notCovered.some((s) => /collectibles/.test(s)));
 });
 
 /* ---------------- tool ---------------- */
@@ -207,8 +238,8 @@ test('changelog diff: a figure\'s arrival records prior year → current (from i
     assert.equal(e.effectiveFrom, f.effectiveFrom);
     assert.equal(e.source, f.source);
     assert.equal(e.unit, f.unit);
-    assert.equal(e.taxYear, '2026');
-    assert.equal(e.verifiedDate, DATA.verifiedDate);
+    assert.equal(e.taxYear, AREA_MODULE.facts.period(DATA, f));
+    assert.equal(e.verifiedDate, f.verifiedDate);
     assert.equal(e.note, '');
   }
   assert.ok(first.some((e) => e.key === 'social-security/wage-base' && e.from === 176100 && e.to === 184500 && e.effectiveFrom === '2026-01-01'));
@@ -228,6 +259,9 @@ test('changelog diff: a figure\'s arrival records prior year → current (from i
   // A later refresh: one moved value → one from → to entry keyed by the stable key; a dropped figure → to: null.
   const next = JSON.parse(JSON.stringify(DATA));
   next.verifiedDate = '2026-11-20'; next.taxYear = '2027';
+  const arrival = JSON.parse(JSON.stringify(DATA));
+  arrival.categories.hsa.figures.push({ key: 'zzz', label: 'New', value: 1, unit: 'USD', effectiveFrom: '2026-01-01', source: 'https://www.irs.gov/', quote: 'q', verifiedDate: '2026-11-01' });
+  assert.deepEqual(AREA_MODULE.changelog.diff(DATA, arrival).map((e) => [e.key, e.from, e.to, e.verifiedDate]), [['hsa/zzz', null, 1, '2026-11-01']], 'a figure new to a published file is logged null → value');
   const wb = next.categories['social-security'].figures.find((f) => f.key === 'wage-base');
   wb.value = 190000; wb.effectiveFrom = '2027-01-01';
   next.categories.hsa.figures = next.categories.hsa.figures.filter((f) => f.key !== 'excepted-benefit-hra');
@@ -243,7 +277,7 @@ test('changelog.json: the first-commit entries are recorded, each with a maintai
   assert.ok(mine.length >= changed().length + SCHEDULES.length, 'every arrival entry committed');
   for (const e of mine) {
     assert.ok(e.note.length > 20, `${e.key} note`);
-    assert.match(e.note, /Rev\. Proc\.|Notice 20|Federal Register|IR-20/, `${e.key} note names the document`);
+    assert.match(e.note, /Rev\. Proc\.|Notice 20|Federal Register|IR-20|SSA|CMS|Medicare\.gov|Publication|FS-2025|Net Investment|CFR/, `${e.key} note names the document`);
     assert.match(e.source, /^https:\/\//);
   }
   assert.equal(new Set(mine.map((e) => `${e.key}|${e.verifiedDate}`)).size, mine.length, 'entry identity unique');
@@ -265,11 +299,11 @@ test('discovery: the area appears in /.well-known/changes.json with its cadence'
   assert.match(entry.description, /IRS/);
 });
 
-test('sources: the watcher gets one page per category, the Federal Register in place of ssa.gov, and sources.json knows them', () => {
+test('sources: the watcher gets its pages, ssa.gov and ecfr.gov declared as browser-only, and sources.json knows them', () => {
   const urls = AREA_MODULE.sources().map((s) => s.url);
-  assert.equal(urls.length, 5);
-  assert.ok(urls.every((u) => /^https:\/\/www\.(irs\.gov|federalregister\.gov)\//.test(u)));
-  assert.ok(!urls.some((u) => u.includes('ssa.gov')), 'ssa.gov 403s automated fetches');
+  assert.equal(urls.length, 12);
+  assert.ok(urls.every((u) => OFFICIAL.test(u)));
+  for (const s of AREA_MODULE.sources()) if (/ssa\.gov|ecfr\.gov/.test(s.url)) assert.match(s.unreachable, /automated fetches/, 'declared: a browser reads these');
   assert.ok(urls.includes('https://www.irs.gov/newsroom/news-releases-for-current-month'));
   assert.ok(urls.includes('https://www.irs.gov/taxtopics/tc751'));
   for (const s of AREA_MODULE.sources()) assert.ok(s.label.length > 20, s.url);

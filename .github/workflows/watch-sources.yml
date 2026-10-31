@@ -1,0 +1,75 @@
+# Verified Facts v0.3 watchers that need to commit or to run more often than the Vercel cron.
+#
+# Daily: the expected-change check for policy rates (decisions land mid-week) — opens or updates the one issue
+#   "Re-verify: expected change passed" (scripts/expected-changes.js). Mondays (and on a manual run): the same
+#   check for every area.
+# Mondays (and on a manual run): fetch every watched source page and commit data/source-checks.json
+#   (scripts/check-sources.js), and re-check every listed publisher for /facts/publishers
+#   (scripts/check-publishers.js → data/publisher-checks.json). Serving reads data/source-checks.json for
+#   sourceCheckedAt and the source-changed staleness test, and /facts/publishers renders data/publisher-checks.json;
+#   a Vercel cron cannot commit, so this job does. The push to master deploys, like any data commit.
+#
+# The Vercel cron (/api/cron/watch-sources, Mondays 06:00 UTC) still files one issue per changed source page and
+# runs the conformance self-check; this job files no per-page issues.
+name: Watch sources
+
+on:
+  schedule:
+    - cron: '30 6 * * *' # 06:30 UTC daily, after the Vercel cron on Mondays
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: watch-sources
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Which run is this
+        id: when
+        run: |
+          if [ "$(date -u +%u)" = "1" ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then echo "full=1" >> "$GITHUB_OUTPUT"; else echo "full=0" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Expected changes passed (policy rates daily, every area on Mondays)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ "${{ steps.when.outputs.full }}" = "1" ]; then
+            node scripts/expected-changes.js --issue
+          else
+            node scripts/expected-changes.js --area policy-rates --issue
+          fi
+
+      - name: Source check → data/source-checks.json
+        if: steps.when.outputs.full == '1'
+        run: node scripts/check-sources.js
+
+      - name: Publisher check → data/publisher-checks.json (/facts/publishers)
+        if: steps.when.outputs.full == '1'
+        run: node scripts/check-publishers.js
+
+      - name: Test before committing
+        if: steps.when.outputs.full == '1'
+        run: |
+          node --test tests/*.test.js
+          node scripts/sync-areas.js --check
+
+      - name: Commit data/source-checks.json and data/publisher-checks.json
+        if: steps.when.outputs.full == '1'
+        run: |
+          git add data/source-checks.json data/publisher-checks.json
+          if git diff --cached --quiet; then echo "No check changes."; exit 0; fi
+          git config user.name "databutler-watcher"
+          git config user.email "actions@users.noreply.github.com"
+          git commit -m "data: source and publisher checks $(date -u +%Y-%m-%d)"
+          git push origin HEAD:master

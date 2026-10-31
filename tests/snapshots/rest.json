@@ -555,7 +555,10 @@
         "medicare": "Medicare (HI) payroll tax — rate and Additional Medicare Tax thresholds, 2026",
         "retirement": "Retirement plan and IRA contribution limits, 2026",
         "hsa": "Health Savings Accounts — contribution limits and HDHP definition, calendar year 2026",
-        "estate-gift": "Estate, gift and generation-skipping transfer tax — exclusion amounts, calendar year 2026"
+        "estate-gift": "Estate, gift and generation-skipping transfer tax — exclusion amounts, calendar year 2026",
+        "social-security-benefits": "Social Security benefits — formula, claiming ages, earnings test, COLA, taxation of benefits",
+        "medicare-costs": "Medicare costs 2026 — Parts A, B and D, income-related monthly adjustment amounts",
+        "capital-gains": "Long-term capital gains thresholds and Net Investment Income Tax, 2026"
       },
       "usage": "pass category=<key> for figures",
       "freshness": {

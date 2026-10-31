@@ -20,7 +20,8 @@
  *   public/openapi.json             whole file (getFact, getFacts, resolveFact, whatChangedSince — from the tool schemas)
  *   docs/FACTS_PROTOCOL.md          the ```json discovery example (an object with namespaces) = facts.json
  *   public/llms.txt                 <!-- sync-areas:facts --> (the two lines of spec §10.3)
- *   public/sitemap.xml              also /f, /protocol/facts and one /f/<key> per fact
+ *   public/sitemap.xml              also /facts, /protocol/facts, /protocol/publish, /facts/publishers and one
+ *                                   /facts/<key> per fact (v0.3: the page URLs, never the negotiating /f/<key>)
  *
  * The README roadmap rows are numbered 1..N in `order`; a module's docs.readme.retires
  * names a row of the hand-maintained "planned" table below it, which is then removed.
@@ -48,6 +49,14 @@ const ROOT = path.resolve(__dirname, '..');
 const read = (rel) => fs.readFileSync(path.join(ROOT, rel), 'utf8');
 const today = () => new Date().toISOString().slice(0, 10);
 const code = (s) => `<code>${s}</code>`;
+/**
+ * The focused MCP servers the Vercel firewall answers 403 for since 2026-10-31 — every one except the front door,
+ * /api/mcp/facts and /api/mcp/uk-rates. The generated docs point at the front door's `call` for their tools and
+ * scripts/verify-hub.sh expects 403 from them. A new area's server is not on this list (the firewall rule names
+ * paths), so it is documented and checked as a server of its own until someone adds it here and to the rule.
+ */
+const FIREWALLED_SERVERS = ['uk-exams', 'provenance', 'stats', 'vehicles', 'tax', 'software-eol', 'policy-rates', 'us-rates', 'de-rates', 'uk-vehicle-rules', 'uk-exam-dates', 'calendar', 'uk-gov-process', 'jp-vehicle-costs', 'jp-living-costs'];
+const firewalled = (a) => FIREWALLED_SERVERS.includes(a.server.key || a.area);
 const words = (n) => ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'][n] || String(n);
 
 /** Replace the lines between two marker lines (markers kept). Throws when a marker is missing. */
@@ -63,13 +72,18 @@ const bashMarkers = (name) => ({ open: `# sync-areas:${name} start`, close: `# s
 
 /** The two llms.txt lines of spec §10.3 — the first is an example URL a model can complete from. */
 const FACTS_LLMS = [
-  '- `GET https://databutler.dev/f/uk/income-tax/personal-allowance?max_age=30d` — one verified official figure by key (value, period, effectiveFrom, source, verifiedDate, signature). Pattern: /f/<country>/<topic>/<fact>; index at /f; /f/resolve?q= finds a key.',
-  '- `GET https://databutler.dev/.well-known/facts.json` — Verified Facts protocol discovery (verified-facts/0.2): namespaces, endpoints, keys, OpenAPI, MCP.',
+  '- `GET https://databutler.dev/f/uk/income-tax/personal-allowance?max_age=30d` — one verified official figure by key (value, period, effectiveFrom, source, verifiedDate, nextExpectedChange, signature). Pattern: /f/<country>/<topic>/<fact>; index at /f; /f/resolve?q= finds a key; the page for people is /facts/<country>/<topic>/<fact>.',
+  `- \`GET https://databutler.dev/.well-known/facts.json\` — Verified Facts protocol discovery (${FACTS_PROTOCOL}): namespaces, endpoints, keys, digest, OpenAPI, MCP.`,
 ];
 
 function llms(text) {
   let t = replaceBlock(text, 'public/llms.txt', 'rest', AREAS.flatMap((a) => a.docs.llms.rest).join('\n'));
-  t = replaceBlock(t, 'public/llms.txt', 'servers', AREAS.filter((a) => a.server).map((a) => a.docs.llms.server).join('\n'));
+  const kept = AREAS.filter((a) => a.server && !firewalled(a));
+  const viaCall = AREAS.filter((a) => a.server && firewalled(a)).flatMap((a) => a.server.tools.map((x) => `\`${x.name}\``));
+  t = replaceBlock(t, 'public/llms.txt', 'servers', [
+    ...kept.map((a) => a.docs.llms.server),
+    `- Every other area's tools (${viaCall.join(', ')}) are reached through the front door: \`catalogue\` lists them and \`call\` runs any by name.`,
+  ].join('\n'));
   t = replaceBlock(t, 'public/llms.txt', 'facts', FACTS_LLMS.join('\n'));
   return t;
 }
@@ -83,8 +97,8 @@ function sitemap() {
     url('/'), url('/changes'),
     ...changelogAreas().map((a) => url(`/changes?area=${a}`)),
     url('/protocol'), url('/privacy'), url('/api'),
-    url('/f'), url('/protocol/facts'),
-    ...[...F.INDEX.keys()].map((k) => url(`/f/${k}`)),
+    url('/facts'), url('/protocol/facts'), url('/protocol/publish'), url('/facts/publishers'),
+    ...[...F.INDEX.keys()].map((k) => url(`/facts/${k}`)),
     '</urlset>',
     '',
   ].join('\n');
@@ -143,6 +157,7 @@ function factsWellKnown(text) {
       count: g.count,
       cadence: areas.map((a) => `${a.area}: ${a.discovery ? a.discovery.cadence : 'see /.well-known/changes.json'}`).join(' '),
       authorities: [...g.hosts].sort(),
+      digest: F.digestFor(name),
     };
   });
   const body = {
@@ -153,9 +168,11 @@ function factsWellKnown(text) {
     facts: {
       count: F.FACT_COUNT,
       get: 'https://databutler.dev/f/{key}',
+      page: 'https://databutler.dev/facts/{key}',
       batch: 'https://databutler.dev/f?keys={keys}',
       resolve: 'https://databutler.dev/f/resolve?q={q}',
       index: 'https://databutler.dev/f',
+      digest: F.DIGEST,
       filtering: 'server',
       examples: ['uk/income-tax/personal-allowance', 'us/social-security/wage-base', 'de/income-tax/grundfreibetrag', 'uk/bank-rate'].filter((k) => F.INDEX.has(k)),
     },
@@ -192,14 +209,14 @@ function openapi() {
     openapi: '3.1.0',
     info: {
       title: 'Data Butler — Verified Facts and Verified Changes',
-      version: '0.2.0',
+      version: '0.3.0',
       summary: 'Official figures by key, each with its source, verified date, hash and signature; and what changed since a date.',
       description: `${getFact.description}\n\nSpecification: ${FACTS_SPEC_URL}. No authentication.`,
       license: { name: 'Free to reuse with attribution to databutler.dev; each figure stays under its official source\'s terms', url: 'https://databutler.dev/terms' },
       contact: { url: 'https://github.com/physics-star-cat/databutler/issues' },
     },
     servers: [{ url: 'https://databutler.dev' }],
-    'x-verified-facts': '0.2',
+    'x-verified-facts': FACTS_PROTOCOL.split('/')[1],
     paths: {
       '/f/{key}': {
         get: {
@@ -229,7 +246,8 @@ function openapi() {
             { name: 'namespace', in: 'query', required: false, description: 'index only: one namespace (uk, us, de, eu)', schema: { type: 'string' } },
           ],
           responses: {
-            200: { description: 'A batch (with keys) or the index (without)', content: json(`${FACT_SCHEMA_URL}#/$defs/batch`) },
+            200: { description: 'A batch (with keys) or the index (without; it carries `digest` and an ETag equal to it)', content: json(`${FACT_SCHEMA_URL}#/$defs/batch`) },
+            304: { description: 'Index only: If-None-Match matched the digest — no fact claim has changed (spec §5.6)' },
             400: { description: 'Too many keys or a bad option', content: json(`${FACT_SCHEMA_URL}#/$defs/miss`) },
           },
         },
@@ -273,17 +291,27 @@ function readme(text) {
   const roadmap = [
     '| # | Vertical (wishlist item it serves) | Endpoint | Status |',
     '|---|---|---|---|',
-    ...AREAS.map((a, i) => `| ${i + 1} ${a.docs.readme.roadmapRow}`),
+    ...AREAS.map((a, i) => {
+      const k = a.server ? a.server.key || a.area : null;
+      const row = k && firewalled(a) ? a.docs.readme.roadmapRow.replace(`| \`/api/mcp/${k}\` |`, `| front door \`call\` (\`/api/mcp/${k}\`: 403 since 2026-10-31) |`) : a.docs.readme.roadmapRow;
+      return `| ${i + 1} ${row}`;
+    }),
   ].join('\n');
   const hub = HUB_TOOLS.map((t) => `\`${t.name}\``).join(', ');
   const catalogue = [
-    `## Tool catalogue (${Object.keys(ALL_TOOLS).length} tools, ${Object.keys(SERVERS).length} focused servers + front door)`,
+    `## Tool catalogue (${Object.keys(ALL_TOOLS).length} tools: the front door, \`/api/mcp/facts\` and ${AREAS.filter((a) => a.server && !firewalled(a)).map((a) => `\`/api/mcp/${a.server.key || a.area}\``).join(', ')})`,
     '',
-    '| Server | Tools | Data |',
+    `Every tool is reached through the front door \`POST /api/mcp\`: listed there, or by name through \`call\` (\`catalogue\` lists them all). The other ${FIREWALLED_SERVERS.length} focused \`/api/mcp/<area>\` servers answer 403 at the Vercel firewall since 2026-10-31.`,
+    '',
+    '| Area (how to reach it) | Tools | Data |',
     '|---|---|---|',
-    ...AREAS.filter((a) => a.server).map((a) => a.docs.readme.catalogueRow),
-    `| \`/api/mcp/facts\` | ${FACTS_SERVER.tools.map((t) => `\`${t.name}\``).join(', ')} — Verified Facts (verified-facts/0.2): one official figure by key, signed | ${F.FACT_COUNT} facts from the ${F.FACT_COUNT ? new Set([...F.META.values()].map((m) => m.area)).size : 0} facts areas (\`facts\` blocks); also \`GET /f/<key>\` |`,
-    `| \`/api/mcp\` (front door) | the ${words(DIRECT.length)} high-frequency tools above (${DIRECT.map((n) => `\`${n}\``).join(', ')}) + ${hub} | — |`,
+    ...AREAS.filter((a) => a.server).map((a) => {
+      const k = a.server.key || a.area;
+      const reach = firewalled(a) ? 'front door (`call`)' : `front door; also \`/api/mcp/${k}\``;
+      return a.docs.readme.catalogueRow.replace(/^\| `\/api\/mcp\/[a-z0-9-]+` \|/, `| ${a.title} — ${reach} |`);
+    }),
+    `| Verified Facts — \`/api/mcp/facts\` | ${FACTS_SERVER.tools.map((t) => `\`${t.name}\``).join(', ')} — Verified Facts (${FACTS_PROTOCOL}): one official figure by key, signed | ${F.FACT_COUNT} facts from the ${F.FACT_COUNT ? new Set([...F.META.values()].map((m) => m.area)).size : 0} facts areas (\`facts\` blocks); also \`GET /f/<key>\` (JSON) and \`/facts/<key>\` (the page) |`,
+    `| Front door — \`/api/mcp\` | the ${words(DIRECT.length)} high-frequency tools above (${DIRECT.map((n) => `\`${n}\``).join(', ')}) + ${hub} | — |`,
     '',
     `REST mirrors: ${restRoutes().map((r) => `\`/api/${r.path}\``).join(', ')}.`,
   ].join('\n');
@@ -311,6 +339,8 @@ function manifest(key, s) {
 
 const CALENDAR_TAIL = [
   '| `data/sources.json` | After every data refresh (automatic via `scripts/changelog.js`) | `node scripts/sources.js` re-checks every source URL (gov.uk content API / page hash); a page it cannot fetch is recorded `unreachable` and listed under "Sources the watcher cannot read". |',
+  '| `data/source-checks.json` | Mondays, automatic (`.github/workflows/watch-sources.yml`, committed by the bot) | `node scripts/check-sources.js` fetches every watched source page and records `checkedAt` (served as `sourceCheckedAt`) and `changedAt` (the page differs from `data/sources.json`; such records are served stale with `staleReason: "source-changed"` until re-verified). Never edited by hand. |',
+  '| Expected changes passed | Daily for policy rates, Mondays for every area (the same workflow and the Vercel cron) | `node scripts/expected-changes.js` lists every record whose `nextExpectedChange` passed unverified and keeps the one issue "Re-verify: expected change passed" current; re-verify those records the same day. |',
   '| `data/facts-signatures.json` | After every data change to a facts area, before commit | `node scripts/sign-facts.js` with the key in `~/.config/databutler/` (never on Vercel); `tests/facts-sign.test.js` fails while a served fact is unsigned. See "Signing and key rotation". |',
   '| `data/changelog.json` | With every data refresh | `node scripts/changelog.js` (areas with a `changelog.diff`) or the dataset\'s own script (`changelog.script`); fill in `note` lines. See "Changelog & source watcher" and docs/ADDING_AN_AREA.md. |',
 ];
@@ -329,8 +359,9 @@ function curation(text) {
 function indexHtml(text) {
   const humans = `(${AREAS.filter((a) => a.changelog).map((a) => a.short).join(', ')})`;
   const rest = AREAS.filter((a) => a.rest.length).map((a) => code(`/api/${a.rest[0].path}`));
-  const servers = AREAS.filter((a) => a.server).map((a) => code(a.server.url.replace('https://databutler.dev', '')) + (a.docs.index && a.docs.index.blurb ? ` (${a.docs.index.blurb})` : ''));
-  const agents = `One verified official figure per URL at ${code('/f/&lt;country&gt;/&lt;topic&gt;/&lt;fact&gt;')} — e.g. <a href="/f/uk/income-tax/personal-allowance">/f/uk/income-tax/personal-allowance</a> (${F.FACT_COUNT} keys at <a href="/f">/f</a>, signed; MCP ${code('/api/mcp/facts')}). REST at ${[...rest, code('/api/changes')].join(', ')}; focused MCP servers at\n${joinList(servers, { sep: ',\n', last: ' and\n' })}.`;
+  const blurbs = AREAS.filter((a) => a.server && firewalled(a) && a.docs.index && a.docs.index.blurb).map((a) => a.docs.index.blurb);
+  const own = AREAS.filter((a) => a.server && !firewalled(a)).map((a) => code(a.server.url.replace('https://databutler.dev', '')));
+  const agents = `One verified official figure per URL at ${code('/f/&lt;country&gt;/&lt;topic&gt;/&lt;fact&gt;')} (JSON) and ${code('/facts/&lt;country&gt;/&lt;topic&gt;/&lt;fact&gt;')} (the page) — e.g. <a href="/facts/uk/income-tax/personal-allowance">/facts/uk/income-tax/personal-allowance</a> (${F.FACT_COUNT} keys at <a href="/facts">/facts</a>, signed; MCP ${code('/api/mcp/facts')}). <a href="/protocol/publish">Publish your own figures</a> the same way. REST at ${[...rest, code('/api/changes')].join(', ')}. Every other tool — \n${joinList(blurbs, { sep: ';\n', last: '; and\n' })} — is reached through the front door's ${code('call')}; ${joinList(own)} ${own.length === 1 ? 'also stays a server of its own' : 'also stay servers of their own'}.`;
   let t = replaceBlock(text, 'public/index.html', 'humans', humans);
   t = replaceBlock(t, 'public/index.html', 'agents', agents);
   return t;
@@ -361,9 +392,17 @@ function verifyHub(text) {
       }
     }
   }
+  // The Vercel firewall answers 403 for FIREWALLED_SERVERS; the front door, /api/mcp/facts and every other server
+  // must still answer tools/list.
+  const blocked = Object.keys(SERVERS).filter((k) => FIREWALLED_SERVERS.includes(k));
+  const open = Object.keys(SERVERS).filter((k) => !FIREWALLED_SERVERS.includes(k));
   lines.push(
-    `for name in ${Object.keys(SERVERS).join(' ')}; do`,
-    '  check "legacy $name tools/list" "$(curl -sS -X POST "$BASE/api/mcp/$name" -H \'Content-Type: application/json\' -d \'{"jsonrpc":"2.0","id":2,"method":"tools/list"}\')" "len(d[\'result\'][\'tools\'])>0"',
+    `for name in ${blocked.join(' ')}; do`,
+    '  CODE="$(curl -s -o /dev/null -w \'%{http_code}\' -X POST "$BASE/api/mcp/$name" -H \'Content-Type: application/json\' -d \'{"jsonrpc":"2.0","id":2,"method":"tools/list"}\')"',
+    '  if [ "$CODE" = "403" ]; then echo "PASS legacy $name 403"; else echo "FAIL legacy $name expected 403, got $CODE"; FAILED=1; fi',
+    'done',
+    `for path in mcp mcp/facts ${open.map((k) => `mcp/${k}`).join(' ')}; do`,
+    '  check "kept /api/$path tools/list" "$(curl -sS -X POST "$BASE/api/$path" -H \'Content-Type: application/json\' -d \'{"jsonrpc":"2.0","id":2,"method":"tools/list"}\')" "len(d[\'result\'][\'tools\'])>0"',
     'done',
   );
   return replaceBlock(text, 'scripts/verify-hub.sh', 'checks', lines.join('\n'), bashMarkers('checks'));
@@ -417,4 +456,4 @@ if (require.main === module) process.exit(main());
 /** Every file this script owns — scripts/changelog.js lets these be dirty while a new area is being added. */
 const GENERATED = () => plan().map(([rel]) => rel);
 
-module.exports = { main, plan, replaceBlock, retirePlanned, manifest, GENERATED, FACTS_LLMS, openapi, factsWellKnown };
+module.exports = { main, plan, replaceBlock, retirePlanned, manifest, GENERATED, FACTS_LLMS, openapi, factsWellKnown, FIREWALLED_SERVERS };

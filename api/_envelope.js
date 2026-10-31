@@ -33,8 +33,9 @@ function citeFor(tool, args, freshness, result) {
   const target = tool.cite(args || {}, result);
   if (!target) return null;
   const qs = queryString(target.query);
-  // Verified Facts pages (/f, /f/<key>) are their own permalinks; everything else cites the /r answer page.
-  const page = target.path === 'f' || String(target.path).startsWith('f/') ? target.path : `r/${target.path}`;
+  // Verified Facts URLs (/facts/<key> pages, /f JSON) are their own permalinks; everything else cites the /r answer page.
+  const own = (p) => p === 'f' || p === 'facts' || p.startsWith('f/') || p.startsWith('facts/');
+  const page = own(String(target.path)) ? target.path : `r/${target.path}`;
   const url = `${BASE}/${page}${qs ? `?${qs}` : ''}`;
   let text = 'databutler.dev';
   if (freshness) text += freshness.staleness === 'live' ? `, computed live ${freshness.verifiedDate}` : `, verified ${freshness.verifiedDate}`;

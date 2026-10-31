@@ -4,7 +4,7 @@
  * the record passed in already carries its computed status. Everything is escaped.
  */
 const { STYLE } = require('./_changes_render');
-const { FACTS_WELL_KNOWN_URL, FACTS_SPEC_URL, FACT_SCHEMA_URL, FACTS_INDEX_URL, PUBLISHER } = require('./_changelog');
+const { FACTS_WELL_KNOWN_URL, FACTS_SPEC_URL, FACT_SCHEMA_URL, FACTS_INDEX_URL, FACTS_PAGE_INDEX_URL, FACTS_PROTOCOL, PUBLISHER } = require('./_changelog');
 
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const escText = (s) => String(s).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
@@ -15,13 +15,28 @@ const LICENCE = 'Free to reuse with attribution to databutler.dev; each figure b
 /** A value as text: numbers and strings as they are, objects and arrays as compact JSON. */
 const valueText = (v) => (v === null || v === undefined ? 'null' : typeof v === 'object' ? JSON.stringify(v) : String(v));
 
-/** "12570 GBP/year (2026-27, from 2026-04-06) verified 2026-10-04 fresh https://…" — spec §9.1. */
+/** A stale answer's staleReason in words (v0.3), e.g. "a scheduled decision on 2026-10-28 has passed since this was verified on 2026-10-03". */
+function staleText(r) {
+  switch (r.staleReason) {
+    case 'max-age': return `verified ${r.verifiedDate}, ${r.ageDays} days ago — older than the ${r.maxAgeDays} days asked for`;
+    case 'expected-change-passed': return `${r.changeCadence === 'scheduled' ? 'a scheduled decision' : 'a date on which the source could change the value'} on ${r.nextExpectedChange} has passed since this was verified on ${r.verifiedDate}`;
+    case 'source-changed': return `the official source page changed after this was verified on ${r.verifiedDate}${r.sourceCheckedAt ? ` (last checked ${r.sourceCheckedAt})` : ''}; the value has not been re-read since`;
+    case 'cadence-overdue': return `the publisher's re-check due ${r.nextScheduledRefresh} is overdue`;
+    default: return null;
+  }
+}
+
+/** "12570 GBP/year (2026-27, from 2026-04-06) verified 2026-10-04 fresh https://…; next expected change 2027-04-06" — spec §9.1. */
 function txt(r) {
   if (r.covered === false) return `not found: ${r.requestedKey || r.key || ''}${r.candidates && r.candidates.length ? ` — candidates: ${r.candidates.map((c) => c.key).join(', ')}` : ''}${r.message ? ` — ${r.message}` : ''}`;
   const value = r.withdrawn ? `withdrawn ${r.withdrawn}${r.supersededBy ? ` (superseded by ${r.supersededBy})` : ''}` : `${valueText(r.value)}${r.unit ? ` ${r.unit}` : ''}`;
   const when = [r.period, r.effectiveFrom ? `from ${r.effectiveFrom}` : null].filter(Boolean).join(', ');
-  return `${value}${when ? ` (${when})` : ''} verified ${r.verifiedDate} ${r.status} ${r.source}`;
+  const tail = [r.staleReason ? `stale: ${r.staleReason}` : null, r.nextExpectedChange ? `next expected change ${r.nextExpectedChange}` : null].filter(Boolean);
+  return `${value}${when ? ` (${when})` : ''} verified ${r.verifiedDate} ${r.status} ${r.source}${tail.length ? `; ${tail.join('; ')}` : ''}`;
 }
+
+/** /facts/<key>[?q] → /f/<key>[?q]: the machine URL of a page URL. */
+const machineUrl = (pageUrl) => String(pageUrl).replace(`${FACTS_PAGE_INDEX_URL}/`, `${FACTS_INDEX_URL}/`);
 
 function head({ title, description, canonical, alternates = [] }) {
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
@@ -34,15 +49,17 @@ ${alternates.map((a) => `<link rel="alternate" type="${esc(a.type)}"${a.title ? 
 <style>${STYLE}pre{background:#161b22;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.85rem}.big{font-size:1.6rem;color:#7ee787;margin:.4rem 0}.stale{color:#f0883e}table{border-collapse:collapse;font-size:.85rem;width:100%}td,th{text-align:left;padding:3px 8px 3px 0;vertical-align:top;border-bottom:1px solid #21262d}th{color:#8b949e;font-weight:normal}blockquote{border-left:3px solid #30363d;margin:.6rem 0;padding:.1rem .8rem;color:#c9d1d9}</style>`;
 }
 
-const nav = `<p class="quiet"><a href="/">databutler.dev</a> · <a href="/f">/f — every fact</a> · <a href="${esc(FACTS_SPEC_URL)}">Verified Facts protocol</a> · <a href="${esc(FACTS_WELL_KNOWN_URL)}">/.well-known/facts.json</a> · <a href="/changes">/changes</a></p>`;
-const footer = `<footer class="quiet"><p>verified-facts/0.2 — reference implementation: Data Butler. <a href="/">databutler.dev</a> · <a href="/f">/f</a> · <a href="/api">/api</a> · <a href="/llms.txt">llms.txt</a> · <a href="/privacy">Privacy</a></p></footer></body></html>`;
+const nav = `<p class="quiet"><a href="/">databutler.dev</a> · <a href="/facts">/facts — every fact</a> · <a href="${esc(FACTS_SPEC_URL)}">Verified Facts protocol</a> · <a href="${esc(FACTS_WELL_KNOWN_URL)}">/.well-known/facts.json</a> · <a href="/changes">/changes</a></p>`;
+const footer = `<footer class="quiet"><p>${FACTS_PROTOCOL} — reference implementation: Data Butler. <a href="/">databutler.dev</a> · <a href="/facts">/facts</a> · <a href="/protocol/publish">publish your own</a> · <a href="/api">/api</a> · <a href="/llms.txt">llms.txt</a> · <a href="/privacy">Privacy</a></p></footer></body></html>`;
 
 /** The indexable page for one record (spec §9.1, §10.4): the record, its source, its JSON and a schema.org Claim. */
 function html(r) {
   const valueLine = r.withdrawn ? `withdrawn ${r.withdrawn}` : `${valueText(r.value)}${r.unit ? ` ${r.unit}` : ''}`;
   const when = [r.period, r.effectiveFrom ? `from ${r.effectiveFrom}` : null].filter(Boolean).join(', ');
-  const canonical = r.cite.url;
-  const jsonUrl = `${canonical}${canonical.includes('?') ? '&' : '?'}format=json`;
+  const canonical = r.cite.url; // v0.3: /facts/<key>, from both /facts/<key> and /f/<key>?format=html
+  const machine = machineUrl(canonical);
+  const jsonUrl = `${machine}${machine.includes('?') ? '&' : '?'}format=json`;
+  const why = r.status === 'stale' ? staleText(r) : null;
   const claim = {
     '@context': 'https://schema.org',
     '@type': 'Claim',
@@ -60,7 +77,9 @@ function html(r) {
     ['period', escText(r.period ?? '—')],
     ['effective', escText([r.effectiveFrom || '—', r.effectiveTo ? `to ${r.effectiveTo}` : 'to date'].join(' '))],
     ['source', `<a href="${esc(r.source)}" rel="nofollow">${escText(r.source)}</a>`],
-    ['verified', `${escText(r.verifiedDate)} — <span class="${r.status === 'stale' ? 'stale' : ''}">${escText(r.status)}</span> (${escText(r.ageDays)} days ago${r.nextScheduledRefresh ? `; next check by ${escText(r.nextScheduledRefresh)}` : ''})`],
+    ['verified', `${escText(r.verifiedDate)} — <span class="${r.status === 'stale' ? 'stale' : ''}">${escText(r.status)}</span> (${escText(r.ageDays)} days ago${r.nextScheduledRefresh ? `; next check by ${escText(r.nextScheduledRefresh)}` : ''})${why ? `<br><span class="stale">stale: ${escText(why)}</span>` : ''}`],
+    ...(r.changeCadence ? [['next expected change', `${escText(r.nextExpectedChange || 'none named')} <span class="quiet">(${escText(r.changeCadence)}${r.changeCadence === 'scheduled' ? ': the source\'s published decision calendar' : r.changeCadence === 'annual' ? ': a fixed day each year' : r.changeCadence === 'irregular' ? ': changed by statute or order on no fixed date' : ': a fixed release frequency'})</span>`]] : []),
+    ...(r.sourceCheckedAt ? [['source checked', `${escText(r.sourceCheckedAt)} <span class="quiet">(the newest day the automated check fetched the source page)</span>`]] : []),
     ...(r.previous ? [['previous', escText(`${valueText(r.previous.value)}${r.unit ? ` ${r.unit}` : ''}${r.previous.period ? ` (${r.previous.period})` : ''}${r.previous.effectiveFrom ? ` from ${r.previous.effectiveFrom}` : ''}`)]] : []),
     ...(r.scope ? [['scope', escText(r.scope)]] : []),
     ['hash', `<code>${escText(r.hash)}</code>`],
@@ -70,17 +89,18 @@ function html(r) {
     title: `${r.label}: ${valueLine}${r.period ? ` (${r.period})` : ''} — Data Butler`,
     description: `${r.label}: ${valueLine}${when ? ` (${when})` : ''}. Verified ${r.verifiedDate} against ${r.source}.`,
     canonical,
-    alternates: [{ type: 'application/json', title: 'This fact as JSON', href: jsonUrl }, { type: 'text/plain', href: `${canonical}${canonical.includes('?') ? '&' : '?'}format=txt` }],
+    alternates: [{ type: 'application/json', title: 'This fact as JSON', href: jsonUrl }, { type: 'text/plain', href: `${machine}${machine.includes('?') ? '&' : '?'}format=txt` }],
   })}
 <script type="application/ld+json">${ldJson(claim)}</script></head><body>
 ${nav}
 <h1>${escText(r.label)}</h1>
 <p class="big">${escText(valueLine)}</p>
-<p>${escText(when || 'standing figure')} · verified <strong>${escText(r.verifiedDate)}</strong> against <a href="${esc(r.source)}" rel="nofollow">the official source</a></p>
+<p>${escText(when || 'standing figure')} · verified <strong>${escText(r.verifiedDate)}</strong> against <a href="${esc(r.source)}" rel="nofollow">the official source</a>${r.nextExpectedChange ? ` · next expected change ${escText(r.nextExpectedChange)}` : ''}</p>
+${why ? `<p class="stale">Stale: ${escText(why)}. The value is still the publisher's latest reading.</p>` : ''}
 ${r.quote ? `<blockquote>${escText(r.quote)}</blockquote>` : ''}
 <dl>${rows.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${v}</dd>`).join('')}</dl>
 <h2>As JSON</h2>
-<p class="quiet"><code>curl -s ${escText(canonical)}${canonical.includes('?') ? '&amp;' : '?'}max_age=30d</code> — <a href="${esc(FACT_SCHEMA_URL)}">schema</a>; verify with <code>node scripts/verify-fact.js ${escText(canonical)}</code></p>
+<p class="quiet"><code>curl -s ${escText(machine)}${machine.includes('?') ? '&amp;' : '?'}max_age=30d</code> — <a href="${esc(FACT_SCHEMA_URL)}">schema</a>; verify with <code>npx verified-facts verify ${escText(machine)}</code></p>
 <pre><code>${escText(JSON.stringify(r, null, 2))}</code></pre>
 ${footer}`;
 }
@@ -92,7 +112,7 @@ function indexHtml(records, { generated }) {
     '@type': 'Dataset',
     name: 'Data Butler — Verified Facts',
     description: 'Official figures (tax thresholds and rates, allowances, fees, deadlines, exam dates, policy rates) under short guessable keys, each with its official source, the date it was verified, a content hash and an Ed25519 signature.',
-    url: FACTS_INDEX_URL,
+    url: FACTS_PAGE_INDEX_URL,
     license: LICENCE,
     dateModified: generated,
     creator: { '@type': 'Organization', name: PUBLISHER.name, url: PUBLISHER.url },
@@ -109,20 +129,46 @@ function indexHtml(records, { generated }) {
   const cell = (v) => escText(v === null || v === undefined ? '—' : valueText(v));
   const sections = [...groups].map(([ns, rs]) => `<h2>${escText(ns)} <span class="quiet">(${rs.length})</span></h2>
 <table><tr><th>key</th><th>value</th><th>period</th><th>verified</th></tr>
-${rs.map((r) => `<tr><td><a href="/f/${esc(r.key)}">${escText(r.key)}</a><br><span class="quiet">${escText(r.label)}</span></td><td>${cell(r.value)}${r.unit ? ` ${escText(r.unit)}` : ''}</td><td>${cell(r.period)}</td><td>${escText(r.verifiedDate)}</td></tr>`).join('\n')}
+${rs.map((r) => `<tr><td><a href="/facts/${esc(r.key)}">${escText(r.key)}</a><br><span class="quiet">${escText(r.label)}</span></td><td>${cell(r.value)}${r.unit ? ` ${escText(r.unit)}` : ''}</td><td>${cell(r.period)}</td><td>${escText(r.verifiedDate)}</td></tr>`).join('\n')}
 </table>`).join('\n');
   return `${head({
     title: `Verified Facts — ${records.length} official figures by key — Data Butler`,
-    description: `${records.length} official figures under short keys (/f/<country>/<topic>/<fact>), each with its official source, verified date, hash and signature.`,
-    canonical: FACTS_INDEX_URL,
+    description: `${records.length} official figures under short keys (/facts/<country>/<topic>/<fact>), each with its official source, verified date, hash and signature.`,
+    canonical: FACTS_PAGE_INDEX_URL,
     alternates: [{ type: 'application/json', title: 'The index as JSON', href: `${FACTS_INDEX_URL}?format=json` }],
   })}
 <script type="application/ld+json">${ldJson(dataset)}</script></head><body>
 ${nav}
 <h1>Verified Facts</h1>
-<p>${records.length} official figures, one URL each: <code>/f/&lt;country&gt;/&lt;topic&gt;/&lt;fact&gt;</code>. Add <code>?max_age=30d</code> to be told when a verification is older than you need; <code>/f/resolve?q=</code> finds a key from a question. Every record carries its official <code>source</code>, <code>verifiedDate</code>, a SHA-256 <code>hash</code> of the claim and an Ed25519 signature (<a href="/.well-known/jwks.json">keys</a>). Newest verification: ${escText(generated)}.</p>
+<p>${records.length} official figures, one page each at <code>/facts/&lt;country&gt;/&lt;topic&gt;/&lt;fact&gt;</code> and one JSON record each at <code>/f/&lt;country&gt;/&lt;topic&gt;/&lt;fact&gt;</code>. Add <code>?max_age=30d</code> to the JSON URL to be told when a verification is older than you need; <code>/f/resolve?q=</code> finds a key from a question. Every record carries its official <code>source</code>, <code>verifiedDate</code>, a SHA-256 <code>hash</code> of the claim and an Ed25519 signature (<a href="/.well-known/jwks.json">keys</a>). Newest verification: ${escText(generated)}.</p>
 ${sections}
 ${footer}`;
 }
 
-module.exports = { txt, html, indexHtml, valueText, LICENCE };
+/** /facts/k1,k2 — several facts on one page (not indexed: each fact has its own page). */
+function batchHtml(b) {
+  const items = b.results.map((r) => (r.covered === false
+    ? `<li>not found: <code>${escText(r.requestedKey || r.key || '')}</code>${r.candidates && r.candidates.length ? ` — try ${r.candidates.map((c) => `<a href="/facts/${esc(c.key)}">${escText(c.key)}</a>`).join(', ')}` : ''}</li>`
+    : `<li><a href="/facts/${esc(r.key)}">${escText(r.label)}</a>: ${escText(txt(r))}</li>`)).join('\n');
+  return `${head({ title: `${b.count} verified facts — Data Butler`, description: `${b.count} official figures with their sources and verification dates.`, canonical: FACTS_PAGE_INDEX_URL })}
+<meta name="robots" content="noindex"></head><body>
+${nav}
+<h1>${b.count} verified facts</h1>
+<ul>${items}</ul>
+${footer}`;
+}
+
+/** A miss on /facts/<key>: the candidates as links (404, not indexed). */
+function missHtml(r) {
+  const cands = (r.candidates || []).map((c) => `<li><a href="/facts/${esc(c.key)}">${escText(c.key)}</a> — ${escText(c.label)}</li>`).join('\n');
+  return `${head({ title: 'No such fact — Data Butler', description: 'No fact is published under this key.', canonical: FACTS_PAGE_INDEX_URL })}
+<meta name="robots" content="noindex"></head><body>
+${nav}
+<h1>No fact under <code>${escText(r.requestedKey || r.key || '')}</code></h1>
+<p>${escText(r.message || r.error || 'unknown key')}</p>
+${cands ? `<p>Closest keys:</p><ul>${cands}</ul>` : ''}
+<p><a href="/facts">Every fact</a> · <code>/f/resolve?q=</code> finds a key from a question.</p>
+${footer}`;
+}
+
+module.exports = { txt, html, indexHtml, batchHtml, missHtml, staleText, machineUrl, valueText, LICENCE };

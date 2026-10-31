@@ -219,37 +219,84 @@
   {
     "url": "https://www.irs.gov/newsroom/news-releases-for-current-month",
     "updatedAt": null,
-    "bodyHash": "720d4f6392fbaa7f",
+    "bodyHash": "aaa0d4231b65bf69",
     "via": "html",
-    "checkedAt": "2026-10-03"
+    "checkedAt": "2026-10-31"
   },
   {
     "url": "https://www.federalregister.gov/api/v1/documents.json?conditions%5Bagencies%5D%5B%5D=social-security-administration&conditions%5Bterm%5D=%22Cost-of-Living+Increase+and+Other+Determinations%22&order=newest",
     "updatedAt": null,
-    "bodyHash": "c70c45b5b7eee869",
+    "bodyHash": "5e5abd998100ee1d",
     "via": "html",
-    "checkedAt": "2026-10-03"
+    "checkedAt": "2026-10-31"
   },
   {
     "url": "https://www.irs.gov/taxtopics/tc751",
     "updatedAt": null,
-    "bodyHash": "d1e1b4894e2c5e65",
+    "bodyHash": "1e862cda5de55e88",
     "via": "html",
-    "checkedAt": "2026-10-03"
+    "checkedAt": "2026-10-31"
   },
   {
     "url": "https://www.irs.gov/retirement-plans/cola-increases-for-dollar-limitations-on-benefits-and-contributions",
     "updatedAt": null,
-    "bodyHash": "2b405439b0bede9e",
+    "bodyHash": "360967216c14a88e",
     "via": "html",
-    "checkedAt": "2026-10-03"
+    "checkedAt": "2026-10-31"
   },
   {
     "url": "https://www.irs.gov/publications/p969",
     "updatedAt": null,
-    "bodyHash": "1e103126a9e94a13",
+    "bodyHash": "e1a1690a5e06b741",
     "via": "html",
-    "checkedAt": "2026-10-03"
+    "checkedAt": "2026-10-31"
+  },
+  {
+    "url": "https://www.ssa.gov/cola/",
+    "unreachable": "ssa.gov answers 403 to automated fetches; read in a browser at each refresh",
+    "checkedAt": "2026-10-31"
+  },
+  {
+    "url": "https://www.cms.gov/newsroom/fact-sheets/2026-medicare-parts-b-premiums-deductibles",
+    "updatedAt": null,
+    "bodyHash": "5d7de21c29d0bc98",
+    "via": "html",
+    "checkedAt": "2026-10-31"
+  },
+  {
+    "url": "https://www.medicare.gov/basics/costs/medicare-costs",
+    "updatedAt": null,
+    "bodyHash": "ecfc07e9f6dad808",
+    "via": "html",
+    "checkedAt": "2026-10-31"
+  },
+  {
+    "url": "https://www.irs.gov/publications/p590b",
+    "updatedAt": null,
+    "bodyHash": "8093d78f5b80b4f3",
+    "via": "html",
+    "checkedAt": "2026-10-31"
+  },
+  {
+    "url": "https://www.irs.gov/publications/p915",
+    "updatedAt": null,
+    "bodyHash": "b9b6ecf547bd1c1d",
+    "via": "html",
+    "checkedAt": "2026-10-31"
+  },
+  {
+    "url": "https://www.irs.gov/individuals/net-investment-income-tax",
+    "updatedAt": null,
+    "bodyHash": "ced102183895d3a8",
+    "via": "html",
+    "checkedAt": "2026-10-31"
+  },
+  {
+    "url": "https://www.ecfr.gov/current/title-26/section-1.401(a)(9)-2",
+    "updatedAt": null,
+    "bodyHash": "fc128f65ca713c60",
+    "via": "html",
+    "checkedAt": "2026-10-31"
   },
   {
     "url": "https://www.gesetze-im-internet.de/estg/__32a.html",
@@ -749,91 +796,98 @@
     "updatedAt": null,
     "bodyHash": "3e103927f10d8114",
     "via": "html",
-    "checkedAt": "2026-10-24"
+    "checkedAt": "2026-10-31"
   },
   {
     "url": "https://www.mlit.go.jp/jidosha/content/001884912.pdf",
     "updatedAt": null,
     "bodyHash": "8c53a04ced887057",
     "via": "html",
-    "checkedAt": "2026-10-24"
+    "checkedAt": "2026-10-31"
   },
   {
     "url": "https://www.mlit.go.jp/jidosha/jibaiseki/common/data/ryouritsuhyo.pdf",
     "updatedAt": null,
     "bodyHash": "2855b9fdb82f38b9",
     "via": "html",
-    "checkedAt": "2026-10-24"
+    "checkedAt": "2026-10-31"
   },
   {
     "url": "https://www.mlit.go.jp/jidosha/jibaiseki/other_info/data/index.html",
     "updatedAt": null,
     "bodyHash": "6dada8d24c418ac0",
     "via": "html",
-    "checkedAt": "2026-10-24"
+    "checkedAt": "2026-10-31"
   },
   {
     "url": "https://www.fsa.go.jp/singi/singi_zidousya/siryou/20260430/01_153.pdf",
     "updatedAt": null,
     "bodyHash": "fdbae9460ac22764",
     "via": "html",
-    "checkedAt": "2026-10-24"
+    "checkedAt": "2026-10-31"
+  },
+  {
+    "url": "https://www.giroj.or.jp/ratemaking/cali/pdf/202604_table.pdf",
+    "updatedAt": null,
+    "bodyHash": "1639d0045718febb",
+    "via": "html",
+    "checkedAt": "2026-10-31"
   },
   {
     "url": "https://www.naltec.go.jp/business/inspection/hbh5ss0000000ngo-att/gtg5d20000000cre.pdf",
     "updatedAt": null,
     "bodyHash": "2004970b1ef0fc90",
     "via": "html",
-    "checkedAt": "2026-10-24"
+    "checkedAt": "2026-10-31"
   },
   {
     "url": "https://www.naltec.go.jp/business/inspection/fee.html",
     "updatedAt": null,
     "bodyHash": "9c4a258def163f05",
     "via": "html",
-    "checkedAt": "2026-10-24"
+    "checkedAt": "2026-10-31"
   },
   {
     "url": "https://www.tax.metro.tokyo.lg.jp/kazei/car_shubetsu.html",
     "updatedAt": null,
     "bodyHash": "a21dde1f4625a329",
     "via": "html",
-    "checkedAt": "2026-10-24"
+    "checkedAt": "2026-10-31"
   },
   {
     "url": "https://www.tax.metro.tokyo.lg.jp/documents/d/tax/zikayou201909_green_h",
     "updatedAt": null,
     "bodyHash": "68c6efef91d2f527",
     "via": "html",
-    "checkedAt": "2026-10-24"
+    "checkedAt": "2026-10-31"
   },
   {
     "url": "https://www.mlit.go.jp/jidosha/content/001993314.pdf",
     "updatedAt": null,
     "bodyHash": "dd1b26ad909f2127",
     "via": "html",
-    "checkedAt": "2026-10-24"
+    "checkedAt": "2026-10-31"
   },
   {
     "url": "https://www.mlit.go.jp/jidosha/content/001993968.pdf",
     "updatedAt": null,
     "bodyHash": "edf9500b2a5a6fa7",
     "via": "html",
-    "checkedAt": "2026-10-24"
+    "checkedAt": "2026-10-31"
   },
   {
     "url": "https://www.soumu.go.jp/main_content/000404244.pdf",
     "updatedAt": null,
     "bodyHash": "64e062a6b238ac96",
     "via": "html",
-    "checkedAt": "2026-10-24"
+    "checkedAt": "2026-10-31"
   },
   {
     "url": "https://www.city.koto.lg.jp/060501/kurashi/zekin/kejidosha/5112.html",
     "updatedAt": null,
     "bodyHash": "8177511cb28e762e",
     "via": "html",
-    "checkedAt": "2026-10-24"
+    "checkedAt": "2026-10-31"
   },
   {
     "url": "https://www.mhlw.go.jp/content/11200000/001753404.pdf",

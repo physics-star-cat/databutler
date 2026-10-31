@@ -198,11 +198,17 @@ module.exports = {
     period: (d, f) => (PRIOR_YEAR_FIGURE(f) ? null : d.taxYear),
     effectiveFrom: (d, f) => (PRIOR_YEAR_FIGURE(f) ? null : effectiveFrom(f, d.taxYear)),
     periodStart: taxYearStart,
+    // v0.3 expected change: thresholds move each 6 April, minimum wages each 1 April; last year's rate is history.
+    expected: (r) => (r.period === null ? { changeCadence: 'irregular', dates: [] }
+      : { changeCadence: 'annual', dates: [r.key.startsWith('uk/minimum-wage/') ? '04-01' : '04-06'] }),
     // Reviewed short forms for the keys whose labels carry a parenthetical.
     aliases: {
       'uk/national-insurance/primary-threshold': 'uk/national-insurance/primary-threshold-employee-pays-above-this',
       'uk/national-insurance/secondary-threshold': 'uk/national-insurance/secondary-threshold-employer-pays-above-this',
       'uk/minimum-wage/national-living-wage': 'uk/minimum-wage/21-and-over-national-living-wage',
+      // The forms agents guess for the NI main rate and the upper threshold (reviewed 2026-10-31).
+      'uk/national-insurance/main-rate': 'uk/national-insurance/employee-main-rate-pt-to-uel',
+      'uk/national-insurance/upper-rate': 'uk/national-insurance/upper-earnings-limit',
     },
     synonyms: { ni: 'national-insurance', pa: 'personal-allowance', nlw: 'national-living-wage', nmw: 'minimum-wage', cgt: 'capital-gains', sdlt: 'stamp-duty', ssp: 'statutory-sick-pay', smp: 'statutory-parental-pay' },
   },

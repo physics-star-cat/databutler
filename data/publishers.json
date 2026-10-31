@@ -1,0 +1,47 @@
+{
+  "about": "Verified Facts publishers listed on https://databutler.dev/facts/publishers. Add one entry per publisher (facts: its /.well-known/facts.json URL). The Monday job (scripts/check-publishers.js, .github/workflows/watch-sources.yml) runs the conformance checker against each and writes data/publisher-checks.json; the page shows the level the check reached, never the level a site declares.",
+  "publishers": [
+    {
+      "facts": "https://databutler.dev/.well-known/facts.json",
+      "name": "Data Butler",
+      "site": "https://databutler.dev/",
+      "listed": "2026-10-31",
+      "note": "Reference implementation: UK, US, German, EU and Japanese official figures."
+    },
+    {
+      "facts": "https://whatbreaks.uk/.well-known/facts.json",
+      "name": "whatbreaks",
+      "site": "https://whatbreaks.uk/",
+      "listed": "2026-10-31",
+      "note": "UK MOT rules the site's cost model uses, from gov.uk."
+    },
+    {
+      "facts": "https://lowriskquotes.com/.well-known/facts.json",
+      "name": "lowriskquotes",
+      "site": "https://lowriskquotes.com/",
+      "listed": "2026-10-31",
+      "note": "England permitted-development and Building Regulations limits, and the Gas Safe rule, from legislation.gov.uk and HSE."
+    },
+    {
+      "facts": "https://shakendata.com/.well-known/facts.json",
+      "name": "shakendata",
+      "site": "https://shakendata.com/",
+      "listed": "2026-10-31",
+      "note": "Japanese vehicle statutory costs and living-cost figures from MLIT, MHLW and ANRE."
+    },
+    {
+      "facts": "https://auto-maengel.com/.well-known/facts.json",
+      "name": "auto-maengel",
+      "site": "https://auto-maengel.com/",
+      "listed": "2026-10-31",
+      "note": "German HU intervals, overdue-HU fines and Kfz-Steuer components from the statutes on gesetze-im-internet.de."
+    },
+    {
+      "facts": "https://controle-technique-fiabilite.com/.well-known/facts.json",
+      "name": "controle-technique-fiabilite",
+      "site": "https://controle-technique-fiabilite.com/",
+      "listed": "2026-10-31",
+      "note": "French contrôle technique rules from service-public.fr and Légifrance."
+    }
+  ]
+}

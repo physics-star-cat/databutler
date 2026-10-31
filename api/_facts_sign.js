@@ -4,6 +4,8 @@
  *   claim        = { key, value, unit, period, effectiveFrom, source }
  *   hash         = "sha256:" + hex(SHA-256(JCS(claim)))         — publisher-independent (§8.2)
  *   attestation  = { protocol, publisher, key, hash, value, unit, period, effectiveFrom, effectiveTo, source, verifiedDate }
+ *                  (protocol: the attestation shape, verified-facts/0.2, for 0.2 and 0.3 records alike)
+ *   digest       = "sha256:" + hex(SHA-256(JCS([[key, hash], …] sorted by key)))   — v0.3 collection fingerprint
  *   jws          = b64url(header) + ".." + b64url(Ed25519(b64url(header) + "." + b64url(JCS(attestation))))   (§8.3)
  *
  * The JWS is detached (RFC 7515 Appendix F): the verifier rebuilds the attestation
@@ -16,6 +18,14 @@ const { canonicalize } = require('./_jcs');
 const CLAIM_FIELDS = ['key', 'value', 'unit', 'period', 'effectiveFrom', 'source'];
 const ATTESTATION_FIELDS = ['protocol', 'publisher', 'key', 'hash', 'value', 'unit', 'period', 'effectiveFrom', 'effectiveTo', 'source', 'verifiedDate'];
 const DEFAULT_PROTOCOL = 'verified-facts/0.2';
+/**
+ * The attestation's `protocol` names the attestation's shape, not the record's minor version: v0.3 added only
+ * unsigned optional fields, so a `verified-facts/0.3` record is attested exactly as a 0.2 one and every signature
+ * made under 0.2 still verifies (docs/FACTS_PROTOCOL.md §8.3). A later minor version that changes the attestation
+ * gets its own value here.
+ */
+const ATTESTATION_PROTOCOL = 'verified-facts/0.2';
+const attestationProtocol = (p) => (/^verified-facts\/0\.(\d+)$/.test(p || '') && Number(/0\.(\d+)$/.exec(p)[1]) >= 2 ? ATTESTATION_PROTOCOL : (p || DEFAULT_PROTOCOL));
 
 const b64url = (buf) => Buffer.from(buf).toString('base64url');
 const fromB64url = (s) => Buffer.from(String(s), 'base64url');
@@ -36,12 +46,23 @@ function attestationOf(r, publisherUrl) {
   const pub = publisherUrl || (r.publisher && r.publisher.url) || null;
   const att = {};
   for (const k of ATTESTATION_FIELDS) {
-    if (k === 'protocol') att[k] = r.protocol || DEFAULT_PROTOCOL;
+    if (k === 'protocol') att[k] = attestationProtocol(r.protocol);
     else if (k === 'publisher') att[k] = pub;
     else if (k === 'hash') att[k] = hashOf(r);
     else att[k] = field(r, k);
   }
   return att;
+}
+
+/**
+ * The collection fingerprint of v0.3 (docs/FACTS_PROTOCOL.md §5.6): "sha256:" + hex SHA-256 over the JCS form of
+ * the [key, hash] pairs of every fact served, sorted by key. Equal digests mean no claim moved.
+ *   pairs — [[key, hash], …] or records/index entries carrying { key, hash }
+ */
+function digestOf(pairs) {
+  const list = [...pairs].map((p) => (Array.isArray(p) ? [String(p[0]), String(p[1])] : [String(p.key), String(p.hash)]));
+  list.sort((x, y) => (x[0] < y[0] ? -1 : x[0] > y[0] ? 1 : 0));
+  return `sha256:${sha256hex(canonicalize(list))}`;
 }
 
 /** Hex SHA-256 of the canonical attestation: the key of data/facts-signatures.json. */
@@ -133,6 +154,6 @@ function verifyRecord(record, jwks, { now = new Date() } = {}) {
 }
 
 module.exports = {
-  CLAIM_FIELDS, ATTESTATION_FIELDS, claimOf, hashOf, attestationOf, attestationHash, signAttestation, verifyRecord,
+  CLAIM_FIELDS, ATTESTATION_FIELDS, ATTESTATION_PROTOCOL, claimOf, hashOf, digestOf, attestationOf, attestationHash, signAttestation, verifyRecord,
   jwkFromPublicKey, publicKeyFromJwk, privateKeyFrom, b64url, fromB64url,
 };

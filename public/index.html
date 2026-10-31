@@ -8,6 +8,8 @@
 <meta name="description" content="Official tax thresholds, rates and fees for the UK, US, Germany and EU, by key: the value, its official source, the date it was verified and a signature.">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/icon.png" type="image/png" sizes="512x512">
+<link rel="alternate" type="application/json" title="Verified Facts discovery (verified-facts/0.3)" href="/.well-known/facts.json">
+<link rel="help" href="/protocol/facts" title="Verified Facts protocol">
 <link rel="alternate" type="application/rss+xml" title="Data Butler changelog (RSS)" href="/changes.rss">
 <link rel="alternate" type="application/atom+xml" title="Data Butler changelog (Atom)" href="/changes.atom">
 <style>
@@ -34,23 +36,19 @@ site's front door is <a href="/api">/api</a> and <a href="/llms.txt">llms.txt</a
 <code>what_changed_since</code> for the facts that moved after your training
 cutoff, <code>coverage</code>, <code>catalogue</code>, <code>call</code>).
 <!-- sync-areas:agents start -->
-One verified official figure per URL at <code>/f/&lt;country&gt;/&lt;topic&gt;/&lt;fact&gt;</code> — e.g. <a href="/f/uk/income-tax/personal-allowance">/f/uk/income-tax/personal-allowance</a> (689 keys at <a href="/f">/f</a>, signed; MCP <code>/api/mcp/facts</code>). REST at <code>/api/uk/rates</code>, <code>/api/uk/exams/topic</code>, <code>/api/provenance/domain</code>, <code>/api/stats</code>, <code>/api/vehicles/uk/mot</code>, <code>/api/tax/take-home</code>, <code>/api/software-eol/status</code>, <code>/api/policy-rates</code>, <code>/api/us/rates</code>, <code>/api/de/rates</code>, <code>/api/uk/vehicle-rules</code>, <code>/api/uk/exam-dates</code>, <code>/api/calendar</code>, <code>/api/uk/gov-process</code>, <code>/api/jp/vehicle-costs</code>, <code>/api/jp/living-costs</code>, <code>/api/changes</code>; focused MCP servers at
-<code>/api/mcp/uk-rates</code>,
-<code>/api/mcp/uk-exams</code>,
-<code>/api/mcp/provenance</code>,
-<code>/api/mcp/stats</code>,
-<code>/api/mcp/vehicles</code> (UK MOT failure data, French and Japanese official recalls),
-<code>/api/mcp/tax</code> (net salary for ten countries, live from lifebynumbers.net),
-<code>/api/mcp/software-eol</code> (is this version still supported, and until when — Node.js, Python, Ubuntu, Windows and ten more, from endoflife.date),
-<code>/api/mcp/policy-rates</code> (Bank of England, Fed and ECB policy rates, verified against the banks' own pages),
-<code>/api/mcp/us-rates</code> (US federal tax year 2026: IRS brackets and standard deduction, Social Security wage base, Medicare, 401(k)/IRA/HSA limits, estate and gift exclusions, read from the IRS and SSA documents),
-<code>/api/mcp/de-rates</code> (German Veranlagungszeitraum 2026: Grundfreibetrag and tariff, Beitragsbemessungsgrenzen and Beitragssätze, Mindestlohn, Minijob, Kindergeld, Pauschbeträge, read from the statutes and the Bundesgesetzblatt),
-<code>/api/mcp/uk-vehicle-rules</code> (UK car tax (VED) rates and MOT rules — first-year CO2 bands, standard rate, expensive car supplement, electric cars, historic exemptions, MOT fees and penalties — verified against gov.uk),
-<code>/api/mcp/uk-exam-dates</code> (GCSE and A-level results days, the summer exam timetable, entry deadlines and spec changes, quoted from JCQ and the boards),
-<code>/api/mcp/calendar</code> (public holidays, tax-year and clock-change dates for 2026–2028 — UK, US, Germany, France and five more, from the official lists),
-<code>/api/mcp/uk-gov-process</code> (passport and ETA fees, driving licence renewal, SORN, voter registration, birth and death registration, Self Assessment deadlines, NI numbers, Universal Credit, EU Settlement Scheme and eVisa — fees, start URLs and dated changes, verified against gov.uk),
-<code>/api/mcp/jp-vehicle-costs</code> (Japanese 車検 statutory costs — 自動車重量税, 自賠責 (before and from 2026-11-01), inspection fees — and 自動車税 / 軽自動車税, verified against MLIT, FSA, NALTEC and local-government pages) and
-<code>/api/mcp/jp-living-costs</code> (Japanese minimum wages by prefecture, 協会けんぽ health insurance rates, pensions, 雇用保険, 児童手当, 高額療養費, 2027 holidays, 消費税 and income-tax deductions, verified against MHLW, NTA and other official pages).
+One verified official figure per URL at <code>/f/&lt;country&gt;/&lt;topic&gt;/&lt;fact&gt;</code> (JSON) and <code>/facts/&lt;country&gt;/&lt;topic&gt;/&lt;fact&gt;</code> (the page) — e.g. <a href="/facts/uk/income-tax/personal-allowance">/facts/uk/income-tax/personal-allowance</a> (742 keys at <a href="/facts">/facts</a>, signed; MCP <code>/api/mcp/facts</code>). <a href="/protocol/publish">Publish your own figures</a> the same way. REST at <code>/api/uk/rates</code>, <code>/api/uk/exams/topic</code>, <code>/api/provenance/domain</code>, <code>/api/stats</code>, <code>/api/vehicles/uk/mot</code>, <code>/api/tax/take-home</code>, <code>/api/software-eol/status</code>, <code>/api/policy-rates</code>, <code>/api/us/rates</code>, <code>/api/de/rates</code>, <code>/api/uk/vehicle-rules</code>, <code>/api/uk/exam-dates</code>, <code>/api/calendar</code>, <code>/api/uk/gov-process</code>, <code>/api/jp/vehicle-costs</code>, <code>/api/jp/living-costs</code>, <code>/api/changes</code>. Every other tool — 
+UK MOT failure data, French and Japanese official recalls;
+net salary for ten countries, live from lifebynumbers.net;
+is this version still supported, and until when — Node.js, Python, Ubuntu, Windows and ten more, from endoflife.date;
+Bank of England, Fed and ECB policy rates, verified against the banks' own pages;
+US federal tax year 2026: IRS brackets and standard deduction, Social Security wage base, Medicare, 401(k)/IRA/HSA limits, estate and gift exclusions, read from the IRS and SSA documents;
+German Veranlagungszeitraum 2026: Grundfreibetrag and tariff, Beitragsbemessungsgrenzen and Beitragssätze, Mindestlohn, Minijob, Kindergeld, Pauschbeträge, read from the statutes and the Bundesgesetzblatt;
+UK car tax (VED) rates and MOT rules — first-year CO2 bands, standard rate, expensive car supplement, electric cars, historic exemptions, MOT fees and penalties — verified against gov.uk;
+GCSE and A-level results days, the summer exam timetable, entry deadlines and spec changes, quoted from JCQ and the boards;
+public holidays, tax-year and clock-change dates for 2026–2028 — UK, US, Germany, France and five more, from the official lists;
+passport and ETA fees, driving licence renewal, SORN, voter registration, birth and death registration, Self Assessment deadlines, NI numbers, Universal Credit, EU Settlement Scheme and eVisa — fees, start URLs and dated changes, verified against gov.uk;
+Japanese 車検 statutory costs — 自動車重量税, 自賠責 (before and from 2026-11-01), inspection fees — and 自動車税 / 軽自動車税, verified against MLIT, FSA, NALTEC and local-government pages; and
+Japanese minimum wages by prefecture, 協会けんぽ health insurance rates, pensions, 雇用保険, 児童手当, 高額療養費, 2027 holidays, 消費税 and income-tax deductions, verified against MHLW, NTA and other official pages — is reached through the front door's <code>call</code>; <code>/api/mcp/uk-rates</code> also stays a server of its own.
 <!-- sync-areas:agents end --> Every answer carries a <code>cite.url</code> like
 <a href="/r/uk/rates?category=income-tax">/r/uk/rates?category=income-tax</a>.</p>
 <p class="quiet">Try: <a href="/api/uk/exams/topic?board=aqa&subject=physics&level=gcse&topic=electricity">is electricity paper 2 AQA?</a>

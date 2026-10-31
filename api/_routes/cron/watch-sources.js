@@ -5,14 +5,18 @@
  * `unreachable` — 403 or CAPTCHA to a non-browser fetch — are skipped and listed
  * under `skipped`, never filed as errors. ?dry=1 reports without filing.
  * Then it runs the Verified Facts conformance checker against the live site (scripts/facts-check.js, offline
- * items skipped, 25 sampled keys) and files one issue while that fails (spec §11 item 18).
+ * items skipped, 25 sampled keys) and files one issue while that fails (spec §11 item 18), and lists every record
+ * whose nextExpectedChange has passed unverified in the one "Re-verify: expected change passed" issue (v0.3; the
+ * GitHub Actions job .github/workflows/watch-sources.yml runs the same check daily for policy rates and commits
+ * data/source-checks.json, which this function cannot).
  * Vercel cron sends Authorization: Bearer $CRON_SECRET.
  */
 const { sendJson } = require('../../_lib');
 const SEEN = require('../../../data/sources.json');
 const { checkSource, compareSource, watchPlan } = require('../../_sources');
 const { sourceList } = require('../../_areas');
-const { planIssues, planFactsIssue, listOpenIssues, openIssue } = require('../../_github');
+const { planIssues, planFactsIssue, planExpectedIssue, applyExpectedPlan, listOpenIssues, openIssue } = require('../../_github');
+const F = require('../../_facts');
 const { checkSite } = require('../../../scripts/facts-check');
 
 const SITE = 'https://databutler.dev';
@@ -44,15 +48,21 @@ module.exports = async (req, res) => {
     facts = { ok: false, declared: null, reached: null, failed: [{ item: 0, level: '-', ok: false, detail: `checker crashed: ${e.message}` }] };
   }
 
+  const expected = F.expectedChangesPassed(new Date());
   let issues = [];
+  let expectedPlan = [];
   const filed = [];
   let filing = null;
   try {
     const open = dry ? [] : await listOpenIssues();
     issues = [...planIssues(results, open), ...planFactsIssue({ ...facts, results: facts.failed }, open)];
-    if (!dry) for (const issue of issues) {
-      await openIssue(issue);
-      filed.push(issue.title);
+    expectedPlan = planExpectedIssue(expected, open);
+    if (!dry) {
+      for (const issue of issues) {
+        await openIssue(issue);
+        filed.push(issue.title);
+      }
+      filed.push(...await applyExpectedPlan(expectedPlan));
     }
   } catch (e) {
     filing = e.message; // GitHub down / token missing / filing failed part-way: still report what we saw
@@ -66,7 +76,8 @@ module.exports = async (req, res) => {
     errors: results.filter((r) => r.status === 'error'),
     skipped: skipped.map(({ url, area, reason }) => ({ url, area, unreachable: reason })),
     factsCheck: facts,
-    issuesPlanned: issues.map((i) => i.title),
+    expectedChangesPassed: expected,
+    issuesPlanned: [...issues.map((i) => i.title), ...expectedPlan.map((p) => `${p.action}: ${p.issue.title}`)],
     issuesFiled: filed,
     ...(filing ? { filingError: filing } : {}),
   });

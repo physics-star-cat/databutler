@@ -350,11 +350,13 @@ test('discoverability: /api index, llms.txt, README, CURATION, sitemap and index
   assert.match(api.body.coverage.policyRates.boe, /3\.75% from 2025-12-18/);
   const llms = read('public/llms.txt');
   assert.match(llms, /https:\/\/databutler\.dev\/api\/policy-rates\?bank=boe/);
-  assert.match(llms, /POST https:\/\/databutler\.dev\/api\/mcp\/policy-rates/);
+  // /api/mcp/policy-rates answers 403 at the Vercel firewall since 2026-10-31: llms.txt sends agents to the front door's call
+  assert.doesNotMatch(llms, /POST https:\/\/databutler\.dev\/api\/mcp\/policy-rates/);
+  assert.match(llms, /`policy_rate`[^\n]*reached through the front door/);
   assert.match(llms, /area=uk-rates\|uk-exams\|vehicles\|software-eol\|policy-rates/);
   const readme = read('README.md');
-  assert.match(readme, new RegExp(`^## Tool catalogue \\(${Object.keys(ALL_TOOLS).length} tools, ${Object.keys(SERVERS).length} focused servers \\+ front door\\)$`, 'm'));
-  assert.match(readme, /\| `\/api\/mcp\/policy-rates` \| `policy_rate`/);
+  assert.match(readme, new RegExp(`^## Tool catalogue \\(${Object.keys(ALL_TOOLS).length} tools: the front door, `, 'm'));
+  assert.match(readme, /\| Policy rates — front door \(`call`\) \| `policy_rate`/);
   assert.match(readme, /\*\*Policy rates\*\*/);
   const curation = read('docs/CURATION.md');
   assert.match(curation, /\| `data\/policy-rates\.json` \| Within 45 days/);
@@ -362,7 +364,30 @@ test('discoverability: /api index, llms.txt, README, CURATION, sitemap and index
   for (const u of BANKS.map((k) => POLICY.banks[k].source)) assert.ok(curation.includes(u), `CURATION log cites ${u}`);
   assert.match(curation, /^- \*\*Policy rates\*\* \(`data\/policy-rates\.json`\)/m);
   assert.match(read('public/sitemap.xml'), /changes\?area=policy-rates</);
-  assert.match(read('public/index.html'), /\/api\/mcp\/policy-rates/);
+  assert.match(read('public/index.html'), /Bank of England, Fed and ECB policy rates/);
   assert.match(read('scripts/verify-hub.sh'), new RegExp(`d\\['count'\\]==${Object.keys(ALL_TOOLS).length}`));
   assert.match(read('scripts/verify-hub.sh'), /policy_rate/);
+});
+
+/* ---------------- Verified Facts v0.3: expected-change awareness ---------------- */
+
+test('v0.3: every served policy-rate key is changeCadence scheduled with nextExpectedChange = its bank\'s nextDecision, after verifiedDate', () => {
+  const F = require('../api/_facts');
+  const BANK_OF = (key) => (key === 'uk/bank-rate' ? 'boe' : key.startsWith('us/fed-funds/') ? 'fed' : key.startsWith('eu/ecb/') ? 'ecb' : null);
+  const keys = [...F.META].filter(([, m]) => m.area === 'policy-rates').map(([k]) => k);
+  assert.equal(keys.length, BANKS.reduce((n, b) => n + POLICY.banks[b].figures.length, 0));
+  for (const key of keys) {
+    const bank = POLICY.banks[BANK_OF(key)];
+    const r = F.INDEX.get(key);
+    assert.equal(r.changeCadence, 'scheduled', key);
+    assert.equal(r.nextExpectedChange, bank.nextDecision, key);
+    // a decision date that has already passed when the data is committed fails the build: re-verify and move it on
+    assert.ok(bank.nextDecision > (bank.verifiedDate || POLICY.verifiedDate), `${key}: nextDecision ${bank.nextDecision} must be after verifiedDate ${bank.verifiedDate || POLICY.verifiedDate}`);
+    // the day after the decision, with no re-verification, the record says so
+    const after = new Date(`${bank.nextDecision}T12:00:00Z`);
+    after.setUTCDate(after.getUTCDate() + 1);
+    const served = F.getFact(key, {}, after);
+    assert.deepEqual([served.status, served.staleReason], ['stale', 'expected-change-passed'], key);
+    assert.equal(served.value, r.value);
+  }
 });

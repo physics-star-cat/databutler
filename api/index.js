@@ -62,10 +62,11 @@ module.exports = (req, res) => {
     },
     'GET /f/{key}': {
       description:
-        'Verified Facts (verified-facts/0.2): one official figure by key — value, unit, period, effectiveFrom, official source, ' +
-        'quote, verifiedDate, status against ?max_age=, a SHA-256 claim hash and an Ed25519 signature. Keys are ' +
-        '<country>/<topic>/<fact>; a loose key resolves when unambiguous, otherwise 404 with candidates. ' +
-        '?format=txt (one line) | html (indexable page) | json; ?as_of=YYYY-MM-DD or ?period=2025-26 for a prior value held.',
+        'Verified Facts (verified-facts/0.3): one official figure by key — value, unit, period, effectiveFrom, official source, ' +
+        'quote, verifiedDate, nextExpectedChange, sourceCheckedAt, status against ?max_age= (with staleReason), a SHA-256 claim hash ' +
+        'and an Ed25519 signature. Keys are <country>/<topic>/<fact>; a loose key resolves when unambiguous, otherwise 404 with ' +
+        'candidates. ?format=txt (one line) | html | json; ?as_of=YYYY-MM-DD or ?period=2025-26 for a prior value held. ' +
+        'The page for people and search engines is /facts/{key} (text/html to every caller).',
       params: { max_age: 'optional: 30d | 12w | 6m | 1y | P30D', as_of: 'optional YYYY-MM-DD', period: 'optional period label, e.g. 2025-26', format: 'json (default) | txt | html' },
       example: 'https://databutler.dev/f/uk/income-tax/personal-allowance?max_age=30d',
     },

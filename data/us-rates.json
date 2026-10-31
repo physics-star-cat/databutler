@@ -7,8 +7,8 @@
   "verifiedDate": "2026-10-03",
   "nextScheduledRefresh": "2026-11-01",
   "refreshRule": "Re-verify when the IRS publishes the tax-year-2027 inflation adjustments (normally mid/late October), the 2027 retirement-plan limits (normally early/mid November) and when SSA publishes the 2027 COLA/wage base (normally mid-October; Federal Register notice follows in late October/early November). Until then these 2026 figures are final.",
-  "verificationMethod": "Every figure was read on verifiedDate from the primary document named in its `source` (IRS Revenue Procedure / Notice PDFs and irs.gov pages fetched with curl, User-Agent databutler-curation/1.0; all returned HTTP 200 on 2026-10-03). The `quote` field reproduces the sentence or table row the value was taken from. `previous` values come from the 2025 counterpart document named in `previousSource` or from the same page where it states the prior-year figure. Figures were never written from memory and were not copied from any third-party calculator or from the LifeByNumbers app.py — disagreements with app.py are listed in NOTES.md.",
-  "licence": "Works of the United States federal government (IRS, SSA, Federal Register) are in the public domain under 17 U.S.C. § 105. Figures are reproduced with their source URL; no third-party content is included.",
+  "verificationMethod": "Every figure was read on verifiedDate from the primary document named in its `source` (IRS Revenue Procedure / Notice PDFs and irs.gov pages fetched with curl, User-Agent databutler-curation/1.0; all returned HTTP 200 on 2026-10-03). The `quote` field reproduces the sentence or table row the value was taken from. `previous` values come from the 2025 counterpart document named in `previousSource` or from the same page where it states the prior-year figure. Figures were never written from memory and were not copied from any third-party calculator or from the LifeByNumbers app.py — disagreements with app.py are listed in NOTES.md. Figures added on 2026-10-31 carry that verifiedDate and were read that day: ssa.gov, cms.gov, medicare.gov, ecfr.gov and federalregister.gov in a browser, irs.gov with curl. The file-level verifiedDate stays the oldest figure's date until every figure has been re-read; each figure's own verifiedDate is authoritative. Rule pages that state no start date use the first day of the period served, or of the publication edition read.",
+  "licence": "Works of the United States federal government (IRS, SSA, CMS, Medicare.gov, eCFR, Federal Register) are in the public domain under 17 U.S.C. § 105. Figures are reproduced with their source URL; no third-party content is included.",
   "sources": [
     {
       "id": "irs-nr-2026",
@@ -83,6 +83,120 @@
       "title": "Questions and answers for the Additional Medicare Tax",
       "url": "https://www.irs.gov/businesses/small-businesses-self-employed/questions-and-answers-for-the-additional-medicare-tax",
       "fetched": "2026-10-03"
+    },
+    {
+      "id": "ssa-bendpoints",
+      "title": "SSA Office of the Chief Actuary — Benefit Formula Bend Points",
+      "url": "https://www.ssa.gov/oact/cola/bendpoints.html",
+      "fetched": "2026-10-31"
+    },
+    {
+      "id": "ssa-piaformula",
+      "title": "SSA Office of the Chief Actuary — Primary Insurance Amount",
+      "url": "https://www.ssa.gov/oact/cola/piaformula.html",
+      "fetched": "2026-10-31"
+    },
+    {
+      "id": "ssa-rtea",
+      "title": "SSA Office of the Chief Actuary — Exempt Amounts Under the Earnings Test",
+      "url": "https://www.ssa.gov/oact/cola/rtea.html",
+      "fetched": "2026-10-31"
+    },
+    {
+      "id": "ssa-examplemax",
+      "title": "SSA Office of the Chief Actuary — Workers with Maximum-Taxable Earnings",
+      "url": "https://www.ssa.gov/oact/cola/examplemax.html",
+      "fetched": "2026-10-31"
+    },
+    {
+      "id": "ssa-latest-cola",
+      "title": "SSA Office of the Chief Actuary — Latest Cost-of-Living Adjustment",
+      "url": "https://www.ssa.gov/oact/cola/latestCOLA.html",
+      "fetched": "2026-10-31"
+    },
+    {
+      "id": "ssa-cola-2027",
+      "title": "SSA — Cost-of-Living Adjustment (COLA) Information for 2027",
+      "url": "https://www.ssa.gov/cola/",
+      "fetched": "2026-10-31"
+    },
+    {
+      "id": "ssa-age-reduction",
+      "title": "SSA Benefits Planner — Retirement Age and Benefit Reduction",
+      "url": "https://www.ssa.gov/benefits/retirement/planner/agereduction.html",
+      "fetched": "2026-10-31"
+    },
+    {
+      "id": "ssa-early",
+      "title": "SSA Office of the Chief Actuary — Benefit Reduction for Early Retirement",
+      "url": "https://www.ssa.gov/oact/quickcalc/earlyretire.html",
+      "fetched": "2026-10-31"
+    },
+    {
+      "id": "ssa-delayed",
+      "title": "SSA Benefits Planner — Delayed Retirement Credits",
+      "url": "https://www.ssa.gov/benefits/retirement/planner/delayret.html",
+      "fetched": "2026-10-31"
+    },
+    {
+      "id": "ssa-medicare-premiums",
+      "title": "SSA Benefits Planner — Medicare Premiums",
+      "url": "https://www.ssa.gov/benefits/medicare/medicare-premiums.html",
+      "fetched": "2026-10-31"
+    },
+    {
+      "id": "cms-2026",
+      "title": "CMS fact sheet (Nov. 14, 2025): 2026 Medicare Parts A & B Premiums and Deductibles; 2026 Part D Income-Related Monthly Adjustment Amounts",
+      "url": "https://www.cms.gov/newsroom/fact-sheets/2026-medicare-parts-b-premiums-deductibles",
+      "fetched": "2026-10-31"
+    },
+    {
+      "id": "medicare-costs",
+      "title": "Medicare.gov — Costs",
+      "url": "https://www.medicare.gov/basics/costs/medicare-costs",
+      "fetched": "2026-10-31"
+    },
+    {
+      "id": "irs-p915",
+      "title": "IRS Publication 915 (2025), Social Security and Equivalent Railroad Retirement Benefits",
+      "url": "https://www.irs.gov/publications/p915",
+      "fetched": "2026-10-31"
+    },
+    {
+      "id": "irs-p590b",
+      "title": "IRS Publication 590-B (2025), Distributions from Individual Retirement Arrangements",
+      "url": "https://www.irs.gov/publications/p590b",
+      "fetched": "2026-10-31"
+    },
+    {
+      "id": "irs-niit",
+      "title": "IRS — Net Investment Income Tax",
+      "url": "https://www.irs.gov/individuals/net-investment-income-tax",
+      "fetched": "2026-10-31"
+    },
+    {
+      "id": "irs-fs-2025-03",
+      "title": "IRS FS-2025-03 (July 14, 2025): tax deductions for working Americans and seniors",
+      "url": "https://www.irs.gov/newsroom/one-big-beautiful-bill-act-tax-deductions-for-working-americans-and-seniors",
+      "fetched": "2026-10-31"
+    },
+    {
+      "id": "irs-schedule-1a",
+      "title": "IRS Schedule 1-A (Form 1040) 2025, Additional Deductions",
+      "url": "https://www.irs.gov/pub/irs-pdf/f1040s1a.pdf",
+      "fetched": "2026-10-31"
+    },
+    {
+      "id": "ecfr-401a9-2",
+      "title": "eCFR — 26 CFR 1.401(a)(9)-2",
+      "url": "https://www.ecfr.gov/current/title-26/section-1.401(a)(9)-2",
+      "fetched": "2026-10-31"
+    },
+    {
+      "id": "fr-2024-14543",
+      "title": "Federal Register 2024-14543 — Required Minimum Distributions, proposed rule (applicable age for 1959)",
+      "url": "https://www.federalregister.gov/documents/2024/07/19/2024-14543/required-minimum-distributions",
+      "fetched": "2026-10-31"
     }
   ],
   "categories": {
@@ -455,6 +569,50 @@
           "source": "https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill",
           "quote": "For tax year 2026, the top tax rate remains 37% for individual single taxpayers with incomes greater than $640,600 ($768,700 for married couples filing jointly).",
           "verifiedDate": "2026-10-03"
+        },
+        {
+          "key": "senior-deduction",
+          "label": "Enhanced deduction for seniors (age 65 and older), per eligible individual, tax years 2025 through 2028",
+          "value": 6000,
+          "unit": "USD/year per eligible individual",
+          "effectiveFrom": "2025-01-01",
+          "source": "https://www.irs.gov/newsroom/one-big-beautiful-bill-act-tax-deductions-for-working-americans-and-seniors",
+          "quote": "Effective for 2025 through 2028, individuals who are age 65 and older may claim an additional deduction of $6,000. [...] The $6,000 senior deduction is per eligible individual (i.e., $12,000 total for a married couple where both spouses qualify).",
+          "verifiedDate": "2026-10-31",
+          "effectiveTo": "2028-12-31"
+        },
+        {
+          "key": "senior-deduction-phase-out-start-single",
+          "label": "Enhanced deduction for seniors: MAGI where the phase-out starts, other than joint filers",
+          "value": 75000,
+          "unit": "USD MAGI",
+          "effectiveFrom": "2025-01-01",
+          "source": "https://www.irs.gov/newsroom/one-big-beautiful-bill-act-tax-deductions-for-working-americans-and-seniors",
+          "quote": "Deduction phases out for taxpayers with modified adjusted gross income over $75,000 ($150,000 for joint filers).",
+          "verifiedDate": "2026-10-31",
+          "effectiveTo": "2028-12-31"
+        },
+        {
+          "key": "senior-deduction-phase-out-start-married-joint",
+          "label": "Enhanced deduction for seniors: MAGI where the phase-out starts, joint filers",
+          "value": 150000,
+          "unit": "USD MAGI",
+          "effectiveFrom": "2025-01-01",
+          "source": "https://www.irs.gov/newsroom/one-big-beautiful-bill-act-tax-deductions-for-working-americans-and-seniors",
+          "quote": "Deduction phases out for taxpayers with modified adjusted gross income over $75,000 ($150,000 for joint filers).",
+          "verifiedDate": "2026-10-31",
+          "effectiveTo": "2028-12-31"
+        },
+        {
+          "key": "senior-deduction-phase-out-rate",
+          "label": "Enhanced deduction for seniors: reduction per dollar of MAGI over the start, applied to each $6,000",
+          "value": 6,
+          "unit": "% of MAGI over the start",
+          "effectiveFrom": "2025-01-01",
+          "source": "https://www.irs.gov/pub/irs-pdf/f1040s1a.pdf",
+          "quote": "Line 33: Subtract line 32 from line 31. Line 34: Multiply line 33 by 6% (0.06). Line 35: Subtract line 34 from $6,000. If zero or less, enter -0-. (Schedule 1-A (Form 1040) 2025, Part V)",
+          "verifiedDate": "2026-10-31",
+          "effectiveTo": "2028-12-31"
         }
       ]
     },
@@ -756,6 +914,269 @@
             "value": 160000,
             "source": "https://www.irs.gov/pub/irs-drop/n-25-67.pdf"
           }
+        },
+        {
+          "key": "qcd-limit",
+          "label": "Qualified charitable distribution annual limit, § 408(d)(8)(A)",
+          "value": 111000,
+          "unit": "USD/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/n-25-67.pdf",
+          "quote": "The aggregate amount of qualified charitable distributions that are not includible in gross income under section 408(d)(8)(A) is increased from $108,000 to $111,000.",
+          "verifiedDate": "2026-10-31",
+          "previous": {
+            "taxYear": "2025",
+            "value": 108000,
+            "source": "https://www.irs.gov/pub/irs-drop/n-25-67.pdf"
+          }
+        },
+        {
+          "key": "uniform-lifetime-table",
+          "label": "RMD Uniform Lifetime Table (Table III): applicable denominator by age, for unmarried owners, married owners whose spouses are not more than 10 years younger, and married owners whose spouses are not the sole beneficiaries",
+          "value": [
+            {
+              "age": 72,
+              "applicableDenominator": 27.4
+            },
+            {
+              "age": 73,
+              "applicableDenominator": 26.5
+            },
+            {
+              "age": 74,
+              "applicableDenominator": 25.5
+            },
+            {
+              "age": 75,
+              "applicableDenominator": 24.6
+            },
+            {
+              "age": 76,
+              "applicableDenominator": 23.7
+            },
+            {
+              "age": 77,
+              "applicableDenominator": 22.9
+            },
+            {
+              "age": 78,
+              "applicableDenominator": 22
+            },
+            {
+              "age": 79,
+              "applicableDenominator": 21.1
+            },
+            {
+              "age": 80,
+              "applicableDenominator": 20.2
+            },
+            {
+              "age": 81,
+              "applicableDenominator": 19.4
+            },
+            {
+              "age": 82,
+              "applicableDenominator": 18.5
+            },
+            {
+              "age": 83,
+              "applicableDenominator": 17.7
+            },
+            {
+              "age": 84,
+              "applicableDenominator": 16.8
+            },
+            {
+              "age": 85,
+              "applicableDenominator": 16
+            },
+            {
+              "age": 86,
+              "applicableDenominator": 15.2
+            },
+            {
+              "age": 87,
+              "applicableDenominator": 14.4
+            },
+            {
+              "age": 88,
+              "applicableDenominator": 13.7
+            },
+            {
+              "age": 89,
+              "applicableDenominator": 12.9
+            },
+            {
+              "age": 90,
+              "applicableDenominator": 12.2
+            },
+            {
+              "age": 91,
+              "applicableDenominator": 11.5
+            },
+            {
+              "age": 92,
+              "applicableDenominator": 10.8
+            },
+            {
+              "age": 93,
+              "applicableDenominator": 10.1
+            },
+            {
+              "age": 94,
+              "applicableDenominator": 9.5
+            },
+            {
+              "age": 95,
+              "applicableDenominator": 8.9
+            },
+            {
+              "age": 96,
+              "applicableDenominator": 8.4
+            },
+            {
+              "age": 97,
+              "applicableDenominator": 7.8
+            },
+            {
+              "age": 98,
+              "applicableDenominator": 7.3
+            },
+            {
+              "age": 99,
+              "applicableDenominator": 6.8
+            },
+            {
+              "age": 100,
+              "applicableDenominator": 6.4
+            },
+            {
+              "age": 101,
+              "applicableDenominator": 6
+            },
+            {
+              "age": 102,
+              "applicableDenominator": 5.6
+            },
+            {
+              "age": 103,
+              "applicableDenominator": 5.2
+            },
+            {
+              "age": 104,
+              "applicableDenominator": 4.9
+            },
+            {
+              "age": 105,
+              "applicableDenominator": 4.6
+            },
+            {
+              "age": 106,
+              "applicableDenominator": 4.3
+            },
+            {
+              "age": 107,
+              "applicableDenominator": 4.1
+            },
+            {
+              "age": 108,
+              "applicableDenominator": 3.9
+            },
+            {
+              "age": 109,
+              "applicableDenominator": 3.7
+            },
+            {
+              "age": 110,
+              "applicableDenominator": 3.5
+            },
+            {
+              "age": 111,
+              "applicableDenominator": 3.4
+            },
+            {
+              "age": 112,
+              "applicableDenominator": 3.3
+            },
+            {
+              "age": 113,
+              "applicableDenominator": 3.1
+            },
+            {
+              "age": 114,
+              "applicableDenominator": 3
+            },
+            {
+              "age": 115,
+              "applicableDenominator": 2.9
+            },
+            {
+              "age": 116,
+              "applicableDenominator": 2.8
+            },
+            {
+              "age": 117,
+              "applicableDenominator": 2.7
+            },
+            {
+              "age": 118,
+              "applicableDenominator": 2.5
+            },
+            {
+              "age": 119,
+              "applicableDenominator": 2.3
+            },
+            {
+              "age": 120,
+              "applicableDenominator": 2,
+              "andOver": true
+            }
+          ],
+          "unit": "divisor of the prior year-end balance, by age reached in the year",
+          "effectiveFrom": "2025-01-01",
+          "source": "https://www.irs.gov/publications/p590b",
+          "quote": "Appendix B. Uniform Lifetime Table, Table III (Uniform Lifetime). Age / Applicable Denominator: 72 27.4; 73 26.5; 74 25.5; 75 24.6 ... 100 6.4 ... 120 and over 2.0. Publication 590-B (2025).",
+          "verifiedDate": "2026-10-31"
+        },
+        {
+          "key": "rmd-applicable-age-by-birth-year",
+          "label": "RMD applicable age by date of birth (the 1959 row is reserved in the final regulations; the proposed value is shown separately)",
+          "value": [
+            {
+              "bornBefore": "1949-07-01",
+              "applicableAge": 70.5
+            },
+            {
+              "bornFrom": "1949-07-01",
+              "bornBefore": "1951-01-01",
+              "applicableAge": 72
+            },
+            {
+              "bornFrom": "1951-01-01",
+              "bornBefore": "1959-01-01",
+              "applicableAge": 73
+            },
+            {
+              "bornFrom": "1959-01-01",
+              "bornBefore": "1960-01-01",
+              "applicableAge": null,
+              "proposedApplicableAge": 73,
+              "status": "reserved in 26 CFR 1.401(a)(9)-2(b)(2)(v); age 73 is proposed, not final"
+            },
+            {
+              "bornFrom": "1960-01-01",
+              "applicableAge": 75
+            }
+          ],
+          "unit": "years of age by date of birth",
+          "effectiveFrom": "2023-01-01",
+          "source": "https://www.ecfr.gov/current/title-26/section-1.401(a)(9)-2",
+          "quote": "(iv) In the case of an employee born on or after January 1, 1951, but before January 1, 1959, the applicable age is age 73; (v) [Reserved]; (vi) In the case of an employee born on or after January 1, 1960, the applicable age is age 75.",
+          "verifiedDate": "2026-10-31",
+          "corroboration": {
+            "source": "https://www.federalregister.gov/documents/2024/07/19/2024-14543/required-minimum-distributions",
+            "quote": "Under the proposed regulations, the applicable age for an employee who was born in 1959 would be age 73."
+          }
         }
       ]
     },
@@ -934,6 +1355,741 @@
             "value": 190000,
             "source": "https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill"
           }
+        }
+      ]
+    },
+    "social-security-benefits": {
+      "title": "Social Security benefits — formula, claiming ages, earnings test, COLA, taxation of benefits",
+      "scope": "Benefit rules read from ssa.gov in a browser (ssa.gov answers 403 to automated fetches); the taxation amounts are from IRS Publication 915 (2025), the latest edition. Keys ending -2027 hold SSA figures already published for 2027; unsuffixed keys hold the 2026 value.",
+      "source": "https://www.ssa.gov/cola/",
+      "figures": [
+        {
+          "key": "bend-point-first",
+          "label": "PIA formula first bend point, workers first eligible in 2026",
+          "value": 1286,
+          "unit": "USD/month of AIME",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.ssa.gov/oact/cola/bendpoints.html",
+          "quote": "Dollar amounts in PIA formula, year of eligibility 2026: First 1,286, Second 7,749.",
+          "verifiedDate": "2026-10-31",
+          "previous": {
+            "taxYear": "2025",
+            "value": 1226,
+            "source": "https://www.ssa.gov/oact/cola/bendpoints.html",
+            "quote": "Dollar amounts in PIA formula, year of eligibility 2025: First 1,226, Second 7,391."
+          }
+        },
+        {
+          "key": "bend-point-second",
+          "label": "PIA formula second bend point, workers first eligible in 2026",
+          "value": 7749,
+          "unit": "USD/month of AIME",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.ssa.gov/oact/cola/bendpoints.html",
+          "quote": "Dollar amounts in PIA formula, year of eligibility 2026: First 1,286, Second 7,749.",
+          "verifiedDate": "2026-10-31",
+          "previous": {
+            "taxYear": "2025",
+            "value": 7391,
+            "source": "https://www.ssa.gov/oact/cola/bendpoints.html",
+            "quote": "Dollar amounts in PIA formula, year of eligibility 2025: First 1,226, Second 7,391."
+          }
+        },
+        {
+          "key": "bend-point-first-2027",
+          "label": "PIA formula first bend point, workers first eligible in 2027",
+          "value": 1340,
+          "unit": "USD/month of AIME",
+          "effectiveFrom": "2027-01-01",
+          "source": "https://www.ssa.gov/oact/cola/bendpoints.html",
+          "quote": "For 2027 these portions are the first $1,340, the amount between $1,340 and $8,077, and the amount over $8,077.",
+          "verifiedDate": "2026-10-31",
+          "previous": {
+            "taxYear": "2026",
+            "value": 1286,
+            "source": "https://www.ssa.gov/oact/cola/bendpoints.html",
+            "quote": "Dollar amounts in PIA formula, year of eligibility 2026: First 1,286, Second 7,749."
+          },
+          "corroboration": {
+            "source": "https://www.ssa.gov/oact/cola/piaformula.html",
+            "quote": "(a) 90 percent of the first $1,340 of his/her average indexed monthly earnings"
+          }
+        },
+        {
+          "key": "bend-point-second-2027",
+          "label": "PIA formula second bend point, workers first eligible in 2027",
+          "value": 8077,
+          "unit": "USD/month of AIME",
+          "effectiveFrom": "2027-01-01",
+          "source": "https://www.ssa.gov/oact/cola/bendpoints.html",
+          "quote": "For 2027 these portions are the first $1,340, the amount between $1,340 and $8,077, and the amount over $8,077.",
+          "verifiedDate": "2026-10-31",
+          "previous": {
+            "taxYear": "2026",
+            "value": 7749,
+            "source": "https://www.ssa.gov/oact/cola/bendpoints.html",
+            "quote": "Dollar amounts in PIA formula, year of eligibility 2026: First 1,286, Second 7,749."
+          },
+          "corroboration": {
+            "source": "https://www.ssa.gov/oact/cola/piaformula.html",
+            "quote": "(b) 32 percent of his/her average indexed monthly earnings over $1,340 and through $8,077"
+          }
+        },
+        {
+          "key": "full-retirement-age-by-birth-year",
+          "label": "Full (normal) retirement age by year of birth",
+          "value": [
+            {
+              "born": "1943-1954",
+              "years": 66,
+              "months": 0
+            },
+            {
+              "born": "1955",
+              "years": 66,
+              "months": 2
+            },
+            {
+              "born": "1956",
+              "years": 66,
+              "months": 4
+            },
+            {
+              "born": "1957",
+              "years": 66,
+              "months": 6
+            },
+            {
+              "born": "1958",
+              "years": 66,
+              "months": 8
+            },
+            {
+              "born": "1959",
+              "years": 66,
+              "months": 10
+            },
+            {
+              "born": "1960 and later",
+              "years": 67,
+              "months": 0
+            }
+          ],
+          "unit": "years and months of age",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.ssa.gov/benefits/retirement/planner/agereduction.html",
+          "quote": "1943-1954 66; 1955 66 and 2 months; 1956 66 and 4 months; 1957 66 and 6 months; 1958 66 and 8 months; 1959 66 and 10 months; 1960 and later 67. If you were born on January 1st, you should refer to the previous year.",
+          "verifiedDate": "2026-10-31"
+        },
+        {
+          "key": "early-reduction-worker-first-36-months",
+          "label": "Early-retirement reduction of the worker benefit, each of the first 36 months before full retirement age",
+          "value": "5/9",
+          "unit": "% of PIA per month (a fraction of 1%)",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.ssa.gov/oact/quickcalc/earlyretire.html",
+          "quote": "The percentage reduction is 5/9 of 1% per month for the first 36 months and 5/12 of 1% for each additional month.",
+          "verifiedDate": "2026-10-31"
+        },
+        {
+          "key": "early-reduction-worker-additional-months",
+          "label": "Early-retirement reduction of the worker benefit, each month beyond the first 36",
+          "value": "5/12",
+          "unit": "% of PIA per month (a fraction of 1%)",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.ssa.gov/oact/quickcalc/earlyretire.html",
+          "quote": "The percentage reduction is 5/9 of 1% per month for the first 36 months and 5/12 of 1% for each additional month.",
+          "verifiedDate": "2026-10-31"
+        },
+        {
+          "key": "early-reduction-spouse-first-36-months",
+          "label": "Early-retirement reduction of the spouse benefit, each of the first 36 months before full retirement age",
+          "value": "25/36",
+          "unit": "% of spouse benefit per month (a fraction of 1%)",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.ssa.gov/oact/quickcalc/earlyretire.html",
+          "quote": "The percentage reduction is 25/36 of 1% per month for the first 36 months and 5/12 of 1% for each additional month.",
+          "verifiedDate": "2026-10-31"
+        },
+        {
+          "key": "early-reduction-spouse-additional-months",
+          "label": "Early-retirement reduction of the spouse benefit, each month beyond the first 36",
+          "value": "5/12",
+          "unit": "% of spouse benefit per month (a fraction of 1%)",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.ssa.gov/oact/quickcalc/earlyretire.html",
+          "quote": "The percentage reduction is 25/36 of 1% per month for the first 36 months and 5/12 of 1% for each additional month.",
+          "verifiedDate": "2026-10-31"
+        },
+        {
+          "key": "delayed-credit-monthly",
+          "label": "Delayed retirement credit per month after full retirement age, born 1943 or later, up to age 70",
+          "value": "2/3",
+          "unit": "% per month (a fraction of 1%)",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.ssa.gov/benefits/retirement/planner/delayret.html",
+          "quote": "1943 or later 8.0% 2/3 of 1%. The benefit increase stops when you reach age 70.",
+          "verifiedDate": "2026-10-31"
+        },
+        {
+          "key": "delayed-credit-annual",
+          "label": "Delayed retirement credit per 12 months after full retirement age, born 1943 or later, up to age 70",
+          "value": 8,
+          "unit": "%/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.ssa.gov/benefits/retirement/planner/delayret.html",
+          "quote": "1943 or later 8.0% 2/3 of 1%. The benefit increase stops when you reach age 70.",
+          "verifiedDate": "2026-10-31"
+        },
+        {
+          "key": "earnings-test-lower",
+          "label": "Retirement earnings test exempt amount in 2026, years before the year of reaching full retirement age",
+          "value": 24480,
+          "unit": "USD/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.ssa.gov/oact/cola/rtea.html",
+          "quote": "2026 24,480 65,160. a Applies in years before the year of attaining NRA. We withhold $1 in benefits for every $2 of earnings in excess of the lower exempt amount.",
+          "verifiedDate": "2026-10-31",
+          "previous": {
+            "taxYear": "2025",
+            "value": 23400,
+            "source": "https://www.ssa.gov/oact/cola/rtea.html",
+            "quote": "2025 23,400 62,160"
+          }
+        },
+        {
+          "key": "earnings-test-higher",
+          "label": "Retirement earnings test exempt amount in 2026, the year of reaching full retirement age",
+          "value": 65160,
+          "unit": "USD/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.ssa.gov/oact/cola/rtea.html",
+          "quote": "2026 24,480 65,160. b Applies in the year of attaining NRA, for months prior to such attainment. We withhold $1 in benefits for every $3 of earnings in excess of the higher exempt amount.",
+          "verifiedDate": "2026-10-31",
+          "previous": {
+            "taxYear": "2025",
+            "value": 62160,
+            "source": "https://www.ssa.gov/oact/cola/rtea.html",
+            "quote": "2025 23,400 62,160"
+          }
+        },
+        {
+          "key": "earnings-test-lower-2027",
+          "label": "Retirement earnings test exempt amount in 2027, years before the year of reaching full retirement age",
+          "value": 25560,
+          "unit": "USD/year",
+          "effectiveFrom": "2027-01-01",
+          "source": "https://www.ssa.gov/oact/cola/rtea.html",
+          "quote": "For people attaining NRA after 2027, the annual exempt amount in 2027 is $25,560.",
+          "verifiedDate": "2026-10-31",
+          "previous": {
+            "taxYear": "2026",
+            "value": 24480,
+            "source": "https://www.ssa.gov/oact/cola/rtea.html",
+            "quote": "2026 24,480 65,160"
+          },
+          "corroboration": {
+            "source": "https://www.ssa.gov/cola/",
+            "quote": "We deduct $1 from benefits for each $2 earned over $25,560."
+          }
+        },
+        {
+          "key": "earnings-test-higher-2027",
+          "label": "Retirement earnings test exempt amount in 2027, the year of reaching full retirement age",
+          "value": 67920,
+          "unit": "USD/year",
+          "effectiveFrom": "2027-01-01",
+          "source": "https://www.ssa.gov/oact/cola/rtea.html",
+          "quote": "For people attaining NRA in 2027, the annual exempt amount is $67,920. This higher exempt amount applies only to earnings made in months prior to the month of NRA attainment.",
+          "verifiedDate": "2026-10-31",
+          "previous": {
+            "taxYear": "2026",
+            "value": 65160,
+            "source": "https://www.ssa.gov/oact/cola/rtea.html",
+            "quote": "2026 24,480 65,160"
+          },
+          "corroboration": {
+            "source": "https://www.ssa.gov/cola/",
+            "quote": "We deduct $1 from benefits for each $3 earned over $67,920 until the month before the worker turns full retirement age."
+          }
+        },
+        {
+          "key": "max-benefit-at-fra-2027",
+          "label": "Initial monthly benefit, retirement at age 67 in January 2027 with maximum-taxable earnings since age 22",
+          "value": 4188,
+          "unit": "USD/month",
+          "effectiveFrom": "2027-01-01",
+          "source": "https://www.ssa.gov/oact/cola/examplemax.html",
+          "quote": "Retirement in Jan. 2027: Retirement at age 67 AIME $11,848, monthly benefit initial $4,188.",
+          "verifiedDate": "2026-10-31",
+          "previous": {
+            "taxYear": "2026",
+            "value": 4207,
+            "source": "https://www.ssa.gov/oact/cola/examplemax.html",
+            "quote": "Retirement in Jan. 2026: Retirement at age 67 AIME 11,463, monthly benefit initial 4,207."
+          }
+        },
+        {
+          "key": "cola-2027",
+          "label": "Cost-of-living adjustment beginning with December 2026 benefits (payable January 2027)",
+          "value": 3.6,
+          "unit": "%",
+          "effectiveFrom": "2026-12-01",
+          "source": "https://www.ssa.gov/oact/cola/latestCOLA.html",
+          "quote": "Social Security benefits will increase by 3.6 percent beginning with the December 2026 benefits, which are payable in January 2027.",
+          "verifiedDate": "2026-10-31",
+          "taxYear": "2027",
+          "previous": {
+            "taxYear": "2026",
+            "value": 2.8,
+            "source": "https://www.federalregister.gov/documents/2025/11/03/2025-19763/cost-of-living-increase-and-other-determinations-for-2026",
+            "quote": "Under title II of the Social Security Act (Act), there will be a 2.8 percent cost-of-living increase in Social Security benefits effective December 2025.",
+            "effectiveFrom": "2025-12-01"
+          },
+          "corroboration": {
+            "source": "https://www.ssa.gov/cola/",
+            "quote": "Social Security and Supplemental Security Income (SSI) benefits for 76 million Americans will increase 3.6 percent in 2027."
+          }
+        },
+        {
+          "key": "taxation-base-amount-single",
+          "label": "Base amount for taxing benefits: single, head of household, qualifying surviving spouse, or married filing separately and apart all year",
+          "value": 25000,
+          "unit": "USD/year",
+          "effectiveFrom": "2025-01-01",
+          "source": "https://www.irs.gov/publications/p915",
+          "quote": "$25,000 if you are single, head of household, or qualifying surviving spouse; $25,000 if you are married filing separately and lived apart from your spouse for all of 2025",
+          "verifiedDate": "2026-10-31"
+        },
+        {
+          "key": "taxation-base-amount-married-joint",
+          "label": "Base amount for taxing benefits: married filing jointly",
+          "value": 32000,
+          "unit": "USD/year",
+          "effectiveFrom": "2025-01-01",
+          "source": "https://www.irs.gov/publications/p915",
+          "quote": "$32,000 if you are married filing jointly",
+          "verifiedDate": "2026-10-31"
+        },
+        {
+          "key": "taxation-base-amount-married-separate-together",
+          "label": "Base amount for taxing benefits: married filing separately and lived with spouse at any time in the year",
+          "value": 0,
+          "unit": "USD/year",
+          "effectiveFrom": "2025-01-01",
+          "source": "https://www.irs.gov/publications/p915",
+          "quote": "$0 if you are married filing separately and lived with your spouse at any time during 2025.",
+          "verifiedDate": "2026-10-31"
+        },
+        {
+          "key": "taxation-85-percent-threshold-single",
+          "label": "Income above which up to 85% of benefits can be taxable: other than married filing jointly",
+          "value": 34000,
+          "unit": "USD/year",
+          "effectiveFrom": "2025-01-01",
+          "source": "https://www.irs.gov/publications/p915",
+          "quote": "Generally, up to 50% of your benefits will be taxable. However, up to 85% of your benefits can be taxable if either of the following situations applies to you. The total of one-half of your benefits and all your other income is more than $34,000 ($44,000 if you are married filing jointly).",
+          "verifiedDate": "2026-10-31"
+        },
+        {
+          "key": "taxation-85-percent-threshold-married-joint",
+          "label": "Income above which up to 85% of benefits can be taxable: married filing jointly",
+          "value": 44000,
+          "unit": "USD/year",
+          "effectiveFrom": "2025-01-01",
+          "source": "https://www.irs.gov/publications/p915",
+          "quote": "Generally, up to 50% of your benefits will be taxable. However, up to 85% of your benefits can be taxable if either of the following situations applies to you. The total of one-half of your benefits and all your other income is more than $34,000 ($44,000 if you are married filing jointly).",
+          "verifiedDate": "2026-10-31"
+        }
+      ]
+    },
+    "medicare-costs": {
+      "title": "Medicare costs 2026 — Parts A, B and D, income-related monthly adjustment amounts",
+      "scope": "Beneficiary costs for calendar 2026, distinct from the medicare category (payroll tax). IRMAA rows are read against MAGI from the tax return Social Security uses, generally two years earlier. CMS had not published 2027 amounts on 2026-10-31.",
+      "source": "https://www.cms.gov/newsroom/fact-sheets/2026-medicare-parts-b-premiums-deductibles",
+      "figures": [
+        {
+          "key": "part-b-standard-premium",
+          "label": "Medicare Part B standard monthly premium, 2026",
+          "value": 202.9,
+          "unit": "USD/month",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.cms.gov/newsroom/fact-sheets/2026-medicare-parts-b-premiums-deductibles",
+          "quote": "The standard monthly premium for Medicare Part B enrollees will be $202.90 for 2026, an increase of $17.90 from $185.00 in 2025.",
+          "verifiedDate": "2026-10-31",
+          "previous": {
+            "taxYear": "2025",
+            "value": 185,
+            "source": "https://www.cms.gov/newsroom/fact-sheets/2026-medicare-parts-b-premiums-deductibles",
+            "quote": "an increase of $17.90 from $185.00 in 2025"
+          }
+        },
+        {
+          "key": "part-b-deductible",
+          "label": "Medicare Part B annual deductible, 2026",
+          "value": 283,
+          "unit": "USD/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.cms.gov/newsroom/fact-sheets/2026-medicare-parts-b-premiums-deductibles",
+          "quote": "The annual deductible for all Medicare Part B beneficiaries will be $283 in 2026, an increase of $26 from the annual deductible of $257 in 2025.",
+          "verifiedDate": "2026-10-31",
+          "previous": {
+            "taxYear": "2025",
+            "value": 257,
+            "source": "https://www.cms.gov/newsroom/fact-sheets/2026-medicare-parts-b-premiums-deductibles",
+            "quote": "the annual deductible of $257 in 2025"
+          }
+        },
+        {
+          "key": "part-a-deductible",
+          "label": "Medicare Part A inpatient hospital deductible per benefit period, 2026",
+          "value": 1736,
+          "unit": "USD/benefit period",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.cms.gov/newsroom/fact-sheets/2026-medicare-parts-b-premiums-deductibles",
+          "quote": "The Medicare Part A inpatient hospital deductible that beneficiaries pay if admitted to the hospital will be $1,736 in 2026, an increase of $60 from $1,676 in 2025.",
+          "verifiedDate": "2026-10-31",
+          "previous": {
+            "taxYear": "2025",
+            "value": 1676,
+            "source": "https://www.cms.gov/newsroom/fact-sheets/2026-medicare-parts-b-premiums-deductibles",
+            "quote": "an increase of $60 from $1,676 in 2025"
+          }
+        },
+        {
+          "key": "part-d-out-of-pocket-limit",
+          "label": "Medicare Part D yearly out-of-pocket limit, 2026",
+          "value": 2100,
+          "unit": "USD/year",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.medicare.gov/basics/costs/medicare-costs",
+          "quote": "Out-of-pocket limit Yearly $2,100 (in 2026). Includes your deductible, out-of-pocket spending, and certain payments made on your behalf, like through the Extra Help program.",
+          "verifiedDate": "2026-10-31"
+        },
+        {
+          "key": "irmaa-individual-return",
+          "label": "IRMAA 2026: beneficiaries who file individual tax returns, full Part B coverage and Part D",
+          "value": [
+            {
+              "magiAtMost": 109000,
+              "partBAdjustment": 0,
+              "partBTotalPremium": 202.9,
+              "partDAdjustment": 0
+            },
+            {
+              "magiOver": 109000,
+              "magiAtMost": 137000,
+              "partBAdjustment": 81.2,
+              "partBTotalPremium": 284.1,
+              "partDAdjustment": 14.5
+            },
+            {
+              "magiOver": 137000,
+              "magiAtMost": 171000,
+              "partBAdjustment": 202.9,
+              "partBTotalPremium": 405.8,
+              "partDAdjustment": 37.5
+            },
+            {
+              "magiOver": 171000,
+              "magiAtMost": 205000,
+              "partBAdjustment": 324.6,
+              "partBTotalPremium": 527.5,
+              "partDAdjustment": 60.4
+            },
+            {
+              "magiOver": 205000,
+              "magiLessThan": 500000,
+              "partBAdjustment": 446.3,
+              "partBTotalPremium": 649.2,
+              "partDAdjustment": 83.3
+            },
+            {
+              "magiAtLeast": 500000,
+              "partBAdjustment": 487,
+              "partBTotalPremium": 689.9,
+              "partDAdjustment": 91
+            }
+          ],
+          "unit": "USD/month by MAGI row (partBAdjustment, partBTotalPremium; partDAdjustment is added to the plan premium)",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.cms.gov/newsroom/fact-sheets/2026-medicare-parts-b-premiums-deductibles",
+          "quote": "Less than or equal to $109,000: $0.00, $202.90; Greater than $109,000 and less than or equal to $137,000: $81.20, $284.10; ... to $171,000: $202.90, $405.80; ... to $205,000: $324.60, $527.50; Greater than $205,000 and less than $500,000: $446.30, $649.20; Greater than or equal to $500,000: $487.00, $689.90. Part D: $0.00, $14.50, $37.50, $60.40, $83.30, $91.00.",
+          "verifiedDate": "2026-10-31",
+          "corroboration": {
+            "source": "https://www.ssa.gov/benefits/medicare/medicare-premiums.html",
+            "quote": "Individuals with a MAGI above $109,000 up to $137,000 ... Standard premium + $81.20 Your plan premium + $14.50"
+          }
+        },
+        {
+          "key": "irmaa-joint-return",
+          "label": "IRMAA 2026: beneficiaries who file joint tax returns, full Part B coverage and Part D",
+          "value": [
+            {
+              "magiAtMost": 218000,
+              "partBAdjustment": 0,
+              "partBTotalPremium": 202.9,
+              "partDAdjustment": 0
+            },
+            {
+              "magiOver": 218000,
+              "magiAtMost": 274000,
+              "partBAdjustment": 81.2,
+              "partBTotalPremium": 284.1,
+              "partDAdjustment": 14.5
+            },
+            {
+              "magiOver": 274000,
+              "magiAtMost": 342000,
+              "partBAdjustment": 202.9,
+              "partBTotalPremium": 405.8,
+              "partDAdjustment": 37.5
+            },
+            {
+              "magiOver": 342000,
+              "magiAtMost": 410000,
+              "partBAdjustment": 324.6,
+              "partBTotalPremium": 527.5,
+              "partDAdjustment": 60.4
+            },
+            {
+              "magiOver": 410000,
+              "magiLessThan": 750000,
+              "partBAdjustment": 446.3,
+              "partBTotalPremium": 649.2,
+              "partDAdjustment": 83.3
+            },
+            {
+              "magiAtLeast": 750000,
+              "partBAdjustment": 487,
+              "partBTotalPremium": 689.9,
+              "partDAdjustment": 91
+            }
+          ],
+          "unit": "USD/month by MAGI row (partBAdjustment, partBTotalPremium; partDAdjustment is added to the plan premium)",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.cms.gov/newsroom/fact-sheets/2026-medicare-parts-b-premiums-deductibles",
+          "quote": "Less than or equal to $218,000: $0.00, $202.90; Greater than $218,000 and less than or equal to $274,000: $81.20, $284.10; ... to $342,000: $202.90, $405.80; ... to $410,000: $324.60, $527.50; Greater than $410,000 and less than $750,000: $446.30, $649.20; Greater than or equal to $750,000: $487.00, $689.90. Part D: $0.00, $14.50, $37.50, $60.40, $83.30, $91.00.",
+          "verifiedDate": "2026-10-31",
+          "corroboration": {
+            "source": "https://www.ssa.gov/benefits/medicare/medicare-premiums.html",
+            "quote": "Married couples with a MAGI above $218,000 up to $274,000 Standard premium + $81.20 Your plan premium + $14.50"
+          }
+        },
+        {
+          "key": "irmaa-married-separate",
+          "label": "IRMAA 2026: married, lived with spouse at any time in the year, filing separately, full Part B coverage and Part D",
+          "value": [
+            {
+              "magiAtMost": 109000,
+              "partBAdjustment": 0,
+              "partBTotalPremium": 202.9,
+              "partDAdjustment": 0
+            },
+            {
+              "magiOver": 109000,
+              "magiLessThan": 391000,
+              "partBAdjustment": 446.3,
+              "partBTotalPremium": 649.2,
+              "partDAdjustment": 83.3
+            },
+            {
+              "magiAtLeast": 391000,
+              "partBAdjustment": 487,
+              "partBTotalPremium": 689.9,
+              "partDAdjustment": 91
+            }
+          ],
+          "unit": "USD/month by MAGI row (partBAdjustment, partBTotalPremium; partDAdjustment is added to the plan premium)",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.cms.gov/newsroom/fact-sheets/2026-medicare-parts-b-premiums-deductibles",
+          "quote": "Less than or equal to $109,000: $0.00, $202.90; Greater than $109,000 and less than $391,000: $446.30, $649.20; Greater than or equal to $391,000: $487.00, $689.90. Part D: $0.00, $83.30, $91.00.",
+          "verifiedDate": "2026-10-31"
+        }
+      ]
+    },
+    "capital-gains": {
+      "title": "Long-term capital gains thresholds and Net Investment Income Tax, 2026",
+      "scope": "Maximum zero and 15% rate amounts under § 1(j)(5)(B) for individuals (taxable income), and the Net Investment Income Tax. Estates and trusts, and the special rates for collectibles and unrecaptured section 1250 gain, are not covered.",
+      "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
+      "figures": [
+        {
+          "key": "zero-rate-max-married-joint",
+          "label": "Maximum zero rate amount: married filing jointly and surviving spouse",
+          "value": 98900,
+          "unit": "USD taxable income",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
+          "quote": "Married Individuals Filing Joint Returns and Surviving Spouse $98,900 $613,700",
+          "verifiedDate": "2026-10-31",
+          "previous": {
+            "taxYear": "2025",
+            "value": 96700,
+            "source": "https://www.irs.gov/pub/irs-drop/rp-24-40.pdf",
+            "quote": "Married Individuals Filing Joint Returns and Surviving Spouse $96,700 $600,050"
+          }
+        },
+        {
+          "key": "zero-rate-max-married-separate",
+          "label": "Maximum zero rate amount: married filing separately",
+          "value": 49450,
+          "unit": "USD taxable income",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
+          "quote": "Married Individuals Filing Separate Returns $49,450 $306,850",
+          "verifiedDate": "2026-10-31",
+          "previous": {
+            "taxYear": "2025",
+            "value": 48350,
+            "source": "https://www.irs.gov/pub/irs-drop/rp-24-40.pdf",
+            "quote": "Married Individuals Filing Separate Returns $48,350 $300,000"
+          }
+        },
+        {
+          "key": "zero-rate-max-head-of-household",
+          "label": "Maximum zero rate amount: head of household",
+          "value": 66200,
+          "unit": "USD taxable income",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
+          "quote": "Heads of Household $66,200 $579,600",
+          "verifiedDate": "2026-10-31",
+          "previous": {
+            "taxYear": "2025",
+            "value": 64750,
+            "source": "https://www.irs.gov/pub/irs-drop/rp-24-40.pdf",
+            "quote": "Heads of Household $64,750 $566,700"
+          }
+        },
+        {
+          "key": "zero-rate-max-single",
+          "label": "Maximum zero rate amount: all other individuals",
+          "value": 49450,
+          "unit": "USD taxable income",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
+          "quote": "All Other Individuals $49,450 $545,500",
+          "verifiedDate": "2026-10-31",
+          "previous": {
+            "taxYear": "2025",
+            "value": 48350,
+            "source": "https://www.irs.gov/pub/irs-drop/rp-24-40.pdf",
+            "quote": "All Other Individuals $48,350 $533,400"
+          }
+        },
+        {
+          "key": "fifteen-rate-max-married-joint",
+          "label": "Maximum 15% rate amount: married filing jointly and surviving spouse",
+          "value": 613700,
+          "unit": "USD taxable income",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
+          "quote": "Married Individuals Filing Joint Returns and Surviving Spouse $98,900 $613,700",
+          "verifiedDate": "2026-10-31",
+          "previous": {
+            "taxYear": "2025",
+            "value": 600050,
+            "source": "https://www.irs.gov/pub/irs-drop/rp-24-40.pdf",
+            "quote": "Married Individuals Filing Joint Returns and Surviving Spouse $96,700 $600,050"
+          }
+        },
+        {
+          "key": "fifteen-rate-max-married-separate",
+          "label": "Maximum 15% rate amount: married filing separately",
+          "value": 306850,
+          "unit": "USD taxable income",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
+          "quote": "Married Individuals Filing Separate Returns $49,450 $306,850",
+          "verifiedDate": "2026-10-31",
+          "previous": {
+            "taxYear": "2025",
+            "value": 300000,
+            "source": "https://www.irs.gov/pub/irs-drop/rp-24-40.pdf",
+            "quote": "Married Individuals Filing Separate Returns $48,350 $300,000"
+          }
+        },
+        {
+          "key": "fifteen-rate-max-head-of-household",
+          "label": "Maximum 15% rate amount: head of household",
+          "value": 579600,
+          "unit": "USD taxable income",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
+          "quote": "Heads of Household $66,200 $579,600",
+          "verifiedDate": "2026-10-31",
+          "previous": {
+            "taxYear": "2025",
+            "value": 566700,
+            "source": "https://www.irs.gov/pub/irs-drop/rp-24-40.pdf",
+            "quote": "Heads of Household $64,750 $566,700"
+          }
+        },
+        {
+          "key": "fifteen-rate-max-single",
+          "label": "Maximum 15% rate amount: all other individuals",
+          "value": 545500,
+          "unit": "USD taxable income",
+          "effectiveFrom": "2026-01-01",
+          "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
+          "quote": "All Other Individuals $49,450 $545,500",
+          "verifiedDate": "2026-10-31",
+          "previous": {
+            "taxYear": "2025",
+            "value": 533400,
+            "source": "https://www.irs.gov/pub/irs-drop/rp-24-40.pdf",
+            "quote": "All Other Individuals $48,350 $533,400"
+          }
+        },
+        {
+          "key": "niit-rate",
+          "label": "Net Investment Income Tax rate",
+          "value": 3.8,
+          "unit": "%",
+          "effectiveFrom": "2013-01-01",
+          "source": "https://www.irs.gov/individuals/net-investment-income-tax",
+          "quote": "Effective Jan. 1, 2013, individual taxpayers are liable for a 3.8 percent Net Investment Income Tax on the lesser of their net investment income, or the amount by which their modified adjusted gross income exceeds the statutory threshold amount based on their filing status.",
+          "verifiedDate": "2026-10-31"
+        },
+        {
+          "key": "niit-threshold-married-joint",
+          "label": "Net Investment Income Tax MAGI threshold: married filing jointly",
+          "value": 250000,
+          "unit": "USD MAGI",
+          "effectiveFrom": "2013-01-01",
+          "source": "https://www.irs.gov/individuals/net-investment-income-tax",
+          "quote": "The statutory threshold amounts are: Married filing jointly — $250,000",
+          "verifiedDate": "2026-10-31"
+        },
+        {
+          "key": "niit-threshold-married-separate",
+          "label": "Net Investment Income Tax MAGI threshold: married filing separately",
+          "value": 125000,
+          "unit": "USD MAGI",
+          "effectiveFrom": "2013-01-01",
+          "source": "https://www.irs.gov/individuals/net-investment-income-tax",
+          "quote": "The statutory threshold amounts are: Married filing separately — $125,000",
+          "verifiedDate": "2026-10-31"
+        },
+        {
+          "key": "niit-threshold-single",
+          "label": "Net Investment Income Tax MAGI threshold: single or head of household",
+          "value": 200000,
+          "unit": "USD MAGI",
+          "effectiveFrom": "2013-01-01",
+          "source": "https://www.irs.gov/individuals/net-investment-income-tax",
+          "quote": "The statutory threshold amounts are: Single or head of household — $200,000",
+          "verifiedDate": "2026-10-31"
+        },
+        {
+          "key": "niit-threshold-surviving-spouse",
+          "label": "Net Investment Income Tax MAGI threshold: qualifying widow(er) with a child",
+          "value": 250000,
+          "unit": "USD MAGI",
+          "effectiveFrom": "2013-01-01",
+          "source": "https://www.irs.gov/individuals/net-investment-income-tax",
+          "quote": "The statutory threshold amounts are: Qualifying widow(er) with a child — $250,000",
+          "verifiedDate": "2026-10-31"
         }
       ]
     }

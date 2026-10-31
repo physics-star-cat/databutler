@@ -86,7 +86,7 @@ test('data: verifiedDate, nextScheduledRefresh follows the cadence, every catego
   assert.equal(fig('inspection-fee', 'standard-bring-in').previous.value, 2300);
   assert.equal(fig('inspection-fee', 'kei-certificate-oss').previous.value, 1600);
   // The two 自賠責 periods are distinguishable: the current table ends 2026-10-31, the revised one starts 2026-11-01
-  // and carries the current amount as previous; the unverified revised 25- and 37-month rates are absent.
+  // and carries the current amount as previous; the revised 25- and 37-month rates come from GIROJ's table.
   for (const f of DATA.categories.cali.figures.filter((x) => /^(passenger|kei)-\d+m$/.test(x.key))) {
     assert.equal(f.effectiveFrom, '2023-04-01', f.key);
     assert.equal(f.effectiveTo, '2026-10-31', f.key);
@@ -95,9 +95,10 @@ test('data: verifiedDate, nextScheduledRefresh follows the cadence, every catego
     assert.equal(f.effectiveFrom, '2026-11-01', f.key);
     assert.equal(f.previous.value, fig('cali', f.key.replace('-from-2026-11', '')).value, f.key);
   }
-  for (const k of ['passenger-25m-from-2026-11', 'passenger-37m-from-2026-11', 'kei-25m-from-2026-11', 'kei-37m-from-2026-11']) {
-    assert.ok(!DATA.categories.cali.figures.some((x) => x.key === k), `${k} is unverified and must not be published`);
-  }
+  assert.equal(fig('cali', 'passenger-25m-from-2026-11').value, 19070);
+  assert.equal(fig('cali', 'passenger-37m-from-2026-11').value, 25180);
+  assert.equal(fig('cali', 'kei-25m-from-2026-11').value, 19170);
+  assert.equal(fig('cali', 'kei-37m-from-2026-11').value, 25330);
   // Every figure carries a key, the Japanese term and the quoted row it was read from.
   for (const { cat, f } of FIGURES) assert.ok(f.key && f.term && f.quote, `${cat}/${f.label}`);
 });

@@ -5,16 +5,20 @@
  *   GET  /f?keys=k1,k2  ·  POST /f {keys}    batch (≤ 50 keys)
  *   GET  /f                                  the index (?namespace=, ?format=html for the Dataset page)
  *   GET  /f/resolve?q=&namespace=&limit=     resolve a question or a guessed key
- *   /facts                                   alias of /f
+ *   GET  /facts/{key}  ·  GET /facts          v0.3: the fact's page and the index page — text/html to every caller,
+ *                                             no negotiation (Bingbot sends a wildcard Accept); Accept: application/json
+ *                                             without text/html is redirected (302, no-store) to the /f form
  *
- * The rewrite passes the key as ?key=; it is stripped from req.url like the router strips ?route=.
- * Records cache an hour at the edge (status is a function of the day); misses are no-store.
+ * The rewrite passes the key as ?key= and the page route as ?page=1; both are stripped from req.url like the router
+ * strips ?route=. Every HTML representation is canonical to /facts/<key> (or /facts). Records cache an hour at the
+ * edge (status is a function of the day); misses are no-store. The JSON index carries `digest` and answers
+ * If-None-Match with 304 when the digest is unchanged (spec §5.6).
  */
 const { CORS, handleOptions } = require('../_lib');
 const { trackEvent, trackFacts } = require('../_track');
 const F = require('../_facts');
 const R = require('../_facts_render');
-const { FACTS_PROTOCOL, PUBLISHER } = require('../_changelog');
+const { FACTS_PROTOCOL, PUBLISHER, FACTS_PAGE_INDEX_URL } = require('../_changelog');
 
 const CACHE = 'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400';
 const FORMATS = ['json', 'txt', 'html'];
@@ -85,16 +89,25 @@ function index(q, format) {
     return { format: 'html', body: R.indexHtml(records, { generated }) };
   }
   if (format === 'txt') return { format: 'txt', body: `${list.map((e) => e.key).join('\n')}\n` };
+  const ns = q.namespace ? String(q.namespace).toLowerCase().trim() : null;
+  const digest = ns ? (list.length ? F.digestFor(ns) : null) : F.DIGEST;
   return {
     format: 'json',
+    digest,
     body: {
-      protocol: FACTS_PROTOCOL, publisher: PUBLISHER, count: list.length, generated,
-      ...(q.namespace ? { namespace: String(q.namespace).toLowerCase().trim() } : {}),
-      get: 'https://databutler.dev/f/{key}', resolve: 'https://databutler.dev/f/resolve?q={q}',
+      protocol: FACTS_PROTOCOL, publisher: PUBLISHER, count: list.length, generated, ...(digest ? { digest } : {}),
+      ...(ns ? { namespace: ns } : {}),
+      get: 'https://databutler.dev/f/{key}', page: 'https://databutler.dev/facts/{key}', resolve: 'https://databutler.dev/f/resolve?q={q}',
       facts: list,
     },
   };
 }
+
+/** Accept asks for JSON and not for HTML: the only request a /facts page redirects (to the /f machine URL). */
+const wantsJsonOnly = (accept) => { const a = String(accept || '').toLowerCase(); return a.includes('application/json') && !a.includes('text/html'); };
+
+/** An ETag list (If-None-Match) contains this tag, weak or strong. */
+const matches = (header, tag) => String(header || '').split(',').map((s) => s.trim().replace(/^W\//, '')).some((s) => s === tag || s === '*');
 
 module.exports = async (req, res) => {
   if (handleOptions(req, res)) return;
@@ -103,8 +116,34 @@ module.exports = async (req, res) => {
   u.searchParams.delete('key');
   const neg = u.searchParams.get('neg');
   u.searchParams.delete('neg');
+  const page = u.searchParams.get('page') === '1';
+  u.searchParams.delete('page');
   req.url = u.pathname + u.search;
   const q = Object.fromEntries(u.searchParams);
+
+  // v0.3 /facts and /facts/{key}: the page, whatever Accept says — except a JSON-only client, which goes to /f.
+  if (page && (req.method === 'GET' || req.method === 'HEAD')) {
+    if (neg === 'json' || wantsJsonOnly(req.headers.accept)) {
+      const rest = new URLSearchParams(u.searchParams);
+      rest.delete('format');
+      const qs = rest.toString();
+      res.writeHead(302, { Location: `/f${key ? `/${key}` : ''}${qs ? `?${qs}` : ''}`, 'Cache-Control': 'no-store', Vary: 'Accept', Link: LINK, ...CORS });
+      return res.end();
+    }
+    const opts = { max_age: q.max_age, as_of: q.as_of, period: q.period };
+    if (!key || key === 'index') {
+      await trackEvent('fact_index_page_view', req);
+      const out = index(q, 'html');
+      return send(res, 200, out.body, { format: 'html', cache: CACHE });
+    }
+    await trackEvent('fact_page_view', req);
+    const r = F.getFact(key, opts);
+    await trackFacts(req, 'page', 'get', r);
+    if (r.results) return send(res, 200, R.batchHtml(r), { format: 'html', cache: CACHE, headers: { 'X-Facts-Status': r.status } });
+    if (r.covered === false) return send(res, r.error === 'unknown key' ? 404 : r.error ? 400 : 200, R.missHtml(r), { format: 'html' });
+    return sendRecord(req, res, r, 'html');
+  }
+
   const format = formatOf(q.format, req.headers.accept, neg);
   if (!format) return send(res, 400, { protocol: FACTS_PROTOCOL, covered: false, error: `format must be one of ${FORMATS.join(', ')} (got "${q.format}")` });
   const opts = { max_age: q.max_age, as_of: q.as_of, period: q.period };
@@ -131,6 +170,14 @@ module.exports = async (req, res) => {
   if (!key || key === 'index') {
     await trackEvent('agent_api_f_index', req);
     const out = index(q, format);
+    if (out.digest) {
+      const etag = `"${out.digest}"`;
+      if (matches(req.headers['if-none-match'], etag)) {
+        res.writeHead(304, { ETag: etag, 'Cache-Control': CACHE, Vary: 'Accept', Link: LINK, ...CORS });
+        return res.end();
+      }
+      return send(res, 200, out.body, { format: out.format, cache: CACHE, headers: { ETag: etag } });
+    }
     return send(res, 200, out.body, { format: out.format, cache: CACHE });
   }
   if (key === 'resolve') {
