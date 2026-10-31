@@ -222,13 +222,13 @@ re-verified within 45 days of `verifiedDate` and after every decision.
   points … increased to 2.50%, 2.65% and 2.90% respectively, with effect from
   16 September 2026". Calendar `https://www.ecb.europa.eu/press/calendars/mgcgc/html/index.en.html`:
   next monetary policy meeting 28–29 October 2026, then 16–17 December 2026.
+  The decisions index page is JavaScript-rendered; the per-year snippet
+  `/press/govcdec/mopo/2026/html/index_include.en.html` is plain HTML.
 
 Re-verified 2026-10-31 (holds, no figure moved, no changelog entry):
 - Fed: statement of 28 October 2026 "maintain the target range for the federal funds rate at 3-3/4 to 4 percent" (10–2); open-market table still 3.75-4.00 from 17 September; next meeting 8–9 December 2026.
 - ECB: press release of 29 October 2026 (`ecb.mp261029~9a493adf17`) "will remain unchanged at 2.50%, 2.65% and 2.90%"; key-rates table still 16 September; next meeting 16–17 December 2026.
 - BoE: Bank Rate page "Current Bank Rate 3.75%", "Next due: 5 November 2026".
-  The decisions index page is JavaScript-rendered; the per-year snippet
-  `/press/govcdec/mopo/2026/html/index_include.en.html` is plain HTML.
 
 ## Expansion queue (exams)
 
