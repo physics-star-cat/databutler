@@ -192,6 +192,8 @@ module.exports = {
     // v0.3 expected change: VED rates and the historic exemption move each 1 April with the Finance Act; MOT fees and
     // penalties change by fee order or statute on no fixed date (fees are `irregular` in spec §4), so they name none.
     expected: (r) => (/^uk\/(ved-|historic\/)/.test(r.key) ? { changeCadence: 'annual', dates: ['04-01'] } : { changeCadence: 'irregular', dates: [] }),
+    // The 12-month Direct Debit total is served under the gov.uk wording ("12 monthly"); the guessable form is an alias.
+    aliases: { 'uk/ved-expensive-car/standard-plus-supplement-12-month-direct-debit': 'uk/ved-expensive-car/standard-plus-supplement-12-monthly-direct-debit-total' },
     synonyms: { ved: 'ved-standard', 'road-tax': 'ved-standard', 'car-tax': 'ved-standard', 'zero emission': '0g-km', 'zero-emission': '0g-km' },
   },
 

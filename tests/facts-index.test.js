@@ -176,3 +176,20 @@ test('v0.3 the digest moves with any claim and only with a claim', () => {
   assert.equal(F.digestFor('uk'), digestOf(pairs.filter(([k]) => k.startsWith('uk/'))));
   assert.equal(F.digestFor('zz'), null);
 });
+
+test('reviewed aliases (2026-10-31): NI main/upper rate and the VED expensive-car 12-month Direct Debit total', () => {
+  const pairs = {
+    'uk/national-insurance/main-rate': 'uk/national-insurance/employee-main-rate-pt-to-uel',
+    'uk/national-insurance/upper-rate': 'uk/national-insurance/upper-earnings-limit',
+    'uk/ved-expensive-car/standard-plus-supplement-12-month-direct-debit': 'uk/ved-expensive-car/standard-plus-supplement-12-monthly-direct-debit-total',
+  };
+  for (const [alias, key] of Object.entries(pairs)) {
+    assert.ok(F.INDEX.has(key), `target ${key} exists`);
+    assert.ok(!F.INDEX.has(alias), `${alias} is not itself a key`);
+    assert.equal(F.ALIASES.get(alias), key);
+    assert.ok(F.INDEX.get(key).aliases.includes(alias), 'curated: listed on the record');
+    const r = F.getFact(alias);
+    assert.deepEqual([r.key, r.requestedKey], [key, alias]);
+    assert.equal(F.ALIASES.get(`gb${alias.slice(2)}`), key, 'the gb/ form follows');
+  }
+});
