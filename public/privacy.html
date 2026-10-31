@@ -29,7 +29,9 @@ no stored IP addresses, no logged request bodies.</strong></p>
     <em>event name</em> (e.g. <code>agent_mcp_uk_rates_lookup</code>, <code>cite_page_view</code>),
     a <em>client class</em> derived from the User-Agent header (e.g. <code>claude</code>,
     <code>cursor</code>, <code>python</code>, <code>browser</code>), the first 100 characters of
-    that User-Agent string, and a random per-request identifier that is never reused.
+    that User-Agent string, a label saying whether the call carried the site owner's own marker
+    header (so the owner's testing can be left out of the counts), and a random per-request
+    identifier that is never reused.
     No query parameters, tool arguments, IP address or page URL are included, with one exception below.</li>
   <li><strong>Which facts are asked for.</strong> A Verified Facts lookup (<code>/f/</code>,
     <code>get_fact</code>, <code>resolve_fact</code>) also records the fact key involved, so we can

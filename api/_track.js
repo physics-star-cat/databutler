@@ -9,7 +9,14 @@
  * label, the one worth charting) and agent_ua (the raw header, cut to GA4's
  * 100-char param limit). Both need registering as event-scoped custom
  * dimensions in GA4 Admin before they surface outside DebugView.
+ *
+ * agent_owner separates the owner's own calls from everyone else's, so usage
+ * can be read honestly. The owner's MCP configs and scripts send the header
+ * below. It is not a secret and grants nothing: it changes one label on one
+ * analytics event, and all a stranger can do by sending it is leave their own
+ * calls out of our counts. "unmarked" means no marker, not "proven third party".
  */
+const OWNER_HEADER = 'x-databutler-owner';
 
 // Ordered: named clients and registry crawlers first, generic HTTP libraries
 // last, so "python-httpx" only wins when nothing more specific matched.
@@ -41,7 +48,12 @@ function classifyClient(ua) {
 
 function callerParams(req) {
   const ua = String((req && req.headers && req.headers['user-agent']) || '');
-  return { agent_client: classifyClient(ua), agent_ua: ua.slice(0, 100) || '(none)' };
+  const marked = String((req && req.headers && req.headers[OWNER_HEADER]) || '') === '1';
+  return {
+    agent_client: classifyClient(ua),
+    agent_ua: ua.slice(0, 100) || '(none)',
+    agent_owner: marked ? 'owner' : 'unmarked',
+  };
 }
 
 async function send(events) {
@@ -106,4 +118,4 @@ async function trackFacts(req, channel, kind, result) {
   await send(events);
 }
 
-module.exports = { trackEvent, trackFacts, factLookups, keyShaped, classifyClient };
+module.exports = { trackEvent, trackFacts, factLookups, keyShaped, classifyClient, callerParams };
