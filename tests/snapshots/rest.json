@@ -975,6 +975,39 @@
       }
     }
   },
+  "/api/us/inflation": {
+    "status": 200,
+    "body": {
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate.",
+      "area": "us-inflation",
+      "jurisdiction": "United States (U.S. city average; all urban consumers, about 90% of the population)",
+      "verifiedDate": "2026-10-31",
+      "categories": {
+        "cpi-u": "Consumer Price Index for All Urban Consumers (CPI-U), all items, U.S. city average, not seasonally adjusted"
+      },
+      "usage": "pass category=<key> for figures",
+      "latestRelease": {
+        "referenceMonth": "2026-09",
+        "date": "2026-10-14",
+        "source": "https://www.bls.gov/news.release/archives/cpi_10142026.htm"
+      },
+      "nextRelease": {
+        "referenceMonth": "2026-10",
+        "date": "2026-11-10",
+        "source": "https://www.bls.gov/schedule/news_release/cpi.htm"
+      },
+      "freshness": {
+        "verifiedDate": "2026-10-31",
+        "nextScheduledRefresh": "2026-11-10"
+      },
+      "cite": {
+        "url": "https://databutler.dev/r/us/inflation",
+        "text": "databutler.dev, verified 2026-10-31 against https://www.bls.gov/news.release/archives/cpi_10142026.htm"
+      }
+    }
+  },
   "/api/uk/rates?category=vat": {
     "status": 200,
     "body": {
@@ -3119,7 +3152,8 @@
         "calendar",
         "uk-gov-process",
         "jp-vehicle-costs",
-        "jp-living-costs"
+        "jp-living-costs",
+        "us-inflation"
       ],
       "count": 17,
       "entries": [

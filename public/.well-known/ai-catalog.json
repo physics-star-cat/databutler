@@ -131,6 +131,13 @@
       "type": "application/mcp-server-card+json",
       "url": "https://databutler.dev/api/mcp/jp-living-costs/server-card",
       "description": "Japan minimum wage by prefecture, 協会けんぽ rates, pensions, benefits, holidays, tax figures, sourced."
+    },
+    {
+      "identifier": "urn:air:databutler.dev:mcp:databutler-us-inflation",
+      "displayName": "databutler-us-inflation",
+      "type": "application/mcp-server-card+json",
+      "url": "https://databutler.dev/api/mcp/us-inflation/server-card",
+      "description": "US CPI-U inflation from the BLS: 12-month rate, index level and annual averages, with dates."
     }
   ]
 }

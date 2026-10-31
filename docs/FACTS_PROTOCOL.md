@@ -337,13 +337,13 @@ Front-door placement (Data Butler): `get_fact` and `resolve_fact` join the hub t
   "conformance": "L3",
   "updated": "2026-10-31",
   "facts": {
-    "count": 742,
+    "count": 749,
     "get": "https://databutler.dev/f/{key}",
     "page": "https://databutler.dev/facts/{key}",
     "batch": "https://databutler.dev/f?keys={keys}",
     "resolve": "https://databutler.dev/f/resolve?q={q}",
     "index": "https://databutler.dev/f",
-    "digest": "sha256:b6362e117dfb32355ae9696e7b56dc0ca4fa587df19c3078a86fe25c59454fa4",
+    "digest": "sha256:e89d76d5efeb64278681974a64a59256d4c639e5717d244080f0807a2f1a0ee0",
     "filtering": "server",
     "examples": [
       "uk/income-tax/personal-allowance",
@@ -374,10 +374,12 @@ Front-door placement (Data Butler): `get_fact` and `resolve_fact` join the hub t
     },
     {
       "name": "us",
-      "description": "Federal Reserve federal funds target range and US federal tax thresholds",
-      "count": 94,
-      "cadence": "policy-rates: After each scheduled decision (eight a year per bank); re-verified within 45 days of verifiedDate; every source page re-fetched weekly. us-rates: Annual: after the IRS tax-year inflation adjustments (October), the retirement-plan limits (November), the SSA Federal Register notice (October/November) and the CMS Medicare amounts (November); source pages re-fetched weekly, ssa.gov read by hand.",
+      "description": "Federal Reserve federal funds target range, US federal tax thresholds and US CPI-U inflation",
+      "count": 101,
+      "cadence": "policy-rates: After each scheduled decision (eight a year per bank); re-verified within 45 days of verifiedDate; every source page re-fetched weekly. us-rates: Annual: after the IRS tax-year inflation adjustments (October), the retirement-plan limits (November), the SSA Federal Register notice (October/November) and the CMS Medicare amounts (November); source pages re-fetched weekly, ssa.gov read by hand. us-inflation: Monthly, on the BLS CPI release day; every source page re-fetched weekly",
       "authorities": [
+        "data.bls.gov",
+        "www.bls.gov",
         "www.cms.gov",
         "www.ecfr.gov",
         "www.federalregister.gov",
@@ -386,7 +388,7 @@ Front-door placement (Data Butler): `get_fact` and `resolve_fact` join the hub t
         "www.medicare.gov",
         "www.ssa.gov"
       ],
-      "digest": "sha256:31ce387b978aa792f7b9fca87fa4d3ac1667b173b80498cc587b04932078ca7a"
+      "digest": "sha256:80d61788b06e7d364b473eb3beae237073bae83b3a4d6ba393a1f9c233720f3d"
     },
     {
       "name": "de",

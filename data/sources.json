@@ -1014,5 +1014,26 @@
     "bodyHash": "b7d228df7f5f6d38",
     "via": "html",
     "checkedAt": "2026-10-24"
+  },
+  {
+    "url": "https://data.bls.gov/timeseries/CUUR0000SA0",
+    "updatedAt": null,
+    "bodyHash": "f1a869634c135bfe",
+    "via": "html",
+    "checkedAt": "2026-10-31"
+  },
+  {
+    "url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
+    "updatedAt": null,
+    "bodyHash": "158374c53ba57d67",
+    "via": "html",
+    "checkedAt": "2026-10-31"
+  },
+  {
+    "url": "https://www.bls.gov/schedule/news_release/cpi.htm",
+    "updatedAt": null,
+    "bodyHash": "554ac417bcbd6e25",
+    "via": "html",
+    "checkedAt": "2026-10-31"
   }
 ]

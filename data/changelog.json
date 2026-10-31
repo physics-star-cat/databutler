@@ -5467,5 +5467,31 @@
     "source": "https://www.giroj.or.jp/ratemaking/cali/pdf/202604_table.pdf",
     "verifiedDate": "2026-10-24",
     "note": "Kei car (inspected), 37-month policy starting on or after 2026-11-01: 24010 → 25330 JPY from 2026-11-01 (https://www.giroj.or.jp/ratemaking/cali/pdf/202604_table.pdf)"
+  },
+  {
+    "area": "us-inflation",
+    "key": "cpi-u/annual-rate",
+    "label": "CPI-U 12-month percent change (all items, U.S. city average, not seasonally adjusted)",
+    "from": 3.4,
+    "to": 3.7,
+    "unit": "%",
+    "effectiveFrom": "2026-10-14",
+    "source": "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
+    "verifiedDate": "2026-10-31",
+    "note": "CPI-U 12-month percent change, September 2026: 3.7% (August 2026: 3.4%); BLS CPI release 2026-10-14 — \"The Consumer Price Index for All Urban Consumers (CPI-U) increased 3.7 percent over the last 12 months to an index level of 336.940 (1982-84=100).\" (September 2026 CPI release, 2026-10-14) — CUUR0000SA0 2026 M09 (September) 336.940; 2025 M09 (September) 324.800",
+    "period": "2026-09"
+  },
+  {
+    "area": "us-inflation",
+    "key": "cpi-u/index",
+    "label": "CPI-U index level (all items, U.S. city average, not seasonally adjusted, 1982-84=100)",
+    "from": 334.98,
+    "to": 336.94,
+    "unit": "index, 1982-84=100",
+    "effectiveFrom": "2026-10-14",
+    "source": "https://data.bls.gov/timeseries/CUUR0000SA0",
+    "verifiedDate": "2026-10-31",
+    "note": "CPI-U index level, September 2026: 336.94 (August 2026: 334.98) index, 1982-84=100; BLS CPI release 2026-10-14 — CUUR0000SA0 2026 M09 (September) 336.940",
+    "period": "2026-09"
   }
 ]
