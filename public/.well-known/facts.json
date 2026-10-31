@@ -5,9 +5,9 @@
     "url": "https://databutler.dev/"
   },
   "conformance": "L3",
-  "updated": "2026-10-24",
+  "updated": "2026-10-31",
   "facts": {
-    "count": 689,
+    "count": 738,
     "get": "https://databutler.dev/f/{key}",
     "batch": "https://databutler.dev/f?keys={keys}",
     "resolve": "https://databutler.dev/f/resolve?q={q}",
@@ -42,12 +42,16 @@
     {
       "name": "us",
       "description": "Federal Reserve federal funds target range and US federal tax thresholds",
-      "count": 45,
-      "cadence": "policy-rates: After each scheduled decision (eight a year per bank); re-verified within 45 days of verifiedDate; every source page re-fetched weekly. us-rates: Annual: after the IRS tax-year inflation adjustments (October), the retirement-plan limits (November) and the SSA Federal Register notice (October/November); every source page re-fetched weekly.",
+      "count": 94,
+      "cadence": "policy-rates: After each scheduled decision (eight a year per bank); re-verified within 45 days of verifiedDate; every source page re-fetched weekly. us-rates: Annual: after the IRS tax-year inflation adjustments (October), the retirement-plan limits (November), the SSA Federal Register notice (October/November) and the CMS Medicare amounts (November); source pages re-fetched weekly, ssa.gov read by hand.",
       "authorities": [
+        "www.cms.gov",
+        "www.ecfr.gov",
         "www.federalregister.gov",
         "www.federalreserve.gov",
-        "www.irs.gov"
+        "www.irs.gov",
+        "www.medicare.gov",
+        "www.ssa.gov"
       ]
     },
     {

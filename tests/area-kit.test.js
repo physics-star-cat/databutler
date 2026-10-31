@@ -232,7 +232,7 @@ test('sources: unreachable pages (recorded or declared) are skipped by the watch
   for (const u of live) assert.ok(require('../data/sources.json').some((s) => s.url === u.url && s.unreachable), `${u.url} recorded in data/sources.json`);
   const { coverageFor } = require('../api/_coverage');
   assert.ok(coverageFor('uk-exam-dates').unreachableSources.some((u) => /jcq/.test(u.url)));
-  assert.equal(coverageFor('us-rates').unreachableSources, undefined);
+  assert.equal(coverageFor('de-rates').unreachableSources, undefined);
   const curation = require('node:fs').readFileSync(require('node:path').join(__dirname, '../docs/CURATION.md'), 'utf8');
   for (const u of live) assert.ok(curation.includes(`| ${u.area} | ${u.url} |`), `CURATION lists ${u.url}`);
 });

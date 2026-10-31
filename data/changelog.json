@@ -4420,5 +4420,1004 @@
     "source": "https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1410.htm",
     "verifiedDate": "2026-10-24",
     "note": "Employment income deduction, minimum amount (salary up to 2.2 million yen), 2026 and 2027 tax years (in force from 2026-12-01): 650000 → 740000 JPY from 2026-01-01 (https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1410.htm)"
+  },
+  {
+    "area": "us-rates",
+    "key": "retirement/qcd-limit",
+    "label": "Qualified charitable distribution annual limit, § 408(d)(8)(A)",
+    "from": 108000,
+    "to": 111000,
+    "unit": "USD/year",
+    "effectiveFrom": "2026-01-01",
+    "source": "https://www.irs.gov/pub/irs-drop/n-25-67.pdf",
+    "verifiedDate": "2026-10-31",
+    "note": "Notice 2025-67: qualified charitable distribution limit, up from $108,000. First served here 2026-10-31.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "social-security-benefits/bend-point-first",
+    "label": "PIA formula first bend point, workers first eligible in 2026",
+    "from": 1226,
+    "to": 1286,
+    "unit": "USD/month of AIME",
+    "effectiveFrom": "2026-01-01",
+    "source": "https://www.ssa.gov/oact/cola/bendpoints.html",
+    "verifiedDate": "2026-10-31",
+    "note": "SSA Benefit Formula Bend Points table. First served here 2026-10-31.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "social-security-benefits/bend-point-second",
+    "label": "PIA formula second bend point, workers first eligible in 2026",
+    "from": 7391,
+    "to": 7749,
+    "unit": "USD/month of AIME",
+    "effectiveFrom": "2026-01-01",
+    "source": "https://www.ssa.gov/oact/cola/bendpoints.html",
+    "verifiedDate": "2026-10-31",
+    "note": "SSA Benefit Formula Bend Points table. First served here 2026-10-31.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "social-security-benefits/bend-point-first-2027",
+    "label": "PIA formula first bend point, workers first eligible in 2027",
+    "from": 1286,
+    "to": 1340,
+    "unit": "USD/month of AIME",
+    "effectiveFrom": "2027-01-01",
+    "source": "https://www.ssa.gov/oact/cola/bendpoints.html",
+    "verifiedDate": "2026-10-31",
+    "note": "SSA Benefit Formula Bend Points table. First served here 2026-10-31.",
+    "taxYear": "2027"
+  },
+  {
+    "area": "us-rates",
+    "key": "social-security-benefits/bend-point-second-2027",
+    "label": "PIA formula second bend point, workers first eligible in 2027",
+    "from": 7749,
+    "to": 8077,
+    "unit": "USD/month of AIME",
+    "effectiveFrom": "2027-01-01",
+    "source": "https://www.ssa.gov/oact/cola/bendpoints.html",
+    "verifiedDate": "2026-10-31",
+    "note": "SSA Benefit Formula Bend Points table. First served here 2026-10-31.",
+    "taxYear": "2027"
+  },
+  {
+    "area": "us-rates",
+    "key": "social-security-benefits/earnings-test-lower",
+    "label": "Retirement earnings test exempt amount in 2026, years before the year of reaching full retirement age",
+    "from": 23400,
+    "to": 24480,
+    "unit": "USD/year",
+    "effectiveFrom": "2026-01-01",
+    "source": "https://www.ssa.gov/oact/cola/rtea.html",
+    "verifiedDate": "2026-10-31",
+    "note": "SSA Exempt Amounts Under the Earnings Test table. First served here 2026-10-31.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "social-security-benefits/earnings-test-higher",
+    "label": "Retirement earnings test exempt amount in 2026, the year of reaching full retirement age",
+    "from": 62160,
+    "to": 65160,
+    "unit": "USD/year",
+    "effectiveFrom": "2026-01-01",
+    "source": "https://www.ssa.gov/oact/cola/rtea.html",
+    "verifiedDate": "2026-10-31",
+    "note": "SSA Exempt Amounts Under the Earnings Test table. First served here 2026-10-31.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "social-security-benefits/earnings-test-lower-2027",
+    "label": "Retirement earnings test exempt amount in 2027, years before the year of reaching full retirement age",
+    "from": 24480,
+    "to": 25560,
+    "unit": "USD/year",
+    "effectiveFrom": "2027-01-01",
+    "source": "https://www.ssa.gov/oact/cola/rtea.html",
+    "verifiedDate": "2026-10-31",
+    "note": "SSA Exempt Amounts Under the Earnings Test table. First served here 2026-10-31.",
+    "taxYear": "2027"
+  },
+  {
+    "area": "us-rates",
+    "key": "social-security-benefits/earnings-test-higher-2027",
+    "label": "Retirement earnings test exempt amount in 2027, the year of reaching full retirement age",
+    "from": 65160,
+    "to": 67920,
+    "unit": "USD/year",
+    "effectiveFrom": "2027-01-01",
+    "source": "https://www.ssa.gov/oact/cola/rtea.html",
+    "verifiedDate": "2026-10-31",
+    "note": "SSA Exempt Amounts Under the Earnings Test table. First served here 2026-10-31.",
+    "taxYear": "2027"
+  },
+  {
+    "area": "us-rates",
+    "key": "social-security-benefits/max-benefit-at-fra-2027",
+    "label": "Initial monthly benefit, retirement at age 67 in January 2027 with maximum-taxable earnings since age 22",
+    "from": 4207,
+    "to": 4188,
+    "unit": "USD/month",
+    "effectiveFrom": "2027-01-01",
+    "source": "https://www.ssa.gov/oact/cola/examplemax.html",
+    "verifiedDate": "2026-10-31",
+    "note": "SSA Workers with Maximum-Taxable Earnings table: initial benefit at 67 for January 2027 retirement. The 2026 row is a different retirement cohort, so the lower figure is not a benefit cut.",
+    "taxYear": "2027"
+  },
+  {
+    "area": "us-rates",
+    "key": "social-security-benefits/cola-2027",
+    "label": "Cost-of-living adjustment beginning with December 2026 benefits (payable January 2027)",
+    "from": 2.8,
+    "to": 3.6,
+    "unit": "%",
+    "effectiveFrom": "2026-12-01",
+    "source": "https://www.ssa.gov/oact/cola/latestCOLA.html",
+    "verifiedDate": "2026-10-31",
+    "note": "SSA Latest Cost-of-Living Adjustment page: 3.6 percent from December 2026 benefits, payable January 2027. The 2.8% adjustment stays at social-security/cola.",
+    "taxYear": "2027"
+  },
+  {
+    "area": "us-rates",
+    "key": "medicare-costs/part-b-standard-premium",
+    "label": "Medicare Part B standard monthly premium, 2026",
+    "from": 185,
+    "to": 202.9,
+    "unit": "USD/month",
+    "effectiveFrom": "2026-01-01",
+    "source": "https://www.cms.gov/newsroom/fact-sheets/2026-medicare-parts-b-premiums-deductibles",
+    "verifiedDate": "2026-10-31",
+    "note": "CMS fact sheet of Nov. 14, 2025 for 2026 Medicare amounts. First served here 2026-10-31.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "medicare-costs/part-b-deductible",
+    "label": "Medicare Part B annual deductible, 2026",
+    "from": 257,
+    "to": 283,
+    "unit": "USD/year",
+    "effectiveFrom": "2026-01-01",
+    "source": "https://www.cms.gov/newsroom/fact-sheets/2026-medicare-parts-b-premiums-deductibles",
+    "verifiedDate": "2026-10-31",
+    "note": "CMS fact sheet of Nov. 14, 2025 for 2026 Medicare amounts. First served here 2026-10-31.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "medicare-costs/part-a-deductible",
+    "label": "Medicare Part A inpatient hospital deductible per benefit period, 2026",
+    "from": 1676,
+    "to": 1736,
+    "unit": "USD/benefit period",
+    "effectiveFrom": "2026-01-01",
+    "source": "https://www.cms.gov/newsroom/fact-sheets/2026-medicare-parts-b-premiums-deductibles",
+    "verifiedDate": "2026-10-31",
+    "note": "CMS fact sheet of Nov. 14, 2025 for 2026 Medicare amounts. First served here 2026-10-31.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "capital-gains/zero-rate-max-married-joint",
+    "label": "Maximum zero rate amount: married filing jointly and surviving spouse",
+    "from": 96700,
+    "to": 98900,
+    "unit": "USD taxable income",
+    "effectiveFrom": "2026-01-01",
+    "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
+    "verifiedDate": "2026-10-31",
+    "note": "Rev. Proc. 2025-32 § 3.03 maximum capital gains rate amounts, up from Rev. Proc. 2024-40. First served here 2026-10-31.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "capital-gains/zero-rate-max-married-separate",
+    "label": "Maximum zero rate amount: married filing separately",
+    "from": 48350,
+    "to": 49450,
+    "unit": "USD taxable income",
+    "effectiveFrom": "2026-01-01",
+    "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
+    "verifiedDate": "2026-10-31",
+    "note": "Rev. Proc. 2025-32 § 3.03 maximum capital gains rate amounts, up from Rev. Proc. 2024-40. First served here 2026-10-31.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "capital-gains/zero-rate-max-head-of-household",
+    "label": "Maximum zero rate amount: head of household",
+    "from": 64750,
+    "to": 66200,
+    "unit": "USD taxable income",
+    "effectiveFrom": "2026-01-01",
+    "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
+    "verifiedDate": "2026-10-31",
+    "note": "Rev. Proc. 2025-32 § 3.03 maximum capital gains rate amounts, up from Rev. Proc. 2024-40. First served here 2026-10-31.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "capital-gains/zero-rate-max-single",
+    "label": "Maximum zero rate amount: all other individuals",
+    "from": 48350,
+    "to": 49450,
+    "unit": "USD taxable income",
+    "effectiveFrom": "2026-01-01",
+    "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
+    "verifiedDate": "2026-10-31",
+    "note": "Rev. Proc. 2025-32 § 3.03 maximum capital gains rate amounts, up from Rev. Proc. 2024-40. First served here 2026-10-31.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "capital-gains/fifteen-rate-max-married-joint",
+    "label": "Maximum 15% rate amount: married filing jointly and surviving spouse",
+    "from": 600050,
+    "to": 613700,
+    "unit": "USD taxable income",
+    "effectiveFrom": "2026-01-01",
+    "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
+    "verifiedDate": "2026-10-31",
+    "note": "Rev. Proc. 2025-32 § 3.03 maximum capital gains rate amounts, up from Rev. Proc. 2024-40. First served here 2026-10-31.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "capital-gains/fifteen-rate-max-married-separate",
+    "label": "Maximum 15% rate amount: married filing separately",
+    "from": 300000,
+    "to": 306850,
+    "unit": "USD taxable income",
+    "effectiveFrom": "2026-01-01",
+    "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
+    "verifiedDate": "2026-10-31",
+    "note": "Rev. Proc. 2025-32 § 3.03 maximum capital gains rate amounts, up from Rev. Proc. 2024-40. First served here 2026-10-31.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "capital-gains/fifteen-rate-max-head-of-household",
+    "label": "Maximum 15% rate amount: head of household",
+    "from": 566700,
+    "to": 579600,
+    "unit": "USD taxable income",
+    "effectiveFrom": "2026-01-01",
+    "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
+    "verifiedDate": "2026-10-31",
+    "note": "Rev. Proc. 2025-32 § 3.03 maximum capital gains rate amounts, up from Rev. Proc. 2024-40. First served here 2026-10-31.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "capital-gains/fifteen-rate-max-single",
+    "label": "Maximum 15% rate amount: all other individuals",
+    "from": 533400,
+    "to": 545500,
+    "unit": "USD taxable income",
+    "effectiveFrom": "2026-01-01",
+    "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
+    "verifiedDate": "2026-10-31",
+    "note": "Rev. Proc. 2025-32 § 3.03 maximum capital gains rate amounts, up from Rev. Proc. 2024-40. First served here 2026-10-31.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "income-tax/senior-deduction",
+    "label": "Enhanced deduction for seniors (age 65 and older), per eligible individual, tax years 2025 through 2028",
+    "from": null,
+    "to": 6000,
+    "unit": "USD/year per eligible individual",
+    "effectiveFrom": "2025-01-01",
+    "source": "https://www.irs.gov/newsroom/one-big-beautiful-bill-act-tax-deductions-for-working-americans-and-seniors",
+    "verifiedDate": "2026-10-31",
+    "note": "IRS FS-2025-03 and Schedule 1-A (Form 1040) 2025. In force for 2025 through 2028. First served here 2026-10-31.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "income-tax/senior-deduction-phase-out-start-single",
+    "label": "Enhanced deduction for seniors: MAGI where the phase-out starts, other than joint filers",
+    "from": null,
+    "to": 75000,
+    "unit": "USD MAGI",
+    "effectiveFrom": "2025-01-01",
+    "source": "https://www.irs.gov/newsroom/one-big-beautiful-bill-act-tax-deductions-for-working-americans-and-seniors",
+    "verifiedDate": "2026-10-31",
+    "note": "IRS FS-2025-03 and Schedule 1-A (Form 1040) 2025. In force for 2025 through 2028. First served here 2026-10-31.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "income-tax/senior-deduction-phase-out-start-married-joint",
+    "label": "Enhanced deduction for seniors: MAGI where the phase-out starts, joint filers",
+    "from": null,
+    "to": 150000,
+    "unit": "USD MAGI",
+    "effectiveFrom": "2025-01-01",
+    "source": "https://www.irs.gov/newsroom/one-big-beautiful-bill-act-tax-deductions-for-working-americans-and-seniors",
+    "verifiedDate": "2026-10-31",
+    "note": "IRS FS-2025-03 and Schedule 1-A (Form 1040) 2025. In force for 2025 through 2028. First served here 2026-10-31.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "income-tax/senior-deduction-phase-out-rate",
+    "label": "Enhanced deduction for seniors: reduction per dollar of MAGI over the start, applied to each $6,000",
+    "from": null,
+    "to": 6,
+    "unit": "% of MAGI over the start",
+    "effectiveFrom": "2025-01-01",
+    "source": "https://www.irs.gov/pub/irs-pdf/f1040s1a.pdf",
+    "verifiedDate": "2026-10-31",
+    "note": "IRS FS-2025-03 and Schedule 1-A (Form 1040) 2025. In force for 2025 through 2028. First served here 2026-10-31.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "retirement/uniform-lifetime-table",
+    "label": "RMD Uniform Lifetime Table (Table III): applicable denominator by age, for unmarried owners, married owners whose spouses are not more than 10 years younger, and married owners whose spouses are not the sole beneficiaries",
+    "from": null,
+    "to": [
+      {
+        "age": 72,
+        "applicableDenominator": 27.4
+      },
+      {
+        "age": 73,
+        "applicableDenominator": 26.5
+      },
+      {
+        "age": 74,
+        "applicableDenominator": 25.5
+      },
+      {
+        "age": 75,
+        "applicableDenominator": 24.6
+      },
+      {
+        "age": 76,
+        "applicableDenominator": 23.7
+      },
+      {
+        "age": 77,
+        "applicableDenominator": 22.9
+      },
+      {
+        "age": 78,
+        "applicableDenominator": 22
+      },
+      {
+        "age": 79,
+        "applicableDenominator": 21.1
+      },
+      {
+        "age": 80,
+        "applicableDenominator": 20.2
+      },
+      {
+        "age": 81,
+        "applicableDenominator": 19.4
+      },
+      {
+        "age": 82,
+        "applicableDenominator": 18.5
+      },
+      {
+        "age": 83,
+        "applicableDenominator": 17.7
+      },
+      {
+        "age": 84,
+        "applicableDenominator": 16.8
+      },
+      {
+        "age": 85,
+        "applicableDenominator": 16
+      },
+      {
+        "age": 86,
+        "applicableDenominator": 15.2
+      },
+      {
+        "age": 87,
+        "applicableDenominator": 14.4
+      },
+      {
+        "age": 88,
+        "applicableDenominator": 13.7
+      },
+      {
+        "age": 89,
+        "applicableDenominator": 12.9
+      },
+      {
+        "age": 90,
+        "applicableDenominator": 12.2
+      },
+      {
+        "age": 91,
+        "applicableDenominator": 11.5
+      },
+      {
+        "age": 92,
+        "applicableDenominator": 10.8
+      },
+      {
+        "age": 93,
+        "applicableDenominator": 10.1
+      },
+      {
+        "age": 94,
+        "applicableDenominator": 9.5
+      },
+      {
+        "age": 95,
+        "applicableDenominator": 8.9
+      },
+      {
+        "age": 96,
+        "applicableDenominator": 8.4
+      },
+      {
+        "age": 97,
+        "applicableDenominator": 7.8
+      },
+      {
+        "age": 98,
+        "applicableDenominator": 7.3
+      },
+      {
+        "age": 99,
+        "applicableDenominator": 6.8
+      },
+      {
+        "age": 100,
+        "applicableDenominator": 6.4
+      },
+      {
+        "age": 101,
+        "applicableDenominator": 6
+      },
+      {
+        "age": 102,
+        "applicableDenominator": 5.6
+      },
+      {
+        "age": 103,
+        "applicableDenominator": 5.2
+      },
+      {
+        "age": 104,
+        "applicableDenominator": 4.9
+      },
+      {
+        "age": 105,
+        "applicableDenominator": 4.6
+      },
+      {
+        "age": 106,
+        "applicableDenominator": 4.3
+      },
+      {
+        "age": 107,
+        "applicableDenominator": 4.1
+      },
+      {
+        "age": 108,
+        "applicableDenominator": 3.9
+      },
+      {
+        "age": 109,
+        "applicableDenominator": 3.7
+      },
+      {
+        "age": 110,
+        "applicableDenominator": 3.5
+      },
+      {
+        "age": 111,
+        "applicableDenominator": 3.4
+      },
+      {
+        "age": 112,
+        "applicableDenominator": 3.3
+      },
+      {
+        "age": 113,
+        "applicableDenominator": 3.1
+      },
+      {
+        "age": 114,
+        "applicableDenominator": 3
+      },
+      {
+        "age": 115,
+        "applicableDenominator": 2.9
+      },
+      {
+        "age": 116,
+        "applicableDenominator": 2.8
+      },
+      {
+        "age": 117,
+        "applicableDenominator": 2.7
+      },
+      {
+        "age": 118,
+        "applicableDenominator": 2.5
+      },
+      {
+        "age": 119,
+        "applicableDenominator": 2.3
+      },
+      {
+        "age": 120,
+        "applicableDenominator": 2,
+        "andOver": true
+      }
+    ],
+    "unit": "divisor of the prior year-end balance, by age reached in the year",
+    "effectiveFrom": "2025-01-01",
+    "source": "https://www.irs.gov/publications/p590b",
+    "verifiedDate": "2026-10-31",
+    "note": "IRS Publication 590-B (2025), Appendix B, Table III. First served here 2026-10-31; the table did not change on this date.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "retirement/rmd-applicable-age-by-birth-year",
+    "label": "RMD applicable age by date of birth (the 1959 row is reserved in the final regulations; the proposed value is shown separately)",
+    "from": null,
+    "to": [
+      {
+        "bornBefore": "1949-07-01",
+        "applicableAge": 70.5
+      },
+      {
+        "bornFrom": "1949-07-01",
+        "bornBefore": "1951-01-01",
+        "applicableAge": 72
+      },
+      {
+        "bornFrom": "1951-01-01",
+        "bornBefore": "1959-01-01",
+        "applicableAge": 73
+      },
+      {
+        "bornFrom": "1959-01-01",
+        "bornBefore": "1960-01-01",
+        "applicableAge": null,
+        "proposedApplicableAge": 73,
+        "status": "reserved in 26 CFR 1.401(a)(9)-2(b)(2)(v); age 73 is proposed, not final"
+      },
+      {
+        "bornFrom": "1960-01-01",
+        "applicableAge": 75
+      }
+    ],
+    "unit": "years of age by date of birth",
+    "effectiveFrom": "2023-01-01",
+    "source": "https://www.ecfr.gov/current/title-26/section-1.401(a)(9)-2",
+    "verifiedDate": "2026-10-31",
+    "note": "26 CFR 1.401(a)(9)-2(b)(2). The 1959 paragraph is reserved; Federal Register 2024-14543 proposes age 73. First served here 2026-10-31.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "social-security-benefits/full-retirement-age-by-birth-year",
+    "label": "Full (normal) retirement age by year of birth",
+    "from": null,
+    "to": [
+      {
+        "born": "1943-1954",
+        "years": 66,
+        "months": 0
+      },
+      {
+        "born": "1955",
+        "years": 66,
+        "months": 2
+      },
+      {
+        "born": "1956",
+        "years": 66,
+        "months": 4
+      },
+      {
+        "born": "1957",
+        "years": 66,
+        "months": 6
+      },
+      {
+        "born": "1958",
+        "years": 66,
+        "months": 8
+      },
+      {
+        "born": "1959",
+        "years": 66,
+        "months": 10
+      },
+      {
+        "born": "1960 and later",
+        "years": 67,
+        "months": 0
+      }
+    ],
+    "unit": "years and months of age",
+    "effectiveFrom": "2026-01-01",
+    "source": "https://www.ssa.gov/benefits/retirement/planner/agereduction.html",
+    "verifiedDate": "2026-10-31",
+    "note": "SSA benefit rule read from ssa.gov/benefits/retirement/planner/agereduction.html. First served here 2026-10-31; the rule did not change on this date.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "social-security-benefits/early-reduction-worker-first-36-months",
+    "label": "Early-retirement reduction of the worker benefit, each of the first 36 months before full retirement age",
+    "from": null,
+    "to": "5/9",
+    "unit": "% of PIA per month (a fraction of 1%)",
+    "effectiveFrom": "2026-01-01",
+    "source": "https://www.ssa.gov/oact/quickcalc/earlyretire.html",
+    "verifiedDate": "2026-10-31",
+    "note": "SSA benefit rule read from ssa.gov/oact/quickcalc/earlyretire.html. First served here 2026-10-31; the rule did not change on this date.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "social-security-benefits/early-reduction-worker-additional-months",
+    "label": "Early-retirement reduction of the worker benefit, each month beyond the first 36",
+    "from": null,
+    "to": "5/12",
+    "unit": "% of PIA per month (a fraction of 1%)",
+    "effectiveFrom": "2026-01-01",
+    "source": "https://www.ssa.gov/oact/quickcalc/earlyretire.html",
+    "verifiedDate": "2026-10-31",
+    "note": "SSA benefit rule read from ssa.gov/oact/quickcalc/earlyretire.html. First served here 2026-10-31; the rule did not change on this date.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "social-security-benefits/early-reduction-spouse-first-36-months",
+    "label": "Early-retirement reduction of the spouse benefit, each of the first 36 months before full retirement age",
+    "from": null,
+    "to": "25/36",
+    "unit": "% of spouse benefit per month (a fraction of 1%)",
+    "effectiveFrom": "2026-01-01",
+    "source": "https://www.ssa.gov/oact/quickcalc/earlyretire.html",
+    "verifiedDate": "2026-10-31",
+    "note": "SSA benefit rule read from ssa.gov/oact/quickcalc/earlyretire.html. First served here 2026-10-31; the rule did not change on this date.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "social-security-benefits/early-reduction-spouse-additional-months",
+    "label": "Early-retirement reduction of the spouse benefit, each month beyond the first 36",
+    "from": null,
+    "to": "5/12",
+    "unit": "% of spouse benefit per month (a fraction of 1%)",
+    "effectiveFrom": "2026-01-01",
+    "source": "https://www.ssa.gov/oact/quickcalc/earlyretire.html",
+    "verifiedDate": "2026-10-31",
+    "note": "SSA benefit rule read from ssa.gov/oact/quickcalc/earlyretire.html. First served here 2026-10-31; the rule did not change on this date.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "social-security-benefits/delayed-credit-monthly",
+    "label": "Delayed retirement credit per month after full retirement age, born 1943 or later, up to age 70",
+    "from": null,
+    "to": "2/3",
+    "unit": "% per month (a fraction of 1%)",
+    "effectiveFrom": "2026-01-01",
+    "source": "https://www.ssa.gov/benefits/retirement/planner/delayret.html",
+    "verifiedDate": "2026-10-31",
+    "note": "SSA benefit rule read from ssa.gov/benefits/retirement/planner/delayret.html. First served here 2026-10-31; the rule did not change on this date.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "social-security-benefits/delayed-credit-annual",
+    "label": "Delayed retirement credit per 12 months after full retirement age, born 1943 or later, up to age 70",
+    "from": null,
+    "to": 8,
+    "unit": "%/year",
+    "effectiveFrom": "2026-01-01",
+    "source": "https://www.ssa.gov/benefits/retirement/planner/delayret.html",
+    "verifiedDate": "2026-10-31",
+    "note": "SSA benefit rule read from ssa.gov/benefits/retirement/planner/delayret.html. First served here 2026-10-31; the rule did not change on this date.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "social-security-benefits/taxation-base-amount-single",
+    "label": "Base amount for taxing benefits: single, head of household, qualifying surviving spouse, or married filing separately and apart all year",
+    "from": null,
+    "to": 25000,
+    "unit": "USD/year",
+    "effectiveFrom": "2025-01-01",
+    "source": "https://www.irs.gov/publications/p915",
+    "verifiedDate": "2026-10-31",
+    "note": "IRS Publication 915 (2025). First served here 2026-10-31; the amount did not change on this date.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "social-security-benefits/taxation-base-amount-married-joint",
+    "label": "Base amount for taxing benefits: married filing jointly",
+    "from": null,
+    "to": 32000,
+    "unit": "USD/year",
+    "effectiveFrom": "2025-01-01",
+    "source": "https://www.irs.gov/publications/p915",
+    "verifiedDate": "2026-10-31",
+    "note": "IRS Publication 915 (2025). First served here 2026-10-31; the amount did not change on this date.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "social-security-benefits/taxation-base-amount-married-separate-together",
+    "label": "Base amount for taxing benefits: married filing separately and lived with spouse at any time in the year",
+    "from": null,
+    "to": 0,
+    "unit": "USD/year",
+    "effectiveFrom": "2025-01-01",
+    "source": "https://www.irs.gov/publications/p915",
+    "verifiedDate": "2026-10-31",
+    "note": "IRS Publication 915 (2025). First served here 2026-10-31; the amount did not change on this date.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "social-security-benefits/taxation-85-percent-threshold-single",
+    "label": "Income above which up to 85% of benefits can be taxable: other than married filing jointly",
+    "from": null,
+    "to": 34000,
+    "unit": "USD/year",
+    "effectiveFrom": "2025-01-01",
+    "source": "https://www.irs.gov/publications/p915",
+    "verifiedDate": "2026-10-31",
+    "note": "IRS Publication 915 (2025). First served here 2026-10-31; the amount did not change on this date.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "social-security-benefits/taxation-85-percent-threshold-married-joint",
+    "label": "Income above which up to 85% of benefits can be taxable: married filing jointly",
+    "from": null,
+    "to": 44000,
+    "unit": "USD/year",
+    "effectiveFrom": "2025-01-01",
+    "source": "https://www.irs.gov/publications/p915",
+    "verifiedDate": "2026-10-31",
+    "note": "IRS Publication 915 (2025). First served here 2026-10-31; the amount did not change on this date.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "medicare-costs/part-d-out-of-pocket-limit",
+    "label": "Medicare Part D yearly out-of-pocket limit, 2026",
+    "from": null,
+    "to": 2100,
+    "unit": "USD/year",
+    "effectiveFrom": "2026-01-01",
+    "source": "https://www.medicare.gov/basics/costs/medicare-costs",
+    "verifiedDate": "2026-10-31",
+    "note": "Medicare.gov Costs page, 2026 amounts. First served here 2026-10-31.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "medicare-costs/irmaa-individual-return",
+    "label": "IRMAA 2026: beneficiaries who file individual tax returns, full Part B coverage and Part D",
+    "from": null,
+    "to": [
+      {
+        "magiAtMost": 109000,
+        "partBAdjustment": 0,
+        "partBTotalPremium": 202.9,
+        "partDAdjustment": 0
+      },
+      {
+        "magiOver": 109000,
+        "magiAtMost": 137000,
+        "partBAdjustment": 81.2,
+        "partBTotalPremium": 284.1,
+        "partDAdjustment": 14.5
+      },
+      {
+        "magiOver": 137000,
+        "magiAtMost": 171000,
+        "partBAdjustment": 202.9,
+        "partBTotalPremium": 405.8,
+        "partDAdjustment": 37.5
+      },
+      {
+        "magiOver": 171000,
+        "magiAtMost": 205000,
+        "partBAdjustment": 324.6,
+        "partBTotalPremium": 527.5,
+        "partDAdjustment": 60.4
+      },
+      {
+        "magiOver": 205000,
+        "magiLessThan": 500000,
+        "partBAdjustment": 446.3,
+        "partBTotalPremium": 649.2,
+        "partDAdjustment": 83.3
+      },
+      {
+        "magiAtLeast": 500000,
+        "partBAdjustment": 487,
+        "partBTotalPremium": 689.9,
+        "partDAdjustment": 91
+      }
+    ],
+    "unit": "USD/month by MAGI row (partBAdjustment, partBTotalPremium; partDAdjustment is added to the plan premium)",
+    "effectiveFrom": "2026-01-01",
+    "source": "https://www.cms.gov/newsroom/fact-sheets/2026-medicare-parts-b-premiums-deductibles",
+    "verifiedDate": "2026-10-31",
+    "note": "CMS fact sheet of Nov. 14, 2025 for 2026 Medicare amounts. First served here 2026-10-31.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "medicare-costs/irmaa-joint-return",
+    "label": "IRMAA 2026: beneficiaries who file joint tax returns, full Part B coverage and Part D",
+    "from": null,
+    "to": [
+      {
+        "magiAtMost": 218000,
+        "partBAdjustment": 0,
+        "partBTotalPremium": 202.9,
+        "partDAdjustment": 0
+      },
+      {
+        "magiOver": 218000,
+        "magiAtMost": 274000,
+        "partBAdjustment": 81.2,
+        "partBTotalPremium": 284.1,
+        "partDAdjustment": 14.5
+      },
+      {
+        "magiOver": 274000,
+        "magiAtMost": 342000,
+        "partBAdjustment": 202.9,
+        "partBTotalPremium": 405.8,
+        "partDAdjustment": 37.5
+      },
+      {
+        "magiOver": 342000,
+        "magiAtMost": 410000,
+        "partBAdjustment": 324.6,
+        "partBTotalPremium": 527.5,
+        "partDAdjustment": 60.4
+      },
+      {
+        "magiOver": 410000,
+        "magiLessThan": 750000,
+        "partBAdjustment": 446.3,
+        "partBTotalPremium": 649.2,
+        "partDAdjustment": 83.3
+      },
+      {
+        "magiAtLeast": 750000,
+        "partBAdjustment": 487,
+        "partBTotalPremium": 689.9,
+        "partDAdjustment": 91
+      }
+    ],
+    "unit": "USD/month by MAGI row (partBAdjustment, partBTotalPremium; partDAdjustment is added to the plan premium)",
+    "effectiveFrom": "2026-01-01",
+    "source": "https://www.cms.gov/newsroom/fact-sheets/2026-medicare-parts-b-premiums-deductibles",
+    "verifiedDate": "2026-10-31",
+    "note": "CMS fact sheet of Nov. 14, 2025 for 2026 Medicare amounts. First served here 2026-10-31.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "medicare-costs/irmaa-married-separate",
+    "label": "IRMAA 2026: married, lived with spouse at any time in the year, filing separately, full Part B coverage and Part D",
+    "from": null,
+    "to": [
+      {
+        "magiAtMost": 109000,
+        "partBAdjustment": 0,
+        "partBTotalPremium": 202.9,
+        "partDAdjustment": 0
+      },
+      {
+        "magiOver": 109000,
+        "magiLessThan": 391000,
+        "partBAdjustment": 446.3,
+        "partBTotalPremium": 649.2,
+        "partDAdjustment": 83.3
+      },
+      {
+        "magiAtLeast": 391000,
+        "partBAdjustment": 487,
+        "partBTotalPremium": 689.9,
+        "partDAdjustment": 91
+      }
+    ],
+    "unit": "USD/month by MAGI row (partBAdjustment, partBTotalPremium; partDAdjustment is added to the plan premium)",
+    "effectiveFrom": "2026-01-01",
+    "source": "https://www.cms.gov/newsroom/fact-sheets/2026-medicare-parts-b-premiums-deductibles",
+    "verifiedDate": "2026-10-31",
+    "note": "CMS fact sheet of Nov. 14, 2025 for 2026 Medicare amounts. First served here 2026-10-31.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "capital-gains/niit-rate",
+    "label": "Net Investment Income Tax rate",
+    "from": null,
+    "to": 3.8,
+    "unit": "%",
+    "effectiveFrom": "2013-01-01",
+    "source": "https://www.irs.gov/individuals/net-investment-income-tax",
+    "verifiedDate": "2026-10-31",
+    "note": "IRS Net Investment Income Tax page. First served here 2026-10-31; the amount did not change on this date.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "capital-gains/niit-threshold-married-joint",
+    "label": "Net Investment Income Tax MAGI threshold: married filing jointly",
+    "from": null,
+    "to": 250000,
+    "unit": "USD MAGI",
+    "effectiveFrom": "2013-01-01",
+    "source": "https://www.irs.gov/individuals/net-investment-income-tax",
+    "verifiedDate": "2026-10-31",
+    "note": "IRS Net Investment Income Tax page. First served here 2026-10-31; the amount did not change on this date.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "capital-gains/niit-threshold-married-separate",
+    "label": "Net Investment Income Tax MAGI threshold: married filing separately",
+    "from": null,
+    "to": 125000,
+    "unit": "USD MAGI",
+    "effectiveFrom": "2013-01-01",
+    "source": "https://www.irs.gov/individuals/net-investment-income-tax",
+    "verifiedDate": "2026-10-31",
+    "note": "IRS Net Investment Income Tax page. First served here 2026-10-31; the amount did not change on this date.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "capital-gains/niit-threshold-single",
+    "label": "Net Investment Income Tax MAGI threshold: single or head of household",
+    "from": null,
+    "to": 200000,
+    "unit": "USD MAGI",
+    "effectiveFrom": "2013-01-01",
+    "source": "https://www.irs.gov/individuals/net-investment-income-tax",
+    "verifiedDate": "2026-10-31",
+    "note": "IRS Net Investment Income Tax page. First served here 2026-10-31; the amount did not change on this date.",
+    "taxYear": "2026"
+  },
+  {
+    "area": "us-rates",
+    "key": "capital-gains/niit-threshold-surviving-spouse",
+    "label": "Net Investment Income Tax MAGI threshold: qualifying widow(er) with a child",
+    "from": null,
+    "to": 250000,
+    "unit": "USD MAGI",
+    "effectiveFrom": "2013-01-01",
+    "source": "https://www.irs.gov/individuals/net-investment-income-tax",
+    "verifiedDate": "2026-10-31",
+    "note": "IRS Net Investment Income Tax page. First served here 2026-10-31; the amount did not change on this date.",
+    "taxYear": "2026"
   }
 ]

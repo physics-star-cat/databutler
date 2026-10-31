@@ -4,7 +4,7 @@
     "name": "Data Butler",
     "url": "https://databutler.dev/"
   },
-  "updated": "2026-10-24",
+  "updated": "2026-10-31",
   "coverageStart": "2026-08-31",
   "areas": [
     {
@@ -34,8 +34,8 @@
     },
     {
       "name": "us-rates",
-      "description": "US federal rates and thresholds read from the IRS revenue procedures and notices and SSA's Federal Register notice: income-tax rate schedules and standard deduction, Social Security wage base and rates, Medicare, retirement-plan and IRA limits, HSA limits, estate and gift exclusions.",
-      "cadence": "Annual: after the IRS tax-year inflation adjustments (October), the retirement-plan limits (November) and the SSA Federal Register notice (October/November); every source page re-fetched weekly."
+      "description": "US federal rates and thresholds read from the IRS revenue procedures and notices and SSA's Federal Register notice: income-tax rate schedules and standard deduction, Social Security wage base and rates, Medicare, retirement-plan and IRA limits, HSA limits, estate and gift exclusions, Social Security benefit rules, Medicare costs and IRMAA, RMD tables, capital-gains thresholds.",
+      "cadence": "Annual: after the IRS tax-year inflation adjustments (October), the retirement-plan limits (November), the SSA Federal Register notice (October/November) and the CMS Medicare amounts (November); source pages re-fetched weekly, ssa.gov read by hand."
     },
     {
       "name": "de-rates",

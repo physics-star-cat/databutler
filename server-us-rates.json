@@ -1,7 +1,7 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.physics-star-cat/databutler-us-rates",
-  "description": "US federal 2026 tax brackets, standard deductions, payroll and retirement limits, sourced.",
+  "description": "US federal 2026 tax brackets, payroll and retirement limits, Social Security, Medicare, sourced.",
   "repository": { "url": "https://github.com/physics-star-cat/databutler", "source": "github" },
   "version": "1.0.0",
   "websiteUrl": "https://databutler.dev/api",

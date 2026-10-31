@@ -81,7 +81,7 @@
       "displayName": "databutler-us-rates",
       "type": "application/mcp-server-card+json",
       "url": "https://databutler.dev/api/mcp/us-rates/server-card",
-      "description": "US federal 2026 tax brackets, standard deductions, payroll and retirement limits, sourced."
+      "description": "US federal 2026 tax brackets, payroll and retirement limits, Social Security, Medicare, sourced."
     },
     {
       "identifier": "urn:air:databutler.dev:mcp:databutler-de-rates",

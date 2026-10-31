@@ -13,7 +13,7 @@
  * Playbook: docs/ADDING_AN_AREA.md.
  */
 const DATA = require('../../data/us-rates.json');
-const { BASE, diffCategories, slug, categoriesLookup } = require('../_area_kit');
+const { BASE, diffCategories, slug, same, categoriesLookup } = require('../_area_kit');
 
 const AREA = 'us-rates';
 const TOOL = 'us_rates_lookup';
@@ -28,16 +28,30 @@ const lookup = categoriesLookup(DATA, AREA);
  * returns 403 to automated fetches, so the Federal Register — SSA's own legally
  * required publication of the same determinations — stands in for it.
  */
+const SSA_403 = 'ssa.gov answers 403 to automated fetches; read in a browser at each refresh';
 const WATCH = [
   { url: 'https://www.irs.gov/newsroom/news-releases-for-current-month', label: 'IRS news releases for the current month — the tax-year inflation-adjustment release (income tax, estate and gift) appears here first and names the Rev. Proc.' },
   { url: 'https://www.federalregister.gov/api/v1/documents.json?conditions%5Bagencies%5D%5B%5D=social-security-administration&conditions%5Bterm%5D=%22Cost-of-Living+Increase+and+Other+Determinations%22&order=newest', label: 'Federal Register API — SSA "Cost-of-Living Increase and Other Determinations" notices (wage base, COLA, quarter of coverage); a new document_number is the next year\'s notice' },
   { url: 'https://www.irs.gov/taxtopics/tc751', label: 'IRS Tax Topic 751 — Social Security and Medicare withholding rates and wage base' },
   { url: 'https://www.irs.gov/retirement-plans/cola-increases-for-dollar-limitations-on-benefits-and-contributions', label: 'IRS COLA increases for dollar limitations on benefits and contributions — the year-by-year retirement-plan limits table' },
   { url: 'https://www.irs.gov/publications/p969', label: 'IRS Publication 969 — Health Savings Accounts: current-year HSA and HDHP limits' },
+  { url: 'https://www.ssa.gov/cola/', label: 'SSA COLA information — next year\'s COLA, earnings-test limits and taxable maximum', unreachable: SSA_403 },
+  { url: 'https://www.cms.gov/newsroom/fact-sheets/2026-medicare-parts-b-premiums-deductibles', label: 'CMS fact sheet — 2026 Medicare Parts A and B premiums and deductibles, Part B and Part D income-related monthly adjustment amounts' },
+  { url: 'https://www.medicare.gov/basics/costs/medicare-costs', label: 'Medicare.gov Costs — current-year Parts A, B and D costs, including the Part D out-of-pocket limit' },
+  { url: 'https://www.irs.gov/publications/p590b', label: 'IRS Publication 590-B — Uniform Lifetime Table and required minimum distribution rules' },
+  { url: 'https://www.irs.gov/publications/p915', label: 'IRS Publication 915 — base amounts for the taxation of Social Security benefits' },
+  { url: 'https://www.irs.gov/individuals/net-investment-income-tax', label: 'IRS Net Investment Income Tax — rate and statutory thresholds' },
+  { url: 'https://www.ecfr.gov/current/title-26/section-1.401(a)(9)-2', label: 'eCFR 26 CFR 1.401(a)(9)-2 — RMD applicable age by date of birth; a change fills the reserved 1959 paragraph', unreachable: 'ecfr.gov serves a request-access page to automated fetches; read in a browser at each refresh' },
 ];
 
-/** A figure that applies from a later year than the file's tax year (none in the US file yet) is logged under that year. */
-const taxYearOf = (n, f) => ((f.effectiveFrom || '').slice(0, 4) > String(n.taxYear) ? f.effectiveFrom.slice(0, 4) : n.taxYear);
+/**
+ * A figure that applies from a later year than the file's tax year is logged under that year; an explicit
+ * `taxYear` covers a COLA, which takes effect in December but is the following year's adjustment.
+ */
+const taxYearOf = (n, f) => f.taxYear || ((f.effectiveFrom || '').slice(0, 4) > String(n.taxYear) ? f.effectiveFrom.slice(0, 4) : n.taxYear);
+
+/** An entry is dated by its figure when the figure was read later than the file's overall date. */
+const entryVerified = (n, f) => (f.verifiedDate && f.verifiedDate > n.verifiedDate ? f.verifiedDate : n.verifiedDate);
 
 /** The upper bounds of a schedule's brackets (every row but the open-ended top one). */
 const upperBounds = (rows) => rows.filter((r) => typeof r.notOver === 'number').map((r) => r.notOver);
@@ -65,6 +79,26 @@ function scheduleArrivals(prev, next) {
   return out;
 }
 
+/**
+ * A figure new to an already published file with no differing prior-year value: logged null → value, so the
+ * changelog says the figure is newly served (not that it moved). A file's first commit records nothing for these.
+ */
+function coverageArrivals(prev, next) {
+  if (!prev || !prev.categories) return [];
+  const out = [];
+  for (const [cat, c] of Object.entries(next.categories || {})) {
+    const before = new Set((((prev.categories[cat]) || {}).figures || []).map((f) => f.key));
+    for (const f of c.figures || []) {
+      if (before.has(f.key) || (f.previous && f.previous.value !== undefined && !same(f.previous.value, f.value)) || (f.previous && f.previous.bracketUpperBounds)) continue;
+      out.push({
+        area: AREA, key: `${cat}/${f.key}`, label: f.label, from: null, to: f.value, unit: f.unit || null,
+        effectiveFrom: f.effectiveFrom || `${next.taxYear}-01-01`, source: f.source || c.source, verifiedDate: entryVerified(next, f), note: '', taxYear: taxYearOf(next, f),
+      });
+    }
+  }
+  return out;
+}
+
 module.exports = {
   area: AREA,
   order: 90,
@@ -73,16 +107,16 @@ module.exports = {
 
   server: {
     serverName: 'databutler-us-rates',
-    description: 'US federal 2026 tax brackets, standard deductions, payroll and retirement limits, sourced.',
+    description: 'US federal 2026 tax brackets, payroll and retirement limits, Social Security, Medicare, sourced.',
     url: `${BASE}/api/mcp/us-rates`,
     instructions:
-      `Verified US federal rates and thresholds from databutler.dev — tax year ${TAX_YEAR}, each figure read from the IRS revenue ` +
-      'procedure, IRS notice, SSA Federal Register notice or irs.gov page named in its source, with the quoted sentence or table row ' +
+      `Verified US federal rates and thresholds from databutler.dev — tax year ${TAX_YEAR}, each figure read from the IRS, SSA, CMS or ` +
+      'Medicare.gov page, revenue procedure or notice named in its source, with the quoted sentence or table row ' +
       'and verifiedDate. The IRS re-indexes most of these figures every ' +
       'October and November; us_rates_lookup returns the current tax year\'s values with the release each was read from. Present taxYear, source and verifiedDate ' +
       'with any figure; rate schedules are bracket rows (over, notOver, rate, taxAtLowerBound) exactly as the Rev. Proc. prints them, ' +
-      'and each figure\'s previous block holds the prior-year value. Federal only — state income taxes, AMT, EITC and capital-gains ' +
-      'brackets are not covered (coverage lists them). Every result carries cite.url (a databutler.dev permalink) and its official source.',
+      'and each figure\'s previous block holds the prior-year value. Keys ending -2027 hold figures SSA has already published for 2027. Federal only — state income taxes, AMT and EITC ' +
+      'are not covered (coverage lists them). Every result carries cite.url (a databutler.dev permalink) and its official source.',
     tools: [
       {
         name: TOOL,
@@ -92,12 +126,14 @@ module.exports = {
           'Register notice and irs.gov pages, each figure with its source URL, the quoted sentence or table row, verifiedDate and the ' +
           'prior-year value where one exists. Categories: income-tax (rate schedules for Single, Married filing jointly, Head of ' +
           'household and Married filing separately as bracket rows, standard deduction by filing status, additional and dependent ' +
-          'standard deduction, top rate), social-security (OASDI wage base, employee and employer rates, COLA, quarter of coverage), ' +
+          'standard deduction, top rate, enhanced deduction for seniors and its phase-out), social-security (OASDI wage base, employee and employer rates, COLA, quarter of coverage), ' +
           'medicare (rate, Additional Medicare Tax rate and thresholds by filing status, employer withholding threshold), retirement ' +
           '(401(k)/403(b)/457(b)/TSP deferral limit, age-50 and age-60–63 catch-ups, Roth catch-up wage threshold, § 415(c) and ' +
-          'compensation limits, IRA and IRA catch-up, SIMPLE, highly compensated employee), hsa (contribution limits, HDHP minimum ' +
+          'compensation limits, IRA and IRA catch-up, SIMPLE, highly compensated employee, qualified charitable distribution limit, Uniform Lifetime Table, RMD age by birth year), hsa (contribution limits, HDHP minimum ' +
           'deductible and out-of-pocket maximum, excepted-benefit HRA), estate-gift (basic exclusion, GST exemption, annual gift ' +
-          'exclusions). Federal only: state income taxes, AMT, EITC and capital-gains brackets are not covered. An unknown category ' +
+          'exclusions), social-security-benefits (bend points, full retirement age by birth year, early reduction and delayed credit rates, earnings-test limits, ' +
+          'maximum benefit at full retirement age, 2027 COLA, benefit taxation amounts), medicare-costs (Part A and B deductibles, Part B premium, Part D out-of-pocket limit, IRMAA tables), ' +
+          'capital-gains (zero and 15% rate maximums, Net Investment Income Tax). Federal only: state income taxes, AMT and EITC are not covered. An unknown category ' +
           'answers covered:false with the nearest keys.',
         inputSchema: {
           type: 'object',
@@ -112,6 +148,8 @@ module.exports = {
     ],
   },
 
+  // Capital gains were out of scope while this area stopped at payroll and contribution limits. They are in now
+  // because a retirement withdrawal calculation cannot be done without the 0% and 15% ceilings.
   coverage: () => ({
     taxYears: [TAX_YEAR],
     categories: CATEGORIES,
@@ -121,9 +159,9 @@ module.exports = {
       'state income taxes, state unemployment insurance and local taxes',
       'alternative minimum tax (AMT) exemption and phase-out amounts',
       'earned income tax credit (EITC) amounts and phase-outs',
-      'long-term capital-gains and qualified-dividend rate brackets',
+      'capital-gains rates for estates and trusts, collectibles and unrecaptured section 1250 gain',
       'self-employment tax beyond the FICA rates and wage base (SECA mechanics, the deduction of half)',
-      'the OBBBA senior deduction ($6,000, tax years 2025–2028; income-limited, not in the inflation release)',
+      'Medicare 2027 amounts (CMS had not published them on 2026-10-31) and Medigap or Medicare Advantage plan costs',
       `prior tax years (the ${Number(TAX_YEAR) - 1} value is kept only as each figure's previous)`,
     ],
   }),
@@ -141,16 +179,17 @@ module.exports = {
         key: (f) => f.key || slug(f.label),
         previous: true,
         effectiveFrom: (n, f) => f.effectiveFrom || `${n.taxYear}-01-01`,
-        extra: (n, cat, f) => ({ taxYear: taxYearOf(n, f) }),
+        extra: (n, cat, f) => ({ taxYear: taxYearOf(n, f), verifiedDate: entryVerified(n, f) }),
       }),
       ...scheduleArrivals(prev, next),
+      ...coverageArrivals(prev, next),
     ],
     files: ['data/us-rates.json'],
     context: (e) => (e.taxYear ? `tax year ${e.taxYear}` : ''),
   },
   discovery: {
-    description: 'US federal rates and thresholds read from the IRS revenue procedures and notices and SSA\'s Federal Register notice: income-tax rate schedules and standard deduction, Social Security wage base and rates, Medicare, retirement-plan and IRA limits, HSA limits, estate and gift exclusions.',
-    cadence: 'Annual: after the IRS tax-year inflation adjustments (October), the retirement-plan limits (November) and the SSA Federal Register notice (October/November); every source page re-fetched weekly.',
+    description: 'US federal rates and thresholds read from the IRS revenue procedures and notices and SSA\'s Federal Register notice: income-tax rate schedules and standard deduction, Social Security wage base and rates, Medicare, retirement-plan and IRA limits, HSA limits, estate and gift exclusions, Social Security benefit rules, Medicare costs and IRMAA, RMD tables, capital-gains thresholds.',
+    cadence: 'Annual: after the IRS tax-year inflation adjustments (October), the retirement-plan limits (November), the SSA Federal Register notice (October/November) and the CMS Medicare amounts (November); source pages re-fetched weekly, ssa.gov read by hand.',
   },
 
   sources: () => WATCH,
@@ -162,8 +201,8 @@ module.exports = {
   hub: {
     changed: 'US federal tax thresholds (IRS inflation adjustments, Social Security wage base, retirement and HSA limits)',
     coverage: 'US federal rate categories and tax year',
-    catalogue: 'US federal rates and thresholds (us_rates_lookup: income tax, Social Security, Medicare, retirement, HSA, estate and gift)',
-    call: 'us_rates_lookup (US federal rates and thresholds for the current tax year: income-tax, social-security, medicare, retirement, hsa, estate-gift)',
+    catalogue: 'US federal rates and thresholds (us_rates_lookup: income tax, Social Security, Medicare, retirement, HSA, estate and gift, capital gains, IRMAA, RMD)',
+    call: 'us_rates_lookup (US federal rates and thresholds for the current tax year: income-tax, social-security, medicare, retirement, hsa, estate-gift, social-security-benefits, medicare-costs, capital-gains)',
     frontDoor: 'US federal figures (IRS brackets and standard deduction, Social Security wage base, 401(k)/IRA/HSA limits, estate and gift exclusions) are returned by us_rates_lookup (via call), each read from the IRS or SSA release with verifiedDate.',
   },
 
@@ -176,10 +215,10 @@ module.exports = {
       rest: [
         `- \`GET https://databutler.dev/api/us/rates?category=income-tax\` — current US federal (tax year ${TAX_YEAR}) rates and thresholds (income-tax rate schedules and standard deduction, Social Security wage base and rates, Medicare and Additional Medicare Tax, 401(k)/IRA/SIMPLE and other retirement limits, HSA and HDHP limits, estate and gift exclusions), each figure read from the IRS revenue procedure, notice or SSA Federal Register notice named as its source, with the quoted sentence, verifiedDate and the prior-year value. Omit category to list the categories.`,
       ],
-      server: `- \`POST https://databutler.dev/api/mcp/us-rates\` — tool \`us_rates_lookup\` (category = ${CATEGORIES.join(' | ')}, or omit to list): current US federal (tax year ${TAX_YEAR}) rates and thresholds read from the IRS revenue procedures and notices and SSA's Federal Register notice, each figure with its source, the quoted sentence or table row, verifiedDate and the prior-year value; rate schedules as bracket rows. Federal only — state taxes, AMT, EITC and capital-gains brackets answer covered:false. Committed data verified against the documents, not a live proxy; freshness turns \`due\` when the IRS release window for the next tax year opens. REST mirror: \`GET https://databutler.dev/api/us/rates?category=…\`.`,
+      server: `- \`POST https://databutler.dev/api/mcp/us-rates\` — tool \`us_rates_lookup\` (category = ${CATEGORIES.join(' | ')}, or omit to list): current US federal (tax year ${TAX_YEAR}) rates and thresholds read from the IRS revenue procedures and notices and SSA's Federal Register notice, each figure with its source, the quoted sentence or table row, verifiedDate and the prior-year value; rate schedules as bracket rows. Federal only — state taxes, AMT and EITC answer covered:false. Committed data verified against the documents, not a live proxy; freshness turns \`due\` when the IRS release window for the next tax year opens. REST mirror: \`GET https://databutler.dev/api/us/rates?category=…\`.`,
     },
     curation: [
-      '| `data/us-rates.json` | Annual, calendar-driven (`cadenceDays: null`; `nextScheduledRefresh` set by hand to the IRS release window, 2026-11-01 for tax year 2027): the IRS tax-year inflation adjustments (Rev. Proc., mid/late October, announced on the newsroom page), the retirement-plan limits (Notice, early/mid November), SSA\'s COLA/wage-base Federal Register notice (late October/November), the HSA Rev. Proc. (May). The weekly watcher hashes the five pages in `sources()` (newsroom, Federal Register API, Tax Topic 751, COLA limits table, Pub 969). | Fetch the new Rev. Proc./Notice PDF from `/pub/irs-drop/`; for each figure move `value` into `previous` (with its source), write the new `value`, `effectiveFrom`, `source`, `quote`, `verifiedDate`; bump the file\'s `taxYear`, `taxYearRuns`, `verifiedDate` and set `nextScheduledRefresh` to the next release window; then `node scripts/changelog.js` (one `us-rates` entry per figure that moved, from → to; refreshes `data/sources.json`); fill each `note` with the Rev. Proc./Notice number. ssa.gov blocks curl — read the Federal Register notice instead. |',
+      '| `data/us-rates.json` | Annual, calendar-driven (`cadenceDays: null`; `nextScheduledRefresh` set by hand to the IRS release window, 2026-11-01 for tax year 2027): the IRS tax-year inflation adjustments (Rev. Proc., mid/late October, announced on the newsroom page), the retirement-plan limits (Notice, early/mid November), SSA\'s COLA/wage-base Federal Register notice (late October/November), the HSA Rev. Proc. (May). The CMS Medicare amounts arrive in November. The weekly watcher hashes the pages in `sources()`; `ssa.gov` is declared unreachable and read by hand. | Fetch the new Rev. Proc./Notice PDF from `/pub/irs-drop/`; for each figure move `value` into `previous` (with its source), write the new `value`, `effectiveFrom`, `source`, `quote`, `verifiedDate`; bump the file\'s `taxYear`, `taxYearRuns`, `verifiedDate` and set `nextScheduledRefresh` to the next release window; then `node scripts/changelog.js` (one `us-rates` entry per figure that moved, from → to; refreshes `data/sources.json`); fill each `note` with the Rev. Proc./Notice number. ssa.gov blocks curl — read the Federal Register notice, or the SSA page in a browser. Keys ending -2027 fold into the unsuffixed keys at the 2027 refresh. |',
     ],
     index: { blurb: `US federal tax year ${TAX_YEAR}: IRS brackets and standard deduction, Social Security wage base, Medicare, 401(k)/IRA/HSA limits, estate and gift exclusions, read from the IRS and SSA documents` },
     api: () => ({
@@ -205,6 +244,7 @@ module.exports = {
     key: (f) => f.key || slug(f.label),
     period: taxYearOf,
     effectiveFrom: (n, f) => f.effectiveFrom || `${n.taxYear}-01-01`,
+    effectiveTo: (n, f) => f.effectiveTo || null,
     periodStart: (y) => `${String(y).slice(0, 4)}-01-01`,
     synonyms: { ss: 'social-security', '401k': '401k-elective-deferral' },
   },

@@ -34,7 +34,7 @@
     "ukExamDates": "results, timetable, deadlines, spec-changes for jcq, aqa, pearson, ocr, wjec-eduqas, sqa, ofqual, dfe; summer 2027 (final at all four boards), November 2026, summer 2026 as previous; verified 2026-10-04",
     "ukGovProcess": "16 services, verified 2026-10-04",
     "ukVehicleRules": "tax year 2026-27: 9 categories, verified 2026-10-04",
-    "usRates": "tax year 2026, 6 categories, verified 2026-10-03; federal only",
+    "usRates": "tax year 2026, 9 categories, verified 2026-10-03; federal only",
     "vehicles": {
       "euSafetyGate": "stub",
       "frRecalls": "1663 RappelConso automobile fiches, verified 2026-10-02",
@@ -213,7 +213,7 @@
       "description": "US federal rates and thresholds for tax year 2026, verified 2026-10-03 against the IRS revenue procedures and notices and SSA's Federal Register notice: income-tax rate schedules (bracket rows) and standard deduction, Social Security wage base and rates, Medicare and Additional Medicare Tax, retirement-plan and IRA limits, HSA/HDHP limits, estate and gift exclusions — each figure with source, quote, verifiedDate and the prior-year value. Committed data (not a live proxy), refreshed annually at the IRS release window.",
       "example": "https://databutler.dev/api/us/rates?category=income-tax",
       "params": {
-        "category": "one of income-tax, social-security, medicare, retirement, hsa, estate-gift (omit to list)"
+        "category": "one of income-tax, social-security, medicare, retirement, hsa, estate-gift, social-security-benefits, medicare-costs, capital-gains (omit to list)"
       }
     },
     "GET /api/vehicles/eu/safety-gate": "STUB — EU Safety Gate vehicle alerts are being added; returns covered:false with the official URL for now.",
