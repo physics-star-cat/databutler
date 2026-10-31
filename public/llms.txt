@@ -14,7 +14,7 @@ One key, one official figure, signed and dated. No auth, no key, CORS open.
 - GET https://databutler.dev/.well-known/facts.json — discovery: endpoints, namespaces, key count, digest
 - Change check: store facts.digest; when the live digest differs, GET https://databutler.dev/api/changes?since=<date> returns only what moved. ETag on /f/<key> is the record hash (If-None-Match → 304).
 - Verify: Ed25519 JWS over the record's attestation; keys at https://databutler.dev/.well-known/jwks.json
-- MCP: https://databutler.dev/api/mcp/facts (get_fact, resolve_fact, what_changed_since). Spec: https://databutler.dev/protocol/facts (markdown: ?format=md). Publish your own: https://databutler.dev/protocol/publish
+- MCP: https://databutler.dev/api/mcp/facts (get_fact, resolve_fact, what_changed_since). Spec: https://databutler.dev/protocol/facts (markdown: ?format=md).
 
 ## API (index: https://databutler.dev/api)
 

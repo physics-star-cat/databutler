@@ -4,6 +4,18 @@
 
 Data Butler serves clean, provenance-stamped UK public data over open REST and MCP. No auth, CORS-open, free with attribution. The customer is an AI assistant answering a human's question.
 
+## For an agent in a hurry (verified-facts/0.3)
+
+One key, one official figure, signed and dated. No auth, no key, CORS open.
+- GET https://databutler.dev/f/<country>/<topic>/<fact> — JSON: value, unit, period, effectiveFrom, source (the official URL), verifiedDate, status fresh|stale, staleReason, nextExpectedChange, hash, signature, cite.url
+- GET https://databutler.dev/f/<key>?max_age=30d — stale when verified longer ago than you allow, when a scheduled change date has passed unverified, or when the source page changed since
+- GET https://databutler.dev/f/resolve?q=<question> — no key in mind: ranked candidate keys
+- GET https://databutler.dev/f?keys=<k1>,<k2> — batch, up to 50
+- GET https://databutler.dev/.well-known/facts.json — discovery: endpoints, namespaces, key count, digest
+- Change check: store facts.digest; when the live digest differs, GET https://databutler.dev/api/changes?since=<date> returns only what moved. ETag on /f/<key> is the record hash (If-None-Match → 304).
+- Verify: Ed25519 JWS over the record's attestation; keys at https://databutler.dev/.well-known/jwks.json
+- MCP: https://databutler.dev/api/mcp/facts (get_fact, resolve_fact, what_changed_since). Spec: https://databutler.dev/protocol/facts (markdown: ?format=md).
+
 ## API (index: https://databutler.dev/api)
 
 <!-- sync-areas:rest start -->
