@@ -592,7 +592,8 @@
         "kinderfreibetrag": "Freibeträge für Kinder § 32 Abs. 6 EStG",
         "sparer-pauschbetrag": "Sparer-Pauschbetrag § 20 Abs. 9 EStG",
         "arbeitnehmer-pauschbetrag": "Arbeitnehmer-Pauschbetrag § 9a Satz 1 Nr. 1a EStG",
-        "entfernungspauschale": "Entfernungspauschale (Pendlerpauschale) § 9 Abs. 1 Satz 3 Nr. 4 EStG"
+        "entfernungspauschale": "Entfernungspauschale (Pendlerpauschale) § 9 Abs. 1 Satz 3 Nr. 4 EStG",
+        "vat": "Umsatzsteuer (VAT)"
       },
       "usage": "pass category=<key> for figures",
       "freshness": {

@@ -1,7 +1,7 @@
 /**
  * Area: de-rates — German federal tax and social-insurance figures for one
  * Veranlagungszeitraum, read from the consolidated statutes on
- * gesetze-im-internet.de (EStG, SolzG, SGB III/IV/V/VI/XI, MiLoV5, PBAV), the
+ * gesetze-im-internet.de (EStG, SolzG, UStG, SGB III/IV/V/VI/XI, MiLoV5, PBAV), the
  * Bundesgesetzblatt (SV-Rechengrößen-Verordnung, SteFeG, StÄndG 2025) and the
  * BMG, DRV, BMAS, BMFSFJ and Minijob-Zentrale pages named in each figure's
  * `source`. Every figure carries the German `term` and an English `label`, the
@@ -11,7 +11,9 @@
  * Refreshed once a year when the Sozialversicherungsrechengrößen-Verordnung is
  * promulgated and the Zusatzbeitrag announced (November) and after any
  * Steuergesetz that rewrites § 32a EStG; `nextScheduledRefresh` is set by hand
- * and the file diffed by `node scripts/changelog.js`.
+ * and the file diffed by `node scripts/changelog.js`. The Umsatzsteuer rates (§ 12 UStG)
+ * follow no calendar: they move only when a Gesetz amends § 12, so they carry
+ * changeCadence 'irregular' and effectiveFrom null unless the statute page states it.
  * Contract: api/_areas/README.md. Playbook: docs/ADDING_AN_AREA.md.
  */
 const DATA = require('../../data/de-rates.json');
@@ -46,6 +48,7 @@ const WATCH = [
   { url: 'https://www.gesetze-im-internet.de/estg/__20.html', label: '§ 20 EStG — Sparer-Pauschbetrag' },
   { url: 'https://www.gesetze-im-internet.de/estg/__9a.html', label: '§ 9a EStG — Arbeitnehmer-Pauschbetrag' },
   { url: 'https://www.gesetze-im-internet.de/estg/__9.html', label: '§ 9 EStG — Entfernungspauschale' },
+  { url: 'https://www.gesetze-im-internet.de/ustg_1980/__12.html', label: '§ 12 UStG — Umsatzsteuer: allgemeiner und ermäßigter Steuersatz' },
 ];
 
 /** A figure already fixed for a later year (Mindestlohn 2027, Geringfügigkeitsgrenze 2027) is logged under that year. */
@@ -68,7 +71,8 @@ module.exports = {
       'Beitragsbemessungsgrenzen, Bezugsgröße and Zusatzbeitrag move every January and the ' +
       'Grundfreibetrag, Kindergeld and Kinderfreibetrag with each Steuergesetz, so every de_rates_lookup figure names ' +
       'the year it applies to. Present taxYear, source and verifiedDate with any figure; social-insurance rates carry employeeShare and ' +
-      'employerShare, and the Zusatzbeitrag served is the statutory average (each Krankenkasse sets its own). Figures already fixed ' +
+      'employerShare, and the Zusatzbeitrag served is the statutory average (each Krankenkasse sets its own). The Umsatzsteuer standard and ' +
+      'reduced rates (§ 12 UStG) change only by statute and carry effectiveFrom null where the statute page does not state it. Figures already fixed ' +
       'for the following year (Mindestlohn, Geringfügigkeitsgrenze) carry their own effectiveFrom — present it. Kirchensteuer, ' +
       'Lohnsteuerklassen and Gewerbesteuer are not covered (coverage lists them). Every result carries cite.url (a databutler.dev permalink) and its official source.',
     tools: [
@@ -85,7 +89,8 @@ module.exports = {
           'Durchschnittsentgelt, KV/RV/AV/PV Beitragssätze with employee and employer shares, durchschnittlicher Zusatzbeitrag, ' +
           'Kinderlosenzuschlag and Kinderabschlag, Sachsen split), minimum-wage (Mindestlohn 2026 and the fixed 2027 step), minijob ' +
           '(Geringfügigkeitsgrenze 2026 and 2027, Midijob upper limit), kindergeld, kinderfreibetrag (Kinderfreibetrag, BEA-Freibetrag, ' +
-          'total per child), sparer-pauschbetrag, arbeitnehmer-pauschbetrag, entfernungspauschale. Federal law only: Kirchensteuer by ' +
+          'total per child), sparer-pauschbetrag, arbeitnehmer-pauschbetrag, entfernungspauschale, vat (Umsatzsteuer/Mehrwertsteuer ' +
+          'allgemeiner Steuersatz and ermäßigter Steuersatz, § 12 UStG). Federal law only: Kirchensteuer by ' +
           'Land, Lohnsteuerklassen mechanics and Gewerbesteuer are not covered, and 2027 draft figures are not served. An unknown ' +
           'category answers covered:false with the nearest keys.',
         inputSchema: {
@@ -110,6 +115,7 @@ module.exports = {
       'Kirchensteuer rates by Land (8 % in Bayern and Baden-Württemberg, 9 % elsewhere) and the Kirchensteuer cap rules',
       'Lohnsteuerklassen mechanics (§ 39b EStG withholding procedure, Steuerklasse III/V/VI effects, Faktorverfahren)',
       'Gewerbesteuer (Messzahl and municipal Hebesätze)',
+      'which supplies qualify for the ermäßigter Umsatzsteuersatz (the § 12 Abs. 2 list and Anlage 2), the 0 % rate of § 12 Abs. 3, Kleinunternehmer (§ 19 UStG) and the § 24 Durchschnittssätze',
       'the Zusatzbeitrag of an individual Krankenkasse (only the statutory average durchschnittlicher Zusatzbeitragssatz is served)',
       'Umlagen U1/U2 and Insolvenzgeldumlage (employer-side, Krankenkasse-specific)',
       '2027 draft figures — the Sozialversicherungsrechengrößen-Verordnung 2027 (Referentenentwurf of 21 September 2026: Bezugsgröße, Beitragsbemessungsgrenzen, Jahresarbeitsentgeltgrenze) and the 2027 Zusatzbeitrag: draft, not served; only the enacted Mindestlohn 14,60 € and Geringfügigkeitsgrenze 633 € for 2027 are included',
@@ -127,7 +133,7 @@ module.exports = {
     diff: (prev, next) => diffCategories(AREA, prev, next, {
       key: (f) => f.key || slug(f.label),
       previous: true,
-      effectiveFrom: (n, f) => f.effectiveFrom || `${n.taxYear}-01-01`,
+      effectiveFrom: (n, f) => (f.effectiveFrom === null ? null : f.effectiveFrom || `${n.taxYear}-01-01`),
       // Entries read "German term / English label" so /changes and feeds carry both names.
       extra: (n, cat, f) => ({ taxYear: taxYearOf(n, f), ...(f.term ? { term: f.term, label: `${f.term} / ${f.label}` } : {}) }),
     }),
@@ -135,8 +141,8 @@ module.exports = {
     context: (e) => (e.taxYear ? `Veranlagungszeitraum ${e.taxYear}` : ''),
   },
   discovery: {
-    description: 'German tax and social-insurance figures read from the consolidated statutes, the Bundesgesetzblatt and the BMG/DRV/BMAS pages: Grundfreibetrag and § 32a tariff, Solidaritätszuschlag, Beitragsbemessungsgrenzen and Beitragssätze, Zusatzbeitrag, Mindestlohn, Geringfügigkeitsgrenze, Kindergeld, Kinderfreibetrag, Pauschbeträge, Entfernungspauschale.',
-    cadence: 'Annual: after the Sozialversicherungsrechengrößen-Verordnung and the Zusatzbeitrag announcement (November), and any Steuergesetz changing § 32a EStG for the next Veranlagungszeitraum; every source page re-fetched weekly.',
+    description: 'German tax and social-insurance figures read from the consolidated statutes, the Bundesgesetzblatt and the BMG/DRV/BMAS pages: Grundfreibetrag and § 32a tariff, Solidaritätszuschlag, Beitragsbemessungsgrenzen and Beitragssätze, Zusatzbeitrag, Mindestlohn, Geringfügigkeitsgrenze, Kindergeld, Kinderfreibetrag, Pauschbeträge, Entfernungspauschale, Umsatzsteuer (allgemeiner und ermäßigter Steuersatz).',
+    cadence: 'Annual: after the Sozialversicherungsrechengrößen-Verordnung and the Zusatzbeitrag announcement (November), and any Steuergesetz changing § 32a EStG for the next Veranlagungszeitraum; the Umsatzsteuer rates only when a Gesetz amends § 12 UStG (irregular); every source page re-fetched weekly.',
   },
 
   sources: () => WATCH,
@@ -146,28 +152,28 @@ module.exports = {
   ],
 
   hub: {
-    changed: 'German tax and social-insurance thresholds (Grundfreibetrag, Beitragsbemessungsgrenzen, Zusatzbeitrag, Mindestlohn, Kindergeld)',
+    changed: 'German tax and social-insurance thresholds (Grundfreibetrag, Beitragsbemessungsgrenzen, Zusatzbeitrag, Mindestlohn, Kindergeld, Umsatzsteuer)',
     coverage: 'German rate categories and Veranlagungszeitraum',
-    catalogue: 'German tax and social-insurance figures (de_rates_lookup: Einkommensteuertarif, Sozialversicherung, Mindestlohn, Minijob, Kindergeld, Kinderfreibetrag, Pauschbeträge, Entfernungspauschale)',
-    call: 'de_rates_lookup (German tax and social-insurance figures for the current Veranlagungszeitraum: income-tax, social-insurance, minimum-wage, minijob, kindergeld, kinderfreibetrag, sparer-pauschbetrag, arbeitnehmer-pauschbetrag, entfernungspauschale)',
-    frontDoor: 'German figures (Grundfreibetrag and tariff, Beitragsbemessungsgrenzen and Beitragssätze, Mindestlohn, Minijob limit, Kindergeld, Pauschbeträge) are returned by de_rates_lookup (via call), each read from the statute or ministry page with verifiedDate.',
+    catalogue: 'German tax and social-insurance figures (de_rates_lookup: Einkommensteuertarif, Sozialversicherung, Mindestlohn, Minijob, Kindergeld, Kinderfreibetrag, Pauschbeträge, Entfernungspauschale, Umsatzsteuer)',
+    call: 'de_rates_lookup (German tax and social-insurance figures for the current Veranlagungszeitraum: income-tax, social-insurance, minimum-wage, minijob, kindergeld, kinderfreibetrag, sparer-pauschbetrag, arbeitnehmer-pauschbetrag, entfernungspauschale, vat)',
+    frontDoor: 'German figures (Grundfreibetrag and tariff, Beitragsbemessungsgrenzen and Beitragssätze, Mindestlohn, Minijob limit, Kindergeld, Pauschbeträge, Umsatzsteuer) are returned by de_rates_lookup (via call), each read from the statute or ministry page with verifiedDate.',
   },
 
   docs: {
     readme: {
-      roadmapRow: `| **German rates & thresholds** — \`de_rates_lookup\`: Veranlagungszeitraum ${TAX_YEAR} Einkommensteuertarif (§ 32a) and Solidaritätszuschlag, Sozialversicherung Beitragsbemessungsgrenzen, Rechengrößen and Beitragssätze, Mindestlohn (2026 and the fixed 2027 step), Geringfügigkeitsgrenze, Kindergeld, Kinderfreibetrag, Pauschbeträge and Entfernungspauschale, read from the consolidated statutes and the Bundesgesetzblatt with German term + English label, quoted sentence and prior value; country #3 on the "is this still true?" layer | \`/api/mcp/de-rates\` | **v1 — built 2026-10-03** |`,
-      catalogueRow: `| \`/api/mcp/de-rates\` | \`de_rates_lookup\` — category ∈ {${CATEGORIES.join(', ')}} (omit to list) | \`data/de-rates.json\` (Veranlagungszeitraum ${TAX_YEAR}, ${Object.values(DATA.categories).reduce((n, c) => n + c.figures.length, 0)} figures): read from § 32a/§ 9/§ 9a/§ 20/§ 32/§ 66 EStG, §§ 3–4 SolzG, SV-Rechengrößen-VO 2026 (BGBl. 2025 I Nr. 278), § 241 SGB V, § 341 SGB III, § 55 SGB XI + PBAV 2025, § 8 SGB IV, MiLoV5 and the BMG/DRV/BMAS/BMFSFJ/Minijob-Zentrale pages; every figure carries \`term\` (German), \`label\` (English), \`quote\` and \`previous\`; social-insurance rates carry \`employeeShare\`/\`employerShare\`. **Committed data, not a live proxy**; freshness turns \`due\` at the hand-set \`nextScheduledRefresh\` (mid-December, when the next year's Verordnung and Zusatzbeitrag are final). Refresh: edit against the BGBl/statutes, \`node scripts/changelog.js\` (docs/CURATION.md) |`,
+      roadmapRow: `| **German rates & thresholds** — \`de_rates_lookup\`: Veranlagungszeitraum ${TAX_YEAR} Einkommensteuertarif (§ 32a) and Solidaritätszuschlag, Sozialversicherung Beitragsbemessungsgrenzen, Rechengrößen and Beitragssätze, Mindestlohn (2026 and the fixed 2027 step), Geringfügigkeitsgrenze, Kindergeld, Kinderfreibetrag, Pauschbeträge, Entfernungspauschale and the Umsatzsteuer rates (§ 12 UStG), read from the consolidated statutes and the Bundesgesetzblatt with German term + English label, quoted sentence and prior value; country #3 on the "is this still true?" layer | \`/api/mcp/de-rates\` | **v1 — built 2026-10-03** |`,
+      catalogueRow: `| \`/api/mcp/de-rates\` | \`de_rates_lookup\` — category ∈ {${CATEGORIES.join(', ')}} (omit to list) | \`data/de-rates.json\` (Veranlagungszeitraum ${TAX_YEAR}, ${Object.values(DATA.categories).reduce((n, c) => n + c.figures.length, 0)} figures): read from § 32a/§ 9/§ 9a/§ 20/§ 32/§ 66 EStG, §§ 3–4 SolzG, § 12 UStG, SV-Rechengrößen-VO 2026 (BGBl. 2025 I Nr. 278), § 241 SGB V, § 341 SGB III, § 55 SGB XI + PBAV 2025, § 8 SGB IV, MiLoV5 and the BMG/DRV/BMAS/BMFSFJ/Minijob-Zentrale pages; every figure carries \`term\` (German), \`label\` (English), \`quote\` and \`previous\`; social-insurance rates carry \`employeeShare\`/\`employerShare\`. **Committed data, not a live proxy**; freshness turns \`due\` at the hand-set \`nextScheduledRefresh\` (mid-December, when the next year's Verordnung and Zusatzbeitrag are final). Refresh: edit against the BGBl/statutes, \`node scripts/changelog.js\` (docs/CURATION.md) |`,
     },
     llms: {
       rest: [
-        `- \`GET https://databutler.dev/api/de/rates?category=social-insurance\` — current German (Veranlagungszeitraum ${TAX_YEAR}) tax and social-insurance figures (Grundfreibetrag and § 32a tariff zones, Solidaritätszuschlag, Beitragsbemessungsgrenzen RV/AV and KV/PV, Jahresarbeitsentgeltgrenze, Bezugsgröße, KV/RV/AV/PV Beitragssätze with employee and employer shares, durchschnittlicher Zusatzbeitrag, Mindestlohn 2026/2027, Geringfügigkeitsgrenze, Kindergeld, Kinderfreibetrag, Sparer- and Arbeitnehmer-Pauschbetrag, Entfernungspauschale), each figure read from the statute, Bundesgesetzblatt or ministry page named as its source, with German term + English label, the quoted sentence, verifiedDate and the prior value. Omit category to list the categories.`,
+        `- \`GET https://databutler.dev/api/de/rates?category=social-insurance\` — current German (Veranlagungszeitraum ${TAX_YEAR}) tax and social-insurance figures (Grundfreibetrag and § 32a tariff zones, Solidaritätszuschlag, Beitragsbemessungsgrenzen RV/AV and KV/PV, Jahresarbeitsentgeltgrenze, Bezugsgröße, KV/RV/AV/PV Beitragssätze with employee and employer shares, durchschnittlicher Zusatzbeitrag, Mindestlohn 2026/2027, Geringfügigkeitsgrenze, Kindergeld, Kinderfreibetrag, Sparer- and Arbeitnehmer-Pauschbetrag, Entfernungspauschale, Umsatzsteuer allgemeiner and ermäßigter Steuersatz), each figure read from the statute, Bundesgesetzblatt or ministry page named as its source, with German term + English label, the quoted sentence, verifiedDate and the prior value. Omit category to list the categories.`,
       ],
       server: `- \`POST https://databutler.dev/api/mcp/de-rates\` — tool \`de_rates_lookup\` (category = ${CATEGORIES.join(' | ')}, or omit to list): current German (Veranlagungszeitraum ${TAX_YEAR}) tax and social-insurance figures read from the consolidated statutes on gesetze-im-internet.de, the Bundesgesetzblatt and the BMG/DRV/BMAS/Minijob-Zentrale pages, each with German term and English label, source, the quoted sentence, verifiedDate and the prior value; social-insurance rates carry employee and employer shares; the Mindestlohn and Geringfügigkeitsgrenze already fixed for 2027 carry their own effectiveFrom. Kirchensteuer, Lohnsteuerklassen and Gewerbesteuer answer covered:false; 2027 draft Rechengrößen are not served. Committed data, not a live proxy; freshness turns \`due\` in mid-December when the next year's Verordnung is final. REST mirror: \`GET https://databutler.dev/api/de/rates?category=…\`.`,
     },
     curation: [
-      '| `data/de-rates.json` | Annual, calendar-driven (`cadenceDays: null`; `nextScheduledRefresh` set by hand, 2026-12-15 for 2027): the Sozialversicherungsrechengrößen-Verordnung in the BGBl (late November; the BMAS Verordnung page\'s "Umsetzungsstand" flips first), the durchschnittlicher Zusatzbeitragssatz in the Bundesanzeiger (by 1 November; BMG `/beitraege` table), any Steuergesetz rewriting § 32a/§ 32/§ 66 EStG (consolidated text on gesetze-im-internet.de within days), the Mindestlohnkommission decision (by 30 June of the year before). The weekly watcher hashes the twelve pages in `sources()`. | Open the BGBl PDF on recht.bund.de and the consolidated § pages; for each figure move `value` into `previous` (with its source and quote), write the new `value`, `effectiveFrom`, `source`, `quote`, `verifiedDate`; promote the already-fixed next-year figures (Mindestlohn, Geringfügigkeitsgrenze) and add the following year\'s if enacted; bump `taxYear`, `taxYearRuns`, `verifiedDate`, set `nextScheduledRefresh`; then `node scripts/changelog.js` (one `de-rates` entry per figure that moved; refreshes `data/sources.json`); fill each `note` with the Verordnung/Gesetz and BGBl citation. bundesfinanzministerium.de serves a CAPTCHA to curl — the statutes and BGBl are the primary sources anyway. |',
+      '| `data/de-rates.json` | Annual, calendar-driven (`cadenceDays: null`; `nextScheduledRefresh` set by hand, 2026-12-15 for 2027): the Sozialversicherungsrechengrößen-Verordnung in the BGBl (late November; the BMAS Verordnung page\'s "Umsetzungsstand" flips first), the durchschnittlicher Zusatzbeitragssatz in the Bundesanzeiger (by 1 November; BMG `/beitraege` table), any Steuergesetz rewriting § 32a/§ 32/§ 66 EStG or § 12 UStG (consolidated text on gesetze-im-internet.de within days; the Umsatzsteuer rates have no calendar), the Mindestlohnkommission decision (by 30 June of the year before). The weekly watcher hashes the thirteen pages in `sources()`. | Open the BGBl PDF on recht.bund.de and the consolidated § pages; for each figure move `value` into `previous` (with its source and quote), write the new `value`, `effectiveFrom`, `source`, `quote`, `verifiedDate`; promote the already-fixed next-year figures (Mindestlohn, Geringfügigkeitsgrenze) and add the following year\'s if enacted; bump `taxYear`, `taxYearRuns`, `verifiedDate`, set `nextScheduledRefresh`; then `node scripts/changelog.js` (one `de-rates` entry per figure that moved; refreshes `data/sources.json`); fill each `note` with the Verordnung/Gesetz and BGBl citation. bundesfinanzministerium.de serves a CAPTCHA to curl — the statutes and BGBl are the primary sources anyway. |',
     ],
-    index: { blurb: `German Veranlagungszeitraum ${TAX_YEAR}: Grundfreibetrag and tariff, Beitragsbemessungsgrenzen and Beitragssätze, Mindestlohn, Minijob, Kindergeld, Pauschbeträge, read from the statutes and the Bundesgesetzblatt` },
+    index: { blurb: `German Veranlagungszeitraum ${TAX_YEAR}: Grundfreibetrag and tariff, Beitragsbemessungsgrenzen and Beitragssätze, Mindestlohn, Minijob, Kindergeld, Pauschbeträge, Umsatzsteuer, read from the statutes and the Bundesgesetzblatt` },
     api: () => ({
       endpoints: {
         'GET /api/de/rates': {
@@ -175,7 +181,7 @@ module.exports = {
             `German tax and social-insurance figures for Veranlagungszeitraum ${TAX_YEAR}, verified ${DATA.verifiedDate} against the consolidated statutes, ` +
             'the Bundesgesetzblatt and the BMG/DRV/BMAS pages: Grundfreibetrag and § 32a tariff zones, Solidaritätszuschlag, Beitragsbemessungsgrenzen, ' +
             'Bezugsgröße, Beitragssätze with employee/employer shares, Zusatzbeitrag, Mindestlohn (2026 and fixed 2027), Geringfügigkeitsgrenze, Kindergeld, ' +
-            'Kinderfreibetrag, Pauschbeträge, Entfernungspauschale — each figure with German term, English label, source, quote, verifiedDate and prior value. ' +
+            'Kinderfreibetrag, Pauschbeträge, Entfernungspauschale, Umsatzsteuer (§ 12 UStG) — each figure with German term, English label, source, quote, verifiedDate and prior value. ' +
             'Committed data (not a live proxy), refreshed annually when the next year\'s Verordnung is final.',
           params: { category: `one of ${CATEGORIES.join(', ')} (omit to list)` },
           example: 'https://databutler.dev/api/de/rates?category=social-insurance',
@@ -191,10 +197,23 @@ module.exports = {
     namespace: 'de',
     key: (f) => f.key || slug(f.label),
     period: taxYearOf,
-    effectiveFrom: (n, f) => f.effectiveFrom || `${n.taxYear}-01-01`,
+    // A figure that states effectiveFrom: null (the § 12 UStG rates, whose start date the statute page does not print) stays null —
+    // never the Veranlagungszeitraum's 1 January.
+    effectiveFrom: (n, f) => (f.effectiveFrom === null ? null : f.effectiveFrom || `${n.taxYear}-01-01`),
     periodStart: (y) => `${String(y).slice(0, 4)}-01-01`,
-    expected: { changeCadence: 'annual', dates: ['01-01'] }, // v0.3: the Veranlagungszeitraum and the SV-Rechengrößen move each 1 January
-    synonyms: { bbg: 'social-insurance', 'minijob-grenze': 'geringfuegigkeitsgrenze-2026' },
+    // v0.3: the Veranlagungszeitraum and the SV-Rechengrößen move each 1 January; the Umsatzsteuer rates move only when a
+    // Gesetz amends § 12 UStG, on no published calendar.
+    expected: (r) => (r.key.startsWith('de/vat/') ? { changeCadence: 'irregular', dates: [] } : { changeCadence: 'annual', dates: ['01-01'] }),
+    aliases: {
+      'de/umsatzsteuer/regelsteuersatz': 'de/vat/standard-rate',
+      'de/umsatzsteuer/ermaessigter-steuersatz': 'de/vat/reduced-rate',
+    },
+    // Synonyms are shared across areas: Mehrwertsteuer, MwSt and sales tax map to `umsatzsteuer`, which only the German VAT labels
+    // carry. `umsatzsteuer` and `vat` are already label words and are not mapped (vat → umsatzsteuer outranked uk/vat/* for UK queries).
+    synonyms: {
+      bbg: 'social-insurance', 'minijob-grenze': 'geringfuegigkeitsgrenze-2026',
+      mehrwertsteuer: 'umsatzsteuer', mwst: 'umsatzsteuer', 'sales tax': 'umsatzsteuer',
+    },
   },
 
   verify: [

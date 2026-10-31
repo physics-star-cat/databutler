@@ -8,7 +8,7 @@
   "nextScheduledRefresh": "2026-12-15",
   "refreshRule": "Re-verify when (a) the Sozialversicherungsrechengrößen-Verordnung 2027 is promulgated in the Bundesgesetzblatt (draft announced 24 Sep 2026, Bundesrat approval pending — expected Nov 2026), (b) the BMG announces the durchschnittlicher Zusatzbeitragssatz 2027 (by 1 November, Bundesanzeiger), (c) any 2026 Steuergesetz changes § 32a EStG for VZ 2027 (watch gesetze-im-internet.de). Mindestlohn and Geringfügigkeitsgrenze for 2027 are already fixed (MiLoV5).",
   "verificationMethod": "Every figure was read on verifiedDate from the primary legal text (consolidated statute on gesetze-im-internet.de — EStG Stand: zuletzt geändert durch Art. 7 G v. 29.6.2026 I Nr. 197 — or the Bundesgesetzblatt PDF on recht.bund.de) and, where a ministry page restates it, from that page as corroboration (BMAS, BMG, Deutsche Rentenversicherung, Minijob-Zentrale, BMFSFJ). All fetched with curl, User-Agent databutler-curation/1.0; every `source` URL returned HTTP 200 on 2026-10-03. German terms are kept in `term`; `label` is an English gloss. `quote` reproduces the sentence the value was taken from. `previous` values come from the document named in previous.source (usually the amending law, which prints old and new value side by side). Not copied from the LifeByNumbers app.py — see NOTES.md for the comparison.",
-  "licence": "Gesetze, Verordnungen und amtliche Bekanntmachungen (EStG, SGB, SolzG, MiLoV5, SV-Rechengrößenverordnung, BGBl., BAnz) are amtliche Werke and free of copyright under § 5 UrhG. Ministry and DRV web pages are quoted briefly with attribution as sources; no page content is reproduced beyond the cited sentence.",
+  "licence": "Gesetze, Verordnungen und amtliche Bekanntmachungen (EStG, UStG, SGB, SolzG, MiLoV5, SV-Rechengrößenverordnung, BGBl., BAnz) are amtliche Werke and free of copyright under § 5 UrhG. Ministry and DRV web pages are quoted briefly with attribution as sources; no page content is reproduced beyond the cited sentence.",
   "sources": [
     {
       "id": "estg-32a",
@@ -173,6 +173,12 @@
       "title": "Deutsche Rentenversicherung press note 24.09.2026: Rechengrößen der Sozialversicherung 2027 (draft, not yet in force)",
       "url": "https://www.deutsche-rentenversicherung.de/DRV/DE/Ueber-uns-und-Presse/Presse/Meldungen/2026/260922-sv-rechengroessen-vo-2027.html",
       "fetched": "2026-10-03"
+    },
+    {
+      "id": "ustg-12",
+      "title": "§ 12 UStG Steuersätze (consolidated text, gesetze-im-internet.de)",
+      "url": "https://www.gesetze-im-internet.de/ustg_1980/__12.html",
+      "fetched": "2026-10-31"
     }
   ],
   "categories": {
@@ -965,6 +971,38 @@
           "source": "https://www.gesetze-im-internet.de/estg/__9.html",
           "quote": "Zur Abgeltung der Aufwendungen für eine Familienheimfahrt ist eine Entfernungspauschale von 0,38 Euro für jeden vollen Kilometer der Entfernung … anzusetzen.",
           "verifiedDate": "2026-10-03"
+        }
+      ]
+    },
+    "vat": {
+      "title": "Umsatzsteuer (VAT)",
+      "scope": "The two VAT rates of § 12 UStG: the allgemeiner Steuersatz on every taxable supply (Abs. 1) and the ermäßigter Steuersatz on the supplies listed in Abs. 2 Nr. 1–15 (Anlage 2 goods, restaurant and catering services excluding drinks, and the other numbered supplies). Which supplies qualify, the 0 % rate of Abs. 3 (Solarmodule/Photovoltaikanlagen) and the § 24 Durchschnittssätze are not served.",
+      "source": "https://www.gesetze-im-internet.de/ustg_1980/__12.html",
+      "verifiedDate": "2026-10-31",
+      "figures": [
+        {
+          "key": "standard-rate",
+          "term": "Allgemeiner Steuersatz (§ 12 Abs. 1 UStG)",
+          "label": "Umsatzsteuer: allgemeiner Steuersatz (standard VAT rate)",
+          "value": 19,
+          "unit": "%",
+          "effectiveFrom": null,
+          "source": "https://www.gesetze-im-internet.de/ustg_1980/__12.html",
+          "quote": "(1) Die Steuer beträgt für jeden steuerpflichtigen Umsatz 19 Prozent der Bemessungsgrundlage (§§ 10, 11, 25 Abs. 3 und § 25a Abs. 3 und 4).",
+          "verifiedDate": "2026-10-31",
+          "note": "effectiveFrom left null: neither the § 12 UStG Einzelnorm page nor the UStG Gesamtausgabe header and Fußnoten on gesetze-im-internet.de (fetched 2026-10-31) state the date this rate took effect."
+        },
+        {
+          "key": "reduced-rate",
+          "term": "Ermäßigter Steuersatz (§ 12 Abs. 2 UStG)",
+          "label": "Umsatzsteuer: ermäßigter Steuersatz (reduced VAT rate)",
+          "value": 7,
+          "unit": "%",
+          "effectiveFrom": null,
+          "source": "https://www.gesetze-im-internet.de/ustg_1980/__12.html",
+          "quote": "(2) Die Steuer ermäßigt sich auf sieben Prozent für die folgenden Umsätze:",
+          "verifiedDate": "2026-10-31",
+          "note": "The statute writes the rate in words (\"sieben Prozent\"). Applies only to the supplies listed in § 12 Abs. 2 Nr. 1–15. effectiveFrom left null: neither the § 12 UStG Einzelnorm page nor the UStG Gesamtausgabe header and Fußnoten on gesetze-im-internet.de (fetched 2026-10-31) state the date this rate took effect."
         }
       ]
     }

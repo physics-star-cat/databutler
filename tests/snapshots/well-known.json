@@ -39,8 +39,8 @@
     },
     {
       "name": "de-rates",
-      "description": "German tax and social-insurance figures read from the consolidated statutes, the Bundesgesetzblatt and the BMG/DRV/BMAS pages: Grundfreibetrag and § 32a tariff, Solidaritätszuschlag, Beitragsbemessungsgrenzen and Beitragssätze, Zusatzbeitrag, Mindestlohn, Geringfügigkeitsgrenze, Kindergeld, Kinderfreibetrag, Pauschbeträge, Entfernungspauschale.",
-      "cadence": "Annual: after the Sozialversicherungsrechengrößen-Verordnung and the Zusatzbeitrag announcement (November), and any Steuergesetz changing § 32a EStG for the next Veranlagungszeitraum; every source page re-fetched weekly."
+      "description": "German tax and social-insurance figures read from the consolidated statutes, the Bundesgesetzblatt and the BMG/DRV/BMAS pages: Grundfreibetrag and § 32a tariff, Solidaritätszuschlag, Beitragsbemessungsgrenzen and Beitragssätze, Zusatzbeitrag, Mindestlohn, Geringfügigkeitsgrenze, Kindergeld, Kinderfreibetrag, Pauschbeträge, Entfernungspauschale, Umsatzsteuer (allgemeiner und ermäßigter Steuersatz).",
+      "cadence": "Annual: after the Sozialversicherungsrechengrößen-Verordnung and the Zusatzbeitrag announcement (November), and any Steuergesetz changing § 32a EStG for the next Veranlagungszeitraum; the Umsatzsteuer rates only when a Gesetz amends § 12 UStG (irregular); every source page re-fetched weekly."
     },
     {
       "name": "uk-vehicle-rules",

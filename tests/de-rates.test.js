@@ -25,7 +25,9 @@ const rest = router.ROUTES['de/rates'];
 const get = (h, url) => invoke(h, undefined, { method: 'GET', url });
 const day = (iso) => new Date(`${iso}T12:00:00Z`);
 const ISO = /^\d{4}-\d{2}-\d{2}$/;
-const CATEGORIES = ['income-tax', 'social-insurance', 'minimum-wage', 'minijob', 'kindergeld', 'kinderfreibetrag', 'sparer-pauschbetrag', 'arbeitnehmer-pauschbetrag', 'entfernungspauschale'];
+const CATEGORIES = ['income-tax', 'social-insurance', 'minimum-wage', 'minijob', 'kindergeld', 'kinderfreibetrag', 'sparer-pauschbetrag', 'arbeitnehmer-pauschbetrag', 'entfernungspauschale', 'vat'];
+/** Added 2026-10-31 after the area's verification run: verified on their own day, and dated only when the statute page states it. */
+const LATER = { vat: '2026-10-31' };
 const ENTRY_FIELDS = ['area', 'key', 'label', 'from', 'to', 'effectiveFrom', 'source', 'verifiedDate', 'note'];
 const OFFICIAL = /^https:\/\/www\.(gesetze-im-internet\.de|recht\.bund\.de|bmas\.de|bundesgesundheitsministerium\.de|deutsche-rentenversicherung\.de|minijob-zentrale\.de|bmfsfj\.de|bundesanzeiger\.de)\//;
 const figure = (cat, key) => DATA.categories[cat].figures.find((f) => f.key === key);
@@ -54,10 +56,11 @@ test('data: VZ 2026, calendar-driven refresh, every figure keyed, termed (German
       assert.ok(typeof f.term === 'string' && f.term.length > 2, `${k}/${f.key} German term`);
       assert.ok(typeof f.label === 'string' && f.label.length > 5 && f.label !== f.term, `${k}/${f.key} English label alongside the term`);
       assert.ok(f.value !== undefined && f.unit, `${k}/${f.key} value, unit`);
-      assert.match(f.effectiveFrom, ISO, `${k}/${f.key} effectiveFrom`);
+      if (k === 'vat') assert.equal(f.effectiveFrom, null, `${k}/${f.key} effectiveFrom: the § 12 UStG page states no start date`);
+      else assert.match(f.effectiveFrom, ISO, `${k}/${f.key} effectiveFrom`);
       assert.match(f.source, OFFICIAL, `${k}/${f.key} source`);
       assert.ok(typeof f.quote === 'string' && f.quote.length > 20, `${k}/${f.key} quote (the verification evidence)`);
-      assert.equal(f.verifiedDate, DATA.verifiedDate, `${k}/${f.key} verifiedDate`);
+      assert.equal(f.verifiedDate, LATER[k] || DATA.verifiedDate, `${k}/${f.key} verifiedDate`);
       if (f.previous) assert.ok(f.previous.taxYear && f.previous.value !== undefined && (f.previous.source || f.derived || same(f.previous.value, f.value)), `${k}/${f.key} previous (sourced when it differs, unless derived)`);
     }
   }
@@ -93,6 +96,34 @@ test('data: VZ 2026, calendar-driven refresh, every figure keyed, termed (German
   assert.equal(value('sparer-pauschbetrag', 'sparer-pauschbetrag'), 1000);
   assert.equal(value('arbeitnehmer-pauschbetrag', 'arbeitnehmer-pauschbetrag'), 1230);
   assert.equal(value('entfernungspauschale', 'entfernungspauschale'), 0.38);
+  // § 12 UStG, read 2026-10-31 (docs/CURATION.md): Abs. 1 "19 Prozent", Abs. 2 "sieben Prozent".
+  assert.equal(value('vat', 'standard-rate'), 19);
+  assert.equal(value('vat', 'reduced-rate'), 7);
+  for (const key of ['standard-rate', 'reduced-rate']) {
+    assert.equal(figure('vat', key).unit, '%');
+    assert.equal(figure('vat', key).source, 'https://www.gesetze-im-internet.de/ustg_1980/__12.html');
+  }
+  assert.match(figure('vat', 'standard-rate').quote, /19 Prozent der Bemessungsgrundlage/);
+  assert.match(figure('vat', 'reduced-rate').quote, /ermäßigt sich auf sieben Prozent/);
+});
+
+test('facts: de/vat/* serve the § 12 UStG rates with effectiveFrom null and irregular cadence; reviewed aliases and synonyms resolve', () => {
+  const F = require('../api/_facts');
+  for (const [key, v, alias] of [['de/vat/standard-rate', 19, 'de/umsatzsteuer/regelsteuersatz'], ['de/vat/reduced-rate', 7, 'de/umsatzsteuer/ermaessigter-steuersatz']]) {
+    const r = F.getFact(key, {}, day('2026-11-01'));
+    assert.equal(r.value, v, key);
+    assert.equal(r.unit, '%');
+    assert.equal(r.effectiveFrom, null, 'never defaulted to the Veranlagungszeitraum 1 January');
+    assert.equal(r.verifiedDate, '2026-10-31');
+    assert.equal(r.changeCadence, 'irregular');
+    assert.equal(r.nextExpectedChange, null);
+    assert.equal(F.getFact(alias, {}, day('2026-11-01')).key, key, alias);
+  }
+  assert.equal(F.getFact('de/income-tax/grundfreibetrag').changeCadence, 'annual', 'the rest of the area keeps its 1 January cadence');
+  for (const q of ['Mehrwertsteuer', 'MwSt', 'Umsatzsteuer', 'German VAT', 'sales tax germany']) {
+    const top = F.resolveFact(q).candidates.slice(0, 2).map((c) => c.key).sort();
+    assert.deepEqual(top, ['de/vat/reduced-rate', 'de/vat/standard-rate'], q);
+  }
 });
 
 /* ---------------- registry, server, hub ---------------- */
@@ -271,10 +302,10 @@ test('discovery: the area appears in /.well-known/changes.json with its cadence'
 
 test('sources: the watcher gets the statute pages and ministry tables, no bundesfinanzministerium.de, and sources.json knows them', () => {
   const urls = AREA_MODULE.sources().map((s) => s.url);
-  assert.equal(urls.length, 12);
+  assert.equal(urls.length, 13);
   assert.ok(urls.every((u) => OFFICIAL.test(u)));
   assert.ok(!urls.some((u) => u.includes('bundesfinanzministerium.de')), 'BMF serves a CAPTCHA to automated fetches');
-  for (const u of ['https://www.gesetze-im-internet.de/estg/__32a.html', 'https://www.gesetze-im-internet.de/estg/__66.html', 'https://www.bundesgesundheitsministerium.de/beitraege', 'https://www.minijob-zentrale.de/DE/die-minijobs/minijob-mit-verdienstgrenze']) assert.ok(urls.includes(u), u);
+  for (const u of ['https://www.gesetze-im-internet.de/estg/__32a.html', 'https://www.gesetze-im-internet.de/estg/__66.html', 'https://www.bundesgesundheitsministerium.de/beitraege', 'https://www.minijob-zentrale.de/DE/die-minijobs/minijob-mit-verdienstgrenze', 'https://www.gesetze-im-internet.de/ustg_1980/__12.html']) assert.ok(urls.includes(u), u);
   for (const s of AREA_MODULE.sources()) assert.ok(s.label.length > 10, s.url);
   const all = sourceUrls();
   for (const u of urls) assert.ok(all.includes(u), `watched: ${u}`);
