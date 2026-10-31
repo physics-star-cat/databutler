@@ -22,11 +22,11 @@
  */
 const fs = require('node:fs');
 const path = require('node:path');
-const { hashOf, digestOf, verifyRecord } = require('../api/_facts_sign');
-const { validate } = require('../api/_schema_check');
-
-const ROOT = path.resolve(__dirname, '..');
-const schema = (f) => JSON.parse(fs.readFileSync(path.join(ROOT, 'public/schema', f), 'utf8'));
+/** A module or schema next to this file (a vendored copy, or the npm package), else in this repo's layout. */
+const near = (rel, repo) => [path.join(__dirname, rel), path.join(__dirname, repo)].find((p) => fs.existsSync(p)) || path.join(__dirname, repo);
+const { hashOf, digestOf, verifyRecord } = require(near('_facts_sign.js', '../api/_facts_sign.js'));
+const { validate } = require(near('_schema_check.js', '../api/_schema_check.js'));
+const schema = (f) => JSON.parse(fs.readFileSync(near(`schema/${f}`, `../public/schema/${f}`), 'utf8'));
 const FACT = schema('fact.v0.json');
 const WKF = schema('well-known-facts.v0.json');
 const WKC = schema('well-known-changes.v0.json');

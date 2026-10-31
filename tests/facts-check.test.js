@@ -76,3 +76,25 @@ test('a tampered record fails item 3 (hash) and item 15 (signature)', async () =
   assert.equal(item(forged, 15).ok, false, item(forged, 15).detail);
   assert.match(item(forged, 15).detail, /uk\/income-tax\/personal-allowance: signature EdDSA signature does not verify/);
 });
+
+test('v0.3 checker: a 0.2 static site (no digest) still passes L1; a 0.3 one without digest fails item 2', async () => {
+  const { files } = buildStatic(SRC);
+  const strip = (s) => { const o = JSON.parse(s); o.protocol = 'verified-facts/0.2'; if (o.facts && !Array.isArray(o.facts)) delete o.facts.digest; delete o.digest; if (o.namespaces) o.namespaces = o.namespaces.map(({ digest, ...n }) => n); return JSON.stringify(o); };
+  const v02 = { ...files, '.well-known/facts.json': strip(files['.well-known/facts.json']), 'f/index.json': strip(files['f/index.json']) };
+  for (const k of Object.keys(v02)) if (/^f\/uk\//.test(k)) v02[k] = JSON.stringify({ ...JSON.parse(v02[k]), protocol: 'verified-facts/0.2' });
+  const old = await checkSite('https://cars.example.org', { fetchFn: staticFetch(v02), offline: true });
+  assert.equal(old.ok, true, format(old));
+  const noDigest = { ...files, 'f/index.json': JSON.stringify({ ...JSON.parse(files['f/index.json']), digest: undefined }) };
+  const r = await checkSite('https://cars.example.org', { fetchFn: staticFetch(noDigest), offline: true });
+  assert.equal(item(r, 2).ok, false);
+  assert.match(item(r, 2).detail, /index digest \(none\)/);
+  const wrong = await checkSite('https://cars.example.org', { fetchFn: staticFetch({ ...files, '.well-known/facts.json': files['.well-known/facts.json'].replace('"protocol": "verified-facts/0.3"', '"protocol": "verified-facts/1.0"') }), offline: true });
+  assert.equal(item(wrong, 1).ok, false, 'not a 0.x document');
+});
+
+test('v0.3 checker on Data Butler: item 12 sees the page answer HTML to */* and the index ETag revalidate', async () => {
+  const r = await checkSite('https://databutler.dev', { fetchFn: routerFetch(), offline: true, sample: 5 });
+  assert.equal(item(r, 12).ok, true, item(r, 12).detail);
+  assert.match(item(r, 12).detail, /page \*\/\* → 200 text\/html; charset=utf-8, canonical to itself; index ETag = digest, If-None-Match → 304/);
+  assert.match(item(r, 2).detail, /digest sha256:/);
+});
