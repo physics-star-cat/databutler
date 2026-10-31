@@ -85,6 +85,10 @@
       "destination": "/api/router?route=f&key=$1"
     },
     {
+      "source": "/facts/publishers",
+      "destination": "/api/router?route=publishers"
+    },
+    {
       "source": "/facts",
       "has": [
         {
@@ -141,6 +145,10 @@
       "destination": "/api/router?route=protocol&doc=facts"
     },
     {
+      "source": "/protocol/publish",
+      "destination": "/api/router?route=protocol&doc=publish"
+    },
+    {
       "source": "/api/mcp/server-card",
       "destination": "/api/router?route=server-card&server=databutler"
     },
@@ -182,7 +190,7 @@
   "functions": {
     "api/router.js": {
       "maxDuration": 60,
-      "includeFiles": "{docs/CHANGES_PROTOCOL.md,docs/FACTS_PROTOCOL.md,public/schema/**,api/_areas/**,data/**}"
+      "includeFiles": "{docs/CHANGES_PROTOCOL.md,docs/FACTS_PROTOCOL.md,docs/PUBLISH_FACTS.md,public/schema/**,api/_areas/**,data/**}"
     }
   }
 }

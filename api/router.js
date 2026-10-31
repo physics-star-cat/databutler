@@ -7,7 +7,8 @@
  * rewrites /api/<route> here. The route is read from ?route=, which the
  * rewrite adds, then stripped from req.url again so every handler sees the
  * URL it always did (/api/uk/rates?category=…). Public pages outside /api
- * (/r/…, /changes, /changes.rss, /changes.atom, /protocol, /protocol/facts, /f, /f/…, /facts) are rewritten here too.
+ * (/r/…, /changes, /changes.rss, /changes.atom, /protocol, /protocol/facts, /protocol/publish, /f, /f/…, /facts, /facts/…,
+ * /facts/publishers) are rewritten here too.
  *
  * Per-area routes are derived from the area modules (api/_areas/<area>.js):
  * one MCP server per module with a `server` (mcp/<key>) and one REST mirror per
@@ -28,6 +29,7 @@ const ROUTES = {
   'protocol': require('./_routes/protocol'),
   'r': require('./_routes/r'),
   'f': require('./_routes/f'),
+  'publishers': require('./_routes/publishers'),
   'mcp/facts': require('./_routes/mcp-facts'),
   'server-card': require('./_routes/server-card'),
   'cron/watch-sources': require('./_routes/cron/watch-sources'),

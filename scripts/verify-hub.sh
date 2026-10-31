@@ -181,6 +181,10 @@ PAGE="$(curl -sS -D - -A 'Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing
 if grep -qi '^content-type: text/html' <<<"$PAGE" && grep -q 'rel="canonical" href="https://databutler.dev/facts/uk/income-tax/personal-allowance"' <<<"$PAGE"; then echo "PASS facts-page bingbot */*"; else echo "FAIL facts-page bingbot */*"; FAILED=1; fi
 CODE="$(curl -s -o /dev/null -w '%{http_code} %{redirect_url}' -H 'Accept: application/json' "$BASE/facts/uk/income-tax/personal-allowance")"
 if [ "$CODE" = "302 $BASE/f/uk/income-tax/personal-allowance" ]; then echo "PASS facts-page json 302"; else echo "FAIL facts-page json 302 ($CODE)"; FAILED=1; fi
+for p in /protocol/publish /facts/publishers /facts; do
+  CODE="$(curl -s -o /dev/null -w '%{http_code} %{content_type}' -H 'Accept: */*' "$BASE$p")"
+  if [[ "$CODE" == "200 text/html"* ]]; then echo "PASS page $p"; else echo "FAIL page $p ($CODE)"; FAILED=1; fi
+done
 ETAG="$(curl -sS -D - -o /dev/null "$BASE/f" | tr -d '\r' | awk -F': ' 'tolower($1)=="etag"{print $2}')"
 CODE="$(curl -s -o /dev/null -w '%{http_code}' -H "If-None-Match: $ETAG" "$BASE/f")"
 if [ -n "$ETAG" ] && [ "$CODE" = "304" ]; then echo "PASS f-index etag 304"; else echo "FAIL f-index etag ($ETAG → $CODE)"; FAILED=1; fi

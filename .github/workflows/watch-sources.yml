@@ -4,8 +4,10 @@
 #   "Re-verify: expected change passed" (scripts/expected-changes.js). Mondays (and on a manual run): the same
 #   check for every area.
 # Mondays (and on a manual run): fetch every watched source page and commit data/source-checks.json
-#   (scripts/check-sources.js). Serving reads that file for sourceCheckedAt and the source-changed staleness
-#   test; a Vercel cron cannot commit, so this job does. The push to master deploys, like any data commit.
+#   (scripts/check-sources.js), and re-check every listed publisher for /facts/publishers
+#   (scripts/check-publishers.js → data/publisher-checks.json). Serving reads data/source-checks.json for
+#   sourceCheckedAt and the source-changed staleness test, and /facts/publishers renders data/publisher-checks.json;
+#   a Vercel cron cannot commit, so this job does. The push to master deploys, like any data commit.
 #
 # The Vercel cron (/api/cron/watch-sources, Mondays 06:00 UTC) still files one issue per changed source page and
 # runs the conformance self-check; this job files no per-page issues.
@@ -52,20 +54,22 @@ jobs:
         if: steps.when.outputs.full == '1'
         run: node scripts/check-sources.js
 
+      - name: Publisher check → data/publisher-checks.json (/facts/publishers)
+        if: steps.when.outputs.full == '1'
+        run: node scripts/check-publishers.js
+
       - name: Test before committing
         if: steps.when.outputs.full == '1'
         run: |
           node --test tests/*.test.js
           node scripts/sync-areas.js --check
 
-      - name: Commit data/source-checks.json
+      - name: Commit data/source-checks.json and data/publisher-checks.json
         if: steps.when.outputs.full == '1'
         run: |
-          if git diff --quiet -- data/source-checks.json && git ls-files --error-unmatch data/source-checks.json > /dev/null 2>&1; then
-            echo "No source-check changes."; exit 0
-          fi
+          git add data/source-checks.json data/publisher-checks.json
+          if git diff --cached --quiet; then echo "No check changes."; exit 0; fi
           git config user.name "databutler-watcher"
           git config user.email "actions@users.noreply.github.com"
-          git add data/source-checks.json
-          git commit -m "data: source checks $(date -u +%Y-%m-%d)"
+          git commit -m "data: source and publisher checks $(date -u +%Y-%m-%d)"
           git push origin HEAD:master
