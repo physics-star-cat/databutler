@@ -518,9 +518,10 @@ test('discoverability: index.html, robots.txt, sitemap.xml, llms.txt, /api index
     'https://databutler.dev/', 'https://databutler.dev/changes',
     ...CHANGELOG_AREAS.map((a) => `https://databutler.dev/changes?area=${a}`),
     'https://databutler.dev/protocol', 'https://databutler.dev/privacy', 'https://databutler.dev/api',
-    // Verified Facts: the index, the spec and one indexable page per fact (tests/facts-discovery.test.js)
-    'https://databutler.dev/f', 'https://databutler.dev/protocol/facts',
-    ...[...require('../api/_facts').INDEX.keys()].map((k) => `https://databutler.dev/f/${k}`),
+    // Verified Facts v0.3: the index page, the spec, the publisher guide and list, and one /facts/<key> page per fact
+    // (never the negotiating /f/<key>; tests/facts-discovery.test.js)
+    'https://databutler.dev/facts', 'https://databutler.dev/protocol/facts', 'https://databutler.dev/protocol/publish', 'https://databutler.dev/facts/publishers',
+    ...[...require('../api/_facts').INDEX.keys()].map((k) => `https://databutler.dev/facts/${k}`),
   ]);
   assert.doesNotMatch(sitemap, /lastmod/);
   for (const a of CHANGELOG_AREAS) assert.match(sitemap, new RegExp(`changes\\?area=${a}<`));

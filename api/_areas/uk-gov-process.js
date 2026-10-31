@@ -215,6 +215,8 @@ module.exports = {
     key: KEY,
     period: () => null,
     effectiveFrom: (n, f) => f.effectiveFrom || null,
+    // v0.3: fees usually move in April, but no order fixes the day in advance, so none is named.
+    expected: { changeCadence: 'irregular', dates: [] },
     aliases: Object.fromEntries(Object.entries(ALIASES).flatMap(([alias, service]) => (DATA.categories[service].figures || [])
       .map((f) => [`uk/gov/${alias}/${KEY(f)}`, `uk/gov/${service}/${KEY(f)}`]))),
     synonyms: { passport: 'passport-renewal-adult', uc: 'universal-credit', sorn: 'vehicle-tax-sorn' },

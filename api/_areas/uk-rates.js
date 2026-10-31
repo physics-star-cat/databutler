@@ -198,6 +198,9 @@ module.exports = {
     period: (d, f) => (PRIOR_YEAR_FIGURE(f) ? null : d.taxYear),
     effectiveFrom: (d, f) => (PRIOR_YEAR_FIGURE(f) ? null : effectiveFrom(f, d.taxYear)),
     periodStart: taxYearStart,
+    // v0.3 expected change: thresholds move each 6 April, minimum wages each 1 April; last year's rate is history.
+    expected: (r) => (r.period === null ? { changeCadence: 'irregular', dates: [] }
+      : { changeCadence: 'annual', dates: [r.key.startsWith('uk/minimum-wage/') ? '04-01' : '04-06'] }),
     // Reviewed short forms for the keys whose labels carry a parenthetical.
     aliases: {
       'uk/national-insurance/primary-threshold': 'uk/national-insurance/primary-threshold-employee-pays-above-this',

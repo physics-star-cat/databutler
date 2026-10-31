@@ -21,6 +21,26 @@ function plusDays(iso, n) {
   return d.toISOString().slice(0, 10);
 }
 
+/**
+ * The first day strictly after `after` among `candidates` — ISO days ('2026-11-05') or annual recurrences
+ * ('04-06' = every 6 April) — or null when none is after it. Verified Facts v0.3 `nextExpectedChange`
+ * (docs/FACTS_PROTOCOL.md §4): computed from the verification day, so re-verifying moves it on by itself.
+ */
+function nextDateAfter(after, candidates = []) {
+  const day = String(after || '').slice(0, 10);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(day)) return null;
+  const year = Number(day.slice(0, 4));
+  const out = [];
+  for (const c of candidates) {
+    if (c === null || c === undefined || c === '') continue;
+    const s = String(c);
+    if (/^\d{4}-\d{2}-\d{2}$/.test(s)) { if (s > day) out.push(s); continue; }
+    if (!/^\d{2}-\d{2}$/.test(s)) throw new Error(`nextDateAfter: "${s}" is neither YYYY-MM-DD nor MM-DD`);
+    out.push(`${year}-${s}` > day ? `${year}-${s}` : `${year + 1}-${s}`);
+  }
+  return out.length ? out.sort()[0] : null;
+}
+
 /** Query string for a REST/citation link, "" when empty. */
 function qs(q) {
   const s = new URLSearchParams(Object.entries(q || {}).filter(([, v]) => v !== undefined && v !== null && v !== '')).toString();
@@ -311,7 +331,7 @@ function factsFromCategories(data, opts = {}) {
 }
 
 module.exports = {
-  BASE, joinList, plusDays, qs, coerceNumeric, slug, same, figureKey, entryId, mergeEntries,
+  BASE, joinList, plusDays, nextDateAfter, qs, coerceNumeric, slug, same, figureKey, entryId, mergeEntries,
   diffCategories, areaHeader, categoriesLookup, categorySources, findFigure, noteTemplate,
   FACT_KEY, factKey, factsFromCategories,
 };

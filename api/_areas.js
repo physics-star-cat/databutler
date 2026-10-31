@@ -20,6 +20,8 @@ function fail(file, msg) {
 }
 
 const NAMESPACE = /^[a-z]{2}(-[a-z0-9]{1,3})?$|^[a-z]{3,}[a-z0-9-]*$/;
+/** Verified Facts v0.3 changeCadence values (docs/FACTS_PROTOCOL.md §4). */
+const CHANGE_CADENCES = ['scheduled', 'annual', 'irregular', 'continuous'];
 const FACT_FUNCTIONS = ['key', 'period', 'previousPeriod', 'effectiveFrom', 'effectiveTo', 'periodStart', 'scope', 'list'];
 
 /** The optional Verified Facts block (api/_areas/README.md "facts"): null, or { namespace, … } over the categories shape or list(). */
@@ -37,6 +39,11 @@ function validateFacts(m, file) {
     if (f[k] === undefined) continue;
     if (!f[k] || typeof f[k] !== 'object' || Array.isArray(f[k])) fail(file, `facts.${k} must be an object of string → string`);
     for (const [a, b] of Object.entries(f[k])) if (typeof b !== 'string' || !a) fail(file, `facts.${k}["${a}"] must be a string`);
+  }
+  if (f.expected !== undefined) {
+    const e = f.expected;
+    const ok = typeof e === 'function' || (e && typeof e === 'object' && CHANGE_CADENCES.includes(e.changeCadence) && Array.isArray(e.dates || []));
+    if (!ok) fail(file, `facts.expected must be a function (record) → { changeCadence, dates } or { changeCadence: ${CHANGE_CADENCES.join(' | ')}, dates: [YYYY-MM-DD | MM-DD] }`);
   }
   if (typeof f.list !== 'function') {
     const d = m.freshness && m.freshness !== 'live' && !Array.isArray(m.freshness) ? m.freshness.data : null;
@@ -245,5 +252,5 @@ const factAreas = () => AREAS.filter((a) => a.facts);
 const hubPhrases = (kind, filter = () => true) => AREAS.filter((a) => filter(a) && a.hub && a.hub[kind]).map((a) => a.hub[kind]);
 
 module.exports = {
-  AREAS, UNAVAILABLE, loadAreas, BY_KEY, servers, datasets, changelogAreas, discovery, restRoutes, citeRoutes, sourceList, sourceUrls, frontDoorTools, hubPhrases, factAreas, DIR,
+  AREAS, UNAVAILABLE, loadAreas, BY_KEY, servers, datasets, changelogAreas, discovery, restRoutes, citeRoutes, sourceList, sourceUrls, frontDoorTools, hubPhrases, factAreas, DIR, CHANGE_CADENCES,
 };

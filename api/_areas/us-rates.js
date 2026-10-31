@@ -246,6 +246,7 @@ module.exports = {
     effectiveFrom: (n, f) => f.effectiveFrom || `${n.taxYear}-01-01`,
     effectiveTo: (n, f) => f.effectiveTo || null,
     periodStart: (y) => `${String(y).slice(0, 4)}-01-01`,
+    expected: { changeCadence: 'annual', dates: ['01-01'] }, // v0.3: calendar-year figures and retirement limits move each 1 January
     synonyms: { ss: 'social-security', '401k': '401k-elective-deferral' },
   },
 

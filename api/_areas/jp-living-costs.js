@@ -183,6 +183,16 @@ module.exports = {
     period: (d, f) => f.period ?? null,
     previousPeriod: (d, f, p) => p.period ?? null,
     effectiveTo: (d, f) => f.effectiveTo || null,
+    // v0.3 expected change: each prefecture's own 発効日 while it is still ahead, then the next autumn revision (1 October);
+    // 協会けんぽ rates each 1 March; pension and employment-insurance rates each 1 April; the rest on a dated revision only.
+    expected: (r) => {
+      const cat = r.key.split('/')[1];
+      if (cat === 'minimum-wage') return { changeCadence: 'annual', dates: [r.effectiveFrom, '10-01'] };
+      if (cat === 'health-insurance') return { changeCadence: 'annual', dates: [r.effectiveFrom, '03-01'] };
+      if (cat === 'pension' || cat === 'employment-insurance') return { changeCadence: 'annual', dates: [r.effectiveFrom, '04-01'] };
+      if (cat === 'holidays') return { changeCadence: 'annual', dates: [] }; // 内閣府 publishes each February, on no fixed day
+      return { changeCadence: 'irregular', dates: [r.effectiveFrom] };
+    },
     // Synonyms are shared across areas: each Japanese term maps to words only this area's labels carry (nenkin, kenpo,
     // "regional minimum wage" …), so 最低賃金 finds the Japanese figures and English queries for the UK, US and German
     // figures rank as before. Pension keys are romanised (kosei-nenkin, kokumin-nenkin, kiso-nenkin) for the same reason.

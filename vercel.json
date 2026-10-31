@@ -86,7 +86,55 @@
     },
     {
       "source": "/facts",
-      "destination": "/api/router?route=f"
+      "has": [
+        {
+          "type": "header",
+          "key": "accept",
+          "value": ".*text/html.*"
+        }
+      ],
+      "destination": "/api/router?route=f&page=1"
+    },
+    {
+      "source": "/facts/(.*)",
+      "has": [
+        {
+          "type": "header",
+          "key": "accept",
+          "value": ".*text/html.*"
+        }
+      ],
+      "destination": "/api/router?route=f&key=$1&page=1"
+    },
+    {
+      "source": "/facts",
+      "has": [
+        {
+          "type": "header",
+          "key": "accept",
+          "value": ".*application/json.*"
+        }
+      ],
+      "destination": "/api/router?route=f&page=1&neg=json"
+    },
+    {
+      "source": "/facts/(.*)",
+      "has": [
+        {
+          "type": "header",
+          "key": "accept",
+          "value": ".*application/json.*"
+        }
+      ],
+      "destination": "/api/router?route=f&key=$1&page=1&neg=json"
+    },
+    {
+      "source": "/facts",
+      "destination": "/api/router?route=f&page=1"
+    },
+    {
+      "source": "/facts/(.*)",
+      "destination": "/api/router?route=f&key=$1&page=1"
     },
     {
       "source": "/protocol/facts",

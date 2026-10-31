@@ -9,6 +9,11 @@
  * the publisher declares) is met. --offline skips the two network-bound items (4: every source answers;
  * 18: the publisher's own schedule, never checkable from outside). --sample N checks N keys instead of all.
  *
+ * v0.3 (a 0.3 discovery document; a 0.2 one is checked as before): item 2 also requires `digest` in facts.json and
+ * the index, equal to SHA-256(JCS(sorted [key, hash])) of the index entries, and every namespaces[].digest; item 12
+ * also requires facts.page (when declared) to answer text/html to Accept: *\/* with a canonical link to itself, and
+ * the index to carry ETag = "<digest>" and answer If-None-Match with 304.
+ *
  * Notes on reading the spec: item 17 (hash-linked changelog) is marked optional by §8.1 and deferred for Data
  * Butler, so a publisher without it is reported, not failed; item 4 counts a 401/403 (a page that blocks
  * automated fetches) as reachable and says so.
@@ -17,7 +22,7 @@
  */
 const fs = require('node:fs');
 const path = require('node:path');
-const { hashOf, verifyRecord } = require('../api/_facts_sign');
+const { hashOf, digestOf, verifyRecord } = require('../api/_facts_sign');
 const { validate } = require('../api/_schema_check');
 
 const ROOT = path.resolve(__dirname, '..');
@@ -30,6 +35,9 @@ const KEY = /^[a-z][a-z0-9-]*(\/[a-z0-9][a-z0-9.-]*){1,5}$/;
 const LEVEL_OF = (item) => (item <= 7 ? 'L1' : item <= 14 ? 'L2' : 'L3');
 const LEVELS = ['L1', 'L2', 'L3'];
 const httpDate = (day) => new Date(`${day}T00:00:00Z`).toUTCString();
+/** Every facts protocol string from 0.2 on is a 0.x this checker reads; minor versions only add optional fields. */
+const PROTOCOL = /^verified-facts\/0\.(\d+)$/;
+const minorOf = (p) => (PROTOCOL.test(p || '') ? Number(PROTOCOL.exec(p)[1]) : -1);
 
 async function getJson(fetchFn, url, init) {
   const r = await fetchFn(url, init);
@@ -52,16 +60,29 @@ async function checkSite(site, { fetchFn = fetch, offline = false, sample = 0, l
   // 1 — the discovery document
   const wk = await getJson(fetchFn, `${base}/.well-known/facts.json`);
   const v1 = wk.body ? validate(WKF, wk.body) : { ok: false, errors: [`HTTP ${wk.status}, not JSON`] };
-  add(1, v1.ok && wk.body.protocol === 'verified-facts/0.2', v1.ok ? `${wk.body.protocol}, declares ${wk.body.conformance}, filtering ${wk.body.facts.filtering}` : v1.errors.slice(0, 3).join('; '));
+  add(1, v1.ok && minorOf(wk.body.protocol) >= 2, v1.ok ? `${wk.body.protocol}, declares ${wk.body.conformance}, filtering ${wk.body.facts.filtering}` : v1.errors.slice(0, 3).join('; '));
   if (!v1.ok) return summarise(results, null, level);
   const D = wk.body;
+  const v03 = minorOf(D.protocol) >= 3;
   const fill = (tpl, v) => tpl.replace(/\{(\w+)\}/, () => v);
 
   // 2 — the index
   const idx = await getJson(fetchFn, D.facts.index);
   const v2 = idx.body ? validate(sub('index'), idx.body) : { ok: false, errors: [`HTTP ${idx.status}`] };
   const entries = v2.ok ? idx.body.facts : [];
-  add(2, v2.ok && entries.length === D.facts.count && entries.every((e) => e.hash), v2.ok ? `${entries.length} keys (facts.json says ${D.facts.count})` : v2.errors.slice(0, 3).join('; '));
+  // v0.3: the digest — in facts.json and the index, equal to the recomputation, per namespace too
+  const bad2 = [];
+  if (v03 && v2.ok) {
+    const want = digestOf(entries);
+    if (D.facts.digest !== want) bad2.push(`facts.json facts.digest ${D.facts.digest || '(none)'} ≠ ${want}`);
+    if (idx.body.digest !== want) bad2.push(`index digest ${idx.body.digest || '(none)'} ≠ ${want}`);
+    for (const n of D.namespaces) {
+      const nsWant = digestOf(entries.filter((e) => e.key.split('/')[0] === n.name));
+      if (n.digest !== nsWant) bad2.push(`namespace ${n.name} digest ${n.digest || '(none)'} ≠ ${nsWant}`);
+    }
+  }
+  add(2, v2.ok && entries.length === D.facts.count && entries.every((e) => e.hash) && !bad2.length,
+    !v2.ok ? v2.errors.slice(0, 3).join('; ') : bad2.length ? bad2.slice(0, 3).join('; ') : `${entries.length} keys (facts.json says ${D.facts.count})${v03 ? `, digest ${idx.body.digest.slice(0, 19)}… matches` : ''}`);
 
   // 3 — every key (or a sample) answers its record, hash = SHA-256(JCS(claim))
   const picked = sample > 0 ? entries.filter((_, i) => i % Math.max(1, Math.floor(entries.length / sample)) === 0).slice(0, sample) : entries;
@@ -94,7 +115,7 @@ async function checkSite(site, { fetchFn = fetch, offline = false, sample = 0, l
     const blocked = [];
     for (const src of sources) {
       try {
-        const r = await fetchFn(src, { method: 'GET', headers: { 'user-agent': 'verified-facts-check/0.2' } });
+        const r = await fetchFn(src, { method: 'GET', headers: { 'user-agent': 'verified-facts-check/0.3' } });
         if (r.status === 401 || r.status === 403) blocked.push(src);
         else if (r.status >= 400) bad4.push(`${src}: HTTP ${r.status}`);
       } catch (e) { bad4.push(`${src}: ${e.message}`); }
@@ -173,9 +194,28 @@ async function checkSite(site, { fetchFn = fetch, offline = false, sample = 0, l
     const h = records[0].headers;
     const txt = await fetchFn(`${fill(D.facts.get, first.key)}?format=txt`);
     const html = await fetchFn(fill(D.facts.get, first.key), { headers: { accept: 'text/html' } });
-    const ok12 = h.get('etag') === `"${first.hash}"` && h.get('last-modified') === httpDate(first.verifiedDate)
+    let ok12 = h.get('etag') === `"${first.hash}"` && h.get('last-modified') === httpDate(first.verifiedDate)
       && /text\/plain/.test(txt.headers.get('content-type') || '') && /text\/html/.test(html.headers.get('content-type') || '');
-    add(12, ok12, `ETag ${h.get('etag') === `"${first.hash}"` ? 'ok' : h.get('etag')}, Last-Modified ${h.get('last-modified')}, txt ${txt.headers.get('content-type')}, html ${html.headers.get('content-type')}`);
+    let d12 = `ETag ${h.get('etag') === `"${first.hash}"` ? 'ok' : h.get('etag')}, Last-Modified ${h.get('last-modified')}, txt ${txt.headers.get('content-type')}, html ${html.headers.get('content-type')}`;
+    if (v03) {
+      // the page answers HTML to any Accept (a crawler's */*) and is canonical to itself
+      if (D.facts.page) {
+        const pageUrl = fill(D.facts.page, first.key);
+        const pg = await fetchFn(pageUrl, { headers: { accept: '*/*', 'user-agent': 'Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)' } });
+        const body = await pg.text();
+        const pageOk = pg.status === 200 && /text\/html/.test(pg.headers.get('content-type') || '') && body.includes(`<link rel="canonical" href="${pageUrl}">`);
+        ok12 = ok12 && pageOk;
+        d12 += `; page */* → ${pg.status} ${pg.headers.get('content-type')}${pageOk ? ', canonical to itself' : ', not canonical to itself'}`;
+      }
+      // the index ETag is the digest and revalidates
+      const ix = await fetchFn(D.facts.index);
+      const tag = ix.headers.get('etag');
+      const re = tag ? await fetchFn(D.facts.index, { headers: { 'if-none-match': tag } }) : { status: 0 };
+      const etagOk = tag === `"${D.facts.digest}"` && re.status === 304;
+      ok12 = ok12 && etagOk;
+      d12 += `; index ETag ${tag === `"${D.facts.digest}"` ? '= digest' : tag || '(none)'}, If-None-Match → ${re.status}`;
+    }
+    add(12, ok12, d12);
 
     // 13 — openapi.json served, every operation routes
     let ok13 = false; let d13 = 'openapi not declared';
@@ -225,7 +265,7 @@ async function checkSite(site, { fetchFn = fetch, offline = false, sample = 0, l
     d17 = ch.body && ch.body.chainHead ? `chainHead ${ch.body.chainHead}` : 'no chainHead / per-entry hash: the hash-linked changelog is optional (§8.1) — reported, not failed';
   }
   add(17, true, d17, { advisory: true });
-  skip(18, 'the publisher\'s own scheduled self-check is not visible from outside (Data Butler: the Monday watcher runs this checker)');
+  skip(18, 'the publisher\'s own scheduled self-check is not visible from outside (Data Butler: the Monday watcher runs this checker and lists every record whose nextExpectedChange has passed unverified)');
 
   return summarise(results, D.conformance, level);
 }

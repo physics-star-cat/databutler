@@ -272,6 +272,7 @@ module.exports = {
     period: (d, f) => f.series || null,
     previousPeriod: (d, f, p) => p.series || null,
     effectiveFrom: (d, f) => f.effectiveFrom || null,
+    expected: { changeCadence: 'irregular', dates: [] }, // v0.3: the boards and JCQ publish on no fixed date
     // "GCSE results day" is the JCQ common date (every board releases on it); the boards' own rows keep their keys.
     aliases: { 'uk/exams/results/gcse-results-day': 'uk/exams/results/jcq-gcse-results-day', 'uk/exams/results/a-level-results-day': 'uk/exams/results/jcq-a-level-results-day' },
   },

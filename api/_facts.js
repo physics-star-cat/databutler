@@ -8,12 +8,18 @@
  *   ALIASES    alias → key: curated module aliases, `gb/…` → `uk/…`, and the changelog form
  *              `<area>:<changelog key>` (spec §3.4)
  *   factKeyFor(entry) → the fact key of a v0.1 changelog entry, or null
+ *   DIGEST     the v0.3 collection fingerprint over every [key, hash]; digestFor(namespace) per namespace
+ *
+ * v0.3 adds, on every record that has them: changeCadence + nextExpectedChange (from the area's facts.expected, or the
+ * record's own — policy-rates' nextDecision), sourceCheckedAt (the newest day the automated check fetched `source`:
+ * data/source-checks.json, written by the Monday GitHub Actions job, and data/sources.json, written on each refresh),
+ * and staleReason when status is stale.
  *
  * makeFacts(areas) builds the same API over any list of area modules (tests use fixture areas).
  */
 const { AREAS } = require('./_areas');
-const { FACT_KEY, factsFromCategories, BASE: PROTOCOL_BASE } = require('./_area_kit');
-const { hashOf, attestationOf, attestationHash, fromB64url } = require('./_facts_sign');
+const { FACT_KEY, factsFromCategories, nextDateAfter, BASE: PROTOCOL_BASE } = require('./_area_kit');
+const { hashOf, digestOf, attestationOf, attestationHash, fromB64url } = require('./_facts_sign');
 const { levenshtein } = require('./_text');
 const { freshnessOf } = require('./_freshness');
 const { FACTS_PROTOCOL, PUBLISHER, FACTS_INDEX_URL, JWKS_URL } = require('./_changelog');
@@ -24,6 +30,34 @@ const { FACTS_PROTOCOL, PUBLISHER, FACTS_INDEX_URL, JWKS_URL } = require('./_cha
  */
 let SIGNATURES = { signatures: {} };
 try { SIGNATURES = require('../data/facts-signatures.json'); } catch { /* unsigned: tests/facts-sign.test.js fails until signed */ }
+
+/**
+ * Source checks (v0.3 sourceCheckedAt and the source-changed test): data/source-checks.json is
+ * { <url>: { checkedAt, contentHash, changedAt? } } from the Monday job (scripts/check-sources.js); data/sources.json
+ * is the baseline scripts/sources.js writes on every refresh (an entry without `unreachable` was fetched on checkedAt).
+ * Either may be absent; a URL neither has carries no sourceCheckedAt — never a guessed date.
+ */
+let SOURCE_CHECKS = {};
+try { SOURCE_CHECKS = require('../data/source-checks.json'); } catch { /* no check has run yet */ }
+let SEEN_SOURCES = [];
+try { SEEN_SOURCES = require('../data/sources.json'); } catch { /* no baseline yet */ }
+
+/** url → { checkedAt, changedAt } from the two files (newest successful fetch wins; changedAt only from the checks). */
+function sourceCheckIndex(checks = {}, seen = []) {
+  const out = new Map();
+  const day = (s) => (typeof s === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(s.slice(0, 10)) ? s.slice(0, 10) : null);
+  for (const s of seen || []) {
+    if (!s || !s.url || s.unreachable || !day(s.checkedAt)) continue;
+    out.set(s.url, { checkedAt: day(s.checkedAt), changedAt: null });
+  }
+  for (const [url, c] of Object.entries(checks || {})) {
+    if (!c || typeof c !== 'object') continue;
+    const was = out.get(url) || { checkedAt: null, changedAt: null };
+    const at = day(c.checkedAt);
+    out.set(url, { checkedAt: at && (!was.checkedAt || at > was.checkedAt) ? at : was.checkedAt, changedAt: day(c.changedAt) });
+  }
+  return out;
+}
 
 const BATCH_LIMIT = 50;
 const DAY_MS = 86400000;
@@ -49,7 +83,9 @@ function parseMaxAge(v) {
 
 const RESERVED = new Set(['resolve', 'index']);
 /** Field order of a served record (spec §4); computed fields slot in after nextScheduledRefresh. */
-const HEAD = ['label', 'value', 'unit', 'period', 'effectiveFrom', 'effectiveTo', 'source', 'sourceType', 'quote', 'verifiedDate', 'nextScheduledRefresh'];
+const HEAD = ['label', 'value', 'unit', 'period', 'effectiveFrom', 'effectiveTo', 'source', 'sourceType', 'quote', 'verifiedDate', 'nextScheduledRefresh', 'changeCadence', 'nextExpectedChange', 'sourceCheckedAt'];
+/** v0.3 staleReason values (spec §4), in the order the tests are reported. */
+const STALE_REASONS = ['max-age', 'expected-change-passed', 'source-changed', 'cadence-overdue'];
 const TAIL = ['previous', 'scope', 'withdrawn', 'supersededBy'];
 
 const namespaceOf = (key) => String(key).split('/')[0];
@@ -79,17 +115,32 @@ function datasetOf(a) {
   return { key: a.area, data: a.freshness.data };
 }
 
+/**
+ * A record's v0.3 expected-change fields: its own when it carries them (policy-rates), else the area's facts.expected —
+ * { changeCadence, dates } or a function of the record returning one — with nextExpectedChange = the first of `dates`
+ * (YYYY-MM-DD, or MM-DD every year) after verifiedDate. Previous-period records take none: that value has ended.
+ */
+function expectedOf(r, expected, isCurrent) {
+  if (!isCurrent) return {};
+  if (r.changeCadence !== undefined) return { changeCadence: r.changeCadence, nextExpectedChange: r.nextExpectedChange ?? null };
+  const e = typeof expected === 'function' ? expected(r) : expected;
+  if (!e) return {};
+  return { changeCadence: e.changeCadence, nextExpectedChange: e.nextExpectedChange !== undefined ? e.nextExpectedChange : nextDateAfter(r.verifiedDate, e.dates || []) };
+}
+
 /** protocol, key, aliases?, the claim and its dates, previous, scope, hash, publisher — in spec order. */
-function finish(r, aliases) {
+function finish(r, aliases, extra = {}) {
   const out = { protocol: FACTS_PROTOCOL, key: r.key };
   if (aliases && aliases.length) out.aliases = aliases;
-  for (const k of [...HEAD, ...TAIL]) if (r[k] !== undefined) out[k] = r[k];
+  const src = { ...r, changeCadence: undefined, nextExpectedChange: undefined, ...extra };
+  for (const k of [...HEAD, ...TAIL]) if (src[k] !== undefined) out[k] = src[k];
   out.hash = hashOf(r);
   out.publisher = PUBLISHER;
   return Object.freeze(out);
 }
 
-function makeFacts(areas = AREAS, { signatures = SIGNATURES } = {}) {
+function makeFacts(areas = AREAS, { signatures = SIGNATURES, sourceChecks = SOURCE_CHECKS, seenSources = SEEN_SOURCES } = {}) {
+  const CHECKS = sourceCheckIndex(sourceChecks, seenSources);
   const entries = [];
   const META = new Map();
   for (const a of areas.filter((x) => x.facts)) {
@@ -99,7 +150,7 @@ function makeFacts(areas = AREAS, { signatures = SIGNATURES } = {}) {
       const k = e.record.key;
       if (!FACT_KEY.test(k)) throw new Error(`api/_areas/${a.area}.js: fact key "${k}" does not match the key grammar ${FACT_KEY}`);
       if (META.has(k)) throw new Error(`api/_areas/${a.area}.js: fact key "${k}" is also published by ${META.get(k).area}`);
-      META.set(k, { area: a.area, dataset: datasetOf(a), topic: e.topic, changelogKey: e.changelogKey, synonyms: f.synonyms || {} });
+      META.set(k, { area: a.area, dataset: datasetOf(a), topic: e.topic, changelogKey: e.changelogKey, synonyms: f.synonyms || {}, expected: f.expected });
       entries.push(e);
     }
   }
@@ -130,12 +181,21 @@ function makeFacts(areas = AREAS, { signatures = SIGNATURES } = {}) {
 
   const INDEX = new Map();
   const PERIODS = new Map();
+  const checkedAt = (r) => (CHECKS.get(r.source) && CHECKS.get(r.source).checkedAt ? { sourceCheckedAt: CHECKS.get(r.source).checkedAt } : {});
   for (const e of entries) {
     const k = e.record.key;
-    const current = finish(e.record, curated.get(k));
+    const expected = META.get(k).expected;
+    const current = finish(e.record, curated.get(k), { ...expectedOf(e.record, expected, true), ...checkedAt(e.record) });
     INDEX.set(k, current);
-    PERIODS.set(k, e.previous ? [current, finish(e.previous, curated.get(k))] : [current]);
+    PERIODS.set(k, e.previous ? [current, finish(e.previous, curated.get(k), checkedAt(e.previous))] : [current]);
   }
+
+  /** v0.3 digest (spec §5.6) over every served fact, and per namespace. */
+  const DIGEST = digestOf([...INDEX.values()]);
+  const NS_DIGEST = new Map();
+  for (const ns of new Set([...INDEX.keys()].map(namespaceOf))) NS_DIGEST.set(ns, digestOf([...INDEX.values()].filter((r) => namespaceOf(r.key) === ns)));
+  /** The digest of one namespace (null when none is served), or of every fact when namespace is omitted. */
+  const digestFor = (namespace) => (namespace ? NS_DIGEST.get(String(namespace).toLowerCase().trim()) || null : DIGEST);
 
   /** The fact key of a v0.1 changelog entry ({ area, key }), or null when its area publishes no facts. */
   const factKeyFor = (entry) => (entry ? BY_CHANGELOG.get(`${entry.area}:${entry.key}`) || null : null);
@@ -150,21 +210,43 @@ function makeFacts(areas = AREAS, { signatures = SIGNATURES } = {}) {
     const out = [];
     for (const r of INDEX.values()) {
       if (ns && namespaceOf(r.key) !== ns) continue;
-      out.push({ key: r.key, label: r.label, unit: r.unit, period: r.period, verifiedDate: r.verifiedDate, hash: r.hash, ...(r.aliases ? { aliases: r.aliases } : {}) });
+      out.push({
+        key: r.key, label: r.label, unit: r.unit, period: r.period, verifiedDate: r.verifiedDate,
+        ...(r.changeCadence !== undefined ? { changeCadence: r.changeCadence, nextExpectedChange: r.nextExpectedChange } : {}),
+        ...(r.sourceCheckedAt ? { sourceCheckedAt: r.sourceCheckedAt } : {}),
+        hash: r.hash, ...(r.aliases ? { aliases: r.aliases } : {}),
+      });
     }
     return out;
   }
 
   /* ---------------- get (spec §5) ---------------- */
 
-  /** fresh | stale against max_age, or (none given) against the publisher's own freshness: overdue → stale (§5.3). */
+  /**
+   * fresh | stale (§5.3), with staleReason naming the first test that failed, in this order:
+   *   max-age                 max_age given and ageDays > maxAgeDays (the caller's own test is reported first)
+   *   expected-change-passed  nextExpectedChange ≤ today and verifiedDate < nextExpectedChange (whatever max_age was)
+   *   source-changed          the automated check saw `source` change after verifiedDate (whatever max_age was)
+   *   cadence-overdue         no max_age given and the publisher's own freshness is overdue
+   */
   function statusFor(record, maxAgeDays, now) {
-    const ageDays = daysBetween(record.verifiedDate, today(now));
-    if (maxAgeDays !== null && maxAgeDays !== undefined) return { status: ageDays <= maxAgeDays ? 'fresh' : 'stale', ageDays, maxAgeDays };
-    const m = META.get(record.key);
-    const overdue = m && freshnessOf(m.dataset.data, now).staleness === 'overdue';
-    return { status: overdue ? 'stale' : 'fresh', ageDays, maxAgeDays: null };
+    const day = today(now);
+    const ageDays = daysBetween(record.verifiedDate, day);
+    const given = maxAgeDays !== null && maxAgeDays !== undefined;
+    const check = CHECKS.get(record.source);
+    let reason = null;
+    if (given && ageDays > maxAgeDays) reason = 'max-age';
+    else if (record.nextExpectedChange && record.nextExpectedChange <= day && record.verifiedDate < record.nextExpectedChange) reason = 'expected-change-passed';
+    else if (check && check.changedAt && check.changedAt > record.verifiedDate) reason = 'source-changed';
+    else if (!given) {
+      const m = META.get(record.key);
+      if (m && freshnessOf(m.dataset.data, now).staleness === 'overdue') reason = 'cadence-overdue';
+    }
+    return { status: reason ? 'stale' : 'fresh', ageDays, maxAgeDays: given ? maxAgeDays : null, ...(reason ? { staleReason: reason } : {}) };
   }
+
+  /** The source-check entry behind a record ({ checkedAt, changedAt }), or null. */
+  const sourceCheckOf = (r) => CHECKS.get(r.source) || null;
 
   /** The periods held for a key, as { period, effectiveFrom, effectiveTo } (covered:false answers list them). */
   const periodsOf = (key) => (PERIODS.get(key) || []).map((r) => ({ period: r.period, effectiveFrom: r.effectiveFrom, effectiveTo: r.effectiveTo }));
@@ -199,8 +281,9 @@ function makeFacts(areas = AREAS, { signatures = SIGNATURES } = {}) {
   }
 
   const normaliseKey = (k) => String(k ?? '').trim().toLowerCase().replace(/^\/?f\//, '').replace(/\/{2,}/g, '/').replace(/^\/+|\/+$/g, '');
+  // v0.3: cite.url is the fact's page, /facts/<key> (HTML to every caller; spec §9.1).
   const citeOf = (r, isCurrent) => ({
-    url: `${PROTOCOL_BASE}/f/${r.key}${isCurrent || r.period === null ? (isCurrent ? '' : `?as_of=${r.effectiveFrom}`) : `?period=${encodeURIComponent(r.period)}`}`,
+    url: `${PROTOCOL_BASE}/facts/${r.key}${isCurrent || r.period === null ? (isCurrent ? '' : `?as_of=${r.effectiveFrom}`) : `?period=${encodeURIComponent(r.period)}`}`,
     text: `databutler.dev, verified ${r.verifiedDate} against ${r.source}`,
   });
 
@@ -417,7 +500,7 @@ function makeFacts(areas = AREAS, { signatures = SIGNATURES } = {}) {
   }
 
   return {
-    INDEX, PERIODS, ALIASES, META, FACT_COUNT: INDEX.size, RESERVED, BATCH_LIMIT,
+    INDEX, PERIODS, ALIASES, META, FACT_COUNT: INDEX.size, RESERVED, BATCH_LIMIT, DIGEST, digestFor, sourceCheckOf,
     factKeyFor, changelogKeyFor, aliasesOf, listFacts, namespaceOf, indexUrl: FACTS_INDEX_URL,
     getFact, getFacts, resolveFact, statusFor, selectPeriod, periodsOf, parseMaxAge, normaliseKey, present, signatureOf,
   };
@@ -425,4 +508,4 @@ function makeFacts(areas = AREAS, { signatures = SIGNATURES } = {}) {
 
 const DEFAULT = makeFacts(AREAS);
 
-module.exports = { ...DEFAULT, makeFacts, datasetOf, namespaceOf, parseMaxAge, tokens, RESERVED, BATCH_LIMIT };
+module.exports = { ...DEFAULT, makeFacts, datasetOf, namespaceOf, parseMaxAge, tokens, RESERVED, BATCH_LIMIT, STALE_REASONS, sourceCheckIndex };

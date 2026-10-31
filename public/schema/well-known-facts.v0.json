@@ -15,7 +15,10 @@
   ],
   "properties": {
     "protocol": {
-      "const": "verified-facts/0.2"
+      "enum": [
+        "verified-facts/0.2",
+        "verified-facts/0.3"
+      ]
     },
     "publisher": {
       "type": "object",
@@ -66,6 +69,11 @@
           "pattern": "\\{key\\}",
           "description": "RFC 6570 URI template; a static publisher serves …/f/{key}.json."
         },
+        "page": {
+          "type": "string",
+          "pattern": "\\{key\\}",
+          "description": "0.3, optional: RFC 6570 URI template of the fact's HTML page, served text/html to every caller."
+        },
         "batch": {
           "type": "string"
         },
@@ -75,6 +83,11 @@
         "index": {
           "type": "string",
           "format": "uri"
+        },
+        "digest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "description": "0.3: SHA-256 over the JCS form of the sorted [key, hash] pairs of every fact served (spec §5.6). Required by L1 under 0.3; checked by the conformance checker."
         },
         "filtering": {
           "enum": [
@@ -124,6 +137,11 @@
               "type": "string",
               "pattern": "^[a-z0-9.-]+$"
             }
+          },
+          "digest": {
+            "type": "string",
+            "pattern": "^sha256:[0-9a-f]{64}$",
+            "description": "0.3: the digest over this namespace's facts."
           }
         }
       }

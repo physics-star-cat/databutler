@@ -296,7 +296,7 @@ Front-door placement (Data Butler): `get_fact` and `resolve_fact` join the hub t
 
 ```json
 {
-  "protocol": "verified-facts/0.2",
+  "protocol": "verified-facts/0.3",
   "publisher": {
     "name": "Data Butler",
     "url": "https://databutler.dev/"
@@ -306,9 +306,11 @@ Front-door placement (Data Butler): `get_fact` and `resolve_fact` join the hub t
   "facts": {
     "count": 742,
     "get": "https://databutler.dev/f/{key}",
+    "page": "https://databutler.dev/facts/{key}",
     "batch": "https://databutler.dev/f?keys={keys}",
     "resolve": "https://databutler.dev/f/resolve?q={q}",
     "index": "https://databutler.dev/f",
+    "digest": "sha256:875fe44c54573cad259cef437376264c1ab4f5c2dfc24319787fe14d3d80573d",
     "filtering": "server",
     "examples": [
       "uk/income-tax/personal-allowance",
@@ -334,7 +336,8 @@ Front-door placement (Data Butler): `get_fact` and `resolve_fact` join the hub t
         "www.ocr.org.uk",
         "www.sqa.org.uk",
         "www.wjec.co.uk"
-      ]
+      ],
+      "digest": "sha256:a7f2a2e7206eeee70b756be70ba1a16c3eb3702306f00f799a473c4713a2627d"
     },
     {
       "name": "us",
@@ -349,7 +352,8 @@ Front-door placement (Data Butler): `get_fact` and `resolve_fact` join the hub t
         "www.irs.gov",
         "www.medicare.gov",
         "www.ssa.gov"
-      ]
+      ],
+      "digest": "sha256:31ce387b978aa792f7b9fca87fa4d3ac1667b173b80498cc587b04932078ca7a"
     },
     {
       "name": "de",
@@ -364,7 +368,8 @@ Front-door placement (Data Butler): `get_fact` and `resolve_fact` join the hub t
         "www.gesetze-im-internet.de",
         "www.minijob-zentrale.de",
         "www.recht.bund.de"
-      ]
+      ],
+      "digest": "sha256:dd8fb6dddea1cce9498e37dc1581e42c69bda114d9b839b210e7f91c05421372"
     },
     {
       "name": "eu",
@@ -373,7 +378,8 @@ Front-door placement (Data Butler): `get_fact` and `resolve_fact` join the hub t
       "cadence": "policy-rates: After each scheduled decision (eight a year per bank); re-verified within 45 days of verifiedDate; every source page re-fetched weekly.",
       "authorities": [
         "www.ecb.europa.eu"
-      ]
+      ],
+      "digest": "sha256:5bf28d34337e35312092d272b7958198d753bb22400e10f9e745333766bd67bf"
     },
     {
       "name": "jp",
@@ -394,7 +400,8 @@ Front-door placement (Data Butler): `get_fact` and `resolve_fact` join the hub t
         "www.soumu.go.jp",
         "www.tax.metro.tokyo.lg.jp",
         "www8.cao.go.jp"
-      ]
+      ],
+      "digest": "sha256:53918a83eb127eedacdb0fb15ae6abb529df48a0a44e30998d5c619ac5d0dbe3"
     }
   ],
   "hash": "sha256/jcs",

@@ -313,7 +313,7 @@
       }
     },
     "GET /f/{key}": {
-      "description": "Verified Facts (verified-facts/0.2): one official figure by key — value, unit, period, effectiveFrom, official source, quote, verifiedDate, status against ?max_age=, a SHA-256 claim hash and an Ed25519 signature. Keys are <country>/<topic>/<fact>; a loose key resolves when unambiguous, otherwise 404 with candidates. ?format=txt (one line) | html (indexable page) | json; ?as_of=YYYY-MM-DD or ?period=2025-26 for a prior value held.",
+      "description": "Verified Facts (verified-facts/0.3): one official figure by key — value, unit, period, effectiveFrom, official source, quote, verifiedDate, nextExpectedChange, sourceCheckedAt, status against ?max_age= (with staleReason), a SHA-256 claim hash and an Ed25519 signature. Keys are <country>/<topic>/<fact>; a loose key resolves when unambiguous, otherwise 404 with candidates. ?format=txt (one line) | html | json; ?as_of=YYYY-MM-DD or ?period=2025-26 for a prior value held. The page for people and search engines is /facts/{key} (text/html to every caller).",
       "example": "https://databutler.dev/f/uk/income-tax/personal-allowance?max_age=30d",
       "params": {
         "as_of": "optional YYYY-MM-DD",
