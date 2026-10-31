@@ -176,6 +176,12 @@ test('v0.3 vendored: the eight documented files copied into one directory of ano
     assert.ok(fs.existsSync(path.join(repo, 'public/f/uk/mot/max-fee-car.json')));
     // the vendored scripts never reach back into this repo
     const vendored = fs.readdirSync(dir).filter((f) => f.endsWith('.js')).map((f) => fs.readFileSync(path.join(dir, f), 'utf8')).join('\n');
-    for (const m of vendored.matchAll(/require\('([^']+)'\)/g)) assert.ok(m[1].startsWith('node:') || m[1].startsWith('./'), `bare require ${m[1]}`);
+    // a `../` path is allowed only as the repo fallback of a sibling-first require (literal, so Vercel's tracer sees it);
+    // the sibling must be in the vendored directory, so the copy never reaches back into this repo
+    for (const m of vendored.matchAll(/require\('([^']+)'\)/g)) {
+      if (m[1].startsWith('node:') || m[1].startsWith('./')) continue;
+      const sib = path.basename(m[1]);
+      assert.ok(m[1].startsWith('../') && vendored.includes(`require('./${sib}')`) && fs.existsSync(path.join(dir, sib)), `bare require ${m[1]}`);
+    }
   } finally { fs.rmSync(repo, { recursive: true, force: true }); }
 });

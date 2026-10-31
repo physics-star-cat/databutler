@@ -17,7 +17,9 @@ const path = require('node:path');
 
 /** A module next to this file (a vendored copy, or the npm package), else in this repo's layout. */
 const near = (rel, repo) => [path.join(__dirname, rel), path.join(__dirname, repo)].find((p) => fs.existsSync(p)) || path.join(__dirname, repo);
-const { verifyRecord } = require(near('_facts_sign.js', '../api/_facts_sign.js'));
+let _facts_signMod;
+try { _facts_signMod = require('./_facts_sign.js'); } catch (e) { if (e.code !== 'MODULE_NOT_FOUND') throw e; _facts_signMod = require('../api/_facts_sign.js'); }
+const { verifyRecord } = _facts_signMod;
 
 const arg = (argv, name) => { const i = argv.indexOf(name); return i === -1 ? undefined : argv[i + 1]; };
 const isUrl = (s) => /^https?:\/\//.test(String(s));

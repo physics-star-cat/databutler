@@ -22,10 +22,16 @@
  */
 const fs = require('node:fs');
 const path = require('node:path');
-/** A module or schema next to this file (a vendored copy, or the npm package), else in this repo's layout. */
+/** A schema next to this file (a vendored copy, or the npm package), else in this repo's layout. Modules are
+ * required with literal paths (sibling first, then this repo) so Vercel's file tracer bundles them: a computed
+ * require() is invisible to it, which took the router down on 2026-10-31. */
 const near = (rel, repo) => [path.join(__dirname, rel), path.join(__dirname, repo)].find((p) => fs.existsSync(p)) || path.join(__dirname, repo);
-const { hashOf, digestOf, verifyRecord } = require(near('_facts_sign.js', '../api/_facts_sign.js'));
-const { validate } = require(near('_schema_check.js', '../api/_schema_check.js'));
+let _facts_signMod;
+try { _facts_signMod = require('./_facts_sign.js'); } catch (e) { if (e.code !== 'MODULE_NOT_FOUND') throw e; _facts_signMod = require('../api/_facts_sign.js'); }
+const { hashOf, digestOf, verifyRecord } = _facts_signMod;
+let _schema_checkMod;
+try { _schema_checkMod = require('./_schema_check.js'); } catch (e) { if (e.code !== 'MODULE_NOT_FOUND') throw e; _schema_checkMod = require('../api/_schema_check.js'); }
+const { validate } = _schema_checkMod;
 const schema = (f) => JSON.parse(fs.readFileSync(near(`schema/${f}`, `../public/schema/${f}`), 'utf8'));
 const FACT = schema('fact.v0.json');
 const WKF = schema('well-known-facts.v0.json');
