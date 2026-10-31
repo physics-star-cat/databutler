@@ -138,6 +138,13 @@
       "type": "application/mcp-server-card+json",
       "url": "https://databutler.dev/api/mcp/uk-inflation/server-card",
       "description": "UK CPI and CPIH inflation rates, the CPI index and annual averages, read from ONS series."
+    },
+    {
+      "identifier": "urn:air:databutler.dev:mcp:databutler-us-inflation",
+      "displayName": "databutler-us-inflation",
+      "type": "application/mcp-server-card+json",
+      "url": "https://databutler.dev/api/mcp/us-inflation/server-card",
+      "description": "US CPI-U inflation from the BLS: 12-month rate, index level and annual averages, with dates."
     }
   ]
 }

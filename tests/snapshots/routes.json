@@ -27,6 +27,7 @@
     "mcp/uk-inflation",
     "mcp/uk-rates",
     "mcp/uk-vehicle-rules",
+    "mcp/us-inflation",
     "mcp/us-rates",
     "mcp/vehicles",
     "policy-rates",
@@ -48,6 +49,7 @@
     "uk/gov-process",
     "uk/rates",
     "uk/vehicle-rules",
+    "us/inflation",
     "us/rates",
     "vehicles/eu/safety-gate",
     "vehicles/fr/recalls",
@@ -83,6 +85,7 @@
     "uk/gov-process",
     "uk/rates",
     "uk/vehicle-rules",
+    "us/inflation",
     "us/rates",
     "vehicles/eu/safety-gate",
     "vehicles/fr/recalls",
@@ -335,6 +338,12 @@
     },
     "uk_inflation_lookup": {
       "path": "uk-inflation",
+      "queryKeys": [
+        "category"
+      ]
+    },
+    "us_inflation_lookup": {
+      "path": "us/inflation",
       "queryKeys": [
         "category"
       ]

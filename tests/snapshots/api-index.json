@@ -35,6 +35,7 @@
     "ukGovProcess": "16 services, verified 2026-10-04",
     "ukInflation": "CPI 3.5% and CPIH 3.6% (12 months to 2026-09), CPI index 144.1; annual CPI rates 2021–2025; verified 2026-10-31",
     "ukVehicleRules": "tax year 2026-27: 9 categories, verified 2026-10-04",
+    "usInflation": "CPI-U 3.7% over the 12 months to 2026-09 (index 336.94, released 2026-10-14); verified 2026-10-31; next release 2026-11-10",
     "usRates": "tax year 2026, 9 categories, verified 2026-10-03; federal only",
     "vehicles": {
       "euSafetyGate": "stub",
@@ -78,7 +79,7 @@
       "description": "What changed in the verified datasets since a date (REST mirror of what_changed_since). format=html|rss|atom serves the /changes page or feeds instead of JSON.",
       "example": "https://databutler.dev/api/changes?since=2026-06-01",
       "params": {
-        "area": "uk-rates | uk-exams | vehicles | software-eol | policy-rates | us-rates | de-rates | uk-vehicle-rules | uk-exam-dates | calendar | uk-gov-process | jp-vehicle-costs | jp-living-costs | uk-inflation | all",
+        "area": "uk-rates | uk-exams | vehicles | software-eol | policy-rates | us-rates | de-rates | uk-vehicle-rules | uk-exam-dates | calendar | uk-gov-process | jp-vehicle-costs | jp-living-costs | uk-inflation | us-inflation | all",
         "format": "json (default) | html | rss | atom",
         "since": "YYYY-MM-DD"
       }
@@ -217,6 +218,13 @@
         "category": "one of ved-first-year, ved-standard, ved-expensive-car, ved-2001-2017, ved-pre-2001, ved-electric, historic, mot, penalties (omit to list)"
       }
     },
+    "GET /api/us/inflation": {
+      "description": "US inflation (BLS CPI-U, all items, U.S. city average, NSA), verified 2026-10-31: 3.7% over the 12 months to 2026-09 (index 336.94, released 2026-10-14); annual averages 2021–2025; next release 2026-11-10.",
+      "example": "https://databutler.dev/api/us/inflation?category=cpi-u",
+      "params": {
+        "category": "one of cpi-u (omit to list)"
+      }
+    },
     "GET /api/us/rates": {
       "description": "US federal rates and thresholds for tax year 2026, verified 2026-10-03 against the IRS revenue procedures and notices and SSA's Federal Register notice: income-tax rate schedules (bracket rows) and standard deduction, Social Security wage base and rates, Medicare and Additional Medicare Tax, retirement-plan and IRA limits, HSA/HDHP limits, estate and gift exclusions — each figure with source, quote, verifiedDate and the prior-year value. Committed data (not a live proxy), refreshed annually at the IRS release window.",
       "example": "https://databutler.dev/api/us/rates?category=income-tax",
@@ -292,10 +300,10 @@
       }
     },
     "GET /changes": {
-      "description": "The changelog as a page: every verified change to UK tax/NI thresholds, exam specs, official vehicle datasets, software end-of-life dates, central-bank policy rates, US federal tax thresholds, German tax and social-insurance thresholds, UK car tax (VED) and MOT rules, UK exam dates, public holidays, tax-year and daylight-saving dates, UK government service steps, fees and processing times, Japanese car inspection (車検) statutory costs and car taxes, Japanese minimum wages, social-insurance rates, pensions, benefits, holidays and tax thresholds and UK CPI and CPIH inflation, newest first by month — area, from → to, effectiveFrom, official source, maintainer note, verifiedDate. Indexable, cached 1 h at the edge.",
+      "description": "The changelog as a page: every verified change to UK tax/NI thresholds, exam specs, official vehicle datasets, software end-of-life dates, central-bank policy rates, US federal tax thresholds, German tax and social-insurance thresholds, UK car tax (VED) and MOT rules, UK exam dates, public holidays, tax-year and daylight-saving dates, UK government service steps, fees and processing times, Japanese car inspection (車検) statutory costs and car taxes, Japanese minimum wages, social-insurance rates, pensions, benefits, holidays and tax thresholds, UK CPI and CPIH inflation and US CPI-U inflation, newest first by month — area, from → to, effectiveFrom, official source, maintainer note, verifiedDate. Indexable, cached 1 h at the edge.",
       "example": "https://databutler.dev/changes?area=vehicles",
       "params": {
-        "area": "optional: uk-rates | uk-exams | vehicles | software-eol | policy-rates | us-rates | de-rates | uk-vehicle-rules | uk-exam-dates | calendar | uk-gov-process | jp-vehicle-costs | jp-living-costs | uk-inflation",
+        "area": "optional: uk-rates | uk-exams | vehicles | software-eol | policy-rates | us-rates | de-rates | uk-vehicle-rules | uk-exam-dates | calendar | uk-gov-process | jp-vehicle-costs | jp-living-costs | uk-inflation | us-inflation",
         "since": "optional YYYY-MM-DD"
       }
     },
@@ -374,6 +382,7 @@
     "POST /api/mcp/uk-inflation": "Remote MCP server — tool uk_inflation_lookup.",
     "POST /api/mcp/uk-rates": "Remote MCP server — tool uk_rates_lookup.",
     "POST /api/mcp/uk-vehicle-rules": "Remote MCP server — tool uk_vehicle_rules_lookup.",
+    "POST /api/mcp/us-inflation": "Remote MCP server — tool us_inflation_lookup.",
     "POST /api/mcp/us-rates": "Remote MCP server — tool us_rates_lookup (US federal rates and thresholds, tax year 2026; committed data read from the IRS and SSA documents).",
     "POST /api/mcp/vehicles": "Remote MCP server — uk_mot_reliability, uk_mot_vehicle_search (live via whatbreaks.uk), uk_recalls_for_model, uk_recalls_search (DVSA), fr_recalls_for_model, fr_recalls_search, jp_recalls_for_model, jp_complaints_summary, eu_safety_gate_recalls (stub)."
   },

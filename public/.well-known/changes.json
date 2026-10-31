@@ -76,6 +76,11 @@
       "name": "uk-inflation",
       "description": "UK consumer price inflation read from the ONS time series: CPI and CPIH 12-month rates for the latest month, the CPI index (2015=100) and CPI annual rates per calendar year, each with its reference period and ONS release day.",
       "cadence": "Monthly, on the ONS CPI release day (stated as nextRelease in the series); every source page re-fetched weekly"
+    },
+    {
+      "name": "us-inflation",
+      "description": "US inflation from the Bureau of Labor Statistics: CPI-U (all items, U.S. city average, not seasonally adjusted) 12-month percent change, index level and annual averages, each with its reference month and BLS release day.",
+      "cadence": "Monthly, on the BLS CPI release day; every source page re-fetched weekly"
     }
   ],
   "endpoints": {

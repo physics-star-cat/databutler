@@ -138,10 +138,13 @@ test('facts: us/cpi-u keys, periods, scheduled nextExpectedChange and the review
   assert.equal(avg.changeCadence, 'irregular', 'a published annual average is final: no expected day');
   assert.equal(avg.nextExpectedChange, null);
   assert.equal(F.getFact('us/cpi-u/annual-rate', { period: '2026-08' }).value, 3.4, 'the prior month is served as its own period');
-  for (const q of ['US inflation rate', 'consumer price index', 'CPI-U', 'cost of living US']) {
+  for (const q of ['US inflation rate', 'US consumer price index', 'CPI-U', 'cost of living US']) {
     const r = F.resolveFact(q);
     assert.ok(r.candidates.length && r.candidates[0].key.startsWith('us/cpi-u/'), `${q} → ${r.candidates[0] && r.candidates[0].key}`);
   }
+  // A query naming no country is shared with uk-inflation: both countries' keys are offered near the top.
+  const shared = F.resolveFact('consumer price index').candidates.slice(0, 4).map((c) => c.key);
+  assert.ok(shared.some((k) => k.startsWith('us/cpi-u/')), `consumer price index → ${shared.join(', ')}`);
 });
 
 test('server: lists the tool with clean MCP keys and read-only annotations', async () => {

@@ -20,6 +20,7 @@ name: Refresh datasets
 on:
   schedule:
     - cron: '0 7 3 * *' # 07:00 UTC on the 3rd of each month
+    - cron: '0 7 22 * *' # 07:00 UTC on the 22nd: after the BLS (10th–14th) and ONS (mid-month) CPI releases, so the inflation facts are not stale for three weeks
   workflow_dispatch:
 
 permissions:
@@ -67,12 +68,10 @@ jobs:
           git config user.email "actions@users.noreply.github.com"
           git checkout -b "$branch"
           git add -A
-          git commit -m "data: monthly refresh $(date -u +%Y-%m-%d) (software-eol, calendar, UK recalls, uk-inflation)"
-          git commit -m "data: monthly refresh $(date -u +%Y-%m-%d) (software-eol, calendar, UK recalls, us-inflation)"
+          git commit -m "data: monthly refresh $(date -u +%Y-%m-%d) (software-eol, calendar, UK recalls, uk-inflation, us-inflation)"
           git push origin "$branch"
           signing=""
           node scripts/sign-facts.js --check > /dev/null 2>&1 || signing=" NEEDS SIGNING: some Verified Facts records changed — run node scripts/sign-facts.js on this branch before merging."
           gh pr create --base master --head "$branch" \
             --title "Monthly dataset refresh $(date -u +%Y-%m-%d)" \
-            --body "Automated run of scripts/software-eol.js, scripts/calendar.js, scripts/vehicles.js uk and scripts/uk-inflation.js. Tests passed in CI. Review the data/changelog.json additions (fill any blank notes), then merge to deploy.${signing}"
-            --body "Automated run of scripts/software-eol.js, scripts/calendar.js, scripts/vehicles.js uk and scripts/us-inflation.js. Tests passed in CI. Review the data/changelog.json additions (fill any blank notes), then merge to deploy.${signing}"
+            --body "Automated run of scripts/software-eol.js, scripts/calendar.js, scripts/vehicles.js uk scripts/uk-inflation.js and scripts/us-inflation.js. Tests passed in CI. Review the data/changelog.json additions (fill any blank notes), then merge to deploy.${signing}"
