@@ -112,6 +112,8 @@ test('facts: uk/cpi/* and uk/cpih/* records with period, previous, scheduled nex
   assert.deepEqual({ value: r.previous.value, period: r.previous.period }, { value: 3.1, period: '2026-08' });
   assert.equal(get('uk/cpih/annual-rate').value, 3.6);
   assert.equal(get('uk/cpi/index-level').unit, 'index, 2015=100');
+  assert.equal(get('uk/cpi/index-level').changeCadence, 'scheduled', 'the monthly index moves on release day like the rate');
+  assert.equal(get('uk/cpi/index-level').nextExpectedChange, DATA.nextRelease, 'index-level: nextExpectedChange');
   const avg = get('uk/cpi/annual-average-2022');
   assert.equal(avg.value, 9.1);
   assert.equal(avg.period, '2022');

@@ -26,7 +26,7 @@ const CATEGORIES = Object.keys(DATA.categories);
 const PREVIOUS = true;
 /** A figure's id: its own `key` (every figure carries one). The diff, the note template and the fact key share it. */
 const KEY = figureKey;
-const MONTHLY = /\/(annual-rate|index)$/;
+const MONTHLY = /\/(annual-rate|index-level)$/;
 
 const lookup = categoriesLookup(DATA, AREA, { param: PARAMS[0], filters: PARAMS.slice(1) });
 const pick = (q) => Object.fromEntries(PARAMS.map((p) => [p, q[p]]));
