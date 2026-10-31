@@ -32,8 +32,12 @@ const path = require('node:path');
 
 /** A module or schema next to this file (a vendored copy), else in this repo's layout (../api, ../public/schema). */
 const near = (rel, repo) => [path.join(__dirname, rel), path.join(__dirname, repo)].find((p) => fs.existsSync(p)) || path.join(__dirname, repo);
-const { hashOf, digestOf, attestationOf, signAttestation, privateKeyFrom } = require(near('_facts_sign.js', '../api/_facts_sign.js'));
-const { validate } = require(near('_schema_check.js', '../api/_schema_check.js'));
+let _facts_signMod;
+try { _facts_signMod = require('./_facts_sign.js'); } catch (e) { if (e.code !== 'MODULE_NOT_FOUND') throw e; _facts_signMod = require('../api/_facts_sign.js'); }
+const { hashOf, digestOf, attestationOf, signAttestation, privateKeyFrom } = _facts_signMod;
+let _schema_checkMod;
+try { _schema_checkMod = require('./_schema_check.js'); } catch (e) { if (e.code !== 'MODULE_NOT_FOUND') throw e; _schema_checkMod = require('../api/_schema_check.js'); }
+const { validate } = _schema_checkMod;
 const schema = (f) => JSON.parse(fs.readFileSync(near(`schema/${f}`, `../public/schema/${f}`), 'utf8'));
 
 const FACT_SCHEMA = schema('fact.v0.json');
@@ -142,7 +146,7 @@ function dirFetch(dir, origin) {
 
 /** --check: the conformance checker over the written directory, offline (sources are not fetched), at the level built. */
 async function checkOutput(dir, publisherUrl, level) {
-  const { checkSite, format } = require(near('facts-check.js', 'facts-check.js'));
+  const { checkSite, format } = require('./facts-check.js');
   const report = await checkSite(new URL(publisherUrl).origin, { fetchFn: dirFetch(dir, publisherUrl), offline: true, level });
   return { report, text: format(report) };
 }

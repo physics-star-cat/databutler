@@ -30,7 +30,12 @@ test('lib/ is the verbatim copy of the repo files (build.js --check), and requir
   assert.deepEqual(stale(), [], 'run node packages/verified-facts/build.js');
   const code = [path.join(PKG_DIR, 'bin/verified-facts.js'), ...Object.keys(FILES).filter((f) => f.endsWith('.js')).map((f) => path.join(PKG_DIR, 'lib', f))]
     .map((p) => fs.readFileSync(p, 'utf8')).join('\n');
-  for (const m of code.matchAll(/require\('([^']+)'\)/g)) assert.ok(m[1].startsWith('node:') || m[1].startsWith('./'), `bare require ${m[1]}`);
+  // `../` only as the literal repo fallback of a sibling-first require, and the sibling must be in lib/
+  for (const m of code.matchAll(/require\('([^']+)'\)/g)) {
+    if (m[1].startsWith('node:') || m[1].startsWith('./')) continue;
+    const sib = path.basename(m[1]);
+    assert.ok(m[1].startsWith('../') && code.includes(`require('./${sib}')`) && fs.existsSync(path.join(PKG_DIR, 'lib', sib)), `bare require ${m[1]}`);
+  }
 });
 
 test('npx verified-facts check https://databutler.dev — in-process against the router — reaches L3', async () => {
