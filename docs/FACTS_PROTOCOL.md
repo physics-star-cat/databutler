@@ -337,13 +337,13 @@ Front-door placement (Data Butler): `get_fact` and `resolve_fact` join the hub t
   "conformance": "L3",
   "updated": "2026-10-31",
   "facts": {
-    "count": 742,
+    "count": 744,
     "get": "https://databutler.dev/f/{key}",
     "page": "https://databutler.dev/facts/{key}",
     "batch": "https://databutler.dev/f?keys={keys}",
     "resolve": "https://databutler.dev/f/resolve?q={q}",
     "index": "https://databutler.dev/f",
-    "digest": "sha256:b6362e117dfb32355ae9696e7b56dc0ca4fa587df19c3078a86fe25c59454fa4",
+    "digest": "sha256:108aa64b499024f985682d601a333fbfa567d8ba7d802f9a48a5bc151ca95e6d",
     "filtering": "server",
     "examples": [
       "uk/income-tax/personal-allowance",
@@ -391,8 +391,8 @@ Front-door placement (Data Butler): `get_fact` and `resolve_fact` join the hub t
     {
       "name": "de",
       "description": "German tax and social-insurance thresholds",
-      "count": 44,
-      "cadence": "de-rates: Annual: after the Sozialversicherungsrechengrößen-Verordnung and the Zusatzbeitrag announcement (November), and any Steuergesetz changing § 32a EStG for the next Veranlagungszeitraum; every source page re-fetched weekly.",
+      "count": 46,
+      "cadence": "de-rates: Annual: after the Sozialversicherungsrechengrößen-Verordnung and the Zusatzbeitrag announcement (November), and any Steuergesetz changing § 32a EStG for the next Veranlagungszeitraum; the Umsatzsteuer rates only when a Gesetz amends § 12 UStG (irregular); every source page re-fetched weekly.",
       "authorities": [
         "www.bmas.de",
         "www.bundesanzeiger.de",
@@ -402,7 +402,7 @@ Front-door placement (Data Butler): `get_fact` and `resolve_fact` join the hub t
         "www.minijob-zentrale.de",
         "www.recht.bund.de"
       ],
-      "digest": "sha256:dd8fb6dddea1cce9498e37dc1581e42c69bda114d9b839b210e7f91c05421372"
+      "digest": "sha256:d912262545e51f6c0bf93a58a99889fe6329cdab8b164f51cc8a7b088261763a"
     },
     {
       "name": "eu",

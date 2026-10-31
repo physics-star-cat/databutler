@@ -2,7 +2,7 @@
   "attribution": "databutler.dev",
   "coverage": {
     "calendar": "uk, us, de, fr holidays (748 entries), 9 tax-year countries, 6 DST countries, 2026/2027/2028, verified 2026-10-04",
-    "deRates": "Veranlagungszeitraum 2026, 9 categories, verified 2026-10-03; federal law only (no Kirchensteuer, Lohnsteuerklassen, Gewerbesteuer)",
+    "deRates": "Veranlagungszeitraum 2026, 10 categories, verified 2026-10-03; federal law only (no Kirchensteuer, Lohnsteuerklassen, Gewerbesteuer)",
     "exams": [
       "AQA GCSE Physics (8463)",
       "AQA GCSE Biology (8461)",
@@ -83,10 +83,10 @@
       }
     },
     "GET /api/de/rates": {
-      "description": "German tax and social-insurance figures for Veranlagungszeitraum 2026, verified 2026-10-03 against the consolidated statutes, the Bundesgesetzblatt and the BMG/DRV/BMAS pages: Grundfreibetrag and § 32a tariff zones, Solidaritätszuschlag, Beitragsbemessungsgrenzen, Bezugsgröße, Beitragssätze with employee/employer shares, Zusatzbeitrag, Mindestlohn (2026 and fixed 2027), Geringfügigkeitsgrenze, Kindergeld, Kinderfreibetrag, Pauschbeträge, Entfernungspauschale — each figure with German term, English label, source, quote, verifiedDate and prior value. Committed data (not a live proxy), refreshed annually when the next year's Verordnung is final.",
+      "description": "German tax and social-insurance figures for Veranlagungszeitraum 2026, verified 2026-10-03 against the consolidated statutes, the Bundesgesetzblatt and the BMG/DRV/BMAS pages: Grundfreibetrag and § 32a tariff zones, Solidaritätszuschlag, Beitragsbemessungsgrenzen, Bezugsgröße, Beitragssätze with employee/employer shares, Zusatzbeitrag, Mindestlohn (2026 and fixed 2027), Geringfügigkeitsgrenze, Kindergeld, Kinderfreibetrag, Pauschbeträge, Entfernungspauschale, Umsatzsteuer (§ 12 UStG) — each figure with German term, English label, source, quote, verifiedDate and prior value. Committed data (not a live proxy), refreshed annually when the next year's Verordnung is final.",
       "example": "https://databutler.dev/api/de/rates?category=social-insurance",
       "params": {
-        "category": "one of income-tax, social-insurance, minimum-wage, minijob, kindergeld, kinderfreibetrag, sparer-pauschbetrag, arbeitnehmer-pauschbetrag, entfernungspauschale (omit to list)"
+        "category": "one of income-tax, social-insurance, minimum-wage, minijob, kindergeld, kinderfreibetrag, sparer-pauschbetrag, arbeitnehmer-pauschbetrag, entfernungspauschale, vat (omit to list)"
       }
     },
     "GET /api/jp/living-costs": {
