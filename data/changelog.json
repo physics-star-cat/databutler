@@ -5419,5 +5419,53 @@
     "verifiedDate": "2026-10-31",
     "note": "IRS Net Investment Income Tax page. First served here 2026-10-31; the amount did not change on this date.",
     "taxYear": "2026"
+  },
+  {
+    "area": "jp-vehicle-costs",
+    "key": "cali/passenger-25m-from-2026-11",
+    "label": "Private passenger car, 25-month policy starting on or after 2026-11-01",
+    "from": 18160,
+    "to": 19070,
+    "unit": "JPY",
+    "effectiveFrom": "2026-11-01",
+    "source": "https://www.giroj.or.jp/ratemaking/cali/pdf/202604_table.pdf",
+    "verifiedDate": "2026-10-24",
+    "note": "Private passenger car, 25-month policy starting on or after 2026-11-01: 18160 → 19070 JPY from 2026-11-01 (https://www.giroj.or.jp/ratemaking/cali/pdf/202604_table.pdf)"
+  },
+  {
+    "area": "jp-vehicle-costs",
+    "key": "cali/passenger-37m-from-2026-11",
+    "label": "Private passenger car, 37-month policy starting on or after 2026-11-01",
+    "from": 24190,
+    "to": 25180,
+    "unit": "JPY",
+    "effectiveFrom": "2026-11-01",
+    "source": "https://www.giroj.or.jp/ratemaking/cali/pdf/202604_table.pdf",
+    "verifiedDate": "2026-10-24",
+    "note": "Private passenger car, 37-month policy starting on or after 2026-11-01: 24190 → 25180 JPY from 2026-11-01 (https://www.giroj.or.jp/ratemaking/cali/pdf/202604_table.pdf)"
+  },
+  {
+    "area": "jp-vehicle-costs",
+    "key": "cali/kei-25m-from-2026-11",
+    "label": "Kei car (inspected), 25-month policy starting on or after 2026-11-01",
+    "from": 18040,
+    "to": 19170,
+    "unit": "JPY",
+    "effectiveFrom": "2026-11-01",
+    "source": "https://www.giroj.or.jp/ratemaking/cali/pdf/202604_table.pdf",
+    "verifiedDate": "2026-10-24",
+    "note": "Kei car (inspected), 25-month policy starting on or after 2026-11-01: 18040 → 19170 JPY from 2026-11-01 (https://www.giroj.or.jp/ratemaking/cali/pdf/202604_table.pdf)"
+  },
+  {
+    "area": "jp-vehicle-costs",
+    "key": "cali/kei-37m-from-2026-11",
+    "label": "Kei car (inspected), 37-month policy starting on or after 2026-11-01",
+    "from": 24010,
+    "to": 25330,
+    "unit": "JPY",
+    "effectiveFrom": "2026-11-01",
+    "source": "https://www.giroj.or.jp/ratemaking/cali/pdf/202604_table.pdf",
+    "verifiedDate": "2026-10-24",
+    "note": "Kei car (inspected), 37-month policy starting on or after 2026-11-01: 24010 → 25330 JPY from 2026-11-01 (https://www.giroj.or.jp/ratemaking/cali/pdf/202604_table.pdf)"
   }
 ]

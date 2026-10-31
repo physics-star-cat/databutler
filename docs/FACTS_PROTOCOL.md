@@ -304,7 +304,7 @@ Front-door placement (Data Butler): `get_fact` and `resolve_fact` join the hub t
   "conformance": "L3",
   "updated": "2026-10-31",
   "facts": {
-    "count": 738,
+    "count": 742,
     "get": "https://databutler.dev/f/{key}",
     "batch": "https://databutler.dev/f?keys={keys}",
     "resolve": "https://databutler.dev/f/resolve?q={q}",
@@ -378,12 +378,13 @@ Front-door placement (Data Butler): `get_fact` and `resolve_fact` join the hub t
     {
       "name": "jp",
       "description": "Japanese car inspection (車検) statutory costs and car taxes and Japanese minimum wages, social-insurance rates, pensions, benefits, holidays and tax thresholds",
-      "count": 193,
+      "count": 197,
       "cadence": "jp-vehicle-costs: Re-verified against the official pages every 35 days and on the known change dates (自賠責 2026-11-01, car taxes each 1 April, weight-tax eco bands 2027-05-01); every source page re-fetched weekly. jp-living-costs: Re-verified against the official pages every 35 days and on the known change dates (prefecture minimum wages 2026-10-01 to 2026-12-02 and each autumn, deductions 2026-12-01, insurance and pension rates each March/April, 高額療養費 2027-08-01, the 2028 holidays in February 2027); every source page re-fetched weekly.",
       "authorities": [
         "www.cfa.go.jp",
         "www.city.koto.lg.jp",
         "www.fsa.go.jp",
+        "www.giroj.or.jp",
         "www.kyoukaikenpo.or.jp",
         "www.mhlw.go.jp",
         "www.mlit.go.jp",
