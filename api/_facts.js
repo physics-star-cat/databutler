@@ -245,6 +245,24 @@ function makeFacts(areas = AREAS, { signatures = SIGNATURES, sourceChecks = SOUR
     return { status: reason ? 'stale' : 'fresh', ageDays, maxAgeDays: given ? maxAgeDays : null, ...(reason ? { staleReason: reason } : {}) };
   }
 
+  /**
+   * Every current record whose nextExpectedChange is today or earlier and was not verified since (spec §11 item 18,
+   * v0.3): the publisher's refresh list. → [{ key, area, nextExpectedChange, verifiedDate, changeCadence }], by date then key.
+   *   area — only this area's records (the daily policy-rates run)
+   */
+  function expectedChangesPassed(now = new Date(), { area } = {}) {
+    const day = today(now);
+    const out = [];
+    for (const r of INDEX.values()) {
+      const m = META.get(r.key);
+      if (area && m.area !== area) continue;
+      if (r.nextExpectedChange && r.nextExpectedChange <= day && r.verifiedDate < r.nextExpectedChange) {
+        out.push({ key: r.key, area: m.area, nextExpectedChange: r.nextExpectedChange, verifiedDate: r.verifiedDate, changeCadence: r.changeCadence });
+      }
+    }
+    return out.sort((x, y) => x.nextExpectedChange.localeCompare(y.nextExpectedChange) || x.key.localeCompare(y.key));
+  }
+
   /** The source-check entry behind a record ({ checkedAt, changedAt }), or null. */
   const sourceCheckOf = (r) => CHECKS.get(r.source) || null;
 
@@ -500,7 +518,7 @@ function makeFacts(areas = AREAS, { signatures = SIGNATURES, sourceChecks = SOUR
   }
 
   return {
-    INDEX, PERIODS, ALIASES, META, FACT_COUNT: INDEX.size, RESERVED, BATCH_LIMIT, DIGEST, digestFor, sourceCheckOf,
+    INDEX, PERIODS, ALIASES, META, FACT_COUNT: INDEX.size, RESERVED, BATCH_LIMIT, DIGEST, digestFor, sourceCheckOf, expectedChangesPassed,
     factKeyFor, changelogKeyFor, aliasesOf, listFacts, namespaceOf, indexUrl: FACTS_INDEX_URL,
     getFact, getFacts, resolveFact, statusFor, selectPeriod, periodsOf, parseMaxAge, normaliseKey, present, signatureOf,
   };

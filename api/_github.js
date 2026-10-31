@@ -47,6 +47,38 @@ function planFactsIssue(report, openIssues) {
   }];
 }
 
+const EXPECTED_TITLE = 'Re-verify: expected change passed';
+
+/**
+ * v0.3 (spec §11 item 18): one issue naming every record whose nextExpectedChange has passed unverified. Opened when
+ * there is none, its body replaced when the list moved, nothing when the list is empty or unchanged.
+ *   passed      — F.expectedChangesPassed(now, { area? })
+ *   openIssues  — open issues with the watcher label (number, title, body)
+ * → [] or [{ action: 'open', issue }] or [{ action: 'update', number, issue }]
+ */
+function planExpectedIssue(passed, openIssues, { scope = 'every area' } = {}) {
+  if (!passed || !passed.length) return [];
+  const byArea = new Map();
+  for (const p of passed) byArea.set(p.area, [...(byArea.get(p.area) || []), p]);
+  const body = [
+    `${passed.length} served record(s) have a \`nextExpectedChange\` that is today or earlier and were last verified before it (checked: ${scope}). `
+      + 'Until each is re-verified, Verified Facts serves it as `stale` with `staleReason: "expected-change-passed"` (the value is still returned).',
+    '',
+    ...[...byArea].flatMap(([area, list]) => [
+      `**${area}** (${list.length})`,
+      ...list.map((p) => `- \`${p.key}\` — expected change ${p.nextExpectedChange} (${p.changeCadence}), verified ${p.verifiedDate}`),
+      '',
+    ]),
+    'Re-read each source, update the data file (for policy rates: the level, `effectiveFrom`, `verifiedDate` and the next `nextDecision`), '
+      + 'run `node scripts/changelog.js` and `node scripts/sign-facts.js`, and commit. The issue updates itself; close it once the list is empty.',
+  ].join('\n');
+  const issue = { title: EXPECTED_TITLE, labels: [LABEL], body };
+  const open = openIssues.find((i) => i.title === EXPECTED_TITLE);
+  if (!open) return [{ action: 'open', issue }];
+  if (String(open.body || '').trim() === body.trim()) return [];
+  return [{ action: 'update', number: open.number, issue }];
+}
+
 async function gh(path, opts = {}) {
   const token = process.env.GITHUB_TOKEN;
   if (!token) throw new Error('GITHUB_TOKEN not set');
@@ -63,5 +95,20 @@ async function gh(path, opts = {}) {
 
 const listOpenIssues = () => gh(`/issues?state=open&labels=${LABEL}&per_page=100`);
 const openIssue = (issue) => gh('/issues', { method: 'POST', body: JSON.stringify(issue) });
+const updateIssue = (number, issue) => gh(`/issues/${number}`, { method: 'PATCH', body: JSON.stringify({ body: issue.body }) });
 
-module.exports = { planFactsIssue, FACTS_TITLE, planIssues, listOpenIssues, openIssue, LABEL, ERR_TITLE, REPO };
+/** Carry out planExpectedIssue's plan. → the titles touched. */
+async function applyExpectedPlan(plan) {
+  const done = [];
+  for (const p of plan) {
+    if (p.action === 'open') await openIssue(p.issue);
+    else if (p.action === 'update') await updateIssue(p.number, p.issue);
+    done.push(`${p.action}: ${p.issue.title}`);
+  }
+  return done;
+}
+
+module.exports = {
+  planFactsIssue, FACTS_TITLE, planIssues, listOpenIssues, openIssue, updateIssue, LABEL, ERR_TITLE, REPO,
+  planExpectedIssue, applyExpectedPlan, EXPECTED_TITLE,
+};

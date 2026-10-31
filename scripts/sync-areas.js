@@ -339,6 +339,8 @@ function manifest(key, s) {
 
 const CALENDAR_TAIL = [
   '| `data/sources.json` | After every data refresh (automatic via `scripts/changelog.js`) | `node scripts/sources.js` re-checks every source URL (gov.uk content API / page hash); a page it cannot fetch is recorded `unreachable` and listed under "Sources the watcher cannot read". |',
+  '| `data/source-checks.json` | Mondays, automatic (`.github/workflows/watch-sources.yml`, committed by the bot) | `node scripts/check-sources.js` fetches every watched source page and records `checkedAt` (served as `sourceCheckedAt`) and `changedAt` (the page differs from `data/sources.json`; such records are served stale with `staleReason: "source-changed"` until re-verified). Never edited by hand. |',
+  '| Expected changes passed | Daily for policy rates, Mondays for every area (the same workflow and the Vercel cron) | `node scripts/expected-changes.js` lists every record whose `nextExpectedChange` passed unverified and keeps the one issue "Re-verify: expected change passed" current; re-verify those records the same day. |',
   '| `data/facts-signatures.json` | After every data change to a facts area, before commit | `node scripts/sign-facts.js` with the key in `~/.config/databutler/` (never on Vercel); `tests/facts-sign.test.js` fails while a served fact is unsigned. See "Signing and key rotation". |',
   '| `data/changelog.json` | With every data refresh | `node scripts/changelog.js` (areas with a `changelog.diff`) or the dataset\'s own script (`changelog.script`); fill in `note` lines. See "Changelog & source watcher" and docs/ADDING_AN_AREA.md. |',
 ];
