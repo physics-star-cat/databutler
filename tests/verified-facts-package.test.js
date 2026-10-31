@@ -74,11 +74,11 @@ test('the packed package alone (bin/ lib/ package.json copied out of the repo) b
       protocol: 'verified-changes/0.1', publisher: src.publisher, areas: [], endpoints: { json: 'https://cars.example.org/changes.json' },
       schema: 'https://databutler.dev/schema/changes.v0.json', facts: 'https://cars.example.org/.well-known/facts.json',
     }));
-    const r = spawnSync(process.execPath, [path.join(pkg, 'bin/verified-facts.js'), 'static', 'facts-source.json', '--out', 'public', '--check'], { cwd: site, encoding: 'utf8' });
+    const r = spawnSync(process.execPath, [path.join(pkg, 'bin/verified-facts.js'), 'static', 'facts-source.json', '--out', 'public', '--check'], { cwd: site, encoding: 'utf8', env: { ...process.env, NODE_OPTIONS: '' } });
     assert.equal(r.status, 0, r.stdout + r.stderr);
     assert.match(r.stdout, /reached L1 — PASS at L1/);
     assert.equal(JSON.parse(fs.readFileSync(path.join(site, 'public/.well-known/facts.json'), 'utf8')).protocol, 'verified-facts/0.3');
-    const v = spawnSync(process.execPath, [path.join(pkg, 'bin/verified-facts.js'), '--version'], { encoding: 'utf8' });
+    const v = spawnSync(process.execPath, [path.join(pkg, 'bin/verified-facts.js'), '--version'], { encoding: 'utf8', env: { ...process.env, NODE_OPTIONS: '' } });
     assert.equal(v.stdout.trim(), PKG.version);
   } finally { fs.rmSync(tmp, { recursive: true, force: true }); }
 });

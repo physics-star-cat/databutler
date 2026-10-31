@@ -170,7 +170,7 @@ test('v0.3 vendored: the eight documented files copied into one directory of ano
     fs.mkdirSync(path.join(repo, 'public/.well-known'), { recursive: true });
     fs.writeFileSync(path.join(repo, 'public/.well-known/changes.json'), CHANGES());
     fs.writeFileSync(path.join(repo, 'facts-source.json'), JSON.stringify(SRC03));
-    const r = spawnSync(process.execPath, ['scripts/verified-facts/facts-static.js', 'facts-source.json', '--out', 'public', '--check'], { cwd: repo, encoding: 'utf8' });
+    const r = spawnSync(process.execPath, ['scripts/verified-facts/facts-static.js', 'facts-source.json', '--out', 'public', '--check'], { cwd: repo, encoding: 'utf8', env: { ...process.env, NODE_OPTIONS: '' } });
     assert.equal(r.status, 0, r.stdout + r.stderr);
     assert.match(r.stdout, /reached L1 — PASS at L1/);
     assert.ok(fs.existsSync(path.join(repo, 'public/f/uk/mot/max-fee-car.json')));

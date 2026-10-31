@@ -156,7 +156,8 @@ async function checkSite(site, { fetchFn = fetch, offline = false, sample = 0, l
     const asOf = await getJson(fetchFn, `${fill(D.facts.get, first.key)}?as_of=1900-01-01`);
     const expectStrict = first.ageDays > 0 ? 'stale' : 'fresh';
     const ok8 = !missingStatus.length && strict.body && strict.body.status === expectStrict && strict.body.maxAgeDays === 0
-      && lax.body && lax.body.status === 'fresh' && nope.body && nope.body.covered === false && Array.isArray(nope.body.periodsHeld)
+      // a lax max_age passes the caller's test; a 0.3 record may still be stale for another reason (staleReason says which)
+      && lax.body && lax.body.maxAgeDays === 36500 && (lax.body.status === 'fresh' || (lax.body.staleReason && lax.body.staleReason !== 'max-age')) && nope.body && nope.body.covered === false && Array.isArray(nope.body.periodsHeld)
       && asOf.body && asOf.body.covered === false;
     add(8, ok8, missingStatus.length ? `records without status fields: ${missingStatus.slice(0, 3).join(', ')}` : `max_age=0d → ${strict.body && strict.body.status}, period not held → covered:${nope.body && nope.body.covered} with periodsHeld, as_of outside → covered:${asOf.body && asOf.body.covered}`);
 

@@ -41,7 +41,8 @@ test('resolve records only the matched key, never the question', () => {
 });
 
 test('a batch records one lookup per key', () => {
-  const ls = factLookups('get', F.getFacts(['uk/bank-rate', 'x/y'], {}));
+  // pinned to the verification day: after a scheduled decision the record is stale (v0.3), which is labelled 'stale'
+  const ls = factLookups('get', F.getFacts(['uk/bank-rate', 'x/y'], {}, new Date(`${F.INDEX.get('uk/bank-rate').verifiedDate}T12:00:00Z`)));
   assert.deepEqual(ls.map((l) => l.fact_result), ['hit', 'miss']);
 });
 
