@@ -6,7 +6,8 @@
 #
 # Covered: software-eol (endoflife.date), calendar (gov.uk / OPM / French API
 # + data/calendar/manual.json), UK recalls (DVSA bulk CSV), uk-inflation (ONS
-# CPI/CPIH series; per-figure changelog via scripts/changelog.js --only).
+# CPI/CPIH series) and us-inflation (BLS CPI-U API + release); their per-figure
+# diffs are appended by changelog.js --only <area>.
 # Not covered: FR/JP recalls (derived from the sibling car-site repos, run
 # locally), and every page-read area (rates, policy rates, exam dates, vehicle
 # rules) — those are flagged by the weekly watcher cron and updated by hand
@@ -42,6 +43,8 @@ jobs:
           node scripts/vehicles.js uk
           node scripts/uk-inflation.js
           node scripts/changelog.js --only uk-inflation
+          node scripts/us-inflation.js
+          node scripts/changelog.js --only us-inflation
 
       - name: Regenerate derived files
         run: node scripts/sync-areas.js
@@ -65,9 +68,11 @@ jobs:
           git checkout -b "$branch"
           git add -A
           git commit -m "data: monthly refresh $(date -u +%Y-%m-%d) (software-eol, calendar, UK recalls, uk-inflation)"
+          git commit -m "data: monthly refresh $(date -u +%Y-%m-%d) (software-eol, calendar, UK recalls, us-inflation)"
           git push origin "$branch"
           signing=""
           node scripts/sign-facts.js --check > /dev/null 2>&1 || signing=" NEEDS SIGNING: some Verified Facts records changed — run node scripts/sign-facts.js on this branch before merging."
           gh pr create --base master --head "$branch" \
             --title "Monthly dataset refresh $(date -u +%Y-%m-%d)" \
             --body "Automated run of scripts/software-eol.js, scripts/calendar.js, scripts/vehicles.js uk and scripts/uk-inflation.js. Tests passed in CI. Review the data/changelog.json additions (fill any blank notes), then merge to deploy.${signing}"
+            --body "Automated run of scripts/software-eol.js, scripts/calendar.js, scripts/vehicles.js uk and scripts/us-inflation.js. Tests passed in CI. Review the data/changelog.json additions (fill any blank notes), then merge to deploy.${signing}"

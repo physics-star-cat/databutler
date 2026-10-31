@@ -32,6 +32,7 @@ The product is trust. A wrong number is worse than no number. Rules:
 | `data/jp-vehicle-costs.json` | Every 35 days (`nextScheduledRefresh` = verifiedDate + 35), and on the change dates: 自賠責 2026-11-01 (re-check whether an official page now prints the revised 25/37-month rates), 自動車税/軽自動車税 each 1 April (税制改正大綱 in December), weight-tax eco bands 2027-05-01 and the table's end 2028-04-30, 検査手数料 when NALTEC announces a change. The weekly watcher hashes every source page. | Re-fetch every `source` (PDFs: `pdftotext -layout`); compare each figure's `quote` with the page; for a changed value move the old one into `previous` (`value`, `source`, `title`), write the new `value`, `quote`, `effectiveFrom` (and `effectiveTo` on the figure it replaces); once 2026-11-01 has passed the -from-2026-11 keys are current and the old-table keys keep `effectiveTo` 2026-10-31; bump `verifiedDate`; `node scripts/changelog.js --only jp-vehicle-costs` (stamps `nextScheduledRefresh`, appends one entry per figure that moved, re-hashes this area's sources); review the notes; `node scripts/sign-facts.js`. |
 | `data/jp-living-costs.json` | Every 35 days (`nextScheduledRefresh` = verifiedDate + 35), and on the change dates: each autumn's 地域別最低賃金 (答申 in August, 発効 October–December; MHLW 全国一覧 PDF), 協会けんぽ rates, 介護保険料率 and 子ども・子育て支援金率 each March, 雇用保険料率, 国民年金保険料 and 年金額 each April (announced January–March), 高額療養費 2027-08-01, the 2026 deductions from 2026-12-01 and each December's 税制改正大綱, the 2028 holidays (内閣府, February 2027), and the 1% food consumption-tax rate once its bill passes. The weekly watcher hashes every source page. | Re-fetch every `source` (PDFs: `pdftotext -layout`; the 祝日 CSV is Shift_JIS); compare each figure's `quote` with the page; for a changed value move the old one into `previous` (`value`, `period`, `source`, `title`) and write the new `value`, `quote`, `effectiveFrom`, `period`; for a new fiscal year's minimum wages update all 47 prefectures with their new 発効日; bump `verifiedDate`; `node scripts/changelog.js --only jp-living-costs` (stamps `nextScheduledRefresh`, appends one entry per figure that moved, re-hashes this area's sources); review the notes; `node scripts/sign-facts.js`. |
 | `data/uk-inflation.json` | Monthly, on the ONS CPI release day (`nextScheduledRefresh` = the series' `nextRelease`, written by the script; calendar-driven: `cadenceDays: null`); also in the monthly refresh PR; every source page re-fetched weekly | `node scripts/uk-inflation.js` (fetches D7G7, L55O, D7BT from the ONS, rewrites the file); `node scripts/changelog.js --only uk-inflation` (one entry per figure that moved, re-hashes this area's sources); review the notes; `node scripts/sign-facts.js`. |
+| `data/us-inflation.json` | Monthly, on the BLS CPI release day (calendar-driven: `cadenceDays: null`; `nextScheduledRefresh` = the next release on bls.gov/schedule/news_release/cpi.htm, written by the script). The monthly refresh workflow runs the script; between releases the weekly watcher hashes the series page, the release and the schedule. | `node scripts/us-inflation.js` (fetches the BLS API, archive, the two newest releases and the schedule; stops on any disagreement between the API index, the release sentence and the computed 12-month change), then `node scripts/changelog.js --only us-inflation` (one entry per figure that moved) and `node scripts/sign-facts.js`. October 2025 was never published (2025 lapse in appropriations): the October 2026 12-month change is the release's own figure, quoted as such. |
 | `data/sources.json` | After every data refresh (automatic via `scripts/changelog.js`) | `node scripts/sources.js` re-checks every source URL (gov.uk content API / page hash); a page it cannot fetch is recorded `unreachable` and listed under "Sources the watcher cannot read". |
 | `data/source-checks.json` | Mondays, automatic (`.github/workflows/watch-sources.yml`, committed by the bot) | `node scripts/check-sources.js` fetches every watched source page and records `checkedAt` (served as `sourceCheckedAt`) and `changedAt` (the page differs from `data/sources.json`; such records are served stale with `staleReason: "source-changed"` until re-verified). Never edited by hand. |
 | Expected changes passed | Daily for policy rates, Mondays for every area (the same workflow and the Vercel cron) | `node scripts/expected-changes.js` lists every record whose `nextExpectedChange` passed unverified and keeps the one issue "Re-verify: expected change passed" current; re-verify those records the same day. |
@@ -1492,3 +1493,41 @@ is not published as a figure because it is derived, not read.
   `scheduled` for `nextRelease`. The saved responses are the test fixture
   (`tests/fixtures/uk-inflation/`); `tests/uk-inflation.test.js` rebuilds the
   committed file from them offline.
+## Verification log (us-inflation, added 2026-10-31)
+Fetched 2026-10-31 by `node scripts/us-inflation.js` (User-Agent "databutler.dev data curation (+https://databutler.dev)");
+the excerpts the parsers read are committed in `tests/fixtures/us-inflation/`.
+- BLS Public Data API v2 — `POST https://api.bls.gov/publicAPI/v2/timeseries/data/`
+  `{"seriesid":["CUUR0000SA0"],"startyear":"2020","endyear":"2026","annualaverage":true,"calculations":true}` →
+  `REQUEST_SUCCEEDED`; without a registration key it adds "Calculations have been disabled for this request.", so the
+  12-month change is not taken from the API (with `BLS_API_KEY` set its `pct_changes["12"]` is cross-checked too).
+  `2026 M09 September 336.940` (`latest: "true"`), `2026 M08 August 334.980`, `2025 M09 September 324.800`,
+  `2025 M08 August 323.976`. Annual averages (M13 "Annual"): 2021 `270.970`, 2022 `292.655`, 2023 `304.702`,
+  2024 `313.689`, 2025 `321.943`. Kept as published: `2025 M10 October "-"`, footnote "Data unavailable due to the
+  2025 lapse in appropriations".
+- Human page for the series: https://data.bls.gov/timeseries/CUUR0000SA0 — "Series Id: CUUR0000SA0 Not Seasonally
+  Adjusted Series Title: All items in U.S. city average, all urban consumers, not seasonally adjusted … Base Period:
+  1982-84=100".
+- September 2026 release, https://www.bls.gov/news.release/archives/cpi_10142026.htm — "Transmission of material in
+  this release is embargoed until 8:30 a.m. (ET) Wednesday, October 14, 2026"; "The Consumer Price Index for All Urban
+  Consumers (CPI-U) increased 3.7 percent over the last 12 months to an index level of 336.940 (1982-84=100)."
+  Computed check: 336.940 / 324.800 − 1 = 3.74% → 3.7. The release page https://www.bls.gov/cpi/ says the same:
+  "rose 3.7 percent over the year, not seasonally adjusted (NSA)", dated 10/14/2026.
+- August 2026 release (previous), https://www.bls.gov/news.release/archives/cpi_09112026.htm — embargoed until
+  "Friday, September 11, 2026"; "increased 3.4 percent over the last 12 months to an index level of 334.980
+  (1982-84=100)". Computed: 334.980 / 323.976 − 1 = 3.40% → 3.4.
+- Release days for the annual averages (published with each December CPI), from the archive
+  https://www.bls.gov/bls/news-release/cpi.htm links: December 2021 → `cpi_01122022` (2022-01-12), December 2022 →
+  2023-01-12, December 2023 → 2024-01-11, December 2024 → 2025-01-15, December 2025 → 2026-01-13. The archive also
+  says "October 2025 Consumer Price Index – Not published because of 2025 lapse in federal government appropriations".
+- Next release, https://www.bls.gov/schedule/news_release/cpi.htm — "Reference Month Release Date Release Time October
+  2026 Nov. 10, 2026 08:30 AM November 2026 Dec. 10, 2026 08:30 AM …" → `nextScheduledRefresh` and
+  `nextExpectedChange` 2026-11-10. The page lists only future releases, so the latest release day is read from the
+  archive (and checked against the release's embargo line), not from the schedule.
+- Licence, https://www.bls.gov/bls/linksite.htm "Copyright Information": "The Bureau of Labor Statistics (BLS) is a
+  Federal government agency and everything that we publish, both in hard copy and electronically, is in the public
+  domain, except for previously copyrighted photographs and illustrations. You are free to use our public domain
+  material without specific permission, although we do ask that you cite the Bureau of Labor Statistics as the
+  source."
+- Known trap: the October 2026 release (2026-11-10) has no published October 2025 index to compute against, so the
+  script takes the release's own 12-month sentence alone and says so in the quote; it still stops if the release's
+  index level differs from the API's.

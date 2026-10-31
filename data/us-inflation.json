@@ -1,0 +1,167 @@
+{
+  "area": "us-inflation",
+  "dataset": "US Consumer Price Index for All Urban Consumers (CPI-U), U.S. city average, all items, not seasonally adjusted — BLS series CUUR0000SA0",
+  "series": "CUUR0000SA0",
+  "publisher": "U.S. Bureau of Labor Statistics (BLS), U.S. Department of Labor",
+  "jurisdiction": "United States (U.S. city average; all urban consumers, about 90% of the population)",
+  "licence": "Public domain — \"The Bureau of Labor Statistics (BLS) is a Federal government agency and everything that we publish, both in hard copy and electronically, is in the public domain, except for previously copyrighted photographs and illustrations. You are free to use our public domain material without specific permission, although we do ask that you cite the Bureau of Labor Statistics as the source.\" (https://www.bls.gov/bls/linksite.htm, Copyright Information)",
+  "attribution": "Source: U.S. Bureau of Labor Statistics, Consumer Price Index, series CUUR0000SA0.",
+  "verifiedDate": "2026-10-31",
+  "nextScheduledRefresh": "2026-11-10",
+  "latestRelease": {
+    "referenceMonth": "2026-09",
+    "date": "2026-10-14",
+    "source": "https://www.bls.gov/news.release/archives/cpi_10142026.htm"
+  },
+  "nextRelease": {
+    "referenceMonth": "2026-10",
+    "date": "2026-11-10",
+    "source": "https://www.bls.gov/schedule/news_release/cpi.htm"
+  },
+  "releaseSchedule": [
+    {
+      "referenceMonth": "2026-10",
+      "date": "2026-11-10"
+    },
+    {
+      "referenceMonth": "2026-11",
+      "date": "2026-12-10"
+    },
+    {
+      "referenceMonth": "2026-12",
+      "date": "2027-01-13"
+    },
+    {
+      "referenceMonth": "2027-01",
+      "date": "2027-02-11"
+    },
+    {
+      "referenceMonth": "2027-02",
+      "date": "2027-03-10"
+    },
+    {
+      "referenceMonth": "2027-03",
+      "date": "2027-04-13"
+    },
+    {
+      "referenceMonth": "2027-04",
+      "date": "2027-05-12"
+    },
+    {
+      "referenceMonth": "2027-05",
+      "date": "2027-06-10"
+    },
+    {
+      "referenceMonth": "2027-06",
+      "date": "2027-07-14"
+    },
+    {
+      "referenceMonth": "2027-07",
+      "date": "2027-08-11"
+    },
+    {
+      "referenceMonth": "2027-08",
+      "date": "2027-09-14"
+    },
+    {
+      "referenceMonth": "2027-09",
+      "date": "2027-10-14"
+    },
+    {
+      "referenceMonth": "2027-10",
+      "date": "2027-11-10"
+    },
+    {
+      "referenceMonth": "2027-11",
+      "date": "2027-12-10"
+    }
+  ],
+  "fetchedVia": "https://api.bls.gov/publicAPI/v2/timeseries/data/ (POST, series CUUR0000SA0), https://www.bls.gov/bls/news-release/cpi.htm and the two newest archived releases, https://www.bls.gov/schedule/news_release/cpi.htm",
+  "verificationMethod": "The BLS Public Data API v2 (https://api.bls.gov/publicAPI/v2/timeseries/data/, series CUUR0000SA0, 2020–present with annual averages) gives every index level; the CPI release archive (https://www.bls.gov/bls/news-release/cpi.htm) gives each reference month's release day and archived release; that release's \"Not seasonally adjusted CPI measures\" sentence gives the 12-month change and must state the same index level as the API and the same change as the two published index values (rounded to one decimal); the next release day is read from the schedule (https://www.bls.gov/schedule/news_release/cpi.htm). Values are copied as published, never estimated.",
+  "categories": {
+    "cpi-u": {
+      "title": "Consumer Price Index for All Urban Consumers (CPI-U), all items, U.S. city average, not seasonally adjusted",
+      "source": "https://data.bls.gov/timeseries/CUUR0000SA0",
+      "scope": "United States, U.S. city average; CPI-U all items, not seasonally adjusted, 1982-84=100 (BLS series CUUR0000SA0)",
+      "figures": [
+        {
+          "key": "annual-rate",
+          "label": "CPI-U 12-month percent change (all items, U.S. city average, not seasonally adjusted)",
+          "value": 3.7,
+          "unit": "%",
+          "period": "2026-09",
+          "effectiveFrom": "2026-10-14",
+          "source": "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
+          "quote": "\"The Consumer Price Index for All Urban Consumers (CPI-U) increased 3.7 percent over the last 12 months to an index level of 336.940 (1982-84=100).\" (September 2026 CPI release, 2026-10-14) — CUUR0000SA0 2026 M09 (September) 336.940; 2025 M09 (September) 324.800",
+          "previous": {
+            "value": 3.4,
+            "period": "2026-08",
+            "effectiveFrom": "2026-09-11",
+            "source": "https://www.bls.gov/news.release/archives/cpi_09112026.htm",
+            "title": "August 2026 Consumer Price Index release"
+          }
+        },
+        {
+          "key": "index",
+          "label": "CPI-U index level (all items, U.S. city average, not seasonally adjusted, 1982-84=100)",
+          "value": 336.94,
+          "unit": "index, 1982-84=100",
+          "period": "2026-09",
+          "effectiveFrom": "2026-10-14",
+          "quote": "CUUR0000SA0 2026 M09 (September) 336.940",
+          "previous": {
+            "value": 334.98,
+            "period": "2026-08",
+            "effectiveFrom": "2026-09-11",
+            "source": "https://data.bls.gov/timeseries/CUUR0000SA0"
+          }
+        },
+        {
+          "key": "annual-average-2021",
+          "label": "CPI-U annual average 2021 (all items, U.S. city average, 1982-84=100)",
+          "value": 270.97,
+          "unit": "index, 1982-84=100",
+          "period": "2021",
+          "effectiveFrom": "2022-01-12",
+          "quote": "CUUR0000SA0 2021 M13 (Annual) 270.970"
+        },
+        {
+          "key": "annual-average-2022",
+          "label": "CPI-U annual average 2022 (all items, U.S. city average, 1982-84=100)",
+          "value": 292.655,
+          "unit": "index, 1982-84=100",
+          "period": "2022",
+          "effectiveFrom": "2023-01-12",
+          "quote": "CUUR0000SA0 2022 M13 (Annual) 292.655"
+        },
+        {
+          "key": "annual-average-2023",
+          "label": "CPI-U annual average 2023 (all items, U.S. city average, 1982-84=100)",
+          "value": 304.702,
+          "unit": "index, 1982-84=100",
+          "period": "2023",
+          "effectiveFrom": "2024-01-11",
+          "quote": "CUUR0000SA0 2023 M13 (Annual) 304.702"
+        },
+        {
+          "key": "annual-average-2024",
+          "label": "CPI-U annual average 2024 (all items, U.S. city average, 1982-84=100)",
+          "value": 313.689,
+          "unit": "index, 1982-84=100",
+          "period": "2024",
+          "effectiveFrom": "2025-01-15",
+          "quote": "CUUR0000SA0 2024 M13 (Annual) 313.689"
+        },
+        {
+          "key": "annual-average-2025",
+          "label": "CPI-U annual average 2025 (all items, U.S. city average, 1982-84=100)",
+          "value": 321.943,
+          "unit": "index, 1982-84=100",
+          "period": "2025",
+          "effectiveFrom": "2026-01-13",
+          "quote": "CUUR0000SA0 2025 M13 (Annual) 321.943"
+        }
+      ]
+    }
+  }
+}
