@@ -193,3 +193,8 @@ test('reviewed aliases (2026-10-31): NI main/upper rate and the VED expensive-ca
     assert.equal(F.ALIASES.get(`gb${alias.slice(2)}`), key, 'the gb/ form follows');
   }
 });
+
+test('no fact key ends in a segment the host rewrites: vercel.json cleanUrls redirects /…/index to its parent (308), so such a key can never be served', () => {
+  const bad = [...F.META.keys()].filter((k) => /\/index$|\.(html|json)$/.test(k));
+  assert.deepEqual(bad, [], `rename these figures (2026-10-31: uk/cpi/index and us/cpi-u/index became index-level): ${bad.join(', ')}`);
+});

@@ -65,8 +65,8 @@ test('data: verifiedDate, nextScheduledRefresh follows the cadence, every catego
     value: 3.1, period: '2026-08', effectiveFrom: '2026-09-16',
     source: 'https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7g7/mm23', quote: 'CPI ANNUAL RATE 00: ALL ITEMS 2015=100, 2026 AUG: 3.1',
   });
-  assert.equal(pin('cpi', 'index', 144.1, '2026-09', '2026-10-21').unit, 'index, 2015=100');
-  assert.equal(fig('cpi', 'index').previous.value, 143.6);
+  assert.equal(pin('cpi', 'index-level', 144.1, '2026-09', '2026-10-21').unit, 'index, 2015=100');
+  assert.equal(fig('cpi', 'index-level').previous.value, 143.6);
   assert.equal(pin('cpih', 'annual-rate', 3.6, '2026-09', '2026-10-21').quote, 'CPIH ANNUAL RATE 00: ALL ITEMS 2015=100, 2026 SEP: 3.6');
   assert.equal(fig('cpih', 'annual-rate').previous.value, 3.3);
   pin('cpi', 'annual-average-2021', 2.6, '2021', '2022-01-19');
@@ -111,7 +111,7 @@ test('facts: uk/cpi/* and uk/cpih/* records with period, previous, scheduled nex
   assert.equal(r.nextExpectedChange, '2026-11-18');
   assert.deepEqual({ value: r.previous.value, period: r.previous.period }, { value: 3.1, period: '2026-08' });
   assert.equal(get('uk/cpih/annual-rate').value, 3.6);
-  assert.equal(get('uk/cpi/index').unit, 'index, 2015=100');
+  assert.equal(get('uk/cpi/index-level').unit, 'index, 2015=100');
   const avg = get('uk/cpi/annual-average-2022');
   assert.equal(avg.value, 9.1);
   assert.equal(avg.period, '2022');

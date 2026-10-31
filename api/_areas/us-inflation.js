@@ -25,7 +25,7 @@ const SCHEDULE = DATA.nextRelease.source;
 const FIGS = DATA.categories['cpi-u'].figures;
 const fig = (k) => FIGS.find((f) => f.key === k);
 const RATE = fig('annual-rate');
-const INDEX = fig('index');
+const INDEX = fig('index-level');
 const AVERAGE_YEARS = FIGS.filter((f) => f.key.startsWith('annual-average-')).map((f) => f.period);
 const HEADLINE = `${RATE.value}% over the 12 months to ${RATE.period} (index ${INDEX.value}, released ${RATE.effectiveFrom})`;
 
@@ -177,7 +177,7 @@ module.exports = {
     }),
   },
 
-  // Verified Facts: us/cpi-u/annual-rate, us/cpi-u/index, us/cpi-u/annual-average-<year> (api/_areas/README.md "facts").
+  // Verified Facts: us/cpi-u/annual-rate, us/cpi-u/index-level, us/cpi-u/annual-average-<year> (api/_areas/README.md "facts").
   facts: {
     namespace: 'us',
     period: (d, f) => f.period,

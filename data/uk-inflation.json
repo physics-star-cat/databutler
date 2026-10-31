@@ -41,7 +41,7 @@
           }
         },
         {
-          "key": "index",
+          "key": "index-level",
           "label": "CPI index (all items)",
           "value": 144.1,
           "unit": "index, 2015=100",

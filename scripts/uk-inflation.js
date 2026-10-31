@@ -177,7 +177,7 @@ function buildFrom(raw, { verifiedDate, via = 'ONS time-series JSON' }) {
         scope: 'United Kingdom; Consumer Prices Index, all items (ONS series D7G7, D7BT)',
         figures: [
           monthlyFigure('d7g7', cpi, { key: 'annual-rate', label: 'CPI 12-month inflation rate (all items)', unit: '%' }),
-          monthlyFigure('d7bt', raw.d7bt, { key: 'index', label: 'CPI index (all items)', unit: 'index, 2015=100' }),
+          monthlyFigure('d7bt', raw.d7bt, { key: 'index-level', label: 'CPI index (all items)', unit: 'index, 2015=100' }),
           ...averages,
         ],
       },

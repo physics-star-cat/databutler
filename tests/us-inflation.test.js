@@ -51,17 +51,17 @@ test('data: verifiedDate, nextScheduledRefresh follows the cadence, every catego
   // Read from the BLS on 2026-10-31 (docs/CURATION.md "Verification log (us-inflation)").
   const f = (k) => DATA.categories['cpi-u'].figures.find((x) => x.key === k);
   assert.deepEqual(DATA.categories['cpi-u'].figures.map((x) => x.key),
-    ['annual-rate', 'index', 'annual-average-2021', 'annual-average-2022', 'annual-average-2023', 'annual-average-2024', 'annual-average-2025']);
+    ['annual-rate', 'index-level', 'annual-average-2021', 'annual-average-2022', 'annual-average-2023', 'annual-average-2024', 'annual-average-2025']);
   assert.equal(f('annual-rate').value, 3.7);
   assert.equal(f('annual-rate').period, '2026-09');
   assert.equal(f('annual-rate').effectiveFrom, '2026-10-14');
   assert.equal(f('annual-rate').source, 'https://www.bls.gov/news.release/archives/cpi_10142026.htm');
   assert.deepEqual(f('annual-rate').previous, { value: 3.4, period: '2026-08', effectiveFrom: '2026-09-11', source: 'https://www.bls.gov/news.release/archives/cpi_09112026.htm', title: 'August 2026 Consumer Price Index release' });
   assert.match(f('annual-rate').quote, /increased 3\.7 percent over the last 12 months to an index level of 336\.940 \(1982-84=100\)/);
-  assert.equal(f('index').value, 336.94);
-  assert.equal(f('index').unit, 'index, 1982-84=100');
-  assert.equal(f('index').quote, 'CUUR0000SA0 2026 M09 (September) 336.940');
-  assert.deepEqual(f('index').previous, { value: 334.98, period: '2026-08', effectiveFrom: '2026-09-11', source: 'https://data.bls.gov/timeseries/CUUR0000SA0' });
+  assert.equal(f('index-level').value, 336.94);
+  assert.equal(f('index-level').unit, 'index, 1982-84=100');
+  assert.equal(f('index-level').quote, 'CUUR0000SA0 2026 M09 (September) 336.940');
+  assert.deepEqual(f('index-level').previous, { value: 334.98, period: '2026-08', effectiveFrom: '2026-09-11', source: 'https://data.bls.gov/timeseries/CUUR0000SA0' });
   const averages = { 2021: [270.97, '2022-01-12'], 2022: [292.655, '2023-01-12'], 2023: [304.702, '2024-01-11'], 2024: [313.689, '2025-01-15'], 2025: [321.943, '2026-01-13'] };
   for (const [y, [v, from]] of Object.entries(averages)) {
     assert.equal(f(`annual-average-${y}`).value, v, `${y} average`);
@@ -128,7 +128,7 @@ test('facts: us/cpi-u keys, periods, scheduled nextExpectedChange and the review
   assert.deepEqual(rate.previous, { value: 3.4, period: '2026-08', effectiveFrom: '2026-09-11', source: 'https://www.bls.gov/news.release/archives/cpi_09112026.htm' });
   assert.deepEqual([...rate.aliases].sort(), ['us/cpi/annual-rate', 'us/inflation/cpi', 'us/inflation/rate']);
   for (const alias of ['us/inflation/cpi', 'us/inflation/rate', 'us/cpi/annual-rate']) assert.equal(F.getFact(alias).key, 'us/cpi-u/annual-rate', alias);
-  const index = F.getFact('us/cpi-u/index');
+  const index = F.getFact('us/cpi-u/index-level');
   assert.equal(index.value, 336.94);
   assert.equal(index.unit, 'index, 1982-84=100');
   assert.equal(index.nextExpectedChange, DATA.nextRelease.date);

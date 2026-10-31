@@ -200,7 +200,7 @@ function buildFrom(raw, { fetched, via }) {
       previous: { value: prev.r.change, period: prev.p, effectiveFrom: prev.rel.date, source: prev.rel.url, title: `${monthName(prev.p)} Consumer Price Index release` },
     },
     {
-      key: 'index',
+      key: 'index-level',
       label: 'CPI-U index level (all items, U.S. city average, not seasonally adjusted, 1982-84=100)',
       value: indexValue(cur.item),
       unit: 'index, 1982-84=100',

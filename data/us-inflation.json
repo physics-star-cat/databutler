@@ -102,7 +102,7 @@
           }
         },
         {
-          "key": "index",
+          "key": "index-level",
           "label": "CPI-U index level (all items, U.S. city average, not seasonally adjusted, 1982-84=100)",
           "value": 336.94,
           "unit": "index, 1982-84=100",

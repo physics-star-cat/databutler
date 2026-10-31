@@ -33,7 +33,7 @@ const pick = (q) => Object.fromEntries(PARAMS.map((p) => [p, q[p]]));
 const fig = (cat, key) => DATA.categories[cat].figures.find((f) => f.key === key);
 const CPI = fig('cpi', 'annual-rate');
 const CPIH = fig('cpih', 'annual-rate');
-const INDEX = fig('cpi', 'index');
+const INDEX = fig('cpi', 'index-level');
 const YEARS = DATA.categories.cpi.figures.filter((f) => f.key.startsWith('annual-average-')).map((f) => f.period);
 
 module.exports = {
@@ -154,7 +154,7 @@ module.exports = {
     }),
   },
 
-  // Verified Facts: uk/<category>/<figure key> — uk/cpi/annual-rate, uk/cpi/index, uk/cpi/annual-average-<year>, uk/cpih/annual-rate.
+  // Verified Facts: uk/<category>/<figure key> — uk/cpi/annual-rate, uk/cpi/index-level, uk/cpi/annual-average-<year>, uk/cpih/annual-rate.
   facts: {
     namespace: 'uk',
     key: KEY,

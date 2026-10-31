@@ -1479,7 +1479,7 @@ is not published as a figure because it is derived, not read.
     → `uk/cpih/annual-rate`.
   - D7BT — https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7bt/mm23
     title "CPI INDEX 00: ALL ITEMS 2015=100": 2026 SEP 144.1 (2026 AUG 143.6)
-    → `uk/cpi/index`.
+    → `uk/cpi/index-level`.
   The human page for D7G7 was also read: "Release date: 21 October 2026 …
   Next release: 18 November 2026". Licence, from the footer of every ONS
   time-series page: "All content is available under the Open Government Licence

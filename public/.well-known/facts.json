@@ -13,7 +13,7 @@
     "batch": "https://databutler.dev/f?keys={keys}",
     "resolve": "https://databutler.dev/f/resolve?q={q}",
     "index": "https://databutler.dev/f",
-    "digest": "sha256:28250ca9cc00040acd47eca2ac8080122486b52e7540c63628c5781413abe501",
+    "digest": "sha256:84523f532b6acdc45ca0018c3118d0308f2240140556c046278b28d9c20b2916",
     "filtering": "server",
     "examples": [
       "uk/income-tax/personal-allowance",
@@ -41,7 +41,7 @@
         "www.sqa.org.uk",
         "www.wjec.co.uk"
       ],
-      "digest": "sha256:85b7ffbf211ed6fbb872935c43a30ffdfefad831006f2dde93f6edc2bc1dd993"
+      "digest": "sha256:7d01ada65a9167ce38ed37dda1c2808ea045d31477b721fc6c4c243dfc422861"
     },
     {
       "name": "us",
@@ -59,7 +59,7 @@
         "www.medicare.gov",
         "www.ssa.gov"
       ],
-      "digest": "sha256:80d61788b06e7d364b473eb3beae237073bae83b3a4d6ba393a1f9c233720f3d"
+      "digest": "sha256:ee53a630af00643d5491639abb5e0dcab96e72c0da7ef9678a33b3cbb15762bb"
     },
     {
       "name": "de",

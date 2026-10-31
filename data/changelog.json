@@ -5483,7 +5483,7 @@
   },
   {
     "area": "uk-inflation",
-    "key": "cpi/index",
+    "key": "cpi/index-level",
     "label": "CPI index (all items)",
     "from": 143.6,
     "to": 144.1,
@@ -5522,7 +5522,7 @@
   },
   {
     "area": "us-inflation",
-    "key": "cpi-u/index",
+    "key": "cpi-u/index-level",
     "label": "CPI-U index level (all items, U.S. city average, not seasonally adjusted, 1982-84=100)",
     "from": 334.98,
     "to": 336.94,
