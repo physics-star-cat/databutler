@@ -196,8 +196,11 @@ conformance level **L3** (server-filtered, signed), all through `api/router.js` 
 | Hash + signature | `api/_jcs.js` (RFC 8785), `api/_facts_sign.js` (claim hash, attestation, detached EdDSA JWS, verifier) |
 | Keys and signer | `public/.well-known/jwks.json`; `scripts/facts-keygen.js`, `scripts/sign-facts.js` → `data/facts-signatures.json` (build time; the private key never reaches Vercel — docs/CURATION.md "Signing and key rotation") |
 | Verifier | `node scripts/verify-fact.js <url or file>` |
-| Static generator (L1, sister sites) | `node scripts/facts-static.js` |
+| Static generator (L1, sister sites) | `node scripts/facts-static.js facts-source.json --out public --check` (vendorable: the eight files are listed in its header) |
 | Conformance checker | `node scripts/facts-check.js https://<site>` (spec §11) |
+| v0.3 pages | `GET /facts/<key>` and `GET /facts` (text/html to every caller; `cite.url` and the sitemap), `/protocol/publish` (docs/PUBLISH_FACTS.md), `/facts/publishers` (`data/publishers.json` + `data/publisher-checks.json`, badges in `public/badge/`) |
+| v0.3 watchers | `.github/workflows/watch-sources.yml`: `scripts/expected-changes.js` (daily for policy rates, Mondays for all), `scripts/check-sources.js` → `data/source-checks.json` and `scripts/check-publishers.js` → `data/publisher-checks.json` (Mondays, committed by the bot) |
+| npm package | `packages/verified-facts/` (`npx verified-facts check|verify|static`); `node packages/verified-facts/build.js` after changing any file it copies (a test fails until you do); published by the owner only |
 
 ## Iron rules (learned the hard way)
 
