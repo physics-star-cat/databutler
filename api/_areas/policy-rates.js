@@ -84,8 +84,6 @@ function factEntries() {
       const record = {
         ...base, value: f.value, effectiveFrom: b.effectiveFrom || null, effectiveTo: null, source: b.source,
         verifiedDate, nextScheduledRefresh: POLICY.nextScheduledRefresh,
-        // v0.3 expected change: the bank's next scheduled decision, read from its own calendar (nextDecision).
-        changeCadence: 'scheduled', nextExpectedChange: b.nextDecision || null,
         ...(was ? { previous: { value: was.value, period: null, effectiveFrom: b.previous.effectiveFrom, source: historySource } } : {}),
         scope: `${b.jurisdiction}; ${b.rateName}, set by the ${b.committee}`,
       };

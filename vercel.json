@@ -85,68 +85,12 @@
       "destination": "/api/router?route=f&key=$1"
     },
     {
-      "source": "/facts/publishers",
-      "destination": "/api/router?route=publishers"
-    },
-    {
       "source": "/facts",
-      "has": [
-        {
-          "type": "header",
-          "key": "accept",
-          "value": ".*text/html.*"
-        }
-      ],
-      "destination": "/api/router?route=f&page=1"
-    },
-    {
-      "source": "/facts/(.*)",
-      "has": [
-        {
-          "type": "header",
-          "key": "accept",
-          "value": ".*text/html.*"
-        }
-      ],
-      "destination": "/api/router?route=f&key=$1&page=1"
-    },
-    {
-      "source": "/facts",
-      "has": [
-        {
-          "type": "header",
-          "key": "accept",
-          "value": ".*application/json.*"
-        }
-      ],
-      "destination": "/api/router?route=f&page=1&neg=json"
-    },
-    {
-      "source": "/facts/(.*)",
-      "has": [
-        {
-          "type": "header",
-          "key": "accept",
-          "value": ".*application/json.*"
-        }
-      ],
-      "destination": "/api/router?route=f&key=$1&page=1&neg=json"
-    },
-    {
-      "source": "/facts",
-      "destination": "/api/router?route=f&page=1"
-    },
-    {
-      "source": "/facts/(.*)",
-      "destination": "/api/router?route=f&key=$1&page=1"
+      "destination": "/api/router?route=f"
     },
     {
       "source": "/protocol/facts",
       "destination": "/api/router?route=protocol&doc=facts"
-    },
-    {
-      "source": "/protocol/publish",
-      "destination": "/api/router?route=protocol&doc=publish"
     },
     {
       "source": "/api/mcp/server-card",
@@ -190,7 +134,7 @@
   "functions": {
     "api/router.js": {
       "maxDuration": 60,
-      "includeFiles": "{docs/CHANGES_PROTOCOL.md,docs/FACTS_PROTOCOL.md,docs/PUBLISH_FACTS.md,public/schema/**,api/_areas/**,data/**}"
+      "includeFiles": "{docs/CHANGES_PROTOCOL.md,docs/FACTS_PROTOCOL.md,public/schema/**,api/_areas/**,data/**}"
     }
   }
 }

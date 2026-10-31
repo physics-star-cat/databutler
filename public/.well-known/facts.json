@@ -1,19 +1,17 @@
 {
-  "protocol": "verified-facts/0.3",
+  "protocol": "verified-facts/0.2",
   "publisher": {
     "name": "Data Butler",
     "url": "https://databutler.dev/"
   },
   "conformance": "L3",
-  "updated": "2026-10-31",
+  "updated": "2026-10-24",
   "facts": {
-    "count": 742,
+    "count": 689,
     "get": "https://databutler.dev/f/{key}",
-    "page": "https://databutler.dev/facts/{key}",
     "batch": "https://databutler.dev/f?keys={keys}",
     "resolve": "https://databutler.dev/f/resolve?q={q}",
     "index": "https://databutler.dev/f",
-    "digest": "sha256:875fe44c54573cad259cef437376264c1ab4f5c2dfc24319787fe14d3d80573d",
     "filtering": "server",
     "examples": [
       "uk/income-tax/personal-allowance",
@@ -39,24 +37,18 @@
         "www.ocr.org.uk",
         "www.sqa.org.uk",
         "www.wjec.co.uk"
-      ],
-      "digest": "sha256:a7f2a2e7206eeee70b756be70ba1a16c3eb3702306f00f799a473c4713a2627d"
+      ]
     },
     {
       "name": "us",
       "description": "Federal Reserve federal funds target range and US federal tax thresholds",
-      "count": 94,
-      "cadence": "policy-rates: After each scheduled decision (eight a year per bank); re-verified within 45 days of verifiedDate; every source page re-fetched weekly. us-rates: Annual: after the IRS tax-year inflation adjustments (October), the retirement-plan limits (November), the SSA Federal Register notice (October/November) and the CMS Medicare amounts (November); source pages re-fetched weekly, ssa.gov read by hand.",
+      "count": 45,
+      "cadence": "policy-rates: After each scheduled decision (eight a year per bank); re-verified within 45 days of verifiedDate; every source page re-fetched weekly. us-rates: Annual: after the IRS tax-year inflation adjustments (October), the retirement-plan limits (November) and the SSA Federal Register notice (October/November); every source page re-fetched weekly.",
       "authorities": [
-        "www.cms.gov",
-        "www.ecfr.gov",
         "www.federalregister.gov",
         "www.federalreserve.gov",
-        "www.irs.gov",
-        "www.medicare.gov",
-        "www.ssa.gov"
-      ],
-      "digest": "sha256:31ce387b978aa792f7b9fca87fa4d3ac1667b173b80498cc587b04932078ca7a"
+        "www.irs.gov"
+      ]
     },
     {
       "name": "de",
@@ -71,8 +63,7 @@
         "www.gesetze-im-internet.de",
         "www.minijob-zentrale.de",
         "www.recht.bund.de"
-      ],
-      "digest": "sha256:dd8fb6dddea1cce9498e37dc1581e42c69bda114d9b839b210e7f91c05421372"
+      ]
     },
     {
       "name": "eu",
@@ -81,19 +72,17 @@
       "cadence": "policy-rates: After each scheduled decision (eight a year per bank); re-verified within 45 days of verifiedDate; every source page re-fetched weekly.",
       "authorities": [
         "www.ecb.europa.eu"
-      ],
-      "digest": "sha256:5bf28d34337e35312092d272b7958198d753bb22400e10f9e745333766bd67bf"
+      ]
     },
     {
       "name": "jp",
       "description": "Japanese car inspection (車検) statutory costs and car taxes and Japanese minimum wages, social-insurance rates, pensions, benefits, holidays and tax thresholds",
-      "count": 197,
+      "count": 193,
       "cadence": "jp-vehicle-costs: Re-verified against the official pages every 35 days and on the known change dates (自賠責 2026-11-01, car taxes each 1 April, weight-tax eco bands 2027-05-01); every source page re-fetched weekly. jp-living-costs: Re-verified against the official pages every 35 days and on the known change dates (prefecture minimum wages 2026-10-01 to 2026-12-02 and each autumn, deductions 2026-12-01, insurance and pension rates each March/April, 高額療養費 2027-08-01, the 2028 holidays in February 2027); every source page re-fetched weekly.",
       "authorities": [
         "www.cfa.go.jp",
         "www.city.koto.lg.jp",
         "www.fsa.go.jp",
-        "www.giroj.or.jp",
         "www.kyoukaikenpo.or.jp",
         "www.mhlw.go.jp",
         "www.mlit.go.jp",
@@ -103,8 +92,7 @@
         "www.soumu.go.jp",
         "www.tax.metro.tokyo.lg.jp",
         "www8.cao.go.jp"
-      ],
-      "digest": "sha256:53918a83eb127eedacdb0fb15ae6abb529df48a0a44e30998d5c619ac5d0dbe3"
+      ]
     }
   ],
   "hash": "sha256/jcs",

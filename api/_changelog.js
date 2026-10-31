@@ -35,16 +35,11 @@ const PUBLISHER = { name: 'Data Butler', url: `${PROTOCOL_BASE}/` };
  * The Verified Facts protocol (docs/FACTS_PROTOCOL.md, served at /protocol/facts): the facts layer
  * of this protocol. The changes document above keeps its own identifier; facts records name this one.
  */
-const FACTS_PROTOCOL = 'verified-facts/0.3';
-/** Every facts protocol string a consumer (and our schemas) accept: any 0.x from 0.2 on. */
-const FACTS_PROTOCOLS = ['verified-facts/0.2', 'verified-facts/0.3'];
+const FACTS_PROTOCOL = 'verified-facts/0.2';
 const FACT_SCHEMA_URL = `${PROTOCOL_BASE}/schema/fact.v0.json`;
 const FACTS_WELL_KNOWN_URL = `${PROTOCOL_BASE}/.well-known/facts.json`;
 const FACTS_SPEC_URL = `${PROTOCOL_BASE}/protocol/facts`;
 const FACTS_INDEX_URL = `${PROTOCOL_BASE}/f`;
-/** v0.3: the HTML pages — /facts (the index page) and /facts/<key> (one fact), text/html to every caller. */
-const FACTS_PAGE_INDEX_URL = `${PROTOCOL_BASE}/facts`;
-const factPageUrl = (key) => `${FACTS_PAGE_INDEX_URL}/${key}`;
 const JWKS_URL = `${PROTOCOL_BASE}/.well-known/jwks.json`;
 
 /** The area's diff(prev, next), or null when its entries come from a script. */
@@ -130,5 +125,5 @@ function changesSince({ since, area = 'all' } = {}, entries = CHANGELOG, now = n
 module.exports = {
   changesSince, listEntries, entryId, ChangelogFilterError, diffFor, mergeEntries,
   COVERAGE_START, CHANGELOG_AREAS, PROTOCOL, SCHEMA_URL, WELL_KNOWN_URL, PROTOCOL_URL, PUBLISHER,
-  FACTS_PROTOCOL, FACTS_PROTOCOLS, FACT_SCHEMA_URL, FACTS_WELL_KNOWN_URL, FACTS_SPEC_URL, FACTS_INDEX_URL, FACTS_PAGE_INDEX_URL, factPageUrl, JWKS_URL,
+  FACTS_PROTOCOL, FACT_SCHEMA_URL, FACTS_WELL_KNOWN_URL, FACTS_SPEC_URL, FACTS_INDEX_URL, JWKS_URL,
 };

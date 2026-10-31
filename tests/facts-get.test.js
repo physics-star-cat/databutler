@@ -22,7 +22,7 @@ test('get: the full current record; with no max_age, fresh unless the area is ov
   assert.equal(r.maxAgeDays, null);
   const overdue = freshnessFor('uk-rates', now).staleness === 'overdue';
   assert.equal(r.status, overdue ? 'stale' : 'fresh');
-  assert.equal(r.cite.url, `https://databutler.dev/facts/${PA}`, 'v0.3: cite.url is the fact page');
+  assert.equal(r.cite.url, `https://databutler.dev/f/${PA}`);
   assert.deepEqual(Object.keys(r).slice(0, 2), ['protocol', 'key']);
   // the publisher's own freshness: a year after nextScheduledRefresh the answer is stale even without max_age
   const late = F.getFact(PA, {}, at(plusDays(F.INDEX.get(PA).nextScheduledRefresh, 60)));
@@ -71,7 +71,7 @@ test('period: the previous value with its own source; a period not held → cove
   assert.equal(r.source, prev.source);
   assert.equal(r.verifiedDate, VERIFIED);
   assert.notEqual(r.hash, F.INDEX.get(PA).hash);
-  assert.equal(r.cite.url, `https://databutler.dev/facts/${PA}?period=2025-26`);
+  assert.equal(r.cite.url, `https://databutler.dev/f/${PA}?period=2025-26`);
   const miss = F.getFact(PA, { period: '2019-20' }, at(VERIFIED));
   assert.equal(miss.covered, false);
   assert.deepEqual(miss.periodsHeld, ['2026-27', '2025-26']);
@@ -132,140 +132,4 @@ test('fixture area: withdrawn records answer value null + withdrawn + superseded
   assert.equal(X.getFact('xx/widgets/limit', { as_of: '2025-06-01' }, at('2026-10-02')).value, 90);
   assert.equal(X.getFact('xx/widgets/limit', { period: '2025' }, at('2026-10-02')).effectiveTo, '2025-12-31');
   assert.equal(X.factKeyFor({ area: 'facts-fixture', key: 'widgets/limit' }), 'xx/widgets/limit');
-});
-
-/* ---------------- v0.3: expected-change awareness (spec §4, §5.3) ---------------- */
-
-/** The fixture area with a facts.expected and (optionally) another verifiedDate; makeFacts over it. */
-function withExpected(expected, { verifiedDate = '2026-10-01', sourceChecks = {}, seenSources = [] } = {}) {
-  const { areas } = loadAreas(path.join(__dirname, 'fixtures/areas-facts'));
-  const a = areas[0];
-  const data = { ...a.freshness.data, verifiedDate };
-  return F.makeFacts([{ ...a, freshness: { ...a.freshness, data }, facts: { ...a.facts, expected } }], { signatures: { signatures: {} }, sourceChecks, seenSources });
-}
-const LIMIT = 'xx/widgets/limit';
-const OLD = 'xx/widgets/old-allowance';
-
-test('v0.3 (a) nextExpectedChange yesterday, verified before it → stale, staleReason expected-change-passed, value still present', () => {
-  const X = withExpected({ changeCadence: 'scheduled', dates: ['2026-10-10'] });
-  const r = X.getFact(LIMIT, {}, at('2026-10-11'));
-  assert.equal(r.changeCadence, 'scheduled');
-  assert.equal(r.nextExpectedChange, '2026-10-10');
-  assert.equal(r.status, 'stale');
-  assert.equal(r.staleReason, 'expected-change-passed');
-  assert.equal(r.value, 100, 'a stale answer is still an answer');
-  // on the day itself the test already fails ("today or earlier")
-  assert.equal(X.getFact(LIMIT, {}, at('2026-10-10')).staleReason, 'expected-change-passed');
-  // whatever max_age was, when max_age itself passes
-  const lax = X.getFact(LIMIT, { max_age: '365d' }, at('2026-10-11'));
-  assert.deepEqual([lax.status, lax.staleReason, lax.maxAgeDays], ['stale', 'expected-change-passed', 365]);
-  // field order: the two fields follow nextScheduledRefresh; staleReason follows maxAgeDays
-  const keys = Object.keys(r);
-  assert.deepEqual(keys.slice(keys.indexOf('nextScheduledRefresh'), keys.indexOf('nextScheduledRefresh') + 3), ['nextScheduledRefresh', 'changeCadence', 'nextExpectedChange']);
-  assert.equal(keys[keys.indexOf('maxAgeDays') + 1], 'staleReason');
-});
-
-test('v0.3 (b) verified after the expected change → fresh (statusFor and a re-verified area)', () => {
-  const X = withExpected({ changeCadence: 'scheduled', dates: ['2026-10-10'] }, { verifiedDate: '2026-10-12' });
-  const r = X.getFact(LIMIT, {}, at('2026-10-13'));
-  assert.equal(r.status, 'fresh');
-  assert.equal(r.staleReason, undefined);
-  assert.equal(r.nextExpectedChange, null, 'no named date after the verification: null, never a guess');
-  const s = X.statusFor({ key: LIMIT, verifiedDate: '2026-10-12', nextExpectedChange: '2026-10-10' }, null, at('2026-10-13'));
-  assert.equal(s.status, 'fresh');
-});
-
-test('v0.3 (c) nextExpectedChange tomorrow → fresh; annual MM-DD dates roll to the next year after verifiedDate', () => {
-  const X = withExpected({ changeCadence: 'annual', dates: ['10-12'] });
-  const r = X.getFact(LIMIT, {}, at('2026-10-11'));
-  assert.deepEqual([r.nextExpectedChange, r.status], ['2026-10-12', 'fresh']);
-  const Y = withExpected({ changeCadence: 'annual', dates: ['04-06'] }, { verifiedDate: '2026-10-04' });
-  assert.equal(Y.getFact(LIMIT, {}, at('2026-10-05')).nextExpectedChange, '2027-04-06');
-  const { nextDateAfter } = require('../api/_area_kit');
-  assert.equal(nextDateAfter('2026-04-06', ['04-06']), '2027-04-06', 'strictly after the verification day');
-  assert.equal(nextDateAfter('2026-03-01', ['04-06', '2026-03-20']), '2026-03-20', 'the earliest candidate wins');
-  assert.equal(nextDateAfter('2026-11-02', ['2026-11-01']), null);
-  assert.throws(() => nextDateAfter('2026-01-01', ['April']), /neither/);
-});
-
-test('v0.3 (d) max_age failing on a record whose expected change also passed → staleReason max-age (the caller\'s test first)', () => {
-  const X = withExpected({ changeCadence: 'scheduled', dates: ['2026-10-10'] });
-  const r = X.getFact(LIMIT, { max_age: '1d' }, at('2026-10-11'));
-  assert.deepEqual([r.status, r.staleReason, r.ageDays, r.maxAgeDays], ['stale', 'max-age', 10, 1]);
-});
-
-test('v0.3 (e) nextExpectedChange null → v0.2 behaviour; no expected block → no fields at all', () => {
-  const X = withExpected({ changeCadence: 'irregular', dates: [] });
-  const r = X.getFact(LIMIT, {}, at('2026-10-11'));
-  assert.deepEqual([r.changeCadence, r.nextExpectedChange, r.status, r.staleReason], ['irregular', null, 'fresh', undefined]);
-  assert.equal(X.getFact(LIMIT, { max_age: '30d' }, at('2026-11-01')).staleReason, 'max-age');
-  const { areas } = loadAreas(path.join(__dirname, 'fixtures/areas-facts'));
-  const plain = F.makeFacts(areas, { sourceChecks: {}, seenSources: [] }).getFact(LIMIT, {}, at('2026-10-11'));
-  for (const k of ['changeCadence', 'nextExpectedChange', 'sourceCheckedAt', 'staleReason']) assert.equal(k in plain, false, k);
-  // the publisher's own cadence (no max_age): overdue → stale with cadence-overdue
-  const late = plain.nextScheduledRefresh;
-  const o = F.makeFacts(areas).getFact(LIMIT, {}, at(plusDays(late, 30)));
-  assert.deepEqual([o.status, o.staleReason], ['stale', 'cadence-overdue']);
-});
-
-test('v0.3 (f) a batch of one fresh and one expected-change-stale record → batch status stale', () => {
-  const X = withExpected((r) => (r.key === LIMIT ? { changeCadence: 'scheduled', dates: ['2026-10-10'] } : { changeCadence: 'irregular', dates: [] }));
-  const b = X.getFacts([OLD, LIMIT], {}, at('2026-10-11'));
-  assert.deepEqual(b.results.map((r) => r.status), ['fresh', 'stale']);
-  assert.equal(b.status, 'stale');
-});
-
-test('v0.3 previous-period records carry no expected-change fields (that value has ended)', () => {
-  const X = withExpected({ changeCadence: 'scheduled', dates: ['2026-10-10'] });
-  const p = X.getFact(LIMIT, { period: '2025' }, at('2026-10-11'));
-  assert.equal(p.value, 90);
-  assert.equal('nextExpectedChange' in p, false);
-  assert.equal(p.status, 'fresh');
-});
-
-test('v0.3 real data: every current record names a changeCadence from the enum, and nextExpectedChange is null or after verifiedDate', () => {
-  const { CHANGE_CADENCES } = require('../api/_areas');
-  for (const r of F.INDEX.values()) {
-    assert.ok(CHANGE_CADENCES.includes(r.changeCadence), `${r.key}: ${r.changeCadence}`);
-    assert.ok(r.nextExpectedChange === null || r.nextExpectedChange > r.verifiedDate, `${r.key}: ${r.nextExpectedChange} vs ${r.verifiedDate}`);
-  }
-  assert.equal(F.INDEX.get(PA).changeCadence, 'annual');
-  assert.equal(F.INDEX.get('uk/mot/max-fee-car').changeCadence, 'irregular', 'fees change by order on no fixed date');
-  assert.match(F.INDEX.get('uk/ved-standard/standard-rate-12-month').nextExpectedChange, /-04-01$/);
-  assert.match(F.INDEX.get('uk/minimum-wage/18-to-20').nextExpectedChange, /-04-01$/);
-  assert.match(F.INDEX.get('us/social-security/wage-base').nextExpectedChange, /-01-01$/);
-  assert.match(F.INDEX.get('de/income-tax/grundfreibetrag').nextExpectedChange, /-01-01$/);
-});
-
-/* ---------------- v0.3: sourceCheckedAt and the source-changed test (spec §4, §5.3) ---------------- */
-
-const SRC = 'https://example.gov/widgets';
-
-test('v0.3 sourceCheckedAt: the newest successful automated fetch of source; absent when no check has run', () => {
-  const X = withExpected(undefined, { sourceChecks: { [SRC]: { checkedAt: '2026-10-05', contentHash: 'abc' } }, seenSources: [{ url: SRC, checkedAt: '2026-10-01', bodyHash: 'abc' }] });
-  const r = X.getFact(LIMIT, {}, at('2026-10-06'));
-  assert.equal(r.sourceCheckedAt, '2026-10-05');
-  assert.equal(r.status, 'fresh');
-  assert.equal(X.listFacts().find((e) => e.key === LIMIT).sourceCheckedAt, '2026-10-05', 'index entries carry it too');
-  // the baseline alone counts (scripts/sources.js fetched it); an unreachable entry never does
-  const Y = withExpected(undefined, { seenSources: [{ url: SRC, checkedAt: '2026-10-02', bodyHash: 'abc' }] });
-  assert.equal(Y.getFact(LIMIT, {}, at('2026-10-06')).sourceCheckedAt, '2026-10-02');
-  const Z = withExpected(undefined, { seenSources: [{ url: SRC, unreachable: 'HTTP 403', checkedAt: '2026-10-02' }] });
-  assert.equal('sourceCheckedAt' in Z.getFact(LIMIT, {}, at('2026-10-06')), false, 'never fabricate a date');
-  // sourceCheckedAt is presentation: the claim hash does not move
-  assert.equal(r.hash, withExpected(undefined).getFact(LIMIT, {}, at('2026-10-06')).hash);
-});
-
-test('v0.3 source-changed: the check saw source change after verifiedDate → stale (value returned); re-verified after → fresh', () => {
-  const checks = { [SRC]: { checkedAt: '2026-10-05', contentHash: 'def', changedAt: '2026-10-05' } };
-  const X = withExpected(undefined, { sourceChecks: checks });
-  const r = X.getFact(LIMIT, {}, at('2026-10-06'));
-  assert.deepEqual([r.status, r.staleReason, r.value], ['stale', 'source-changed', 100]);
-  assert.equal(X.getFact(LIMIT, { max_age: '30d' }, at('2026-10-06')).staleReason, 'source-changed', 'whatever max_age was');
-  assert.equal(X.getFact(LIMIT, { max_age: '1d' }, at('2026-10-06')).staleReason, 'max-age', 'the caller\'s own test is reported first');
-  const later = withExpected(undefined, { verifiedDate: '2026-10-06', sourceChecks: checks });
-  assert.equal(later.getFact(LIMIT, {}, at('2026-10-07')).status, 'fresh', 'a re-verification on or after the change clears it');
-  // the expected-change test ranks before source-changed
-  const both = withExpected({ changeCadence: 'scheduled', dates: ['2026-10-04'] }, { sourceChecks: checks });
-  assert.equal(both.getFact(LIMIT, {}, at('2026-10-06')).staleReason, 'expected-change-passed');
 });

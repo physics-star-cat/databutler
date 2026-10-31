@@ -76,7 +76,7 @@ test('every record carries hash = hashOf(record), an https source, verifiedDate 
       assert.equal(r.hash, hashOf(r), r.key);
       assert.match(r.source, /^https:\/\//, r.key);
       assert.match(r.verifiedDate, /^\d{4}-\d{2}-\d{2}$/, r.key);
-      assert.equal(r.protocol, 'verified-facts/0.3');
+      assert.equal(r.protocol, 'verified-facts/0.2');
       assert.ok(Object.isFrozen(r));
     }
   }
@@ -139,57 +139,4 @@ test('listFacts: one entry per key with hash; namespace filter', () => {
   const us = F.listFacts({ namespace: 'us' });
   assert.ok(us.length > 40 && us.every((e) => e.key.startsWith('us/')));
   assert.deepEqual(F.listFacts({ namespace: 'eu' }).map((e) => e.key), ['eu/ecb/deposit-facility', 'eu/ecb/main-refinancing', 'eu/ecb/marginal-lending']);
-});
-
-/* ---------------- v0.3 index fields ---------------- */
-
-test('v0.3 index entries carry changeCadence and nextExpectedChange when the area sets them; policy-rate entries carry nextDecision', () => {
-  const entries = F.listFacts();
-  for (const e of entries) {
-    const r = F.INDEX.get(e.key);
-    assert.equal(e.changeCadence, r.changeCadence, e.key);
-    assert.equal(e.nextExpectedChange, r.nextExpectedChange, e.key);
-    if (r.sourceCheckedAt) assert.equal(e.sourceCheckedAt, r.sourceCheckedAt, e.key);
-    const keys = Object.keys(e);
-    assert.deepEqual(keys.slice(0, 5), ['key', 'label', 'unit', 'period', 'verifiedDate']);
-    assert.equal(keys[keys.length - (e.aliases ? 2 : 1)], 'hash');
-  }
-  const bank = { boe: 'uk/bank-rate', fed: 'us/fed-funds/upper', ecb: 'eu/ecb/deposit-facility' };
-  for (const [b, key] of Object.entries(bank)) {
-    const e = entries.find((x) => x.key === key);
-    assert.ok(e, key);
-    assert.equal(e.changeCadence, 'scheduled');
-    assert.equal(e.nextExpectedChange, POLICY.banks[b].nextDecision);
-  }
-  assert.equal(entries.find((x) => x.key === 'uk/income-tax/personal-allowance').changeCadence, 'annual');
-});
-
-test('v0.3 the digest moves with any claim and only with a claim', () => {
-  const { digestOf } = require('../api/_facts_sign');
-  const pairs = [...F.INDEX.values()].map((r) => [r.key, r.hash]);
-  assert.equal(F.DIGEST, digestOf(pairs));
-  assert.equal(digestOf([...pairs].reverse()), F.DIGEST, 'order-independent (sorted by key)');
-  assert.equal(digestOf([...F.INDEX.values()]), F.DIGEST, 'records or pairs');
-  const moved = pairs.map(([k, h], i) => [k, i === 0 ? hashOf({ ...F.INDEX.get(k), value: 1 }) : h]);
-  assert.notEqual(digestOf(moved), F.DIGEST);
-  assert.notEqual(digestOf(pairs.slice(1)), F.DIGEST, 'a removed key moves it');
-  assert.equal(F.digestFor('uk'), digestOf(pairs.filter(([k]) => k.startsWith('uk/'))));
-  assert.equal(F.digestFor('zz'), null);
-});
-
-test('reviewed aliases (2026-10-31): NI main/upper rate and the VED expensive-car 12-month Direct Debit total', () => {
-  const pairs = {
-    'uk/national-insurance/main-rate': 'uk/national-insurance/employee-main-rate-pt-to-uel',
-    'uk/national-insurance/upper-rate': 'uk/national-insurance/upper-earnings-limit',
-    'uk/ved-expensive-car/standard-plus-supplement-12-month-direct-debit': 'uk/ved-expensive-car/standard-plus-supplement-12-monthly-direct-debit-total',
-  };
-  for (const [alias, key] of Object.entries(pairs)) {
-    assert.ok(F.INDEX.has(key), `target ${key} exists`);
-    assert.ok(!F.INDEX.has(alias), `${alias} is not itself a key`);
-    assert.equal(F.ALIASES.get(alias), key);
-    assert.ok(F.INDEX.get(key).aliases.includes(alias), 'curated: listed on the record');
-    const r = F.getFact(alias);
-    assert.deepEqual([r.key, r.requestedKey], [key, alias]);
-    assert.equal(F.ALIASES.get(`gb${alias.slice(2)}`), key, 'the gb/ form follows');
-  }
 });

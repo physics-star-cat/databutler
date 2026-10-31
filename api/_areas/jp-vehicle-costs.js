@@ -178,11 +178,6 @@ module.exports = {
     namespace: 'jp',
     key: KEY,
     effectiveTo: (d, f) => f.effectiveTo || null,
-    // v0.3 expected change: car taxes and fees each 1 April; the weight-tax eco bands on 2027-05-01 (the cadence text);
-    // 自賠責 premiums by FSA/GIROJ revision on no fixed date — the announced 2026-11-01 table is the one date known.
-    expected: (r) => (r.key.startsWith('jp/cali/') ? { changeCadence: 'irregular', dates: [r.effectiveFrom, '2026-11-01'] }
-      : r.key.startsWith('jp/weight-tax-eco/') ? { changeCadence: 'annual', dates: [r.effectiveFrom, '2027-05-01'] }
-        : { changeCadence: 'annual', dates: [r.effectiveFrom, '04-01'] }),
     // Japanese-specific words only: synonyms are shared across areas, so English phrases such as "car tax" (uk-vehicle-rules) stay out.
     synonyms: {
       jibaiseki: 'cali', '自賠責': 'cali', '自賠責保険': 'cali',

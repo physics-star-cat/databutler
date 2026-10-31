@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://databutler.dev/schema/fact.v0.json",
-  "title": "Verified Facts record (verified-facts/0.2 and 0.3)",
+  "title": "Verified Facts record (verified-facts/0.2)",
   "description": "One official figure by key, with its period, official source, verification date, claim hash and (L3) detached Ed25519 signature. Specification: https://databutler.dev/protocol/facts §4. status, ageDays and maxAgeDays are required of a server-filtering (L2) publisher and absent from a static (L1, filtering: client) record, so the conformance checker enforces them rather than this schema. Publishers may add fields; consumers ignore unknown ones.",
   "type": "object",
   "required": [
@@ -20,10 +20,7 @@
   ],
   "properties": {
     "protocol": {
-      "enum": [
-        "verified-facts/0.2",
-        "verified-facts/0.3"
-      ]
+      "const": "verified-facts/0.2"
     },
     "key": {
       "$ref": "#/$defs/key"
@@ -118,28 +115,6 @@
       ],
       "format": "date"
     },
-    "changeCadence": {
-      "enum": [
-        "scheduled",
-        "annual",
-        "irregular",
-        "continuous"
-      ],
-      "description": "0.3, optional: how the source changes the value (spec §4)."
-    },
-    "nextExpectedChange": {
-      "type": [
-        "string",
-        "null"
-      ],
-      "format": "date",
-      "description": "0.3, optional: the next day the source's own calendar allows the value to move; null when none can be named."
-    },
-    "sourceCheckedAt": {
-      "type": "string",
-      "format": "date",
-      "description": "0.3, optional: the newest day the publisher's automated check fetched `source` successfully. Absent when no check has run."
-    },
     "status": {
       "enum": [
         "fresh",
@@ -156,15 +131,6 @@
         "null"
       ],
       "minimum": 0
-    },
-    "staleReason": {
-      "enum": [
-        "max-age",
-        "expected-change-passed",
-        "source-changed",
-        "cadence-overdue"
-      ],
-      "description": "0.3, optional: present only when status is stale; the test that failed (spec §5.3)."
     },
     "previous": {
       "type": "object",
@@ -333,10 +299,7 @@
       ],
       "properties": {
         "protocol": {
-          "enum": [
-            "verified-facts/0.2",
-            "verified-facts/0.3"
-          ]
+          "const": "verified-facts/0.2"
         },
         "covered": {
           "const": false
@@ -381,10 +344,7 @@
       ],
       "properties": {
         "protocol": {
-          "enum": [
-            "verified-facts/0.2",
-            "verified-facts/0.3"
-          ]
+          "const": "verified-facts/0.2"
         },
         "publisher": {
           "$ref": "#/$defs/publisher"
@@ -420,10 +380,7 @@
       ],
       "properties": {
         "protocol": {
-          "enum": [
-            "verified-facts/0.2",
-            "verified-facts/0.3"
-          ]
+          "const": "verified-facts/0.2"
         },
         "publisher": {
           "$ref": "#/$defs/publisher"
@@ -435,9 +392,6 @@
         "generated": {
           "type": "string",
           "format": "date"
-        },
-        "digest": {
-          "$ref": "#/$defs/digest"
         },
         "facts": {
           "type": "array",
@@ -474,25 +428,6 @@
                 "type": "string",
                 "format": "date"
               },
-              "changeCadence": {
-                "enum": [
-                  "scheduled",
-                  "annual",
-                  "irregular",
-                  "continuous"
-                ]
-              },
-              "nextExpectedChange": {
-                "type": [
-                  "string",
-                  "null"
-                ],
-                "format": "date"
-              },
-              "sourceCheckedAt": {
-                "type": "string",
-                "format": "date"
-              },
               "hash": {
                 "type": "string",
                 "pattern": "^sha256:[0-9a-f]{64}$"
@@ -518,10 +453,7 @@
       ],
       "properties": {
         "protocol": {
-          "enum": [
-            "verified-facts/0.2",
-            "verified-facts/0.3"
-          ]
+          "const": "verified-facts/0.2"
         },
         "query": {
           "type": "string"
@@ -539,11 +471,6 @@
           "type": "string"
         }
       }
-    },
-    "digest": {
-      "type": "string",
-      "pattern": "^sha256:[0-9a-f]{64}$",
-      "description": "0.3: SHA-256 over the JCS form of the [key, hash] pairs of every fact covered, sorted by key (spec §5.6)."
     }
   }
 }

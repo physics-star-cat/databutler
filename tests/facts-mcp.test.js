@@ -41,15 +41,13 @@ test('initialize: serverInfo databutler-facts; instructions mention get_fact and
   assert.match(r.body.result.instructions, /max_age/);
 });
 
-test('get_fact: a signed record, cite.url = the /facts page, freshness from the area (not live)', async () => {
+test('get_fact: a signed record, cite.url = the /f page, freshness from the area (not live)', async () => {
   const { isError, data } = await callTool(facts, 'get_fact', { key: PA, max_age: '30d' });
   assert.equal(isError, false);
   assert.equal(data.key, PA);
   assert.equal(data.value, 12570);
   assert.ok(data.signature && data.signature.jws);
-  assert.equal(data.cite.url, `https://databutler.dev/facts/${PA}`);
-  assert.equal(data.changeCadence, 'annual');
-  assert.match(data.nextExpectedChange, /^\d{4}-04-06$/);
+  assert.equal(data.cite.url, `https://databutler.dev/f/${PA}`);
   assert.notEqual(data.freshness.staleness, 'live');
   assert.equal(data.freshness.verifiedDate, require('../data/uk/rates/2026-27.json').verifiedDate);
   assert.equal(data.maxAgeDays, 30);

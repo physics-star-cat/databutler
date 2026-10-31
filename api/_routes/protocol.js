@@ -1,7 +1,7 @@
 /**
- * GET /protocol, /protocol/facts and /protocol/publish (rewritten to /api/router?route=protocol[&doc=facts|publish]):
- * the two protocol specifications — Verified Changes (docs/CHANGES_PROTOCOL.md) and Verified Facts
- * (docs/FACTS_PROTOCOL.md) — and the publisher guide (docs/PUBLISH_FACTS.md), rendered to indexable HTML pages. The markdown files are the source of
+ * GET /protocol and /protocol/facts (rewritten to /api/router?route=protocol[&doc=facts]): the two
+ * protocol specifications — Verified Changes (docs/CHANGES_PROTOCOL.md) and Verified Facts
+ * (docs/FACTS_PROTOCOL.md) — rendered to indexable HTML pages. The markdown files are the source of
  * truth; this handler only renders them (api/_markdown.js) and caches like /changes. ?format=md
  * returns the markdown itself for agents that prefer it. Each page's footer links the other spec.
  */
@@ -18,8 +18,7 @@ const { trackEvent } = require('../_track');
 const DOCS_DIR = path.join(__dirname, '..', '..', 'docs');
 const DOCS = {
   changes: { path: path.join(DOCS_DIR, 'CHANGES_PROTOCOL.md'), url: PROTOCOL_URL, wellKnown: WELL_KNOWN_URL, schema: SCHEMA_URL, protocol: PROTOCOL, other: 'facts', home: '/changes', event: 'protocol_page_view' },
-  facts: { path: path.join(DOCS_DIR, 'FACTS_PROTOCOL.md'), url: FACTS_SPEC_URL, wellKnown: FACTS_WELL_KNOWN_URL, schema: FACT_SCHEMA_URL, protocol: FACTS_PROTOCOL, other: 'changes', home: '/facts', event: 'protocol_facts_page_view' },
-  publish: { path: path.join(DOCS_DIR, 'PUBLISH_FACTS.md'), url: 'https://databutler.dev/protocol/publish', wellKnown: FACTS_WELL_KNOWN_URL, schema: FACT_SCHEMA_URL, protocol: FACTS_PROTOCOL, other: 'facts', home: '/facts/publishers', event: 'protocol_publish_page_view' },
+  facts: { path: path.join(DOCS_DIR, 'FACTS_PROTOCOL.md'), url: FACTS_SPEC_URL, wellKnown: FACTS_WELL_KNOWN_URL, schema: FACT_SCHEMA_URL, protocol: FACTS_PROTOCOL, other: 'changes', home: '/f', event: 'protocol_facts_page_view' },
 };
 const SPEC_PATH = DOCS.changes.path;
 const CACHE = 'public, max-age=300, s-maxage=3600';
@@ -41,7 +40,7 @@ function page(md, d) {
 <style>${STYLE}pre{background:#161b22;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88rem}pre code{background:none;padding:0}table{border-collapse:collapse;font-size:.85rem;margin:.6rem 0}td,th{text-align:left;padding:3px 8px;vertical-align:top;border-bottom:1px solid #21262d}th{color:#8b949e}</style></head><body>
 <p class="quiet"><a href="/">databutler.dev</a> · <a href="${esc(d.home)}">${esc(d.home)}</a> · <a href="${esc(d.wellKnown)}">${esc(wkName)}</a> · <a href="${esc(d.schema)}">schema</a> · <a href="${esc(`${d.url}?format=md`)}">markdown</a></p>
 ${renderMarkdown(md)}
-<footer class="quiet"><p>${esc(d.protocol)} — reference implementation: Data Butler. See also <a href="${esc(o.url)}">${esc(o.protocol)}</a>. <a href="/">databutler.dev</a> · <a href="/changes">/changes</a> · <a href="/facts">/facts</a> · <a href="/protocol/publish">publish your own</a> · <a href="/api">/api</a> · <a href="/llms.txt">llms.txt</a> · <a href="/privacy">Privacy</a></p></footer></body></html>`;
+<footer class="quiet"><p>${esc(d.protocol)} — reference implementation: Data Butler. See also <a href="${esc(o.url)}">${esc(o.protocol)}</a>. <a href="/">databutler.dev</a> · <a href="/changes">/changes</a> · <a href="/f">/f</a> · <a href="/api">/api</a> · <a href="/llms.txt">llms.txt</a> · <a href="/privacy">Privacy</a></p></footer></body></html>`;
 }
 
 const cached = {};
@@ -57,7 +56,7 @@ module.exports = async (req, res) => {
   if (handleOptions(req, res)) return;
   const { format, doc } = queryParams(req);
   const which = String(doc || 'changes').toLowerCase().trim();
-  if (!DOCS[which]) return sendJson(res, 404, { error: `unknown protocol document "${doc}" — /protocol (Verified Changes), /protocol/facts (Verified Facts) or /protocol/publish (the publisher guide)` }, { 'Cache-Control': 'no-store' });
+  if (!DOCS[which]) return sendJson(res, 404, { error: `unknown protocol document "${doc}" — /protocol (Verified Changes) or /protocol/facts (Verified Facts)` }, { 'Cache-Control': 'no-store' });
   await trackEvent(DOCS[which].event, req);
   const { md, html } = load(which);
   const asMarkdown = String(format || '').toLowerCase().trim() === 'md';

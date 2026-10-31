@@ -6,7 +6,6 @@
  */
 const F = require('./_facts');
 const { BASE } = require('./_area_kit');
-const { FACTS_PROTOCOL } = require('./_changelog');
 
 // The spec's example keys, kept only while they resolve (a key or a curated alias), so a description never names a dead key.
 const SPEC_EXAMPLES = ['uk/income-tax/personal-allowance', 'uk/national-insurance/primary-threshold', 'us/social-security/wage-base', 'de/income-tax/grundfreibetrag', 'uk/bank-rate', 'eu/ecb/deposit-facility', 'uk/gov/passport-renewal-adult/fee-online-uk'];
@@ -23,8 +22,6 @@ const getFact = {
     'with the date it was verified, the official source URL, the period it applies to and a signature. Keys are ' +
     `\`<country>/<topic>/<fact>\`, e.g. ${EXAMPLES.map(code).join(', ')}. A loose key is resolved when unambiguous; otherwise ` +
     'the answer lists candidate keys. `max_age` (e.g. `30d`) marks the answer `stale` when the verification is older than that. ' +
-    '`nextExpectedChange` is the next date the source\'s calendar allows the value to move; `status` is `stale` when that date has ' +
-    'passed since verification. ' +
     'Several keys separated by commas return a batch. Covers UK, US and German rates and thresholds, UK vehicle tax and MOT ' +
     'rules, UK government service fees, UK exam dates and central-bank policy rates; `coverage` lists the rest.',
   inputSchema: {
@@ -45,8 +42,8 @@ const getFact = {
   },
   cite: (a = {}, result) => {
     const k = recordKey(result);
-    if (k) return { path: `facts/${k}`, query: { period: a.period, as_of: a.as_of } };
-    if (result && result.results) return { path: `facts/${result.results.map((r) => r.key || r.requestedKey).filter(Boolean).join(',')}`, query: {} };
+    if (k) return { path: `f/${k}`, query: { period: a.period, as_of: a.as_of } };
+    if (result && result.results) return { path: 'f', query: { keys: String(a.key || '') } };
     return { path: 'f/resolve', query: { q: String(a.key || '') } };
   },
 };
@@ -73,14 +70,13 @@ const resolveFact = {
 };
 
 const FACTS_INSTRUCTIONS =
-  `Verified Facts from databutler.dev (protocol ${FACTS_PROTOCOL}): one official figure per key — UK, US and German tax and ` +
+  'Verified Facts from databutler.dev (protocol verified-facts/0.2): one official figure per key — UK, US and German tax and ' +
   'social-insurance thresholds and rates, UK vehicle tax and MOT rules, UK government service fees, UK exam dates and ' +
   'central-bank policy rates — each with value, period, effectiveFrom, the official source, verifiedDate, a content hash and an ' +
   'Ed25519 signature. For any official figure, get_fact with the key you would guess and the max_age the question deserves ' +
   '(a tax calculation: 30d) answers in one call; a miss lists candidate keys, and resolve_fact finds a key from a question. ' +
   'Present value with period, say verifiedDate and quote source; when status is stale, say the verification is older than ' +
-  'asked; staleReason says why (expected-change-passed: a scheduled decision or change date has passed since the last check). ' +
-  'what_changed_since lists what moved after a date, each entry with its factKey. Every result carries cite.url, a permalink to the figure with its source.';
+  'asked. what_changed_since lists what moved after a date, each entry with its factKey. Every result carries cite.url, a permalink to the figure with its source.';
 
 const FACTS_SERVER_BASE = {
   key: 'facts',

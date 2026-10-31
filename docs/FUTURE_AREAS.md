@@ -5,8 +5,6 @@ Ideas with evidence behind them, waiting for a go/no-go. Building one is a Fable
 
 ## Property and renovation costs (noted 2026-10-13)
 
-**Declined 2026-10-31.** What a build or renovation costs depends on the particular house and the particular town, so no published range answers the question a person actually asks, and a sourced figure would still be wrong for nearly everyone who reads it. The notes below are kept so the evaluation is not repeated.
-
 **Evidence of demand.** lowriskquotes.com already ranks, weakly, for homeowner cost questions. Search Console,
 2026-07-14 to 2026-10-11:
 

@@ -77,7 +77,7 @@ Data Butler's discovery document:
     "name": "Data Butler",
     "url": "https://databutler.dev/"
   },
-  "updated": "2026-10-31",
+  "updated": "2026-10-24",
   "coverageStart": "2026-08-31",
   "areas": [
     {
@@ -107,8 +107,8 @@ Data Butler's discovery document:
     },
     {
       "name": "us-rates",
-      "description": "US federal rates and thresholds read from the IRS revenue procedures and notices and SSA's Federal Register notice: income-tax rate schedules and standard deduction, Social Security wage base and rates, Medicare, retirement-plan and IRA limits, HSA limits, estate and gift exclusions, Social Security benefit rules, Medicare costs and IRMAA, RMD tables, capital-gains thresholds.",
-      "cadence": "Annual: after the IRS tax-year inflation adjustments (October), the retirement-plan limits (November), the SSA Federal Register notice (October/November) and the CMS Medicare amounts (November); source pages re-fetched weekly, ssa.gov read by hand."
+      "description": "US federal rates and thresholds read from the IRS revenue procedures and notices and SSA's Federal Register notice: income-tax rate schedules and standard deduction, Social Security wage base and rates, Medicare, retirement-plan and IRA limits, HSA limits, estate and gift exclusions.",
+      "cadence": "Annual: after the IRS tax-year inflation adjustments (October), the retirement-plan limits (November) and the SSA Federal Register notice (October/November); every source page re-fetched weekly."
     },
     {
       "name": "de-rates",
@@ -291,8 +291,6 @@ A publisher conforms to `verified-changes/0.1` when every item below holds; each
 Data Butler checks items 1, 3, 4, 6, 7 and 8 in its own test suite on every commit; items 2, 5 and 9 are checked by its weekly watcher and deploy checks.
 
 **For an assistant.** At the start of a session that touches a publisher's subject matter, fetch `/.well-known/changes.json` once, then call `endpoints.json` (or the MCP tool) once with `since` set to your training cutoff and no area filter. Treat each entry as superseding what you learned: quote `to`, say it applies from `effectiveFrom`, cite `source` or `cite.url`. An empty document means the facts you know for those areas were still current on their `verifiedDate`s; say that rather than hedging. Do not re-poll within a session; the cadence says how often anything can change.
-
-A publisher that also serves Verified Facts (`verified-facts/0.3`, [the facts layer](https://databutler.dev/protocol/facts)) gives a cheaper first step: compare the `facts.digest` stored from the last read of `/.well-known/facts.json` with the live one, and call this endpoint with the stored date only when they differ (facts spec §5.6). This document's wire format is unchanged by it.
 
 ## Versioning
 

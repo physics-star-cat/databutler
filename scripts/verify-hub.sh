@@ -147,12 +147,8 @@ check call-jp-living-costs-minimum-wage "$(inner "$(tool call '{"tool":"jp_livin
 check rest-jp-living-costs-health-insurance "$(curl -sS "$BASE/api/jp/living-costs?category=health-insurance")" "d['category']=='health-insurance' and any(f['key']=='tokyo' and f['value']==9.85 for f in d['figures']) and any(f['key']=='child-rearing-levy' and f['value']==0.23 for f in d['figures'])"
 check call-jp-living-costs-nearmiss "$(inner "$(tool call '{"tool":"jp_living_costs_lookup","arguments":{"category":"saiteichingin"}}')")" \
   "d.get('covered')==False and len(d['nearest'])>0"
-for name in uk-exams provenance stats vehicles tax software-eol policy-rates us-rates de-rates uk-vehicle-rules uk-exam-dates calendar uk-gov-process jp-vehicle-costs jp-living-costs; do
-  CODE="$(curl -s -o /dev/null -w '%{http_code}' -X POST "$BASE/api/mcp/$name" -H 'Content-Type: application/json' -d '{"jsonrpc":"2.0","id":2,"method":"tools/list"}')"
-  if [ "$CODE" = "403" ]; then echo "PASS legacy $name 403"; else echo "FAIL legacy $name expected 403, got $CODE"; FAILED=1; fi
-done
-for path in mcp mcp/facts mcp/uk-rates; do
-  check "kept /api/$path tools/list" "$(curl -sS -X POST "$BASE/api/$path" -H 'Content-Type: application/json' -d '{"jsonrpc":"2.0","id":2,"method":"tools/list"}')" "len(d['result']['tools'])>0"
+for name in uk-rates uk-exams provenance stats vehicles tax software-eol policy-rates us-rates de-rates uk-vehicle-rules uk-exam-dates calendar uk-gov-process jp-vehicle-costs jp-living-costs; do
+  check "legacy $name tools/list" "$(curl -sS -X POST "$BASE/api/mcp/$name" -H 'Content-Type: application/json' -d '{"jsonrpc":"2.0","id":2,"method":"tools/list"}')" "len(d['result']['tools'])>0"
 done
 # sync-areas:checks end
 
@@ -172,22 +168,10 @@ check f-resolve "$(curl -sS "$BASE/f/resolve?q=ECB%20deposit%20rate")" "d['candi
 check f-batch "$(curl -sS "$BASE/f?keys=uk/bank-rate,us/social-security/wage-base,zz/missing/key")" "d['count']==3 and d['results'][2]['covered']==False"
 check facts-mcp-list "$(curl -sS -X POST "$FACTS" -H 'Content-Type: application/json' -d '{"jsonrpc":"2.0","id":2,"method":"tools/list"}')" \
   "[t['name'] for t in d['result']['tools']]==['get_fact','resolve_fact','what_changed_since']"
-check facts-well-known "$(curl -sS "$BASE/.well-known/facts.json")" "d['protocol']=='verified-facts/0.3' and d['conformance']=='L3' and d['facts']['digest'].startswith('sha256:') and d['facts']['page'].endswith('/facts/{key}')"
+check facts-well-known "$(curl -sS "$BASE/.well-known/facts.json")" "d['protocol']=='verified-facts/0.2' and d['conformance']=='L3'"
 check facts-jwks "$(curl -sS "$BASE/.well-known/jwks.json")" "len(d['keys'])>=1 and all(k['crv']=='Ed25519' and 'd' not in k for k in d['keys'])"
 check facts-server-card "$(curl -sS "$FACTS/server-card")" "d['name']=='io.github.physics-star-cat/databutler-facts'"
-check facts-openapi "$(curl -sS "$BASE/openapi.json")" "d['x-verified-facts']=='0.3'"
-# v0.3: /facts/<key> is HTML to every caller (Bingbot sends Accept: */*), canonical to itself; JSON-only Accept → 302 /f
-PAGE="$(curl -sS -D - -A 'Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)' -H 'Accept: */*' "$BASE/facts/uk/income-tax/personal-allowance")"
-if grep -qi '^content-type: text/html' <<<"$PAGE" && grep -q 'rel="canonical" href="https://databutler.dev/facts/uk/income-tax/personal-allowance"' <<<"$PAGE"; then echo "PASS facts-page bingbot */*"; else echo "FAIL facts-page bingbot */*"; FAILED=1; fi
-CODE="$(curl -s -o /dev/null -w '%{http_code} %{redirect_url}' -H 'Accept: application/json' "$BASE/facts/uk/income-tax/personal-allowance")"
-if [ "$CODE" = "302 $BASE/f/uk/income-tax/personal-allowance" ]; then echo "PASS facts-page json 302"; else echo "FAIL facts-page json 302 ($CODE)"; FAILED=1; fi
-for p in /protocol/publish /facts/publishers /facts; do
-  CODE="$(curl -s -o /dev/null -w '%{http_code} %{content_type}' -H 'Accept: */*' "$BASE$p")"
-  if [[ "$CODE" == "200 text/html"* ]]; then echo "PASS page $p"; else echo "FAIL page $p ($CODE)"; FAILED=1; fi
-done
-ETAG="$(curl -sS -D - -o /dev/null "$BASE/f" | tr -d '\r' | awk -F': ' 'tolower($1)=="etag"{print $2}')"
-CODE="$(curl -s -o /dev/null -w '%{http_code}' -H "If-None-Match: $ETAG" "$BASE/f")"
-if [ -n "$ETAG" ] && [ "$CODE" = "304" ]; then echo "PASS f-index etag 304"; else echo "FAIL f-index etag ($ETAG → $CODE)"; FAILED=1; fi
+check facts-openapi "$(curl -sS "$BASE/openapi.json")" "d['x-verified-facts']=='0.2'"
 if node "$(dirname "$0")/verify-fact.js" "$BASE/f/uk/income-tax/personal-allowance" --jwks "$BASE/.well-known/jwks.json" > /dev/null; then echo "PASS verify-fact"; else echo "FAIL verify-fact"; FAILED=1; fi
 
 [ "$FAILED" = 0 ] && echo "ALL PASS" || { echo "SOME FAILED"; exit 1; }

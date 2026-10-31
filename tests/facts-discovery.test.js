@@ -60,9 +60,9 @@ test('/.well-known/changes.json validates against the updated schema and points 
   assert.equal(CHANGES_JSON.protocol, 'verified-changes/0.1', 'v0.1 stays on the wire');
 });
 
-test('openapi.json: 3.1, four operations, every path dispatches to f or changes, x-verified-facts 0.3', () => {
+test('openapi.json: 3.1, four operations, every path dispatches to f or changes, x-verified-facts 0.2', () => {
   assert.match(OPENAPI.openapi, /^3\.1/);
-  assert.equal(OPENAPI['x-verified-facts'], '0.3');
+  assert.equal(OPENAPI['x-verified-facts'], '0.2');
   assert.deepEqual(OPENAPI.servers, [{ url: 'https://databutler.dev' }]);
   const ops = Object.values(OPENAPI.paths).flatMap((p) => Object.values(p).map((o) => o.operationId));
   assert.deepEqual(ops.sort(), ['getFact', 'getFacts', 'resolveFact', 'whatChangedSince']);
@@ -125,53 +125,17 @@ test('the index validates against $defs/index', async () => {
   assertValid(sub('index'), r.body, 'index');
 });
 
-test('llms.txt carries the two spec §10.3 lines; the sitemap lists /facts, /protocol/facts and every fact page — never /f/', () => {
+test('llms.txt carries the two spec §10.3 lines; the sitemap lists /f, /protocol/facts and every fact page', () => {
   const llms = read('public/llms.txt');
   assert.ok(llms.includes('- `GET https://databutler.dev/f/uk/income-tax/personal-allowance?max_age=30d` — one verified official figure by key'));
-  assert.ok(llms.includes('- `GET https://databutler.dev/.well-known/facts.json` — Verified Facts protocol discovery (verified-facts/0.3)'));
+  assert.ok(llms.includes('- `GET https://databutler.dev/.well-known/facts.json` — Verified Facts protocol discovery (verified-facts/0.2)'));
   const sitemap = read('public/sitemap.xml');
-  for (const p of ['/facts', '/protocol/facts', '/protocol/publish', '/facts/publishers']) assert.ok(sitemap.includes(`<loc>https://databutler.dev${p}</loc>`), p);
-  const pages = [...sitemap.matchAll(/<loc>https:\/\/databutler\.dev\/facts\/([^<]+)<\/loc>/g)].map((m) => m[1]).filter((k) => k !== 'publishers');
+  for (const p of ['/f', '/protocol/facts']) assert.ok(sitemap.includes(`<loc>https://databutler.dev${p}</loc>`), p);
+  const pages = [...sitemap.matchAll(/<loc>https:\/\/databutler\.dev\/f\/([^<]+)<\/loc>/g)].map((m) => m[1]);
   assert.deepEqual(pages.sort(), [...F.INDEX.keys()].sort());
-  assert.doesNotMatch(sitemap, /<loc>https:\/\/databutler\.dev\/f[/<]/, 'the negotiating /f URLs are machine URLs, not sitemap pages');
 });
 
-test('README catalogue names /api/mcp/facts; index.html names /facts/<key> and links the publisher guide', () => {
-  assert.match(read('README.md'), /\| Verified Facts — `\/api\/mcp\/facts` \| `get_fact`, `resolve_fact`, `what_changed_since`/);
-  assert.match(read('public/index.html'), /href="\/facts\/uk\/income-tax\/personal-allowance"/);
-  assert.match(read('public/index.html'), /href="\/protocol\/publish"/);
-});
-
-/* ---------------- v0.3 discovery ---------------- */
-
-test('v0.3 facts.json: protocol 0.3, facts.page template, digest over every fact and per namespace', () => {
-  const { digestOf } = require('../api/_facts_sign');
-  assert.equal(FACTS_JSON.protocol, 'verified-facts/0.3');
-  assert.equal(FACTS_JSON.facts.page, 'https://databutler.dev/facts/{key}');
-  assert.equal(routeOf(rewriteFor(new URL(FACTS_JSON.facts.page.replace('{key}', 'uk/bank-rate')).pathname).destination), 'f');
-  assert.equal(FACTS_JSON.facts.digest, F.DIGEST);
-  assert.equal(FACTS_JSON.facts.digest, digestOf([...F.INDEX.values()].map((r) => [r.key, r.hash])), 'sha256 over JCS of sorted [key, hash] pairs');
-  for (const ns of FACTS_JSON.namespaces) {
-    assert.match(ns.digest, /^sha256:[0-9a-f]{64}$/);
-    assert.equal(ns.digest, digestOf([...F.INDEX.values()].filter((r) => F.namespaceOf(r.key) === ns.name)), ns.name);
-  }
-});
-
-test('v0.3 schemas accept 0.2 and 0.3 documents alike, and nothing else', () => {
-  const v02 = { ...FACTS_JSON, protocol: 'verified-facts/0.2', facts: { ...FACTS_JSON.facts } };
-  delete v02.facts.page; delete v02.facts.digest;
-  v02.namespaces = v02.namespaces.map(({ digest, ...n }) => n);
-  assertValid(WKF, v02, 'a 0.2 facts.json still validates');
-  assert.equal(validate(WKF, { ...FACTS_JSON, protocol: 'verified-facts/0.9' }).ok, false);
-  const rec = F.getFact('uk/income-tax/personal-allowance');
-  assertValid(FACT, rec, '0.3 record');
-  const old = { ...rec, protocol: 'verified-facts/0.2' };
-  for (const k of ['changeCadence', 'nextExpectedChange', 'sourceCheckedAt', 'staleReason']) delete old[k];
-  assertValid(FACT, old, 'a 0.2 record still validates');
-  assert.equal(validate(FACT, { ...rec, staleReason: 'because' }).ok, false, 'staleReason is an enum');
-  assert.equal(validate(FACT, { ...rec, changeCadence: 'often' }).ok, false, 'changeCadence is an enum');
-  // the protocol enum appears everywhere the record, miss, batch, index and resolve name it
-  const enums = JSON.stringify(FACT).match(/"protocol":\{"enum":\["verified-facts\/0\.2","verified-facts\/0\.3"\]\}/g) || [];
-  assert.equal(enums.length, 5);
-  assert.doesNotMatch(JSON.stringify(FACT) + JSON.stringify(WKF), /"const":"verified-facts\/0\.2"/);
+test('README catalogue names /api/mcp/facts; index.html names /f/<key>', () => {
+  assert.match(read('README.md'), /\| `\/api\/mcp\/facts` \| `get_fact`, `resolve_fact`, `what_changed_since`/);
+  assert.match(read('public/index.html'), /\/f\/uk\/income-tax\/personal-allowance/);
 });

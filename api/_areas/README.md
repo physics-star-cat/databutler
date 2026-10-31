@@ -121,11 +121,6 @@ module.exports = {
         aliases: { 'uk/national-insurance/primary-threshold': 'uk/national-insurance/primary-threshold-employee-pays-above-this' },
                                  // optional, reviewed; listed on the record. gb/… and `<area>:<changelog key>` are added automatically
         synonyms: { ni: 'national-insurance' },         // optional, for /f/resolve (a query word or phrase → key words)
-        expected: { changeCadence: 'annual', dates: ['04-06'] },  // optional (Verified Facts v0.3): how the source changes the
-                                 // value (scheduled | annual | irregular | continuous) and the days its own calendar allows a move —
-                                 // YYYY-MM-DD, or MM-DD for every year; nextExpectedChange = the first after verifiedDate, else null.
-                                 // A function (record) → { changeCadence, dates } varies it per key. Never estimate a date: name
-                                 // only days the source publishes. A list() record may carry the two fields itself (policy-rates)
         list: () => [{ record, previous, changelogKey, topic }],  // optional: areas without the categories shape build their own
                                  // entries (policy-rates; then `namespace` may be an array); factsFromCategories(data, opts) is the kit's
       },
