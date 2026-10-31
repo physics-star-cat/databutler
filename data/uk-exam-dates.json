@@ -63,8 +63,8 @@
     },
     {
       "id": "aqaGcse27",
-      "title": "AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.1)",
-      "url": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8572d66498f4d624b9c6ecb4abf5f0a01aff69f3.pdf",
+      "title": "AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.2)",
+      "url": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8dfe25454c7bcaa686393e07ade5d2f194bc7fa0.pdf",
       "fetched": "2026-10-04"
     },
     {
@@ -81,7 +81,7 @@
     },
     {
       "id": "aqaAl26",
-      "title": "AQA, Exam timetable May/June 2026 — A-level, AS, Level 3 certificates, and Applied General (Version 1.1)",
+      "title": "AQA, Exam timetable May/June 2026 — A-level, AS, Level 3 certificates, and Applied General (Version 1.2)",
       "url": "https://www.aqa.org.uk/files/5b9d7155-3fe3-4e50-b5c4-adede4e6bf75/257b60f8ef35628cc00883e943924e44dbb88915.pdf",
       "fetched": "2026-10-04"
     },
@@ -623,8 +623,8 @@
           "value": "2027-05-14",
           "unit": "date",
           "effectiveFrom": "2027-05-14",
-          "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8572d66498f4d624b9c6ecb4abf5f0a01aff69f3.pdf",
-          "document": "AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.1)",
+          "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8dfe25454c7bcaa686393e07ade5d2f194bc7fa0.pdf",
+          "document": "AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.2)",
           "quote": "8300/1F   Written (non-calculator)   1h 30m   14 May 2027   am",
           "previous": {
             "value": "2026-05-14",
@@ -632,7 +632,8 @@
             "source": "https://www.aqa.org.uk/files/be923e70-c72d-4c0d-a4e7-6ebef3a27d4d/c5e9f9bae7272b1b48a42130fc04d77f6dd0d5b5.pdf",
             "document": "AQA, Exam timetable May/June 2026 — GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0)",
             "quote": "8300/1F   Written (non-calculator)   1h 30m   14 May 2026   am"
-          }
+          },
+          "verifiedDate": "2026-10-31"
         },
         {
           "key": "aqa-gcse-maths-paper-2",
@@ -644,8 +645,8 @@
           "value": "2027-05-27",
           "unit": "date",
           "effectiveFrom": "2027-05-27",
-          "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8572d66498f4d624b9c6ecb4abf5f0a01aff69f3.pdf",
-          "document": "AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.1)",
+          "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8dfe25454c7bcaa686393e07ade5d2f194bc7fa0.pdf",
+          "document": "AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.2)",
           "quote": "8300/2F   Written (calculator)   1h 30m   27 May 2027   am",
           "previous": {
             "value": "2026-06-03",
@@ -653,7 +654,8 @@
             "source": "https://www.aqa.org.uk/files/be923e70-c72d-4c0d-a4e7-6ebef3a27d4d/c5e9f9bae7272b1b48a42130fc04d77f6dd0d5b5.pdf",
             "document": "AQA, Exam timetable May/June 2026 — GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0)",
             "quote": "8300/2F   Written (calculator)   1h 30m   03 June 2026   am"
-          }
+          },
+          "verifiedDate": "2026-10-31"
         },
         {
           "key": "aqa-gcse-maths-paper-3",
@@ -665,8 +667,8 @@
           "value": "2027-06-14",
           "unit": "date",
           "effectiveFrom": "2027-06-14",
-          "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8572d66498f4d624b9c6ecb4abf5f0a01aff69f3.pdf",
-          "document": "AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.1)",
+          "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8dfe25454c7bcaa686393e07ade5d2f194bc7fa0.pdf",
+          "document": "AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.2)",
           "quote": "8300/3F   Written (calculator)   1h 30m   14 June 2027   am",
           "previous": {
             "value": "2026-06-10",
@@ -674,7 +676,8 @@
             "source": "https://www.aqa.org.uk/files/be923e70-c72d-4c0d-a4e7-6ebef3a27d4d/c5e9f9bae7272b1b48a42130fc04d77f6dd0d5b5.pdf",
             "document": "AQA, Exam timetable May/June 2026 — GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0)",
             "quote": "8300/3F   Written (calculator)   1h 30m   10 June 2026   am"
-          }
+          },
+          "verifiedDate": "2026-10-31"
         },
         {
           "key": "aqa-gcse-english-language-paper-1",
@@ -686,8 +689,8 @@
           "value": "2027-05-24",
           "unit": "date",
           "effectiveFrom": "2027-05-24",
-          "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8572d66498f4d624b9c6ecb4abf5f0a01aff69f3.pdf",
-          "document": "AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.1)",
+          "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8dfe25454c7bcaa686393e07ade5d2f194bc7fa0.pdf",
+          "document": "AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.2)",
           "quote": "8700/1   Explorations in creative reading and writing   1h 45m   24 May 2027   am",
           "previous": {
             "value": "2026-05-21",
@@ -695,7 +698,8 @@
             "source": "https://www.aqa.org.uk/files/be923e70-c72d-4c0d-a4e7-6ebef3a27d4d/c5e9f9bae7272b1b48a42130fc04d77f6dd0d5b5.pdf",
             "document": "AQA, Exam timetable May/June 2026 — GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0)",
             "quote": "8700/1   Explorations in creative reading and writing   1h 45m   21 May 2026   am"
-          }
+          },
+          "verifiedDate": "2026-10-31"
         },
         {
           "key": "aqa-gcse-english-language-paper-2",
@@ -707,8 +711,8 @@
           "value": "2027-06-08",
           "unit": "date",
           "effectiveFrom": "2027-06-08",
-          "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8572d66498f4d624b9c6ecb4abf5f0a01aff69f3.pdf",
-          "document": "AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.1)",
+          "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8dfe25454c7bcaa686393e07ade5d2f194bc7fa0.pdf",
+          "document": "AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.2)",
           "quote": "8700/2   Writers' viewpoints and perspectives   1h 45m   08 June 2027   am",
           "previous": {
             "value": "2026-06-05",
@@ -716,7 +720,8 @@
             "source": "https://www.aqa.org.uk/files/be923e70-c72d-4c0d-a4e7-6ebef3a27d4d/c5e9f9bae7272b1b48a42130fc04d77f6dd0d5b5.pdf",
             "document": "AQA, Exam timetable May/June 2026 — GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0)",
             "quote": "8700/2   Writers' viewpoints and perspectives   1h 45m   05 June 2026   am"
-          }
+          },
+          "verifiedDate": "2026-10-31"
         },
         {
           "key": "aqa-gcse-combined-science-biology-paper-1",
@@ -728,8 +733,8 @@
           "value": "2027-05-11",
           "unit": "date",
           "effectiveFrom": "2027-05-11",
-          "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8572d66498f4d624b9c6ecb4abf5f0a01aff69f3.pdf",
-          "document": "AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.1)",
+          "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8dfe25454c7bcaa686393e07ade5d2f194bc7fa0.pdf",
+          "document": "AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.2)",
           "quote": "8464/B/1F   Paper 1: Biology   1h 15m   11 May 2027   am",
           "previous": {
             "value": "2026-05-12",
@@ -737,7 +742,8 @@
             "source": "https://www.aqa.org.uk/files/be923e70-c72d-4c0d-a4e7-6ebef3a27d4d/c5e9f9bae7272b1b48a42130fc04d77f6dd0d5b5.pdf",
             "document": "AQA, Exam timetable May/June 2026 — GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0)",
             "quote": "8464/B/1F   Paper 1: Biology   1h 15m   12 May 2026   pm"
-          }
+          },
+          "verifiedDate": "2026-10-31"
         },
         {
           "key": "aqa-gcse-combined-science-chemistry-paper-1",
@@ -749,8 +755,8 @@
           "value": "2027-05-17",
           "unit": "date",
           "effectiveFrom": "2027-05-17",
-          "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8572d66498f4d624b9c6ecb4abf5f0a01aff69f3.pdf",
-          "document": "AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.1)",
+          "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8dfe25454c7bcaa686393e07ade5d2f194bc7fa0.pdf",
+          "document": "AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.2)",
           "quote": "8464/C/1F   Paper 1: Chemistry   1h 15m   17 May 2027   am",
           "previous": {
             "value": "2026-05-18",
@@ -758,7 +764,8 @@
             "source": "https://www.aqa.org.uk/files/be923e70-c72d-4c0d-a4e7-6ebef3a27d4d/c5e9f9bae7272b1b48a42130fc04d77f6dd0d5b5.pdf",
             "document": "AQA, Exam timetable May/June 2026 — GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0)",
             "quote": "8464/C/1F   Paper 1: Chemistry   1h 15m   18 May 2026   am"
-          }
+          },
+          "verifiedDate": "2026-10-31"
         },
         {
           "key": "aqa-gcse-combined-science-physics-paper-1",
@@ -770,8 +777,8 @@
           "value": "2027-05-25",
           "unit": "date",
           "effectiveFrom": "2027-05-25",
-          "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8572d66498f4d624b9c6ecb4abf5f0a01aff69f3.pdf",
-          "document": "AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.1)",
+          "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8dfe25454c7bcaa686393e07ade5d2f194bc7fa0.pdf",
+          "document": "AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.2)",
           "quote": "8464/P/1F   Paper 1: Physics   1h 15m   25 May 2027   am",
           "previous": {
             "value": "2026-06-02",
@@ -779,7 +786,8 @@
             "source": "https://www.aqa.org.uk/files/be923e70-c72d-4c0d-a4e7-6ebef3a27d4d/c5e9f9bae7272b1b48a42130fc04d77f6dd0d5b5.pdf",
             "document": "AQA, Exam timetable May/June 2026 — GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0)",
             "quote": "8464/P/1F   Paper 1: Physics   1h 15m   02 June 2026   am"
-          }
+          },
+          "verifiedDate": "2026-10-31"
         },
         {
           "key": "aqa-gcse-combined-science-biology-paper-2",
@@ -791,8 +799,8 @@
           "value": "2027-06-10",
           "unit": "date",
           "effectiveFrom": "2027-06-10",
-          "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8572d66498f4d624b9c6ecb4abf5f0a01aff69f3.pdf",
-          "document": "AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.1)",
+          "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8dfe25454c7bcaa686393e07ade5d2f194bc7fa0.pdf",
+          "document": "AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.2)",
           "quote": "8464/B/2F   Paper 2: Biology   1h 15m   10 June 2027   am",
           "previous": {
             "value": "2026-06-08",
@@ -800,7 +808,8 @@
             "source": "https://www.aqa.org.uk/files/be923e70-c72d-4c0d-a4e7-6ebef3a27d4d/c5e9f9bae7272b1b48a42130fc04d77f6dd0d5b5.pdf",
             "document": "AQA, Exam timetable May/June 2026 — GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0)",
             "quote": "8464/B/2F   Paper 2: Biology   1h 15m   08 June 2026   am"
-          }
+          },
+          "verifiedDate": "2026-10-31"
         },
         {
           "key": "aqa-gcse-combined-science-chemistry-paper-2",
@@ -812,8 +821,8 @@
           "value": "2027-06-15",
           "unit": "date",
           "effectiveFrom": "2027-06-15",
-          "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8572d66498f4d624b9c6ecb4abf5f0a01aff69f3.pdf",
-          "document": "AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.1)",
+          "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8dfe25454c7bcaa686393e07ade5d2f194bc7fa0.pdf",
+          "document": "AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.2)",
           "quote": "8464/C/2F   Paper 2: Chemistry   1h 15m   15 June 2027   am",
           "previous": {
             "value": "2026-06-12",
@@ -821,7 +830,8 @@
             "source": "https://www.aqa.org.uk/files/be923e70-c72d-4c0d-a4e7-6ebef3a27d4d/c5e9f9bae7272b1b48a42130fc04d77f6dd0d5b5.pdf",
             "document": "AQA, Exam timetable May/June 2026 — GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0)",
             "quote": "8464/C/2F   Paper 2: Chemistry   1h 15m   12 June 2026   am"
-          }
+          },
+          "verifiedDate": "2026-10-31"
         },
         {
           "key": "aqa-gcse-combined-science-physics-paper-2",
@@ -833,8 +843,8 @@
           "value": "2027-06-18",
           "unit": "date",
           "effectiveFrom": "2027-06-18",
-          "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8572d66498f4d624b9c6ecb4abf5f0a01aff69f3.pdf",
-          "document": "AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.1)",
+          "source": "https://www.aqa.org.uk/files/449f89fe-eb10-43c4-9f7f-d94906b16007/8dfe25454c7bcaa686393e07ade5d2f194bc7fa0.pdf",
+          "document": "AQA, Exam timetable May/June 2027 — GCSE, AQA Certificates, ELC and Projects (Version 1.2)",
           "quote": "8464/P/2F   Paper 2: Physics   1h 15m   18 June 2027   am",
           "previous": {
             "value": "2026-06-15",
@@ -842,7 +852,8 @@
             "source": "https://www.aqa.org.uk/files/be923e70-c72d-4c0d-a4e7-6ebef3a27d4d/c5e9f9bae7272b1b48a42130fc04d77f6dd0d5b5.pdf",
             "document": "AQA, Exam timetable May/June 2026 — GCSE, AQA Certificates, ELC, FCSE and Projects (Version 1.0)",
             "quote": "8464/P/2F   Paper 2: Physics   1h 15m   15 June 2026   am"
-          }
+          },
+          "verifiedDate": "2026-10-31"
         },
         {
           "key": "aqa-a-level-maths-paper-1",
@@ -861,7 +872,7 @@
             "value": "2026-06-03",
             "series": "summer-2026",
             "source": "https://www.aqa.org.uk/files/5b9d7155-3fe3-4e50-b5c4-adede4e6bf75/257b60f8ef35628cc00883e943924e44dbb88915.pdf",
-            "document": "AQA, Exam timetable May/June 2026 — A-level, AS, Level 3 certificates, and Applied General (Version 1.1)",
+            "document": "AQA, Exam timetable May/June 2026 — A-level, AS, Level 3 certificates, and Applied General (Version 1.2)",
             "quote": "7357/1   Paper 1   18   2h   03 June 2026   pm"
           }
         },
@@ -882,7 +893,7 @@
             "value": "2026-06-11",
             "series": "summer-2026",
             "source": "https://www.aqa.org.uk/files/5b9d7155-3fe3-4e50-b5c4-adede4e6bf75/257b60f8ef35628cc00883e943924e44dbb88915.pdf",
-            "document": "AQA, Exam timetable May/June 2026 — A-level, AS, Level 3 certificates, and Applied General (Version 1.1)",
+            "document": "AQA, Exam timetable May/June 2026 — A-level, AS, Level 3 certificates, and Applied General (Version 1.2)",
             "quote": "7357/2   Paper 2   18   2h   11 June 2026   pm"
           }
         },
@@ -903,7 +914,7 @@
             "value": "2026-06-18",
             "series": "summer-2026",
             "source": "https://www.aqa.org.uk/files/5b9d7155-3fe3-4e50-b5c4-adede4e6bf75/257b60f8ef35628cc00883e943924e44dbb88915.pdf",
-            "document": "AQA, Exam timetable May/June 2026 — A-level, AS, Level 3 certificates, and Applied General (Version 1.1)",
+            "document": "AQA, Exam timetable May/June 2026 — A-level, AS, Level 3 certificates, and Applied General (Version 1.2)",
             "quote": "7357/3   Paper 3   18   2h   18 June 2026   pm"
           }
         },

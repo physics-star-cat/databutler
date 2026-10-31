@@ -13,7 +13,7 @@
     "batch": "https://databutler.dev/f?keys={keys}",
     "resolve": "https://databutler.dev/f/resolve?q={q}",
     "index": "https://databutler.dev/f",
-    "digest": "sha256:875fe44c54573cad259cef437376264c1ab4f5c2dfc24319787fe14d3d80573d",
+    "digest": "sha256:b6362e117dfb32355ae9696e7b56dc0ca4fa587df19c3078a86fe25c59454fa4",
     "filtering": "server",
     "examples": [
       "uk/income-tax/personal-allowance",
@@ -40,7 +40,7 @@
         "www.sqa.org.uk",
         "www.wjec.co.uk"
       ],
-      "digest": "sha256:a7f2a2e7206eeee70b756be70ba1a16c3eb3702306f00f799a473c4713a2627d"
+      "digest": "sha256:d89db127928ba84d0656f888e28ecbc6cca20c7aa8d2b20bf2e9e25d627a6ce8"
     },
     {
       "name": "us",

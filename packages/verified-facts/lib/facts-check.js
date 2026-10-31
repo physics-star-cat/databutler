@@ -199,11 +199,13 @@ async function checkSite(site, { fetchFn = fetch, offline = false, sample = 0, l
 
     // 12 — ETag = hash, Last-Modified = verifiedDate, text/plain and text/html
     const h = records[0].headers;
+    // a CDN may send the ETag as a weak validator (W/"…"); the opaque tag inside is what is compared
+    const tagOf = (v) => String(v || '').replace(/^W\//, '');
     const txt = await fetchFn(`${fill(D.facts.get, first.key)}?format=txt`);
     const html = await fetchFn(fill(D.facts.get, first.key), { headers: { accept: 'text/html' } });
-    let ok12 = h.get('etag') === `"${first.hash}"` && h.get('last-modified') === httpDate(first.verifiedDate)
+    let ok12 = tagOf(h.get('etag')) === `"${first.hash}"` && h.get('last-modified') === httpDate(first.verifiedDate)
       && /text\/plain/.test(txt.headers.get('content-type') || '') && /text\/html/.test(html.headers.get('content-type') || '');
-    let d12 = `ETag ${h.get('etag') === `"${first.hash}"` ? 'ok' : h.get('etag')}, Last-Modified ${h.get('last-modified')}, txt ${txt.headers.get('content-type')}, html ${html.headers.get('content-type')}`;
+    let d12 = `ETag ${tagOf(h.get('etag')) === `"${first.hash}"` ? (String(h.get('etag') || '').startsWith('W/') ? 'ok (weak)' : 'ok') : h.get('etag')}, Last-Modified ${h.get('last-modified')}, txt ${txt.headers.get('content-type')}, html ${html.headers.get('content-type')}`;
     if (v03) {
       // the page answers HTML to any Accept (a crawler's */*) and is canonical to itself
       if (D.facts.page) {
@@ -218,9 +220,9 @@ async function checkSite(site, { fetchFn = fetch, offline = false, sample = 0, l
       const ix = await fetchFn(D.facts.index);
       const tag = ix.headers.get('etag');
       const re = tag ? await fetchFn(D.facts.index, { headers: { 'if-none-match': tag } }) : { status: 0 };
-      const etagOk = tag === `"${D.facts.digest}"` && re.status === 304;
+      const etagOk = tagOf(tag) === `"${D.facts.digest}"` && re.status === 304;
       ok12 = ok12 && etagOk;
-      d12 += `; index ETag ${tag === `"${D.facts.digest}"` ? '= digest' : tag || '(none)'}, If-None-Match → ${re.status}`;
+      d12 += `; index ETag ${tagOf(tag) === `"${D.facts.digest}"` ? '= digest' : tag || '(none)'}, If-None-Match → ${re.status}`;
     }
     add(12, ok12, d12);
 

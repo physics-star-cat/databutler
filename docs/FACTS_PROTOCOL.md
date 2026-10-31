@@ -343,7 +343,7 @@ Front-door placement (Data Butler): `get_fact` and `resolve_fact` join the hub t
     "batch": "https://databutler.dev/f?keys={keys}",
     "resolve": "https://databutler.dev/f/resolve?q={q}",
     "index": "https://databutler.dev/f",
-    "digest": "sha256:875fe44c54573cad259cef437376264c1ab4f5c2dfc24319787fe14d3d80573d",
+    "digest": "sha256:b6362e117dfb32355ae9696e7b56dc0ca4fa587df19c3078a86fe25c59454fa4",
     "filtering": "server",
     "examples": [
       "uk/income-tax/personal-allowance",
@@ -370,7 +370,7 @@ Front-door placement (Data Butler): `get_fact` and `resolve_fact` join the hub t
         "www.sqa.org.uk",
         "www.wjec.co.uk"
       ],
-      "digest": "sha256:a7f2a2e7206eeee70b756be70ba1a16c3eb3702306f00f799a473c4713a2627d"
+      "digest": "sha256:d89db127928ba84d0656f888e28ecbc6cca20c7aa8d2b20bf2e9e25d627a6ce8"
     },
     {
       "name": "us",
@@ -503,7 +503,7 @@ A publisher states its level in `facts.json`. Every item is checkable from outsi
 9. `facts.resolve` exists, returns ranked candidates per §6.2, and `get` auto-resolves only under the §6.3 rule.
 10. Batch (§7) up to 50 keys; misses inside a batch do not fail the batch.
 11. A miss is `404` with `candidates` (HTTPS) / `covered: false` (MCP), `no-store`.
-12. `ETag` = hash, `Last-Modified` = `verifiedDate`, `text/plain` and `text/html` representations. (0.3) `/facts/{key}` (`facts.page`, when declared) serves the page to any `Accept`, canonical to itself; the index carries `ETag` equal to `"<digest>"` and answers `If-None-Match` with `304`.
+12. `ETag` = hash (a CDN may deliver it as a weak validator, `W/"<hash>"`; a checker compares the tag inside), `Last-Modified` = `verifiedDate`, `text/plain` and `text/html` representations. (0.3) `/facts/{key}` (`facts.page`, when declared) serves the page to any `Accept`, canonical to itself; the index carries `ETag` equal to `"<digest>"` and answers `If-None-Match` with `304`.
 13. `openapi.json` is served and every operation in it routes.
 14. If `mcp` is declared: `tools/list` includes `get_fact`, `resolve_fact`, `what_changed_since` with read-only annotations, and a Server Card is served.
 

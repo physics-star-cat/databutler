@@ -92,6 +92,20 @@ test('v0.3 checker: a 0.2 static site (no digest) still passes L1; a 0.3 one wit
   assert.equal(item(wrong, 1).ok, false, 'not a 0.x document');
 });
 
+test('item 12 accepts the weak ETag a CDN sends (W/"<hash>"), as Vercel does in production', async () => {
+  const inner = routerFetch();
+  const weakFetch = async (url, init) => {
+    const r = await inner(url, init);
+    const tag = r.headers.get('etag');
+    if (!tag || tag.startsWith('W/')) return r;
+    const headers = { get: (n) => (String(n).toLowerCase() === 'etag' ? `W/${tag}` : r.headers.get(n)) };
+    return { status: r.status, headers, text: () => r.text() };
+  };
+  const r = await checkSite('https://databutler.dev', { fetchFn: weakFetch, offline: true, sample: 5 });
+  assert.equal(item(r, 12).ok, true, item(r, 12).detail);
+  assert.match(item(r, 12).detail, /ETag ok \(weak\).*index ETag = digest, If-None-Match → 304/);
+});
+
 test('v0.3 checker on Data Butler: item 12 sees the page answer HTML to */* and the index ETag revalidate', async () => {
   const r = await checkSite('https://databutler.dev', { fetchFn: routerFetch(), offline: true, sample: 5 });
   assert.equal(item(r, 12).ok, true, item(r, 12).detail);
