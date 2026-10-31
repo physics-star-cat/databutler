@@ -5467,5 +5467,44 @@
     "source": "https://www.giroj.or.jp/ratemaking/cali/pdf/202604_table.pdf",
     "verifiedDate": "2026-10-24",
     "note": "Kei car (inspected), 37-month policy starting on or after 2026-11-01: 24010 → 25330 JPY from 2026-11-01 (https://www.giroj.or.jp/ratemaking/cali/pdf/202604_table.pdf)"
+  },
+  {
+    "area": "uk-inflation",
+    "key": "cpi/annual-rate",
+    "label": "CPI 12-month inflation rate (all items)",
+    "from": 3.1,
+    "to": 3.5,
+    "unit": "%",
+    "effectiveFrom": "2026-10-21",
+    "source": "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7g7/mm23",
+    "verifiedDate": "2026-10-31",
+    "note": "First derivation of data/uk-inflation.json from the ONS time series D7G7 (\"CPI ANNUAL RATE 00: ALL ITEMS 2015=100\", dataset MM23): the UK CPI 12-month inflation rate, all items, 3.1% for August 2026 → 3.5% for September 2026, published by the ONS on 2026-10-21. The same series' calendar-year rates (2021 2.6, 2022 9.1, 2023 7.3, 2024 2.5, 2025 3.4) arrive as cpi/annual-average-<year> with no entry. Next ONS release: 2026-11-18.",
+    "period": "2026-09"
+  },
+  {
+    "area": "uk-inflation",
+    "key": "cpi/index",
+    "label": "CPI index (all items)",
+    "from": 143.6,
+    "to": 144.1,
+    "unit": "index, 2015=100",
+    "effectiveFrom": "2026-10-21",
+    "source": "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7bt/mm23",
+    "verifiedDate": "2026-10-31",
+    "note": "First derivation of data/uk-inflation.json from the ONS time series D7BT (\"CPI INDEX 00: ALL ITEMS 2015=100\", dataset MM23): the UK CPI index level, all items, 2015=100, 143.6 for August 2026 → 144.1 for September 2026, published by the ONS on 2026-10-21. Next ONS release: 2026-11-18.",
+    "period": "2026-09"
+  },
+  {
+    "area": "uk-inflation",
+    "key": "cpih/annual-rate",
+    "label": "CPIH 12-month inflation rate (all items)",
+    "from": 3.3,
+    "to": 3.6,
+    "unit": "%",
+    "effectiveFrom": "2026-10-21",
+    "source": "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/l55o/mm23",
+    "verifiedDate": "2026-10-31",
+    "note": "First derivation of data/uk-inflation.json from the ONS time series L55O (\"CPIH ANNUAL RATE 00: ALL ITEMS 2015=100\", dataset MM23): the UK CPIH (CPI including owner occupiers' housing costs) 12-month rate, all items, 3.3% for August 2026 → 3.6% for September 2026, published by the ONS on 2026-10-21. Next ONS release: 2026-11-18.",
+    "period": "2026-09"
   }
 ]

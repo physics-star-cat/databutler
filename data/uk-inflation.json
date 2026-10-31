@@ -1,0 +1,144 @@
+{
+  "area": "uk-inflation",
+  "dataset": "UK consumer price inflation (CPI, CPIH) from the ONS Consumer price inflation time series (dataset MM23)",
+  "publisher": "Office for National Statistics (ONS)",
+  "jurisdiction": "United Kingdom",
+  "licence": "Open Government Licence v3.0 — \"All content is available under the Open Government Licence v3.0, except where otherwise stated\" (footer of every ONS time-series page); http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/. Source: Office for National Statistics.",
+  "releaseDate": "2026-10-21",
+  "referenceMonth": "2026-09",
+  "nextRelease": "2026-11-18",
+  "verifiedDate": "2026-10-31",
+  "nextScheduledRefresh": "2026-11-18",
+  "fetchedVia": "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/<id>/mm23/data, one request per series",
+  "verificationMethod": "One request per series to https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/<id>/mm23/data (User-Agent \"databutler.dev data curation (+https://databutler.dev)\", 500 ms apart); values copied as stated in months[] (latest and prior month) and years[] (calendar years), effectiveFrom = the ONS release day in UK time (description.releaseDate for the latest month, each observation's updateDate otherwise), nextScheduledRefresh = description.nextRelease.",
+  "sources": [
+    "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7g7/mm23",
+    "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/l55o/mm23",
+    "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7bt/mm23"
+  ],
+  "categories": {
+    "cpi": {
+      "title": "Consumer Prices Index (CPI)",
+      "source": "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7g7/mm23",
+      "scope": "United Kingdom; Consumer Prices Index, all items (ONS series D7G7, D7BT)",
+      "figures": [
+        {
+          "key": "annual-rate",
+          "label": "CPI 12-month inflation rate (all items)",
+          "value": 3.5,
+          "unit": "%",
+          "period": "2026-09",
+          "effectiveFrom": "2026-10-21",
+          "source": "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7g7/mm23",
+          "series": "D7G7",
+          "quote": "CPI ANNUAL RATE 00: ALL ITEMS 2015=100, 2026 SEP: 3.5",
+          "previous": {
+            "value": 3.1,
+            "period": "2026-08",
+            "effectiveFrom": "2026-09-16",
+            "source": "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7g7/mm23",
+            "quote": "CPI ANNUAL RATE 00: ALL ITEMS 2015=100, 2026 AUG: 3.1"
+          }
+        },
+        {
+          "key": "index",
+          "label": "CPI index (all items)",
+          "value": 144.1,
+          "unit": "index, 2015=100",
+          "period": "2026-09",
+          "effectiveFrom": "2026-10-21",
+          "source": "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7bt/mm23",
+          "series": "D7BT",
+          "quote": "CPI INDEX 00: ALL ITEMS 2015=100, 2026 SEP: 144.1",
+          "previous": {
+            "value": 143.6,
+            "period": "2026-08",
+            "effectiveFrom": "2026-09-16",
+            "source": "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7bt/mm23",
+            "quote": "CPI INDEX 00: ALL ITEMS 2015=100, 2026 AUG: 143.6"
+          }
+        },
+        {
+          "key": "annual-average-2021",
+          "label": "CPI annual rate for 2021 (change in the calendar-year average index)",
+          "value": 2.6,
+          "unit": "%",
+          "period": "2021",
+          "effectiveFrom": "2022-01-19",
+          "source": "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7g7/mm23",
+          "series": "D7G7",
+          "quote": "CPI ANNUAL RATE 00: ALL ITEMS 2015=100, 2021: 2.6"
+        },
+        {
+          "key": "annual-average-2022",
+          "label": "CPI annual rate for 2022 (change in the calendar-year average index)",
+          "value": 9.1,
+          "unit": "%",
+          "period": "2022",
+          "effectiveFrom": "2023-01-18",
+          "source": "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7g7/mm23",
+          "series": "D7G7",
+          "quote": "CPI ANNUAL RATE 00: ALL ITEMS 2015=100, 2022: 9.1"
+        },
+        {
+          "key": "annual-average-2023",
+          "label": "CPI annual rate for 2023 (change in the calendar-year average index)",
+          "value": 7.3,
+          "unit": "%",
+          "period": "2023",
+          "effectiveFrom": "2024-01-17",
+          "source": "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7g7/mm23",
+          "series": "D7G7",
+          "quote": "CPI ANNUAL RATE 00: ALL ITEMS 2015=100, 2023: 7.3"
+        },
+        {
+          "key": "annual-average-2024",
+          "label": "CPI annual rate for 2024 (change in the calendar-year average index)",
+          "value": 2.5,
+          "unit": "%",
+          "period": "2024",
+          "effectiveFrom": "2025-01-15",
+          "source": "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7g7/mm23",
+          "series": "D7G7",
+          "quote": "CPI ANNUAL RATE 00: ALL ITEMS 2015=100, 2024: 2.5"
+        },
+        {
+          "key": "annual-average-2025",
+          "label": "CPI annual rate for 2025 (change in the calendar-year average index)",
+          "value": 3.4,
+          "unit": "%",
+          "period": "2025",
+          "effectiveFrom": "2026-01-21",
+          "source": "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7g7/mm23",
+          "series": "D7G7",
+          "quote": "CPI ANNUAL RATE 00: ALL ITEMS 2015=100, 2025: 3.4"
+        }
+      ]
+    },
+    "cpih": {
+      "title": "Consumer Prices Index including owner occupiers' housing costs (CPIH)",
+      "source": "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/l55o/mm23",
+      "scope": "United Kingdom; Consumer Prices Index including owner occupiers' housing costs, all items (ONS series L55O)",
+      "figures": [
+        {
+          "key": "annual-rate",
+          "label": "CPIH 12-month inflation rate (all items)",
+          "value": 3.6,
+          "unit": "%",
+          "period": "2026-09",
+          "effectiveFrom": "2026-10-21",
+          "source": "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/l55o/mm23",
+          "series": "L55O",
+          "quote": "CPIH ANNUAL RATE 00: ALL ITEMS 2015=100, 2026 SEP: 3.6",
+          "previous": {
+            "value": 3.3,
+            "period": "2026-08",
+            "effectiveFrom": "2026-09-16",
+            "source": "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/l55o/mm23",
+            "quote": "CPIH ANNUAL RATE 00: ALL ITEMS 2015=100, 2026 AUG: 3.3"
+          }
+        }
+      ]
+    }
+  }
+}

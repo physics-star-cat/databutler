@@ -975,6 +975,33 @@
       }
     }
   },
+  "/api/uk-inflation": {
+    "status": 200,
+    "body": {
+      "attribution": "databutler.dev",
+      "docs": "https://databutler.dev/api",
+      "note": "Verified reference data for AI agents (UK, US and German rates, exam specs, provenance, statistics, vehicles, software support, policy rates). Every figure carries source + verifiedDate.",
+      "area": "uk-inflation",
+      "jurisdiction": "United Kingdom",
+      "verifiedDate": "2026-10-31",
+      "categories": {
+        "cpi": "Consumer Prices Index (CPI)",
+        "cpih": "Consumer Prices Index including owner occupiers' housing costs (CPIH)"
+      },
+      "usage": "pass category=<key> for figures",
+      "referenceMonth": "2026-09",
+      "releaseDate": "2026-10-21",
+      "nextRelease": "2026-11-18",
+      "freshness": {
+        "verifiedDate": "2026-10-31",
+        "nextScheduledRefresh": "2026-11-18"
+      },
+      "cite": {
+        "url": "https://databutler.dev/r/uk-inflation",
+        "text": "databutler.dev, verified 2026-10-31"
+      }
+    }
+  },
   "/api/uk/rates?category=vat": {
     "status": 200,
     "body": {
@@ -3119,7 +3146,8 @@
         "calendar",
         "uk-gov-process",
         "jp-vehicle-costs",
-        "jp-living-costs"
+        "jp-living-costs",
+        "uk-inflation"
       ],
       "count": 17,
       "entries": [

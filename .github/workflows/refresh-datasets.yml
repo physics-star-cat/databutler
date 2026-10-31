@@ -5,7 +5,8 @@
 # opens a pull request. Nothing is deployed until a human merges the PR.
 #
 # Covered: software-eol (endoflife.date), calendar (gov.uk / OPM / French API
-# + data/calendar/manual.json), UK recalls (DVSA bulk CSV).
+# + data/calendar/manual.json), UK recalls (DVSA bulk CSV), uk-inflation (ONS
+# CPI/CPIH series; per-figure changelog via scripts/changelog.js --only).
 # Not covered: FR/JP recalls (derived from the sibling car-site repos, run
 # locally), and every page-read area (rates, policy rates, exam dates, vehicle
 # rules) — those are flagged by the weekly watcher cron and updated by hand
@@ -39,6 +40,8 @@ jobs:
           node scripts/software-eol.js
           node scripts/calendar.js
           node scripts/vehicles.js uk
+          node scripts/uk-inflation.js
+          node scripts/changelog.js --only uk-inflation
 
       - name: Regenerate derived files
         run: node scripts/sync-areas.js
@@ -61,10 +64,10 @@ jobs:
           git config user.email "actions@users.noreply.github.com"
           git checkout -b "$branch"
           git add -A
-          git commit -m "data: monthly refresh $(date -u +%Y-%m-%d) (software-eol, calendar, UK recalls)"
+          git commit -m "data: monthly refresh $(date -u +%Y-%m-%d) (software-eol, calendar, UK recalls, uk-inflation)"
           git push origin "$branch"
           signing=""
           node scripts/sign-facts.js --check > /dev/null 2>&1 || signing=" NEEDS SIGNING: some Verified Facts records changed — run node scripts/sign-facts.js on this branch before merging."
           gh pr create --base master --head "$branch" \
             --title "Monthly dataset refresh $(date -u +%Y-%m-%d)" \
-            --body "Automated run of scripts/software-eol.js, scripts/calendar.js and scripts/vehicles.js uk. Tests passed in CI. Review the data/changelog.json additions (fill any blank notes), then merge to deploy.${signing}"
+            --body "Automated run of scripts/software-eol.js, scripts/calendar.js, scripts/vehicles.js uk and scripts/uk-inflation.js. Tests passed in CI. Review the data/changelog.json additions (fill any blank notes), then merge to deploy.${signing}"

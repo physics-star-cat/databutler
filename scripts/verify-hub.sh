@@ -24,7 +24,7 @@ check rest-changes "$(curl -sS "$BASE/api/changes?since=2026-06-01&area=uk-rates
 # sync-areas:checks start
 check tools/list "$(rpc '{"jsonrpc":"2.0","id":2,"method":"tools/list"}')" \
   "[t['name'] for t in d['result']['tools']]==['uk_rates_lookup','exam_topic_paper','domain_provenance','package_provenance','take_home_pay','what_changed_since','get_fact','resolve_fact','coverage','catalogue','call']"
-check catalogue "$(inner "$(tool catalogue '{}')")" "d['count']==34"
+check catalogue "$(inner "$(tool catalogue '{}')")" "d['count']==35"
 # uk-rates
 check rates "$(inner "$(tool uk_rates_lookup '{"category":"income-tax"}')")" \
   "d['freshness']['staleness'] in ('fresh','due','overdue') and d['cite']['url']=='https://databutler.dev/r/uk/rates?category=income-tax'"
@@ -147,11 +147,18 @@ check call-jp-living-costs-minimum-wage "$(inner "$(tool call '{"tool":"jp_livin
 check rest-jp-living-costs-health-insurance "$(curl -sS "$BASE/api/jp/living-costs?category=health-insurance")" "d['category']=='health-insurance' and any(f['key']=='tokyo' and f['value']==9.85 for f in d['figures']) and any(f['key']=='child-rearing-levy' and f['value']==0.23 for f in d['figures'])"
 check call-jp-living-costs-nearmiss "$(inner "$(tool call '{"tool":"jp_living_costs_lookup","arguments":{"category":"saiteichingin"}}')")" \
   "d.get('covered')==False and len(d['nearest'])>0"
+# uk-inflation
+check uk-inflation-listing "$(inner "$(tool call '{"tool":"uk_inflation_lookup","arguments":{}}')")" \
+  "'categories' in d and 'freshness' in d"
+check uk-inflation-rest-listing "$(curl -sS "$BASE/api/uk-inflation")" "'categories' in d and 'cite' in d"
+check uk-inflation-cpi "$(inner "$(tool call '{"tool":"uk_inflation_lookup","arguments":{"category":"cpi"}}')")" \
+  "d['category']=='cpi' and d['figures'][0]['key']=='annual-rate' and d['source'].startswith('https://www.ons.gov.uk/') and d['nextRelease'] and d['cite']['url']=='https://databutler.dev/r/uk-inflation?category=cpi'"
+check uk-inflation-rest-cpih "$(curl -sS "$BASE/api/uk-inflation?category=cpih")" "d['category']=='cpih' and d['figures'][0]['unit']=='%' and 'freshness' in d"
 for name in uk-exams provenance stats vehicles tax software-eol policy-rates us-rates de-rates uk-vehicle-rules uk-exam-dates calendar uk-gov-process jp-vehicle-costs jp-living-costs; do
   CODE="$(curl -s -o /dev/null -w '%{http_code}' -X POST "$BASE/api/mcp/$name" -H 'Content-Type: application/json' -d '{"jsonrpc":"2.0","id":2,"method":"tools/list"}')"
   if [ "$CODE" = "403" ]; then echo "PASS legacy $name 403"; else echo "FAIL legacy $name expected 403, got $CODE"; FAILED=1; fi
 done
-for path in mcp mcp/facts mcp/uk-rates; do
+for path in mcp mcp/facts mcp/uk-rates mcp/uk-inflation; do
   check "kept /api/$path tools/list" "$(curl -sS -X POST "$BASE/api/$path" -H 'Content-Type: application/json' -d '{"jsonrpc":"2.0","id":2,"method":"tools/list"}')" "len(d['result']['tools'])>0"
 done
 # sync-areas:checks end

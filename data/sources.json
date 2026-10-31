@@ -1014,5 +1014,26 @@
     "bodyHash": "b7d228df7f5f6d38",
     "via": "html",
     "checkedAt": "2026-10-24"
+  },
+  {
+    "url": "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7g7/mm23",
+    "updatedAt": null,
+    "bodyHash": "207770d857ba4802",
+    "via": "html",
+    "checkedAt": "2026-10-31"
+  },
+  {
+    "url": "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7bt/mm23",
+    "updatedAt": null,
+    "bodyHash": "c9625a608d4e95fe",
+    "via": "html",
+    "checkedAt": "2026-10-31"
+  },
+  {
+    "url": "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/l55o/mm23",
+    "updatedAt": null,
+    "bodyHash": "41974825d2b4b3d2",
+    "via": "html",
+    "checkedAt": "2026-10-31"
   }
 ]

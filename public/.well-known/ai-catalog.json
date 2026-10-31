@@ -131,6 +131,13 @@
       "type": "application/mcp-server-card+json",
       "url": "https://databutler.dev/api/mcp/jp-living-costs/server-card",
       "description": "Japan minimum wage by prefecture, 協会けんぽ rates, pensions, benefits, holidays, tax figures, sourced."
+    },
+    {
+      "identifier": "urn:air:databutler.dev:mcp:databutler-uk-inflation",
+      "displayName": "databutler-uk-inflation",
+      "type": "application/mcp-server-card+json",
+      "url": "https://databutler.dev/api/mcp/uk-inflation/server-card",
+      "description": "UK CPI and CPIH inflation rates, the CPI index and annual averages, read from ONS series."
     }
   ]
 }

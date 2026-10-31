@@ -337,13 +337,13 @@ Front-door placement (Data Butler): `get_fact` and `resolve_fact` join the hub t
   "conformance": "L3",
   "updated": "2026-10-31",
   "facts": {
-    "count": 742,
+    "count": 750,
     "get": "https://databutler.dev/f/{key}",
     "page": "https://databutler.dev/facts/{key}",
     "batch": "https://databutler.dev/f?keys={keys}",
     "resolve": "https://databutler.dev/f/resolve?q={q}",
     "index": "https://databutler.dev/f",
-    "digest": "sha256:b6362e117dfb32355ae9696e7b56dc0ca4fa587df19c3078a86fe25c59454fa4",
+    "digest": "sha256:16b893dab26f2fffeb47d122a1124d44b15d4f07428cf4d1ac02dbc805ae6acb",
     "filtering": "server",
     "examples": [
       "uk/income-tax/personal-allowance",
@@ -355,9 +355,9 @@ Front-door placement (Data Butler): `get_fact` and `resolve_fact` join the hub t
   "namespaces": [
     {
       "name": "uk",
-      "description": "UK tax/NI thresholds, Bank of England Bank Rate, UK car tax (VED) and MOT rules, UK exam dates and UK government service steps, fees and processing times",
-      "count": 404,
-      "cadence": "uk-rates: Every 6 April (new tax year) and after each Budget or Autumn Statement; minimum wage on 1 April; every source page re-fetched weekly. policy-rates: After each scheduled decision (eight a year per bank); re-verified within 45 days of verifiedDate; every source page re-fetched weekly. uk-vehicle-rules: Every 1 April (VED rates and the historic-vehicle exemption date move with the Finance Act) and after each Budget; MOT fees and rules when DVSA changes them; every source page re-fetched weekly. uk-exam-dates: Annual, calendar-driven: when JCQ and the boards publish the following summer's final timetables (early in the calendar year) and the results days; the weekly watcher hashes the JCQ and board timetable pages uk-gov-process: Re-verified against the gov.uk pages every 30 days and on fee-change days (Home Office fees usually move in April); every source page re-fetched weekly through the gov.uk content API.",
+      "description": "UK tax/NI thresholds, Bank of England Bank Rate, UK car tax (VED) and MOT rules, UK exam dates, UK government service steps, fees and processing times and UK CPI and CPIH inflation",
+      "count": 412,
+      "cadence": "uk-rates: Every 6 April (new tax year) and after each Budget or Autumn Statement; minimum wage on 1 April; every source page re-fetched weekly. policy-rates: After each scheduled decision (eight a year per bank); re-verified within 45 days of verifiedDate; every source page re-fetched weekly. uk-vehicle-rules: Every 1 April (VED rates and the historic-vehicle exemption date move with the Finance Act) and after each Budget; MOT fees and rules when DVSA changes them; every source page re-fetched weekly. uk-exam-dates: Annual, calendar-driven: when JCQ and the boards publish the following summer's final timetables (early in the calendar year) and the results days; the weekly watcher hashes the JCQ and board timetable pages uk-gov-process: Re-verified against the gov.uk pages every 30 days and on fee-change days (Home Office fees usually move in April); every source page re-fetched weekly through the gov.uk content API. uk-inflation: Monthly, on the ONS CPI release day (stated as nextRelease in the series); every source page re-fetched weekly",
       "authorities": [
         "qualifications.pearson.com",
         "qualifications.wales",
@@ -367,10 +367,11 @@ Front-door placement (Data Butler): `get_fact` and `resolve_fact` join the hub t
         "www.gov.uk",
         "www.jcq.org.uk",
         "www.ocr.org.uk",
+        "www.ons.gov.uk",
         "www.sqa.org.uk",
         "www.wjec.co.uk"
       ],
-      "digest": "sha256:d89db127928ba84d0656f888e28ecbc6cca20c7aa8d2b20bf2e9e25d627a6ce8"
+      "digest": "sha256:85b7ffbf211ed6fbb872935c43a30ffdfefad831006f2dde93f6edc2bc1dd993"
     },
     {
       "name": "us",

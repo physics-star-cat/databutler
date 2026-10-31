@@ -24,6 +24,7 @@
     "mcp/uk-exam-dates",
     "mcp/uk-exams",
     "mcp/uk-gov-process",
+    "mcp/uk-inflation",
     "mcp/uk-rates",
     "mcp/uk-vehicle-rules",
     "mcp/us-rates",
@@ -39,6 +40,7 @@
     "software-eol/timeline",
     "stats",
     "tax/take-home",
+    "uk-inflation",
     "uk/exam-dates",
     "uk/exams/papers",
     "uk/exams/specs",
@@ -73,6 +75,7 @@
     "software-eol/timeline",
     "stats",
     "tax/take-home",
+    "uk-inflation",
     "uk/exam-dates",
     "uk/exams/papers",
     "uk/exams/specs",
@@ -326,6 +329,12 @@
     },
     "jp_living_costs_lookup": {
       "path": "jp/living-costs",
+      "queryKeys": [
+        "category"
+      ]
+    },
+    "uk_inflation_lookup": {
+      "path": "uk-inflation",
       "queryKeys": [
         "category"
       ]

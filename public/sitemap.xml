@@ -15,6 +15,7 @@
 <url><loc>https://databutler.dev/changes?area=uk-gov-process</loc></url>
 <url><loc>https://databutler.dev/changes?area=jp-vehicle-costs</loc></url>
 <url><loc>https://databutler.dev/changes?area=jp-living-costs</loc></url>
+<url><loc>https://databutler.dev/changes?area=uk-inflation</loc></url>
 <url><loc>https://databutler.dev/protocol</loc></url>
 <url><loc>https://databutler.dev/privacy</loc></url>
 <url><loc>https://databutler.dev/api</loc></url>
@@ -764,4 +765,12 @@
 <url><loc>https://databutler.dev/facts/jp/resident-tax/per-capita-levy-prefectural</loc></url>
 <url><loc>https://databutler.dev/facts/jp/resident-tax/per-capita-levy-municipal</loc></url>
 <url><loc>https://databutler.dev/facts/jp/resident-tax/forest-environment-tax</loc></url>
+<url><loc>https://databutler.dev/facts/uk/cpi/annual-rate</loc></url>
+<url><loc>https://databutler.dev/facts/uk/cpi/index</loc></url>
+<url><loc>https://databutler.dev/facts/uk/cpi/annual-average-2021</loc></url>
+<url><loc>https://databutler.dev/facts/uk/cpi/annual-average-2022</loc></url>
+<url><loc>https://databutler.dev/facts/uk/cpi/annual-average-2023</loc></url>
+<url><loc>https://databutler.dev/facts/uk/cpi/annual-average-2024</loc></url>
+<url><loc>https://databutler.dev/facts/uk/cpi/annual-average-2025</loc></url>
+<url><loc>https://databutler.dev/facts/uk/cpih/annual-rate</loc></url>
 </urlset>

@@ -33,6 +33,7 @@
     },
     "ukExamDates": "results, timetable, deadlines, spec-changes for jcq, aqa, pearson, ocr, wjec-eduqas, sqa, ofqual, dfe; summer 2027 (final at all four boards), November 2026, summer 2026 as previous; verified 2026-10-04",
     "ukGovProcess": "16 services, verified 2026-10-04",
+    "ukInflation": "CPI 3.5% and CPIH 3.6% (12 months to 2026-09), CPI index 144.1; annual CPI rates 2021–2025; verified 2026-10-31",
     "ukVehicleRules": "tax year 2026-27: 9 categories, verified 2026-10-04",
     "usRates": "tax year 2026, 9 categories, verified 2026-10-03; federal only",
     "vehicles": {
@@ -77,7 +78,7 @@
       "description": "What changed in the verified datasets since a date (REST mirror of what_changed_since). format=html|rss|atom serves the /changes page or feeds instead of JSON.",
       "example": "https://databutler.dev/api/changes?since=2026-06-01",
       "params": {
-        "area": "uk-rates | uk-exams | vehicles | software-eol | policy-rates | us-rates | de-rates | uk-vehicle-rules | uk-exam-dates | calendar | uk-gov-process | jp-vehicle-costs | jp-living-costs | all",
+        "area": "uk-rates | uk-exams | vehicles | software-eol | policy-rates | us-rates | de-rates | uk-vehicle-rules | uk-exam-dates | calendar | uk-gov-process | jp-vehicle-costs | jp-living-costs | uk-inflation | all",
         "format": "json (default) | html | rss | atom",
         "since": "YYYY-MM-DD"
       }
@@ -151,6 +152,13 @@
         "province": "Canada only, e.g. BC (default ON)",
         "region": "UK: england | scotland; Spain: madrid | cataluna",
         "state": "US only, e.g. TX (default CA)"
+      }
+    },
+    "GET /api/uk-inflation": {
+      "description": "UK consumer price inflation from the ONS (reference month 2026-09, released 2026-10-21, next release 2026-11-18), verified 2026-10-31.",
+      "example": "https://databutler.dev/api/uk-inflation?category=cpi",
+      "params": {
+        "category": "one of cpi, cpih (omit to list)"
       }
     },
     "GET /api/uk/exam-dates": {
@@ -284,10 +292,10 @@
       }
     },
     "GET /changes": {
-      "description": "The changelog as a page: every verified change to UK tax/NI thresholds, exam specs, official vehicle datasets, software end-of-life dates, central-bank policy rates, US federal tax thresholds, German tax and social-insurance thresholds, UK car tax (VED) and MOT rules, UK exam dates, public holidays, tax-year and daylight-saving dates, UK government service steps, fees and processing times, Japanese car inspection (車検) statutory costs and car taxes and Japanese minimum wages, social-insurance rates, pensions, benefits, holidays and tax thresholds, newest first by month — area, from → to, effectiveFrom, official source, maintainer note, verifiedDate. Indexable, cached 1 h at the edge.",
+      "description": "The changelog as a page: every verified change to UK tax/NI thresholds, exam specs, official vehicle datasets, software end-of-life dates, central-bank policy rates, US federal tax thresholds, German tax and social-insurance thresholds, UK car tax (VED) and MOT rules, UK exam dates, public holidays, tax-year and daylight-saving dates, UK government service steps, fees and processing times, Japanese car inspection (車検) statutory costs and car taxes, Japanese minimum wages, social-insurance rates, pensions, benefits, holidays and tax thresholds and UK CPI and CPIH inflation, newest first by month — area, from → to, effectiveFrom, official source, maintainer note, verifiedDate. Indexable, cached 1 h at the edge.",
       "example": "https://databutler.dev/changes?area=vehicles",
       "params": {
-        "area": "optional: uk-rates | uk-exams | vehicles | software-eol | policy-rates | us-rates | de-rates | uk-vehicle-rules | uk-exam-dates | calendar | uk-gov-process | jp-vehicle-costs | jp-living-costs",
+        "area": "optional: uk-rates | uk-exams | vehicles | software-eol | policy-rates | us-rates | de-rates | uk-vehicle-rules | uk-exam-dates | calendar | uk-gov-process | jp-vehicle-costs | jp-living-costs | uk-inflation",
         "since": "optional YYYY-MM-DD"
       }
     },
@@ -363,6 +371,7 @@
     "POST /api/mcp/uk-exam-dates": "Remote MCP server — tool uk_exam_dates (results days, summer timetable paper dates, entry deadlines and late-fee dates, spec changes; JCQ, AQA, Pearson Edexcel, Cambridge OCR, WJEC/Eduqas, Scotland's results day).",
     "POST /api/mcp/uk-exams": "Remote MCP server — tools exam_topic_paper, exam_spec_lookup, exam_paper_index.",
     "POST /api/mcp/uk-gov-process": "Remote MCP server — tool uk_gov_process {service}: UK government service fees, steps, processing times and dated changes, verified against gov.uk.",
+    "POST /api/mcp/uk-inflation": "Remote MCP server — tool uk_inflation_lookup.",
     "POST /api/mcp/uk-rates": "Remote MCP server — tool uk_rates_lookup.",
     "POST /api/mcp/uk-vehicle-rules": "Remote MCP server — tool uk_vehicle_rules_lookup.",
     "POST /api/mcp/us-rates": "Remote MCP server — tool us_rates_lookup (US federal rates and thresholds, tax year 2026; committed data read from the IRS and SSA documents).",

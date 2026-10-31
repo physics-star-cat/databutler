@@ -31,6 +31,7 @@ The product is trust. A wrong number is worse than no number. Rules:
 | `data/uk-gov-process.json` | Every 30 days (`nextScheduledRefresh` = verifiedDate + 30), and on Home Office / DVLA / DWP fee-change days (passport and ETA fees moved on 8 April 2026; benefits uprate each April). The weekly watcher reads each service's gov.uk page through the content API. | For each service fetch `https://www.gov.uk/api/content/<path>` for its `source` and `alsoRead` pages; compare every figure's `quote` against the page; for a changed value move the old value into `previous` (source = the National Archives capture of the outgoing page, or the announcement/SI) and set `effectiveFrom` to the change date; add a dated line to the service's `changes`; update `pageUpdatedAt`; bump `verifiedDate`; then `node scripts/changelog.js --only uk-gov-process` (stamps `nextScheduledRefresh`, appends one entry per figure that moved, re-hashes this area's sources) and review the notes. |
 | `data/jp-vehicle-costs.json` | Every 35 days (`nextScheduledRefresh` = verifiedDate + 35), and on the change dates: 自賠責 2026-11-01 (re-check whether an official page now prints the revised 25/37-month rates), 自動車税/軽自動車税 each 1 April (税制改正大綱 in December), weight-tax eco bands 2027-05-01 and the table's end 2028-04-30, 検査手数料 when NALTEC announces a change. The weekly watcher hashes every source page. | Re-fetch every `source` (PDFs: `pdftotext -layout`); compare each figure's `quote` with the page; for a changed value move the old one into `previous` (`value`, `source`, `title`), write the new `value`, `quote`, `effectiveFrom` (and `effectiveTo` on the figure it replaces); once 2026-11-01 has passed the -from-2026-11 keys are current and the old-table keys keep `effectiveTo` 2026-10-31; bump `verifiedDate`; `node scripts/changelog.js --only jp-vehicle-costs` (stamps `nextScheduledRefresh`, appends one entry per figure that moved, re-hashes this area's sources); review the notes; `node scripts/sign-facts.js`. |
 | `data/jp-living-costs.json` | Every 35 days (`nextScheduledRefresh` = verifiedDate + 35), and on the change dates: each autumn's 地域別最低賃金 (答申 in August, 発効 October–December; MHLW 全国一覧 PDF), 協会けんぽ rates, 介護保険料率 and 子ども・子育て支援金率 each March, 雇用保険料率, 国民年金保険料 and 年金額 each April (announced January–March), 高額療養費 2027-08-01, the 2026 deductions from 2026-12-01 and each December's 税制改正大綱, the 2028 holidays (内閣府, February 2027), and the 1% food consumption-tax rate once its bill passes. The weekly watcher hashes every source page. | Re-fetch every `source` (PDFs: `pdftotext -layout`; the 祝日 CSV is Shift_JIS); compare each figure's `quote` with the page; for a changed value move the old one into `previous` (`value`, `period`, `source`, `title`) and write the new `value`, `quote`, `effectiveFrom`, `period`; for a new fiscal year's minimum wages update all 47 prefectures with their new 発効日; bump `verifiedDate`; `node scripts/changelog.js --only jp-living-costs` (stamps `nextScheduledRefresh`, appends one entry per figure that moved, re-hashes this area's sources); review the notes; `node scripts/sign-facts.js`. |
+| `data/uk-inflation.json` | Monthly, on the ONS CPI release day (`nextScheduledRefresh` = the series' `nextRelease`, written by the script; calendar-driven: `cadenceDays: null`); also in the monthly refresh PR; every source page re-fetched weekly | `node scripts/uk-inflation.js` (fetches D7G7, L55O, D7BT from the ONS, rewrites the file); `node scripts/changelog.js --only uk-inflation` (one entry per figure that moved, re-hashes this area's sources); review the notes; `node scripts/sign-facts.js`. |
 | `data/sources.json` | After every data refresh (automatic via `scripts/changelog.js`) | `node scripts/sources.js` re-checks every source URL (gov.uk content API / page hash); a page it cannot fetch is recorded `unreachable` and listed under "Sources the watcher cannot read". |
 | `data/source-checks.json` | Mondays, automatic (`.github/workflows/watch-sources.yml`, committed by the bot) | `node scripts/check-sources.js` fetches every watched source page and records `checkedAt` (served as `sourceCheckedAt`) and `changedAt` (the page differs from `data/sources.json`; such records are served stale with `staleReason: "source-changed"` until re-verified). Never edited by hand. |
 | Expected changes passed | Daily for policy rates, Mondays for every area (the same workflow and the Vercel cron) | `node scripts/expected-changes.js` lists every record whose `nextExpectedChange` passed unverified and keeps the one issue "Re-verify: expected change passed" current; re-verify those records the same day. |
@@ -1452,3 +1453,33 @@ is not published as a figure because it is derived, not read.
 - resident-tax — https://www.soumu.go.jp/main_sosiki/jichi_zeisei/czaisei/czaisei_seido/150790_06.html
   "税額は4,000円（道府県民税が1,000円、市町村民税が3,000円）… 森林環境税（国税）が
   1,000円徴収".
+
+## Verification log (uk-inflation, added 2026-10-31)
+
+- 2026-10-31 — first derivation by `node scripts/uk-inflation.js` from the ONS
+  time-series JSON (`<page>/data`, User-Agent databutler.dev, 500 ms apart). The
+  three series, all dataset MM23, release of 21 October 2026 (`releaseDate`
+  2026-10-20T23:00:00.000Z = midnight BST), `nextRelease` "18 November 2026":
+  - D7G7 — https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7g7/mm23
+    title "CPI ANNUAL RATE 00: ALL ITEMS 2015=100": 2026 SEP 3.5 (2026 AUG 3.1);
+    years[] 2021 2.6, 2022 9.1, 2023 7.3, 2024 2.5, 2025 3.4 → `uk/cpi/annual-rate`,
+    `uk/cpi/annual-average-<year>`.
+  - L55O — https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/l55o/mm23
+    title "CPIH ANNUAL RATE 00: ALL ITEMS 2015=100": 2026 SEP 3.6 (2026 AUG 3.3)
+    → `uk/cpih/annual-rate`.
+  - D7BT — https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7bt/mm23
+    title "CPI INDEX 00: ALL ITEMS 2015=100": 2026 SEP 144.1 (2026 AUG 143.6)
+    → `uk/cpi/index`.
+  The human page for D7G7 was also read: "Release date: 21 October 2026 …
+  Next release: 18 November 2026". Licence, from the footer of every ONS
+  time-series page: "All content is available under the Open Government Licence
+  v3.0, except where otherwise stated" —
+  http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/.
+  Kept as published: the years[] value of D7G7 is the change in the calendar-year
+  average index (2025: 138.4 / 133.9 on D7BT → 3.4%), labelled so; each
+  observation's `updateDate` (UTC midnight-UK) is converted to the UK day for
+  `effectiveFrom`. A completed year's average carries `changeCadence: irregular`
+  with no date (the ONS does not normally revise CPI); the monthly figures are
+  `scheduled` for `nextRelease`. The saved responses are the test fixture
+  (`tests/fixtures/uk-inflation/`); `tests/uk-inflation.test.js` rebuilds the
+  committed file from them offline.
