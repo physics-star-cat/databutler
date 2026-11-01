@@ -135,7 +135,7 @@ check jp-vehicle-costs-listing "$(inner "$(tool call '{"tool":"jp_vehicle_costs_
 check jp-vehicle-costs-rest-listing "$(curl -sS "$BASE/api/jp/vehicle-costs")" "'categories' in d and 'cite' in d"
 check call-jp-vehicle-costs-weight-tax "$(inner "$(tool call '{"tool":"jp_vehicle_costs_lookup","arguments":{"category":"weight-tax"}}')")" \
   "d['category']=='weight-tax' and any(f['key']=='passenger-standard-per-0.5t-2y' and f['value']==8200 for f in d['figures']) and d['source'].startswith('https://www.mlit.go.jp/') and d['freshness']['staleness'] in ('fresh','due','overdue') and d['cite']['url']=='https://databutler.dev/r/jp/vehicle-costs?category=weight-tax'"
-check rest-jp-vehicle-costs-cali "$(curl -sS "$BASE/api/jp/vehicle-costs?category=cali")" "d['category']=='cali' and any(f['key']=='passenger-24m' and f['value']==17650 for f in d['figures']) and any(f['key']=='passenger-24m-from-2026-11' and f['value']==18560 for f in d['figures'])"
+check rest-jp-vehicle-costs-cali "$(curl -sS "$BASE/api/jp/vehicle-costs?category=cali")" "d['category']=='cali' and any(f['key']=='passenger-24m' and f['value']==18560 for f in d['figures']) and any(f['key']=='passenger-25m' and f['value']==19070 for f in d['figures'])"
 check call-jp-vehicle-costs-nearmiss "$(inner "$(tool call '{"tool":"jp_vehicle_costs_lookup","arguments":{"category":"jibaiseki"}}')")" \
   "d.get('covered')==False and len(d['nearest'])>0"
 # jp-living-costs

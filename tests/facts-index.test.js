@@ -127,7 +127,11 @@ test('the changelog mapping round-trips for every changelog entry of a facts are
   for (const e of entries) {
     const k = F.factKeyFor(e);
     assert.ok(k && F.INDEX.has(k), `${e.area}:${e.key} → ${k}`);
-    assert.deepEqual(F.changelogKeyFor(k), { area: e.area, key: e.key });
+    const back = F.changelogKeyFor(k);
+    // An entry published under a key that was later restructured into an alias (spec §3.4) maps to the canonical key,
+    // whose changelog form differs; the old form is then listed among the key's aliases.
+    if (back.key === e.key) assert.equal(back.area, e.area);
+    else assert.ok(F.aliasesOf(k).includes(`${e.area}:${e.key}`), `${e.area}:${e.key} is an alias form of ${k}`);
   }
   assert.equal(F.factKeyFor({ area: 'vehicles', key: 'fr-recalls/dataset' }), null);
 });

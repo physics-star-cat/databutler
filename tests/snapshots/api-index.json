@@ -11,7 +11,7 @@
       "AQA GCSE Mathematics (8300)"
     ],
     "jpLivingCosts": "9 categories, 135 figures, verified 2026-10-24",
-    "jpVehicleCosts": "6 categories, 62 figures, verified 2026-10-24",
+    "jpVehicleCosts": "6 categories, 52 figures, verified 2026-10-24",
     "policyRates": {
       "boe": "Bank of England Bank Rate: 3.75% from 2025-12-18, verified 2026-10-31, next decision 2026-11-05",
       "ecb": "European Central Bank Key ECB interest rates: 2.5 / 2.65 / 2.9% from 2026-09-16, verified 2026-10-31, next decision 2026-12-17",
@@ -99,7 +99,7 @@
       }
     },
     "GET /api/jp/vehicle-costs": {
-      "description": "Japan vehicle statutory costs, verified 2026-10-24 against the official pages: 自動車重量税 at 車検 (2026-05-01 – 2028-04-30 table), エコカー減税 bands, 自賠責保険 for private passenger and kei cars (before and from 2026-11-01), 継続検査 fees from 2026-04-01, 自動車税 by displacement and 軽自動車税 — each figure with the Japanese term, quoted row, source URL and effectiveFrom.",
+      "description": "Japan vehicle statutory costs, verified 2026-10-24 against the official pages: 自動車重量税 at 車検 (2026-05-01 – 2028-04-30 table), エコカー減税 bands, 自賠責保険 for private passenger and kei cars (revised table from 2026-11-01, the 2023 table as previous), 継続検査 fees from 2026-04-01, 自動車税 by displacement and 軽自動車税 — each figure with the Japanese term, quoted row, source URL and effectiveFrom.",
       "example": "https://databutler.dev/api/jp/vehicle-costs?category=cali",
       "params": {
         "category": "one of weight-tax, weight-tax-eco, cali, inspection-fee, auto-tax, kei-tax (omit to list)"
