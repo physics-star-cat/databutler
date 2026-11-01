@@ -62,11 +62,9 @@ test('data: verifiedDate, nextScheduledRefresh follows the cadence, every catego
     },
     'weight-tax-eco': { 'first-inspection-exemption': 0, period: '2026-05-01/2028-04-30' },
     cali: {
-      'passenger-12m': 11500, 'passenger-24m': 17650, 'passenger-25m': 18160, 'passenger-36m': 23690, 'passenger-37m': 24190,
-      'kei-12m': 11440, 'kei-24m': 17540, 'kei-25m': 18040, 'kei-36m': 23520, 'kei-37m': 24010,
-      'passenger-12m-from-2026-11': 12250, 'passenger-24m-from-2026-11': 18560, 'passenger-36m-from-2026-11': 24690,
-      'kei-12m-from-2026-11': 12300, 'kei-24m-from-2026-11': 18660, 'kei-36m-from-2026-11': 24830,
-      'revision-date': '2026-11-01', 'current-table-applies-from': '2023-04-01',
+      'passenger-12m': 12250, 'passenger-24m': 18560, 'passenger-25m': 19070, 'passenger-36m': 24690, 'passenger-37m': 25180,
+      'kei-12m': 12300, 'kei-24m': 18660, 'kei-25m': 19170, 'kei-36m': 24830, 'kei-37m': 25330,
+      'revision-date': '2026-11-01', 'current-table-applies-from': '2026-11-01',
     },
     'inspection-fee': {
       'standard-bring-in': 2600, 'small-bring-in': 2500, 'standard-small-certificate-counter': 2100, 'standard-small-certificate-oss': 1850,
@@ -85,20 +83,20 @@ test('data: verifiedDate, nextScheduledRefresh follows the cadence, every catego
   // Inspection fees carry the pre-2026-04-01 amount from NALTEC's fee-change notice.
   assert.equal(fig('inspection-fee', 'standard-bring-in').previous.value, 2300);
   assert.equal(fig('inspection-fee', 'kei-certificate-oss').previous.value, 1600);
-  // The two 自賠責 periods are distinguishable: the current table ends 2026-10-31, the revised one starts 2026-11-01
-  // and carries the current amount as previous; the revised 25- and 37-month rates come from GIROJ's table.
-  for (const f of DATA.categories.cali.figures.filter((x) => /^(passenger|kei)-\d+m$/.test(x.key))) {
-    assert.equal(f.effectiveFrom, '2023-04-01', f.key);
-    assert.equal(f.effectiveTo, '2026-10-31', f.key);
-  }
-  for (const f of DATA.categories.cali.figures.filter((x) => x.key.endsWith('-from-2026-11'))) {
+  // Since 2026-11-01 the revised 自賠責 table is on the base keys (spec §3.3: period is a parameter, not part of the key);
+  // each carries the 2023 table as previous, dated so it is served as its own period. 25/37-month amounts come from GIROJ's table.
+  const table2023 = { 'passenger-12m': 11500, 'passenger-24m': 17650, 'passenger-25m': 18160, 'passenger-36m': 23690, 'passenger-37m': 24190,
+    'kei-12m': 11440, 'kei-24m': 17540, 'kei-25m': 18040, 'kei-36m': 23520, 'kei-37m': 24010 };
+  const caliFigs = DATA.categories.cali.figures.filter((x) => /^(passenger|kei)-\d+m$/.test(x.key));
+  assert.equal(caliFigs.length, 10);
+  for (const f of caliFigs) {
     assert.equal(f.effectiveFrom, '2026-11-01', f.key);
-    assert.equal(f.previous.value, fig('cali', f.key.replace('-from-2026-11', '')).value, f.key);
+    assert.equal(f.effectiveTo, undefined, f.key);
+    assert.equal(f.verifiedDate, '2026-11-01', f.key);
+    assert.deepEqual([f.previous.value, f.previous.effectiveFrom], [table2023[f.key], '2023-04-01'], f.key);
+    assert.ok(f.previous.source && f.previous.quote, `${f.key}: the 2023 table is sourced and quoted`);
   }
-  assert.equal(fig('cali', 'passenger-25m-from-2026-11').value, 19070);
-  assert.equal(fig('cali', 'passenger-37m-from-2026-11').value, 25180);
-  assert.equal(fig('cali', 'kei-25m-from-2026-11').value, 19170);
-  assert.equal(fig('cali', 'kei-37m-from-2026-11').value, 25330);
+  assert.ok(!DATA.categories.cali.figures.some((x) => x.key.endsWith('-from-2026-11')), 'the -from-2026-11 figures are aliases now, not figures');
   // Every figure carries a key, the Japanese term and the quoted row it was read from.
   for (const { cat, f } of FIGURES) assert.ok(f.key && f.term && f.quote, `${cat}/${f.label}`);
 });
@@ -193,7 +191,7 @@ test('changelog: the area is listed; a first commit records what the data says (
     assert.deepEqual(e.from, PREVIOUS ? f.previous.value : null);
     assert.deepEqual(e.to, f.value);
     assert.match(e.effectiveFrom, ISO);
-    assert.equal(e.verifiedDate, DATA.verifiedDate);
+    assert.equal(e.verifiedDate, f.verifiedDate || DATA.verifiedDate, 'a figure re-verified on its own day dates its entry by that day');
     assert.equal(e.note, '', 'notes are filled by scripts/changelog.js (changelog.note), never by diff()');
   }
   assert.deepEqual(AREA_MODULE.changelog.diff(DATA, DATA), [], 'nothing moved');
@@ -222,4 +220,25 @@ test('discovery: the area appears in /.well-known/changes.json (run node scripts
   const entry = WELL_KNOWN.areas.find((a) => a.name === AREA);
   assert.ok(entry, 'area in the discovery document');
   assert.equal(entry.cadence, AREA_MODULE.discovery.cadence);
+});
+
+test('facts: the 自賠責 revision of 2026-11-01 is on the base keys; the -from-2026-11 keys are aliases; the 2023 table answers as_of', () => {
+  const facts = require('../api/_facts');
+  const now = new Date('2026-11-01T12:00:00Z');
+  const r = facts.getFact('jp/cali/passenger-24m', {}, now);
+  assert.equal(r.value, 18560);
+  assert.equal(r.effectiveFrom, '2026-11-01');
+  assert.equal(r.effectiveTo, null);
+  assert.equal(r.changeCadence, 'irregular');
+  assert.equal(r.nextExpectedChange, null, 'no next revision date is known');
+  assert.deepEqual([r.previous.value, r.previous.effectiveFrom], [17650, '2023-04-01']);
+  for (const [v, m, value] of [['passenger', 12, 12250], ['passenger', 25, 19070], ['passenger', 37, 25180], ['kei', 24, 18660], ['kei', 37, 25330]]) {
+    const a = facts.getFact(`jp/cali/${v}-${m}m-from-2026-11`, {}, now);
+    assert.equal(a.key, `jp/cali/${v}-${m}m`, 'alias resolves to the base key');
+    assert.equal(a.value, value);
+    assert.ok((a.aliases || []).includes(`jp/cali/${v}-${m}m-from-2026-11`), 'the record lists its alias');
+  }
+  const old = facts.getFact('jp/cali/passenger-24m', { as_of: '2026-10-15' }, now);
+  assert.equal(old.value, 17650, 'a policy starting before the switch gets the 2023 table');
+  assert.equal(facts.getFact('jp/cali/current-table-applies-from', {}, now).value, '2026-11-01');
 });

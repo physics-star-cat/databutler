@@ -77,7 +77,7 @@ Data Butler's discovery document:
     "name": "Data Butler",
     "url": "https://databutler.dev/"
   },
-  "updated": "2026-10-31",
+  "updated": "2026-11-01",
   "coverageStart": "2026-08-31",
   "areas": [
     {
@@ -138,7 +138,7 @@ Data Butler's discovery document:
     {
       "name": "jp-vehicle-costs",
       "description": "Japan vehicle statutory costs verified against MLIT, FSA, NALTEC, 総務省, Tokyo and Kōtō City pages: 自動車重量税 at 車検 (eco/standard/13-year/18-year, per 0.5 t and kei), エコカー減税 bands, 自賠責保険 rates before and from 2026-11-01, 継続検査 fees from 2026-04-01, 自動車税 by displacement and 軽自動車税.",
-      "cadence": "Re-verified against the official pages every 35 days and on the known change dates (自賠責 2026-11-01, car taxes each 1 April, weight-tax eco bands 2027-05-01); every source page re-fetched weekly."
+      "cadence": "Re-verified against the official pages every 35 days and on the known change dates (自賠責 revisions, last 2026-11-01; car taxes each 1 April; weight-tax eco bands 2027-05-01); every source page re-fetched weekly."
     },
     {
       "name": "jp-living-costs",

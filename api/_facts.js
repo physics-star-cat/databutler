@@ -175,6 +175,16 @@ function makeFacts(areas = AREAS, { signatures = SIGNATURES, sourceChecks = SOUR
     addAlias(form, key, m.area, false);
     BY_CHANGELOG.set(form, key);
   }
+  // A curated alias that lives in its target's own tree (a restructured key, spec §3.4: `jp/cali/x-from-2026-11` → `jp/cali/x`)
+  // also answers in the changelog form, so the entries published under the old key still map to a served fact.
+  for (const [alias, key] of [...curated].flatMap(([k, as]) => as.map((a) => [a, k]))) {
+    const m = META.get(key);
+    const lead = key.slice(0, key.length - m.changelogKey.length);
+    if (lead && alias.startsWith(lead)) {
+      const form = `${m.area}:${alias.slice(lead.length)}`;
+      if (!BY_CHANGELOG.has(form)) { BY_CHANGELOG.set(form, key); addAlias(form, key, m.area, false); }
+    }
+  }
   for (const [alias, key] of [...ALIASES]) {
     if (!alias.startsWith('gb/') && namespaceOf(alias) === 'uk' && !ALIASES.has(`gb${alias.slice(2)}`)) addAlias(`gb${alias.slice(2)}`, key, META.get(key).area, false);
   }

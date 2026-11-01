@@ -335,15 +335,15 @@ Front-door placement (Data Butler): `get_fact` and `resolve_fact` join the hub t
     "url": "https://databutler.dev/"
   },
   "conformance": "L3",
-  "updated": "2026-10-31",
+  "updated": "2026-11-01",
   "facts": {
-    "count": 759,
+    "count": 749,
     "get": "https://databutler.dev/f/{key}",
     "page": "https://databutler.dev/facts/{key}",
     "batch": "https://databutler.dev/f?keys={keys}",
     "resolve": "https://databutler.dev/f/resolve?q={q}",
     "index": "https://databutler.dev/f",
-    "digest": "sha256:84523f532b6acdc45ca0018c3118d0308f2240140556c046278b28d9c20b2916",
+    "digest": "sha256:d95aaa5eb6137878d6cce3065f68760e9bb59e080217f673f791f3061ab30916",
     "filtering": "server",
     "examples": [
       "uk/income-tax/personal-allowance",
@@ -420,8 +420,8 @@ Front-door placement (Data Butler): `get_fact` and `resolve_fact` join the hub t
     {
       "name": "jp",
       "description": "Japanese car inspection (車検) statutory costs and car taxes and Japanese minimum wages, social-insurance rates, pensions, benefits, holidays and tax thresholds",
-      "count": 197,
-      "cadence": "jp-vehicle-costs: Re-verified against the official pages every 35 days and on the known change dates (自賠責 2026-11-01, car taxes each 1 April, weight-tax eco bands 2027-05-01); every source page re-fetched weekly. jp-living-costs: Re-verified against the official pages every 35 days and on the known change dates (prefecture minimum wages 2026-10-01 to 2026-12-02 and each autumn, deductions 2026-12-01, insurance and pension rates each March/April, 高額療養費 2027-08-01, the 2028 holidays in February 2027); every source page re-fetched weekly.",
+      "count": 187,
+      "cadence": "jp-vehicle-costs: Re-verified against the official pages every 35 days and on the known change dates (自賠責 revisions, last 2026-11-01; car taxes each 1 April; weight-tax eco bands 2027-05-01); every source page re-fetched weekly. jp-living-costs: Re-verified against the official pages every 35 days and on the known change dates (prefecture minimum wages 2026-10-01 to 2026-12-02 and each autumn, deductions 2026-12-01, insurance and pension rates each March/April, 高額療養費 2027-08-01, the 2028 holidays in February 2027); every source page re-fetched weekly.",
       "authorities": [
         "www.cfa.go.jp",
         "www.city.koto.lg.jp",
@@ -437,7 +437,7 @@ Front-door placement (Data Butler): `get_fact` and `resolve_fact` join the hub t
         "www.tax.metro.tokyo.lg.jp",
         "www8.cao.go.jp"
       ],
-      "digest": "sha256:53918a83eb127eedacdb0fb15ae6abb529df48a0a44e30998d5c619ac5d0dbe3"
+      "digest": "sha256:9f3a6e8902c4261a40e9fbe6f5223bc7ab2aac0e3336a58f220f274c306a3957"
     }
   ],
   "hash": "sha256/jcs",

@@ -3,8 +3,8 @@
  * the annual car taxes. 自動車重量税 at continuing inspection (the 2026-05-01 –
  * 2028-04-30 table: eco / standard / 13-year / 18-year, registered cars per 0.5 t and
  * kei flat, plus the age-counting rules and the エコカー減税 bands), 自賠責保険 基準料率
- * for private passenger and kei cars (the current table for policies starting before
- * 2026-11-01 and the revised table from 2026-11-01, as separate keys), 検査手数料 for
+ * for private passenger and kei cars (the revised table for policies starting on or
+ * after 2026-11-01; the 2023 table is each key's previous; the -from-2026-11 keys are aliases), 検査手数料 for
  * a 継続検査 (持込 / 保安基準適合証 窓口 / OSS, from 2026-04-01), 自動車税 by
  * displacement (from / before 2019-10 registration, 13-year surcharge) and 軽自動車税
  * (10,800 / 7,200 / 12,900). Each figure was read from the MLIT, FSA, NALTEC, MIC (総務省),
@@ -29,6 +29,8 @@ const PARAMS = ['category'];
 // one cadence of a refresh, and the weekly watcher re-hashes every source page in between.
 const CADENCE_DAYS = 35;
 const CATEGORIES = Object.keys(DATA.categories);
+// The 自賠責 keys published before the 2026-11-01 switch (…-from-2026-11) resolve to the base keys, which now carry the revised table.
+const CALI_ALIASES = Object.fromEntries(['passenger', 'kei'].flatMap((v) => [12, 24, 25, 36, 37].map((m) => [`jp/cali/${v}-${m}m-from-2026-11`, `jp/cali/${v}-${m}m`])));
 /**
  * Figures carry `previous: { value, source, title }` where the source prints the old value beside the new one
  * (検査手数料 before 2026-04-01; the 自賠責 table before 2026-11-01). A figure's first appearance records
@@ -60,8 +62,8 @@ module.exports = {
       'Japan vehicle statutory costs from databutler.dev — the 法定費用 of a 車検 (自動車重量税, 自賠責保険, 検査手数料) and the ' +
       'annual 自動車税 and 軽自動車税 — each figure read from the MLIT, FSA, NALTEC, 総務省, Tokyo Metropolitan Tax Bureau or ' +
       'Kōtō City page in its source on verifiedDate, with the table row it came from as quote and the Japanese term as term. ' +
-      'Several of these change on fixed dates: the 自賠責 rates for policies starting on or after 2026-11-01 are the keys ending ' +
-      '-from-2026-11 (the current-table figures carry effectiveTo 2026-10-31); the weight-tax table runs 2026-05-01 to 2028-04-30; ' +
+      'Several of these change on fixed dates: the 自賠責 rates are the revised table for policies starting on or after 2026-11-01 ' +
+      '(previous carries the 2023 table, which applied to policies starting 2023-04-01 to 2026-10-31); the weight-tax table runs 2026-05-01 to 2028-04-30; ' +
       'inspection fees rose on 2026-04-01 (previous carries the old amount). Registered-car weight tax is per 0.5 t of vehicle ' +
       'weight, rounded up; kei weight tax is flat. Car taxes are the standard rates as levied by Tokyo and Kōtō City. Every result ' +
       'carries verifiedDate, freshness and cite.url (a databutler.dev permalink) beside the official source.',
@@ -74,8 +76,8 @@ module.exports = {
           'weight-tax (自動車重量税 at continuing inspection 2026-05-01 – 2028-04-30: registered passenger cars per 0.5 t for eco, ' +
           'standard, 13-year and 18-year rates, 2-year and 1-year, the full 2-year table to 3 t, kei flat amounts, the 13/18-year ' +
           'counting rules), weight-tax-eco (エコカー減税 period, new-registration bands, first-inspection exemption), cali (自賠責保険 ' +
-          'for private passenger and kei cars: 12/24/25/36/37 months for policies starting before 2026-11-01, and 12/24/36 months ' +
-          'from 2026-11-01 as keys ending -from-2026-11), inspection-fee (継続検査 fees: 持込, 保安基準適合証 counter and OSS, ' +
+          'for private passenger and kei cars: 12/24/25/36/37 months, the revised table for policies starting on or after 2026-11-01, ' +
+          'with the 2023 table as previous), inspection-fee (継続検査 fees: 持込, 保安基準適合証 counter and OSS, ' +
           'standard/small/kei, from 2026-04-01, with the previous amounts), auto-tax (自動車税 by displacement for cars registered ' +
           'from / before 2019-10, the 13-year surcharge table and rule, the EV reduction) and kei-tax (軽自動車税 10,800 / 7,200 / ' +
           '12,900 and the surcharge and EV reduction rules). Each figure carries its value in JPY, unit, the Japanese term, the ' +
@@ -101,7 +103,6 @@ module.exports = {
     verifiedDate: DATA.verifiedDate,
     scope: 'Japan. Private (自家用) passenger cars — registered (登録車: 普通 / 小型) and kei (検査対象軽自動車). 自賠責 for 離島以外の地域（沖縄県を除く）. Car taxes at the standard rate (標準税率) as levied by Tokyo (自動車税) and Kōtō City (軽自動車税). Each category names its MLIT / FSA / NALTEC / 総務省 / Tokyo / Kōtō page; every figure carries its own source.',
     notCovered: [
-      '自賠責 for policies of 25 or 37 months starting on or after 2026-11-01 (the revised table published by FSA lists 12, 24 and 36 months only)',
       '自賠責 on remote islands (離島) and in Okinawa, and for commercial vehicles, motorcycles and mopeds',
       'business-use (事業用) vehicles, trucks, buses and special-purpose vehicles (weight tax, 自動車税 and 軽自動車税 rows beyond private passenger cars)',
       'weight tax at new registration (新車新規登録) with its reduction applied, beyond the band table',
@@ -114,7 +115,8 @@ module.exports = {
   freshness: { dataFile: 'data/jp-vehicle-costs.json', cadenceDays: CADENCE_DAYS, data: DATA },
 
   changelog: {
-    diff: (prev, next) => diffCategories(AREA, prev, next, { key: KEY, previous: PREVIOUS, effectiveFrom: FROM }),
+    // A figure re-verified on its own day (f.verifiedDate, e.g. the 自賠責 keys on 2026-11-01) dates its entry by that day, not the file's.
+    diff: (prev, next) => diffCategories(AREA, prev, next, { key: KEY, previous: PREVIOUS, effectiveFrom: FROM, extra: (n, cat, f) => (f.verifiedDate ? { verifiedDate: f.verifiedDate } : {}) }),
     files: ['data/jp-vehicle-costs.json'],
     previous: PREVIOUS,
     // scripts/changelog.js pre-fills every blank note with this. Placeholders: {label} {key} {from} {to} {unit} {effectiveFrom}
@@ -124,7 +126,7 @@ module.exports = {
   },
   discovery: {
     description: 'Japan vehicle statutory costs verified against MLIT, FSA, NALTEC, 総務省, Tokyo and Kōtō City pages: 自動車重量税 at 車検 (eco/standard/13-year/18-year, per 0.5 t and kei), エコカー減税 bands, 自賠責保険 rates before and from 2026-11-01, 継続検査 fees from 2026-04-01, 自動車税 by displacement and 軽自動車税.',
-    cadence: 'Re-verified against the official pages every 35 days and on the known change dates (自賠責 2026-11-01, car taxes each 1 April, weight-tax eco bands 2027-05-01); every source page re-fetched weekly.',
+    cadence: 'Re-verified against the official pages every 35 days and on the known change dates (自賠責 revisions, last 2026-11-01; car taxes each 1 April; weight-tax eco bands 2027-05-01); every source page re-fetched weekly.',
   },
 
   // Every category's source and every figure's own source, each URL once.
@@ -149,18 +151,18 @@ module.exports = {
     },
     llms: {
       rest: [
-        `- \`GET https://databutler.dev/api/${REST_PATH}?category=cali\` — Japan vehicle statutory costs (category = ${CATEGORIES.join(' | ')}; omit to list): 自動車重量税 at 車検 for 2026-05-01 – 2028-04-30 (registered cars per 0.5 t: eco 5,000 / standard 8,200 / 13-year 11,400 / 18-year 12,600 for 2 years; kei flat 5,000–8,800), エコカー減税 bands, 自賠責保険 for private passenger and kei cars (policies starting before 2026-11-01 and, as keys ending -from-2026-11, from 2026-11-01), 継続検査 fees from 2026-04-01, 自動車税 by displacement and 軽自動車税 — each figure verified against the MLIT, FSA, NALTEC, 総務省, Tokyo or Kōtō City page with the quoted row, source URL and effectiveFrom.`,
+        `- \`GET https://databutler.dev/api/${REST_PATH}?category=cali\` — Japan vehicle statutory costs (category = ${CATEGORIES.join(' | ')}; omit to list): 自動車重量税 at 車検 for 2026-05-01 – 2028-04-30 (registered cars per 0.5 t: eco 5,000 / standard 8,200 / 13-year 11,400 / 18-year 12,600 for 2 years; kei flat 5,000–8,800), エコカー減税 bands, 自賠責保険 for private passenger and kei cars (the revised table for policies starting on or after 2026-11-01, the 2023 table as previous), 継続検査 fees from 2026-04-01, 自動車税 by displacement and 軽自動車税 — each figure verified against the MLIT, FSA, NALTEC, 総務省, Tokyo or Kōtō City page with the quoted row, source URL and effectiveFrom.`,
       ],
       server: `- \`POST https://databutler.dev/api/mcp/jp-vehicle-costs\` — tool \`jp_vehicle_costs_lookup\` (category = ${CATEGORIES.join(' | ')}): Japan 車検 statutory costs (weight tax, 自賠責, inspection fees) and annual car taxes, verified against the official Japanese pages with the quoted row and source URL on every figure. REST mirror: \`GET https://databutler.dev/api/${REST_PATH}?category=…\`.`,
     },
-    curation: ['| `data/jp-vehicle-costs.json` | Every 35 days (`nextScheduledRefresh` = verifiedDate + 35), and on the change dates: 自賠責 2026-11-01 (re-check whether an official page now prints the revised 25/37-month rates), 自動車税/軽自動車税 each 1 April (税制改正大綱 in December), weight-tax eco bands 2027-05-01 and the table\'s end 2028-04-30, 検査手数料 when NALTEC announces a change. The weekly watcher hashes every source page. | Re-fetch every `source` (PDFs: `pdftotext -layout`); compare each figure\'s `quote` with the page; for a changed value move the old one into `previous` (`value`, `source`, `title`), write the new `value`, `quote`, `effectiveFrom` (and `effectiveTo` on the figure it replaces); once 2026-11-01 has passed the -from-2026-11 keys are current and the old-table keys keep `effectiveTo` 2026-10-31; bump `verifiedDate`; `node scripts/changelog.js --only jp-vehicle-costs` (stamps `nextScheduledRefresh`, appends one entry per figure that moved, re-hashes this area\'s sources); review the notes; `node scripts/sign-facts.js`. |'],
-    index: { blurb: 'Japanese 車検 statutory costs — 自動車重量税, 自賠責 (before and from 2026-11-01), inspection fees — and 自動車税 / 軽自動車税, verified against MLIT, FSA, NALTEC and local-government pages' },
+    curation: ['| `data/jp-vehicle-costs.json` | Every 35 days (`nextScheduledRefresh` = verifiedDate + 35), and on the change dates: 自賠責 on each FSA/GIROJ revision (2026-11-01 done: the revised table is on the base keys, the -from-2026-11 keys are aliases), 自動車税/軽自動車税 each 1 April (税制改正大綱 in December), weight-tax eco bands 2027-05-01 and the table\'s end 2028-04-30, 検査手数料 when NALTEC announces a change. The weekly watcher hashes every source page. | Re-fetch every `source` (PDFs: `pdftotext -layout`); compare each figure\'s `quote` with the page; for a changed value move the old one into `previous` (`value`, `source`, `title`), write the new `value`, `quote`, `effectiveFrom` (and `effectiveTo` on the figure it replaces); the revised 自賠責 table has been on the base keys since 2026-11-01 with the 2023 table as `previous`; bump `verifiedDate`; `node scripts/changelog.js --only jp-vehicle-costs` (stamps `nextScheduledRefresh`, appends one entry per figure that moved, re-hashes this area\'s sources); review the notes; `node scripts/sign-facts.js`. |'],
+    index: { blurb: 'Japanese 車検 statutory costs — 自動車重量税, 自賠責 (revised table from 2026-11-01), inspection fees — and 自動車税 / 軽自動車税, verified against MLIT, FSA, NALTEC and local-government pages' },
     api: () => ({
       endpoints: {
         [`GET /api/${REST_PATH}`]: {
           description:
             `Japan vehicle statutory costs, verified ${DATA.verifiedDate} against the official pages: 自動車重量税 at 車検 (2026-05-01 – 2028-04-30 table), ` +
-            'エコカー減税 bands, 自賠責保険 for private passenger and kei cars (before and from 2026-11-01), 継続検査 fees from 2026-04-01, ' +
+            'エコカー減税 bands, 自賠責保険 for private passenger and kei cars (revised table from 2026-11-01, the 2023 table as previous), 継続検査 fees from 2026-04-01, ' +
             '自動車税 by displacement and 軽自動車税 — each figure with the Japanese term, quoted row, source URL and effectiveFrom.',
           params: {
             category: `one of ${CATEGORIES.join(', ')} (omit to list)`,
@@ -173,14 +175,16 @@ module.exports = {
   },
 
   // Verified Facts: /f/jp/<category>/<key> (api/_areas/README.md "facts"). No period labels: each figure states its own
-  // effectiveFrom/effectiveTo, and the two 自賠責 tables are separate keys (…-from-2026-11), as de-rates does for Mindestlohn 2027.
+  // effectiveFrom/effectiveTo. The 自賠責 revision of 2026-11-01 sits on the base keys with the 2023 table as previous (served
+  // as its own period); the …-from-2026-11 keys published before the switch are aliases of them (spec §3.4).
   facts: {
     namespace: 'jp',
     key: KEY,
     effectiveTo: (d, f) => f.effectiveTo || null,
+    aliases: CALI_ALIASES,
     // v0.3 expected change: car taxes and fees each 1 April; the weight-tax eco bands on 2027-05-01 (the cadence text);
-    // 自賠責 premiums by FSA/GIROJ revision on no fixed date — the announced 2026-11-01 table is the one date known.
-    expected: (r) => (r.key.startsWith('jp/cali/') ? { changeCadence: 'irregular', dates: [r.effectiveFrom, '2026-11-01'] }
+    // 自賠責 premiums by FSA/GIROJ revision on no fixed date (the last, 2026-11-01, has passed): no next date is known.
+    expected: (r) => (r.key.startsWith('jp/cali/') ? { changeCadence: 'irregular', dates: [r.effectiveFrom] }
       : r.key.startsWith('jp/weight-tax-eco/') ? { changeCadence: 'annual', dates: [r.effectiveFrom, '2027-05-01'] }
         : { changeCadence: 'annual', dates: [r.effectiveFrom, '04-01'] }),
     // Japanese-specific words only: synonyms are shared across areas, so English phrases such as "car tax" (uk-vehicle-rules) stay out.
@@ -197,7 +201,7 @@ module.exports = {
     { label: 'jp-vehicle-costs-listing', kind: 'tool', tool: TOOL, args: {}, assert: "'categories' in d and 'cali' in d['categories'] and 'freshness' in d" },
     { label: 'jp-vehicle-costs-rest-listing', kind: 'rest', path: REST_PATH, query: '', assert: "'categories' in d and 'cite' in d" },
     { label: 'call-jp-vehicle-costs-weight-tax', kind: 'tool', tool: TOOL, args: { category: 'weight-tax' }, assert: "d['category']=='weight-tax' and any(f['key']=='passenger-standard-per-0.5t-2y' and f['value']==8200 for f in d['figures']) and d['source'].startswith('https://www.mlit.go.jp/') and d['freshness']['staleness'] in ('fresh','due','overdue') and d['cite']['url']=='https://databutler.dev/r/jp/vehicle-costs?category=weight-tax'" },
-    { label: 'rest-jp-vehicle-costs-cali', kind: 'rest', path: REST_PATH, query: 'category=cali', assert: "d['category']=='cali' and any(f['key']=='passenger-24m' and f['value']==17650 for f in d['figures']) and any(f['key']=='passenger-24m-from-2026-11' and f['value']==18560 for f in d['figures'])" },
+    { label: 'rest-jp-vehicle-costs-cali', kind: 'rest', path: REST_PATH, query: 'category=cali', assert: "d['category']=='cali' and any(f['key']=='passenger-24m' and f['value']==18560 for f in d['figures']) and any(f['key']=='passenger-25m' and f['value']==19070 for f in d['figures'])" },
     { label: 'call-jp-vehicle-costs-nearmiss', kind: 'tool', tool: TOOL, args: { category: 'jibaiseki' }, assert: "d.get('covered')==False and len(d['nearest'])>0" },
   ],
 };
