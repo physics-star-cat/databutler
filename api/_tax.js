@@ -58,7 +58,7 @@ const deps = { fetch: (...a) => globalThis.fetch(...a) };
 const DATA_ORIGIN =
   'Statutory income tax and social-contribution rules as implemented by the LifeByNumbers salary calculators ' +
   '(same operator). Figures are estimates for a single employee on PAYE-style employment income with the stated ' +
-  'assumptions, not tax advice — see the calculator page for its method and caveats.';
+  'assumptions, not tax advice — see the assumptions listed with each answer.';
 
 const US_STATES = 'AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY'.split(' ');
 const CA_PROVINCES = 'AB BC MB NB NL NS NT NU ON PE QC SK YT'.split(' ');
@@ -78,7 +78,7 @@ const ES_REGION_ALIASES = { 'comunidad de madrid': 'madrid', 'cataluña': 'catal
 const COUNTRIES = {
   uk: {
     name: 'United Kingdom', currency: 'GBP', calculatorId: 'uk-salary', period: 'annual', taxYear: '2026/27',
-    page: `${SITE}/uk/calculators/uk-salary`,
+    page: `${SITE}/`,
     input: (gross, a) => ({ grossSalary: gross, taxRegion: a.region === 'scotland' ? 'scotland' : 'england', studentLoan: 'none', pensionPercent: 0, pensionType: 'standard', taxCode: '1257L' }),
     net: 'annualTakeHome',
     lines: [
@@ -90,12 +90,12 @@ const COUNTRIES = {
     extra: (r) => ({ marginalRate: r.marginalRate, employerPensionContribution: r.employerPensionContribution }),
     assumptions: (a) => [
       `tax region: ${a.region === 'scotland' ? 'Scotland (Scottish income tax bands)' : 'England, Wales or Northern Ireland'}`,
-      'tax code 1257L (standard Personal Allowance £12,570, tapered by £1 per £2 above £100,000); no student loan; no pension contributions (set region only — other options exist on the calculator page)',
+      'tax code 1257L (standard Personal Allowance £12,570, tapered by £1 per £2 above £100,000); no student loan; no pension contributions (set region only — other options exist upstream)',
     ],
   },
   us: {
     name: 'United States', currency: 'USD', calculatorId: 'us-salary', period: 'annual', taxYear: '2026',
-    page: `${SITE}/us/calculators/us-salary`,
+    page: `${SITE}/`,
     input: (gross, a) => ({ annualSalary: gross, filingStatus: a.filingStatus || 'single', state: a.state || 'CA', k401Percent: 0, healthInsurancePremium: 0 }),
     net: 'netAnnual',
     lines: [
@@ -114,7 +114,7 @@ const COUNTRIES = {
   },
   ca: {
     name: 'Canada', currency: 'CAD', calculatorId: 'ca-salary', period: 'annual', taxYear: '2026',
-    page: `${SITE}/ca/calculators/ca-salary`,
+    page: `${SITE}/`,
     input: (gross, a) => ({ annualSalary: gross, province: a.province || 'ON', rrspContribution: 0 }),
     net: 'netAnnual',
     lines: [
@@ -133,7 +133,7 @@ const COUNTRIES = {
   },
   au: {
     name: 'Australia', currency: 'AUD', calculatorId: 'au-salary', period: 'annual', taxYear: '2026-27',
-    page: `${SITE}/au/calculators/au-salary`,
+    page: `${SITE}/`,
     input: (gross) => ({ annualSalary: gross, residencyStatus: 'resident', hasHelpDebt: false }),
     net: 'netAnnual',
     lines: [
@@ -149,7 +149,7 @@ const COUNTRIES = {
   },
   in: {
     name: 'India', currency: 'INR', calculatorId: 'in-salary', period: 'annual', taxYear: 'FY 2026-27',
-    page: `${SITE}/in/calculators/in-salary`,
+    page: `${SITE}/`,
     input: (gross) => ({ annualSalary: gross, taxRegime: 'new', basicPercent: 50, includeEpf: true, deductions80c: 0, deductions80d: 0 }),
     net: 'netAnnual',
     lines: [
@@ -167,7 +167,7 @@ const COUNTRIES = {
   },
   br: {
     name: 'Brazil', currency: 'BRL', calculatorId: 'br-salary', period: 'monthly', taxYear: '2026',
-    page: `${SITE}/br/calculators/br-salary`,
+    page: `${SITE}/`,
     input: (gross) => ({ monthlySalary: gross, dependents: 0, useSimplified: false, include13th: false, includeVacation: false }),
     net: 'salarioLiquido',
     lines: [
@@ -177,12 +177,12 @@ const COUNTRIES = {
     extra: (r) => ({ irrfBracketRate: r.faixaIrrf, inssCeiling: r.tetoInss }),
     assumptions: () => [
       'CLT employee, no dependents, legal (not simplified) deduction; 2026 INSS brackets and reformed IRRF table with the up-to-R$5,000 exemption redutor',
-      'annual figures are 12 × monthly: the statutory 13th salary and 1/3 vacation bonus are excluded (the calculator page includes them by default)',
+      'annual figures are 12 × monthly: the statutory 13th salary and 1/3 vacation bonus are excluded (the upstream calculator includes them by default)',
     ],
   },
   pl: {
     name: 'Poland', currency: 'PLN', calculatorId: 'pl-salary', period: 'monthly', taxYear: '2026',
-    page: `${SITE}/pl/calculators/pl-salary`,
+    page: `${SITE}/`,
     input: (gross) => ({ monthlySalary: gross, includePpk: false, ppkRate: 0.02, youthRelief: false }),
     net: 'wynagrodzeniNetto',
     lines: [
@@ -201,7 +201,7 @@ const COUNTRIES = {
   },
   fr: {
     name: 'France', currency: 'EUR', calculatorId: 'fr-salary', period: 'monthly', taxYear: '2026',
-    page: `${SITE}/fr/calculators/fr-salary`,
+    page: `${SITE}/`,
     input: (gross) => ({ monthlySalary: gross, taxParts: 1, includeMutuelle: false, mutuelleAmount: 0 }),
     net: 'salaireNet',
     lines: [
@@ -222,7 +222,7 @@ const COUNTRIES = {
   },
   de: {
     name: 'Germany', currency: 'EUR', calculatorId: 'de-salary', period: 'monthly', taxYear: '2026',
-    page: `${SITE}/de/calculators/de-salary`,
+    page: `${SITE}/`,
     input: (gross) => ({ monthlySalary: gross, taxClass: 1, churchTax: false, state: 'other', hasChildren: false }),
     net: 'nettolohn',
     lines: [
@@ -242,7 +242,7 @@ const COUNTRIES = {
   },
   es: {
     name: 'Spain', currency: 'EUR', calculatorId: 'es-salary', period: 'annual', taxYear: '2026',
-    page: `${SITE}/es/calculators/es-salary`,
+    page: `${SITE}/`,
     input: (gross, a) => ({ grossSalary: gross, salaryFrequency: 'annual', numPayments: 12, region: a.region || 'madrid', contractType: 'indefinido', children: 0 }),
     net: 'netAnnual',
     lines: [
@@ -321,7 +321,7 @@ async function takeHomePay(args = {}) {
     return {
       covered: false, country: code, countryName: c.name, currency: c.currency,
       message: `${c.name} is not computed by the LifeByNumbers backend, so there is no verified upstream figure to proxy.`,
-      hint: `open ${c.page} for the interactive calculator, or use another country code`,
+      hint: 'use another country code',
       coverage: COUNTRY_CODES.filter((k) => COUNTRIES[k].calculatorId),
       source: c.page, upstreamProvenance: provenance(c, null),
     };
@@ -367,7 +367,7 @@ function shape(c, code, res, { gross, period, annualGross, args }) {
   if (res.failure || res.status === 0) {
     return {
       error: 'upstream unavailable', upstream: 'lifebynumbers.net', reason: res.failure || 'no response',
-      retry: true, message: `lifebynumbers.net did not answer within ${TIMEOUT_MS / 1000}s — retry shortly, or use the calculator at ${c.page} directly.`,
+      retry: true, message: `lifebynumbers.net did not answer within ${TIMEOUT_MS / 1000}s — retry shortly, or see ${c.page}.`,
       source: c.page, upstreamProvenance: upstream,
     };
   }

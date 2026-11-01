@@ -55,7 +55,7 @@ test('every country entry names a currency, tax year, calculator page and upstre
   for (const [code, c] of Object.entries(T.COUNTRIES)) {
     assert.match(c.currency, /^[A-Z]{3}$/, code);
     assert.ok(c.taxYear, code);
-    assert.match(c.page, /^https:\/\/www\.lifebynumbers\.net\/[a-z]{2}\/calculators\/[a-z]{2}-salary$/, code);
+    assert.equal(c.page, 'https://www.lifebynumbers.net/', code);
     assert.equal(c.calculatorId, `${code}-salary`);
     assert.ok(Array.isArray(c.lines) && c.lines.length >= 2, code);
     assert.equal(typeof c.input, 'function');
@@ -91,7 +91,7 @@ test('UK: posts {calculatorId, input} to the Lambda, returns annual+monthly figu
     assert.equal(out.breakdownNote, undefined, 'lines reconcile with gross - net');
     assert.equal(out.details.marginalRate, 20);
     assert.ok(out.assumptions.some((a) => /England, Wales or Northern Ireland/.test(a)));
-    assert.equal(out.source, 'https://www.lifebynumbers.net/uk/calculators/uk-salary');
+    assert.equal(out.source, 'https://www.lifebynumbers.net/');
     assert.equal(out.upstreamProvenance.attribution, 'lifebynumbers.net');
     assert.equal(out.upstreamProvenance.calculatorId, 'uk-salary');
     assert.equal(out.upstreamProvenance.requested, `${T.UPSTREAM}/calculate`);
@@ -164,7 +164,7 @@ test('upstream failure: timeout and network errors are clean "upstream unavailab
     assert.equal(out.reason, 'timeout');
     assert.equal(out.retry, true);
     assert.match(out.message, /8s/);
-    assert.equal(out.source, 'https://www.lifebynumbers.net/uk/calculators/uk-salary');
+    assert.equal(out.source, 'https://www.lifebynumbers.net/');
     assert.equal(out.upstreamProvenance.attribution, 'lifebynumbers.net');
   } finally { m.restore(); }
   m = mockFetch(() => { throw new Error('getaddrinfo ENOTFOUND'); });
@@ -279,7 +279,7 @@ test('MCP: tools/call on /api/mcp/tax and the front door both carry the live env
     assert.equal(direct.data.net.annual, 39519.6);
     assert.equal(direct.data.freshness.staleness, 'live');
     assert.equal(direct.data.cite.url, 'https://databutler.dev/r/tax/take-home?country=uk&gross=50000');
-    assert.match(direct.data.cite.text, /computed live \d{4}-\d{2}-\d{2} against https:\/\/www\.lifebynumbers\.net\/uk\/calculators\/uk-salary/);
+    assert.match(direct.data.cite.text, /computed live \d{4}-\d{2}-\d{2} against https:\/\/www\.lifebynumbers\.net\//);
     assert.equal(direct.data.attribution, 'databutler.dev');
 
     const list = await rpc(frontDoor, 'tools/list');
@@ -316,7 +316,7 @@ test('/r/tax/take-home citation page renders the answer with the calculator link
     const res = await get(r, '/api/r?path=tax/take-home&country=uk&gross=50000');
     assert.equal(res.status, 200);
     assert.equal(m.calls[0].body.input.grossSalary, 50000, 'query gross is numeric for the tool');
-    assert.match(String(res.raw), /lifebynumbers\.net\/uk\/calculators\/uk-salary/);
+    assert.match(String(res.raw), /lifebynumbers\.net\//);
     assert.match(String(res.raw), /href="\/api\/tax\/take-home\?country=uk&amp;gross=50000"/);
     assert.match(String(res.raw), /39519\.6/);
   } finally { m.restore(); }
