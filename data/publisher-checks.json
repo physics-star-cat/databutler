@@ -1,0 +1,286 @@
+{
+  "https://auto-maengel.com/.well-known/facts.json": {
+    "checkedAt": "2026-11-02",
+    "protocol": "verified-facts/0.3",
+    "declared": "L1",
+    "reached": "L1",
+    "ok": true,
+    "count": 13,
+    "failed": [
+      {
+        "item": 8,
+        "level": "L2",
+        "detail": "filtering is client (static publisher): not served"
+      },
+      {
+        "item": 9,
+        "level": "L2",
+        "detail": "filtering is client (static publisher): not served"
+      },
+      {
+        "item": 10,
+        "level": "L2",
+        "detail": "filtering is client (static publisher): not served"
+      },
+      {
+        "item": 11,
+        "level": "L2",
+        "detail": "filtering is client (static publisher): not served"
+      },
+      {
+        "item": 12,
+        "level": "L2",
+        "detail": "filtering is client (static publisher): not served"
+      },
+      {
+        "item": 13,
+        "level": "L2",
+        "detail": "filtering is client (static publisher): not served"
+      },
+      {
+        "item": 14,
+        "level": "L2",
+        "detail": "filtering is client (static publisher): not served"
+      },
+      {
+        "item": 15,
+        "level": "L3",
+        "detail": "no key set"
+      },
+      {
+        "item": 16,
+        "level": "L3",
+        "detail": "no JWK Set with validFrom on every Ed25519 key"
+      }
+    ]
+  },
+  "https://controle-technique-fiabilite.com/.well-known/facts.json": {
+    "checkedAt": "2026-11-02",
+    "protocol": "verified-facts/0.3",
+    "declared": "L1",
+    "reached": "L1",
+    "ok": true,
+    "count": 9,
+    "failed": [
+      {
+        "item": 8,
+        "level": "L2",
+        "detail": "filtering is client (static publisher): not served"
+      },
+      {
+        "item": 9,
+        "level": "L2",
+        "detail": "filtering is client (static publisher): not served"
+      },
+      {
+        "item": 10,
+        "level": "L2",
+        "detail": "filtering is client (static publisher): not served"
+      },
+      {
+        "item": 11,
+        "level": "L2",
+        "detail": "filtering is client (static publisher): not served"
+      },
+      {
+        "item": 12,
+        "level": "L2",
+        "detail": "filtering is client (static publisher): not served"
+      },
+      {
+        "item": 13,
+        "level": "L2",
+        "detail": "filtering is client (static publisher): not served"
+      },
+      {
+        "item": 14,
+        "level": "L2",
+        "detail": "filtering is client (static publisher): not served"
+      },
+      {
+        "item": 15,
+        "level": "L3",
+        "detail": "no key set"
+      },
+      {
+        "item": 16,
+        "level": "L3",
+        "detail": "no JWK Set with validFrom on every Ed25519 key"
+      }
+    ]
+  },
+  "https://databutler.dev/.well-known/facts.json": {
+    "checkedAt": "2026-11-02",
+    "protocol": "verified-facts/0.3",
+    "declared": "L3",
+    "reached": "L3",
+    "ok": true,
+    "count": 749,
+    "failed": []
+  },
+  "https://lowriskquotes.com/.well-known/facts.json": {
+    "checkedAt": "2026-11-02",
+    "protocol": "verified-facts/0.3",
+    "declared": "L1",
+    "reached": "L1",
+    "ok": true,
+    "count": 4,
+    "failed": [
+      {
+        "item": 8,
+        "level": "L2",
+        "detail": "filtering is client (static publisher): not served"
+      },
+      {
+        "item": 9,
+        "level": "L2",
+        "detail": "filtering is client (static publisher): not served"
+      },
+      {
+        "item": 10,
+        "level": "L2",
+        "detail": "filtering is client (static publisher): not served"
+      },
+      {
+        "item": 11,
+        "level": "L2",
+        "detail": "filtering is client (static publisher): not served"
+      },
+      {
+        "item": 12,
+        "level": "L2",
+        "detail": "filtering is client (static publisher): not served"
+      },
+      {
+        "item": 13,
+        "level": "L2",
+        "detail": "filtering is client (static publisher): not served"
+      },
+      {
+        "item": 14,
+        "level": "L2",
+        "detail": "filtering is client (static publisher): not served"
+      },
+      {
+        "item": 15,
+        "level": "L3",
+        "detail": "no key set"
+      },
+      {
+        "item": 16,
+        "level": "L3",
+        "detail": "no JWK Set with validFrom on every Ed25519 key"
+      }
+    ]
+  },
+  "https://shakendata.com/.well-known/facts.json": {
+    "checkedAt": "2026-11-02",
+    "protocol": "verified-facts/0.3",
+    "declared": "L1",
+    "reached": "L1",
+    "ok": true,
+    "count": 23,
+    "failed": [
+      {
+        "item": 8,
+        "level": "L2",
+        "detail": "filtering is client (static publisher): not served"
+      },
+      {
+        "item": 9,
+        "level": "L2",
+        "detail": "filtering is client (static publisher): not served"
+      },
+      {
+        "item": 10,
+        "level": "L2",
+        "detail": "filtering is client (static publisher): not served"
+      },
+      {
+        "item": 11,
+        "level": "L2",
+        "detail": "filtering is client (static publisher): not served"
+      },
+      {
+        "item": 12,
+        "level": "L2",
+        "detail": "filtering is client (static publisher): not served"
+      },
+      {
+        "item": 13,
+        "level": "L2",
+        "detail": "filtering is client (static publisher): not served"
+      },
+      {
+        "item": 14,
+        "level": "L2",
+        "detail": "filtering is client (static publisher): not served"
+      },
+      {
+        "item": 15,
+        "level": "L3",
+        "detail": "no key set"
+      },
+      {
+        "item": 16,
+        "level": "L3",
+        "detail": "no JWK Set with validFrom on every Ed25519 key"
+      }
+    ]
+  },
+  "https://whatbreaks.uk/.well-known/facts.json": {
+    "checkedAt": "2026-11-02",
+    "protocol": "verified-facts/0.3",
+    "declared": "L1",
+    "reached": "L1",
+    "ok": true,
+    "count": 3,
+    "failed": [
+      {
+        "item": 8,
+        "level": "L2",
+        "detail": "filtering is client (static publisher): not served"
+      },
+      {
+        "item": 9,
+        "level": "L2",
+        "detail": "filtering is client (static publisher): not served"
+      },
+      {
+        "item": 10,
+        "level": "L2",
+        "detail": "filtering is client (static publisher): not served"
+      },
+      {
+        "item": 11,
+        "level": "L2",
+        "detail": "filtering is client (static publisher): not served"
+      },
+      {
+        "item": 12,
+        "level": "L2",
+        "detail": "filtering is client (static publisher): not served"
+      },
+      {
+        "item": 13,
+        "level": "L2",
+        "detail": "filtering is client (static publisher): not served"
+      },
+      {
+        "item": 14,
+        "level": "L2",
+        "detail": "filtering is client (static publisher): not served"
+      },
+      {
+        "item": 15,
+        "level": "L3",
+        "detail": "no key set"
+      },
+      {
+        "item": 16,
+        "level": "L3",
+        "detail": "no JWK Set with validFrom on every Ed25519 key"
+      }
+    ]
+  }
+}

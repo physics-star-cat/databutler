@@ -1,0 +1,653 @@
+{
+  "https://calendrier.api.gouv.fr/jours-feries/metropole/2026.json": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "8993c59425bbc75c"
+  },
+  "https://data.bls.gov/timeseries/CUUR0000SA0": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "0ebfb87209ed4faa",
+    "changedAt": "2026-11-02"
+  },
+  "https://dcj.nsw.gov.au/about-us/daylight-saving.html": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "4b5f3d235868d154"
+  },
+  "https://innen.hessen.de/buerger-staat/feiertage": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "188e78c125aaa3dd",
+    "changedAt": "2026-11-02"
+  },
+  "https://mdi.rlp.de/themen/buerger-und-staat/verfassung-und-verwaltung/sonn-und-feiertagsrecht": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "7925253fd4ced449"
+  },
+  "https://qualifications.pearson.com/en/support/support-topics/exams/exam-timetables.html": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "dc21023f43aa8ff8",
+    "changedAt": "2026-11-02"
+  },
+  "https://www.aqa.org.uk/exams-administration/dates-and-timetables": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "002e53f5aa8f4438",
+    "changedAt": "2026-11-02"
+  },
+  "https://www.aqa.org.uk/subjects/biology/gcse/biology-8461/specification/specification-at-a-glance": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "7d71ebdd9224dc2e"
+  },
+  "https://www.aqa.org.uk/subjects/chemistry/gcse/chemistry-8462/specification/specification-at-a-glance": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "403446dbb626107e"
+  },
+  "https://www.aqa.org.uk/subjects/mathematics/gcse/mathematics-8300/specification/specification-at-a-glance": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "33d231d3e7dedee6"
+  },
+  "https://www.aqa.org.uk/subjects/physics/gcse/physics-8463/specification/specification-at-a-glance": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "f6ae7bf2319ecebd"
+  },
+  "https://www.aqa.org.uk/subjects/science/gcse/combined-science-trilogy-8464/specification/specification-at-a-glance": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "c6a834506252fe90",
+    "changedAt": "2026-11-02"
+  },
+  "https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "55e266940445ac4b"
+  },
+  "https://www.bls.gov/news.release/archives/cpi_10142026.htm": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "158374c53ba57d67"
+  },
+  "https://www.bls.gov/schedule/news_release/cpi.htm": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "554ac417bcbd6e25"
+  },
+  "https://www.bmas.de/DE/Arbeit/Arbeitsrecht/Mindestlohn/Einfuehrung-und-Anpassungen-Mindestlohn/einfuehrung-und-anpassung-mindestlohn.html": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "497442b6a9d4b29f",
+    "changedAt": "2026-11-02"
+  },
+  "https://www.bmas.de/DE/Service/Gesetze-und-Gesetzesvorhaben/sozialversicherungs-rechengroessenverordnung-2027.html": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "82394d32482c6cc4",
+    "changedAt": "2026-11-02"
+  },
+  "https://www.bundesgesundheitsministerium.de/beitraege": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "1cf05976c85792d1"
+  },
+  "https://www.cfa.go.jp/policies/kokoseido/jidouteate/annai": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "f79fcb090746f586"
+  },
+  "https://www.city.koto.lg.jp/060501/kurashi/zekin/kejidosha/5112.html": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "8177511cb28e762e"
+  },
+  "https://www.cms.gov/newsroom/fact-sheets/2026-medicare-parts-b-premiums-deductibles": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "5d7de21c29d0bc98"
+  },
+  "https://www.deutsche-rentenversicherung.de/DRV/DE/Experten/Zahlen-und-Fakten/Werte-der-Rentenversicherung/werte-der-rentenversicherung_node.html": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "976df78282a33810",
+    "changedAt": "2026-11-02"
+  },
+  "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "4b2d0042bf3a900d"
+  },
+  "https://www.ecfr.gov/current/title-26/section-1.401(a)(9)-2": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "fc128f65ca713c60"
+  },
+  "https://www.federalregister.gov/api/v1/documents.json?conditions%5Bagencies%5D%5B%5D=social-security-administration&conditions%5Bterm%5D=%22Cost-of-Living+Increase+and+Other+Determinations%22&order=newest": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "5e5abd998100ee1d"
+  },
+  "https://www.federalreserve.gov/monetarypolicy/openmarket.htm": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "7cb6d6eb87b5cfef"
+  },
+  "https://www.fsa.go.jp/singi/singi_zidousya/siryou/20260430/01_153.pdf": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "fdbae9460ac22764"
+  },
+  "https://www.giroj.or.jp/ratemaking/cali/pdf/202604_table.pdf": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "1639d0045718febb"
+  },
+  "https://www.gov.uk/after-a-death": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "336ff82eeb6bc120",
+    "updatedAt": "2024-12-02T16:35:33+00:00"
+  },
+  "https://www.gov.uk/apply-blue-badge": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "190b59d4e838feb8",
+    "updatedAt": "2016-04-06T16:38:36+01:00",
+    "changedAt": "2026-11-02"
+  },
+  "https://www.gov.uk/apply-first-adult-passport": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "9a63e9ea799e4e7d",
+    "updatedAt": "2015-01-12T00:01:06+00:00"
+  },
+  "https://www.gov.uk/apply-first-provisional-driving-licence": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "5dd9a75b038b1034",
+    "updatedAt": "2025-01-01T00:01:01+00:00"
+  },
+  "https://www.gov.uk/apply-national-insurance-number": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "6d46988d00e591ab",
+    "updatedAt": "2024-11-06T11:27:19+00:00"
+  },
+  "https://www.gov.uk/apply-tax-free-interest-on-savings/how-much-is-tax-free": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "5a9be8d2ea294a7d",
+    "updatedAt": "2016-04-06T00:01:11+01:00"
+  },
+  "https://www.gov.uk/bank-holidays": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "e3b0c44298fc1c14",
+    "updatedAt": "2025-08-11T09:26:37+01:00"
+  },
+  "https://www.gov.uk/biometric-residence-permits": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "52cff09e0739bb17",
+    "updatedAt": "2024-10-31T17:00:02+00:00"
+  },
+  "https://www.gov.uk/capital-gains-tax/allowances": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "abe53df0e5b46ae2",
+    "updatedAt": "2024-10-30T14:06:47+00:00"
+  },
+  "https://www.gov.uk/capital-gains-tax/rates": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "abe53df0e5b46ae2",
+    "updatedAt": "2024-10-30T14:06:47+00:00"
+  },
+  "https://www.gov.uk/change-address-driving-licence": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "83dc38720ecb730a",
+    "updatedAt": "2017-11-30T12:34:16+00:00"
+  },
+  "https://www.gov.uk/change-address-v5c": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "f0fed572ed2a75e5",
+    "updatedAt": "2015-02-17T12:50:47+00:00"
+  },
+  "https://www.gov.uk/child-benefit-tax-charge": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "60d3f7076c843d29",
+    "updatedAt": "2024-12-31T16:40:48+00:00"
+  },
+  "https://www.gov.uk/child-benefit/what-youll-get": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "9a9e998505b58760",
+    "updatedAt": "2024-11-22T11:57:33+00:00"
+  },
+  "https://www.gov.uk/driving-licence-fees": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "8de156be9ec0c7a1",
+    "updatedAt": "2024-12-16T13:26:34+00:00"
+  },
+  "https://www.gov.uk/eta": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "2d610f1f886ab225",
+    "updatedAt": "2025-05-28T11:00:06+01:00"
+  },
+  "https://www.gov.uk/evisa": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "3c7ed33e32b5d13d",
+    "updatedAt": "2025-07-15T10:07:02+01:00",
+    "changedAt": "2026-11-02"
+  },
+  "https://www.gov.uk/get-a-child-passport": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "785a6b953c1131cf",
+    "updatedAt": "2014-12-23T16:15:15+00:00"
+  },
+  "https://www.gov.uk/get-a-passport-urgently": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "ada1347c4181ebdd",
+    "updatedAt": "2024-11-04T12:30:07+00:00"
+  },
+  "https://www.gov.uk/getting-an-mot/mot-test-fees": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "80af74ce6ace5a1e",
+    "updatedAt": "2024-11-28T17:41:18+00:00",
+    "changedAt": "2026-11-02"
+  },
+  "https://www.gov.uk/getting-an-mot/when-to-get-an-mot": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "80af74ce6ace5a1e",
+    "updatedAt": "2024-11-28T17:41:18+00:00",
+    "changedAt": "2026-11-02"
+  },
+  "https://www.gov.uk/government/news/over-12-million-pensioners-to-receive-575-state-pension-boost": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "5ca80f5cf7e73d0c",
+    "updatedAt": "2026-04-04T22:30:00+01:00"
+  },
+  "https://www.gov.uk/government/organisations/hm-passport-office/about/about-our-services": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "058c5bcfb6a23cda",
+    "updatedAt": "2024-01-15T10:35:59+00:00"
+  },
+  "https://www.gov.uk/government/publications/benefit-and-pension-rates-2026-to-2027/proposed-benefit-and-pension-rates-2026-to-2027": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "dc1d6eba9f9bdb4c",
+    "updatedAt": "2026-02-16T14:18:37+00:00"
+  },
+  "https://www.gov.uk/government/publications/state-pension-age-timetable/state-pension-age-timetable": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "e6a97a4bcb97da30",
+    "updatedAt": "2014-05-15T09:00:10+01:00"
+  },
+  "https://www.gov.uk/government/publications/vehicle-excise-duty-for-expensive-car-supplement-threshold-increase-for-zero-emission-vehicles/increase-in-the-vehicle-excise-duty-expensive-car-supplement-threshold-for-zero-emission-cars": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "d3995a7763b1d3eb",
+    "updatedAt": "2025-11-26T16:52:28+00:00"
+  },
+  "https://www.gov.uk/government/publications/visa-regulations-revised-table/home-office-immigration-and-nationality-fees-8-april-2026": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "0e9a266e0edc1f40",
+    "updatedAt": "2026-09-10T16:15:37+01:00"
+  },
+  "https://www.gov.uk/guidance/check-when-you-can-get-an-electronic-travel-authorisation-eta": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "80125b370440253d",
+    "updatedAt": "2026-04-09T10:00:00+01:00"
+  },
+  "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "752c4aa166b04e83",
+    "updatedAt": "2026-03-26T12:00:04+00:00"
+  },
+  "https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "b3a707ce74a85690",
+    "updatedAt": "2026-09-01T00:15:03+01:00"
+  },
+  "https://www.gov.uk/guidance/universal-credit-if-you-have-children": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "23e42b559f7b1135",
+    "updatedAt": "2026-10-20T17:31:29+01:00",
+    "changedAt": "2026-11-02"
+  },
+  "https://www.gov.uk/historic-vehicles": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "cbc118308f0834bb",
+    "updatedAt": "2025-01-24T14:09:14+00:00"
+  },
+  "https://www.gov.uk/income-tax-rates": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "010e312454d19b97",
+    "updatedAt": "2024-11-07T14:57:18+00:00"
+  },
+  "https://www.gov.uk/individual-savings-accounts": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "97c466b575264611",
+    "updatedAt": "2025-01-08T15:23:26+00:00"
+  },
+  "https://www.gov.uk/lifetime-isa": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "f003a166fd2e3b33",
+    "updatedAt": "2024-11-08T16:28:27+00:00",
+    "changedAt": "2026-11-02"
+  },
+  "https://www.gov.uk/make-a-sorn": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "19da79eb82799775",
+    "updatedAt": "2014-12-04T00:01:05+00:00"
+  },
+  "https://www.gov.uk/marriage-allowance": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "1933062a7bc11185",
+    "updatedAt": "2017-11-30T08:32:16+00:00"
+  },
+  "https://www.gov.uk/maternity-pay-leave/pay": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "09c046f60c16c3a7",
+    "updatedAt": "2015-04-06T00:01:49+01:00"
+  },
+  "https://www.gov.uk/national-minimum-wage-rates": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "f263647c9e512da3",
+    "updatedAt": "2024-10-30T11:07:08+00:00",
+    "changedAt": "2026-11-02"
+  },
+  "https://www.gov.uk/new-state-pension/what-youll-get": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "9fa2be5326e71305",
+    "updatedAt": "2025-01-31T11:26:31+00:00"
+  },
+  "https://www.gov.uk/order-copy-birth-death-marriage-certificate": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "0b19cbbff6de6c77",
+    "updatedAt": "2015-06-09T16:45:02+01:00"
+  },
+  "https://www.gov.uk/overseas-passports": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "4157741a20bdf045",
+    "updatedAt": "2020-02-24T14:30:10+00:00"
+  },
+  "https://www.gov.uk/passport-fees": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "ae4d2e11217ebc5b",
+    "updatedAt": "2015-01-12T00:01:06+00:00"
+  },
+  "https://www.gov.uk/register-a-death": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "e3b0c44298fc1c14",
+    "updatedAt": "2021-06-16T09:18:52+01:00"
+  },
+  "https://www.gov.uk/register-birth": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "88178973c00e79ab",
+    "updatedAt": "2015-06-15T12:11:05+01:00",
+    "changedAt": "2026-11-02"
+  },
+  "https://www.gov.uk/register-for-self-assessment": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "8026c5eb3f2966e7",
+    "updatedAt": "2020-11-18T15:31:17+00:00"
+  },
+  "https://www.gov.uk/register-to-vote": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "504ecc9a34882e2f",
+    "updatedAt": "2024-11-04T17:14:23+00:00"
+  },
+  "https://www.gov.uk/renew-adult-passport": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "f552f71538ee1046",
+    "updatedAt": "2015-01-12T00:01:07+00:00"
+  },
+  "https://www.gov.uk/renew-driving-licence": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "12d18c73a33eef62",
+    "updatedAt": "2025-01-01T00:01:01+00:00"
+  },
+  "https://www.gov.uk/renew-driving-licence-at-70": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "3fd594481d016150",
+    "updatedAt": "2014-12-04T00:01:05+00:00"
+  },
+  "https://www.gov.uk/repaying-your-student-loan/what-you-pay": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "63a1ed25edb4db9f",
+    "updatedAt": "2024-10-18T13:50:42+01:00"
+  },
+  "https://www.gov.uk/self-assessment-tax-returns": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "b6e6246b3707710c",
+    "updatedAt": "2024-11-05T16:46:12+00:00"
+  },
+  "https://www.gov.uk/self-assessment-tax-returns/deadlines": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "b6e6246b3707710c",
+    "updatedAt": "2024-11-05T16:46:12+00:00"
+  },
+  "https://www.gov.uk/self-assessment-tax-returns/penalties": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "b6e6246b3707710c",
+    "updatedAt": "2024-11-05T16:46:12+00:00"
+  },
+  "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "b6e6246b3707710c",
+    "updatedAt": "2024-11-05T16:46:12+00:00"
+  },
+  "https://www.gov.uk/settled-status-eu-citizens-families": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "ebe583498b2081b9",
+    "updatedAt": "2024-10-31T17:00:11+00:00",
+    "changedAt": "2026-11-02"
+  },
+  "https://www.gov.uk/stamp-duty-land-tax/residential-property-rates": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "e75718af562b56f8",
+    "updatedAt": "2024-10-30T14:07:41+00:00"
+  },
+  "https://www.gov.uk/state-pension/how-much-you-get": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "1e778274d1e32201",
+    "updatedAt": "2015-03-17T18:23:25+00:00"
+  },
+  "https://www.gov.uk/statutory-sick-pay/what-youll-get": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "b787de0c7c17f8ab",
+    "updatedAt": "2015-03-09T14:15:47+00:00"
+  },
+  "https://www.gov.uk/tax-on-dividends": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "2e3bc049549ce403",
+    "updatedAt": "2024-12-02T16:37:01+00:00"
+  },
+  "https://www.gov.uk/tax-on-your-private-pension/annual-allowance": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "5098d17dd57c9023",
+    "updatedAt": "2024-11-08T15:41:39+00:00"
+  },
+  "https://www.gov.uk/universal-credit": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "49a9bc62eaf210b4",
+    "updatedAt": "2024-10-17T10:58:14+01:00",
+    "changedAt": "2026-11-02"
+  },
+  "https://www.gov.uk/vat-rates": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "f2c1a31029487b0a",
+    "updatedAt": "2014-12-12T14:55:23+00:00"
+  },
+  "https://www.gov.uk/vehicle-exempt-from-vehicle-tax": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "f1c50eb798ab7f05",
+    "updatedAt": "2015-04-03T00:01:07+01:00"
+  },
+  "https://www.gov.uk/vehicle-tax": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "af2515c7e63b915b",
+    "updatedAt": "2017-12-07T12:54:39+00:00"
+  },
+  "https://www.gov.uk/vehicle-tax-direct-debit": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "d88e9e89f384c762",
+    "updatedAt": "2025-01-30T13:50:53+00:00"
+  },
+  "https://www.gov.uk/vehicle-tax-rate-tables": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "14c86f1123aeff63",
+    "updatedAt": "2015-04-01T01:01:09+01:00"
+  },
+  "https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-and-light-goods-vehicles-registered-before-1-march-2001": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "14c86f1123aeff63",
+    "updatedAt": "2015-04-01T01:01:09+01:00"
+  },
+  "https://www.gov.uk/vehicle-tax-rate-tables/rates-for-cars-registered-on-or-after-1-march-2001": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "14c86f1123aeff63",
+    "updatedAt": "2015-04-01T01:01:09+01:00"
+  },
+  "https://www.gov.uk/when-do-the-clocks-change": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "e3b0c44298fc1c14",
+    "updatedAt": "2025-08-11T09:26:41+01:00"
+  },
+  "https://www.irs.gov/individuals/net-investment-income-tax": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "ced102183895d3a8"
+  },
+  "https://www.irs.gov/newsroom/news-releases-for-current-month": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "aaa0d4231b65bf69"
+  },
+  "https://www.irs.gov/publications/p590b": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "8093d78f5b80b4f3"
+  },
+  "https://www.irs.gov/publications/p915": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "b9b6ecf547bd1c1d"
+  },
+  "https://www.irs.gov/publications/p969": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "e1a1690a5e06b741"
+  },
+  "https://www.irs.gov/retirement-plans/cola-increases-for-dollar-limitations-on-benefits-and-contributions": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "360967216c14a88e"
+  },
+  "https://www.irs.gov/taxtopics/tc751": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "1e862cda5de55e88"
+  },
+  "https://www.kyoukaikenpo.or.jp/about/business/insurance_rate/002/": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "ef5731393cf8af44"
+  },
+  "https://www.kyoukaikenpo.or.jp/about/business/insurance_rate/003/": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "7b4fcbd7d96280cb"
+  },
+  "https://www.kyoukaikenpo.or.jp/about/business/insurance_rate/rate_prefectures/r08/": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "d42962ca1d5ee02f"
+  },
+  "https://www.medicare.gov/basics/costs/medicare-costs": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "ecfc07e9f6dad808"
+  },
+  "https://www.mhlw.go.jp/content/000333280.pdf": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "33ffdfb2aa1ec3f2"
+  },
+  "https://www.mhlw.go.jp/content/001692566.pdf": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "008c4bd336c72e1c"
+  },
+  "https://www.mhlw.go.jp/content/001726232.pdf": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "324fcdd535ebf547"
+  },
+  "https://www.mhlw.go.jp/content/11200000/001753404.pdf": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "3c7ef17956d2e72b"
+  },
+  "https://www.mhlw.go.jp/content/12600000/001672868.pdf": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "6d1540c94098dffa"
+  },
+  "https://www.mhlw.go.jp/stf/newpage_71570.html": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "89b834e5eeca4025",
+    "changedAt": "2026-11-02"
+  },
+  "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/kenkou_iryou/iryouhoken/shussan/index.html": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "9f04b8eb86e6c047",
+    "changedAt": "2026-11-02"
+  },
+  "https://www.minijob-zentrale.de/DE/die-minijobs/minijob-mit-verdienstgrenze": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "7cbf7faa660c8a29"
+  },
+  "https://www.mlit.go.jp/jidosha/content/001884517.pdf": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "3e103927f10d8114"
+  },
+  "https://www.mlit.go.jp/jidosha/content/001884912.pdf": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "8c53a04ced887057"
+  },
+  "https://www.mlit.go.jp/jidosha/content/001993314.pdf": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "dd1b26ad909f2127"
+  },
+  "https://www.mlit.go.jp/jidosha/content/001993968.pdf": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "edf9500b2a5a6fa7"
+  },
+  "https://www.naltec.go.jp/business/inspection/fee.html": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "9c4a258def163f05"
+  },
+  "https://www.naltec.go.jp/business/inspection/hbh5ss0000000ngo-att/gtg5d20000000cre.pdf": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "2004970b1ef0fc90"
+  },
+  "https://www.nenkin.go.jp/service/kokunen/hokenryo/hokenryo.html": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "3a229bd80da8842e"
+  },
+  "https://www.nenkin.go.jp/service/kounen/hokenryo/ryogaku/ryogakuhyo/index.html": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "f2340e66128876c1"
+  },
+  "https://www.nta.go.jp/taxes/shiraberu/taxanswer/shohi/6303.htm": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "9a6a5f02d8507ffe"
+  },
+  "https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1199.htm": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "f39e41b00ce8854d"
+  },
+  "https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1410.htm": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "84aaa87f336926b9"
+  },
+  "https://www.ocr.org.uk/administration/key-dates-and-timetables/": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "129e7958abe3120b",
+    "changedAt": "2026-11-02"
+  },
+  "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7bt/mm23": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "c9625a608d4e95fe"
+  },
+  "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7g7/mm23": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "207770d857ba4802"
+  },
+  "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/l55o/mm23": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "41974825d2b4b3d2"
+  },
+  "https://www.opm.gov/policy-data-oversight/pay-leave/federal-holidays/": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "601868f28e0f6964"
+  },
+  "https://www.payrolltax.gov.au/financial-year": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "ef4b9a35afdfed09"
+  },
+  "https://www.soumu.go.jp/main_content/000404244.pdf": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "64e062a6b238ac96"
+  },
+  "https://www.soumu.go.jp/main_sosiki/jichi_zeisei/czaisei/czaisei_seido/150790_06.html": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "b7d228df7f5f6d38"
+  },
+  "https://www.tax.metro.tokyo.lg.jp/documents/d/tax/zikayou201909_green_h": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "68c6efef91d2f527"
+  },
+  "https://www.tax.metro.tokyo.lg.jp/kazei/car_shubetsu.html": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "a21dde1f4625a329"
+  },
+  "https://www.wjec.co.uk/home/administration/key-dates-and-timetables/": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "12ef351f023ffc7d"
+  },
+  "https://www8.cao.go.jp/chosei/shukujitsu/syukujitsu.csv": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "7f1eadaa10f8a2b5"
+  }
+}
