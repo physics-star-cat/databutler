@@ -25,6 +25,13 @@ test('stripHtml removes script/style/nav/header/footer and collapses whitespace'
   assert.equal(stripHtml(html), 'Rate is 20%');
 });
 
+test('stripHtml replaces a per-request "Data extracted on" stamp (BLS), so the body hash moves only with the figures', () => {
+  const page = (when) => `<main><p>Data extracted on: ${when}</p><table><tr><td>2026</td><td>336.940</td></tr></table></main>`;
+  assert.equal(stripHtml(page('November 2, 2026 (4:19:05 AM)')), stripHtml(page('November 9, 2026 (11:03:27 PM)')));
+  assert.equal(stripHtml(page('November 2, 2026 (4:19:05 AM)')), 'Data extracted on: [stamp] 2026 336.940');
+  assert.notEqual(stripHtml(page('November 2, 2026 (4:19:05 AM)')), stripHtml(page('November 2, 2026 (4:19:05 AM)').replace('336.940', '337.1')), 'a figure change still changes the hash');
+});
+
 test('compareSource: new, same, changed via updatedAt or bodyHash', () => {
   const cur = { url: 'u', updatedAt: '2026-01-01', bodyHash: 'abc' };
   assert.deepEqual(compareSource(undefined, cur), { status: 'new' });

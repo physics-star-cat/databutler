@@ -5,8 +5,7 @@
   },
   "https://data.bls.gov/timeseries/CUUR0000SA0": {
     "checkedAt": "2026-11-02",
-    "contentHash": "0ebfb87209ed4faa",
-    "changedAt": "2026-11-02"
+    "contentHash": "5867e1ad581a2633"
   },
   "https://dcj.nsw.gov.au/about-us/daylight-saving.html": {
     "checkedAt": "2026-11-02",
@@ -14,8 +13,7 @@
   },
   "https://innen.hessen.de/buerger-staat/feiertage": {
     "checkedAt": "2026-11-02",
-    "contentHash": "188e78c125aaa3dd",
-    "changedAt": "2026-11-02"
+    "contentHash": "188e78c125aaa3dd"
   },
   "https://mdi.rlp.de/themen/buerger-und-staat/verfassung-und-verwaltung/sonn-und-feiertagsrecht": {
     "checkedAt": "2026-11-02",
@@ -23,13 +21,11 @@
   },
   "https://qualifications.pearson.com/en/support/support-topics/exams/exam-timetables.html": {
     "checkedAt": "2026-11-02",
-    "contentHash": "dc21023f43aa8ff8",
-    "changedAt": "2026-11-02"
+    "contentHash": "d0400a758f39dd77"
   },
   "https://www.aqa.org.uk/exams-administration/dates-and-timetables": {
     "checkedAt": "2026-11-02",
-    "contentHash": "002e53f5aa8f4438",
-    "changedAt": "2026-11-02"
+    "contentHash": "002e53f5aa8f4438"
   },
   "https://www.aqa.org.uk/subjects/biology/gcse/biology-8461/specification/specification-at-a-glance": {
     "checkedAt": "2026-11-02",
@@ -49,8 +45,7 @@
   },
   "https://www.aqa.org.uk/subjects/science/gcse/combined-science-trilogy-8464/specification/specification-at-a-glance": {
     "checkedAt": "2026-11-02",
-    "contentHash": "c6a834506252fe90",
-    "changedAt": "2026-11-02"
+    "contentHash": "c6a834506252fe90"
   },
   "https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate": {
     "checkedAt": "2026-11-02",
@@ -66,13 +61,11 @@
   },
   "https://www.bmas.de/DE/Arbeit/Arbeitsrecht/Mindestlohn/Einfuehrung-und-Anpassungen-Mindestlohn/einfuehrung-und-anpassung-mindestlohn.html": {
     "checkedAt": "2026-11-02",
-    "contentHash": "497442b6a9d4b29f",
-    "changedAt": "2026-11-02"
+    "contentHash": "497442b6a9d4b29f"
   },
   "https://www.bmas.de/DE/Service/Gesetze-und-Gesetzesvorhaben/sozialversicherungs-rechengroessenverordnung-2027.html": {
     "checkedAt": "2026-11-02",
-    "contentHash": "82394d32482c6cc4",
-    "changedAt": "2026-11-02"
+    "contentHash": "82394d32482c6cc4"
   },
   "https://www.bundesgesundheitsministerium.de/beitraege": {
     "checkedAt": "2026-11-02",
@@ -92,8 +85,7 @@
   },
   "https://www.deutsche-rentenversicherung.de/DRV/DE/Experten/Zahlen-und-Fakten/Werte-der-Rentenversicherung/werte-der-rentenversicherung_node.html": {
     "checkedAt": "2026-11-02",
-    "contentHash": "976df78282a33810",
-    "changedAt": "2026-11-02"
+    "contentHash": "976df78282a33810"
   },
   "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html": {
     "checkedAt": "2026-11-02",
@@ -115,6 +107,38 @@
     "checkedAt": "2026-11-02",
     "contentHash": "fdbae9460ac22764"
   },
+  "https://www.gesetze-im-internet.de/estg/__20.html": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "1dc73d666f98ed22"
+  },
+  "https://www.gesetze-im-internet.de/estg/__32.html": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "66ace82569dcac03"
+  },
+  "https://www.gesetze-im-internet.de/estg/__32a.html": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "3f8f422ba3beb5a1"
+  },
+  "https://www.gesetze-im-internet.de/estg/__66.html": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "cd3689283a8db86a"
+  },
+  "https://www.gesetze-im-internet.de/estg/__9.html": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "4840fb0fe62d3a88"
+  },
+  "https://www.gesetze-im-internet.de/estg/__9a.html": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "ceb7c9b006adbe73"
+  },
+  "https://www.gesetze-im-internet.de/solzg_1995/__3.html": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "8303cf921e7bc47e"
+  },
+  "https://www.gesetze-im-internet.de/ustg_1980/__12.html": {
+    "checkedAt": "2026-11-02",
+    "contentHash": "c331c5eb2c77fa72"
+  },
   "https://www.giroj.or.jp/ratemaking/cali/pdf/202604_table.pdf": {
     "checkedAt": "2026-11-02",
     "contentHash": "1639d0045718febb"
@@ -127,8 +151,7 @@
   "https://www.gov.uk/apply-blue-badge": {
     "checkedAt": "2026-11-02",
     "contentHash": "190b59d4e838feb8",
-    "updatedAt": "2016-04-06T16:38:36+01:00",
-    "changedAt": "2026-11-02"
+    "updatedAt": "2016-04-06T16:38:36+01:00"
   },
   "https://www.gov.uk/apply-first-adult-passport": {
     "checkedAt": "2026-11-02",
@@ -203,8 +226,7 @@
   "https://www.gov.uk/evisa": {
     "checkedAt": "2026-11-02",
     "contentHash": "3c7ed33e32b5d13d",
-    "updatedAt": "2025-07-15T10:07:02+01:00",
-    "changedAt": "2026-11-02"
+    "updatedAt": "2025-07-15T10:07:02+01:00"
   },
   "https://www.gov.uk/get-a-child-passport": {
     "checkedAt": "2026-11-02",
@@ -219,14 +241,12 @@
   "https://www.gov.uk/getting-an-mot/mot-test-fees": {
     "checkedAt": "2026-11-02",
     "contentHash": "80af74ce6ace5a1e",
-    "updatedAt": "2024-11-28T17:41:18+00:00",
-    "changedAt": "2026-11-02"
+    "updatedAt": "2024-11-28T17:41:18+00:00"
   },
   "https://www.gov.uk/getting-an-mot/when-to-get-an-mot": {
     "checkedAt": "2026-11-02",
     "contentHash": "80af74ce6ace5a1e",
-    "updatedAt": "2024-11-28T17:41:18+00:00",
-    "changedAt": "2026-11-02"
+    "updatedAt": "2024-11-28T17:41:18+00:00"
   },
   "https://www.gov.uk/government/news/over-12-million-pensioners-to-receive-575-state-pension-boost": {
     "checkedAt": "2026-11-02",
@@ -276,8 +296,7 @@
   "https://www.gov.uk/guidance/universal-credit-if-you-have-children": {
     "checkedAt": "2026-11-02",
     "contentHash": "23e42b559f7b1135",
-    "updatedAt": "2026-10-20T17:31:29+01:00",
-    "changedAt": "2026-11-02"
+    "updatedAt": "2026-10-20T17:31:29+01:00"
   },
   "https://www.gov.uk/historic-vehicles": {
     "checkedAt": "2026-11-02",
@@ -297,8 +316,7 @@
   "https://www.gov.uk/lifetime-isa": {
     "checkedAt": "2026-11-02",
     "contentHash": "f003a166fd2e3b33",
-    "updatedAt": "2024-11-08T16:28:27+00:00",
-    "changedAt": "2026-11-02"
+    "updatedAt": "2024-11-08T16:28:27+00:00"
   },
   "https://www.gov.uk/make-a-sorn": {
     "checkedAt": "2026-11-02",
@@ -318,8 +336,7 @@
   "https://www.gov.uk/national-minimum-wage-rates": {
     "checkedAt": "2026-11-02",
     "contentHash": "f263647c9e512da3",
-    "updatedAt": "2024-10-30T11:07:08+00:00",
-    "changedAt": "2026-11-02"
+    "updatedAt": "2024-10-30T11:07:08+00:00"
   },
   "https://www.gov.uk/new-state-pension/what-youll-get": {
     "checkedAt": "2026-11-02",
@@ -349,8 +366,7 @@
   "https://www.gov.uk/register-birth": {
     "checkedAt": "2026-11-02",
     "contentHash": "88178973c00e79ab",
-    "updatedAt": "2015-06-15T12:11:05+01:00",
-    "changedAt": "2026-11-02"
+    "updatedAt": "2015-06-15T12:11:05+01:00"
   },
   "https://www.gov.uk/register-for-self-assessment": {
     "checkedAt": "2026-11-02",
@@ -405,8 +421,7 @@
   "https://www.gov.uk/settled-status-eu-citizens-families": {
     "checkedAt": "2026-11-02",
     "contentHash": "ebe583498b2081b9",
-    "updatedAt": "2024-10-31T17:00:11+00:00",
-    "changedAt": "2026-11-02"
+    "updatedAt": "2024-10-31T17:00:11+00:00"
   },
   "https://www.gov.uk/stamp-duty-land-tax/residential-property-rates": {
     "checkedAt": "2026-11-02",
@@ -436,8 +451,7 @@
   "https://www.gov.uk/universal-credit": {
     "checkedAt": "2026-11-02",
     "contentHash": "49a9bc62eaf210b4",
-    "updatedAt": "2024-10-17T10:58:14+01:00",
-    "changedAt": "2026-11-02"
+    "updatedAt": "2024-10-17T10:58:14+01:00"
   },
   "https://www.gov.uk/vat-rates": {
     "checkedAt": "2026-11-02",
@@ -545,13 +559,11 @@
   },
   "https://www.mhlw.go.jp/stf/newpage_71570.html": {
     "checkedAt": "2026-11-02",
-    "contentHash": "89b834e5eeca4025",
-    "changedAt": "2026-11-02"
+    "contentHash": "54fdcfef3b55992b"
   },
   "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/kenkou_iryou/iryouhoken/shussan/index.html": {
     "checkedAt": "2026-11-02",
-    "contentHash": "9f04b8eb86e6c047",
-    "changedAt": "2026-11-02"
+    "contentHash": "9f04b8eb86e6c047"
   },
   "https://www.minijob-zentrale.de/DE/die-minijobs/minijob-mit-verdienstgrenze": {
     "checkedAt": "2026-11-02",
@@ -603,8 +615,7 @@
   },
   "https://www.ocr.org.uk/administration/key-dates-and-timetables/": {
     "checkedAt": "2026-11-02",
-    "contentHash": "129e7958abe3120b",
-    "changedAt": "2026-11-02"
+    "contentHash": "129e7958abe3120b"
   },
   "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7bt/mm23": {
     "checkedAt": "2026-11-02",
