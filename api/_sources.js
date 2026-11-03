@@ -14,8 +14,15 @@ function govukContentUrl(url) {
   return u.hostname === 'www.gov.uk' ? `https://www.gov.uk/api/content${u.pathname}` : null;
 }
 
+/**
+ * Per-request stamps a page prints that are not content: BLS data.bls.gov pages say "Data extracted on: November 2,
+ * 2026 (4:19:05 AM)" on every fetch, so the body hash moved on every check and the watcher filed a change each
+ * Monday (2026-11-02). The stamp is replaced, never the figures around it.
+ */
+const STAMPS = [/(Data extracted on:)\s*[A-Za-z]+ \d{1,2}, \d{4} \(\d{1,2}:\d{2}:\d{2} [AP]M\)/g];
+
 function stripHtml(html) {
-  return String(html)
+  let text = String(html)
     .replace(/<script[\s\S]*?<\/script>/gi, ' ')
     .replace(/<style[\s\S]*?<\/style>/gi, ' ')
     .replace(/<(nav|header|footer)\b[\s\S]*?<\/\1>/gi, ' ')
@@ -23,6 +30,8 @@ function stripHtml(html) {
     .replace(/&nbsp;/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
+  for (const re of STAMPS) text = text.replace(re, '$1 [stamp]');
+  return text;
 }
 
 /**

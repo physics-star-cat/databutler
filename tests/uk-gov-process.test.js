@@ -228,7 +228,7 @@ test('changelog: the area is listed; a first commit records what the data says (
     assert.deepEqual(e.from, PREVIOUS ? f.previous.value : null);
     assert.deepEqual(e.to, f.value);
     assert.match(e.effectiveFrom, ISO);
-    assert.equal(e.verifiedDate, DATA.verifiedDate);
+    assert.equal(e.verifiedDate, f.verifiedDate || DATA.verifiedDate, 'a figure re-read on its own day dates its entry by that day');
     assert.equal(e.note, '', 'notes are filled by scripts/changelog.js (changelog.note), never by diff()');
   }
   assert.deepEqual(AREA_MODULE.changelog.diff(DATA, DATA), [], 'nothing moved');

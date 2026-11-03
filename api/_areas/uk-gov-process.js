@@ -146,6 +146,8 @@ module.exports = {
   changelog: {
     diff: (prev, next) => diffCategories(AREA, prev, next, {
       key: KEY, previous: PREVIOUS, effectiveFrom: (n, f) => f.effectiveFrom || n.verifiedDate,
+      // a service re-read on its own day (the Monday watcher's source-changed triage) dates its entries by that day
+      extra: (n, cat, f) => (f.verifiedDate ? { verifiedDate: f.verifiedDate } : {}),
     }),
     files: ['data/uk-gov-process.json'],
     previous: PREVIOUS,

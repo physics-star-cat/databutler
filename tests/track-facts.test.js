@@ -41,9 +41,12 @@ test('resolve records only the matched key, never the question', () => {
 });
 
 test('a batch records one lookup per key', () => {
-  // pinned to the verification day: after a scheduled decision the record is stale (v0.3), which is labelled 'stale'
+  // pinned to the verification day: after a scheduled decision the record is stale (v0.3), which is labelled 'stale'.
+  // The Monday source check (data/source-checks.json) can also mark it stale (source-changed) whatever the day, so a
+  // 'stale' here is still one lookup for a served key — the labelling is what the test pins, not the Monday file.
   const ls = factLookups('get', F.getFacts(['uk/bank-rate', 'x/y'], {}, new Date(`${F.INDEX.get('uk/bank-rate').verifiedDate}T12:00:00Z`)));
-  assert.deepEqual(ls.map((l) => l.fact_result), ['hit', 'miss']);
+  assert.deepEqual(ls.map((l) => (l.fact_result === 'stale' ? 'hit' : l.fact_result)), ['hit', 'miss']);
+  assert.equal(ls.length, 2);
 });
 
 test('keyShaped rejects anything that is not a key', () => {

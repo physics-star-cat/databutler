@@ -62,10 +62,33 @@ test('run(): checks every watched page through the injected fetcher, skips unrea
   const { watchPlan } = require('../api/_sources');
   const { sourceList } = require('../api/_areas');
   const plan = watchPlan(sourceList(), require('../data/sources.json'));
-  assert.deepEqual(seen.sort(), [...plan.check].sort());
+  assert.deepEqual([...new Set(seen)].sort(), [...plan.check].sort(), 'every watched page (a differing page is fetched twice)');
   assert.equal(Object.keys(r.next).length, plan.check.length);
   assert.ok(Object.values(r.next).every((e) => e.checkedAt === '2026-11-02'));
   assert.equal(fs.existsSync(OUT) ? fs.readFileSync(OUT, 'utf8') : null, before, '--dry writes nothing');
+});
+
+test('run(): a page that differs from the baseline is fetched once more, and a second fetch that matches wins (flapping lists); a real change stays', async () => {
+  const { run } = require('../scripts/check-sources');
+  const baseline = require('../data/sources.json').filter((s) => !s.unreachable);
+  const flapper = baseline[0].url;
+  const moved = baseline[1].url;
+  const calls = new Map();
+  const fetcher = async (url) => {
+    const n = (calls.get(url) || 0) + 1;
+    calls.set(url, n);
+    const b = baseline.find((s) => s.url === url);
+    if (url === flapper) return { url, bodyHash: n === 1 ? 'other-order' : b.bodyHash, updatedAt: b.updatedAt || null };
+    if (url === moved) return { url, bodyHash: 'really-new', updatedAt: b.updatedAt || null };
+    return { url, bodyHash: b.bodyHash, updatedAt: b.updatedAt || null };
+  };
+  const r = await run({ dry: true, day: '2026-11-09', checkSource: fetcher });
+  assert.equal(calls.get(flapper), 2, 'fetched again after differing');
+  assert.equal(r.next[flapper].changedAt, undefined, 'the matching second fetch wins');
+  assert.equal(r.next[flapper].contentHash, baseline[0].bodyHash);
+  assert.equal(calls.get(moved), 2, 'a real change is also fetched again');
+  assert.equal(r.next[moved].changedAt, '2026-11-09', 'and stays a change');
+  assert.ok(baseline.slice(2).every((s) => calls.get(s.url) === 1), 'matching pages are fetched once');
 });
 
 test('the served sourceCheckedAt comes from those files and never precedes the baseline fetch of the same URL', () => {

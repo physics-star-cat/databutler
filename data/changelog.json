@@ -5664,5 +5664,17 @@
     "source": "https://www.fsa.go.jp/singi/singi_zidousya/siryou/20260430/01_153.pdf",
     "verifiedDate": "2026-11-01",
     "note": "The revised table (2026-04-30 filing) applies to policies whose term starts on or after 2026-11-01: 2023-04-01 → 2026-11-01 date from 2026-11-01 (https://www.fsa.go.jp/singi/singi_zidousya/siryou/20260430/01_153.pdf) — revised 基準料率 filed by GIROJ on 2026-04-30 (FSA 第153回自賠責保険審議会 資料1), for policies whose term starts on or after 2026-11-01; the 2023-01-18 table applied from 2023-04-01 to 2026-10-31."
+  },
+  {
+    "area": "uk-gov-process",
+    "key": "register-birth/id-to-take",
+    "label": "What to take",
+    "from": "at least one form of identification; the red book may be asked for",
+    "to": "proof of identity with your first name and surname: for a registration on or before 8 November 2026 one document (passport, birth certificate, deed poll, driving licence, proof of address, Council Tax bill, or marriage or civil partnership certificate); from 9 November 2026 one listed identity document (for example a passport, valid or expired, a current UK driving licence or a birth or adoption certificate) or two secondary documents (for example a utility bill, Council Tax statement, bank statement or P45/P60); the red book may be asked for",
+    "unit": "statement",
+    "effectiveFrom": "2026-10-28",
+    "source": "https://www.gov.uk/register-birth",
+    "verifiedDate": "2026-11-02",
+    "note": "What to take: gov.uk now lists the identity documents a registrar accepts (page updated 28 October 2026), with a stricter list from 9 November 2026 — one listed identity document (passport, UK driving licence, birth or adoption certificate and others) or two secondary documents (utility bill, Council Tax statement, bank statement, P45/P60 and others); before, the page only said to take at least one form of identification (previous: gov.uk/register-birth, National Archives capture 30 September 2026). The 42-day deadline and the £12.50 certificate fee are unchanged."
   }
 ]

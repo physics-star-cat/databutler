@@ -335,7 +335,7 @@ Front-door placement (Data Butler): `get_fact` and `resolve_fact` join the hub t
     "url": "https://databutler.dev/"
   },
   "conformance": "L3",
-  "updated": "2026-11-01",
+  "updated": "2026-11-02",
   "facts": {
     "count": 749,
     "get": "https://databutler.dev/f/{key}",
@@ -343,7 +343,7 @@ Front-door placement (Data Butler): `get_fact` and `resolve_fact` join the hub t
     "batch": "https://databutler.dev/f?keys={keys}",
     "resolve": "https://databutler.dev/f/resolve?q={q}",
     "index": "https://databutler.dev/f",
-    "digest": "sha256:d95aaa5eb6137878d6cce3065f68760e9bb59e080217f673f791f3061ab30916",
+    "digest": "sha256:2cac72224f3090b8227bc92f533c92481d01c133a5df0bf2e80c389b2e313efe",
     "filtering": "server",
     "examples": [
       "uk/income-tax/personal-allowance",
@@ -371,7 +371,7 @@ Front-door placement (Data Butler): `get_fact` and `resolve_fact` join the hub t
         "www.sqa.org.uk",
         "www.wjec.co.uk"
       ],
-      "digest": "sha256:7d01ada65a9167ce38ed37dda1c2808ea045d31477b721fc6c4c243dfc422861"
+      "digest": "sha256:6bd46d19f2c14e8faca913eed95860febba92513c62c898a085df6201d6a8913"
     },
     {
       "name": "us",

@@ -675,39 +675,56 @@
       "source": "https://www.gov.uk/register-birth",
       "contentApi": "https://www.gov.uk/api/content/register-birth",
       "startUrl": null,
-      "pageUpdatedAt": "2026-09-09",
+      "pageUpdatedAt": "2026-10-28",
       "figures": [
         {
           "key": "deadline",
           "label": "Registration deadline",
           "value": 42,
           "unit": "days",
-          "quote": "All births in England, Wales and Northern Ireland must be registered within 42 days of the child being born."
+          "quote": "All births in England, Wales and Northern Ireland must be registered within 42 days of the child being born.",
+          "verifiedDate": "2026-11-02"
         },
         {
           "key": "where",
           "label": "Where",
           "value": "the local register office for the area of the birth, or the hospital before the mother leaves",
           "unit": "statement",
-          "quote": "You should do this at the local register office for the area where the baby was born or at the hospital before the mother leaves."
+          "quote": "You should do this at the local register office for the area where the baby was born or at the hospital before the mother leaves.",
+          "verifiedDate": "2026-11-02"
         },
         {
           "key": "certificate-fee",
           "label": "Birth certificate (short or full)",
           "value": 12.5,
           "unit": "GBP",
-          "quote": "Once you have registered the birth, you’ll be able to buy a short or full certificate for your baby. Both kinds cost £12.50."
+          "quote": "Once you have registered the birth, you’ll be able to buy a short or full certificate for your baby. Both kinds cost £12.50.",
+          "verifiedDate": "2026-11-02"
         },
         {
           "key": "id-to-take",
           "label": "What to take",
-          "value": "at least one form of identification; the red book may be asked for",
+          "value": "proof of identity with your first name and surname: for a registration on or before 8 November 2026 one document (passport, birth certificate, deed poll, driving licence, proof of address, Council Tax bill, or marriage or civil partnership certificate); from 9 November 2026 one listed identity document (for example a passport, valid or expired, a current UK driving licence or a birth or adoption certificate) or two secondary documents (for example a utility bill, Council Tax statement, bank statement or P45/P60); the red book may be asked for",
           "unit": "statement",
-          "quote": "You should take at least one form of identification when you go to the register office."
+          "quote": "You should take your child’s personal child health record or ‘red book’ as some registrars may ask to see it. You’ll also need to prove your identity. … Your forms of identification must include your first name and surname. If you’re registering a birth on or before 8 November 2026 You can use one of the following documents: passport; birth certificate; deed poll; driving licence; proof of address (for example, a utility bill); Council Tax bill; marriage or civil partnership certificate. If you’re registering a birth on or after 9 November 2026 You can use one of the following documents: passport (valid or expired); current UK driving licence (full or provisional); … birth or adoption certificate … If you do not have one of those documents, you can use two of the following instead: utility bill (not mobile phone bill); Council Tax statement or document from your local authority; bank, building society, mortgage or credit card statement; … P45 or P60 …",
+          "effectiveFrom": "2026-10-28",
+          "verifiedDate": "2026-11-02",
+          "previous": {
+            "value": "at least one form of identification; the red book may be asked for",
+            "source": "https://webarchive.nationalarchives.gov.uk/ukgwa/20260930185639/https://www.gov.uk/register-birth",
+            "title": "gov.uk/register-birth, National Archives capture 30 September 2026",
+            "quote": "You should take at least one form of identification when you go to the register office."
+          }
         }
       ],
       "scope": "England and Wales (Northern Ireland shares the 42-day deadline; Scotland differs).",
-      "changes": []
+      "changes": [
+        {
+          "date": "2026-10-28",
+          "change": "The page now lists the identity documents a registrar accepts, with a stricter list from 9 November 2026: one listed identity document (passport, UK driving licence, birth or adoption certificate, immigration or travel document, EU identity card, PASS card) or two secondary documents (utility bill, Council Tax statement, bank statement, P45/P60, NHS or government letter and others). Before then the page only said to take at least one form of identification. The 42-day deadline and the £12.50 certificate fee are unchanged.",
+          "source": "https://www.gov.uk/register-birth"
+        }
+      ]
     },
     "register-death": {
       "title": "Register a death (England and Wales)",

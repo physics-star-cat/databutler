@@ -16,9 +16,9 @@
   {
     "url": "https://www.gov.uk/national-minimum-wage-rates",
     "updatedAt": "2024-10-30T11:07:08+00:00",
-    "bodyHash": "6392f4a8c45f6cd5",
+    "bodyHash": "f263647c9e512da3",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/repaying-your-student-loan/what-you-pay",
@@ -114,9 +114,9 @@
   {
     "url": "https://www.gov.uk/lifetime-isa",
     "updatedAt": "2024-11-08T16:28:27+00:00",
-    "bodyHash": "a1d4f270c7defe25",
+    "bodyHash": "f003a166fd2e3b33",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/state-pension/how-much-you-get",
@@ -130,7 +130,7 @@
     "updatedAt": "2026-02-16T14:18:37+00:00",
     "bodyHash": "dc1d6eba9f9bdb4c",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/government/news/over-12-million-pensioners-to-receive-575-state-pension-boost",
@@ -184,9 +184,9 @@
   {
     "url": "https://www.aqa.org.uk/subjects/science/gcse/combined-science-trilogy-8464/specification/specification-at-a-glance",
     "updatedAt": null,
-    "bodyHash": "9fe2e25cd7323f42",
+    "bodyHash": "c6a834506252fe90",
     "via": "html",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.aqa.org.uk/subjects/mathematics/gcse/mathematics-8300/specification/specification-at-a-glance",
@@ -200,7 +200,7 @@
     "updatedAt": null,
     "bodyHash": "55e266940445ac4b",
     "via": "html",
-    "checkedAt": "2026-10-31"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.federalreserve.gov/monetarypolicy/openmarket.htm",
@@ -315,9 +315,9 @@
   {
     "url": "https://www.bmas.de/DE/Service/Gesetze-und-Gesetzesvorhaben/sozialversicherungs-rechengroessenverordnung-2027.html",
     "updatedAt": null,
-    "bodyHash": "7cac2a2f19bbf8ee",
+    "bodyHash": "82394d32482c6cc4",
     "via": "html",
-    "checkedAt": "2026-10-03"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.bundesgesundheitsministerium.de/beitraege",
@@ -329,16 +329,16 @@
   {
     "url": "https://www.deutsche-rentenversicherung.de/DRV/DE/Experten/Zahlen-und-Fakten/Werte-der-Rentenversicherung/werte-der-rentenversicherung_node.html",
     "updatedAt": null,
-    "bodyHash": "2a5f6330b4112108",
+    "bodyHash": "976df78282a33810",
     "via": "html",
-    "checkedAt": "2026-10-03"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.bmas.de/DE/Arbeit/Arbeitsrecht/Mindestlohn/Einfuehrung-und-Anpassungen-Mindestlohn/einfuehrung-und-anpassung-mindestlohn.html",
     "updatedAt": null,
-    "bodyHash": "0047604d521f116c",
+    "bodyHash": "497442b6a9d4b29f",
     "via": "html",
-    "checkedAt": "2026-10-03"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.minijob-zentrale.de/DE/die-minijobs/minijob-mit-verdienstgrenze",
@@ -427,16 +427,16 @@
   {
     "url": "https://www.gov.uk/getting-an-mot/mot-test-fees",
     "updatedAt": "2024-11-28T17:41:18+00:00",
-    "bodyHash": "d31e3aab0d0f4ba5",
+    "bodyHash": "80af74ce6ace5a1e",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/getting-an-mot/when-to-get-an-mot",
     "updatedAt": "2024-11-28T17:41:18+00:00",
-    "bodyHash": "d31e3aab0d0f4ba5",
+    "bodyHash": "80af74ce6ace5a1e",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/vehicle-tax-direct-debit",
@@ -465,23 +465,23 @@
   {
     "url": "https://www.aqa.org.uk/exams-administration/dates-and-timetables",
     "updatedAt": null,
-    "bodyHash": "446488edef9dccb3",
+    "bodyHash": "002e53f5aa8f4438",
     "via": "html",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://qualifications.pearson.com/en/support/support-topics/exams/exam-timetables.html",
     "updatedAt": null,
-    "bodyHash": "2ef9f2ddb33c72fc",
+    "bodyHash": "d0400a758f39dd77",
     "via": "html",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.ocr.org.uk/administration/key-dates-and-timetables/",
     "updatedAt": null,
-    "bodyHash": "8a7214177fd10f36",
+    "bodyHash": "129e7958abe3120b",
     "via": "html",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.wjec.co.uk/home/administration/key-dates-and-timetables/",
@@ -521,9 +521,9 @@
   {
     "url": "https://innen.hessen.de/buerger-staat/feiertage",
     "updatedAt": null,
-    "bodyHash": "f86a7eba6a923d29",
+    "bodyHash": "188e78c125aaa3dd",
     "via": "html",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://mdi.rlp.de/themen/buerger-und-staat/verfassung-und-verwaltung/sonn-und-feiertagsrecht",
@@ -551,252 +551,252 @@
     "updatedAt": "2015-01-12T00:01:07+00:00",
     "bodyHash": "f552f71538ee1046",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/passport-fees",
     "updatedAt": "2015-01-12T00:01:06+00:00",
     "bodyHash": "ae4d2e11217ebc5b",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/apply-first-adult-passport",
     "updatedAt": "2015-01-12T00:01:06+00:00",
     "bodyHash": "9a63e9ea799e4e7d",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/overseas-passports",
     "updatedAt": "2020-02-24T14:30:10+00:00",
     "bodyHash": "4157741a20bdf045",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/get-a-passport-urgently",
     "updatedAt": "2024-11-04T12:30:07+00:00",
     "bodyHash": "ada1347c4181ebdd",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/government/organisations/hm-passport-office/about/about-our-services",
     "updatedAt": "2024-01-15T10:35:59+00:00",
     "bodyHash": "058c5bcfb6a23cda",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/get-a-child-passport",
     "updatedAt": "2014-12-23T16:15:15+00:00",
     "bodyHash": "785a6b953c1131cf",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/renew-driving-licence",
     "updatedAt": "2025-01-01T00:01:01+00:00",
     "bodyHash": "12d18c73a33eef62",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/renew-driving-licence-at-70",
     "updatedAt": "2014-12-04T00:01:05+00:00",
     "bodyHash": "3fd594481d016150",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/driving-licence-fees",
     "updatedAt": "2024-12-16T13:26:34+00:00",
     "bodyHash": "8de156be9ec0c7a1",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/apply-first-provisional-driving-licence",
     "updatedAt": "2025-01-01T00:01:01+00:00",
     "bodyHash": "5dd9a75b038b1034",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/change-address-driving-licence",
     "updatedAt": "2017-11-30T12:34:16+00:00",
     "bodyHash": "83dc38720ecb730a",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/change-address-v5c",
     "updatedAt": "2015-02-17T12:50:47+00:00",
     "bodyHash": "f0fed572ed2a75e5",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/vehicle-tax",
     "updatedAt": "2017-12-07T12:54:39+00:00",
     "bodyHash": "af2515c7e63b915b",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/make-a-sorn",
     "updatedAt": "2014-12-04T00:01:05+00:00",
     "bodyHash": "19da79eb82799775",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/register-to-vote",
     "updatedAt": "2024-11-04T17:14:23+00:00",
     "bodyHash": "504ecc9a34882e2f",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/register-birth",
     "updatedAt": "2015-06-15T12:11:05+01:00",
-    "bodyHash": "7a129bb56fdd73c5",
+    "bodyHash": "88178973c00e79ab",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/after-a-death",
     "updatedAt": "2024-12-02T16:35:33+00:00",
     "bodyHash": "336ff82eeb6bc120",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/register-a-death",
     "updatedAt": "2021-06-16T09:18:52+01:00",
     "bodyHash": "e3b0c44298fc1c14",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/order-copy-birth-death-marriage-certificate",
     "updatedAt": "2015-06-09T16:45:02+01:00",
     "bodyHash": "0b19cbbff6de6c77",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/apply-blue-badge",
     "updatedAt": "2016-04-06T16:38:36+01:00",
-    "bodyHash": "de84a4a8974d3bdd",
+    "bodyHash": "190b59d4e838feb8",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/register-for-self-assessment",
     "updatedAt": "2020-11-18T15:31:17+00:00",
     "bodyHash": "8026c5eb3f2966e7",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/self-assessment-tax-returns",
     "updatedAt": "2024-11-05T16:46:12+00:00",
     "bodyHash": "b6e6246b3707710c",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
     "updatedAt": "2026-03-26T12:00:04+00:00",
     "bodyHash": "752c4aa166b04e83",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines",
     "updatedAt": "2024-11-05T16:46:12+00:00",
     "bodyHash": "b6e6246b3707710c",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/self-assessment-tax-returns/penalties",
     "updatedAt": "2024-11-05T16:46:12+00:00",
     "bodyHash": "b6e6246b3707710c",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
     "updatedAt": "2024-11-05T16:46:12+00:00",
     "bodyHash": "b6e6246b3707710c",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/apply-national-insurance-number",
     "updatedAt": "2024-11-06T11:27:19+00:00",
     "bodyHash": "6d46988d00e591ab",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/universal-credit",
     "updatedAt": "2024-10-17T10:58:14+01:00",
-    "bodyHash": "ec821e4a70c7187a",
+    "bodyHash": "49a9bc62eaf210b4",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/guidance/universal-credit-if-you-have-children",
-    "updatedAt": "2026-04-22T13:12:15+01:00",
-    "bodyHash": "480c4f93bf70e22a",
+    "updatedAt": "2026-10-20T17:31:29+01:00",
+    "bodyHash": "23e42b559f7b1135",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/settled-status-eu-citizens-families",
     "updatedAt": "2024-10-31T17:00:11+00:00",
-    "bodyHash": "90a35aa8ac10043a",
+    "bodyHash": "ebe583498b2081b9",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/evisa",
     "updatedAt": "2025-07-15T10:07:02+01:00",
-    "bodyHash": "12c80063df4232fd",
+    "bodyHash": "3c7ed33e32b5d13d",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/biometric-residence-permits",
     "updatedAt": "2024-10-31T17:00:02+00:00",
     "bodyHash": "52cff09e0739bb17",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/eta",
     "updatedAt": "2025-05-28T11:00:06+01:00",
     "bodyHash": "2d610f1f886ab225",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/guidance/check-when-you-can-get-an-electronic-travel-authorisation-eta",
     "updatedAt": "2026-04-09T10:00:00+01:00",
     "bodyHash": "80125b370440253d",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.gov.uk/government/publications/visa-regulations-revised-table/home-office-immigration-and-nationality-fees-8-april-2026",
     "updatedAt": "2026-09-10T16:15:37+01:00",
     "bodyHash": "0e9a266e0edc1f40",
     "via": "govuk-content-api",
-    "checkedAt": "2026-10-04"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.mlit.go.jp/jidosha/content/001884517.pdf",
@@ -936,7 +936,7 @@
     "updatedAt": null,
     "bodyHash": "54fdcfef3b55992b",
     "via": "html",
-    "checkedAt": "2026-10-24"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.mhlw.go.jp/content/001692566.pdf",
@@ -955,9 +955,9 @@
   {
     "url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/kenkou_iryou/iryouhoken/shussan/index.html",
     "updatedAt": null,
-    "bodyHash": "66d8507b6c4bc93a",
+    "bodyHash": "9f04b8eb86e6c047",
     "via": "html",
-    "checkedAt": "2026-10-24"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.mhlw.go.jp/content/000333280.pdf",
@@ -1032,9 +1032,9 @@
   {
     "url": "https://data.bls.gov/timeseries/CUUR0000SA0",
     "updatedAt": null,
-    "bodyHash": "f1a869634c135bfe",
+    "bodyHash": "5867e1ad581a2633",
     "via": "html",
-    "checkedAt": "2026-10-31"
+    "checkedAt": "2026-11-02"
   },
   {
     "url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm",

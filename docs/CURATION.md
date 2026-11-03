@@ -1285,6 +1285,52 @@ Kept as published / odd:
 - eta — /eta: "An ETA costs £20.", "An ETA lasts for 2 years or until your
   passport expires", "within a day, but it can take up to 3 working days".
 
+### 2026-11-02 — Monday source-changed triage (first with data/source-checks.json)
+
+The first Monday check after v0.3 marked 21 watched pages as changed since their baselines (six filed as issues
+#26–#31 that morning, 15 flagged in earlier weeks and never cleared). Each was triaged with
+`node scripts/dev/quote-check.js --changed` (every served record's quote fragments against the live page) and read
+where a fragment was missing. Result: one figure moved, 20 pages changed without their figures moving.
+
+- **register-birth** (figure moved): gov.uk `updated_at` 2026-10-28 (its `public_updated_at` is still 2015 — a
+  "minor" edit, so no change note). "What to take" now lists the accepted identity documents, with a stricter list
+  from 9 November 2026 (one listed identity document or two secondary documents). `id-to-take` carries the new
+  statement, `effectiveFrom` 2026-10-28, the old statement as `previous` (National Archives capture
+  `ukgwa/20260930185639`, which still says "You should take at least one form of identification"); the 42-day
+  deadline and the £12.50 certificate fee are unchanged and re-read. Entry in data/changelog.json; `pageUpdatedAt`
+  2026-10-28; the service's four figures carry `verifiedDate` 2026-11-02 (the file-level date stays 2026-10-04: no
+  other service was re-read; the module's changelog diff now dates an entry by the figure's own `verifiedDate`).
+- **Page-only, gov.uk** (all five show `updated_at` 28–29 Oct 2026, `public_updated_at` unchanged, every quoted
+  figure still on the page): /national-minimum-wage-rates — the table gained the **April 2027 row: £13.21 /
+  £11.27 / £8.31 / £8.31**; the April 2026 rates stay as served, `nextExpectedChange` 2027-04-01 already covers
+  the move, so nothing is served early. /lifetime-isa (£4,000, 25 %, £20,000 for 2026 to 2027 unchanged).
+  /getting-an-mot (one guide, two watched parts: £54.85 / £29.65, three-year first MOT, month-minus-a-day rule
+  unchanged). /apply-blue-badge, /evisa, /universal-credit, /guidance/universal-credit-if-you-have-children,
+  /settled-status-eu-citizens-families (wording: "extended by 5 years before it's due to expire" lost its "just";
+  every fee, limit and period unchanged).
+- **Page-only, other**: DRV Werte der Rentenversicherung (a 2015 row was added above "ab 1.1.2018 monatlich
+  18,6"; 2026 Beitragsbemessungsgrenze 8.450 and Bezugsgröße 3.955 as served); BMAS Mindestlohn history (adds
+  "01.01.2027 14,60 Euro", already served as `de/minimum-wage/mindestlohn-2027`); BMAS
+  Sozialversicherungsrechengrößen-Verordnung 2027 (Kabinettbeschluss 7 October 2026, Bundesrat pending, "Noch
+  nicht veröffentlicht" — the 2027 table is on the page; nothing served changes until it is verkündet: the de-rates
+  2027 refresh); innen.hessen.de Feiertage (lists 2025 and 2026 only; Karfreitag 03.04.2026 as served); the three
+  exam-board landing pages and the AQA 8464 "at a glance" page (document lists; no served record cites these pages
+  as its source — the timetable PDFs do); the two MHLW pages (every served quote present).
+- **BLS data.bls.gov/timeseries/CUUR0000SA0**: the page prints "Data extracted on: <date> (<time>)" on every
+  fetch, so its hash moved every check. `api/_sources.js` now replaces that stamp before hashing (test in
+  tests/sources.test.js); the table still reads 2026 M09 336.940 and M08 334.980 as served.
+- **Bank of England the-interest-rate-bank-rate**: two items dated 30 July 2026 in the related-links list render in
+  either order, so one fetch in two differs from the baseline ("Current Bank Rate 3.75% Next due: 5 November
+  2026" unchanged). `scripts/check-sources.js` now fetches a differing page once more and takes the second fetch
+  when it matches the baseline.
+- Baselines re-hashed for the 21 pages (plus the Bank of England page) with `refreshSources([...])`;
+  `node scripts/check-sources.js` then reports 0 newly changed and data/source-checks.json carries no `changedAt`,
+  so the records cited from those pages are served fresh again rather than `stale (source-changed)`.
+- jp-living-costs minimum-wage: the "Re-verify: expected change passed" issue (#25) listed nine prefectures whose
+  発効日 passed after the 2026-10-24 verification. All 48 rows of MHLW 001753404.pdf (pdftotext) still match their
+  quotes, so every minimum-wage figure carries `verifiedDate` 2026-11-02; prefectures with a 発効日 still ahead
+  (to 2026-12-02) will list again as each date passes, by design.
+
 ## Verification log (jp-vehicle-costs, added 2026-10-24)
 
 Fetch notes: every source was fetched 2026-10-24 with curl (browser

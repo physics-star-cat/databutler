@@ -70,17 +70,27 @@ async function run({ dry = false, checkSource = require('../api/_sources').check
   const baseline = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/sources.json'), 'utf8'));
   const prev = fs.existsSync(OUT) ? JSON.parse(fs.readFileSync(OUT, 'utf8')) : {};
   const { check: urls, skipped } = watchPlan(sourceList(), baseline);
+  const fetchOne = async (url) => {
+    try {
+      const c = await checkSource(url);
+      return { url, ok: true, contentHash: c.bodyHash, updatedAt: c.updatedAt };
+    } catch (e) {
+      return { url, ok: false, error: e.message };
+    }
+  };
   const results = [];
   // a few at a time: the official sites are small and some throttle bursts
-  for (let i = 0; i < urls.length; i += 6) {
-    results.push(...await Promise.all(urls.slice(i, i + 6).map(async (url) => {
-      try {
-        const c = await checkSource(url);
-        return { url, ok: true, contentHash: c.bodyHash, updatedAt: c.updatedAt };
-      } catch (e) {
-        return { url, ok: false, error: e.message };
-      }
-    })));
+  for (let i = 0; i < urls.length; i += 6) results.push(...await Promise.all(urls.slice(i, i + 6).map(fetchOne)));
+  // A page that differs from the baseline is fetched once more before it counts as changed: some pages render
+  // two orders of the same list (the Bank of England's related links, 2026-11-02), so one fetch can differ while
+  // the next matches. The second fetch wins only when it matches the baseline; a real change stays a change.
+  const base = new Map((baseline || []).filter((s) => s && s.url && !s.unreachable).map((s) => [s.url, s]));
+  for (let i = 0; i < results.length; i++) {
+    const r = results[i];
+    const b = base.get(r.url);
+    if (!r.ok || !b || sameContent(r, b)) continue;
+    const again = await fetchOne(r.url);
+    if (again.ok && sameContent(again, b)) results[i] = again;
   }
   const next = nextChecks(prev, baseline, results, day, urls);
   const changed = Object.entries(next).filter(([u, e]) => e.changedAt === day && !(prev[u] && prev[u].changedAt === day)).map(([u]) => u);
